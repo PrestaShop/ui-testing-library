@@ -1,7 +1,7 @@
 // Import pages
 import CommonPage from '@pages/commonPage';
 
-import {Frame, Page} from 'playwright';
+import {Frame, Page} from '@playwright/test';
 import type {PageFunction} from 'playwright-core/types/structs';
 
 /**

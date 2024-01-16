@@ -20,10 +20,10 @@ export default {
     baseContext: string | undefined = undefined,
   ): Promise<void> {
     await testInfo.attachments.push({
-        contentType: 'text/plain',
-        name: title,
-        body: Buffer.from(baseContext === undefined ? value : `${baseContext}_${value}`),
-      });
+      contentType: 'text/plain',
+      name: title,
+      body: Buffer.from(baseContext === undefined ? value : `${baseContext}_${value}`),
+    });
 
     // Throw an error in step to not execute the rest of it
     if (global.GENERATE_FAILED_STEPS) {

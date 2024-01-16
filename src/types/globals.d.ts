@@ -12,11 +12,11 @@ type GlobalInstall = {
     DB_PREFIX: string
     SHOP_NAME: string
   }
-  
+
   type GlobalFO = {
     URL: string
   }
-  
+
   type GlobalBO = {
     URL: string
     EMAIL: string
@@ -24,7 +24,7 @@ type GlobalInstall = {
     FIRSTNAME: string
     LASTNAME: string
   }
-  
+
   type GlobalBrowserConfig = {
     headless: any
     timeout: number
@@ -32,7 +32,7 @@ type GlobalInstall = {
     channel?: string
     args?: Array<string>
   }
-  
+
   type GlobalBrowser = {
     name: string
     lang: string
@@ -43,28 +43,28 @@ type GlobalInstall = {
     config: GlobalBrowserConfig
     interceptErrors: any
   }
-  
+
   type GlobalPSConfig = {
     parametersFile: string
   }
-  
+
   type GlobalBrowserErrors = {
     responses: Array<any>
     js: Array<any>
     console: Array<any>
   }
-  
+
   type GlobalScreenshot = {
     FOLDER: string
     AFTER_FAIL: any
   }
-  
+
   type GlobalMaildevConfig = {
     smtpPort: number
     smtpServer: string
     silent: boolean
   }
-  
+
   type GlobalKeycloakConfig = {
     keycloakExternalUrl: string
     keycloakInternalUrl: string
@@ -72,7 +72,7 @@ type GlobalInstall = {
     keycloakAdminPass: string
     keycloakClientId: string
   }
-  
+
   declare global {
     var INSTALL: GlobalInstall;
     var URLHasPort: boolean;
@@ -86,6 +86,5 @@ type GlobalInstall = {
     var keycloakConfig: GlobalKeycloakConfig;
     var browserErrors: GlobalBrowserErrors;
   }
-  
-  export {};
-  
+
+export {};
