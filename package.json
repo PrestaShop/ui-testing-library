@@ -2,12 +2,13 @@
   "name": "@prestashop-core/ui-testing",
   "version": "0.0.0",
   "description": "",
-  "main": " ",
+  "files": ["/dist"],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "// ESLint": "To run ESLint commands",
     "lint:fix": "eslint --fix --ignore-path .gitignore .",
-    "lint": "eslint --ignore-path .gitignore ."
+    "lint": "eslint --ignore-path .gitignore .",
+    "build": "tsc && tsc-alias"
   },
   "repository": {
     "type": "git",
@@ -34,6 +35,7 @@
     "eslint-plugin-deprecation": "^2.0.0",
     "eslint-plugin-html": "^7.1.0",
     "eslint-plugin-import": "^2.29.1",
+    "tsc-alias": "^1.8.8",
     "typescript": "^5.3.3"
   },
   "publishConfig": {
