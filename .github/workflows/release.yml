@@ -20,6 +20,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Build dist
+        run: npm run build
+
       - name: Publish version
         run: npm publish
         env:
