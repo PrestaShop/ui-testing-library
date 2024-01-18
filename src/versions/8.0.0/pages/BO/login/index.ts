@@ -184,4 +184,4 @@ class Login extends BOBasePage implements LoginPageInterface {
   }
 }
 
-export default new Login();
+module.exports = new Login();

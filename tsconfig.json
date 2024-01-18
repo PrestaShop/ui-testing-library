@@ -28,9 +28,6 @@
       "@pages/*": [
         "src/pages/*"
       ],
-      "@common/*": [
-        "src/common/*"
-      ],
       "@data/*": [
         "src/data/*"
       ],
