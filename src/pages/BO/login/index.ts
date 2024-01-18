@@ -1,12 +1,15 @@
+import type {LoginPageInterface} from '@interfaces/BO/login';
 import semver from 'semver';
 
-let file: string;
+const psVersion = process.env.PS_VERSION ?? '0.0.0';
 
-if (semver.gte(process.env.PS_VERSION as string, '8.0.0')) {
-  file = '@versions/8.0.0/pages/BO/login';
-} else {
-  file = '@versions/8.0.0/pages/BO/login';
+/* eslint-disable global-require */
+function requirePage(): LoginPageInterface {
+  if (semver.gte(psVersion, '8.0.0')) {
+    return require('@versions/8.0.0/pages/BO/login');
+  }
+  return require('@versions/8.0.0/pages/BO/login');
 }
+/* eslint-enable global-require */
 
-const Login = await import(file);
-export default Login;
+export default requirePage();

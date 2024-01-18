@@ -1,12 +1,15 @@
+import type {DashboardPageInterface} from '@interfaces/BO/dashboard';
 import semver from 'semver';
 
-let file: string;
+const psVersion = process.env.PS_VERSION ?? '0.0.0';
 
-if (semver.gte(process.env.PS_VERSION as string, '8.0.0')) {
-  file = '@versions/8.0.0/pages/BO/dashboard';
-} else {
-  file = '@versions/8.0.0/pages/BO/dashboard';
+/* eslint-disable global-require */
+function requirePage(): DashboardPageInterface {
+  if (semver.gte(psVersion, '8.0.0')) {
+    return require('@versions/8.0.0/pages/BO/dashboard');
+  }
+  return require('@versions/8.0.0/pages/BO/dashboard');
 }
+/* eslint-enable global-require */
 
-const Dashboard = await import(file);
-export default Dashboard;
+export default requirePage();

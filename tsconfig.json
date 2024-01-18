@@ -1,31 +1,55 @@
 {
   "compilerOptions": {
-    "noImplicitAny": true,
-    "noImplicitThis": true,
-    "module": "es2022",
-    "target": "es2022",
-    "strict": true,
-    "moduleResolution": "node",
+    "listEmittedFiles": true,
     "allowSyntheticDefaultImports": true,
-    "resolveJsonModule": true,
     "esModuleInterop": true,
-    "allowJs": true,
-    "downlevelIteration": true,
-    "baseUrl": "./",
-    "outDir": "dist",
+    "target": "es6",
+    "module": "commonjs",
+    "skipDefaultLibCheck": true,
+    "skipLibCheck": true,
+    "moduleResolution": "node",
+    "noImplicitAny": true,
+    "noImplicitThis": false,
+    "strict": true,
+    "strictFunctionTypes": true,
+    "isolatedModules": true,
     "declaration": true,
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "baseUrl": "./",
+    "outDir": "./dist",
     "paths": {
-      "@interfaces/*": ["src/interfaces/*"],
-      "@pages/*": ["src/pages/*"],
-      "@common/*": ["src/common/*"],
-      "@data/*": ["src/data/*"],
-      "@types/*": ["src/types/*"],
-      "@utils/*": ["src/utils/*"],
-      "@versions/*": ["src/versions/*"]
+      "@interfaces/*": [
+        "src/interfaces/*"
+      ],
+      "@pages/*": [
+        "src/pages/*"
+      ],
+      "@data/*": [
+        "src/data/*"
+      ],
+      "@types/*": [
+        "src/types/*"
+      ],
+      "@utils/*": [
+        "src/utils/*"
+      ],
+      "@versions/*": [
+        "src/versions/*"
+      ]
     },
-    "typeRoots": ["types", "node_modules/@types"],
-    "skipLibCheck": true
+    "typeRoots": [
+      "types",
+      "node_modules/@types"
+    ],
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules"]
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

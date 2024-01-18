@@ -625,4 +625,4 @@ class Dashboard extends BOBasePage implements DashboardPageInterface {
   }
 }
 
-export default new Dashboard();
+module.exports = new Dashboard();
