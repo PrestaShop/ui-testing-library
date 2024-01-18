@@ -1,6 +1,6 @@
 //import testContext from '@utils/testContext';
 
-import loginPage from '@pages/BO/login';
+let loginPage = require('@pages/BO/login');
 import dashboardPage from '@pages/BO/dashboard';
 
 import {expect} from '@playwright/test';
@@ -15,7 +15,10 @@ export default {
   ): Promise<void> {
     //await testContext.addContextItem(testInfo, 'testIdentifier', 'loginBO');
 
-    //await loginPage.goTo(page, global.BO.URL);
+    console.log(loginPage);
+    console.log(loginPage.goTo);
+
+    await loginPage.goTo(page, global.BO.URL);
     await loginPage.successLogin(page, email, password);
 
     const pageTitle = await dashboardPage.getPageTitle(page);
