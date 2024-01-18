@@ -9,7 +9,7 @@ import {DashboardPageInterface} from '@interfaces/BO/dashboard';
  * @class
  * @extends BOBasePage
  */
-class Dashboard extends BOBasePage implements DashboardPageInterface {
+export default class Dashboard extends BOBasePage implements DashboardPageInterface {
   public readonly pageTitle: string;
 
   private readonly demoModeButton: string;
@@ -624,5 +624,3 @@ class Dashboard extends BOBasePage implements DashboardPageInterface {
     return this.getTextContent(page, this.helpCardDocumentTitle);
   }
 }
-
-export default new Dashboard();
