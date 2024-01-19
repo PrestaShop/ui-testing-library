@@ -152,7 +152,7 @@ export default class BOBasePage extends CommonPage {
 
   public readonly paymentParentLink: string;
 
-  private readonly paymentMethodsLink: string;
+  public readonly paymentMethodsLink: string;
 
   public readonly preferencesLink: string;
 
@@ -184,7 +184,7 @@ export default class BOBasePage extends CommonPage {
 
   public readonly advancedParametersLink: string;
 
-  private readonly informationLink: string;
+  public readonly informationLink: string;
 
   public readonly performanceLink: string;
 
@@ -206,7 +206,7 @@ export default class BOBasePage extends CommonPage {
 
   public readonly featureFlagLink: string;
 
-  private readonly securityLink: string;
+  public readonly securityLink: string;
 
   public readonly multistoreLink: string;
 

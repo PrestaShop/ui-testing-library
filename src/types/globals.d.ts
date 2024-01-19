@@ -1,6 +1,6 @@
 /* eslint-disable vars-on-top, no-var */
 
-type GlobalInstall = {
+  type GlobalInstall = {
     URL: string
     ENABLE_SSL: boolean
     LANGUAGE: string
