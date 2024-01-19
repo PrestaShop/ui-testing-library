@@ -2,7 +2,7 @@ type PageWaitForSelectorOptionsState = 'attached' | 'detached' | 'visible' | 'hi
 
 type WaitForNavigationWaitUntil = 'load'|'domcontentloaded'|'networkidle'|'commit';
 
-export {
+export type {
   PageWaitForSelectorOptionsState,
   WaitForNavigationWaitUntil,
 };
