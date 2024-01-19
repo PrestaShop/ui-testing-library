@@ -1,5 +1,20 @@
 // Export data
-export type {PageWaitForSelectorOptionsState, WaitForNavigationWaitUntil} from '@data/types/playwright';
+export type {
+  GlobalInstall,
+  GlobalFO,
+  GlobalBO,
+  GlobalBrowser,
+  GlobalBrowserConfig,
+  GlobalPSConfig,
+  GlobalBrowserErrors,
+  GlobalScreenshot,
+  GlobalMaildevConfig,
+  GlobalKeycloakConfig,
+} from '@data/types/globals';
+export type {
+  PageWaitForSelectorOptionsState,
+  WaitForNavigationWaitUntil,
+} from '@data/types/playwright';
 
 // Export interfaces
 export type {DashboardPageInterface} from '@interfaces/BO/dashboard';
