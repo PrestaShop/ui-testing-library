@@ -1,5 +1,6 @@
 // Import data
 import type {PageWaitForSelectorOptionsState, WaitForNavigationWaitUntil} from '@data/types/playwright';
+import {CommonPageInterface} from '@interfaces/index';
 
 import type {
   BrowserContext, ElementHandle, JSHandle, FileChooser, Frame, Page, Locator,
@@ -9,7 +10,7 @@ import type {
  * Parent page, contains functions that can be used in every page (BO, FO ...)
  * @class
  */
-export default class CommonPage {
+export default class CommonPage implements CommonPageInterface {
   /**
    * Get page title
    * @param page {Page} Browser tab
