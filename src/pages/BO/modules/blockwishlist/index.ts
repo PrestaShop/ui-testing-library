@@ -1,7 +1,7 @@
 import type {ModuleBlockwishlistMainPageInterface} from '@interfaces/BO/modules/blockwishlist/index';
 import semver from 'semver';
 
-const psVersion = process.env.PS_VERSION ?? '0.0.0';
+const psVersion = global.getPSVersion();
 
 /* eslint-disable global-require */
 function requirePage(): ModuleBlockwishlistMainPageInterface {

@@ -50,6 +50,12 @@ module.exports = {
     'import/no-unresolved': 0,
     'import/extensions': ['off', 'never'],
     'no-use-before-define': 0,
+    '@typescript-eslint/no-unused-vars': [
+      'error',
+      {
+        varsIgnorePattern: '^getPSVersion$',
+      },
+    ],
     // Remove after Typescript Migration
     'import/no-import-module-exports': 0,
   },
