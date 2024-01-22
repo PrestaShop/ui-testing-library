@@ -1,5 +1,5 @@
 import type {CommonPageInterface} from '@interfaces/index';
-import type {Page} from '@playwright/test';
+import type {Frame, Page} from '@playwright/test';
 
 export interface BOBasePagePageInterface extends CommonPageInterface {
     readonly ordersParentLink: string;
@@ -134,6 +134,8 @@ export interface BOBasePagePageInterface extends CommonPageInterface {
 
     readonly multistoreLink: string;
 
+    closeSfToolBar(page: Frame | Page): Promise<void>;
     goToSubMenu(page: Page, parentSelector: string, linkSelector: string): Promise<void>;
     logoutBO(page: Page): Promise<void>;
+    viewMyShop(page: Page): Promise<Page>;
 }
