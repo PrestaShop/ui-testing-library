@@ -603,7 +603,7 @@ export default class BOBasePage extends CommonPage {
 
     // Symfony Toolbar
     this.sfToolbarMainContentDiv = "div[id*='sfToolbarMainContent']";
-    this.sfCloseToolbarLink = "button[id*='sfToolbarHideButton']";
+    this.sfCloseToolbarLink = "[id*='sfToolbarHideButton']";
 
     // Sidebar
     this.rightSidebar = '#right-sidebar';
