@@ -1,7 +1,7 @@
 import type {FoHomePageInterface} from '@interfaces/FO/home';
 import semver from 'semver';
 
-const psVersion = process.env.PS_VERSION ?? '0.0.0';
+const psVersion = global.getPSVersion();
 
 /* eslint-disable global-require, @typescript-eslint/no-var-requires */
 function requirePage(): FoHomePageInterface {

@@ -1,7 +1,7 @@
 import type {ModuleManagerPageInterface} from '@interfaces/BO/modules/moduleManager';
 import semver from 'semver';
 
-const psVersion = process.env.PS_VERSION ?? '0.0.0';
+const psVersion = global.getPSVersion();
 
 /* eslint-disable global-require, @typescript-eslint/no-var-requires */
 function requirePage(): ModuleManagerPageInterface {
