@@ -1,7 +1,8 @@
 import type {LoginPageInterface} from '@interfaces/BO/login';
+import testContext from '@utils/testContext';
 import semver from 'semver';
 
-const psVersion = global.getPSVersion();
+const psVersion = testContext.getPSVersion();
 
 /* eslint-disable global-require */
 function requirePage(): LoginPageInterface {

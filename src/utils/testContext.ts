@@ -30,4 +30,17 @@ export default {
       throw Error('This error is thrown to just generate a report with failed steps');
     }
   },
+  /**
+   * Return the version of current PrestaShop (depending the env value `PS_VERSION`)
+   * @returns string
+   */
+  getPSVersion(): string {
+    if (!process.env.PS_VERSION) {
+      return '0.0.0';
+    }
+    if (process.env.PS_VERSION === 'nightly') {
+      return '99.99.99';
+    }
+    return process.env.PS_VERSION;
+  },
 };
