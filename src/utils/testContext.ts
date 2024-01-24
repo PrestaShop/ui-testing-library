@@ -42,5 +42,5 @@ export default {
       return '99.99.99';
     }
     return process.env.PS_VERSION;
-  }
+  },
 };
