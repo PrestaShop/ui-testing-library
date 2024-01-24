@@ -1,7 +1,8 @@
 import type {FoHomePageInterface} from '@interfaces/FO/home';
+import testContext from '@utils/testContext';
 import semver from 'semver';
 
-const psVersion = global.getPSVersion();
+const psVersion = testContext.getPSVersion();
 
 /* eslint-disable global-require, @typescript-eslint/no-var-requires */
 function requirePage(): FoHomePageInterface {
