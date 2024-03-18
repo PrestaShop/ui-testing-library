@@ -23,6 +23,11 @@ export {default as dataModules} from '@data/demo/modules';
 export {default as dataSocialTitles} from '@data/demo/socialTitles';
 export {default as dataTitles} from '@data/demo/titles';
 
+export {default as fakerCustomer} from '@data/faker/customer';
+export {default as fakerGroup} from '@data/faker/group';
+export {default as fakerModule} from '@data/faker/module';
+export {default as fakerTitle} from '@data/faker/title';
+
 // Export Pages
 export * as CommonPage from '@pages/commonPage';
 // Export Pages BO
