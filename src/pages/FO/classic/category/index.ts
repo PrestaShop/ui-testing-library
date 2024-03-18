@@ -6,10 +6,10 @@ const psVersion = testContext.getPSVersion();
 
 /* eslint-disable global-require */
 function requirePage(): FoCategoryPageInterface {
-  if (semver.gte(psVersion, '8.0.0')) {
-    return require('@versions/8.0.0/pages/FO/classic/category');
+  if (semver.gte(psVersion, '0.0.0')) {
+    return require('@versions/develop/pages/FO/classic/category');
   }
-  return require('@versions/8.0.0/pages/FO/classic/category');
+  return require('@versions/develop/pages/FO/classic/category');
 }
 /* eslint-enable global-require */
 

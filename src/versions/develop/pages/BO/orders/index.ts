@@ -709,4 +709,4 @@ class Order extends BOBasePage implements BOOrdersPageInterface {
   }
 }
 
-export default new Order();
+module.exports = new Order();
