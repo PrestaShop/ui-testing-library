@@ -4,4 +4,5 @@ export interface CommonPageInterface {
     closePage(browserContext: BrowserContext, page: Page, tabId?: number): Promise<Page>;
     getPageTitle(page: Page): Promise<string>;
     goTo(page: Page, url: string): Promise<void>;
+    goToFo(page: Page): Promise<void>;
 }
