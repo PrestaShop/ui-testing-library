@@ -41,6 +41,9 @@ export default {
     if (process.env.PS_VERSION === 'nightly') {
       return '99.99.99';
     }
-    return process.env.PS_VERSION;
+    const version: string = process.env.PS_VERSION;
+
+    return version
+      .replace(/^1\.7\./, '7.');
   },
 };

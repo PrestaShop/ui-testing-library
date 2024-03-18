@@ -6,10 +6,10 @@ const psVersion = testContext.getPSVersion();
 
 /* eslint-disable global-require */
 function requirePage(): ModuleBlockwishlistMainPageInterface {
-  if (semver.gte(psVersion, '8.0.0')) {
-    return require('@versions/8.0.0/pages/BO/modules/blockwishlist/index');
+  if (semver.gte(psVersion, '0.0.0')) {
+    return require('@versions/develop/pages/BO/modules/blockwishlist/index');
   }
-  return require('@versions/8.0.0/pages/BO/modules/blockwishlist/index');
+  return require('@versions/develop/pages/BO/modules/blockwishlist/index');
 }
 /* eslint-enable global-require */
 
