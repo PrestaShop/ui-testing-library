@@ -23,6 +23,11 @@ export {default as dataModules} from '@data/demo/modules';
 export {default as dataSocialTitles} from '@data/demo/socialTitles';
 export {default as dataTitles} from '@data/demo/titles';
 
+export {default as fakerCustomer} from '@data/faker/customer';
+export {default as fakerGroup} from '@data/faker/group';
+export {default as fakerModule} from '@data/faker/module';
+export {default as fakerTitle} from '@data/faker/title';
+
 // Export Pages
 export * as CommonPage from '@pages/commonPage';
 // Export Pages BO
@@ -32,9 +37,10 @@ export {default as boDashboardPage} from '@pages/BO/dashboard';
 export {default as boModuleManagerPage} from '@pages/BO/modules/moduleManager';
 // Export Pages FO
 export * as FOBasePage from '@pages/FO/FOBasePage';
-export {default as foCategoryPage} from '@pages/FO/category';
-export {default as foHomePage} from '@pages/FO/home';
-export {default as foLoginPage} from '@pages/FO/login';
+// Export Pages FO/Classic
+export {default as foClassicCategoryPage} from '@pages/FO/classic/category';
+export {default as foClassicHomePage} from '@pages/FO/classic/home';
+export {default as foClassicLoginPage} from '@pages/FO/classic/login';
 
 // Export Modules
 export {default as modBlockwishlistBoMain} from '@pages/BO/modules/blockwishlist';
