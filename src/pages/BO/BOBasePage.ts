@@ -2,7 +2,9 @@
 import CommonPage from '@pages/commonPage';
 
 import {Frame, Page} from '@playwright/test';
+import testContext from '@utils/testContext';
 import type {PageFunction} from 'playwright-core/types/structs';
+import semver from 'semver';
 
 /**
  * BO parent page, contains functions that can be used on all BO page
@@ -715,10 +717,18 @@ export default class BOBasePage extends CommonPage {
     await this.clickSubMenu(page, parentSelector);
     await this.scrollTo(page, linkSelector);
     await this.clickAndWaitForURL(page, linkSelector);
+
+    const psVersion = testContext.getPSVersion();
+    let linkActiveClass: string = '-active';
+
+    if (semver.gte(psVersion, '8.0.0')) {
+      linkActiveClass = 'link-active';
+    }
+
     if (await this.isSidebarCollapsed(page)) {
-      await this.waitForHiddenSelector(page, `${linkSelector}.link-active`);
+      await this.waitForHiddenSelector(page, `${linkSelector}.${linkActiveClass}`);
     } else {
-      await this.waitForVisibleSelector(page, `${linkSelector}.link-active`);
+      await this.waitForVisibleSelector(page, `${linkSelector}.${linkActiveClass}`);
     }
   }
 
@@ -1044,7 +1054,13 @@ export default class BOBasePage extends CommonPage {
    * @return {Promise<string|null>}
    */
   async getGrowlMessageContent(page: Page, timeout: number = 10000): Promise<string | null> {
-    return page.textContent(this.growlMessageBlock, {timeout});
+    const psVersion = testContext.getPSVersion();
+    let {growlMessageBlock} = this;
+
+    if (semver.lt(psVersion, '8.0.0')) {
+      growlMessageBlock = `${this.growlDiv} .growl-message`;
+    }
+    return page.textContent(growlMessageBlock, {timeout});
   }
 
   /**

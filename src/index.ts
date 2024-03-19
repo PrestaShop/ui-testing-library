@@ -55,6 +55,7 @@ export {default as boLoginPage} from '@pages/BO/login';
 export {default as boDashboardPage} from '@pages/BO/dashboard';
 export {default as boOrdersPage} from '@pages/BO/orders';
 export {default as boModuleManagerPage} from '@pages/BO/modules/moduleManager';
+export {default as boModuleManagerUninstalledModulesPage} from '@pages/BO/modules/moduleManager/uninstalledModules';
 // Export Pages FO
 export * as FOBasePage from '@pages/FO/FOBasePage';
 // Export Pages FO/Classic

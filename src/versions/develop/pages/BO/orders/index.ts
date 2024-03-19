@@ -147,7 +147,7 @@ class Order extends BOBasePage implements BOOrdersPageInterface {
     this.tableEmptyRow = `${this.tableRows}.empty_row`;
     this.tableColumn = (row: number, column: string) => `${this.tableRow(row)} td.column-${column}`;
     this.tableColumnStatus = (row: number) => `${this.tableRow(row)} td.column-osname`;
-    this.updateStatusInTableButton = (row: number) => `${this.tableColumnStatus(row)}.choice-type.text-left > div > button`;
+    this.updateStatusInTableButton = (row: number) => `${this.tableColumnStatus(row)}.choice-type > div > button`;
     this.updateStatusInTableDropdown = (row: number) => `${this.tableColumnStatus(row)} div.js-choice-options`;
     this.updateStatusInTableDropdownChoice = (row: number, statusId: number) => `${this.updateStatusInTableDropdown(row)}`
       + ` button[data-value='${statusId}']`;
