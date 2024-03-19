@@ -9,7 +9,7 @@ import type {Page} from 'playwright';
  * @class
  * @extends BOBasePage
  */
-class Login extends BOBasePage implements LoginPageInterface {
+class LoginPage extends BOBasePage implements LoginPageInterface {
   public readonly pageTitle: string;
 
   public readonly loginErrorText: string;
@@ -184,4 +184,5 @@ class Login extends BOBasePage implements LoginPageInterface {
   }
 }
 
-module.exports = new Login();
+const loginPage = new LoginPage();
+export {loginPage, LoginPage};
