@@ -50,7 +50,7 @@ class UninstalledModules extends BOBasePage implements ModuleManagerUninstalledM
   async installModule(page: Page, moduleTag: string): Promise<boolean> {
     await page.locator(this.installModuleButton(moduleTag)).click();
 
-    return !(await this.elementNotVisible(page, this.installModuleButton(moduleTag)));
+    return this.elementNotVisible(page, this.installModuleButton(moduleTag));
   }
 }
 
