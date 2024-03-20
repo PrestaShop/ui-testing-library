@@ -32,7 +32,7 @@ class HomePage extends FOBasePage implements FoHomePageInterface {
 
   private readonly homePageSection: string;
 
-  private productsBlock: (blockId: number) => string;
+  protected productsBlock: (blockId: number) => string;
 
   private readonly productsBlockTitle: (blockId: number) => string;
 
@@ -877,5 +877,5 @@ class HomePage extends FOBasePage implements FoHomePageInterface {
   }
 }
 
-module.exports.HomePage = HomePage;
-module.exports.homePage = new HomePage();
+const homePage = new HomePage();
+export {homePage, HomePage};
