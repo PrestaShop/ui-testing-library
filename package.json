@@ -10,7 +10,8 @@
     "// ESLint": "To run ESLint commands",
     "lint:fix": "eslint --fix --ignore-path .gitignore .",
     "lint": "eslint --ignore-path .gitignore .",
-    "build": "tsc && tsc-alias"
+    "build": "tsc && tsc-alias",
+    "prepare": "npm run build"
   },
   "repository": {
     "type": "git",
