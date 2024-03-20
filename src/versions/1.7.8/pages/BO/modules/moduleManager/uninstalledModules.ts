@@ -42,15 +42,15 @@ class UninstalledModules extends BOBasePage implements ModuleManagerUninstalledM
   }
 
   /**
-   * Install the module and return the growl message
+   * Install the module and return if installed
    * @param {Page} page
    * @param {string} moduleTag
-   * @returns {Promise<string|null>}
+   * @returns {Promise<boolean>}
    */
-  async installModule(page: Page, moduleTag: string): Promise<string|null> {
+  async installModule(page: Page, moduleTag: string): Promise<boolean> {
     await page.locator(this.installModuleButton(moduleTag)).click();
 
-    return this.getGrowlMessageContent(page);
+    return !(await this.elementNotVisible(page, this.installModuleButton(moduleTag)));
   }
 }
 
