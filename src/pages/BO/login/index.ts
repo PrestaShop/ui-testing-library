@@ -4,13 +4,13 @@ import semver from 'semver';
 
 const psVersion = testContext.getPSVersion();
 
-/* eslint-disable global-require */
+/* eslint-disable global-require, @typescript-eslint/no-var-requires */
 function requirePage(): LoginPageInterface {
-  if (semver.gte(psVersion, '0.0.0')) {
-    return require('@versions/develop/pages/BO/login');
+  if (semver.lt(psVersion, '8.0.0')) {
+    return require('@versions/1.7.8/pages/BO/login');
   }
-  return require('@versions/develop/pages/BO/login');
+  return require('@versions/develop/pages/BO/login').loginPage;
 }
-/* eslint-enable global-require */
+/* eslint-enable global-require, @typescript-eslint/no-var-requires */
 
 export default requirePage();
