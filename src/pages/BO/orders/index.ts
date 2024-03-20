@@ -4,7 +4,7 @@ import semver from 'semver';
 
 const psVersion = testContext.getPSVersion();
 
-/* eslint-disable global-require */
+/* eslint-disable global-require, @typescript-eslint/no-var-requires */
 function requirePage(): BOOrdersPageInterface {
   // >= 1.7.7.9
   if (semver.gte(psVersion, '7.7.0')) {
@@ -12,6 +12,6 @@ function requirePage(): BOOrdersPageInterface {
   }
   return require('@versions/1.7.6/pages/BO/orders');
 }
-/* eslint-enable global-require */
+/* eslint-enable global-require, @typescript-eslint/no-var-requires */
 
 export default requirePage();
