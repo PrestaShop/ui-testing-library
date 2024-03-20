@@ -31,11 +31,11 @@ class UninstalledModules extends BOBasePage implements ModuleManagerUninstalledM
   }
 
   /**
-   * Install the module and return the growl message
-   * @returns {Promise<string|null>}
+   * Install the module and return if installed
+   * @returns {Promise<boolean>}
    */
-  async installModule(): Promise<string|null> {
-    return '';
+  async installModule(): Promise<boolean> {
+    return true;
   }
 }
 

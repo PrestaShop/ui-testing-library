@@ -5,5 +5,5 @@ export interface ModuleManagerUninstalledModulesPageInterface extends BOBasePage
     readonly installMessageSuccessful: (moduleTag: string) => string;
 
     goToTabUninstalledModules(page: Page): Promise<void>;
-    installModule(page: Page, moduleTag: string): Promise<string|null>;
+    installModule(page: Page, moduleTag: string): Promise<boolean>;
 }
