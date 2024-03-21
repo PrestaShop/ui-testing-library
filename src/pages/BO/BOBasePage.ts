@@ -721,7 +721,8 @@ export default class BOBasePage extends CommonPage {
     const psVersion = testContext.getPSVersion();
     let linkActiveClass: string = '-active';
 
-    if (semver.gte(psVersion, '8.0.0')) {
+    // >= 1.7.8.0
+    if (semver.gte(psVersion, '7.8.0')) {
       linkActiveClass = 'link-active';
     }
 

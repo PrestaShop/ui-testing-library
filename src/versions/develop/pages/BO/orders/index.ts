@@ -10,16 +10,16 @@ import type {Page} from 'playwright';
  * @class
  * @extends BOBasePage
  */
-class Order extends BOBasePage implements BOOrdersPageInterface {
+class OrdersPage extends BOBasePage implements BOOrdersPageInterface {
   public readonly pageTitle: string;
 
   private readonly createNewOrderButton: string;
 
-  private readonly gridPanel: string;
+  protected gridPanel: string;
 
-  private readonly gridTable: string;
+  protected gridTable: string;
 
-  private readonly gridHeaderTitle: string;
+  protected gridHeaderTitle: string;
 
   private readonly tableHead: string;
 
@@ -31,13 +31,13 @@ class Order extends BOBasePage implements BOOrdersPageInterface {
 
   private readonly filterSearchButton: string;
 
-  private readonly filterResetButton: string;
+  protected filterResetButton: string;
 
-  private readonly tableBody: string;
+  protected tableBody: string;
 
-  private readonly tableRows: string;
+  protected tableRows: string;
 
-  private readonly tableRow: (row: number) => string;
+  protected tableRow: (row: number) => string;
 
   private readonly tableEmptyRow: string;
 
@@ -340,7 +340,16 @@ class Order extends BOBasePage implements BOOrdersPageInterface {
    * @returns {Promise<{id: number, reference: string, newClient:string, delivery: string, customer: string,
    * totalPaid: string, payment: string, status: string}>}
    */
-  async getOrderFromTable(page: Page, row: number) {
+  async getOrderFromTable(page: Page, row: number): Promise<{
+    id: number,
+    reference: string,
+    newClient:string,
+    delivery: string,
+    customer: string,
+    totalPaid: string,
+    payment: string,
+    status: string
+  }> {
     return {
       id: parseFloat(await this.getTextColumn(page, 'id_order', row)),
       reference: await this.getTextColumn(page, 'reference', row),
@@ -709,4 +718,5 @@ class Order extends BOBasePage implements BOOrdersPageInterface {
   }
 }
 
-module.exports = new Order();
+const ordersPage = new OrdersPage();
+export {ordersPage, OrdersPage};
