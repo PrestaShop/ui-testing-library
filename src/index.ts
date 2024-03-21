@@ -32,20 +32,20 @@ export {default as dataTaxRuleBehaviours} from '@data/demo/taxRuleBehaviour';
 export {default as dataTitles} from '@data/demo/titles';
 export {default as dataZones} from '@data/demo/zones';
 
-export {default as fakerAddress} from '@data/faker/address';
-export {default as fakerCarrier} from '@data/faker/carrier';
-export {default as fakerCountry} from '@data/faker/country';
-export {default as fakerCurrency} from '@data/faker/currency';
-export {default as fakerCustomer} from '@data/faker/customer';
-export {default as fakerGroup} from '@data/faker/group';
-export {default as fakerModule} from '@data/faker/module';
-export {default as fakerOrderStatus} from '@data/faker/orderStatus';
-export {default as fakerPaymentMethod} from '@data/faker/paymentMethod';
-export {default as fakerState} from '@data/faker/state';
-export {default as fakerTax} from '@data/faker/tax';
-export {default as fakerTaxRule} from '@data/faker/taxRule';
-export {default as fakerTitle} from '@data/faker/title';
-export {default as fakerZone} from '@data/faker/zone';
+export {default as FakerAddress} from '@data/faker/address';
+export {default as FakerCarrier} from '@data/faker/carrier';
+export {default as FakerCountry} from '@data/faker/country';
+export {default as FakerCurrency} from '@data/faker/currency';
+export {default as FakerCustomer} from '@data/faker/customer';
+export {default as FakerGroup} from '@data/faker/group';
+export {default as FakerModule} from '@data/faker/module';
+export {default as FakerOrderStatus} from '@data/faker/orderStatus';
+export {default as FakerPaymentMethod} from '@data/faker/paymentMethod';
+export {default as FakerState} from '@data/faker/state';
+export {default as FakerTax} from '@data/faker/tax';
+export {default as FakerTaxRule} from '@data/faker/taxRule';
+export {default as FakerTitle} from '@data/faker/title';
+export {default as FakerZone} from '@data/faker/zone';
 
 // Export Pages
 export * as CommonPage from '@pages/commonPage';
