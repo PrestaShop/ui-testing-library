@@ -32,18 +32,25 @@ export default {
   },
   /**
    * Return the version of current PrestaShop (depending the env value `PS_VERSION`)
+   * * `1.7.8.11` => `7.8.11`
+   * * `1.7.8.x` => `7.8.99`
+   * * `8.0.1` => `8.0.1`
+   * * `8.0.x` => `8.0.99`
+   * * `` => `99.99.99`
+   * * `develop` => `99.99.99`
+   * * `nightly` => `99.99.99`
    * @returns string
    */
   getPSVersion(): string {
-    if (!process.env.PS_VERSION) {
-      return '0.0.0';
-    }
-    if (process.env.PS_VERSION === 'nightly') {
+    if (!process.env.PS_VERSION
+      || process.env.PS_VERSION === 'develop'
+      || process.env.PS_VERSION === 'nightly') {
       return '99.99.99';
     }
     const version: string = process.env.PS_VERSION;
 
     return version
+      .replace(/\.x$/, '.99')
       .replace(/^1\.7\./, '7.');
   },
 };
