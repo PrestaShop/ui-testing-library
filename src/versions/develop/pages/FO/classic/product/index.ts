@@ -12,7 +12,7 @@ import type {Page} from 'playwright';
  * @class
  * @extends FOBasePage
  */
-class Product extends FOBasePage implements FoProductPageInterface {
+class ProductPage extends FOBasePage implements FoProductPageInterface {
   public readonly messageNotVisibleToCustomers: string;
 
   public readonly messageAlertNotificationSaved: string;
@@ -885,5 +885,5 @@ class Product extends FOBasePage implements FoProductPageInterface {
   }
 }
 
-const productPage = new Product();
-export {productPage, Product};
+module.exports.ProductPage = ProductPage;
+module.exports.productPage = new ProductPage();
