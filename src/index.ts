@@ -24,6 +24,7 @@ export {default as dataGroups} from '@data/demo/groups';
 export {default as dataModules} from '@data/demo/modules';
 export {default as dataOrderStatuses} from '@data/demo/orderStatuses';
 export {default as dataPaymentMethods} from '@data/demo/paymentMethods';
+export {default as dataProducts} from '@data/demo/products';
 export {default as dataSocialTitles} from '@data/demo/socialTitles';
 export {default as dataStates} from '@data/demo/states';
 export {default as dataTaxes} from '@data/demo/tax';
@@ -41,6 +42,7 @@ export {default as FakerGroup} from '@data/faker/group';
 export {default as FakerModule} from '@data/faker/module';
 export {default as FakerOrderStatus} from '@data/faker/orderStatus';
 export {default as FakerPaymentMethod} from '@data/faker/paymentMethod';
+export {default as FakerProduct} from '@data/faker/product';
 export {default as FakerState} from '@data/faker/state';
 export {default as FakerTax} from '@data/faker/tax';
 export {default as FakerTaxRule} from '@data/faker/taxRule';
@@ -65,6 +67,7 @@ export {default as foClassicCheckoutPage} from '@pages/FO/classic/checkout';
 export {default as foClassicCheckoutOrderConfirmationPage} from '@pages/FO/classic/checkout/orderConfirmation';
 export {default as foClassicHomePage} from '@pages/FO/classic/home';
 export {default as foClassicLoginPage} from '@pages/FO/classic/login';
+export {default as foClassicProductPage} from '@pages/FO/classic/product';
 
 // Export Modules
 export {default as modBlockwishlistBoMain} from '@pages/BO/modules/blockwishlist';
