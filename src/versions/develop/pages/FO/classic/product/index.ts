@@ -2,7 +2,7 @@ import type ProductReviewData from '@data/faker/productReview';
 import {
   ProductAttribute, ProductImageUrls, ProductInformations,
 } from '@data/types/product';
-import { FoProductPageInterface } from '@interfaces/FO/product';
+import {FoProductPageInterface} from '@interfaces/FO/product';
 import FOBasePage from '@pages/FO/FOBasePage';
 
 import type {Page} from 'playwright';
