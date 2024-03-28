@@ -885,5 +885,5 @@ class ProductPage extends FOBasePage implements FoProductPageInterface {
   }
 }
 
-module.exports.ProductPage = ProductPage;
-module.exports.productPage = new ProductPage();
+const productPage = new ProductPage();
+export {productPage, ProductPage};
