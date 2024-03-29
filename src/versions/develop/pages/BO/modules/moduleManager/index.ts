@@ -9,7 +9,7 @@ import type {Page} from 'playwright';
  * @class
  * @extends BOBasePage
  */
-class ModuleManager extends BOBasePage implements ModuleManagerPageInterface {
+class ModuleManagerPage extends BOBasePage implements ModuleManagerPageInterface {
   public pageTitle: string;
 
   public readonly disableModuleSuccessMessage: (moduleTag: string) => string;
@@ -549,5 +549,5 @@ class ModuleManager extends BOBasePage implements ModuleManagerPageInterface {
   }
 }
 
-module.exports.ModuleManager = ModuleManager;
-module.exports.moduleManager = new ModuleManager();
+const moduleManagerPage = new ModuleManagerPage();
+export {moduleManagerPage, ModuleManagerPage};
