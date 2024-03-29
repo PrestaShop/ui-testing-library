@@ -178,8 +178,8 @@ export default class FOBasePage extends CommonPage implements FOBasePagePageInte
     this.languageSelectorExpandIcon = `${this.languageSelectorDiv} i.expand-more`;
     this.languageSelectorList = `${this.languageSelectorDiv} .js-dropdown.open`;
     this.languageSelectorMenuItemLink = `${this.languageSelectorDiv} ul li a`;
-    this.languageSelectorMenuItemLinkLang = (language) => this.languageSelectorMenuItemLink
-      + `[data-iso-code='${language}']`;
+    this.languageSelectorMenuItemLinkLang = (language) => `${this.languageSelectorMenuItemLink
+    }[data-iso-code='${language}']`;
     this.currencySelectorDiv = '#_desktop_currency_selector';
     this.defaultCurrencySpan = `${this.currencySelectorDiv} button span`;
     this.currencySelectorExpandIcon = `${this.currencySelectorDiv} i.expand-more`;
@@ -825,13 +825,14 @@ export default class FOBasePage extends CommonPage implements FOBasePagePageInte
 
   private getLanguageSelector(page: Page, lang: string): string|Locator {
     const psVersion = testContext.getPSVersion();
+
     // >= 1.7.5.0
     if (semver.gte(psVersion, '7.5.0')) {
       return this.languageSelectorMenuItemLinkLang(lang);
     }
 
     return page.locator(this.languageSelectorMenuItemLink).filter({
-      hasText: lang == 'en' ? 'English' : 'Français',
+      hasText: lang === 'en' ? 'English' : 'Français',
     });
   }
 }

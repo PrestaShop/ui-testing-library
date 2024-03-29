@@ -432,12 +432,13 @@ export default class CommonPage implements CommonPageInterface {
     timeout: number = 30000,
   ): Promise<void> {
     let locator: Locator;
+
     if (typeof selector === 'string') {
       locator = page.locator(selector);
     } else {
       locator = selector;
     }
-    
+
     await Promise.all([
       page.waitForLoadState(state, {timeout}),
       locator.click(),
@@ -459,6 +460,7 @@ export default class CommonPage implements CommonPageInterface {
     timeout: number = 30000,
   ): Promise<void> {
     let locator: Locator;
+
     if (typeof selector === 'string') {
       locator = page.locator(selector);
     } else {
