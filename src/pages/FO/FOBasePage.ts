@@ -1,8 +1,9 @@
 // Import pages
 import {FOBasePagePageInterface} from '@interfaces/FO';
 import CommonPage from '@pages/commonPage';
-
-import type {Page} from 'playwright';
+import testContext from '@utils/testContext';
+import type {Locator, Page} from 'playwright';
+import semver from 'semver';
 
 /**
  * FO parent page, contains functions that can be used on all FO page
@@ -44,7 +45,9 @@ export default class FOBasePage extends CommonPage implements FOBasePagePageInte
 
   private readonly languageSelectorList: string;
 
-  private readonly languageSelectorMenuItemLink: (language: string) => string;
+  private readonly languageSelectorMenuItemLink: string;
+
+  private readonly languageSelectorMenuItemLinkLang: (language: string) => string;
 
   private readonly currencySelectorDiv: string;
 
@@ -174,8 +177,9 @@ export default class FOBasePage extends CommonPage implements FOBasePagePageInte
     this.defaultLanguageSpan = `${this.languageSelectorDiv} button span`;
     this.languageSelectorExpandIcon = `${this.languageSelectorDiv} i.expand-more`;
     this.languageSelectorList = `${this.languageSelectorDiv} .js-dropdown.open`;
-    this.languageSelectorMenuItemLink = (language) => `${this.languageSelectorDiv} ul li `
-      + `a[data-iso-code='${language}']`;
+    this.languageSelectorMenuItemLink = `${this.languageSelectorDiv} ul li a`;
+    this.languageSelectorMenuItemLinkLang = (language) => this.languageSelectorMenuItemLink
+      + `[data-iso-code='${language}']`;
     this.currencySelectorDiv = '#_desktop_currency_selector';
     this.defaultCurrencySpan = `${this.currencySelectorDiv} button span`;
     this.currencySelectorExpandIcon = `${this.currencySelectorDiv} i.expand-more`;
@@ -409,7 +413,7 @@ export default class FOBasePage extends CommonPage implements FOBasePagePageInte
       page.locator(this.languageSelectorExpandIcon).click(),
       this.waitForVisibleSelector(page, this.languageSelectorList),
     ]);
-    await this.clickAndWaitForLoadState(page, this.languageSelectorMenuItemLink(lang));
+    await this.clickAndWaitForLoadState(page, this.getLanguageSelector(page, lang));
   }
 
   /**
@@ -434,7 +438,7 @@ export default class FOBasePage extends CommonPage implements FOBasePagePageInte
    */
   async languageExists(page: Page, lang: string = 'en'): Promise<boolean> {
     await page.locator(this.languageSelectorExpandIcon).click();
-    return this.elementVisible(page, this.languageSelectorMenuItemLink(lang), 1000);
+    return this.elementVisible(page, this.getLanguageSelector(page, lang), 1000);
   }
 
   /**
@@ -817,6 +821,18 @@ export default class FOBasePage extends CommonPage implements FOBasePagePageInte
    */
   async getRestrictedText(page: Page): Promise<string|null> {
     return page.locator(this.restrictedText).textContent();
+  }
+
+  private getLanguageSelector(page: Page, lang: string): string|Locator {
+    const psVersion = testContext.getPSVersion();
+    // >= 1.7.5.0
+    if (semver.gte(psVersion, '7.5.0')) {
+      return this.languageSelectorMenuItemLinkLang(lang);
+    }
+
+    return page.locator(this.languageSelectorMenuItemLink).filter({
+      hasText: lang == 'en' ? 'English' : 'Français',
+    });
   }
 }
 
