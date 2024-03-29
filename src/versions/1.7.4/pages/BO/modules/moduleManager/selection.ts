@@ -55,7 +55,7 @@ class SelectionPage extends BOBasePage implements ModuleManagerSelectionPageInte
   async installModule(page: Page, moduleTag: string): Promise<boolean> {
     await page.locator(this.searchInput).fill(moduleTag);
     await page.locator(this.searchButton).click();
-    await this.elementVisible(page, this.installModuleButton(moduleTag), 3000)
+    await this.elementVisible(page, this.installModuleButton(moduleTag), 3000);
     await page.locator(this.installModuleButton(moduleTag)).click();
 
     return this.elementNotVisible(page, this.installModuleButton(moduleTag), 3000);

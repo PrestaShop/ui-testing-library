@@ -21,7 +21,7 @@ class LoginPageVersion extends LoginPage implements LoginPageInterface {
     this.submitLoginButton = 'form#login_form button[name="submitLogin"]';
 
     //
-    this.errorModalButton = '#error-modal .modal-dialog .alert button[data-dismiss="modal"]'
+    this.errorModalButton = '#error-modal .modal-dialog .alert button[data-dismiss="modal"]';
   }
 
   /**
