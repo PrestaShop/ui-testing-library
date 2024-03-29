@@ -54,15 +54,15 @@ class ModuleManagerPage extends BOBasePage implements ModuleManagerPageInterface
 
   private readonly bulkActionsModalConfirmButton: string;
 
-  private readonly modulesListBlock: string;
+  protected modulesListBlock: string;
 
   private readonly modulesListBlockTitle: string;
 
-  private readonly allModulesBlock: string;
+  protected allModulesBlock: string;
 
   private readonly moduleBlocks: string;
 
-  private readonly moduleBlock: (moduleTag: string) => string;
+  protected moduleBlock: (moduleTag: string) => string;
 
   private readonly moduleCheckboxButton: (moduleTag: string) => string;
 
@@ -78,7 +78,7 @@ class ModuleManagerPage extends BOBasePage implements ModuleManagerPageInterface
 
   private readonly actionsDropdownButton: (moduleTag: string) => string;
 
-  private readonly actionModuleButtonInDropdownList: (action: string) => string;
+  protected actionModuleButtonInDropdownList: (action: string) => string;
 
   private readonly modalConfirmAction: (moduleTag: string, action: string) => string;
 

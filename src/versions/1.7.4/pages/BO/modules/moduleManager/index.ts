@@ -14,6 +14,15 @@ class ModuleManagerVersion extends ModuleManagerPage implements ModuleManagerPag
     super();
 
     this.pageTitle = 'Manage installed modules •';
+
+    // Modules list selectors
+    this.modulesListBlock = '#modules-list-container-native';
+    this.allModulesBlock = `${this.modulesListBlock} .module-item-list`;
+    this.moduleBlock = (moduleTag: string) => `${this.allModulesBlock}[data-tech-name=${moduleTag}]`;
+
+    // Module actions in dropdown selectors
+    this.actionModuleButtonInDropdownList = (action: string) => 'div.form-action-button-container.show'
+      + ` button.module_action_menu_${action}`;
   }
 }
 
