@@ -2,7 +2,7 @@ import type {ModuleManagerPageInterface} from '@interfaces/BO/modules/moduleMana
 
 /* eslint-disable global-require, @typescript-eslint/no-var-requires */
 function requirePage(): ModuleManagerPageInterface {
-  if (semver.lt(psVersion, '1.7.5')) {
+  if (semver.lt(psVersion, '7.5.0')) {
     return require('@versions/1.7.4/pages/BO/modules/moduleManager');
   }
   return require('@versions/develop/pages/BO/modules/moduleManager').moduleManagerPage;
