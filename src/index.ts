@@ -203,6 +203,7 @@ export {default as boLocalizationPage} from '@pages/BO/international/localizatio
 export {default as boLoginPage} from '@pages/BO/login';
 export {default as boModuleManagerPage} from '@pages/BO/modules/moduleManager';
 export {default as boModuleManagerAlertsPage} from '@pages/BO/modules/moduleManager/alerts';
+export {default as boModuleManagerSelectionPage} from '@pages/BO/modules/moduleManager/selection';
 export {default as boModuleManagerUninstalledModulesPage} from '@pages/BO/modules/moduleManager/uninstalledModules';
 export {default as boNewExperimentalFeaturesPage} from '@pages/BO/advancedParameters/newExperimentalFeatures';
 export {default as boOrdersPage} from '@pages/BO/orders';
