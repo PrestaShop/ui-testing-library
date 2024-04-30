@@ -7,9 +7,13 @@ import {Page} from '@playwright/test';
  * @extends BOBasePage
  */
 class SelectionPage extends BOBasePage implements ModuleManagerSelectionPageInterface {
+  public readonly pageTitle: string;
+
   public readonly installMessageSuccessful: (moduleTag: string) => string;
 
-  private readonly subTabUninstalledModules: string;
+  protected subTabSelection: string;
+
+  protected subTabInstalledModules: string;
 
   private readonly searchInput: string;
 
@@ -24,10 +28,13 @@ class SelectionPage extends BOBasePage implements ModuleManagerSelectionPageInte
   constructor() {
     super();
 
+    this.pageTitle = 'Module selection';
+
     this.installMessageSuccessful = (moduleTag: string) => `Install action on module ${moduleTag} succeeded.`;
 
     // Selectors
-    this.subTabUninstalledModules = '#subtab-AdminModulesCatalog';
+    this.subTabSelection = '#subtab-AdminModulesCatalog';
+    this.subTabInstalledModules = '#subtab-AdminModulesManage';
     this.searchInput = '#search-input-group input.pstaggerAddTagInput';
     this.searchButton = '#module-search-button';
     this.installModuleButton = (moduleTag: string) => `div[data-tech-name="${moduleTag}"] button.module_action_menu_install`;
@@ -42,8 +49,18 @@ class SelectionPage extends BOBasePage implements ModuleManagerSelectionPageInte
    * @returns {Promise<void>}
    */
   async goToTabSelection(page: Page): Promise<void> {
-    await this.waitForSelectorAndClick(page, this.subTabUninstalledModules);
-    await this.waitForVisibleSelector(page, `${this.subTabUninstalledModules}.active`, 2000);
+    await this.waitForSelectorAndClick(page, this.subTabSelection);
+    await this.waitForVisibleSelector(page, `${this.subTabSelection}.active`, 2000);
+  }
+
+  /**
+   * Go to the "Selection" tab
+   * @param {Page} page
+   * @returns {Promise<void>}
+   */
+  async goToTabInstalledModules(page: Page): Promise<void> {
+    await this.waitForSelectorAndClick(page, this.subTabInstalledModules);
+    await this.waitForVisibleSelector(page, `${this.subTabInstalledModules}.active`, 2000);
   }
 
   /**
@@ -62,4 +79,5 @@ class SelectionPage extends BOBasePage implements ModuleManagerSelectionPageInte
   }
 }
 
-module.exports = new SelectionPage();
+const selectionPage = new SelectionPage();
+export {selectionPage, SelectionPage};

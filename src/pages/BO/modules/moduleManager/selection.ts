@@ -9,7 +9,10 @@ function requirePage(): ModuleManagerSelectionPageInterface {
   if (semver.gte(psVersion, '7.5.0')) {
     return require('@versions/mock/pages/BO/modules/moduleManager/selection');
   }
-  return require('@versions/1.7.4/pages/BO/modules/moduleManager/selection');
+  if (semver.gte(psVersion, '7.4.0')) {
+    return require('@versions/1.7.4/pages/BO/modules/moduleManager/selection').selectionPage;
+  }
+  return require('@versions/1.7.3/pages/BO/modules/moduleManager/selection');
 }
 /* eslint-enable global-require, @typescript-eslint/no-var-requires */
 

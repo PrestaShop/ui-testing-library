@@ -1,7 +1,7 @@
 // Import pages
 import {FOBasePagePageInterface} from '@interfaces/FO';
 import CommonPage from '@pages/commonPage';
-import testContext from '@utils/testContext';
+import utilsTest from '@utils/test';
 import type {Locator, Page} from 'playwright';
 import semver from 'semver';
 
@@ -824,7 +824,7 @@ export default class FOBasePage extends CommonPage implements FOBasePagePageInte
   }
 
   private getLanguageSelector(page: Page, lang: string): string|Locator {
-    const psVersion = testContext.getPSVersion();
+    const psVersion = utilsTest.getPSVersion();
 
     // >= 1.7.5.0
     if (semver.gte(psVersion, '7.5.0')) {

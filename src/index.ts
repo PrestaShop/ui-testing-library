@@ -223,6 +223,7 @@ export {default as boProductsCreateTabSEOPage} from '@pages/BO/catalog/products/
 export {default as boProductsCreateTabShippingPage} from '@pages/BO/catalog/products/create/tabShipping';
 export {default as boProductsCreateTabStocksPage} from '@pages/BO/catalog/products/create/tabStocks';
 export {default as boProductsCreateTabVirtualProductPage} from '@pages/BO/catalog/products/create/tabVirtualProduct';
+export {default as boRouterPage} from '@pages/BO/BORouterPage';
 export {default as boSearchPage} from '@pages/BO/shopParameters/search';
 export {default as boSearchAliasCreatePage} from '@pages/BO/shopParameters/search/alias/create';
 export {default as boThemeAdvancedConfigurationPage} from '@pages/BO/design/themeAndLogo/advancedConfiguration';

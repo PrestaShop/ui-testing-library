@@ -7,6 +7,8 @@ import BOBasePage from '@pages/BO/BOBasePage';
  * @extends BOBasePage
  */
 class SelectionPageMock extends BOBasePage implements ModuleManagerSelectionPageInterface {
+  public readonly pageTitle: string;
+
   public readonly installMessageSuccessful: (moduleTag: string) => string;
 
   /**
@@ -16,6 +18,7 @@ class SelectionPageMock extends BOBasePage implements ModuleManagerSelectionPage
   constructor() {
     super();
 
+    this.pageTitle = '';
     this.installMessageSuccessful = () => '';
   }
 
@@ -27,6 +30,14 @@ class SelectionPageMock extends BOBasePage implements ModuleManagerSelectionPage
    * @returns {Promise<void>}
    */
   async goToTabSelection(): Promise<void> {
+    // do nothing.
+  }
+
+  /**
+   * Go to the "Installed Modules" tab
+   * @returns {Promise<void>}
+   */
+  async goToTabInstalledModules(): Promise<void> {
     // do nothing.
   }
 
