@@ -53,6 +53,7 @@ export {default as FakerZone} from '@data/faker/zone';
 export * as CommonPage from '@pages/commonPage';
 // Export Pages BO
 export * as BOBasePage from '@pages/BO/BOBasePage';
+export {default as boRouterPage} from '@pages/BO/BORouterPage';
 export {default as boLoginPage} from '@pages/BO/login';
 export {default as boDashboardPage} from '@pages/BO/dashboard';
 export {default as boOrdersPage} from '@pages/BO/orders';
