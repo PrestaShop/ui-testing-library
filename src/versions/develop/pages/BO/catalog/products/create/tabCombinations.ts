@@ -1,7 +1,4 @@
-import BOBasePage from '@pages/BO/BOBasePage';
-
-// Import data
-import type {
+import {
   ProductAttributes,
   ProductCombinationBulk,
   ProductCombinationBulkRetailPrice,
@@ -10,9 +7,9 @@ import type {
   ProductCombinationOptions,
   ProductStockMovement,
 } from '@data/types/product';
-
-import type {Frame, Page} from 'playwright';
-import type {BOProductsCreateTabCombinationsPageInterface} from '@interfaces/BO/catalog/products/create/tabCombinations';
+import {BOProductsCreateTabCombinationsPageInterface} from '@interfaces/BO/catalog/products/create/tabCombinations';
+import BOBasePage from '@pages/BO/BOBasePage';
+import {expect, type Frame, type Page} from '@playwright/test';
 
 /**
  * Combinations tab on product page, contains functions that can be used on the page
@@ -203,9 +200,9 @@ class CombinationsTab extends BOBasePage implements BOProductsCreateTabCombinati
   private readonly labelWhenOutOfStock: string;
 
   /**
-     * @constructs
-     * Setting up texts and selectors to use on combinations tab
-     */
+   * @constructs
+   * Setting up texts and selectors to use on combinations tab
+   */
   constructor() {
     super();
     this.generateCombinationsMessage = (number: number) => `Generate ${number} combinations`;
@@ -234,33 +231,33 @@ class CombinationsTab extends BOBasePage implements BOProductsCreateTabCombinati
     // Bulk edit modal
     this.bulkEditModal = '#bulk-combination-form-modal';
     this.bulkEditModalTitle = `${this.bulkEditModal} .modal-header .modal-title`;
-    // Bulk edit stocks
+    // Edit stocks
     this.bulkEditModalStocksButton = '#bulk_combination_stock_accordion_header h2 button';
     this.bulkEditModalQuantitySwitchButton = (toEnable: number) => '#bulk_combination_stock_disabling_switch_delta_quantity_'
-            + `${toEnable}`;
+      + `${toEnable}`;
     this.bulkEditModalQuantityInput = '#bulk_combination_stock_delta_quantity_delta';
     this.bulkEditModalMinimalQuantitySwitchButton = (toEnable: number) => '#bulk_combination_stock_disabling_switch_minimal'
-            + `_quantity_${toEnable}`;
+      + `_quantity_${toEnable}`;
     this.bulkEditModalMinimalQuantityInput = '#bulk_combination_stock_minimal_quantity';
     this.bulkEditModalStockLocationSwitchButton = (toEnable: number) => '#bulk_combination_stock_disabling_switch_stock_'
-            + `location_${toEnable}`;
+      + `location_${toEnable}`;
     this.bulkEditModalStockLocationInput = '#bulk_combination_stock_stock_location';
     this.bulkEditModalSaveButton = '#bulk-combination-form-modal div.modal-footer button.btn-confirm-submit';
     // Edit retail price
     this.bulkEditModalRetailPriceButton = '#bulk_combination_price_accordion_header h2 button';
     this.bulkEditModalCostPriceSwitchButton = (toEnable: number) => '#bulk_combination_price_disabling_switch_wholesale_'
-            + `price_${toEnable}`;
+      + `price_${toEnable}`;
     this.bulkEditModalCostPriceInput = '#bulk_combination_price_wholesale_price';
     this.bulkEditModalImpactOnPriceTIncSwitchButton = (toEnable: number) => '#bulk_combination_price_disabling_switch_price_'
-            + `tax_excluded_${toEnable}`;
+      + `tax_excluded_${toEnable}`;
     this.bulkEditModalImpactOnPriceTIncInput = '#bulk_combination_price_price_tax_excluded';
     this.bulkEditModalImpactOnWeightSwitchButton = (toEnable: number) => '#bulk_combination_price_disabling_switch_weight_'
-            + `${toEnable}`;
+      + `${toEnable}`;
     this.bulkEditModalImpactOnWeightInput = '#bulk_combination_price_weight';
-    // Bulk edit specific references
+    // Edit specific references
     this.bulkEditModalSpecificReferences = '#bulk_combination_references_accordion_header h2 button';
     this.bulkEditModalReferenceSwitchButton = (toEnable: number) => '#bulk_combination_references_disabling_switch_'
-            + `reference_${toEnable}`;
+      + `reference_${toEnable}`;
     this.bulkEditModalReferenceInput = '#bulk_combination_references_reference';
     // Save progress modal
     this.bulkCombinationProgressModal = '#bulk-combination-progress-modal';
@@ -273,7 +270,7 @@ class CombinationsTab extends BOBasePage implements BOProductsCreateTabCombinati
     this.filterBySizeDropDownMenu = `${this.filterBySizeBlock} div.dropdown-menu`;
     this.filterBySizeButton = `${this.filterBySizeBlock} [data-role=filter-by-size-btn]`;
     this.filterBySizeCheckboxButton = (id: number) => `${this.filterBySizeDropDownMenu}  div:nth-child(${id}) `
-            + '.md-checkbox-container';
+      + '.md-checkbox-container';
     this.clearFilterButton = 'div.combinations-filters button.combinations-filters-clear';
 
     // Selectors of combinations table
@@ -282,13 +279,13 @@ class CombinationsTab extends BOBasePage implements BOProductsCreateTabCombinati
     this.combinationListTableColumn = (row: number, column: string) => `td input#combination_list_${row - 1}_${column}`;
     this.combinationListTableActionsDropDown = (row: number) => `#combination_list_${row - 1}_actions div a`;
     this.combinationListTableActionsColumn = (row: number, action: string) => `td button#combination_list_${row - 1}`
-            + `_actions_${action}`;
+      + `_actions_${action}`;
     this.combinationListTableSelectAllButton = '#bulk-all-selection-dropdown-button';
     this.combinationListSelectAllDropDownMenu = '#bulk-all-selection-dropdown .dropdown-menu.show';
     this.combinationListBulkSelectAll = '#bulk-all-selection-dropdown label[for="bulk-select-all"]';
     this.combinationListBulkSelectAllInPage = '#bulk-select-all-in-page + i';
     this.selectAllAttributeCheckboxButton = (row: number) => '#attributes-list-selector div.attributes-content'
-            + ` div:nth-child(${row}) div.attribute-group-header div`;
+      + ` div:nth-child(${row}) div.attribute-group-header div`;
 
     // Edit combination modal
     this.editCombinationIframe = '.combination-iframe';
@@ -304,11 +301,11 @@ class CombinationsTab extends BOBasePage implements BOProductsCreateTabCombinati
     this.editCombinationCloseModal = `${this.editCombinationEditModal} div.modal-prevent-close div.modal.show`;
     this.editCombinationModalDiscardButton = `${this.editCombinationCloseModal} button.btn-primary`;
     this.combinationStockMovementsDate = (row: number) => `#combination_form_stock_quantities_stock_movements_${row - 1}_`
-            + 'date + span';
+      + 'date + span';
     this.combinationStockMovementsEmployeeName = (row: number) => '#combination_form_stock_quantities_stock_movements_'
-            + `${row - 1}_employee_name + span`;
+      + `${row - 1}_employee_name + span`;
     this.combinationStockMovements = (row: number) => `#combination_form_stock_quantities_stock_movements_${row - 1}`
-            + '_delta_quantity + span';
+      + '_delta_quantity + span';
     this.previousCombinationButton = `${this.editCombinationModal} button.btn-previous-combination`;
     this.nextCombinationButton = `${this.editCombinationModal} button.btn-next-combination`;
 
@@ -320,7 +317,7 @@ class CombinationsTab extends BOBasePage implements BOProductsCreateTabCombinati
     // Sort Selectors
     this.tableHead = `${this.combinationsListTable} thead`;
     this.sortColumnDiv = (columnNumber: number) => `${this.tableHead} th:nth-child(${columnNumber}) `
-            + 'div.ps-sortable-column[data-sort-col-name]';
+      + 'div.ps-sortable-column[data-sort-col-name]';
     this.sortColumnSpanButton = (columnNumber: number) => `${this.sortColumnDiv(columnNumber)} span.ps-sort`;
 
     // Pagination selectors
@@ -340,15 +337,15 @@ class CombinationsTab extends BOBasePage implements BOProductsCreateTabCombinati
   }
 
   /*
-    Methods
-     */
+  Methods
+   */
 
   // Methods for create combinations
   /**
-     * Click on attributes & features link
-     * @param page {Page} Browser tab
-     * @returns {Promise<Page>}
-     */
+   * Click on attributes & features link
+   * @param page {Page} Browser tab
+   * @returns {Promise<Page>}
+   */
   async clickOnAttributesAndFeaturesLink(page: Page): Promise<Page> {
     await this.waitForSelectorAndClick(page, this.combinationsTabLink);
 
@@ -356,10 +353,10 @@ class CombinationsTab extends BOBasePage implements BOProductsCreateTabCombinati
   }
 
   /**
-     * Click on learn more button
-     * @param page {Page} Browser tab
-     * @returns {Promise<Page>}
-     */
+   * Click on learn more button
+   * @param page {Page} Browser tab
+   * @returns {Promise<Page>}
+   */
   async clickOnLearnMoreButton(page: Page): Promise<Page> {
     await this.waitForSelectorAndClick(page, this.combinationsTabLink);
 
@@ -367,10 +364,10 @@ class CombinationsTab extends BOBasePage implements BOProductsCreateTabCombinati
   }
 
   /**
-     * Click on generate combination button
-     * @param page {Page} Browser tab
-     * @returns {Promise<boolean>}
-     */
+   * Click on generate combination button
+   * @param page {Page} Browser tab
+   * @returns {Promise<boolean>}
+   */
   async clickOnGenerateCombinationButton(page: Page): Promise<boolean> {
     if (await this.elementVisible(page, this.generateCombinationButton, 2000)) {
       await this.waitForSelectorAndClick(page, this.generateCombinationButton);
@@ -382,10 +379,10 @@ class CombinationsTab extends BOBasePage implements BOProductsCreateTabCombinati
   }
 
   /**
-     * Click on cancel button
-     * @param page {Page} Browser tab
-     * @returns {Promise<boolean>}
-     */
+   * Click on cancel button
+   * @param page {Page} Browser tab
+   * @returns {Promise<boolean>}
+   */
   async clickOnCancelButton(page: Page): Promise<boolean> {
     await this.waitForSelectorAndClick(page, this.cancelButton);
 
@@ -393,11 +390,11 @@ class CombinationsTab extends BOBasePage implements BOProductsCreateTabCombinati
   }
 
   /**
-     * Add combination
-     * @param page {Page} Browser tab
-     * @param combination {string} Attribute to set
-     * @returns {Promise<void>}
-     */
+   * Add combination
+   * @param page {Page} Browser tab
+   * @param combination {string} Attribute to set
+   * @returns {Promise<void>}
+   */
   async selectAttribute(page: Page, combination: string): Promise<void> {
     await page.locator(this.searchAttributesInput).fill(combination);
     await page.keyboard.press('ArrowDown');
@@ -430,11 +427,11 @@ class CombinationsTab extends BOBasePage implements BOProductsCreateTabCombinati
   }
 
   /**
-     * Select all values
-     * @param page {Page} Browser tab
-     * @param attribute {string}
-     * @returns {Promise<string>}
-     */
+   * Select all values
+   * @param page {Page} Browser tab
+   * @param attribute {string}
+   * @returns {Promise<string>}
+   */
   async selectAllValues(page: Page, attribute: string): Promise<string> {
     switch (attribute) {
       case 'size':
@@ -453,10 +450,10 @@ class CombinationsTab extends BOBasePage implements BOProductsCreateTabCombinati
   }
 
   /**
-     * Generate combinations
-     * @param page {Page} Browser tab
-     * @returns {Promise<string|null>}
-     */
+   * Generate combinations
+   * @param page {Page} Browser tab
+   * @returns {Promise<string|null>}
+   */
   async generateCombinations(page: Page): Promise<string | null> {
     await this.waitForSelectorAndClick(page, this.generateCombinationsButtonOnModal);
 
@@ -464,10 +461,10 @@ class CombinationsTab extends BOBasePage implements BOProductsCreateTabCombinati
   }
 
   /**
-     * Check if generation modal is closed
-     * @param page {Page} Browser tab
-     * @returns {Promise<boolean>}
-     */
+   * Check if generation modal is closed
+   * @param page {Page} Browser tab
+   * @returns {Promise<boolean>}
+   */
   async generateCombinationModalIsClosed(page: Page): Promise<boolean> {
     return this.elementNotVisible(page, this.generateCombinationsModal, 1000);
   }
@@ -475,11 +472,11 @@ class CombinationsTab extends BOBasePage implements BOProductsCreateTabCombinati
   // Methods for edit/delete combinations
 
   /**
-     * Click on edit icon
-     * @param page {Page} Browser tab
-     * @param row {number} Row in table
-     * @returns {Promise<boolean>}
-     */
+   * Click on edit icon
+   * @param page {Page} Browser tab
+   * @param row {number} Row in table
+   * @returns {Promise<boolean>}
+   */
   async clickOnEditIcon(page: Page, row: number = 1): Promise<boolean> {
     await this.waitForSelectorAndClick(page, `${this.combinationListTableActionsColumn(row, 'edit')}`);
 
@@ -487,12 +484,12 @@ class CombinationsTab extends BOBasePage implements BOProductsCreateTabCombinati
   }
 
   /**
-     * Edit combination
-     * @param page {Page} Browser tab
-     * @param combinationData {ProductCombinationOptions} Data to set to edit combination
-     * @param row {number} Row in table
-     * @returns {Promise<string|null>}
-     */
+   * Edit combination
+   * @param page {Page} Browser tab
+   * @param combinationData {ProductCombinationOptions} Data to set to edit combination
+   * @param row {number} Row in table
+   * @returns {Promise<string|null>}
+   */
   async editCombination(page: Page, combinationData: ProductCombinationOptions, row: number = 1): Promise<string | null> {
     await this.setValue(page, `${this.combinationListTableColumn(row, 'reference')}`, combinationData.reference);
     await this.setValue(
@@ -510,12 +507,12 @@ class CombinationsTab extends BOBasePage implements BOProductsCreateTabCombinati
   }
 
   /**
-     * Edit combination row quantity
-     * @param page {Page} Browser tab
-     * @param row {number} Row in table
-     * @param quantity {number} Quantity value to set in quantity input
-     * @returns {Promise<void>}
-     */
+   * Edit combination row quantity
+   * @param page {Page} Browser tab
+   * @param row {number} Row in table
+   * @param quantity {number} Quantity value to set in quantity input
+   * @returns {Promise<void>}
+   */
   async editCombinationRowQuantity(page: Page, row: number, quantity: number): Promise<void> {
     await page.locator(`${this.combinationListTableColumn(row, 'delta_quantity_delta')}`).click();
     await page.waitForTimeout(500);
@@ -529,10 +526,10 @@ class CombinationsTab extends BOBasePage implements BOProductsCreateTabCombinati
   }
 
   /**
-     * Save combinations form
-     * @param page {Page} Browser tab
-     * @returns {Promise<void>}
-     */
+   * Save combinations form
+   * @param page {Page} Browser tab
+   * @returns {Promise<void>}
+   */
   async saveCombinationsForm(page: Page): Promise<string | null> {
     await this.closeGrowlMessage(page);
 
@@ -542,43 +539,44 @@ class CombinationsTab extends BOBasePage implements BOProductsCreateTabCombinati
   }
 
   /**
-     * Click on next combination button
-     * @param page {Page} Browser tab
-     * @returns {Promise<void>}
-     */
+   * Click on next combination button
+   * @param page {Page} Browser tab
+   * @returns {Promise<void>}
+   */
   async clickOnNextCombinationButton(page: Page): Promise<void> {
     await page.locator(this.nextCombinationButton).click();
     await page.waitForTimeout(2000);
   }
 
   /**
-     * Click on previous combination button
-     * @param page {Page} Browser tab
-     * @returns {Promise<void>}
-     */
+   * Click on previous combination button
+   * @param page {Page} Browser tab
+   * @returns {Promise<void>}
+   */
   async clickOnPreviousCombinationButton(page: Page): Promise<void> {
     await page.locator(this.previousCombinationButton).click();
     await page.waitForTimeout(2000);
   }
 
   /**
-     * Get combination name from modal
-     * @param page {Page} Browser tab
-     * @returns {Promise<string>}
-     */
+   * Get combination name from modal
+   * @param page {Page} Browser tab
+   * @returns {Promise<string>}
+   */
   async getCombinationNameFromModal(page: Page): Promise<string> {
     const combinationFrame: Frame | null = page.frame({url: /sell\/catalog\/products\/combinations/gmi});
+    expect(combinationFrame).not.toBeNull();
 
     return this.getTextContent(combinationFrame!, this.editCombinationNameValue);
   }
 
   /**
-     * Click on delete icon then (delete/cancel)
-     * @param page {Page} Browser tab
-     * @param action {string} Delete/cancel
-     * @param row {number} Row in table
-     * @returns {Promise<string|null|boolean>}
-     */
+   * Click on delete icon then (delete/cancel)
+   * @param page {Page} Browser tab
+   * @param action {string} Delete/cancel
+   * @param row {number} Row in table
+   * @returns {Promise<string|null|boolean>}
+   */
   async clickOnDeleteIcon(page: Page, action: string, row: number = 1): Promise<string | null | boolean> {
     await this.waitForSelectorAndClick(page, this.combinationListTableActionsDropDown(row));
     await this.waitForSelectorAndClick(page, `${this.combinationListTableActionsColumn(row, 'delete')}`);
@@ -594,44 +592,47 @@ class CombinationsTab extends BOBasePage implements BOProductsCreateTabCombinati
   }
 
   /**
-     * Edit combination from modal
-     * @param page {Page} Browser tab
-     * @param combinationData {ProductCombinationOptions}
-     * @returns {Promise<string>}
-     */
+   * Edit combination from modal
+   * @param page {Page} Browser tab
+   * @param combinationData {ProductCombinationOptions}
+   * @returns {Promise<string>}
+   */
   async editCombinationFromModal(page: Page, combinationData: ProductCombinationOptions): Promise<string> {
     await page.waitForTimeout(2000);
     await this.waitForVisibleSelector(page, this.editCombinationIframe);
 
     const combinationFrame: Frame|null = page.frame({url: /sell\/catalog\/products\/combinations/gmi});
+    expect(combinationFrame).not.toBeNull();
 
     await this.setValue(combinationFrame!, this.editCombinationModalQuantityInput, combinationData.quantity);
     if (combinationData.minimalQuantity) {
       await this.setValue(
-                combinationFrame!,
-                this.editCombinationModalMinimalQuantityInput,
-                combinationData.minimalQuantity,
+        combinationFrame!,
+        this.editCombinationModalMinimalQuantityInput,
+        combinationData.minimalQuantity,
       );
     }
     await this.setValue(
-            combinationFrame!,
-            this.editCombinationModalImpactOnPriceTExcInput,
-            combinationData.impactOnPriceTExc,
+      combinationFrame!,
+      this.editCombinationModalImpactOnPriceTExcInput,
+      combinationData.impactOnPriceTExc,
     );
     await this.setValue(combinationFrame!, this.editCombinationModalReferenceInput, combinationData.reference);
+
     await this.waitForSelectorAndClick(page, this.editCombinationModalSaveButton);
 
     return this.getAlertSuccessBlockParagraphContent(combinationFrame!);
   }
 
   /**
-     * Get recent stock movements
-     * @param page {Page} Browser tab
-     * @param row {number} Row in table
-     * @returns {Promise<ProductStockMovement>}
-     */
+   * Get recent stock movements
+   * @param page {Page} Browser tab
+   * @param row {number} Row in table
+   * @returns {Promise<ProductStockMovement>}
+   */
   async getRecentStockMovements(page: Page, row: number = 1): Promise<ProductStockMovement> {
     const combinationFrame: Frame|null = page.frame({url: /sell\/catalog\/products\/combinations/gmi});
+    expect(combinationFrame).not.toBeNull();
 
     return {
       dateTime: await this.getTextContent(combinationFrame!, this.combinationStockMovementsDate(row)),
@@ -641,12 +642,13 @@ class CombinationsTab extends BOBasePage implements BOProductsCreateTabCombinati
   }
 
   /**
-     * Close edit combination modal
-     * @param page {Page} Browser tab
-     * @returns {Promise<boolean>}
-     */
+   * Close edit combination modal
+   * @param page {Page} Browser tab
+   * @returns {Promise<boolean>}
+   */
   async closeEditCombinationModal(page: Page): Promise<boolean> {
     const combinationFrame: Frame|null = page.frame({url: /sell\/catalog\/products\/combinations/gmi});
+    expect(combinationFrame).not.toBeNull();
 
     await this.waitForSelectorAndClick(page, this.editCombinationModalCloseButton);
     if (await this.elementVisible(page, this.editCombinationModalDiscardButton, 2000)) {
@@ -658,13 +660,13 @@ class CombinationsTab extends BOBasePage implements BOProductsCreateTabCombinati
 
   // Methods for sort
   /**
-     * Sort table by clicking on column name
-     * @param page {Page} Browser tab
-     * @param sortBy {string} Column to sort with
-     * @param column {number} The number of columns
-     * @param sortDirection {string} Sort direction asc or desc
-     * @return {Promise<void>}
-     */
+   * Sort table by clicking on column name
+   * @param page {Page} Browser tab
+   * @param sortBy {string} Column to sort with
+   * @param column {number} The number of columns
+   * @param sortDirection {string} Sort direction asc or desc
+   * @return {Promise<void>}
+   */
   async sortTable(page: Page, sortBy: string, column: number, sortDirection: string = 'asc'): Promise<void> {
     const sortColumnDiv = `${this.sortColumnDiv(column)}[data-sort-direction='${sortDirection}']`;
     const sortColumnSpanButton = this.sortColumnSpanButton(column);
@@ -678,12 +680,12 @@ class CombinationsTab extends BOBasePage implements BOProductsCreateTabCombinati
   }
 
   /**
-     * Get text column
-     * @param page {Frame|Page} Browser tab
-     * @param column {string} Column name to get text content
-     * @param row {number} Row on table
-     * @returns {Promise<string>}
-     */
+   * Get text column
+   * @param page {Frame|Page} Browser tab
+   * @param column {string} Column name to get text content
+   * @param row {number} Row on table
+   * @returns {Promise<string>}
+   */
   async getTextColumn(page: Page, column: string, row: number = 1): Promise<string> {
     const selector: string = this.combinationListTableColumn(row, column);
     let text: string | null = '';
@@ -708,7 +710,7 @@ class CombinationsTab extends BOBasePage implements BOProductsCreateTabCombinati
         text = await this.getTextContent(page, selector);
         break;
       default:
-            // Do nothing
+      // Do nothing
     }
     // click on search
 
@@ -716,12 +718,12 @@ class CombinationsTab extends BOBasePage implements BOProductsCreateTabCombinati
   }
 
   /**
-     * Get content from all rows
-     * @param page {Page} Browser tab
-     * @param numberOfCombinations {number} Number of combinations
-     * @param column {string} Column name to get all rows text content
-     * @return {Promise<string[]>}
-     */
+   * Get content from all rows
+   * @param page {Page} Browser tab
+   * @param numberOfCombinations {number} Number of combinations
+   * @param column {string} Column name to get all rows text content
+   * @return {Promise<string[]>}
+   */
   async getAllRowsColumnContent(page: Page, numberOfCombinations: number, column: string): Promise<string[]> {
     const allRowsContentTable: string[] = [];
 
@@ -735,10 +737,10 @@ class CombinationsTab extends BOBasePage implements BOProductsCreateTabCombinati
 
   // Methods for pagination
   /**
-     * Get pagination label
-     * @param page {Page} Browser tab
-     * @return {Promise<string>}
-     */
+   * Get pagination label
+   * @param page {Page} Browser tab
+   * @return {Promise<string>}
+   */
   async getPaginationLabel(page: Page): Promise<string> {
     await page.waitForTimeout(2000);
 
@@ -746,11 +748,11 @@ class CombinationsTab extends BOBasePage implements BOProductsCreateTabCombinati
   }
 
   /**
-     * Select pagination limit
-     * @param page {Page} Browser tab
-     * @param number {number} Value of pagination limit to select
-     * @returns {Promise<string>}
-     */
+   * Select pagination limit
+   * @param page {Page} Browser tab
+   * @param number {number} Value of pagination limit to select
+   * @returns {Promise<string>}
+   */
   async selectPaginationLimit(page: Page, number: number): Promise<string> {
     await this.selectByVisibleText(page, this.paginationLimitSelect, number);
 
@@ -758,10 +760,10 @@ class CombinationsTab extends BOBasePage implements BOProductsCreateTabCombinati
   }
 
   /**
-     * Click on next
-     * @param page {Page} Browser tab
-     * @returns {Promise<string>}
-     */
+   * Click on next
+   * @param page {Page} Browser tab
+   * @returns {Promise<string>}
+   */
   async paginationNext(page: Page): Promise<string> {
     await this.waitForSelectorAndClick(page, this.paginationNextLink);
 
@@ -769,10 +771,10 @@ class CombinationsTab extends BOBasePage implements BOProductsCreateTabCombinati
   }
 
   /**
-     * Click on previous
-     * @param page {Page} Browser tab
-     * @returns {Promise<string>}
-     */
+   * Click on previous
+   * @param page {Page} Browser tab
+   * @returns {Promise<string>}
+   */
   async paginationPrevious(page: Page): Promise<string> {
     await this.waitForSelectorAndClick(page, this.paginationPreviousLink);
 
@@ -781,10 +783,10 @@ class CombinationsTab extends BOBasePage implements BOProductsCreateTabCombinati
 
   // Methods for filter combinations by size
   /**
-     * Get number of combinations displayed in list
-     * @param page {Page} Browser tab
-     * @returns {Promise<number>}
-     */
+   * Get number of combinations displayed in list
+   * @param page {Page} Browser tab
+   * @returns {Promise<number>}
+   */
   async getNumberOfCombinationsFromList(page: Page): Promise<number> {
     const footerText = await this.getTextContent(page, this.paginationLabel);
 
@@ -807,11 +809,11 @@ class CombinationsTab extends BOBasePage implements BOProductsCreateTabCombinati
   }
 
   /**
-     * Filter combinations by color
-     * @param page {Page} Browser tab
-     * @param sizeID {number} Size number in list
-     * @returns {Promise<void>}
-     */
+   * Filter combinations by color
+   * @param page {Page} Browser tab
+   * @param sizeID {number} Size number in list
+   * @returns {Promise<void>}
+   */
   async filterCombinationsBySize(page: Page, sizeID: number): Promise<void> {
     await this.waitForSelectorAndClick(page, this.filterBySizeButton);
     await this.waitForVisibleSelector(page, `${this.filterBySizeDropDownMenu}.show`);
@@ -821,19 +823,19 @@ class CombinationsTab extends BOBasePage implements BOProductsCreateTabCombinati
   }
 
   /**
-     * Get filter button name
-     * @param page {Page} Browser tab
-     * @returns {Promise<string>}
-     */
+   * Get filter button name
+   * @param page {Page} Browser tab
+   * @returns {Promise<string>}
+   */
   async getFilterBySizeButtonName(page: Page): Promise<string> {
     return this.getTextContent(page, this.filterBySizeButton);
   }
 
   /**
-     * Clear filter
-     * @param page {Page} Browser tab
-     * @returns {Promise<number>}
-     */
+   * Clear filter
+   * @param page {Page} Browser tab
+   * @returns {Promise<number>}
+   */
   async clearFilter(page: Page): Promise<number> {
     await this.waitForSelectorAndClick(page, this.clearFilterButton);
 
@@ -842,11 +844,11 @@ class CombinationsTab extends BOBasePage implements BOProductsCreateTabCombinati
 
   // Methods for bulk actions
   /**
-     * Select All combinations
-     * @param page {Page} Browser tab
-     * @param allCombinations {boolean} true to select all combinations, false to select all in page
-     * @returns {Promise<boolean>}
-     */
+   * Select All combinations
+   * @param page {Page} Browser tab
+   * @param allCombinations {boolean} true to select all combinations, false to select all in page
+   * @returns {Promise<boolean>}
+   */
   async selectAllCombinations(page: Page, allCombinations: boolean = true): Promise<boolean> {
     await this.waitForSelectorAndClick(page, this.combinationListTableSelectAllButton);
 
@@ -859,10 +861,10 @@ class CombinationsTab extends BOBasePage implements BOProductsCreateTabCombinati
   }
 
   /**
-     * Click on edit Combinations by bulk actions
-     * @param page {Page} Browser tab
-     * @returns {Promise<string>}
-     */
+   * Click on edit Combinations by bulk actions
+   * @param page {Page} Browser tab
+   * @returns {Promise<string>}
+   */
   async clickOnEditCombinationsByBulkActions(page: Page): Promise<string> {
     await this.waitForSelectorAndClick(page, this.bulkActionsButton);
     await this.waitForSelectorAndClick(page, this.bulkEditButton);
@@ -873,11 +875,11 @@ class CombinationsTab extends BOBasePage implements BOProductsCreateTabCombinati
   }
 
   /**
-     * Bulk edit stock
-     * @param page {Frame|Page} Browser tab
-     * @param editStockData {ProductCombinationBulkStock} Data to set on bulk edit stock form
-     * @returns {Promise<void>}
-     */
+   * Bulk edit stock
+   * @param page {Frame|Page} Browser tab
+   * @param editStockData {ProductCombinationBulkStock} Data to set on bulk edit stock form
+   * @returns {Promise<void>}
+   */
   async bulkEditStock(page: Frame | Page, editStockData: ProductCombinationBulkStock): Promise<void> {
     await this.waitForSelectorAndClick(page, this.bulkEditModalStocksButton);
 
@@ -917,11 +919,11 @@ class CombinationsTab extends BOBasePage implements BOProductsCreateTabCombinati
   }
 
   /**
-     * Bulk edit retail price
-     * @param page {Frame|Page} Browser tab
-     * @param editRetailPriceData {ProductCombinationBulkRetailPrice} Data to set on bulk edit retail price form
-     * @returns {Promise<void>}
-     */
+   * Bulk edit retail price
+   * @param page {Frame|Page} Browser tab
+   * @param editRetailPriceData {ProductCombinationBulkRetailPrice} Data to set on bulk edit retail price form
+   * @returns {Promise<void>}
+   */
   async bulkEditRetailPrice(page: Frame | Page, editRetailPriceData: ProductCombinationBulkRetailPrice): Promise<void> {
     await this.waitForSelectorAndClick(page, this.bulkEditModalRetailPriceButton);
 
@@ -950,11 +952,11 @@ class CombinationsTab extends BOBasePage implements BOProductsCreateTabCombinati
   }
 
   /**
-     * Bulk edit references
-     * @param page {Frame|Page} Browser tab
-     * @param specificReferencesData {ProductCombinationBulkSpecificReferences} Data to set on specific references form
-     * @returns {Promise<void>}
-     */
+   * Bulk edit references
+   * @param page {Frame|Page} Browser tab
+   * @param specificReferencesData {ProductCombinationBulkSpecificReferences} Data to set on specific references form
+   * @returns {Promise<void>}
+   */
   async bulkEditSpecificPrice(page: Frame|Page, specificReferencesData: ProductCombinationBulkSpecificReferences): Promise<void> {
     await this.waitForSelectorAndClick(page, this.bulkEditModalSpecificReferences);
 
@@ -968,13 +970,14 @@ class CombinationsTab extends BOBasePage implements BOProductsCreateTabCombinati
   }
 
   /**
-     * Edit combinations by bulk actions
-     * @param page {Page} Browser tab
-     * @param editCombinationsData {ProductCombinationBulk} Data to edit combination
-     * @returns {Promise<string>}
-     */
+   * Edit combinations by bulk actions
+   * @param page {Page} Browser tab
+   * @param editCombinationsData {ProductCombinationBulk} Data to edit combination
+   * @returns {Promise<string>}
+   */
   async editCombinationsByBulkActions(page: Page, editCombinationsData: ProductCombinationBulk): Promise<string> {
     const bulkEditCombinationFrame: Frame|null = page.frame('bulk-combination-form-modal-iframe');
+    expect(bulkEditCombinationFrame).not.toBeNull();
 
     // Edit stocks
     if (editCombinationsData.stocks) {
@@ -1001,11 +1004,11 @@ class CombinationsTab extends BOBasePage implements BOProductsCreateTabCombinati
 
   // Methods for when out of stock
   /**
-     * Set option when out of stock
-     * @param page {Page} Browser tab
-     * @param option {string} Option to check
-     * @returns {Promise<void>}
-     */
+   * Set option when out of stock
+   * @param page {Page} Browser tab
+   * @param option {string} Option to check
+   * @returns {Promise<void>}
+   */
   async setOptionWhenOutOfStock(page: Page, option: string): Promise<void> {
     switch (option) {
       case 'Deny orders':
@@ -1023,33 +1026,32 @@ class CombinationsTab extends BOBasePage implements BOProductsCreateTabCombinati
   }
 
   /**
-     * Click on edit default behaviour link
-     * @param page {Page} Browser tab
-     * @returns {Promise<Page>}
-     */
+   * Click on edit default behaviour link
+   * @param page {Page} Browser tab
+   * @returns {Promise<Page>}
+   */
   async clickOnEditDefaultBehaviourLink(page: Page): Promise<Page> {
     return this.openLinkWithTargetBlank(page, this.editDefaultBehaviourLink);
   }
 
   /**
-     * Set label when in stock
-     * @param page {Page} Browser tab
-     * @param label {string} Label to set when in stock in the input
-     * @returns {Promise<void>}
-     */
+   * Set label when in stock
+   * @param page {Page} Browser tab
+   * @param label {string} Label to set when in stock in the input
+   * @returns {Promise<void>}
+   */
   async setLabelWhenInStock(page: Page, label: string): Promise<void> {
     await this.setValue(page, this.labelWhenInStock, label);
   }
 
   /**
-     * Set label when out of stock
-     * @param page {Page} Browser tab
-     * @param label {string} Label to set when out of stock in the input
-     */
+   * Set label when out of stock
+   * @param page {Page} Browser tab
+   * @param label {string} Label to set when out of stock in the input
+   */
   async setLabelWhenOutOfStock(page: Page, label: string): Promise<void> {
     await this.setValue(page, this.labelWhenOutOfStock, label);
   }
 }
 
-const combinationsTab = new CombinationsTab();
-export {combinationsTab, CombinationsTab};
+module.exports = new CombinationsTab();

@@ -1,10 +1,8 @@
-import BOBasePage from '@pages/BO/BOBasePage';
-
 import type FakerProduct from '@data/faker/product';
-import type {ProductStockMovement} from '@data/types/product';
-import type {BOProductsCreateTabStocksPageInterface} from '@interfaces/BO/catalog/products/create/tabStocks';
-
-import type {Page} from 'playwright';
+import {type ProductStockMovement} from '@data/types/product';
+import {type BOProductsCreateTabStocksPageInterface} from '@interfaces/BO/catalog/products/create/tabStocks';
+import BOBasePage from '@pages/BO/BOBasePage';
+import {type Page} from '@playwright/test';
 
 /**
  * Stocks tab on product page, contains functions that can be used on the page
@@ -59,9 +57,9 @@ class StocksTab extends BOBasePage implements BOProductsCreateTabStocksPageInter
   private readonly stockMovementsLink: string;
 
   /**
-     * @constructs
-     * Setting up texts and selectors to use on stocks tab
-     */
+   * @constructs
+   * Setting up texts and selectors to use on stocks tab
+   */
   constructor() {
     super();
 
@@ -75,11 +73,11 @@ class StocksTab extends BOBasePage implements BOProductsCreateTabStocksPageInter
     this.productLowStockThresholdInput = '#product_stock_options_low_stock_threshold';
     this.productLabelAvailableNowDropdown = '#product_stock_availability_available_now_label_dropdown';
     this.productLabelAvailableNowDropdownItem = (locale: string) => '#product_stock_availability_available_now_label '
-            + `span.dropdown-item[data-locale="${locale}"]`;
+      + `span.dropdown-item[data-locale="${locale}"]`;
     this.productLabelAvailableNowInput = (languageId: string) => `#product_stock_availability_available_now_label_${languageId}`;
     this.productLabelAvailableLaterDropdown = '#product_stock_availability_available_later_label_dropdown';
     this.productLabelAvailableLaterDropdownItem = (locale: string) => '#product_stock_availability_available_later_label '
-            + `span.dropdown-item[data-locale="${locale}"]`;
+      + `span.dropdown-item[data-locale="${locale}"]`;
     this.productLabelAvailableLaterInput = (languageId: string) => `#product_stock_availability_available_later_label_${
       languageId}`;
     this.productAvailableDateInput = '#product_stock_availability_available_date';
@@ -98,22 +96,22 @@ class StocksTab extends BOBasePage implements BOProductsCreateTabStocksPageInter
   }
 
   /*
-    Methods
-     */
+  Methods
+   */
   /**
-     * Get Product quantity
-     * @param page {Page} Browser tab
-     */
-  async getProductQuantity(page: Page): Promise<number> {
+   * Get Product quantity
+   * @param page {Page} Browser tab
+   */
+  async getProductQuantity(page:Page): Promise<number> {
     return parseInt(await this.getTextContent(page, this.initialQuantitySpan), 10);
   }
 
   /**
-     * Set product quantity
-     * @param page {Page} Browser tab
-     * @param quantity {number} Quantity value to set on quantity input
-     * @returns {Promise<void>}
-     */
+   * Set product quantity
+   * @param page {Page} Browser tab
+   * @param quantity {number} Quantity value to set on quantity input
+   * @returns {Promise<void>}
+   */
   async setProductQuantity(page: Page, quantity: number): Promise<void> {
     await this.waitForSelectorAndClick(page, this.stocksTabLink);
     const initialQuantity = await this.getProductQuantity(page);
@@ -121,12 +119,12 @@ class StocksTab extends BOBasePage implements BOProductsCreateTabStocksPageInter
   }
 
   /**
-     * Set product stock
-     * @param page {Page} Browser tab
-     * @param productData {FakerProduct} Data to set in stock form
-     * @returns {Promise<void>}
-     */
-  async setProductStock(page: Page, productData: FakerProduct): Promise<void> {
+   * Set product stock
+   * @param page {Page} Browser tab
+   * @param productData {FakerProduct} Data to set in stock form
+   * @returns {Promise<void>}
+   */
+  async setProductStock(page:Page, productData: FakerProduct): Promise<void> {
     await this.waitForSelectorAndClick(page, this.stocksTabLink);
     await this.setQuantityDelta(page, productData.quantity);
     await this.setValue(page, this.productMinimumQuantityInput, productData.minimumQuantity);
@@ -139,21 +137,21 @@ class StocksTab extends BOBasePage implements BOProductsCreateTabStocksPageInter
   }
 
   /**
-     * Set quantity delta
-     * @param page {Page} Browser tab
-     * @param quantity {number} Quantity delta
-     * @returns {Promise<void>}
-     */
+   * Set quantity delta
+   * @param page {Page} Browser tab
+   * @param quantity {number} Quantity delta
+   * @returns {Promise<void>}
+   */
   async setQuantityDelta(page: Page, quantity: number): Promise<void> {
     await this.setValue(page, this.productQuantityInput, quantity);
   }
 
   /**
-     * Set option when out of stock
-     * @param page {Page} Browser tab
-     * @param option {string} Option to check
-     * @returns {Promise<void>}
-     */
+   * Set option when out of stock
+   * @param page {Page} Browser tab
+   * @param option {string} Option to check
+   * @returns {Promise<void>}
+   */
   async setOptionWhenOutOfStock(page: Page, option: string): Promise<void> {
     switch (option) {
       case 'Deny orders':
@@ -172,10 +170,10 @@ class StocksTab extends BOBasePage implements BOProductsCreateTabStocksPageInter
   }
 
   /**
-     * @param page {Page}
-     * @param inputName {string}
-     * @param languageId {string | undefined}
-     */
+   * @param page {Page}
+   * @param inputName {string}
+   * @param languageId {string | undefined}
+   */
   async getValue(page: Page, inputName: string, languageId?: string): Promise<string> {
     switch (inputName) {
       case 'available_date':
@@ -198,10 +196,10 @@ class StocksTab extends BOBasePage implements BOProductsCreateTabStocksPageInter
   }
 
   /**
-     * Get stock movements data
-     * @param page {Page} Browser tab
-     * @param movementRow {number} Movement row in table stock movements
-     */
+   * Get stock movements data
+   * @param page {Page} Browser tab
+   * @param movementRow {number} Movement row in table stock movements
+   */
   async getStockMovement(page: Page, movementRow: number): Promise<ProductStockMovement> {
     return {
       dateTime: await this.getTextContent(page, this.dateTimeRowInTable(movementRow - 1)),
@@ -211,37 +209,37 @@ class StocksTab extends BOBasePage implements BOProductsCreateTabStocksPageInter
   }
 
   /**
-     * Click on "View All Stock Movements" link
-     * @param page {Page} Browser tab
-     */
+   * Click on "View All Stock Movements" link
+   * @param page {Page} Browser tab
+   */
   async clickViewAllStockMovements(page: Page): Promise<Page> {
     return this.openLinkWithTargetBlank(page, this.stockMovementsLink);
   }
 
   /**
-     * Set the Minimum quantity for sale
-     * @param page {Page} Browser tab
-     * @param minimalQuantiy {number} Minimal Quantity
-     */
+   * Set the Minimum quantity for sale
+   * @param page {Page} Browser tab
+   * @param minimalQuantiy {number} Minimal Quantity
+   */
   async setMinimalQuantity(page: Page, minimalQuantiy: number): Promise<void> {
     await this.setValue(page, this.productMinimumQuantityInput, minimalQuantiy);
   }
 
   /**
-     * Set the Stock location
-     * @param page {Page} Browser tab
-     * @param stockLocation {number} Stock location
-     */
+   * Set the Stock location
+   * @param page {Page} Browser tab
+   * @param stockLocation {number} Stock location
+   */
   async setStockLocation(page: Page, stockLocation: string): Promise<void> {
     await this.setValue(page, this.productStockLocationInput, stockLocation);
   }
 
   /**
-     * Enable/Disable the low stock alert by email
-     * @param page {Page} Browser tab
-     * @param statusAlert {boolean} Status
-     * @param thresholdValue {number} Threshold value
-     */
+   * Enable/Disable the low stock alert by email
+   * @param page {Page} Browser tab
+   * @param statusAlert {boolean} Status
+   * @param thresholdValue {number} Threshold value
+   */
   async setLowStockAlertByEmail(page: Page, statusAlert: boolean, thresholdValue: number = 0): Promise<void> {
     const isLowStockAlertByEmail: boolean = (await this.getValue(page, 'low_stock_threshold_enabled') === '1');
 
@@ -256,11 +254,11 @@ class StocksTab extends BOBasePage implements BOProductsCreateTabStocksPageInter
   }
 
   /**
-     * Set label when in stock
-     * @param page {Page} Browser tab
-     * @param label {string} Label to set when in stock in the input
-     * @returns {Promise<void>}
-     */
+   * Set label when in stock
+   * @param page {Page} Browser tab
+   * @param label {string} Label to set when in stock in the input
+   * @returns {Promise<void>}
+   */
   async setLabelWhenInStock(page: Page, label: string): Promise<void> {
     await this.waitForSelectorAndClick(page, this.productLabelAvailableNowDropdown);
     await page
@@ -270,10 +268,10 @@ class StocksTab extends BOBasePage implements BOProductsCreateTabStocksPageInter
   }
 
   /**
-     * Set label when out of stock
-     * @param page {Page} Browser tab
-     * @param label {string} Label to set when out of stock in the input
-     */
+   * Set label when out of stock
+   * @param page {Page} Browser tab
+   * @param label {string} Label to set when out of stock in the input
+   */
   async setLabelWhenOutOfStock(page: Page, label: string): Promise<void> {
     await this.waitForSelectorAndClick(page, this.productLabelAvailableLaterDropdown);
     await page
@@ -283,24 +281,23 @@ class StocksTab extends BOBasePage implements BOProductsCreateTabStocksPageInter
   }
 
   /**
-     * Set availability date
-     * @param page {Page} Browser tab
-     * @param date {string} Label to set when availability date in the input
-     */
+   * Set availability date
+   * @param page {Page} Browser tab
+   * @param date {string} Label to set when availability date in the input
+   */
   async setAvailabilityDate(page: Page, date: string): Promise<void> {
     await this.setValue(page, this.productAvailableDateInput, date);
   }
 
   /**
-     * Is quantity input visible
-     * @param page {Page} Browser tab
-     * @returns {Promise<boolean>}
-     */
+   * Is quantity input visible
+   * @param page {Page} Browser tab
+   * @returns {Promise<boolean>}
+   */
   async isQuantityInputVisible(page: Page): Promise<boolean> {
     await this.waitForSelectorAndClick(page, this.stocksTabLink);
     return this.elementVisible(page, this.productQuantityInput, 1000);
   }
 }
 
-const stocksTab = new StocksTab();
-export {stocksTab, StocksTab};
+module.exports = new StocksTab();

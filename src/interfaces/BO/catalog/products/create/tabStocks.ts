@@ -1,8 +1,6 @@
-import {BOBasePagePageInterface} from '@interfaces/BO';
-
 import type FakerProduct from '@data/faker/product';
 import type {ProductStockMovement} from '@data/types/product';
-
+import {BOBasePagePageInterface} from '@interfaces/BO';
 import type {Page} from '@playwright/test';
 
 export interface BOProductsCreateTabStocksPageInterface extends BOBasePagePageInterface {

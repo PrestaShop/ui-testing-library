@@ -3,7 +3,7 @@ import type {
   ProductAttribute, ProductDetailsBasic, ProductImageUrls, ProductInformations,
 } from '@data/types/product';
 import {FOBasePagePageInterface} from '@interfaces/FO';
-import type {Page} from '@playwright/test';
+import {type Page} from '@playwright/test';
 
 export interface FoProductPageInterface extends FOBasePagePageInterface {
   readonly messageAlertNotificationAlreadyRegistered:string;

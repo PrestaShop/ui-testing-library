@@ -1,12 +1,9 @@
-import BOBasePage from '@pages/BO/BOBasePage';
-import createProductPage from '@pages/BO/catalog/products/create';
-
-// Import data
 import type FakerProduct from '@data/faker/product';
 import type {ProductFeatures} from '@data/types/product';
 import type {BOProductsCreateTabDetailsPageInterface} from '@interfaces/BO/catalog/products/create/tabDetails';
-
-import type {Frame, Page} from 'playwright';
+import BOBasePage from '@pages/BO/BOBasePage';
+import boProductsCreatePage from '@pages/BO/catalog/products/create';
+import {expect, type Frame, type Page} from '@playwright/test';
 
 /**
  * Details tab on product page, contains functions that can be used on the page
@@ -101,9 +98,9 @@ class DetailsTab extends BOBasePage implements BOProductsCreateTabDetailsPageInt
   private readonly customizationRequiredButton: (row: number, toEnable: number) => string;
 
   /**
-     * @constructs
-     * Setting up texts and selectors to use on details tab
-     */
+   * @constructs
+   * Setting up texts and selectors to use on details tab
+   */
   constructor() {
     super();
 
@@ -125,7 +122,7 @@ class DetailsTab extends BOBasePage implements BOProductsCreateTabDetailsPageInt
     this.addFeatureValueSelect = '#product_details_features_feature_value_id';
     this.addFeatureValueButtonLang = '#product_details_features_custom_value_dropdown';
     this.addFeatureValueSpanLang = (lang: string) => `${this.addFeatureValueButtonLang} + div.dropdown-menu.show`
-            + `> span[data-locale='${lang}']`;
+      + `> span[data-locale='${lang}']`;
     this.addFeatureValueInputLang = (langId: number) => `#product_details_features_custom_value_${langId}`;
     this.addFeatureButton = '#product_details_features_add_feature';
     this.deleteFeatureModal = '#modal-confirm-delete-feature-value';
@@ -157,85 +154,85 @@ class DetailsTab extends BOBasePage implements BOProductsCreateTabDetailsPageInt
     this.customizationNameInput = (row: number) => `#product_details_customizations_customization_fields_${row}_name_1`;
     this.customizationTypeSelect = (row: number) => `#product_details_customizations_customization_fields_${row}_type`;
     this.customizationRequiredButton = (row: number, toEnable: number) => '#product_details_customizations_customization'
-            + `_fields_${row}_required_${toEnable}`;
+      + `_fields_${row}_required_${toEnable}`;
     this.deleteCustomizationIcon = (row: number) => `#product_details_customizations_customization_fields_${row}_remove`
-            + ' i.material-icons';
+      + ' i.material-icons';
     this.deleteCustomizationModal = '#modal-confirm-delete-customization';
     this.confirmDeleteCustomizationButton = `${this.deleteCustomizationModal} div.modal-footer button.btn-confirm-submit`;
   }
 
   /*
-    Methods
-     */
+  Methods
+   */
   /**
-     * Set product details
-     * @param page {Page} Browser tab
-     * @param productData {FakerProduct} Data to set in details form
-     * @returns {Promise<void>}
-     */
+   * Set product details
+   * @param page {Page} Browser tab
+   * @param productData {FakerProduct} Data to set in details form
+   * @returns {Promise<void>}
+   */
   async setProductDetails(page: Page, productData: FakerProduct): Promise<void> {
     await this.waitForSelectorAndClick(page, this.detailsTabLink);
     await this.setValue(page, this.productReferenceInput, productData.reference);
   }
 
   /**
-     * Set value for EAN 13
-     * @param page {Page} Browser tab
-     * @param value {string} Value
-     * @returns {Promise<void>}
-     */
+   * Set value for EAN 13
+   * @param page {Page} Browser tab
+   * @param value {string} Value
+   * @returns {Promise<void>}
+   */
   async setEAN13(page: Page, value: string): Promise<void> {
     await this.setValue(page, this.productEAN13Input, value);
   }
 
   /**
-     * Set value for setISBN
-     * @param page {Page} Browser tab
-     * @param value {string} Value
-     * @returns {Promise<void>}
-     */
+   * Set value for setISBN
+   * @param page {Page} Browser tab
+   * @param value {string} Value
+   * @returns {Promise<void>}
+   */
   async setISBN(page: Page, value: string): Promise<void> {
     await this.setValue(page, this.productISBNInput, value);
   }
 
   /**
-     * Set value for MPN
-     * @param page {Page} Browser tab
-     * @param value {string} Value
-     * @returns {Promise<void>}
-     */
+   * Set value for MPN
+   * @param page {Page} Browser tab
+   * @param value {string} Value
+   * @returns {Promise<void>}
+   */
   async setMPN(page: Page, value: string): Promise<void> {
     await this.setValue(page, this.productMPNInput, value);
   }
 
   /**
-     * Set value for UPC
-     * @param page {Page} Browser tab
-     * @param value {string} Value
-     * @returns {Promise<void>}
-     */
+   * Set value for UPC
+   * @param page {Page} Browser tab
+   * @param value {string} Value
+   * @returns {Promise<void>}
+   */
   async setUPC(page: Page, value: string): Promise<void> {
     await this.setValue(page, this.productUPCInput, value);
   }
 
   /**
-     * Get error message in references form
-     * @param page {Page} Browser tab
-     * @param inputNumber {number} Input number to get error message
-     * @returns {Promise<string>}
-     */
+   * Get error message in references form
+   * @param page {Page} Browser tab
+   * @param inputNumber {number} Input number to get error message
+   * @returns {Promise<string>}
+   */
   async getErrorMessageInReferencesForm(page: Page, inputNumber: number): Promise<string> {
-    await createProductPage.clickOnSaveProductButton(page);
+    await boProductsCreatePage.clickOnSaveProductButton(page);
 
     return this.getTextContent(page, this.referenceFormErrorMessage(inputNumber));
   }
 
   /**
-     * Set feature
-     * @param page {Page} Browser tab
-     * @param productFeatures {ProductFeatures[]} Data to set on feature form
-     * @returns {Promise<void>}
-     */
+   * Set feature
+   * @param page {Page} Browser tab
+   * @param productFeatures {ProductFeatures[]} Data to set on feature form
+   * @returns {Promise<void>}
+   */
   async setFeature(page: Page, productFeatures: ProductFeatures[]): Promise<void> {
     for (let i: number = 0; i < productFeatures.length; i++) {
       await this.selectByVisibleText(page, this.addFeatureFeatureSelect, productFeatures[i].featureName, true);
@@ -266,11 +263,11 @@ class DetailsTab extends BOBasePage implements BOProductsCreateTabDetailsPageInt
   }
 
   /**
-     * Delete all features
-     * @param page {Page} Browser tab
-     * @param productFeatures {ProductFeatures[]} Data to delete feature
-     * @returns {Promise<void>}
-     */
+   * Delete all features
+   * @param page {Page} Browser tab
+   * @param productFeatures {ProductFeatures[]} Data to delete feature
+   * @returns {Promise<void>}
+   */
   async deleteFeatures(page: Page, productFeatures: ProductFeatures[]): Promise<void> {
     for (let i: number = 0; i < productFeatures.length; i++) {
       // Why tr:nth-child(2) : It's one-based selector and the first row is hidden ?
@@ -280,29 +277,29 @@ class DetailsTab extends BOBasePage implements BOProductsCreateTabDetailsPageInt
   }
 
   /**
-     * Click on "Manage Features"
-     * @param page {Page} Browser tab
-     * @returns {Promise<Page>}
-     */
+   * Click on "Manage Features"
+   * @param page {Page} Browser tab
+   * @returns {Promise<Page>}
+   */
   async clickonManageFeatures(page: Page): Promise<Page> {
     return this.openLinkWithTargetBlank(page, this.manageFeaturesLink);
   }
 
   /**
-     * Click on manage all files
-     * @param page {Page} Browser tab
-     * @returns {Promise<Page>}
-     */
+   * Click on manage all files
+   * @param page {Page} Browser tab
+   * @returns {Promise<Page>}
+   */
   async clickOnManageAllFiles(page: Page): Promise<Page> {
     return this.openLinkWithTargetBlank(page, this.manageAllFilesLink);
   }
 
   /**
-     * Search file
-     * @param page {Page} Browser tab
-     * @param fileName {string} File name to search
-     * @returns {Promise<string>}
-     */
+   * Search file
+   * @param page {Page} Browser tab
+   * @param fileName {string} File name to search
+   * @returns {Promise<string>}
+   */
   async searchFile(page: Page, fileName: string): Promise<string> {
     await this.setValue(page, this.searchFileInput, fileName);
     await page.waitForTimeout(2000);
@@ -311,11 +308,11 @@ class DetailsTab extends BOBasePage implements BOProductsCreateTabDetailsPageInt
   }
 
   /**
-     * Add new file
-     * @param page {Page} Browser tab
-     * @param productData {FakerProduct} Data to set on add file form
-     * @returns {Promise<void>}
-     */
+   * Add new file
+   * @param page {Page} Browser tab
+   * @param productData {FakerProduct} Data to set on add file form
+   * @returns {Promise<void>}
+   */
   async addNewFile(page: Page, productData: FakerProduct): Promise<void> {
     for (let i: number = 0; i < productData.files.length; i++) {
       await this.waitForSelectorAndClick(page, this.addNewFileButton);
@@ -323,6 +320,7 @@ class DetailsTab extends BOBasePage implements BOProductsCreateTabDetailsPageInt
       await this.waitForVisibleSelector(page, this.createFileFrame);
 
       const newFileFrame: Frame | null = page.frame({name: 'modal-create-product-attachment-iframe'});
+      expect(newFileFrame).not.toBeNull();
 
       await this.setValue(newFileFrame!, this.fileNameInput, productData.files[i].fileName);
       await this.setValue(newFileFrame!, this.fileDescriptionInput, productData.files[i].description);
@@ -332,11 +330,11 @@ class DetailsTab extends BOBasePage implements BOProductsCreateTabDetailsPageInt
   }
 
   /**
-     * Delete all files
-     * @param page {Page} Browser tab
-     * @param productData {FakerProduct} Data to delete file
-     * @returns {Promise<void>}
-     */
+   * Delete all files
+   * @param page {Page} Browser tab
+   * @param productData {FakerProduct} Data to delete file
+   * @returns {Promise<void>}
+   */
   async deleteFiles(page: Page, productData: FakerProduct): Promise<void> {
     for (let i: number = 0; i < productData.files.length; i++) {
       await this.waitForSelectorAndClick(page, this.deleteFileIcon(i));
@@ -345,31 +343,31 @@ class DetailsTab extends BOBasePage implements BOProductsCreateTabDetailsPageInt
   }
 
   /**
-     * Get no file attached message
-     * @param page {Page} Browser tab
-     * @returns {Promise<string>}
-     */
+   * Get no file attached message
+   * @param page {Page} Browser tab
+   * @returns {Promise<string>}
+   */
   async getNoFileAttachedMessage(page: Page): Promise<string> {
     return this.getTextContent(page, this.noFileAttachedErrorAlert);
   }
 
   /**
-     * Set condition
-     * @param page {Page} Browser tab
-     * @param productData {FakerProduct} Data to set condition
-     * @returns {Promise<void>}
-     */
+   * Set condition
+   * @param page {Page} Browser tab
+   * @param productData {FakerProduct} Data to set condition
+   * @returns {Promise<void>}
+   */
   async setCondition(page: Page, productData: FakerProduct): Promise<void> {
     await this.setChecked(page, this.displayCondition(productData.displayCondition ? 1 : 0));
     await this.selectByVisibleText(page, this.productConditionSelect, productData.condition);
   }
 
   /**
-     * Add new customization
-     * @param page {Page} Browser tab
-     * @param productData {FakerProduct} Data to add customization
-     * @returns {Promise<void>}
-     */
+   * Add new customization
+   * @param page {Page} Browser tab
+   * @param productData {FakerProduct} Data to add customization
+   * @returns {Promise<void>}
+   */
   async addNewCustomizations(page: Page, productData: FakerProduct): Promise<void> {
     await this.waitForSelectorAndClick(page, this.detailsTabLink);
     for (let i: number = 0; i < productData.customizations.length; i++) {
@@ -382,11 +380,11 @@ class DetailsTab extends BOBasePage implements BOProductsCreateTabDetailsPageInt
   }
 
   /**
-     * Delete all customizations
-     * @param page {Page} Browser tab
-     * @param productData {FakerProduct} Data to delete customizations
-     * @returns {Promise<void>}
-     */
+   * Delete all customizations
+   * @param page {Page} Browser tab
+   * @param productData {FakerProduct} Data to delete customizations
+   * @returns {Promise<void>}
+   */
   async deleteCustomizations(page: Page, productData: FakerProduct): Promise<void> {
     for (let i: number = 0; i < productData.customizations.length; i++) {
       await this.waitForSelectorAndClick(page, this.deleteCustomizationIcon(i));
@@ -395,9 +393,9 @@ class DetailsTab extends BOBasePage implements BOProductsCreateTabDetailsPageInt
   }
 
   /**
-     * @param page {Page}
-     * @param inputName {string}
-     */
+   * @param page {Page}
+   * @param inputName {string}
+   */
   async getValue(page: Page, inputName: string): Promise<string> {
     switch (inputName) {
       case 'condition':
@@ -422,5 +420,4 @@ class DetailsTab extends BOBasePage implements BOProductsCreateTabDetailsPageInt
   }
 }
 
-const detailsTab = new DetailsTab();
-export {detailsTab, DetailsTab};
+module.exports = new DetailsTab();

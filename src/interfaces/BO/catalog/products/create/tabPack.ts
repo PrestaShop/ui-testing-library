@@ -1,13 +1,11 @@
-import {BOBasePagePageInterface} from '@interfaces/BO';
-
-import type {Page} from '@playwright/test';
-
 import type {
   ProductPackInformation,
   ProductPackItem,
   ProductPackOptions,
   ProductStockMovement,
 } from '@data/types/product';
+import {BOBasePagePageInterface} from '@interfaces/BO';
+import type {Page} from '@playwright/test';
 
 export interface BOProductsCreateTabPackPageInterface extends BOBasePagePageInterface {
     addProductToPack(page: Page, product: string, quantity: number): Promise<void>;

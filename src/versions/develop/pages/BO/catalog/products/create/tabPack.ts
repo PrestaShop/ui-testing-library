@@ -1,14 +1,15 @@
 import BOBasePage from '@pages/BO/BOBasePage';
-
-import type {
-  ProductPackInformation,
-  ProductPackItem,
-  ProductPackOptions,
-  ProductStockMovement,
+import {
+  type ProductPackOptions,
+  type ProductPackInformation,
+  type ProductPackItem,
+  type ProductStockMovement,
 } from '@data/types/product';
-import type {BOProductsCreateTabPackPageInterface} from '@interfaces/BO/catalog/products/create/tabPack';
-
-import type {Locator, Page} from 'playwright';
+import {BOProductsCreateTabPackPageInterface} from '@interfaces/BO/catalog/products/create/tabPack';
+import {
+  type Locator,
+  type Page,
+} from '@playwright/test';
 
 /**
  * Pack tab on product page, contains functions that can be used on the page
@@ -71,9 +72,9 @@ class PackTab extends BOBasePage implements BOProductsCreateTabPackPageInterface
   private readonly saveProductButton: string;
 
   /**
-     * @constructs
-     * Setting up texts and selectors to use on pack tab
-     */
+   * @constructs
+   * Setting up texts and selectors to use on pack tab
+   */
   constructor() {
     super();
 
@@ -85,7 +86,7 @@ class PackTab extends BOBasePage implements BOProductsCreateTabPackPageInterface
     this.packSearchResult = `${this.searchResult} div.tt-dataset.tt-dataset-2`;
     this.searchResultSuggestion = `${this.packSearchResult} div.search-suggestion`;
     this.searchResultSuggestionRow = (productInSearchList: number) => `${this.searchResultSuggestion}:nth-child(`
-            + `${productInSearchList})`;
+      + `${productInSearchList})`;
 
     // List of products in pack selectors
     this.listOfProducts = '#product_stock_packed_products_list';
@@ -93,7 +94,7 @@ class PackTab extends BOBasePage implements BOProductsCreateTabPackPageInterface
     this.productRowInList = (productInList: number) => `${this.listOfProducts} li:nth-child(${productInList})`;
     this.productInListLegend = (productInList: number) => `${this.productRowInList(productInList)} div.packed-product-legend`;
     this.deleteProductInListIcon = (productInList: number) => `${this.productInListLegend(productInList)} `
-            + 'span i.entity-item-delete';
+      + 'span i.entity-item-delete';
     this.productInListImage = (productInList: number) => `${this.productRowInList(productInList)} div.packed-product-image img`;
     this.productInListName = (productInList: number) => `#product_stock_packed_products_${productInList - 1}_name`;
     this.productInListReference = (productInList: number) => `${this.productInListLegend(productInList)} span.reference-preview`;
@@ -107,11 +108,11 @@ class PackTab extends BOBasePage implements BOProductsCreateTabPackPageInterface
 
     // Stock movement table selectors
     this.dateTimeRowInTable = (movementRow: number) => `#product_stock_quantities_stock_movements_${movementRow}_date `
-            + '+ span';
+      + '+ span';
     this.employeeRowInTable = (movementRow: number) => `#product_stock_quantities_stock_movements_${movementRow}_`
-            + 'employee_name + span';
+      + 'employee_name + span';
     this.quantityRowInTable = (movementRow: number) => `#product_stock_quantities_stock_movements_${movementRow}_`
-            + 'delta_quantity + span';
+      + 'delta_quantity + span';
 
     // Edit quantity selectors
     this.editQuantityBase = 'input#product_stock_quantities_delta_quantity_quantity';
@@ -124,15 +125,15 @@ class PackTab extends BOBasePage implements BOProductsCreateTabPackPageInterface
   }
 
   /*
-   Methods
-    */
+ Methods
+  */
 
   // Methods to search product
   /**
-     * Search product to add to the pack
-     * @param page {Page} Browser tab
-     * @param productName {string} Product name to search
-     */
+   * Search product to add to the pack
+   * @param page {Page} Browser tab
+   * @param productName {string} Product name to search
+   */
   async searchProduct(page: Page, productName: string): Promise<string> {
     await this.waitForSelectorAndClick(page, this.packTabLink);
     await page.locator(this.searchProductInput).fill(productName);
@@ -143,18 +144,18 @@ class PackTab extends BOBasePage implements BOProductsCreateTabPackPageInterface
   }
 
   /**
-     * Get number of searched product
-     * @param page {Page} Browser tab
-     */
+   * Get number of searched product
+   * @param page {Page} Browser tab
+   */
   async getNumberOfSearchedProduct(page: Page): Promise<number> {
     return page.locator(`${this.packSearchResult} div`).count();
   }
 
   /**
-     * Select product from list
-     * @param page {Page} Browser tab
-     * @param productInSearchList {number} The row of product in the search list
-     */
+   * Select product from list
+   * @param page {Page} Browser tab
+   * @param productInSearchList {number} The row of product in the search list
+   */
   async selectProductFromList(page: Page, productInSearchList: number): Promise<boolean> {
     let productPosition: number = 1;
 
@@ -168,18 +169,18 @@ class PackTab extends BOBasePage implements BOProductsCreateTabPackPageInterface
 
   // Methods to get products in pack
   /**
-     * Get number of product in pack
-     * @param page {Page} Browser tab
-     */
+   * Get number of product in pack
+   * @param page {Page} Browser tab
+   */
   async getNumberOfProductsInPack(page: Page): Promise<number> {
     return page.locator(`${this.listOfProducts} li`).count();
   }
 
   /**
-     * Get product in pack information
-     * @param page {Page} Browser tab
-     * @param productInList {number} The row of product in pack
-     */
+   * Get product in pack information
+   * @param page {Page} Browser tab
+   * @param productInList {number} The row of product in pack
+   */
   async getProductInPackInformation(page: Page, productInList: number): Promise<ProductPackInformation> {
     await this.waitForVisibleSelector(page, this.listOfProducts);
     return {
@@ -192,20 +193,20 @@ class PackTab extends BOBasePage implements BOProductsCreateTabPackPageInterface
 
   // Methods to add/edit products in pack
   /**
-     * Set product in pack quantity
-     * @param page {Page} Browser tab
-     * @param productInList {number} The row of product in pack
-     * @param quantity {number|string} The product quantity to set
-     */
+   * Set product in pack quantity
+   * @param page {Page} Browser tab
+   * @param productInList {number} The row of product in pack
+   * @param quantity {number|string} The product quantity to set
+   */
   async setProductQuantity(page: Page, productInList: number, quantity: number|string): Promise<void> {
     await this.setValue(page, this.quantityInput(productInList), quantity);
   }
 
   /**
-     * Save and get product in pack error message
-     * @param page {Page} Browser tab
-     * @param productInList {number} The row of product in pack
-     */
+   * Save and get product in pack error message
+   * @param page {Page} Browser tab
+   * @param productInList {number} The row of product in pack
+   */
   async saveAndGetProductInPackErrorMessage(page: Page, productInList: number): Promise<string> {
     await page.locator(this.saveProductButton).click();
 
@@ -213,11 +214,11 @@ class PackTab extends BOBasePage implements BOProductsCreateTabPackPageInterface
   }
 
   /**
-     * Add product to pack
-     * @param page {Page} Browser tab
-     * @param product {string} Value of product name to set on input
-     * @param quantity {number} Value of quantity to set on input
-     */
+   * Add product to pack
+   * @param page {Page} Browser tab
+   * @param product {string} Value of product name to set on input
+   * @param quantity {number} Value of quantity to set on input
+   */
   async addProductToPack(page: Page, product: string, quantity: number): Promise<void> {
     await this.searchProduct(page, product);
     await this.waitForSelectorAndClick(page, this.searchResultSuggestionRow(1));
@@ -230,11 +231,11 @@ class PackTab extends BOBasePage implements BOProductsCreateTabPackPageInterface
   }
 
   /**
-     * Add combination
-     * @param page {Page} Browser tab
-     * @param packData {ProductPackItem[]} Data of the pack
-     * @returns {Promise<void>}
-     */
+   * Add combination
+   * @param page {Page} Browser tab
+   * @param packData {ProductPackItem[]} Data of the pack
+   * @returns {Promise<void>}
+   */
   async setPackOfProducts(page: Page, packData: ProductPackItem[]): Promise<void> {
     await this.waitForSelectorAndClick(page, this.packTabLink);
 
@@ -244,10 +245,10 @@ class PackTab extends BOBasePage implements BOProductsCreateTabPackPageInterface
   }
 
   /**
-     * Get stock movements data
-     * @param page {Page} Browser tab
-     * @param movementRow {number} Movement row in table stock movements
-     */
+   * Get stock movements data
+   * @param page {Page} Browser tab
+   * @param movementRow {number} Movement row in table stock movements
+   */
   async getStockMovement(page: Page, movementRow: number): Promise<ProductStockMovement> {
     return {
       dateTime: await this.getTextContent(page, this.dateTimeRowInTable(movementRow - 1)),
@@ -258,35 +259,35 @@ class PackTab extends BOBasePage implements BOProductsCreateTabPackPageInterface
 
   // Methods to delete products in pack
   /**
-     * Is delete modal visible
-     * @param page {Page} Browser tab
-     */
+   * Is delete modal visible
+   * @param page {Page} Browser tab
+   */
   async isDeleteModalVisible(page: Page): Promise<boolean> {
     return !(await this.elementNotVisible(page, this.modalDeleteProduct, 3000));
   }
 
   /**
-     * Cancel delete product from pack
-     * @param page {Page} Browser tab
-     */
+   * Cancel delete product from pack
+   * @param page {Page} Browser tab
+   */
   async cancelDeleteProductFromPack(page: Page): Promise<void> {
     await this.waitForSelectorAndClick(page, this.cancelDeleteButtonInModal);
   }
 
   /**
-     * Confirm delete product from pack
-     * @param page {Page} Browser tab
-     */
+   * Confirm delete product from pack
+   * @param page {Page} Browser tab
+   */
   async confirmDeleteProductFromPack(page: Page): Promise<void> {
     await this.waitForSelectorAndClick(page, this.confirmDeleteButtonInModal);
   }
 
   /**
-     * Delete product from pack
-     * @param page {Page} Browser tab
-     * @param productInList {number} The row of product in pack
-     * @param toDelete {boolean} True if we need to delete product, false to cancel delete
-     */
+   * Delete product from pack
+   * @param page {Page} Browser tab
+   * @param productInList {number} The row of product in pack
+   * @param toDelete {boolean} True if we need to delete product, false to cancel delete
+   */
   async deleteProduct(page: Page, productInList: number, toDelete: boolean): Promise<boolean | string> {
     await this.waitForSelectorAndClick(page, this.deleteProductInListIcon(productInList));
 
@@ -302,10 +303,10 @@ class PackTab extends BOBasePage implements BOProductsCreateTabPackPageInterface
 
   // Methods to edit pack of products
   /**
-     * Edit pack of products
-     * @param page {Page} Browser tab
-     * @param packData {ProductPackOptions} Data to edit pack of products
-     */
+   * Edit pack of products
+   * @param page {Page} Browser tab
+   * @param packData {ProductPackOptions} Data to edit pack of products
+   */
   async editPackOfProducts(page: Page, packData: ProductPackOptions): Promise<void> {
     await this.editQuantity(page, packData.quantity);
     await this.setValue(page, this.minimalQuantityInput, packData.minimalQuantity);
@@ -313,19 +314,19 @@ class PackTab extends BOBasePage implements BOProductsCreateTabPackPageInterface
   }
 
   /**
-     * Edit quantity
-     * @param page {Page} Browser tab
-     * @param quantity {number} Quantity
-     */
+   * Edit quantity
+   * @param page {Page} Browser tab
+   * @param quantity {number} Quantity
+   */
   async editQuantity(page: Page, quantity: number): Promise<void> {
     await this.setValue(page, this.editQuantityInput, quantity);
   }
 
   /**
-     * Edit quantity
-     * @param page {Page} Browser tab
-     * @param packStockType {string} Quantity
-     */
+   * Edit quantity
+   * @param page {Page} Browser tab
+   * @param packStockType {string} Quantity
+   */
   async editPackStockType(page: Page, packStockType: string): Promise<void> {
     let locator: Locator;
 
@@ -354,13 +355,13 @@ class PackTab extends BOBasePage implements BOProductsCreateTabPackPageInterface
   }
 
   /**
-     * Get the value of the stock
-     * @param page {Page} Browser tab
-     * @return <Promise<number>>
-     */
+   * Get the value of the stock
+   * @param page {Page} Browser tab
+   * @return <Promise<number>>
+   */
   async getStockValue(page: Page): Promise<number> {
     return parseInt(await this.getAttributeContent(page, this.editQuantityBase, 'value'), 10);
   }
 }
 
-export default new PackTab();
+module.exports = new PackTab();

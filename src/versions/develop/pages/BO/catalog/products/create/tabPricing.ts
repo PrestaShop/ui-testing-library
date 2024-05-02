@@ -1,10 +1,8 @@
+import type FakerProduct from '@data/faker/product';
+import {type ProductSpecificPrice} from '@data/types/product';
+import {BOProductsCreateTabPricingPageInterface} from '@interfaces/BO/catalog/products/create/tabPricing';
 import BOBasePage from '@pages/BO/BOBasePage';
-
-import FakerProduct from '@data/faker/product';
-import type {ProductSpecificPrice} from '@data/types/product';
-import type {BOProductsCreateTabPricingPageInterface} from '@interfaces/BO/catalog/products/create/tabPricing';
-
-import type {Page} from 'playwright';
+import {type Page} from '@playwright/test';
 
 /**
  * Pricing tab on product page, contains functions that can be used on the page
@@ -103,9 +101,9 @@ class PricingTab extends BOBasePage implements BOProductsCreateTabPricingPageInt
   private readonly catalogPriceRuleRowColumn: (row: number, column: string) => string;
 
   /**
-     * @constructs
-     * Setting up texts and selectors to use on pricing tab
-     */
+   * @constructs
+   * Setting up texts and selectors to use on pricing tab
+   */
   constructor() {
     super();
 
@@ -151,7 +149,7 @@ class PricingTab extends BOBasePage implements BOProductsCreateTabPricingPageInt
     this.startingAtInput = '#specific_price_from_quantity';
     // Impact on price Bloc
     this.applyDiscountToInitialPrice = (value: boolean) => '#specific_price_impact_disabling_switch_reduction_'
-            + `${value ? '1' : '0'}`;
+      + `${value ? '1' : '0'}`;
     this.applyDiscountOfInput = '#specific_price_impact_reduction_value';
     this.reductionType = '#specific_price_impact_reduction_type';
     // Footer
@@ -174,15 +172,15 @@ class PricingTab extends BOBasePage implements BOProductsCreateTabPricingPageInt
   }
 
   /*
-    Methods
-     */
+  Methods
+   */
 
   /**
-     * Set product pricing
-     * @param page {Page} Browser tab
-     * @param productData {FakerProduct} Data to set in pricing form
-     * @returns {Promise<void>}
-     */
+   * Set product pricing
+   * @param page {Page} Browser tab
+   * @param productData {FakerProduct} Data to set in pricing form
+   * @returns {Promise<void>}
+   */
   async setProductPricing(page: Page, productData: FakerProduct): Promise<void> {
     await this.waitForSelectorAndClick(page, this.pricingTabLink);
     // Select tax rule by ID
@@ -199,11 +197,11 @@ class PricingTab extends BOBasePage implements BOProductsCreateTabPricingPageInt
   }
 
   /**
-     * Set tax rule
-     * @param page {Page} Browser tab
-     * @param taxRule {string} Tax rule to select
-     * @returns {Promise<void>}
-     */
+   * Set tax rule
+   * @param page {Page} Browser tab
+   * @param taxRule {string} Tax rule to select
+   * @returns {Promise<void>}
+   */
   async setTaxRule(page: Page, taxRule: string): Promise<void> {
     await Promise.all([
       this.waitForSelectorAndClick(page, this.taxRuleSpan),
@@ -213,12 +211,12 @@ class PricingTab extends BOBasePage implements BOProductsCreateTabPricingPageInt
   }
 
   /**
-     * Set retail price
-     * @param page {Page} Browser tab
-     * @param isTaxExcluded {boolean} is Tax Excluded
-     * @param price {number} Retail price
-     * @returns {Promise<void>}
-     */
+   * Set retail price
+   * @param page {Page} Browser tab
+   * @param isTaxExcluded {boolean} is Tax Excluded
+   * @param price {number} Retail price
+   * @returns {Promise<void>}
+   */
   async setRetailPrice(page: Page, isTaxExcluded: boolean, price: number): Promise<void> {
     await this.setValue(
       page,
@@ -228,33 +226,33 @@ class PricingTab extends BOBasePage implements BOProductsCreateTabPricingPageInt
   }
 
   /**
-     * Set cost price
-     * @param page {Page} Browser tab
-     * @param costPrice {number}
-     * @returns {Promise<void>}
-     */
+   * Set cost price
+   * @param page {Page} Browser tab
+   * @param costPrice {number}
+   * @returns {Promise<void>}
+   */
   async setCostPrice(page: Page, costPrice: number): Promise<void> {
     await this.setValue(page, this.wholesalePriceInput, costPrice);
   }
 
   /**
-     * Set display retail price per unit
-     * @param page {Page} Browser tab
-     * @param toEnable {boolean} True if we need to check display retail price per unit
-     * @returns {Promise<void>}
-     */
+   * Set display retail price per unit
+   * @param page {Page} Browser tab
+   * @param toEnable {boolean} True if we need to check display retail price per unit
+   * @returns {Promise<void>}
+   */
   async setDisplayRetailPricePerUnit(page: Page, toEnable: true): Promise<void> {
     await this.setChecked(page, this.displayRetailPricePerUnit(toEnable ? 1 : 0));
   }
 
   /**
-     * Set retail price per unit
-     * @param page {Page} Browser tab
-     * @param isTaxExcluded {boolean} is Tax Excluded
-     * @param price {number} Retail price
-     * @param unit {string} Unit
-     * @returns {Promise<void>}
-     */
+   * Set retail price per unit
+   * @param page {Page} Browser tab
+   * @param isTaxExcluded {boolean} is Tax Excluded
+   * @param price {number} Retail price
+   * @param unit {string} Unit
+   * @returns {Promise<void>}
+   */
   async setRetailPricePerUnit(page: Page, isTaxExcluded: boolean, price: number, unit: string): Promise<void> {
     await this.setValue(
       page,
@@ -265,11 +263,11 @@ class PricingTab extends BOBasePage implements BOProductsCreateTabPricingPageInt
   }
 
   /**
-     * Get summary
-     * @param page {Page} Browser tab
-     * @returns {Promise<object>}
-     */
-  async getSummary(page: Page): Promise<object> {
+   * Get summary
+   * @param page {Page} Browser tab
+   * @returns {Promise<object>}
+   */
+  async getSummary(page: Page) {
     await this.waitForSelectorAndClick(page, this.pricingTabLink);
     return {
       priceTaxExcludedValue: await this.getTextContent(page, this.priceTaxExcludedValue),
@@ -281,28 +279,28 @@ class PricingTab extends BOBasePage implements BOProductsCreateTabPricingPageInt
   }
 
   /**
-     * Get unit price
-     * @param page {Page} Browser tab
-     * @returns {Promise<string>}
-     */
+   * Get unit price
+   * @param page {Page} Browser tab
+   * @returns {Promise<string>}
+   */
   async getUnitPriceValue(page: Page): Promise<string> {
     return this.getTextContent(page, this.unitPriceValue);
   }
 
   /**
-     * Set display on sale flag
-     * @param page {Page} Browser tab
-     * @returns {Promise<void>}
-     */
+   * Set display on sale flag
+   * @param page {Page} Browser tab
+   * @returns {Promise<void>}
+   */
   async setDisplayOnSaleFlag(page: Page): Promise<void> {
     await this.waitForSelectorAndClick(page, this.pricingOnSaleCheckBox);
   }
 
   /**
-     * Click on add specific price button
-     * @param page {Page} Browser tab
-     * @returns {Promise<void>}
-     */
+   * Click on add specific price button
+   * @param page {Page} Browser tab
+   * @returns {Promise<void>}
+   */
   async clickOnAddSpecificPriceButton(page: Page): Promise<void> {
     await this.waitForSelectorAndClick(page, this.pricingTabLink);
 
@@ -313,11 +311,11 @@ class PricingTab extends BOBasePage implements BOProductsCreateTabPricingPageInt
   }
 
   /**
-     * Click on edit specific price icon
-     * @param page {Page} Browser tab
-     * @param row {number} Row to edit
-     * @returns {Promise<void>}
-     */
+   * Click on edit specific price icon
+   * @param page {Page} Browser tab
+   * @param row {number} Row to edit
+   * @returns {Promise<void>}
+   */
   async clickOnEditSpecificPriceIcon(page: Page, row: number): Promise<void> {
     await this.waitForSelectorAndClick(page, this.pricingTabLink);
 
@@ -328,11 +326,11 @@ class PricingTab extends BOBasePage implements BOProductsCreateTabPricingPageInt
   }
 
   /**
-     * Product specific price
-     * @param page {Page} Browser tab
-     * @param specificPriceData {ProductSpecificPrice} Data to set on specific price form
-     * @return {Promise<string|null>}
-     */
+   * Product specific price
+   * @param page {Page} Browser tab
+   * @param specificPriceData {ProductSpecificPrice} Data to set on specific price form
+   * @return {Promise<string|null>}
+   */
   async setSpecificPrice(page: Page, specificPriceData: ProductSpecificPrice): Promise<string | null> {
     const addSpecificPriceFrame = page.frame({name: 'modal-specific-price-form-iframe'});
 
@@ -358,11 +356,11 @@ class PricingTab extends BOBasePage implements BOProductsCreateTabPricingPageInt
   }
 
   /**
-     * Delete specific price
-     * @param page {Page} Browser tab
-     * @param row {number} Row to edit
-     * @return {Promise<string|null>}
-     */
+   * Delete specific price
+   * @param page {Page} Browser tab
+   * @param row {number} Row to edit
+   * @return {Promise<string|null>}
+   */
   async deleteSpecificPrice(page: Page, row: number): Promise<string | null> {
     await page.locator(this.deleteSpecificPriceIcon(row)).click();
     await page.locator(this.deleteSpecificPriceModalConfirmButton).click();
@@ -371,19 +369,19 @@ class PricingTab extends BOBasePage implements BOProductsCreateTabPricingPageInt
   }
 
   /**
-     * Click on show catalog price rule button
-     * @param page {Page} Browser tab
-     * @return {Promise<void>}
-     */
+   * Click on show catalog price rule button
+   * @param page {Page} Browser tab
+   * @return {Promise<void>}
+   */
   async clickOnShowCatalogPriceRuleButton(page: Page): Promise<void> {
     await page.locator(this.showCatalogPriceRuleButton).click();
   }
 
   /**
-     * Click on hide catalog price rule button
-     * @param page {Page} Browser tab
-     * @return {Promise<boolean>}
-     */
+   * Click on hide catalog price rule button
+   * @param page {Page} Browser tab
+   * @return {Promise<boolean>}
+   */
   async clickOnHideCatalogPriceRulesButton(page: Page): Promise<boolean> {
     await page.locator(this.showCatalogPriceRuleButton).click();
 
@@ -391,20 +389,20 @@ class PricingTab extends BOBasePage implements BOProductsCreateTabPricingPageInt
   }
 
   /**
-     * Click on manage catalog price rule link
-     * @param page {Page} Browser tab
-     * @return {Promise<Page>}
-     */
+   * Click on manage catalog price rule link
+   * @param page {Page} Browser tab
+   * @return {Promise<Page>}
+   */
   async clickOnManageCatalogPriceRuleLink(page: Page): Promise<Page> {
     return this.openLinkWithTargetBlank(page, this.manageCatalogPriceRuleLink, 'body');
   }
 
   /**
-     * Get catalog price rule data
-     * @param page {Page} Browser tab
-     * @param row {number} Row of catalog price rule
-     */
-  async getCatalogPriceRuleData(page: Page, row: number) :Promise<object> {
+   * Get catalog price rule data
+   * @param page {Page} Browser tab
+   * @param row {number} Row of catalog price rule
+   */
+  async getCatalogPriceRuleData(page: Page, row: number) {
     return {
       id: await this.getTextContent(page, this.catalogPriceRuleRowColumn(row, 'catalog-price-rule-id')),
       name: await this.getTextContent(page, this.catalogPriceRuleRowColumn(row, 'name')),
@@ -418,10 +416,10 @@ class PricingTab extends BOBasePage implements BOProductsCreateTabPricingPageInt
   }
 
   /**
-     * Returns the value of a form element
-     * @param page {Page}
-     * @param inputName {string}
-     */
+   * Returns the value of a form element
+   * @param page {Page}
+   * @param inputName {string}
+   */
   async getValue(page: Page, inputName: string): Promise<string> {
     switch (inputName) {
       case 'ecotax':
@@ -444,11 +442,11 @@ class PricingTab extends BOBasePage implements BOProductsCreateTabPricingPageInt
   }
 
   /**
-     * Set ecoTax value and save
-     * @param page {Page} Browser tab
-     * @param ecoTax {string} Eco tax value to set on eco tax input
-     * @returns {Promise<string|null>}
-     */
+   * Set ecoTax value and save
+   * @param page {Page} Browser tab
+   * @param ecoTax {string} Eco tax value to set on eco tax input
+   * @returns {Promise<string|null>}
+   */
   async addEcoTax(page: Page, ecoTax: number): Promise<void> {
     await this.waitForSelectorAndClick(page, this.pricingTabLink);
 
@@ -456,5 +454,4 @@ class PricingTab extends BOBasePage implements BOProductsCreateTabPricingPageInt
   }
 }
 
-const pricingTab = new PricingTab();
-export {pricingTab, PricingTab};
+module.exports = new PricingTab();
