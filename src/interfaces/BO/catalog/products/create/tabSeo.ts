@@ -1,5 +1,4 @@
 import {BOBasePagePageInterface} from '@interfaces/BO';
-
 import type {Page} from '@playwright/test';
 
 export interface BOProductsCreateTabSeoPageInterface extends BOBasePagePageInterface {

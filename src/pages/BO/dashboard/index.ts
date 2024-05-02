@@ -1,8 +1,8 @@
 import type {DashboardPageInterface} from '@interfaces/BO/dashboard';
-import testContext from '@utils/test';
+import utilsTest from '@utils/test';
 import semver from 'semver';
 
-const psVersion = testContext.getPSVersion();
+const psVersion = utilsTest.getPSVersion();
 
 /* eslint-disable global-require */
 function requirePage(): DashboardPageInterface {

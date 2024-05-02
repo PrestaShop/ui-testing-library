@@ -1,20 +1,17 @@
-import {BOBasePagePageInterface} from '@interfaces/BO';
+import {type ProductFilterMinMax} from '@data/types/product';
+import {type BOBasePagePageInterface} from '@interfaces/BO';
+import {type Page} from '@playwright/test';
 
-import type {Page} from '@playwright/test';
-
-import {ProductFilterMinMax} from '@data/types/product';
-
-export interface BOProductsPageInterface extends BOBasePagePageInterface {
-     readonly alertDangerIDFilterValue: string;
-     readonly alertDangerPriceFilterValue: string;
-     readonly alertDangerQuantityFilterValue: string;
-     readonly modalCreateProduct: string;
-     readonly modalDialog: string;
-     readonly packOfProductsDescription: string;
-     readonly pageTitle: string;
-     readonly productWithCombinationsDescription: string;
-     readonly standardProductDescription: string;
-     readonly virtualProductDescription: string;
+export interface BOCatalogProductsPageInterface extends BOBasePagePageInterface {
+    readonly alertDangerIDFilterValue: string;
+    readonly alertDangerPriceFilterValue: string;
+    readonly alertDangerQuantityFilterValue: string;
+    readonly modalCreateProduct: string;
+    readonly packOfProductsDescription: string;
+    readonly pageTitle: string;
+    readonly productWithCombinationsDescription: string;
+    readonly standardProductDescription: string;
+    readonly virtualProductDescription: string;
 
     bulkActionsProduct(page: Page, action: string): Promise<string>;
     bulkSelectProducts(page: Page): Promise<boolean>;
@@ -23,7 +20,7 @@ export interface BOProductsPageInterface extends BOBasePagePageInterface {
     clickOnCancelDialogButton(page: Page): Promise<boolean>;
     clickOnClearFilterLink(page: Page): Promise<void>;
     clickOnConfirmDialogButton(page: Page): Promise<string>;
-    clickOnDeleteProductButton(page: Page, row: number): Promise<boolean>;
+    clickOnDeleteProductButton(page: Page, row?: number): Promise<boolean>;
     clickOnDeleteProductFromStoreButton(page: Page, row: number): Promise<boolean>;
     clickOnDuplicateProductButton(page: Page, row: number): Promise<boolean>;
     clickOnNewProductButton(page: Page): Promise<boolean>;

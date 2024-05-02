@@ -3,7 +3,7 @@ import {type BOBasePagePageInterface} from '@interfaces/BO';
 import CommonPage from '@pages/commonPage';
 
 import {Frame, Page} from '@playwright/test';
-import testContext from '@utils/test';
+import utilsTest from '@utils/test';
 import type {PageFunction} from 'playwright-core/types/structs';
 import semver from 'semver';
 
@@ -722,7 +722,7 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
     await this.scrollTo(page, linkSelector);
     await this.clickAndWaitForURL(page, linkSelector);
 
-    const psVersion = testContext.getPSVersion();
+    const psVersion = utilsTest.getPSVersion();
     let linkActiveClass: string = '-active';
 
     // >= 1.7.8.0
@@ -1059,7 +1059,7 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
    * @return {Promise<string|null>}
    */
   async getGrowlMessageContent(page: Page, timeout: number = 10000): Promise<string | null> {
-    const psVersion = testContext.getPSVersion();
+    const psVersion = utilsTest.getPSVersion();
     let {growlMessageBlock} = this;
 
     if (semver.lt(psVersion, '8.0.0')) {

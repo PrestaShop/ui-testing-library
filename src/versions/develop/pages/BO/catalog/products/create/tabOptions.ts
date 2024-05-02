@@ -1,7 +1,6 @@
-import BOBasePage from '@pages/BO/BOBasePage';
-
-import type {Page} from 'playwright';
 import type {BOProductsCreateTabOptionsPageInterface} from '@interfaces/BO/catalog/products/create/tabOptions';
+import BOBasePage from '@pages/BO/BOBasePage';
+import type {Page} from '@playwright/test';
 
 /**
  * Options tab on new product page, contains functions that can be used on the page
@@ -26,9 +25,9 @@ class OptionsTab extends BOBasePage implements BOProductsCreateTabOptionsPageInt
   private readonly supplierReferencesSection: string;
 
   /**
-     * @constructs
-     * Setting up texts and selectors to use on options tab
-     */
+   * @constructs
+   * Setting up texts and selectors to use on options tab
+   */
   constructor() {
     super();
 
@@ -44,14 +43,14 @@ class OptionsTab extends BOBasePage implements BOProductsCreateTabOptionsPageInt
   }
 
   /*
-    Methods
-     */
+  Methods
+   */
   /**
-     * Set visibility
-     * @param page {page} Browser tab
-     * @param visibility {string} Option to choose
-     * @returns {Promise<void>}
-     */
+   * Set visibility
+   * @param page {page} Browser tab
+   * @param visibility {string} Option to choose
+   * @returns {Promise<void>}
+   */
   async setVisibility(page: Page, visibility: string): Promise<void> {
     switch (visibility) {
       case 'everywhere':
@@ -72,68 +71,68 @@ class OptionsTab extends BOBasePage implements BOProductsCreateTabOptionsPageInt
   }
 
   /**
-     * Set available for order
-     * @param page {page} Browser tab
-     * @param toEnable {boolean} True if we need to enable available for order
-     * @returns {Promise<void>}
-     */
+   * Set available for order
+   * @param page {page} Browser tab
+   * @param toEnable {boolean} True if we need to enable available for order
+   * @returns {Promise<void>}
+   */
   async setAvailableForOrder(page: Page, toEnable: boolean): Promise<void> {
     await this.setChecked(page, this.productAvailableForOrderRadio(toEnable ? 1 : 0));
   }
 
   /**
-     * Set show price
-     * @param page {page} Browser tab
-     * @param toEnable {boolean} True if we need to enable show price
-     * @returns {Promise<void>}
-     */
+   * Set show price
+   * @param page {page} Browser tab
+   * @param toEnable {boolean} True if we need to enable show price
+   * @returns {Promise<void>}
+   */
   async setShowPrice(page: Page, toEnable: boolean): Promise<void> {
     await this.setChecked(page, this.productShowPricesRadio(toEnable ? 1 : 0));
   }
 
   /**
-     * Set web only
-     * @param page {page} Browser tab
-     * @param toEnable {boolean} True if we need to enable web only
-     * @returns {Promise<void>}
-     */
+   * Set web only
+   * @param page {page} Browser tab
+   * @param toEnable {boolean} True if we need to enable web only
+   * @returns {Promise<void>}
+   */
   async setWebOnly(page: Page, toEnable: boolean): Promise<void> {
     await this.setChecked(page, this.productOnlineOnlyRadio(toEnable ? 1 : 0));
   }
 
   /**
-     * Choose supplier
-     * @param page {page} Browser tab
-     * @param supplierRow {number} Supplier to choose
-     * @returns {Promise<void>}
-     */
+   * Choose supplier
+   * @param page {page} Browser tab
+   * @param supplierRow {number} Supplier to choose
+   * @returns {Promise<void>}
+   */
   async chooseSupplier(page: Page, supplierRow: number): Promise<void> {
     await this.waitForSelectorAndClick(page, this.supplierAssociatedCheckBox(supplierRow));
   }
 
   /**
-     * Is default supplier section visible
-     * @param page {page} Browser tab
-     * @returns {Promise<boolean>}
-     */
+   * Is default supplier section visible
+   * @param page {page} Browser tab
+   * @returns {Promise<boolean>}
+   */
   async isDefaultSupplierSectionVisible(page: Page): Promise<boolean> {
     return this.elementVisible(page, this.defaultSupplierSection, 1000);
   }
 
   /**
-     * Is supplier references section visible
-     * @param page {page} Browser tab
-     * @returns {Promise<boolean>}
-     */
+   * Is supplier references section visible
+   * @param page {page} Browser tab
+   * @returns {Promise<boolean>}
+   */
   async isSupplierReferencesSectionVisible(page: Page): Promise<boolean> {
     return this.elementVisible(page, this.supplierReferencesSection, 1000);
   }
 
   /**
-     * Returns the value of a form element
-     * @param page {Page}
-     * @param inputName {string}
-     */
+   * Returns the value of a form element
+   * @param page {Page}
+   * @param inputName {string}
+   */
   async getValue(page: Page, inputName: string): Promise<string> {
     switch (inputName) {
       case 'available_for_order':
@@ -150,5 +149,4 @@ class OptionsTab extends BOBasePage implements BOProductsCreateTabOptionsPageInt
   }
 }
 
-const optionsTab = new OptionsTab();
-export {optionsTab, OptionsTab};
+module.exports = new OptionsTab();

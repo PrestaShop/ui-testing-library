@@ -1,8 +1,8 @@
 import type {FoLoginPageInterface} from '@interfaces/FO/login';
-import testContext from '@utils/test';
+import utilsTest from '@utils/test';
 import semver from 'semver';
 
-const psVersion = testContext.getPSVersion();
+const psVersion = utilsTest.getPSVersion();
 
 /* eslint-disable global-require, @typescript-eslint/no-var-requires */
 function requirePage(): FoLoginPageInterface {

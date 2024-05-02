@@ -1,9 +1,9 @@
-import type {BOProductsPageInterface} from '@interfaces/BO/catalog/products';
+import type {BOCatalogProductsPageInterface} from '@interfaces/BO/catalog/products';
 
-/* eslint-disable global-require */
-function requirePage(): BOProductsPageInterface {
+/* eslint-disable global-require, @typescript-eslint/no-var-requires */
+function requirePage(): BOCatalogProductsPageInterface {
   return require('@versions/develop/pages/BO/catalog/products').productsPage;
 }
-/* eslint-enable global-require */
+/* eslint-enable global-require, @typescript-eslint/no-var-requires */
 
 export default requirePage();

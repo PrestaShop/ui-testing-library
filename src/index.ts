@@ -48,6 +48,7 @@ export {default as FakerCountry} from '@data/faker/country';
 export {default as FakerCurrency} from '@data/faker/currency';
 export {default as FakerCustomer} from '@data/faker/customer';
 export {default as FakerGroup} from '@data/faker/group';
+export {default as FakerImport} from '@data/faker/import';
 export {default as FakerModule} from '@data/faker/module';
 export {default as FakerOrderStatus} from '@data/faker/orderStatus';
 export {default as FakerOrder} from '@data/faker/order';
@@ -60,12 +61,19 @@ export {default as FakerTax} from '@data/faker/tax';
 export {default as FakerTitle} from '@data/faker/title';
 export {default as FakerZone} from '@data/faker/zone';
 
+// Export common
+export {default as opsBOCatalogProduct} from '@ops/BO/catalog/product';
+
 // Export Pages
 export * as CommonPage from '@pages/commonPage';
 // Export Pages BO
 export * as BOBasePage from '@pages/BO/BOBasePage';
 export {default as boLoginPage} from '@pages/BO/login';
 export {default as boDashboardPage} from '@pages/BO/dashboard';
+export {default as boDesignPositionsPage} from '@pages/BO/design/positions/index';
+export {default as boDesignPositionsHookModulePage} from '@pages/BO/design/positions/hookModule';
+export {default as boModuleManagerPage} from '@pages/BO/modules/moduleManager';
+export {default as boModuleManagerUninstalledModulesPage} from '@pages/BO/modules/moduleManager/uninstalledModules';
 export {default as boOrdersPage} from '@pages/BO/orders';
 export {default as boOrdersViewBasePage} from '@pages/BO/orders/view/viewOrderBasePage';
 export {default as boOrdersViewProductsBlockPage} from '@pages/BO/orders/view/productsBlock';
@@ -77,7 +85,7 @@ export {default as boProductsCreateTabDetailsPage} from '@pages/BO/catalog/produ
 export {default as boProductsCreateTabOptionsPage} from '@pages/BO/catalog/products/create/tabOptions';
 export {default as boProductsCreateTabPackPage} from '@pages/BO/catalog/products/create/tabPack';
 export {default as boProductsCreateTabPricingPage} from '@pages/BO/catalog/products/create/tabPricing';
-export {default as boProductsCreateTabSEOPage} from '@pages/BO/catalog/products/create/tabSeo';
+export {default as boProductsCreateTabSeoPage} from '@pages/BO/catalog/products/create/tabSeo';
 export {default as boProductsCreateTabShippingPage} from '@pages/BO/catalog/products/create/tabShipping';
 export {default as boProductsCreateTabStocksPage} from '@pages/BO/catalog/products/create/tabStocks';
 export {default as boProductsCreateTabVirtualProductPage} from '@pages/BO/catalog/products/create/tabVirtualProduct';
@@ -97,5 +105,6 @@ export {default as modBlockwishlistBoMain} from '@pages/BO/modules/blockwishlist
 export {default as modBlockwishlistBoStatistics} from '@pages/BO/modules/blockwishlist/statistics';
 
 // Export utils
-export {default as testContext} from '@utils/test';
-export {default as basicHelper} from '@utils/basicHelper';
+export {default as utilsBasicHelper} from '@utils/basicHelper';
+export {default as utilsFile} from '@utils/file';
+export {default as utilsTest} from '@utils/test';

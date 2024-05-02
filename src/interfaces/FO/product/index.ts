@@ -1,12 +1,9 @@
-import {FOBasePagePageInterface} from '@interfaces/FO';
-
-// Import data
 import FakerProductReview from '@data/faker/productReview';
 import type {
   ProductAttribute, ProductImageUrls, ProductInformations,
 } from '@data/types/product';
-
-import type {Page} from '@playwright/test';
+import {FOBasePagePageInterface} from '@interfaces/FO';
+import {type Page} from '@playwright/test';
 
 export interface FoProductPageInterface extends FOBasePagePageInterface {
     readonly messageAlertNotificationAlreadyRegistered:string;
@@ -72,6 +69,7 @@ export interface FoProductPageInterface extends FOBasePagePageInterface {
     hasProductFlag(page: Page, name: string): Promise<boolean>;
     hasProductReviewGDPRLabel(page: Page): Promise<boolean>;
     hasProductsBlock(page: Page, blockName:string): Promise<boolean>;
+    isAddToCartButtonDisplayed(page: Page): Promise<boolean>;
     isAddToCartButtonEnabled(page: Page): Promise<boolean>;
     isAvailabilityQuantityDisplayed(page: Page): Promise<boolean>;
     isCustomizationBlockVisible(page: Page): Promise<boolean>;
@@ -87,7 +85,6 @@ export interface FoProductPageInterface extends FOBasePagePageInterface {
     isUnavailableProductColorDisplayed(page: Page, color: string): Promise<boolean>;
     isUnavailableProductSizeDisplayed(page: Page, size: string): Promise<boolean>;
     notifyEmailAlert(page: Page, email: string | null): Promise<string>;
-    sAddToCartButtonDisplayed(page: Page): Promise<boolean>;
     scrollBoxArrowsImages(page: Page, direction: string): Promise<void>;
     selectAttributes(page: Page, type: string, attributes: ProductAttribute[], itemNumber: number): Promise<void>;
     selectDefaultAttributes(page: Page, attributes: ProductAttribute[]): Promise<void>;
