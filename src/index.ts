@@ -1,4 +1,9 @@
 // Export data
+export type {
+  CarrierCreator,
+  CarrierRange,
+  CarrierRangeZone,
+} from '@data/types/carrier';
 export type {CartProductDetails} from '@data/types/cart';
 export type {
   GlobalInstall,
