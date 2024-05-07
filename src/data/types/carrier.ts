@@ -1,3 +1,16 @@
+import ZoneCreator from '@data/types/zone';
+
+type CarrierRangeZone = {
+  zone: ZoneCreator | string
+  price: number
+}
+
+type CarrierRange = {
+  weightMin: number
+  weightMax: number
+  zones: CarrierRangeZone[]
+}
+
 type CarrierCreator = {
   id?: number
   position?: number
@@ -5,16 +18,12 @@ type CarrierCreator = {
   transitName?: string
   delay?: string
   speedGrade?: number
-  trakingURL?: string
+  trackingURL?: string
   handlingCosts?: boolean
   freeShipping?: boolean
   billing?: string
   taxRule?: string
   outOfRangeBehavior?: string
-  rangeSup?: number
-  allZones?: boolean
-  allZonesValue?: number
-  zoneID?: number
   maxWidth?: number
   maxHeight?: number
   maxDepth?: number
@@ -23,6 +32,11 @@ type CarrierCreator = {
   price?: number
   priceText?: string
   priceTTC?: number
+  ranges?: CarrierRange[]
 };
 
-export default CarrierCreator;
+export type {
+  CarrierCreator,
+  CarrierRange,
+  CarrierRangeZone,
+};

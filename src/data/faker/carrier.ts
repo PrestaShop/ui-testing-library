@@ -1,13 +1,10 @@
 import TaxRules from '@data/demo/taxRule';
-import Zones from '@data/demo/zones';
 import TaxRuleData from '@data/faker/taxRule';
-import ZoneData from '@data/faker/zone';
-import CarrierCreator from '@data/types/carrier';
+import {CarrierCreator, CarrierRange} from '@data/types/carrier';
 
 import {faker} from '@faker-js/faker';
 
 const taxes: string[] = Object.values(TaxRules).map((tax: TaxRuleData) => tax.name);
-const zonesID: number[] = Object.values(Zones).map((zone: ZoneData) => zone.id);
 const outOfRangeBehavior: string[] = ['Apply the cost of the highest defined range', 'Disable carrier'];
 const billing: string[] = ['According to total price', 'According to total weight'];
 
@@ -28,7 +25,7 @@ export default class CarrierData {
 
   public readonly speedGrade: number;
 
-  public readonly trakingURL: string;
+  public readonly trackingURL: string;
 
   public readonly handlingCosts: boolean;
 
@@ -39,14 +36,6 @@ export default class CarrierData {
   public readonly taxRule: string;
 
   public readonly outOfRangeBehavior: string;
-
-  public readonly rangeSup: number;
-
-  public readonly allZones: boolean;
-
-  public readonly allZonesValue: number;
-
-  public readonly zoneID: number;
 
   public readonly maxWidth: number;
 
@@ -63,6 +52,8 @@ export default class CarrierData {
   public readonly priceText: string;
 
   public readonly priceTTC: number;
+
+  public readonly ranges: CarrierRange[];
 
   /**
    * Constructor for class CarrierData
@@ -88,7 +79,7 @@ export default class CarrierData {
     this.speedGrade = carrierToCreate.speedGrade || faker.number.int({min: 1, max: 9});
 
     /** @type {string} Url of carrier tracking */
-    this.trakingURL = carrierToCreate.trakingURL || 'https://example.com/track.php?num=20';
+    this.trackingURL = carrierToCreate.trackingURL || 'https://example.com/track.php?num=20';
 
     /** @type {boolean} True to include handling costs on the price */
     this.handlingCosts = carrierToCreate.handlingCosts === undefined ? true : carrierToCreate.handlingCosts;
@@ -104,18 +95,6 @@ export default class CarrierData {
 
     /** @type {string} Behavior when no defined range matches the customer carts */
     this.outOfRangeBehavior = carrierToCreate.outOfRangeBehavior || faker.helpers.arrayElement(outOfRangeBehavior);
-
-    /** @type {number} Superior range for the carrier */
-    this.rangeSup = carrierToCreate.rangeSup || faker.number.int({min: 1, max: 100});
-
-    /** @type {boolean} True to apply it to all zones */
-    this.allZones = carrierToCreate.allZones === undefined ? true : carrierToCreate.allZones;
-
-    /** @type {number} Value to set when all zones is checked */
-    this.allZonesValue = carrierToCreate.allZonesValue || faker.number.int({min: 1, max: 100});
-
-    /** @type {number} ID of the zone on carrier form */
-    this.zoneID = carrierToCreate.zoneID || faker.helpers.arrayElement(zonesID);
 
     /** @type {number} Max width that the carrier can handle */
     this.maxWidth = carrierToCreate.maxWidth || faker.number.int({min: 1, max: 100});
@@ -140,5 +119,8 @@ export default class CarrierData {
 
     /** @type {number} Price TTC */
     this.priceTTC = carrierToCreate.priceTTC || 0;
+
+    /** @type {CarrierRange[]} Ranges */
+    this.ranges = carrierToCreate.ranges || [];
   }
 }
