@@ -2,7 +2,7 @@
 import CommonPage from '@pages/commonPage';
 
 import {Frame, Page} from '@playwright/test';
-import testContext from '@utils/testContext';
+import testContext from '@utils/test';
 import type {PageFunction} from 'playwright-core/types/structs';
 import semver from 'semver';
 

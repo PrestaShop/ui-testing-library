@@ -1,5 +1,5 @@
 import type {ModuleManagerPageInterface} from '@interfaces/BO/modules/moduleManager';
-import testContext from '@utils/testContext';
+import testContext from '@utils/test';
 import semver from 'semver';
 
 const psVersion = testContext.getPSVersion();

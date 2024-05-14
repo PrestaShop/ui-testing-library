@@ -19,7 +19,7 @@ export default {
     value: string,
     baseContext: string | undefined = undefined,
   ): Promise<void> {
-    await testInfo.attachments.push({
+    testInfo.attachments.push({
       contentType: 'text/plain',
       name: title,
       body: Buffer.from(baseContext === undefined ? value : `${baseContext}_${value}`),

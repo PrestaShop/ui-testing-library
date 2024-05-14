@@ -1,5 +1,5 @@
 import type {FoCategoryPageInterface} from '@interfaces/FO/category';
-import testContext from '@utils/testContext';
+import testContext from '@utils/test';
 import semver from 'semver';
 
 const psVersion = testContext.getPSVersion();

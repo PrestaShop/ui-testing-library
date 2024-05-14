@@ -76,4 +76,4 @@ export {default as modBlockwishlistBoMain} from '@pages/BO/modules/blockwishlist
 export {default as modBlockwishlistBoStatistics} from '@pages/BO/modules/blockwishlist/statistics';
 
 // Export utils
-export {default as testContext} from '@utils/testContext';
+export {default as testContext} from '@utils/test';

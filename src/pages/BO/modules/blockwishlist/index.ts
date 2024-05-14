@@ -1,5 +1,5 @@
 import type {ModuleBlockwishlistMainPageInterface} from '@interfaces/BO/modules/blockwishlist/index';
-import testContext from '@utils/testContext';
+import testContext from '@utils/test';
 import semver from 'semver';
 
 const psVersion = testContext.getPSVersion();
