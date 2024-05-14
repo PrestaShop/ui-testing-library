@@ -1,7 +1,4 @@
-import { BODesignPositionsPageInterface } from '@interfaces/BO/design/positions';
-import testContext from '@utils/test';
-
-const psVersion = testContext.getPSVersion();
+import {BODesignPositionsPageInterface} from '@interfaces/BO/design/positions';
 
 /* eslint-disable global-require, @typescript-eslint/no-var-requires */
 function requirePage(): BODesignPositionsPageInterface {

@@ -1,4 +1,4 @@
-import type { BODesignPositionsPageInterface } from '@interfaces/BO/design/positions';
+import type {BODesignPositionsPageInterface} from '@interfaces/BO/design/positions';
 import BOBasePage from '@pages/BO/BOBasePage';
 import type {Page} from '@playwright/test';
 

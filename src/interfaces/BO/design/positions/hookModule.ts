@@ -1,4 +1,4 @@
-import type FakerModule from "@data/faker/module";
+import type FakerModule from '@data/faker/module';
 import type {BOBasePagePageInterface} from '@interfaces/BO';
 
 import type {Page} from '@playwright/test';

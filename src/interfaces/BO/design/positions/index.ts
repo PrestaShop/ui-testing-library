@@ -1,5 +1,5 @@
 import {BOBasePagePageInterface} from '@interfaces/BO';
-import { type Page } from '@playwright/test';
+import {type Page} from '@playwright/test';
 
 export interface BODesignPositionsPageInterface extends BOBasePagePageInterface {
     readonly messageModuleAddedFromHook: string;
