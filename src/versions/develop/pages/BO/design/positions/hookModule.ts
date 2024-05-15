@@ -4,7 +4,7 @@ import BOBasePage from '@pages/BO/BOBasePage';
 import type {Page} from 'playwright';
 
 /**
- * Positions page, contains functions that can be used on the page
+ * Edit position page, contains functions that can be used on the page
  * @class
  * @extends BOBasePage
  */

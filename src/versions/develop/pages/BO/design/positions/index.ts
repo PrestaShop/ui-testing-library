@@ -138,7 +138,7 @@ class PositionsPage extends BOBasePage implements BODesignPositionsPageInterface
 
   /**
    * Return the filtered module name
-   * @param page
+   * @param page {Page} Browser tab
    */
   async getModuleFilter(page: Page): Promise<string> {
     return this.getTextContent(page, `${this.filterModuleSelect} option[selected='selected']`, false);
@@ -177,7 +177,7 @@ class PositionsPage extends BOBasePage implements BODesignPositionsPageInterface
    * Return the hookId
    * @param page {Page} Browser tab
    * @param hookRow {number} Hook Row
-   * @returns {Promise<boolean>}
+   * @returns {Promise<number>}
    */
   async getHookId(page: Page, hookRow: number): Promise<number> {
     const attribute = await this.getAttributeContent(page, this.hookHeaderStatusInput(hookRow), 'data-hook-id');
