@@ -37,7 +37,7 @@ class HookModulePage extends BOBasePage implements BODesignPositionsHookModulePa
     this.formHookModuleSelectModuleContainer = `${this.formHookModule} .chosen-container.chosen-container-single`;
     this.formHookModuleSelectModuleInput = `${this.formHookModuleSelectModuleContainer} .chosen-search input[type="text"]`;
     this.formHookModuleSelectModuleResult = `${this.formHookModuleSelectModuleContainer} .chosen-results`
-      + '.active-result:nth-child(1)';
+      + ' .active-result:nth-child(1)';
     this.formHookModuleSelectHook = `${this.formHookModule} select[name="id_hook"]`;
     this.formHookModuleSaveButton = `${this.formHookModule} #hook_module_form_submit_btn`;
   }
