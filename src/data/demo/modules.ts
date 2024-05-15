@@ -9,6 +9,10 @@ export default {
     tag: 'ps_apiresources',
     name: 'PrestaShop API Resources',
   }),
+  psBanner: new ModuleData({
+    tag: 'ps_banner',
+    name: 'Banner',
+  }),
   psCashOnDelivery: new ModuleData({
     tag: 'ps_cashondelivery',
     name: 'Cash on delivery (COD)',

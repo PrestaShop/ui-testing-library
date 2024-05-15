@@ -1,5 +1,5 @@
 import type {FoCheckoutOrderConfirmationPageInterface} from '@interfaces/FO/checkout/orderConfirmation';
-import testContext from '@utils/testContext';
+import testContext from '@utils/test';
 import semver from 'semver';
 
 const psVersion = testContext.getPSVersion();

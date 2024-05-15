@@ -1,5 +1,5 @@
 import type {DashboardPageInterface} from '@interfaces/BO/dashboard';
-import testContext from '@utils/testContext';
+import testContext from '@utils/test';
 import semver from 'semver';
 
 const psVersion = testContext.getPSVersion();

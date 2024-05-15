@@ -1,5 +1,5 @@
 import type {FoCartPageInterface} from '@interfaces/FO/cart';
-import testContext from '@utils/testContext';
+import testContext from '@utils/test';
 import semver from 'semver';
 
 const psVersion = testContext.getPSVersion();
