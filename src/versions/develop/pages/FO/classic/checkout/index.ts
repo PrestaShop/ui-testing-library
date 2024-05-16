@@ -19,6 +19,8 @@ import type {Page} from 'playwright';
 class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
   public readonly deleteAddressSuccessMessage: string;
 
+  public readonly noCarriersMessage: string;
+
   private readonly successAlert: string;
 
   private readonly checkoutPageBody: string;
@@ -187,6 +189,8 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
 
   private readonly deliveryStepCarriersList: string;
 
+  private readonly deliveryStepCarriersListError: string;
+
   protected deliveryOptions: string;
 
   private readonly deliveryOptionsRadioButton: string;
@@ -251,6 +255,7 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
     super(theme);
     this.cartRuleAlertMessageText = 'You cannot use this voucher with this carrier';
     this.deleteAddressSuccessMessage = 'Address successfully deleted.';
+    this.noCarriersMessage = 'Unfortunately, there are no carriers available for your delivery address.';
     this.noPaymentNeededText = 'No payment needed for this order';
     this.messageIfYouSignOut = 'If you sign out now, your cart will be emptied.';
     this.authenticationErrorMessage = 'Authentication failed.';
@@ -328,6 +333,7 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
     this.deliveryStepSection = '#checkout-delivery-step';
     this.deliveryStepEditButton = `${this.deliveryStepSection} span.step-edit`;
     this.deliveryStepCarriersList = `${this.deliveryStepSection} .delivery-options-list`;
+    this.deliveryStepCarriersListError = `${this.deliveryStepCarriersList} .alert-danger`;
     this.deliveryOptions = '#js-delivery div.delivery-options';
     this.deliveryOptionsRadioButton = 'input[id*=\'delivery_option_\']';
     this.deliveryOptionLabel = (id: number) => `${this.deliveryStepSection} label[for='delivery_option_${id}']`;
@@ -564,7 +570,7 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
    * @param page {Page} Browser tab
    * @returns {Promise<string>}
    */
-  getActiveLinkFromPersonalInformationBlock(page: Page): Promise<string> {
+  async getActiveLinkFromPersonalInformationBlock(page: Page): Promise<string> {
     return this.getTextContent(page, this.activeLink);
   }
 
@@ -573,7 +579,7 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
    * @param page {Page} Browser tab
    * @returns {Promise<boolean>}
    */
-  isPasswordRequired(page: Page): Promise<boolean> {
+  async isPasswordRequired(page: Page): Promise<boolean> {
     return this.elementVisible(page, `${this.checkoutGuestPasswordInput}:required`, 1000);
   }
 
@@ -972,6 +978,15 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
     await page.waitForTimeout(2000);
 
     return this.getTextContent(page, this.shippingValueSpan);
+  }
+
+  /**
+   * Get errror carrier
+   * @param page {Page} Browser tab
+   * @returns {Promise<string|null>}
+   */
+  async getCarrierErrorMessage(page: Page): Promise<string|null> {
+    return page.locator(this.deliveryStepCarriersListError).textContent();
   }
 
   /**
