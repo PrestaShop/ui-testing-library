@@ -1,4 +1,5 @@
 // Import pages
+import {type BOBasePagePageInterface} from '@interfaces/BO';
 import CommonPage from '@pages/commonPage';
 
 import {Frame, Page} from '@playwright/test';
@@ -11,7 +12,7 @@ import semver from 'semver';
  * @class
  * @extends CommonPage
  */
-export default class BOBasePage extends CommonPage {
+export default class BOBasePage extends CommonPage implements BOBasePagePageInterface {
   public successfulCreationMessage: string;
 
   public successfulUpdateMessage: string;
@@ -136,6 +137,8 @@ export default class BOBasePage extends CommonPage {
 
   public readonly themeAndLogoParentLink: string;
 
+  public readonly themeAndLogoLink: string;
+
   public readonly emailThemeLink: string;
 
   public readonly pagesLink: string;
@@ -204,7 +207,7 @@ export default class BOBasePage extends CommonPage {
 
   public readonly logsLink: string;
 
-  public readonly authorizationServerLink: string;
+  public readonly adminAPILink: string;
 
   public readonly featureFlagLink: string;
 
@@ -403,6 +406,7 @@ export default class BOBasePage extends CommonPage {
     this.designParentLink = '#subtab-AdminParentThemes';
     // Theme & Logo
     this.themeAndLogoParentLink = '#subtab-AdminThemesParent';
+    this.themeAndLogoLink = '#subtab-AdminThemes';
     // Email theme
     this.emailThemeLink = '#subtab-AdminParentMailTheme';
     // Pages
@@ -475,7 +479,7 @@ export default class BOBasePage extends CommonPage {
     // Logs
     this.logsLink = '#subtab-AdminLogs';
     // Authorization Server
-    this.authorizationServerLink = '#subtab-AdminAuthorizationServer';
+    this.adminAPILink = '#subtab-AdminAdminAPI';
     // New & Experimental Features
     this.featureFlagLink = '#subtab-AdminFeatureFlag';
     // Security
@@ -612,8 +616,8 @@ export default class BOBasePage extends CommonPage {
     this.helpDocumentURL = `${this.rightSidebar} div.quicknav-scroller._fullspace object`;
 
     // Invalid token block
-    this.invalidTokenContinueLink = 'a.btn-continue';
-    this.invalidTokenCancelLink = 'a.btn-cancel';
+    this.invalidTokenContinueLink = '#security-compromised-page #csrf-white-container div a:nth-child(1)';
+    this.invalidTokenCancelLink = '#security-compromised-page #csrf-white-container div a:nth-child(2)';
   }
 
   /*
