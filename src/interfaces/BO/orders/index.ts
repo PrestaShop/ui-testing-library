@@ -7,4 +7,5 @@ export interface BOOrdersPageInterface extends BOBasePagePageInterface {
 
     getTextColumn(page: Page, columnName: string, row: number): Promise<string>;
     resetAndGetNumberOfLines(page: Page): Promise<number>;
+    filterOrders(page: Page, filterType: string, filterBy: string, value: string): Promise<void>
 }
