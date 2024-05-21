@@ -17,6 +17,7 @@ export type {
   GlobalMaildevConfig,
   GlobalKeycloakConfig,
 } from '@data/types/globals';
+export type {OrderCreator} from '@data/types/order';
 export type {
   PageWaitForSelectorOptionsState,
   WaitForNavigationWaitUntil,
@@ -27,6 +28,7 @@ export {default as dataCurrencies} from '@data/demo/currencies';
 export {default as dataCustomers} from '@data/demo/customers';
 export {default as dataGroups} from '@data/demo/groups';
 export {default as dataModules} from '@data/demo/modules';
+export {default as dataOrders} from '@data/demo/orders';
 export {default as dataOrderStatuses} from '@data/demo/orderStatuses';
 export {default as dataPaymentMethods} from '@data/demo/paymentMethods';
 export {default as dataSocialTitles} from '@data/demo/socialTitles';
@@ -44,6 +46,7 @@ export {default as FakerCurrency} from '@data/faker/currency';
 export {default as FakerCustomer} from '@data/faker/customer';
 export {default as FakerGroup} from '@data/faker/group';
 export {default as FakerModule} from '@data/faker/module';
+export {default as FakerOrder} from '@data/faker/order';
 export {default as FakerOrderStatus} from '@data/faker/orderStatus';
 export {default as FakerPaymentMethod} from '@data/faker/paymentMethod';
 export {default as FakerState} from '@data/faker/state';
@@ -59,6 +62,8 @@ export * as BOBasePage from '@pages/BO/BOBasePage';
 export {default as boLoginPage} from '@pages/BO/login';
 export {default as boDashboardPage} from '@pages/BO/dashboard';
 export {default as boOrdersPage} from '@pages/BO/orders';
+export {default as viewOrderBasePage} from '@pages/BO/orders/view/viewOrderBasePage';
+export {default as productsBlockPage} from '@pages/BO/orders/view/productsBlock';
 export {default as boModuleManagerPage} from '@pages/BO/modules/moduleManager';
 export {default as boModuleManagerUninstalledModulesPage} from '@pages/BO/modules/moduleManager/uninstalledModules';
 export {default as boDesignPositionsPage} from '@pages/BO/design/positions/index';
