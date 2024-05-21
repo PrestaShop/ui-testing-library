@@ -5,7 +5,7 @@ import dataOrderStatuses from '@data/demo/orderStatuses';
 import dataPaymentMethods from '@data/demo/paymentMethods';
 
 export default {
-    firstOrder: new OrderData({
+    order_1: new OrderData({
         id: 1,
         reference: 'XKBKNABJK',
         newClient: true,
@@ -15,7 +15,7 @@ export default {
         paymentMethod: dataPaymentMethods.checkPayment,
         status: dataOrderStatuses.canceled,
     }),
-    secondOrder: new OrderData({
+    order_2: new OrderData({
         id: 2,
         reference: 'OHSATSERP',
         newClient: false,
@@ -25,7 +25,7 @@ export default {
         paymentMethod: dataPaymentMethods.checkPayment,
         status: dataOrderStatuses.awaitingCheckPayment,
     }),
-    thirdOrder: new OrderData({
+    order_3: new OrderData({
         id: 3,
         reference: 'UOYEVOLI',
         newClient: false,
@@ -35,7 +35,7 @@ export default {
         paymentMethod: dataPaymentMethods.checkPayment,
         status: dataOrderStatuses.paymentError,
     }),
-    fourthOrder: new OrderData({
+    order_4: new OrderData({
         id: 4,
         reference: 'FFATNOMMJ',
         newClient: false,
@@ -45,7 +45,7 @@ export default {
         paymentMethod: dataPaymentMethods.checkPayment,
         status: dataOrderStatuses.awaitingCheckPayment,
     }),
-    fifthOrder: new OrderData({
+    order_5: new OrderData({
         id: 5,
         reference: 'KHWLILZLL',
         newClient: false,
