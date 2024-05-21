@@ -6,4 +6,6 @@ export interface CommonPageInterface {
     getPageTitle(page: Page): Promise<string>;
     goTo(page: Page, url: string): Promise<void>;
     goToFo(page: Page): Promise<void>;
+    reloadPage(page: Page): Promise<void>;
+    resize(page: Page, mobileSize: boolean): Promise<void>;
 }
