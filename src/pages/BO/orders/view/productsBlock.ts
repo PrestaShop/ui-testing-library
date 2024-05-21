@@ -10,7 +10,7 @@ function requirePage(): BOProductBlockPageInterface {
     if (semver.gte(psVersion, '7.7.0')) {
         return require('@versions/develop/pages/BO/orders/view/productsBlock').ordersPage;
     }
-    return require('@versions/1.7.6/pages/BO/orders/view');
+    return require('@versions/1.7.6/pages/BO/orders/view/productsBlock');
 }
 /* eslint-enable global-require, @typescript-eslint/no-var-requires */
 
