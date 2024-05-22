@@ -1,11 +1,12 @@
 import FakerCustomer from '@data/faker/customer';
 import FakerPaymentMethod from '@data/faker/paymentMethod';
 import FakerOrderStatus from '@data/faker/orderStatus';
+import FakerAddress from '@data/faker/address';
 import dataCustomers from '@data/demo/customers';
 import dataPaymentMethods from '@data/demo/paymentMethods';
 import dataOrderStatuses from '@data/demo/orderStatuses';
 
-import type {OrderCreator} from '@data/types/order';
+import type {OrderCreator, OrderDeliveryOption, OrderProduct} from '@data/types/order';
 
 import {faker} from '@faker-js/faker';
 
@@ -29,6 +30,20 @@ export default class OrderData {
   public readonly paymentMethod: FakerPaymentMethod;
 
   public readonly status: FakerOrderStatus;
+
+  public readonly deliveryAddress: FakerAddress;
+
+  public readonly invoiceAddress: FakerAddress;
+
+  public readonly products: OrderProduct[];
+
+  public readonly discountGiftValue: number;
+
+  public readonly discountPercentValue: number;
+
+  public readonly totalPrice: number;
+
+  public readonly deliveryOption: OrderDeliveryOption;
 
   /**
      * Constructor for class Order
@@ -60,5 +75,29 @@ export default class OrderData {
 
     /** @type {FakerOrderStatus|null} */
     this.status = orderToCreate.status || dataOrderStatuses.paymentAccepted;
+
+    /** @type {FakerCustomer} */
+    this.deliveryAddress = orderToCreate.deliveryAddress || new FakerAddress();
+
+    /** @type {FakerCustomer} */
+    this.invoiceAddress = orderToCreate.invoiceAddress || new FakerAddress();
+
+    /** @type {OrderProduct[]} */
+    this.products = orderToCreate.products || [];
+
+    /** @type {number} */
+    this.discountGiftValue = orderToCreate.discountGiftValue || 0;
+
+    /** @type {number} */
+    this.discountPercentValue = orderToCreate.discountPercentValue || 0;
+
+    /** @type {number} */
+    this.totalPrice = orderToCreate.totalPrice || 0;
+
+    /** @type {OrderDeliveryOption} */
+    this.deliveryOption = orderToCreate.deliveryOption || {
+      name: '',
+      freeShipping: false,
+    };
   }
 }
