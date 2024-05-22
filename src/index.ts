@@ -49,6 +49,7 @@ export {default as FakerModule} from '@data/faker/module';
 export {default as FakerOrder} from '@data/faker/order';
 export {default as FakerOrderStatus} from '@data/faker/orderStatus';
 export {default as FakerPaymentMethod} from '@data/faker/paymentMethod';
+export {default as FakerProduct} from '@data/faker/product';
 export {default as FakerState} from '@data/faker/state';
 export {default as FakerTax} from '@data/faker/tax';
 export {default as FakerTaxRule} from '@data/faker/taxRule';
