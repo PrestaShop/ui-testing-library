@@ -24,7 +24,7 @@ export interface BOProductBlockPageInterface extends BOBasePagePageInterface {
     selectFreeShippingCheckbox(page: Page): Promise<void>;
     addQuantity(page: Page, quantity: number): Promise<void>;
     updateProductPrice(page: Page, price: number): Promise<void>;
-    addProductToCart(page: Page, quantity: number = 1, createNewInvoice: boolean = false): Promise<string | null>;
+    addProductToCart(page: Page, quantity: number, createNewInvoice: boolean): Promise<string | null>;
     cancelAddProductToCart(page: Page): Promise<void>;
     isAddButtonDisabled(page: Page): Promise<boolean>;
     isAddProductTableRowVisible(page: Page): Promise<boolean>;
