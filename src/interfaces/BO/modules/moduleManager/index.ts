@@ -5,6 +5,8 @@ import type {Page} from '@playwright/test';
 
 export interface ModuleManagerPageInterface extends BOBasePagePageInterface {
     pageTitle: string;
+    readonly disableModuleSuccessMessage: (moduleTag: string) => string;
+    readonly enableModuleSuccessMessage: (moduleTag: string) => string;
     readonly resetModuleSuccessMessage: (moduleTag: string) => string;
 
     goToConfigurationPage(page: Page, moduleTag: string): Promise<void>;

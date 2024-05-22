@@ -6,10 +6,10 @@ const psVersion = testContext.getPSVersion();
 
 /* eslint-disable global-require, @typescript-eslint/no-var-requires */
 function requirePage(): ModuleManagerPageInterface {
-  if (semver.gte(psVersion, '0.0.0')) {
-    return require('@versions/develop/pages/BO/modules/moduleManager').moduleManager;
+  if (semver.lt(psVersion, '7.5.0')) {
+    return require('@versions/1.7.4/pages/BO/modules/moduleManager');
   }
-  return require('@versions/develop/pages/BO/modules/moduleManager').moduleManager;
+  return require('@versions/develop/pages/BO/modules/moduleManager').moduleManagerPage;
 }
 /* eslint-enable global-require, @typescript-eslint/no-var-requires */
 
