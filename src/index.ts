@@ -62,7 +62,7 @@ export * as BOBasePage from '@pages/BO/BOBasePage';
 export {default as boLoginPage} from '@pages/BO/login';
 export {default as boDashboardPage} from '@pages/BO/dashboard';
 export {default as boOrdersPage} from '@pages/BO/orders';
-export {default as boOrdersBasePage} from '@pages/BO/orders/view/viewOrderBasePage';
+export {default as boOrdersViewBasePage} from '@pages/BO/orders/view/viewOrderBasePage';
 export {default as boOrdersViewProductsBlockPage} from '@pages/BO/orders/view/productsBlock';
 export {default as boModuleManagerPage} from '@pages/BO/modules/moduleManager';
 export {default as boModuleManagerUninstalledModulesPage} from '@pages/BO/modules/moduleManager/uninstalledModules';
