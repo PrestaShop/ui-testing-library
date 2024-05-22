@@ -341,14 +341,14 @@ class OrdersPage extends BOBasePage implements BOOrdersPageInterface {
    * totalPaid: string, payment: string, status: string}>}
    */
   async getOrderFromTable(page: Page, row: number): Promise<{
-    id: number,
-    reference: string,
-    newClient:string,
-    delivery: string,
-    customer: string,
-    totalPaid: string,
-    payment: string,
-    status: string
+  id: number,
+  reference: string,
+  newClient:string,
+  delivery: string,
+  customer: string,
+  totalPaid: string,
+  payment: string,
+  status: string
   }> {
     return {
       id: parseFloat(await this.getTextColumn(page, 'id_order', row)),

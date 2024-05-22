@@ -26,9 +26,9 @@ class ViewOrderBasePage extends BOBasePage implements BOViewOrderBasePageInterfa
 
   public readonly noAvailableDocumentsMessage: string;
 
-  public readonly updateSuccessfullMessage: string;
+  public readonly updateSuccessMessage: string;
 
-  public readonly commentSuccessfullMessage: string;
+  public readonly commentSuccessMessage: string;
 
   public readonly validationSendMessage: string;
 
@@ -76,8 +76,8 @@ class ViewOrderBasePage extends BOBasePage implements BOViewOrderBasePageInterfa
     this.errorAddSameProductInInvoice = (invoice: string) => `This product is already in the invoice #${invoice}, `
             + 'please edit the quantity instead.';
     this.noAvailableDocumentsMessage = 'There is no available document';
-    this.updateSuccessfullMessage = 'Update successful';
-    this.commentSuccessfullMessage = 'Comment successfully added.';
+    this.updateSuccessMessage = 'Update successful';
+    this.commentSuccessMessage = 'Comment successfully added.';
     this.validationSendMessage = 'The message was successfully sent to the customer.';
     this.errorAssignSameStatus = 'The order has already been assigned this status.';
     this.discountMustBeNumberErrorMessage = 'Discount value must be a number.';
@@ -139,7 +139,7 @@ class ViewOrderBasePage extends BOBasePage implements BOViewOrderBasePageInterfa
      * @param page {Page} Browser tab
      * @returns {Promise<boolean>}
      */
-  isUpdateStatusButtonDisabled(page: Page): Promise<boolean> {
+  async isUpdateStatusButtonDisabled(page: Page): Promise<boolean> {
     return this.elementVisible(page, `${this.updateStatusButton}[disabled]`, 1000);
   }
 
@@ -197,7 +197,7 @@ class ViewOrderBasePage extends BOBasePage implements BOViewOrderBasePageInterfa
      * @param page {Page} Browser tab
      * @returns {Promise<boolean>}
      */
-  isViewInvoiceButtonVisible(page: Page): Promise<boolean> {
+  async isViewInvoiceButtonVisible(page: Page): Promise<boolean> {
     return this.elementVisible(page, this.viewInvoiceButton, 1000);
   }
 
@@ -215,7 +215,7 @@ class ViewOrderBasePage extends BOBasePage implements BOViewOrderBasePageInterfa
      * @param page {Page} Browser tab
      * @returns {Promise<boolean>}
      */
-  isPartialRefundButtonVisible(page: Page): Promise<boolean> {
+  async isPartialRefundButtonVisible(page: Page): Promise<boolean> {
     return this.elementVisible(page, this.partialRefundButton, 1000);
   }
 
@@ -233,7 +233,7 @@ class ViewOrderBasePage extends BOBasePage implements BOViewOrderBasePageInterfa
      * @param page {Page} Browser tab
      * @returns {Promise<boolean>}
      */
-  isDeliverySlipButtonVisible(page: Page): Promise<boolean> {
+  async isDeliverySlipButtonVisible(page: Page): Promise<boolean> {
     return this.elementVisible(page, this.viewDeliverySlipButton, 1000);
   }
 

@@ -551,9 +551,18 @@ class ProductsBlock extends BOBasePage implements BOProductBlockPageInterface {
      * Get product details
      * @param page {Frame|Page} Browser tab
      * @param row {number} Product row on table
-     * @returns {Promise<{total: number, quantity: number, name: string, available: number, basePrice: number}>}
+     * @returns {Promise<{orderDetailId:string, productId:number, name: string, reference:string, basePrice: number, quantity: number, available: number, total: number}>}
      */
-  async getProductDetails(page: Frame | Page, row: number) {
+  async getProductDetails(page: Frame | Page, row: number) :Promise<{
+    reference: string,
+    total: number,
+    quantity: number,
+    productId: string,
+    name: string,
+    available: number,
+    orderDetailId: string,
+    basePrice: number,
+  }> {
     return {
       orderDetailId: await this.getAttributeContent(page, this.editProductButton(row), 'data-order-detail-id'),
       productId: await this.getAttributeContent(page, this.editProductButton(row), 'data-product-id'),
@@ -595,7 +604,7 @@ class ProductsBlock extends BOBasePage implements BOProductBlockPageInterface {
      * @param page {Page} Browser tab
      * @returns {Promise<{stockLocation: string, available: number, price:number;}>}
      */
-  async getSearchedProductDetails(page: Page): Promise<{ stockLocation: string; available: number; price: number; }> {
+  async getSearchedProductDetails(page: Page): Promise<{ stockLocation: string, available: number, price: number}> {
     return {
       stockLocation: await this.getTextContent(page, this.addProductRowStockLocation),
       available: parseInt(await this.getTextContent(page, this.addProductAvailable), 10),
@@ -608,7 +617,7 @@ class ProductsBlock extends BOBasePage implements BOProductBlockPageInterface {
      * @param page {Page} Browser tab
      * @returns {Promise<{available: number, price: number}>}
      */
-  async getSearchedProductInformation(page: Page): Promise<{ available: number; price: number; }> {
+  async getSearchedProductInformation(page: Page): Promise<{ available: number, price: number}> {
     return {
       available: parseInt(await this.getTextContent(page, this.addProductAvailable), 10),
       price: parseFloat(await this.getTextContent(page, this.addProductTotalPrice)),
