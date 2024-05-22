@@ -37,7 +37,7 @@ export interface BOOrdersPageInterface extends BOBasePagePageInterface {
     selectAllOrders(page:Page):Promise<void>;
     selectOrdersRows(page:Page, rows:number[]):Promise<void>;
     clickOnBulkActionsButton(page:Page):Promise<void>;
-    bulkOpenInNewTabs(page:Page, isAllOrders:boolean, row:number[]);
+    bulkOpenInNewTabs(page:Page, isAllOrders:boolean, row:number[]):Promise<Page>;
     bulkUpdateOrdersStatus(page:Page, status:string, isAllOrders:boolean, rows:number[]):Promise<string>;
     sortTable(page: Page, sortBy: string, sortDirection: string): Promise<void>;
     getPaginationLabel(page: Page): Promise<string>;

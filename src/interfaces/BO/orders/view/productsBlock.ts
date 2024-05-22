@@ -24,7 +24,7 @@ export interface BOProductBlockPageInterface extends BOBasePagePageInterface {
     selectFreeShippingCheckbox(page: Page): Promise<void>;
     addQuantity(page: Page, quantity: number): Promise<void>;
     updateProductPrice(page: Page, price: number): Promise<void>;
-    addProductToCart(page: Page, quantity: number = 1, createNewInvoice: boolean = false): Promise<string | null>
+    addProductToCart(page: Page, quantity: number = 1, createNewInvoice: boolean = false): Promise<string | null>;
     cancelAddProductToCart(page: Page): Promise<void>;
     isAddButtonDisabled(page: Page): Promise<boolean>;
     isAddProductTableRowVisible(page: Page): Promise<boolean>;
@@ -44,8 +44,8 @@ export interface BOProductBlockPageInterface extends BOBasePagePageInterface {
     getSearchedProductInformation(page: Page): Promise<{ available: number, price: number}>;
     addDiscount(page: Page, discountData: ProductDiscount): Promise<string>;
     isDiscountListTableVisible(page: Page): Promise<boolean>;
-    getTextColumnFromDiscountTable(page: Page, column: string, row: number = 1): Promise<string>;
-    deleteDiscount(page: Page, row: number = 1): Promise<string>;
+    getTextColumnFromDiscountTable(page: Page, column: string, row: number): Promise<string>;
+    deleteDiscount(page: Page, row: number): Promise<string>;
     getPaginationLabel(page: Page): Promise<string>;
     paginationNext(page: Page): Promise<string>;
     paginationPrevious(page: Page): Promise<string>;
