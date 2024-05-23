@@ -1,5 +1,5 @@
 import {BOProductBlockPageInterface} from '@interfaces/BO/orders/view/productsBlock';
-import BOBasePage from '@pages/BO/BOBasePage';
+import ViewOrdersBasePage from '@pages/BO/orders/view/viewOrderBasePage';
 
 import type {ProductDiscount} from '@data/types/product';
 
@@ -8,9 +8,9 @@ import type {Frame, Page} from 'playwright';
 /**
  * Products block, contains functions that can be used on view/edit products block on view order page
  * @class
- * @extends BOBasePage
+ * @extends ViewOrdersBasePage
  */
-class ProductsBlock extends BOBasePage implements BOProductBlockPageInterface {
+class ProductsBlock extends ViewOrdersBasePage implements BOProductBlockPageInterface {
   private readonly productsCountSpan: string;
 
   private readonly orderProductsLoading: string;
