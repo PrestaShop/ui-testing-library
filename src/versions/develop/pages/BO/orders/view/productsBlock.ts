@@ -8,7 +8,7 @@ import type {Frame, Page} from 'playwright';
 /**
  * Products block, contains functions that can be used on view/edit products block on view order page
  * @class
- * @extends ViewOrdersBasePage
+ * @extends ViewOrderBasePage
  */
 class ProductsBlock extends ViewOrderBasePage implements BOProductBlockPageInterface {
   private readonly productsCountSpan: string;
