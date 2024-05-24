@@ -1,10 +1,10 @@
-import {BOBasePagePageInterface} from '@interfaces/BO';
+import {BOViewOrderBasePageInterface} from '@interfaces/BO/orders/view/viewOrderBasePage';
 
 import type {Frame, Page} from '@playwright/test';
 
 import type {ProductDiscount} from '@data/types/product';
 
-export interface BOProductBlockPageInterface extends BOBasePagePageInterface {
+export interface BOProductBlockPageInterface extends BOViewOrderBasePageInterface {
     addDiscount(page: Page, discountData: ProductDiscount): Promise<string>;
     addPartialRefundProduct(page: Page, productRow: number, quantity: number, amount: number, shipping: number): Promise<string>
     addProductToCart(page: Page, quantity: number, createNewInvoice: boolean): Promise<string | null>;
