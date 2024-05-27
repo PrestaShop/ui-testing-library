@@ -1,26 +1,26 @@
 // Export data
 export type {
-  CarrierCreator,
-  CarrierRange,
-  CarrierRangeZone,
+    CarrierCreator,
+    CarrierRange,
+    CarrierRangeZone,
 } from '@data/types/carrier';
 export type {CartProductDetails} from '@data/types/cart';
 export type {
-  GlobalInstall,
-  GlobalFO,
-  GlobalBO,
-  GlobalBrowser,
-  GlobalBrowserConfig,
-  GlobalPSConfig,
-  GlobalBrowserErrors,
-  GlobalScreenshot,
-  GlobalMaildevConfig,
-  GlobalKeycloakConfig,
+    GlobalInstall,
+    GlobalFO,
+    GlobalBO,
+    GlobalBrowser,
+    GlobalBrowserConfig,
+    GlobalPSConfig,
+    GlobalBrowserErrors,
+    GlobalScreenshot,
+    GlobalMaildevConfig,
+    GlobalKeycloakConfig,
 } from '@data/types/globals';
 export type {OrderCreator} from '@data/types/order';
 export type {
-  PageWaitForSelectorOptionsState,
-  WaitForNavigationWaitUntil,
+    PageWaitForSelectorOptionsState,
+    WaitForNavigationWaitUntil,
 } from '@data/types/playwright';
 
 export {default as dataCategories} from '@data/demo/categories';
