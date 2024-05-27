@@ -1,16 +1,16 @@
 import BOBasePage from '@pages/BO/BOBasePage';
 
 import productsPage from '@pages/BO/catalog/products';
-import virtualProductTab from '@pages/BO/catalog/products/add/virtualProductTab';
-import descriptionTab from '@pages/BO/catalog/products/add/descriptionTab';
-import detailsTab from '@pages/BO/catalog/products/add/detailsTab';
-import stocksTab from '@pages/BO/catalog/products/add/stocksTab';
-import pricingTab from '@pages/BO/catalog/products/add/pricingTab';
-import packTab from '@pages/BO/catalog/products/add/packTab';
+import virtualProductTab from '@pages/BO/catalog/products/create/virtualProductTab';
+import descriptionTab from '@pages/BO/catalog/products/create/descriptionTab';
+import detailsTab from '@pages/BO/catalog/products/create/detailsTab';
+import stocksTab from '@pages/BO/catalog/products/create/stocksTab';
+import pricingTab from '@pages/BO/catalog/products/create/pricingTab';
+import packTab from '@pages/BO/catalog/products/create/packTab';
 
 import type ProductData from '@data/faker/product';
 import type {ProductHeaderSummary} from '@data/types/product';
-import type {BOCreateProductPageInterface} from '@interfaces/BO/catalog/products/add';
+import type {BOCreateProductPageInterface} from '@interfaces/BO/catalog/products/create';
 
 import type {Frame, Page} from 'playwright';
 

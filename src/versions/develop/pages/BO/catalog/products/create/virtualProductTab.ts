@@ -3,7 +3,7 @@ import BOBasePage from '@pages/BO/BOBasePage';
 import type {Page} from 'playwright';
 
 import type ProductData from '@data/faker/product';
-import type {BOVirtualProductTabPageInterface} from '@interfaces/BO/catalog/products/add/virtualProductTab';
+import type {BOVirtualProductTabPageInterface} from '@interfaces/BO/catalog/products/create/virtualProductTab';
 
 /**
  * Virtual product tab on new product page, contains functions that can be used on the page

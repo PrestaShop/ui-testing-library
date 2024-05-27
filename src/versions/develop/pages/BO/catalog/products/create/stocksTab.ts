@@ -2,7 +2,7 @@ import BOBasePage from '@pages/BO/BOBasePage';
 
 import type ProductData from '@data/faker/product';
 import type {ProductStockMovement} from '@data/types/product';
-import type {BOStocksTabPageInterface} from '@interfaces/BO/catalog/products/add/stocksTab';
+import type {BOStocksTabPageInterface} from '@interfaces/BO/catalog/products/create/stocksTab';
 
 import type {Page} from 'playwright';
 

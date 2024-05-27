@@ -2,7 +2,7 @@ import BOBasePage from '@pages/BO/BOBasePage';
 
 import ProductData from '@data/faker/product';
 import type {ProductSpecificPrice} from '@data/types/product';
-import type {BOPricingTabPageInterface} from '@interfaces/BO/catalog/products/add/pricingTab';
+import type {BOPricingTabPageInterface} from '@interfaces/BO/catalog/products/create/pricingTab';
 
 import type {Page} from 'playwright';
 

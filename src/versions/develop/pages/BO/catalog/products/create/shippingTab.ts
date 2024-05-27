@@ -2,7 +2,7 @@ import BOBasePage from '@pages/BO/BOBasePage';
 
 import type ProductData from '@data/faker/product';
 
-import type {BOShippingTabPageInterface} from '@interfaces/BO/catalog/products/add/shippingTab';
+import type {BOShippingTabPageInterface} from '@interfaces/BO/catalog/products/create/shippingTab';
 
 import type {Page} from 'playwright';
 

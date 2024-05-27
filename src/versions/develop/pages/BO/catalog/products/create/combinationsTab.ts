@@ -12,7 +12,7 @@ import type {
 } from '@data/types/product';
 
 import type {Frame, Page} from 'playwright';
-import type {BOCombinationsTabPageInterface} from '@interfaces/BO/catalog/products/add/combinationsTab';
+import type {BOCombinationsTabPageInterface} from '@interfaces/BO/catalog/products/create/combinationsTab';
 
 /**
  * Combinations tab on new product V2 page, contains functions that can be used on the page

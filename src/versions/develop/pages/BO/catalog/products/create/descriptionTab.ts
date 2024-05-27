@@ -2,7 +2,7 @@ import BOBasePage from '@pages/BO/BOBasePage';
 
 import type ProductData from '@data/faker/product';
 import type {ProductImageInformation} from '@data/types/product';
-import type {BODescriptionTabPageInterface} from '@interfaces/BO/catalog/products/add/descriptionTab';
+import type {BODescriptionTabPageInterface} from '@interfaces/BO/catalog/products/create/descriptionTab';
 
 import type {Page} from 'playwright';
 

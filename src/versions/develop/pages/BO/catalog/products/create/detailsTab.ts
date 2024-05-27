@@ -1,10 +1,10 @@
 import BOBasePage from '@pages/BO/BOBasePage';
-import createProductPage from '@pages/BO/catalog/products/add';
+import createProductPage from '@pages/BO/catalog/products/create';
 
 // Import data
 import type ProductData from '@data/faker/product';
 import type {ProductFeatures} from '@data/types/product';
-import type {BODetailsTabPageInterface} from '@interfaces/BO/catalog/products/add/detailsTab';
+import type {BODetailsTabPageInterface} from '@interfaces/BO/catalog/products/create/detailsTab';
 
 import type {Frame, Page} from 'playwright';
 

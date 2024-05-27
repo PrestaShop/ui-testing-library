@@ -1,6 +1,6 @@
 import BOBasePage from '@pages/BO/BOBasePage';
 
-import type {BOSeoTabPageInterface} from '@interfaces/BO/catalog/products/add/seoTab';
+import type {BOSeoTabPageInterface} from '@interfaces/BO/catalog/products/create/seoTab';
 
 import type {Page} from 'playwright';
 

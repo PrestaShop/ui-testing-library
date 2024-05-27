@@ -6,7 +6,7 @@ import type {
   ProductPackOptions,
   ProductStockMovement,
 } from '@data/types/product';
-import type {BOPackTabPageInterface} from '@interfaces/BO/catalog/products/add/packTab';
+import type {BOPackTabPageInterface} from '@interfaces/BO/catalog/products/create/packTab';
 
 import type {Locator, Page} from 'playwright';
 
