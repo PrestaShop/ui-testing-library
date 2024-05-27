@@ -184,6 +184,16 @@ type ProductImageUrls = {
   thumbImage: string
 };
 
+type ProductImageInformation = {
+  id: number,
+  isCover: boolean,
+  position: number,
+  caption: {
+    en: string,
+    fr: string
+  },
+};
+
 type ProductPackItem = {
   reference: string
   quantity: number
@@ -236,6 +246,7 @@ export type {
   ProductFilterMinMax,
   ProductHeaderSummary,
   ProductImageUrls,
+  ProductImageInformation,
   ProductInformations,
   ProductPackItem,
   ProductPackInformation,
