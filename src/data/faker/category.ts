@@ -1,7 +1,7 @@
 import type {CategoryCreator, CategoryRedirection} from '@data/types/category';
 
 import dataGroups from '@data/demo/groups'
-import  type FakerGroup from '@data/faker/group';
+import FakerGroup from '@data/faker/group';
 
 import {faker} from '@faker-js/faker';
 
