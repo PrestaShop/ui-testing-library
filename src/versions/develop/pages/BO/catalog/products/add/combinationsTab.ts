@@ -234,7 +234,7 @@ class CombinationsTab extends BOBasePage implements BOCombinationsTabPageInterfa
     // Bulk edit modal
     this.bulkEditModal = '#bulk-combination-form-modal';
     this.bulkEditModalTitle = `${this.bulkEditModal} .modal-header .modal-title`;
-    // Edit stocks
+    // Bulk edit stocks
     this.bulkEditModalStocksButton = '#bulk_combination_stock_accordion_header h2 button';
     this.bulkEditModalQuantitySwitchButton = (toEnable: number) => '#bulk_combination_stock_disabling_switch_delta_quantity_'
             + `${toEnable}`;
@@ -257,7 +257,7 @@ class CombinationsTab extends BOBasePage implements BOCombinationsTabPageInterfa
     this.bulkEditModalImpactOnWeightSwitchButton = (toEnable: number) => '#bulk_combination_price_disabling_switch_weight_'
             + `${toEnable}`;
     this.bulkEditModalImpactOnWeightInput = '#bulk_combination_price_weight';
-    // Edit specific references
+    // Bulk edit specific references
     this.bulkEditModalSpecificReferences = '#bulk_combination_references_accordion_header h2 button';
     this.bulkEditModalReferenceSwitchButton = (toEnable: number) => '#bulk_combination_references_disabling_switch_'
             + `reference_${toEnable}`;
@@ -620,7 +620,6 @@ class CombinationsTab extends BOBasePage implements BOCombinationsTabPageInterfa
             combinationData.impactOnPriceTExc,
     );
     await this.setValue(combinationFrame!, this.editCombinationModalReferenceInput, combinationData.reference);
-
     await this.waitForSelectorAndClick(page, this.editCombinationModalSaveButton);
 
     return this.getAlertSuccessBlockParagraphContent(combinationFrame!);

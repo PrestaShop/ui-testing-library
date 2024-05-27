@@ -155,7 +155,7 @@ class ProductsPage extends BOBasePage implements BOProductsPageInterface {
 
   private readonly productListTablePreviewButton: (row: number) => string;
 
-  readonly modalCreateProduct: string;
+  public readonly modalCreateProduct: string;
 
   private readonly modalCreateProductLoader: string;
 
@@ -169,7 +169,7 @@ class ProductsPage extends BOBasePage implements BOProductsPageInterface {
 
   private readonly productType: (type: string) => string;
 
-  protected readonly modalDialog: string;
+  public readonly modalDialog: string;
 
   private readonly modalDialogFooter: string;
 

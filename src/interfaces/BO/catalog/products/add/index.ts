@@ -6,7 +6,6 @@ import type ProductData from '@data/faker/product';
 import type {ProductHeaderSummary} from '@data/types/product';
 
 export interface BOCreateProductPageInterface extends BOBasePagePageInterface {
-    readonly saveProductButton: string;
     readonly errorMessage: string;
     readonly errorMessageWhenSummaryTooLong: (number: number) => string;
     readonly pageTitle: string;

@@ -1,5 +1,5 @@
 import BOBasePage from '@pages/BO/BOBasePage';
-import type createProductPage from '@pages/BO/catalog/products/add';
+import createProductPage from '@pages/BO/catalog/products/add';
 
 // Import data
 import type ProductData from '@data/faker/product';
@@ -9,7 +9,7 @@ import type {BODetailsTabPageInterface} from '@interfaces/BO/catalog/products/ad
 import type {Frame, Page} from 'playwright';
 
 /**
- * Details tab on new product V2 page, contains functions that can be used on the page
+ * Details tab on new product page, contains functions that can be used on the page
  * @class
  * @extends BOBasePage
  */
@@ -225,7 +225,7 @@ class DetailsTab extends BOBasePage implements BODetailsTabPageInterface {
      * @returns {Promise<string>}
      */
   async getErrorMessageInReferencesForm(page: Page, inputNumber: number): Promise<string> {
-    await this.clickAndWaitForLoadState(page, createProductPage.saveProductButton);
+    await createProductPage.clickOnSaveProductButton(page);
 
     return this.getTextContent(page, this.referenceFormErrorMessage(inputNumber));
   }

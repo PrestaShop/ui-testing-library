@@ -4,7 +4,7 @@ import type {Page} from 'playwright';
 import type {BOOptionsTabPageInterface} from '@interfaces/BO/catalog/products/add/optionsTab';
 
 /**
- * Options tab on new product V2 page, contains functions that can be used on the page
+ * Options tab on new product page, contains functions that can be used on the page
  * @class
  * @extends BOBasePage
  */

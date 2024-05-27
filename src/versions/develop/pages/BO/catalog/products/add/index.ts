@@ -1,7 +1,7 @@
 import BOBasePage from '@pages/BO/BOBasePage';
 
-import virtualProductTab from '@pages/BO/catalog/products/add/virtualProductTab';
 import productsPage from '@pages/BO/catalog/products';
+import virtualProductTab from '@pages/BO/catalog/products/add/virtualProductTab';
 import descriptionTab from '@pages/BO/catalog/products/add/descriptionTab';
 import detailsTab from '@pages/BO/catalog/products/add/detailsTab';
 import stocksTab from '@pages/BO/catalog/products/add/stocksTab';
@@ -15,11 +15,11 @@ import type {BOCreateProductPageInterface} from '@interfaces/BO/catalog/products
 import type {Frame, Page} from 'playwright';
 
 /**
- * Create Product V2 page, contains functions that can be used on the page
+ * Create Product page, contains functions that can be used on the page
  * @class
  * @extends BOBasePage
  */
-class CreateProduct extends BOBasePage implements BOCreateProductPageInterface {
+class CreateProduct extends BOBasePage  implements BOCreateProductPageInterface {
   public readonly pageTitle: string;
 
   public readonly saveAndPublishButtonName: string;
@@ -447,7 +447,7 @@ class CreateProduct extends BOBasePage implements BOCreateProductPageInterface {
     await this.waitForVisibleSelector(page, this.deleteProductFooterModal);
     await this.clickAndWaitForURL(page, this.deleteProductSubmitButton);
 
-    return productsPage.getAlertSuccessBlockParagraphContent(page);
+    return this.getAlertSuccessBlockParagraphContent(page);
   }
 
   /**

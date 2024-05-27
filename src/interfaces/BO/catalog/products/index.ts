@@ -8,6 +8,8 @@ export interface BOProductsPageInterface extends BOBasePagePageInterface {
      readonly alertDangerIDFilterValue: string;
      readonly alertDangerPriceFilterValue: string;
      readonly alertDangerQuantityFilterValue: string;
+     readonly modalCreateProduct: string;
+     readonly modalDialog: string;
      readonly packOfProductsDescription: string;
      readonly pageTitle: string;
      readonly productWithCombinationsDescription: string;
