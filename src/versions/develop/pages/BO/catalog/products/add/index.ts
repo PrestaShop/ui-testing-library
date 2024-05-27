@@ -19,7 +19,7 @@ import type {Frame, Page} from 'playwright';
  * @class
  * @extends BOBasePage
  */
-class CreateProduct extends BOBasePage  implements BOCreateProductPageInterface {
+class CreateProduct extends BOBasePage implements BOCreateProductPageInterface {
   public readonly pageTitle: string;
 
   public readonly saveAndPublishButtonName: string;
