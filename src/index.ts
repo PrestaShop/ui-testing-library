@@ -98,3 +98,4 @@ export {default as modBlockwishlistBoStatistics} from '@pages/BO/modules/blockwi
 
 // Export utils
 export {default as testContext} from '@utils/test';
+export {default as basicHelper} from '@utils/basicHelper';
