@@ -1,10 +1,10 @@
 import TaxRules from '@data/demo/taxRule';
-import TaxRuleData from '@data/faker/taxRule';
+import FakerTaxRule from '@data/faker/taxRule';
 import {CarrierCreator, CarrierRange} from '@data/types/carrier';
 
 import {faker} from '@faker-js/faker';
 
-const taxes: string[] = Object.values(TaxRules).map((tax: TaxRuleData) => tax.name);
+const taxes: string[] = Object.values(TaxRules).map((tax: FakerTaxRule) => tax.name);
 const outOfRangeBehavior: string[] = ['Apply the cost of the highest defined range', 'Disable carrier'];
 const billing: string[] = ['According to total price', 'According to total weight'];
 
@@ -12,7 +12,7 @@ const billing: string[] = ['According to total price', 'According to total weigh
  * Create new carrier to use in carrier form on BO
  * @class
  */
-export default class CarrierData {
+export default class FakerCarrier {
   public readonly id: number;
 
   public readonly position: number;
@@ -56,7 +56,7 @@ export default class CarrierData {
   public readonly ranges: CarrierRange[];
 
   /**
-   * Constructor for class CarrierData
+   * Constructor for class FakerCarrier
    * @param carrierToCreate {CarrierCreator} Could be used to force the value of some members
    */
   constructor(carrierToCreate: CarrierCreator = {}) {

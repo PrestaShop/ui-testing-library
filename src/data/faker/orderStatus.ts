@@ -6,7 +6,7 @@ import {faker} from '@faker-js/faker';
  * Create new order status to use on creation form on order status page on BO
  * @class
  */
-export default class OrderStatusData {
+export default class FakerOrderStatus {
   public readonly id: number;
 
   public readonly name: string;
@@ -34,7 +34,7 @@ export default class OrderStatusData {
   public readonly emailTemplate: string;
 
   /**
-   * Constructor for class OrderStatusData
+   * Constructor for class FakerOrderStatus
    * @param orderStatusToCreate {OrderStatusCreator} Could be used to force the value of some members
    */
   constructor(orderStatusToCreate: OrderStatusCreator = {}) {

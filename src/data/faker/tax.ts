@@ -7,7 +7,7 @@ import {faker} from '@faker-js/faker';
  * Create new tax to use on tax form on BO
  * @class
  */
-export default class TaxData {
+export default class FakerTax {
   public readonly id: number;
 
   public readonly rate: string;
@@ -19,7 +19,7 @@ export default class TaxData {
   public readonly enabled: boolean;
 
   /**
-   * Constructor for class TaxData
+   * Constructor for class FakerTax
    * @param taxToCreate {TaxCreator} Could be used to force the value of some members
    */
   constructor(taxToCreate: TaxCreator = {}) {

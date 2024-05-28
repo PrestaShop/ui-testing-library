@@ -8,7 +8,7 @@ import stocksTab from '@pages/BO/catalog/products/create/stocksTab';
 import pricingTab from '@pages/BO/catalog/products/create/pricingTab';
 import packTab from '@pages/BO/catalog/products/create/packTab';
 
-import type ProductData from '@data/faker/product';
+import type FakerProduct from '@data/faker/product';
 import type {ProductHeaderSummary} from '@data/types/product';
 import type {BOCreateProductPageInterface} from '@interfaces/BO/catalog/products/create';
 
@@ -345,10 +345,10 @@ class CreateProduct extends BOBasePage implements BOCreateProductPageInterface {
   /**
      * Set product
      * @param page {Page} Browser tab
-     * @param productData {ProductData} Data to set in new product page
+     * @param productData {FakerProduct} Data to set in new product page
      * @returns {Promise<string>}
      */
-  async setProduct(page: Page, productData: ProductData): Promise<string> {
+  async setProduct(page: Page, productData: FakerProduct): Promise<string> {
     // Set status
     await this.setProductStatus(page, productData.status);
     // Set description

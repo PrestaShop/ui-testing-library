@@ -6,7 +6,7 @@ import {faker} from '@faker-js/faker';
  * Create new currency to use in currency form on BO
  * @class
  */
-export default class CurrencyData {
+export default class FakerCurrency {
   public readonly name: string;
 
   public readonly frName: string;
@@ -22,7 +22,7 @@ export default class CurrencyData {
   public readonly enabled: boolean;
 
   /**
-   * Constructor for class CurrencyData
+   * Constructor for class FakerCurrency
    * @param currencyToCreate {CurrencyCreator} Could be used to force the value of some members
    */
   constructor(currencyToCreate: CurrencyCreator = {}) {

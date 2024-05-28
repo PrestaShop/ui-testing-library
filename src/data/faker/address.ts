@@ -1,19 +1,19 @@
 import Countries from '@data/demo/countries';
 import States from '@data/demo/states';
-import type CountryData from '@data/faker/country';
-import type StateData from '@data/faker/state';
+import type FakerCountry from '@data/faker/country';
+import type FakerState from '@data/faker/state';
 import type AddressCreator from '@data/types/address';
 
 import {fakerFR as faker} from '@faker-js/faker';
 
-const countriesNames: string[] = Object.values(Countries).map((country: CountryData) => country.name);
-const statesNames: string[] = Object.values(States).map((state: StateData) => state.name);
+const countriesNames: string[] = Object.values(Countries).map((country: FakerCountry) => country.name);
+const statesNames: string[] = Object.values(States).map((state: FakerState) => state.name);
 
 /**
  * Create new address to use in customer address form on BO and FO
  * @class
  */
-export default class AddressData {
+export default class FakerAddress {
   public readonly id: number;
 
   public readonly name: string;

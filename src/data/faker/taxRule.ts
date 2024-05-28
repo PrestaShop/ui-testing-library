@@ -1,19 +1,19 @@
 // Import data
 import Countries from '@data/demo/countries';
 import tax from '@data/demo/tax';
-import type CountryData from '@data/faker/country';
+import type FakerCountry from '@data/faker/country';
 import TaxRuleBehaviour from '@data/demo/taxRuleBehaviour';
 import TaxRuleCreator from '@data/types/taxRule';
 
 import {faker} from '@faker-js/faker';
 
-const countriesNames: string[] = Object.values(Countries).map((country: CountryData) => country.name);
+const countriesNames: string[] = Object.values(Countries).map((country: FakerCountry) => country.name);
 
 /**
  * Create new tax rule to use on tax rule form on BO
  * @class
  */
-export default class TaxRuleData {
+export default class FakerTaxRule {
   public readonly id: number;
 
   public readonly country: string;
@@ -27,7 +27,7 @@ export default class TaxRuleData {
   public readonly description: string;
 
   /**
-   * Constructor for class TaxRuleData
+   * Constructor for class FakerTaxRule
    * @param taxRulesToCreate {TaxRuleCreator} Could be used to force the value of some members
    */
   constructor(taxRulesToCreate: TaxRuleCreator = {}) {

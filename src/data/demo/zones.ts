@@ -1,42 +1,42 @@
-import ZoneData from '@data/faker/zone';
+import FakerZone from '@data/faker/zone';
 
 export default {
-  europe: new ZoneData({
+  europe: new FakerZone({
     id: 1,
     name: 'Europe',
     status: true,
   }),
-  northAmerica: new ZoneData({
+  northAmerica: new FakerZone({
     id: 2,
     name: 'North America',
     status: true,
   }),
-  asia: new ZoneData({
+  asia: new FakerZone({
     id: 3,
     name: 'Asia',
     status: true,
   }),
-  africa: new ZoneData({
+  africa: new FakerZone({
     id: 4,
     name: 'Africa',
     status: true,
   }),
-  oceania: new ZoneData({
+  oceania: new FakerZone({
     id: 5,
     name: 'Oceania',
     status: true,
   }),
-  southAmerica: new ZoneData({
+  southAmerica: new FakerZone({
     id: 6,
     name: 'South America',
     status: true,
   }),
-  europeNonEu: new ZoneData({
+  europeNonEu: new FakerZone({
     id: 7,
     name: 'Europe (non-EU)',
     status: true,
   }),
-  centralAmericaAntilla: new ZoneData({
+  centralAmericaAntilla: new FakerZone({
     id: 8,
     name: 'Central America/Antilla',
     status: true,

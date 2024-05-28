@@ -9,7 +9,7 @@ const genders: string[] = ['Male', 'Female', 'Neutral'];
  * Create new title to use on title form on BO
  * @class
  */
-export default class TitleData {
+export default class FakerTitle {
   public readonly id: number;
 
   public readonly name: string;
@@ -25,7 +25,7 @@ export default class TitleData {
   public readonly imageHeight: number;
 
   /**
-   * Constructor for class TitleData
+   * Constructor for class FakerTitle
    * @param titleToCreate {TitleCreator} Could be used to force the value of some members
    */
   constructor(titleToCreate: TitleCreator = {}) {

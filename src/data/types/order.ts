@@ -2,7 +2,7 @@ import FakerCustomer from '@data/faker/customer';
 import FakerPaymentMethod from '@data/faker/paymentMethod';
 import FakerOrderStatus from '@data/faker/orderStatus';
 import FakerAddress from '@data/faker/address';
-import FakerProductData from '@data/faker/product';
+import FakerFakerProduct from '@data/faker/product';
 
 type OrderCreator = {
     id?: number
@@ -28,7 +28,7 @@ type OrderDeliveryOption = {
 }
 
 type OrderProduct = {
-    product: FakerProductData
+    product: FakerFakerProduct
     quantity: number
 }
 

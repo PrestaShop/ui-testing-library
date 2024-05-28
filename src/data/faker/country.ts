@@ -1,19 +1,19 @@
 import Currencies from '@data/demo/currencies';
 import Zones from '@data/demo/zones';
-import CurrencyData from '@data/faker/currency';
-import ZoneData from '@data/faker/zone';
+import FakerCurrency from '@data/faker/currency';
+import FakerZone from '@data/faker/zone';
 import CountryCreator from '@data/types/country';
 
 import {faker} from '@faker-js/faker';
 
-const zones: string[] = Object.values(Zones).map((zone: ZoneData) => zone.name);
-const currencies: string[] = Object.values(Currencies).map((currency: CurrencyData) => currency.name);
+const zones: string[] = Object.values(Zones).map((zone: FakerZone) => zone.name);
+const currencies: string[] = Object.values(Currencies).map((currency: FakerCurrency) => currency.name);
 
 /**
  * Create new country to use on creation form on country page on BO
  * @class
  */
-export default class CountryData {
+export default class FakerCountry {
   public readonly id: number;
 
   public readonly name: string;
@@ -39,7 +39,7 @@ export default class CountryData {
   public readonly displayTaxNumber: boolean;
 
   /**
-   * Constructor for class CountryData
+   * Constructor for class FakerCountry
    * @param countryToCreate {CountryCreator} Could be used to force the value of some members
    */
   constructor(countryToCreate: CountryCreator = {}) {

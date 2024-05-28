@@ -1,12 +1,12 @@
-import TitleData from '@data/faker/title';
+import FakerTitle from '@data/faker/title';
 
 export default {
-  Mrs: new TitleData({
+  Mrs: new FakerTitle({
     id: 2,
     name: 'Mrs.',
     gender: 'Female',
   }),
-  Mr: new TitleData({
+  Mr: new FakerTitle({
     id: 1,
     name: 'Mr.',
     gender: 'Male',

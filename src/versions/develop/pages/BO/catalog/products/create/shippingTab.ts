@@ -1,6 +1,6 @@
 import BOBasePage from '@pages/BO/BOBasePage';
 
-import type ProductData from '@data/faker/product';
+import type FakerProduct from '@data/faker/product';
 
 import type {BOShippingTabPageInterface} from '@interfaces/BO/catalog/products/create/shippingTab';
 
@@ -77,10 +77,10 @@ class ShippingTab extends BOBasePage implements BOShippingTabPageInterface {
   /**
      * Set package dimension
      * @param page {Page} Browser tab
-     * @param productData {ProductData} Data to set in package dimension form
+     * @param productData {FakerProduct} Data to set in package dimension form
      * @returns {Promise<void>}
      */
-  async setPackageDimension(page: Page, productData: ProductData): Promise<void> {
+  async setPackageDimension(page: Page, productData: FakerProduct): Promise<void> {
     await this.waitForSelectorAndClick(page, this.shippingTabLink);
     await this.setValue(page, this.productDimensionsWidthInput, productData.packageDimensionWidth);
     await this.setValue(page, this.productDimensionsHeightInput, productData.packageDimensionHeight);

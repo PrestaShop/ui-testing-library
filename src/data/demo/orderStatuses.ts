@@ -1,7 +1,7 @@
-import OrderStatusData from '@data/faker/orderStatus';
+import FakerOrderStatus from '@data/faker/orderStatus';
 
 export default {
-  awaitingCheckPayment: new OrderStatusData({
+  awaitingCheckPayment: new FakerOrderStatus({
     id: 1,
     name: 'Awaiting check payment',
     sendEmailOn: true,
@@ -9,7 +9,7 @@ export default {
     invoiceOn: false,
     emailTemplate: 'cheque',
   }),
-  paymentAccepted: new OrderStatusData({
+  paymentAccepted: new FakerOrderStatus({
     id: 2,
     name: 'Payment accepted',
     sendEmailOn: true,
@@ -17,7 +17,7 @@ export default {
     invoiceOn: true,
     emailTemplate: 'payment',
   }),
-  processingInProgress: new OrderStatusData({
+  processingInProgress: new FakerOrderStatus({
     id: 3,
     name: 'Processing in progress',
     sendEmailOn: true,
@@ -25,7 +25,7 @@ export default {
     invoiceOn: true,
     emailTemplate: 'preparation',
   }),
-  shipped: new OrderStatusData({
+  shipped: new FakerOrderStatus({
     id: 4,
     name: 'Shipped',
     sendEmailOn: true,
@@ -33,7 +33,7 @@ export default {
     invoiceOn: true,
     emailTemplate: 'shipped',
   }),
-  delivered: new OrderStatusData({
+  delivered: new FakerOrderStatus({
     id: 5,
     name: 'Delivered',
     sendEmailOn: false,
@@ -41,7 +41,7 @@ export default {
     invoiceOn: true,
     emailTemplate: '',
   }),
-  canceled: new OrderStatusData({
+  canceled: new FakerOrderStatus({
     id: 6,
     name: 'Canceled',
     sendEmailOn: true,
@@ -49,7 +49,7 @@ export default {
     invoiceOn: false,
     emailTemplate: 'order_canceled',
   }),
-  refunded: new OrderStatusData({
+  refunded: new FakerOrderStatus({
     id: 7,
     name: 'Refunded',
     sendEmailOn: true,
@@ -57,7 +57,7 @@ export default {
     invoiceOn: true,
     emailTemplate: 'refund',
   }),
-  paymentError: new OrderStatusData({
+  paymentError: new FakerOrderStatus({
     id: 8,
     name: 'Payment error',
     sendEmailOn: true,
@@ -65,7 +65,7 @@ export default {
     invoiceOn: false,
     emailTemplate: 'payment_error',
   }),
-  awaitingBankWire: new OrderStatusData({
+  awaitingBankWire: new FakerOrderStatus({
     id: 10,
     name: 'Awaiting bank wire payment',
     sendEmailOn: true,
@@ -73,7 +73,7 @@ export default {
     invoiceOn: false,
     emailTemplate: 'bankwire',
   }),
-  awaitingCashOnDelivery: new OrderStatusData({
+  awaitingCashOnDelivery: new FakerOrderStatus({
     id: 13,
     name: 'Awaiting Cash On Delivery validation',
     sendEmailOn: false,
@@ -81,7 +81,7 @@ export default {
     invoiceOn: false,
     emailTemplate: 'cashondelivery',
   }),
-  onBackorderNotPaid: new OrderStatusData({
+  onBackorderNotPaid: new FakerOrderStatus({
     id: 12,
     name: 'On backorder (not paid)',
     sendEmailOn: true,
@@ -89,7 +89,7 @@ export default {
     invoiceOn: false,
     emailTemplate: 'outofstock',
   }),
-  onBackorderPaid: new OrderStatusData({
+  onBackorderPaid: new FakerOrderStatus({
     id: 9,
     name: 'On backorder (paid)',
     sendEmailOn: true,

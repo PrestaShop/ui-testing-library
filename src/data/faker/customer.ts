@@ -1,20 +1,20 @@
 import Groups from '@data/demo/groups';
 import Titles from '@data/demo/titles';
-import type GroupData from '@data/faker/group';
-import type TitleData from '@data/faker/title';
+import type FakerGroup from '@data/faker/group';
+import type FakerTitle from '@data/faker/title';
 import type {CustomerCreator} from '@data/types/customer';
 
 import {faker} from '@faker-js/faker';
 
-const genders: string[] = Object.values(Titles).map((title: TitleData) => title.name);
-const groups: string[] = Object.values(Groups).map((group: GroupData) => group.name);
+const genders: string[] = Object.values(Titles).map((title: FakerTitle) => title.name);
+const groups: string[] = Object.values(Groups).map((group: FakerGroup) => group.name);
 const risksRating: string[] = ['None', 'Low', 'Medium', 'High'];
 
 /**
  * Create new customer to use on creation form on customer page on BO and FO
  * @class
  */
-export default class CustomerData {
+export default class FakerCustomer {
   public readonly id: number;
 
   public readonly socialTitle: string;
@@ -50,7 +50,7 @@ export default class CustomerData {
   public readonly riskRating: string;
 
   /**
-   * Constructor for class CustomerData
+   * Constructor for class FakerCustomer
    * @param customerToCreate {CustomerCreator} Could be used to force the value of some members
    */
   constructor(customerToCreate: CustomerCreator = {}) {

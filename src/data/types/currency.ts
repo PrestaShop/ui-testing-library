@@ -10,7 +10,7 @@ type CurrencyCreator = {
 
 type CurrencyFormat = 'leftWithSpace' | 'leftWithoutSpace' | 'rightWithSpace' | 'rightWithoutSpace';
 
-export {
+export type {
   CurrencyCreator,
   CurrencyFormat,
 };

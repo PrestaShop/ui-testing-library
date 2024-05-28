@@ -1,19 +1,19 @@
-import GroupData from '@data/faker/group';
+import FakerGroup from '@data/faker/group';
 
 export default {
-  visitor: new GroupData({
+  visitor: new FakerGroup({
     id: 1,
     name: 'Visitor',
     discount: 0,
     shownPrices: true,
   }),
-  guest: new GroupData({
+  guest: new FakerGroup({
     id: 2,
     name: 'Guest',
     discount: 0,
     shownPrices: true,
   }),
-  customer: new GroupData({
+  customer: new FakerGroup({
     id: 3,
     name: 'Customer',
     discount: 0,

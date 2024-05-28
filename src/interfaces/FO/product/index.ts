@@ -1,7 +1,7 @@
 import {FOBasePagePageInterface} from '@interfaces/FO';
 
 // Import data
-import ProductReviewData from '@data/faker/productReview';
+import FakerProductReview from '@data/faker/productReview';
 import type {
   ProductAttribute, ProductImageUrls, ProductInformations,
 } from '@data/types/product';
@@ -14,7 +14,7 @@ export interface FoProductPageInterface extends FOBasePagePageInterface {
     readonly messageAlertNotificationSaved: string;
     readonly messageNotVisibleToCustomers: string;
 
-    addProductReview(page: Page, productReviewData: ProductReviewData): Promise<boolean>;
+    addProductReview(page: Page, productReviewData: FakerProductReview): Promise<boolean>;
     addProductToTheCart(
         page: Page,
         quantity: number | string,

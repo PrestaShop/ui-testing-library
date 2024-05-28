@@ -1,7 +1,7 @@
-import StateData from '@data/faker/state';
+import FakerState from '@data/faker/state';
 
 export default {
-  california: new StateData({
+  california: new FakerState({
     id: 8,
     name: 'California',
     isoCode: 'CA',
@@ -9,7 +9,7 @@ export default {
     zone: 'North America',
     status: true,
   }),
-  bari: new StateData({
+  bari: new FakerState({
     id: 134,
     name: 'Bari',
     isoCode: 'BA',
@@ -17,7 +17,7 @@ export default {
     zone: 'Europe',
     status: true,
   }),
-  bihar: new StateData({
+  bihar: new FakerState({
     id: 8,
     name: 'Bihar',
     isoCode: 'BR',

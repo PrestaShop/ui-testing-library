@@ -1,7 +1,7 @@
-import CountryData from '@data/faker/country';
+import FakerCountry from '@data/faker/country';
 
 export default {
-  france: new CountryData({
+  france: new FakerCountry({
     id: 8,
     name: 'France',
     isoCode: 'FR',
@@ -9,7 +9,7 @@ export default {
     zone: 'Europe',
     active: true,
   }),
-  netherlands: new CountryData({
+  netherlands: new FakerCountry({
     id: 13,
     name: 'Netherlands',
     isoCode: 'NL',
@@ -17,7 +17,7 @@ export default {
     zone: 'Europe',
     active: false,
   }),
-  unitedKingdom: new CountryData({
+  unitedKingdom: new FakerCountry({
     id: 17,
     name: 'United Kingdom',
     isoCode: 'GB',
@@ -25,7 +25,7 @@ export default {
     zone: 'Europe',
     active: false,
   }),
-  germany: new CountryData({
+  germany: new FakerCountry({
     id: 1,
     name: 'Germany',
     isoCode: 'DE',
@@ -33,7 +33,7 @@ export default {
     zone: 'Europe',
     active: false,
   }),
-  afghanistan: new CountryData({
+  afghanistan: new FakerCountry({
     id: 231,
     name: 'Afghanistan',
     isoCode: 'AF',
@@ -41,7 +41,7 @@ export default {
     zone: 'Asia',
     active: false,
   }),
-  unitedStates: new CountryData({
+  unitedStates: new FakerCountry({
     id: 21,
     name: 'United States',
     isoCode: 'US',
@@ -49,7 +49,7 @@ export default {
     zone: 'North America',
     active: false,
   }),
-  canada: new CountryData({
+  canada: new FakerCountry({
     id: 4,
     name: 'Canada',
     isoCode: 'CA',

@@ -1,6 +1,6 @@
-import CategoryData from '@data/faker/category';
+import FakerCategory from '@data/faker/category';
 
-import type {FakerGroup} from '@data/faker/group';
+import type FakerGroup from '@data/faker/group';
 
 type CategoryCreator = {
     id?: number
@@ -13,10 +13,10 @@ type CategoryCreator = {
     groupAccess?: FakerGroup
     coverImage?: string
     thumbnailImage?: string
-    children?: CategoryData[]
+    children?: FakerCategory[]
     products?: string[]
     redirectionWhenNotDisplayed?: CategoryRedirection
-    redirectedCategory?: CategoryData|null
+    redirectedCategory?: FakerCategory|null
 };
 
 type CategoryFilter = {
@@ -26,7 +26,7 @@ type CategoryFilter = {
 
 type CategoryRedirection = '301'|'302'|'404'|'410';
 
-export {
+export type {
   CategoryCreator,
   CategoryFilter,
   CategoryRedirection,

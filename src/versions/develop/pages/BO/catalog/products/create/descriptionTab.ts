@@ -1,6 +1,6 @@
 import BOBasePage from '@pages/BO/BOBasePage';
 
-import type ProductData from '@data/faker/product';
+import type FakerProduct from '@data/faker/product';
 import type {ProductImageInformation} from '@data/types/product';
 import type {BODescriptionTabPageInterface} from '@interfaces/BO/catalog/products/create/descriptionTab';
 
@@ -398,10 +398,10 @@ class DescriptionTab extends BOBasePage implements BODescriptionTabPageInterface
   /**
      * Set product description
      * @param page {Page} Browser tab
-     * @param productData {ProductData} Data to set in description form
+     * @param productData {FakerProduct} Data to set in description form
      * @returns {Promise<void>}
      */
-  async setProductDescription(page: Page, productData: ProductData): Promise<void> {
+  async setProductDescription(page: Page, productData: FakerProduct): Promise<void> {
     await this.waitForSelectorAndClick(page, this.descriptionTabLink);
 
     await this.addProductImages(page, [productData.coverImage, productData.thumbImage]);
