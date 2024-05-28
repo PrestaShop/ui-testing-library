@@ -5,7 +5,7 @@ import type {Page} from '@playwright/test';
 import type FakerProduct from '@data/faker/product';
 import type {ProductHeaderSummary} from '@data/types/product';
 
-export interface BOCreateProductPageInterface extends BOBasePagePageInterface {
+export interface BOProductsCreatePageInterface extends BOBasePagePageInterface {
     readonly errorMessage: string;
     readonly errorMessageWhenSummaryTooLong: (number: number) => string;
     readonly pageTitle: string;

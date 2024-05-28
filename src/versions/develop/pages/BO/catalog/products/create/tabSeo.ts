@@ -1,6 +1,6 @@
 import BOBasePage from '@pages/BO/BOBasePage';
 
-import type {BOSeoTabPageInterface} from '@interfaces/BO/catalog/products/create/seoTab';
+import type {BOProductsCreateTabSeoPageInterface} from '@interfaces/BO/catalog/products/create/tabSeo';
 
 import type {Page} from 'playwright';
 
@@ -9,7 +9,7 @@ import type {Page} from 'playwright';
  * @class
  * @extends BOBasePage
  */
-class SeoTab extends BOBasePage implements BOSeoTabPageInterface {
+class SeoTab extends BOBasePage implements BOProductsCreateTabSeoPageInterface {
   private readonly productMetaTitleInput: string;
 
   private readonly productMetaDescriptionInput: string;

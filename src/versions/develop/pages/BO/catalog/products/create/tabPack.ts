@@ -6,7 +6,7 @@ import type {
   ProductPackOptions,
   ProductStockMovement,
 } from '@data/types/product';
-import type {BOPackTabPageInterface} from '@interfaces/BO/catalog/products/create/packTab';
+import type {BOProductsCreateTabPackPageInterface} from '@interfaces/BO/catalog/products/create/tabPack';
 
 import type {Locator, Page} from 'playwright';
 
@@ -15,7 +15,7 @@ import type {Locator, Page} from 'playwright';
  * @class
  * @extends BOBasePage
  */
-class PackTab extends BOBasePage implements BOPackTabPageInterface {
+class PackTab extends BOBasePage implements BOProductsCreateTabPackPageInterface {
   private readonly packTabLink: string;
 
   private readonly searchProductInput: string;

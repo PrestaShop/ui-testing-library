@@ -1,14 +1,14 @@
 import BOBasePage from '@pages/BO/BOBasePage';
 
 import type {Page} from 'playwright';
-import type {BOOptionsTabPageInterface} from '@interfaces/BO/catalog/products/create/optionsTab';
+import type {BOProductsCreateTabOptionsPageInterface} from '@interfaces/BO/catalog/products/create/tabOptions';
 
 /**
  * Options tab on new product page, contains functions that can be used on the page
  * @class
  * @extends BOBasePage
  */
-class OptionsTab extends BOBasePage implements BOOptionsTabPageInterface {
+class OptionsTab extends BOBasePage implements BOProductsCreateTabOptionsPageInterface {
   private readonly productVisibilityRadio: string;
 
   private readonly productAvailableForOrderRadio: (toEnable: number) => string;

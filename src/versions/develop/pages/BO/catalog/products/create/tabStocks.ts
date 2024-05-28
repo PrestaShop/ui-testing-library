@@ -2,7 +2,7 @@ import BOBasePage from '@pages/BO/BOBasePage';
 
 import type FakerProduct from '@data/faker/product';
 import type {ProductStockMovement} from '@data/types/product';
-import type {BOStocksTabPageInterface} from '@interfaces/BO/catalog/products/create/stocksTab';
+import type {BOProductsCreateTabStocksPageInterface} from '@interfaces/BO/catalog/products/create/tabStocks';
 
 import type {Page} from 'playwright';
 
@@ -11,7 +11,7 @@ import type {Page} from 'playwright';
  * @class
  * @extends BOBasePage
  */
-class StocksTab extends BOBasePage implements BOStocksTabPageInterface {
+class StocksTab extends BOBasePage implements BOProductsCreateTabStocksPageInterface {
   private readonly stocksTabLink: string;
 
   private readonly initialQuantitySpan: string;

@@ -4,7 +4,7 @@ import createProductPage from '@pages/BO/catalog/products/create';
 // Import data
 import type FakerProduct from '@data/faker/product';
 import type {ProductFeatures} from '@data/types/product';
-import type {BODetailsTabPageInterface} from '@interfaces/BO/catalog/products/create/detailsTab';
+import type {BOProductsCreateTabDetailsPageInterface} from '@interfaces/BO/catalog/products/create/tabDetails';
 
 import type {Frame, Page} from 'playwright';
 
@@ -13,7 +13,7 @@ import type {Frame, Page} from 'playwright';
  * @class
  * @extends BOBasePage
  */
-class DetailsTab extends BOBasePage implements BODetailsTabPageInterface {
+class DetailsTab extends BOBasePage implements BOProductsCreateTabDetailsPageInterface {
   public readonly featureCustomValueNotDefaultLanguageMessage: string;
 
   private readonly detailsTabLink: string;

@@ -12,7 +12,7 @@ import type {
   ProductStockMovement,
 } from '@data/types/product';
 
-export interface BOCombinationsTabPageInterface extends BOBasePagePageInterface {
+export interface BOProductsCreateTabCombinationsPageInterface extends BOBasePagePageInterface {
     bulkEditRetailPrice(page: Frame | Page, editRetailPriceData: ProductCombinationBulkRetailPrice): Promise<void>;
     bulkEditSpecificPrice(page: Frame|Page, specificReferencesData: ProductCombinationBulkSpecificReferences): Promise<void>;
     bulkEditStock(page: Frame | Page, editStockData: ProductCombinationBulkStock): Promise<void>;

@@ -71,16 +71,16 @@ export {default as boOrdersViewBasePage} from '@pages/BO/orders/view/viewOrderBa
 export {default as boOrdersViewProductsBlockPage} from '@pages/BO/orders/view/productsBlock';
 export {default as boProductsPage} from '@pages/BO/catalog/products';
 export {default as boProductsCreatePage} from '@pages/BO/catalog/products/create';
-export {default as boProductsCreateTabCombinationsPage} from '@pages/BO/catalog/products/create/combinationsTab';
-export {default as boProductsCreateTabDescriptionPage} from '@pages/BO/catalog/products/create/descriptionTab';
-export {default as boProductsCreateTabDetailsPage} from '@pages/BO/catalog/products/create/detailsTab';
-export {default as boProductsCreateTabOptionsPage} from '@pages/BO/catalog/products/create/optionsTab';
-export {default as boProductsCreateTabPackPage} from '@pages/BO/catalog/products/create/packTab';
-export {default as boProductsCreateTabPricingPage} from '@pages/BO/catalog/products/create/pricingTab';
-export {default as boProductsCreateTabSEOPage} from '@pages/BO/catalog/products/create/seoTab';
-export {default as boProductsCreateTabShippingPage} from '@pages/BO/catalog/products/create/shippingTab';
-export {default as boProductsCreateTabStocksPage} from '@pages/BO/catalog/products/create/stocksTab';
-export {default as boProductsCreateTabVirtualProductPage} from '@pages/BO/catalog/products/create/virtualProductTab';
+export {default as boProductsCreateTabCombinationsPage} from '@pages/BO/catalog/products/create/tabCombinations';
+export {default as boProductsCreateTabDescriptionPage} from '@pages/BO/catalog/products/create/tabDescription';
+export {default as boProductsCreateTabDetailsPage} from '@pages/BO/catalog/products/create/tabDetails';
+export {default as boProductsCreateTabOptionsPage} from '@pages/BO/catalog/products/create/tabOptions';
+export {default as boProductsCreateTabPackPage} from '@pages/BO/catalog/products/create/tabPack';
+export {default as boProductsCreateTabPricingPage} from '@pages/BO/catalog/products/create/tabPricing';
+export {default as boProductsCreateTabSEOPage} from '@pages/BO/catalog/products/create/tabSeo';
+export {default as boProductsCreateTabShippingPage} from '@pages/BO/catalog/products/create/tabShipping';
+export {default as boProductsCreateTabStocksPage} from '@pages/BO/catalog/products/create/tabStocks';
+export {default as boProductsCreateTabVirtualProductPage} from '@pages/BO/catalog/products/create/tabVirtualProduct';
 // Export Pages FO
 export * as FOBasePage from '@pages/FO/FOBasePage';
 // Export Pages FO/Classic

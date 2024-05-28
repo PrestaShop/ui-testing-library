@@ -5,7 +5,7 @@ import type {Page} from '@playwright/test';
 import FakerProduct from '@data/faker/product';
 import type {ProductSpecificPrice} from '@data/types/product';
 
-export interface BOPricingTabPageInterface extends BOBasePagePageInterface {
+export interface BOProductsCreateTabPricingPageInterface extends BOBasePagePageInterface {
     addEcoTax(page: Page, ecoTax: number): Promise<void>
     clickOnAddSpecificPriceButton(page: Page): Promise<void>;
     clickOnEditSpecificPriceIcon(page: Page, row: number): Promise<void>;

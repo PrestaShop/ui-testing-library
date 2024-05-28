@@ -5,7 +5,7 @@ import type {ProductStockMovement} from '@data/types/product';
 
 import type {Page} from '@playwright/test';
 
-export interface BOStocksTabPageInterface extends BOBasePagePageInterface {
+export interface BOProductsCreateTabStocksPageInterface extends BOBasePagePageInterface {
     clickViewAllStockMovements(page: Page): Promise<Page>;
     getProductQuantity(page: Page): Promise<number>;
     getStockMovement(page: Page, movementRow: number): Promise<ProductStockMovement>;

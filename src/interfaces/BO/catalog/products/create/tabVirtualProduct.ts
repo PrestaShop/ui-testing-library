@@ -4,7 +4,7 @@ import type {Page} from '@playwright/test';
 
 import type FakerProduct from '@data/faker/product';
 
-export interface BOVirtualProductTabPageInterface extends BOBasePagePageInterface {
+export interface BOProductsCreateTabVirtualProductPageInterface extends BOBasePagePageInterface {
     clickOnEditDefaultBehaviourLink(page: Page): Promise<Page>;
     getErrorMessageInDownloadFileInput(page: Page): Promise<string>;
     setLabelWhenInStock(page: Page, label: string): Promise<void>;

@@ -1,16 +1,16 @@
 import BOBasePage from '@pages/BO/BOBasePage';
 
 import productsPage from '@pages/BO/catalog/products';
-import virtualProductTab from '@pages/BO/catalog/products/create/virtualProductTab';
-import descriptionTab from '@pages/BO/catalog/products/create/descriptionTab';
-import detailsTab from '@pages/BO/catalog/products/create/detailsTab';
-import stocksTab from '@pages/BO/catalog/products/create/stocksTab';
-import pricingTab from '@pages/BO/catalog/products/create/pricingTab';
-import packTab from '@pages/BO/catalog/products/create/packTab';
+import virtualProductTab from '@pages/BO/catalog/products/create/tabVirtualProduct';
+import descriptionTab from '@pages/BO/catalog/products/create/tabDescription';
+import detailsTab from '@pages/BO/catalog/products/create/tabDetails';
+import stocksTab from '@pages/BO/catalog/products/create/tabStocks';
+import pricingTab from '@pages/BO/catalog/products/create/tabPricing';
+import packTab from '@pages/BO/catalog/products/create/tabPack';
 
 import type FakerProduct from '@data/faker/product';
 import type {ProductHeaderSummary} from '@data/types/product';
-import type {BOCreateProductPageInterface} from '@interfaces/BO/catalog/products/create';
+import type {BOProductsCreatePageInterface} from '@interfaces/BO/catalog/products/create';
 
 import type {Frame, Page} from 'playwright';
 
@@ -19,7 +19,7 @@ import type {Frame, Page} from 'playwright';
  * @class
  * @extends BOBasePage
  */
-class CreateProduct extends BOBasePage implements BOCreateProductPageInterface {
+class CreateProduct extends BOBasePage implements BOProductsCreatePageInterface {
   public readonly pageTitle: string;
 
   public readonly saveAndPublishButtonName: string;

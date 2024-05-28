@@ -2,7 +2,7 @@ import BOBasePage from '@pages/BO/BOBasePage';
 
 import type FakerProduct from '@data/faker/product';
 
-import type {BOShippingTabPageInterface} from '@interfaces/BO/catalog/products/create/shippingTab';
+import type {BOProductsCreateTabShippingPageInterface} from '@interfaces/BO/catalog/products/create/tabShipping';
 
 import type {Page} from 'playwright';
 
@@ -11,7 +11,7 @@ import type {Page} from 'playwright';
  * @class
  * @extends BOBasePage
  */
-class ShippingTab extends BOBasePage implements BOShippingTabPageInterface {
+class ShippingTab extends BOBasePage implements BOProductsCreateTabShippingPageInterface {
   private readonly shippingTabLink: string;
 
   private readonly productDimensionsWidthInput: string;

@@ -2,7 +2,7 @@ import BOBasePage from '@pages/BO/BOBasePage';
 
 import type FakerProduct from '@data/faker/product';
 import type {ProductImageInformation} from '@data/types/product';
-import type {BODescriptionTabPageInterface} from '@interfaces/BO/catalog/products/create/descriptionTab';
+import type {BOProductsCreateTabDescriptionPageInterface} from '@interfaces/BO/catalog/products/create/tabDescription';
 
 import type {Page} from 'playwright';
 
@@ -11,7 +11,7 @@ import type {Page} from 'playwright';
  * @class
  * @extends BOBasePage
  */
-class DescriptionTab extends BOBasePage implements BODescriptionTabPageInterface {
+class DescriptionTab extends BOBasePage implements BOProductsCreateTabDescriptionPageInterface {
   public readonly settingUpdatedMessage: string;
 
   private readonly descriptionTabLink: string;

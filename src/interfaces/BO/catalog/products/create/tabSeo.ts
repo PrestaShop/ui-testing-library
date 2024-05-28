@@ -2,7 +2,7 @@ import {BOBasePagePageInterface} from '@interfaces/BO';
 
 import type {Page} from '@playwright/test';
 
-export interface BOSeoTabPageInterface extends BOBasePagePageInterface {
+export interface BOProductsCreateTabSeoPageInterface extends BOBasePagePageInterface {
     clickOnGenerateUrlFromNameButton(page: Page): Promise<void>;
     getErrorMessageOfFriendlyUrl(page: Page): Promise<string>;
     getValue(page: Page, inputName: string, languageId?: string): Promise<string>
