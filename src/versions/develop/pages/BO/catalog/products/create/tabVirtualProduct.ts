@@ -3,14 +3,14 @@ import BOBasePage from '@pages/BO/BOBasePage';
 import type {Page} from 'playwright';
 
 import type FakerProduct from '@data/faker/product';
-import type {BOVirtualProductTabPageInterface} from '@interfaces/BO/catalog/products/create/virtualProductTab';
+import type {BOProductsCreateTabVirtualProductPageInterface} from '@interfaces/BO/catalog/products/create/tabVirtualProduct';
 
 /**
  * Virtual product tab on new product page, contains functions that can be used on the page
  * @class
  * @extends BOBasePage
  */
-class VirtualProductTab extends BOBasePage implements BOVirtualProductTabPageInterface {
+class VirtualProductTab extends BOBasePage implements BOProductsCreateTabVirtualProductPageInterface {
   private readonly virtualProductTabLink: string;
 
   private readonly productQuantityInput: string;

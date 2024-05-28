@@ -12,14 +12,14 @@ import type {
 } from '@data/types/product';
 
 import type {Frame, Page} from 'playwright';
-import type {BOCombinationsTabPageInterface} from '@interfaces/BO/catalog/products/create/combinationsTab';
+import type {BOProductsCreateTabCombinationsPageInterface} from '@interfaces/BO/catalog/products/create/tabCombinations';
 
 /**
  * Combinations tab on new product V2 page, contains functions that can be used on the page
  * @class
  * @extends BOBasePage
  */
-class CombinationsTab extends BOBasePage implements BOCombinationsTabPageInterface {
+class CombinationsTab extends BOBasePage implements BOProductsCreateTabCombinationsPageInterface {
   public readonly generateCombinationsMessage: (number: number) => string;
 
   public readonly successfulGenerateCombinationsMessage: (number: number) => string;

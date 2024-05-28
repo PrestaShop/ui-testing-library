@@ -5,7 +5,7 @@ import type {Page} from '@playwright/test';
 import type FakerProduct from '@data/faker/product';
 import type {ProductFeatures} from '@data/types/product';
 
-export interface BODetailsTabPageInterface extends BOBasePagePageInterface {
+export interface BOProductsCreateTabDetailsPageInterface extends BOBasePagePageInterface {
     addNewCustomizations(page: Page, productData: FakerProduct): Promise<void>;
     addNewFile(page: Page, productData: FakerProduct): Promise<void>;
     clickOnManageAllFiles(page: Page): Promise<Page>;

@@ -5,7 +5,7 @@ import type {Page} from '@playwright/test';
 import type FakerProduct from '@data/faker/product';
 import type {ProductImageInformation} from '@data/types/product';
 
-export interface BODescriptionTabPageInterface extends BOBasePagePageInterface {
+export interface BOProductsCreateTabDescriptionPageInterface extends BOBasePagePageInterface {
     addNewCategory(page: Page, categories: string[]): Promise<void>;
     addProductImages(page: Page, imagesPaths: any[]): Promise<void>;
     addRelatedProduct(page: Page, productName: string): Promise<void>;

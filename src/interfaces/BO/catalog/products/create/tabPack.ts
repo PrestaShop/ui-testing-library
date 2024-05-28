@@ -9,7 +9,7 @@ import type {
   ProductStockMovement,
 } from '@data/types/product';
 
-export interface BOPackTabPageInterface extends BOBasePagePageInterface {
+export interface BOProductsCreateTabPackPageInterface extends BOBasePagePageInterface {
     addProductToPack(page: Page, product: string, quantity: number): Promise<void>;
     cancelDeleteProductFromPack(page: Page): Promise<void>;
     confirmDeleteProductFromPack(page: Page): Promise<void>;

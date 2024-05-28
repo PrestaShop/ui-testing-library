@@ -2,7 +2,7 @@ import BOBasePage from '@pages/BO/BOBasePage';
 
 import FakerProduct from '@data/faker/product';
 import type {ProductSpecificPrice} from '@data/types/product';
-import type {BOPricingTabPageInterface} from '@interfaces/BO/catalog/products/create/pricingTab';
+import type {BOProductsCreateTabPricingPageInterface} from '@interfaces/BO/catalog/products/create/tabPricing';
 
 import type {Page} from 'playwright';
 
@@ -11,7 +11,7 @@ import type {Page} from 'playwright';
  * @class
  * @extends BOBasePage
  */
-class PricingTab extends BOBasePage implements BOPricingTabPageInterface {
+class PricingTab extends BOBasePage implements BOProductsCreateTabPricingPageInterface {
   private readonly pricingTabLink: string;
 
   private readonly retailPriceInputTaxExcl: string;

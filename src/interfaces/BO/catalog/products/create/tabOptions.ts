@@ -2,7 +2,7 @@ import {BOBasePagePageInterface} from '@interfaces/BO';
 
 import type {Page} from '@playwright/test';
 
-export interface BOOptionsTabPageInterface extends BOBasePagePageInterface {
+export interface BOProductsCreateTabOptionsPageInterface extends BOBasePagePageInterface {
     chooseSupplier(page: Page, supplierRow: number): Promise<void>;
     getValue(page: Page, inputName: string): Promise<string>;
     isDefaultSupplierSectionVisible(page: Page): Promise<boolean>;
