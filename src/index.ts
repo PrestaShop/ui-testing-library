@@ -23,14 +23,16 @@ export type {
   WaitForNavigationWaitUntil,
 } from '@data/types/playwright';
 
+export {default as dataCategories} from '@data/demo/categories';
 export {default as dataCountries} from '@data/demo/countries';
 export {default as dataCurrencies} from '@data/demo/currencies';
 export {default as dataCustomers} from '@data/demo/customers';
 export {default as dataGroups} from '@data/demo/groups';
 export {default as dataModules} from '@data/demo/modules';
-export {default as dataOrders} from '@data/demo/orders';
 export {default as dataOrderStatuses} from '@data/demo/orderStatuses';
+export {default as dataOrders} from '@data/demo/orders';
 export {default as dataPaymentMethods} from '@data/demo/paymentMethods';
+export {default as dataProducts} from '@data/demo/products';
 export {default as dataSocialTitles} from '@data/demo/socialTitles';
 export {default as dataStates} from '@data/demo/states';
 export {default as dataTaxes} from '@data/demo/tax';
@@ -41,18 +43,19 @@ export {default as dataZones} from '@data/demo/zones';
 
 export {default as FakerAddress} from '@data/faker/address';
 export {default as FakerCarrier} from '@data/faker/carrier';
+export {default as FakerCategory} from '@data/faker/category';
 export {default as FakerCountry} from '@data/faker/country';
 export {default as FakerCurrency} from '@data/faker/currency';
 export {default as FakerCustomer} from '@data/faker/customer';
 export {default as FakerGroup} from '@data/faker/group';
 export {default as FakerModule} from '@data/faker/module';
-export {default as FakerOrder} from '@data/faker/order';
 export {default as FakerOrderStatus} from '@data/faker/orderStatus';
+export {default as FakerOrder} from '@data/faker/order';
 export {default as FakerPaymentMethod} from '@data/faker/paymentMethod';
 export {default as FakerProduct} from '@data/faker/product';
 export {default as FakerState} from '@data/faker/state';
-export {default as FakerTax} from '@data/faker/tax';
 export {default as FakerTaxRule} from '@data/faker/taxRule';
+export {default as FakerTax} from '@data/faker/tax';
 export {default as FakerTitle} from '@data/faker/title';
 export {default as FakerZone} from '@data/faker/zone';
 
