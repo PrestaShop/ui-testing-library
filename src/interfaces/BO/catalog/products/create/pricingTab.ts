@@ -2,7 +2,7 @@ import {BOBasePagePageInterface} from '@interfaces/BO';
 
 import type {Page} from '@playwright/test';
 
-import ProductData from '@data/faker/product';
+import FakerProduct from '@data/faker/product';
 import type {ProductSpecificPrice} from '@data/types/product';
 
 export interface BOPricingTabPageInterface extends BOBasePagePageInterface {
@@ -20,7 +20,7 @@ export interface BOPricingTabPageInterface extends BOBasePagePageInterface {
     setCostPrice(page: Page, costPrice: number): Promise<void>;
     setDisplayOnSaleFlag(page: Page): Promise<void>;
     setDisplayRetailPricePerUnit(page: Page, toEnable: true): Promise<void>;
-    setProductPricing(page: Page, productData: ProductData): Promise<void>;
+    setProductPricing(page: Page, productData: FakerProduct): Promise<void>;
     setRetailPrice(page: Page, isTaxExcluded: boolean, price: number): Promise<void>;
     setRetailPricePerUnit(page: Page, isTaxExcluded: boolean, price: number, unit: string): Promise<void>;
     setSpecificPrice(page: Page, specificPriceData: ProductSpecificPrice): Promise<string | null>;

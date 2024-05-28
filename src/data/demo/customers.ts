@@ -1,8 +1,8 @@
 import SocialTitles from '@data/demo/socialTitles';
-import CustomerData from '@data/faker/customer';
+import FakerCustomer from '@data/faker/customer';
 
 export default {
-  johnDoe: new CustomerData({
+  johnDoe: new FakerCustomer({
     id: 2,
     socialTitle: SocialTitles.Mr.name,
     firstName: 'John',

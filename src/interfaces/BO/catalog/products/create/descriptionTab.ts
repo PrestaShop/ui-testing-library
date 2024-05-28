@@ -2,7 +2,7 @@ import {BOBasePagePageInterface} from '@interfaces/BO';
 
 import type {Page} from '@playwright/test';
 
-import type ProductData from '@data/faker/product';
+import type FakerProduct from '@data/faker/product';
 import type {ProductImageInformation} from '@data/types/product';
 
 export interface BODescriptionTabPageInterface extends BOBasePagePageInterface {
@@ -23,7 +23,7 @@ export interface BODescriptionTabPageInterface extends BOBasePagePageInterface {
     replaceImageSelection(page: Page, image: string): Promise<string | null>;
     setDescription(page: Page, description: string): Promise<void>;
     setIframeInDescription(page: Page, description: string): Promise<void>;
-    setProductDescription(page: Page, productData: ProductData): Promise<void>;
+    setProductDescription(page: Page, productData: FakerProduct): Promise<void>;
     setProductImageInformation(
         page: Page,
         numImage: number,

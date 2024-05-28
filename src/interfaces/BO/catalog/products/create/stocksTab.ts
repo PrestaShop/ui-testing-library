@@ -1,6 +1,6 @@
 import {BOBasePagePageInterface} from '@interfaces/BO';
 
-import type ProductData from '@data/faker/product';
+import type FakerProduct from '@data/faker/product';
 import type {ProductStockMovement} from '@data/types/product';
 
 import type {Page} from '@playwright/test';
@@ -18,7 +18,7 @@ export interface BOStocksTabPageInterface extends BOBasePagePageInterface {
     setMinimalQuantity(page: Page, minimalQuantiy: number): Promise<void>;
     setOptionWhenOutOfStock(page: Page, option: string): Promise<void>;
     setProductQuantity(page: Page, quantity: number): Promise<void>;
-    setProductStock(page: Page, productData: ProductData): Promise<void>;
+    setProductStock(page: Page, productData: FakerProduct): Promise<void>;
     setQuantityDelta(page: Page, quantity: number): Promise<void>;
     setStockLocation(page: Page, stockLocation: string): Promise<void>;
 }

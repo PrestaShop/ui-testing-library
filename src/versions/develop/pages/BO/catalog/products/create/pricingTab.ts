@@ -1,6 +1,6 @@
 import BOBasePage from '@pages/BO/BOBasePage';
 
-import ProductData from '@data/faker/product';
+import FakerProduct from '@data/faker/product';
 import type {ProductSpecificPrice} from '@data/types/product';
 import type {BOPricingTabPageInterface} from '@interfaces/BO/catalog/products/create/pricingTab';
 
@@ -180,10 +180,10 @@ class PricingTab extends BOBasePage implements BOPricingTabPageInterface {
   /**
      * Set product pricing
      * @param page {Page} Browser tab
-     * @param productData {ProductData} Data to set in pricing form
+     * @param productData {FakerProduct} Data to set in pricing form
      * @returns {Promise<void>}
      */
-  async setProductPricing(page: Page, productData: ProductData): Promise<void> {
+  async setProductPricing(page: Page, productData: FakerProduct): Promise<void> {
     await this.waitForSelectorAndClick(page, this.pricingTabLink);
     // Select tax rule by ID
     await Promise.all([

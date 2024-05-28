@@ -7,7 +7,7 @@ import {faker} from '@faker-js/faker';
  * Create new zone to use on zone form on BO
  * @class
  */
-export default class ZoneData {
+export default class FakerZone {
   public readonly id: number;
 
   public readonly name: string;
@@ -15,7 +15,7 @@ export default class ZoneData {
   public readonly status: boolean;
 
   /**
-   * Constructor for class ZoneData
+   * Constructor for class FakerZone
    * @param zoneToCreate {Object} Could be used to force the value of some members
    */
   constructor(zoneToCreate: ZoneCreator = {}) {

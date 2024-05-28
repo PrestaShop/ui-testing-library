@@ -1,7 +1,7 @@
 import {BOBasePagePageInterface} from '@interfaces/BO';
 
 import type {Page} from '@playwright/test';
-import type OrderStatusData from '@data/faker/orderStatus';
+import type FakerOrderStatus from '@data/faker/orderStatus';
 
 export interface BOOrdersPageInterface extends BOBasePagePageInterface {
     readonly pageTitle: string;
@@ -49,7 +49,7 @@ export interface BOOrdersPageInterface extends BOBasePagePageInterface {
     selectAllOrders(page:Page):Promise<void>;
     selectOrdersRows(page:Page, rows:number[]):Promise<void>;
     selectPaginationLimit(page: Page, number: number): Promise<string>;
-    setOrderStatus(page:Page, row:number, status:OrderStatusData):Promise<string>;
+    setOrderStatus(page:Page, row:number, status:FakerOrderStatus):Promise<string>;
     sortTable(page: Page, sortBy: string, sortDirection: string): Promise<void>;
     viewCustomer(page:Page, row:number):Promise<Page>;
 }

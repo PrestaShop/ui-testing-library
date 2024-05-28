@@ -2,7 +2,7 @@ import {BOBasePagePageInterface} from '@interfaces/BO';
 
 import type {Page} from '@playwright/test';
 
-import type ProductData from '@data/faker/product';
+import type FakerProduct from '@data/faker/product';
 import type {ProductHeaderSummary} from '@data/types/product';
 
 export interface BOCreateProductPageInterface extends BOBasePagePageInterface {
@@ -35,7 +35,7 @@ export interface BOCreateProductPageInterface extends BOBasePagePageInterface {
     previewProduct(page: Page): Promise<Page>;
     saveProduct(page: Page): Promise<string>;
     selectStores(page: Page, storeID: number): Promise<void>;
-    setProduct(page: Page, productData: ProductData): Promise<string>;
+    setProduct(page: Page, productData: FakerProduct): Promise<string>;
     setProductName(page: Page, name: string, locale: string): Promise<void>;
     setProductStatus(page: Page, status: boolean): Promise<boolean>;
 }

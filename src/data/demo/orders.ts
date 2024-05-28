@@ -1,11 +1,11 @@
-import OrderData from '@data/faker/order';
+import FakerOrder from '@data/faker/order';
 
 import dataCustomers from '@data/demo/customers';
 import dataOrderStatuses from '@data/demo/orderStatuses';
 import dataPaymentMethods from '@data/demo/paymentMethods';
 
 export default {
-  order_1: new OrderData({
+  order_1: new FakerOrder({
     id: 1,
     reference: 'XKBKNABJK',
     newClient: true,
@@ -15,7 +15,7 @@ export default {
     paymentMethod: dataPaymentMethods.checkPayment,
     status: dataOrderStatuses.canceled,
   }),
-  order_2: new OrderData({
+  order_2: new FakerOrder({
     id: 2,
     reference: 'OHSATSERP',
     newClient: false,
@@ -25,7 +25,7 @@ export default {
     paymentMethod: dataPaymentMethods.checkPayment,
     status: dataOrderStatuses.awaitingCheckPayment,
   }),
-  order_3: new OrderData({
+  order_3: new FakerOrder({
     id: 3,
     reference: 'UOYEVOLI',
     newClient: false,
@@ -35,7 +35,7 @@ export default {
     paymentMethod: dataPaymentMethods.checkPayment,
     status: dataOrderStatuses.paymentError,
   }),
-  order_4: new OrderData({
+  order_4: new FakerOrder({
     id: 4,
     reference: 'FFATNOMMJ',
     newClient: false,
@@ -45,7 +45,7 @@ export default {
     paymentMethod: dataPaymentMethods.checkPayment,
     status: dataOrderStatuses.awaitingCheckPayment,
   }),
-  order_5: new OrderData({
+  order_5: new FakerOrder({
     id: 5,
     reference: 'KHWLILZLL',
     newClient: false,

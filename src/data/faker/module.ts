@@ -1,9 +1,9 @@
-import type {ModuleDataCreator} from '@data/types/module';
+import type {FakerModuleCreator} from '@data/types/module';
 
 /**
  * @class
  */
-export default class ModuleData {
+export default class FakerModule {
   public readonly tag: string;
 
   public readonly name: string;
@@ -11,10 +11,10 @@ export default class ModuleData {
   public readonly releaseZip: string;
 
   /**
-   * Constructor for class ModuleData
-   * @param valueToCreate {ModuleDataCreator} Could be used to force the value of some members
+   * Constructor for class FakerModule
+   * @param valueToCreate {FakerModuleCreator} Could be used to force the value of some members
    */
-  constructor(valueToCreate: ModuleDataCreator = {}) {
+  constructor(valueToCreate: FakerModuleCreator = {}) {
     /** @type {string} Technical Name of the module */
     this.tag = valueToCreate.tag || '';
 

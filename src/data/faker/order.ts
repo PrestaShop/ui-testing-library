@@ -14,7 +14,7 @@ import {faker} from '@faker-js/faker';
  * Create new order to use on creation form order page on BO
  * @class
  */
-export default class OrderData {
+export default class FakerOrder {
   public readonly id: number;
 
   public readonly reference: string;

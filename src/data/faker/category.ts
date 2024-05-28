@@ -9,7 +9,7 @@ import {faker} from '@faker-js/faker';
  * Create new category to use on creation category form on BO
  * @class
  */
-export default class CategoryData {
+export default class FakerCategory {
   public readonly id: number;
 
   public readonly position: number;
@@ -30,16 +30,16 @@ export default class CategoryData {
 
   public readonly thumbnailImage: string | null;
 
-  public readonly children: CategoryData[];
+  public readonly children: FakerCategory[];
 
   public readonly products: string[];
 
   public redirectionWhenNotDisplayed: CategoryRedirection;
 
-  public redirectedCategory: CategoryData | null;
+  public redirectedCategory: FakerCategory | null;
 
   /**
-     * Constructor for class CategoryData
+     * Constructor for class FakerCategory
      * @param categoryToCreate {CategoryCreator} Could be used to force the value of some members
      */
   constructor(categoryToCreate: CategoryCreator = {}) {
@@ -74,7 +74,7 @@ export default class CategoryData {
     /** @type {string|null} Category thumbnail of the category */
     this.thumbnailImage = categoryToCreate.thumbnailImage || null;
 
-    /** @type {CategoryData[]} Category thumbnail of the category */
+    /** @type {FakerCategory[]} Category thumbnail of the category */
     this.children = categoryToCreate.children || [];
 
     /** @type {string[]} Products of the category */
@@ -83,7 +83,7 @@ export default class CategoryData {
     /** @type {CategoryRedirection} Redirection when not displayed */
     this.redirectionWhenNotDisplayed = categoryToCreate.redirectionWhenNotDisplayed || '301';
 
-    /** @type {CategoryData|null} Which category should the page redirect? */
+    /** @type {FakerCategory|null} Which category should the page redirect? */
     this.redirectedCategory = categoryToCreate.redirectedCategory || null;
   }
 

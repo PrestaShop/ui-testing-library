@@ -1,10 +1,10 @@
 import Zones from '@data/demo/zones';
-import ZoneData from '@data/faker/zone';
+import FakerZone from '@data/faker/zone';
 import type StateCreator from '@data/types/state';
 
 import {faker} from '@faker-js/faker';
 
-const zones: string[] = Object.values(Zones).map((zone: ZoneData) => zone.name);
+const zones: string[] = Object.values(Zones).map((zone: FakerZone) => zone.name);
 const countriesWithState: string[] = [
   'Argentina', 'Australia', 'Canada', 'India', 'Indonesia', 'Italy', 'Japan', 'Mexico', 'United States',
 ];
@@ -14,7 +14,7 @@ const statesIsoCodes: string[] = ['IR', 'PK', 'BP', 'BV', 'ZM', 'ZL', 'HM', 'HL'
  * Create new state to use on state creation form on BO
  * @class
  */
-export default class StateData {
+export default class FakerState {
   public readonly id: number;
 
   public readonly name: string;
@@ -28,7 +28,7 @@ export default class StateData {
   public readonly status: boolean;
 
   /**
-   * Constructor for class StateData
+   * Constructor for class FakerState
    * @param stateToCreate {StateCreator} Could be used to force the value of some members
    */
   constructor(stateToCreate: StateCreator = {}) {

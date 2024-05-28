@@ -1,7 +1,7 @@
-import CurrencyData from '@data/faker/currency';
+import FakerCurrency from '@data/faker/currency';
 
 export default {
-  euro: new CurrencyData({
+  euro: new FakerCurrency({
     name: 'Euro',
     frName: 'euro',
     symbol: '€',
@@ -10,7 +10,7 @@ export default {
     decimals: 2,
     enabled: true,
   }),
-  mad: new CurrencyData({
+  mad: new FakerCurrency({
     name: 'Moroccan Dirham',
     frName: 'dirham marocain',
     symbol: 'MAD',
@@ -19,7 +19,7 @@ export default {
     decimals: 2,
     enabled: true,
   }),
-  toman: new CurrencyData({
+  toman: new FakerCurrency({
     name: 'Iranian toman',
     frName: 'Toman iranien',
     symbol: 'TMN',
@@ -28,7 +28,7 @@ export default {
     decimals: 2,
     enabled: true,
   }),
-  chileanPeso: new CurrencyData({
+  chileanPeso: new FakerCurrency({
     name: 'Chilean Peso',
     frName: 'peso chilien',
     symbol: '$',
@@ -37,7 +37,7 @@ export default {
     decimals: 0,
     enabled: true,
   }),
-  dzd: new CurrencyData({
+  dzd: new FakerCurrency({
     name: 'Algerian Dinar',
     frName: 'dinar algérien',
     symbol: 'DZD',
@@ -46,7 +46,7 @@ export default {
     decimals: 2,
     enabled: true,
   }),
-  tnd: new CurrencyData({
+  tnd: new FakerCurrency({
     name: 'Tunisian Dinar',
     frName: 'dinar tunisien',
     symbol: 'TND',
@@ -55,7 +55,7 @@ export default {
     decimals: 3,
     enabled: true,
   }),
-  try: new CurrencyData({
+  try: new FakerCurrency({
     name: 'Turkish Lira',
     frName: 'livre turque',
     symbol: '₺',
@@ -64,7 +64,7 @@ export default {
     decimals: 2,
     enabled: true,
   }),
-  usd: new CurrencyData({
+  usd: new FakerCurrency({
     name: 'US Dollar',
     frName: 'dollar des États-Unis',
     symbol: '$',
@@ -73,7 +73,7 @@ export default {
     decimals: 2,
     enabled: true,
   }),
-  aed: new CurrencyData({
+  aed: new FakerCurrency({
     name: 'United Arab Emirates Dirham',
     frName: 'dirham des Émirats arabes unis',
     symbol: 'AED',
@@ -82,7 +82,7 @@ export default {
     decimals: 2,
     enabled: true,
   }),
-  lyd: new CurrencyData({
+  lyd: new FakerCurrency({
     name: 'Libyan Dinar',
     frName: 'dinar libyen',
     symbol: 'LYD',
@@ -91,7 +91,7 @@ export default {
     decimals: 3,
     enabled: true,
   }),
-  lsl: new CurrencyData({
+  lsl: new FakerCurrency({
     name: 'Lesotho Loti',
     frName: 'loti lesothan',
     symbol: 'LSL',
@@ -100,7 +100,7 @@ export default {
     decimals: 2,
     enabled: true,
   }),
-  all: new CurrencyData({
+  all: new FakerCurrency({
     name: 'Albanian Lek',
     frName: 'lek albanais',
     symbol: 'ALL',
@@ -109,7 +109,7 @@ export default {
     decimals: 0,
     enabled: true,
   }),
-  gbp: new CurrencyData({
+  gbp: new FakerCurrency({
     name: 'British Pound',
     frName: 'livre sterling',
     symbol: 'GBP',
@@ -118,7 +118,7 @@ export default {
     decimals: 2,
     enabled: true,
   }),
-  jpy: new CurrencyData({
+  jpy: new FakerCurrency({
     name: 'Japanese Yen',
     frName: 'yen japonais',
     symbol: 'JPY',
@@ -127,7 +127,7 @@ export default {
     decimals: 0,
     enabled: true,
   }),
-  pyg: new CurrencyData({
+  pyg: new FakerCurrency({
     name: 'Paraguayan Guarani',
     frName: 'guaraní paraguayen',
     symbol: 'PYG',

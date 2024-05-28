@@ -8,7 +8,7 @@ const priceDisplayMethod: string[] = ['Tax included', 'Tax excluded'];
  * Create new group to use on creation form on group page on BO
  * @class
  */
-export default class GroupData {
+export default class FakerGroup {
   public readonly id: number;
 
   public readonly name: string;
@@ -22,7 +22,7 @@ export default class GroupData {
   public readonly shownPrices: boolean;
 
   /**
-   * Constructor for class GroupData
+   * Constructor for class FakerGroup
    * @param groupToCreate {GroupCreator} Could be used to force the value of some members
    */
   constructor(groupToCreate: GroupCreator = {}) {

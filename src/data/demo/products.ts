@@ -1,7 +1,7 @@
-import ProductData from '@data/faker/product';
+import FakerProduct from '@data/faker/product';
 
 export default {
-  demo_1: new ProductData({
+  demo_1: new FakerProduct({
     id: 1,
     name: 'Hummingbird printed t-shirt',
     nameFR: 'T-shirt imprimé colibri',
@@ -39,7 +39,7 @@ export default {
     packageDimensionWeight: 0.300,
     status: true,
   }),
-  demo_3: new ProductData({
+  demo_3: new FakerProduct({
     id: 2,
     name: 'Hummingbird printed sweater',
     summary: 'Regular fit, round neckline, long sleeves. 100% cotton, brushed inner side for extra comfort.',
@@ -52,7 +52,7 @@ export default {
     quantity: 2100,
     status: true,
   }),
-  demo_5: new ProductData({
+  demo_5: new FakerProduct({
     id: 4,
     name: 'The adventure begins Framed poster',
     reference: 'demo_5',
@@ -63,7 +63,7 @@ export default {
     quantity: 1500,
     status: true,
   }),
-  demo_6: new ProductData({
+  demo_6: new FakerProduct({
     id: 3,
     name: 'The best is yet to come\' Framed poster',
     reference: 'demo_6',
@@ -85,7 +85,7 @@ export default {
     quantity: 1500,
     status: true,
   }),
-  demo_7: new ProductData({
+  demo_7: new FakerProduct({
     id: 5,
     name: 'Today is a good day Framed poster',
     reference: 'demo_7',
@@ -98,7 +98,7 @@ export default {
     price: 34.80,
     status: true,
   }),
-  demo_8: new ProductData({
+  demo_8: new FakerProduct({
     id: 16,
     name: 'Mountain fox notebook',
     reference: 'demo_8',
@@ -107,12 +107,12 @@ export default {
     quantity: 1200,
     status: true,
   }),
-  demo_15: new ProductData({
+  demo_15: new FakerProduct({
     id: 9,
     name: 'Mountain fox cushion',
     status: true,
   }),
-  demo_9: new ProductData({
+  demo_9: new FakerProduct({
     id: 17,
     name: 'Brown bear notebook',
     reference: 'demo_9',
@@ -127,7 +127,7 @@ export default {
       },
     ],
   }),
-  demo_11: new ProductData({
+  demo_11: new FakerProduct({
     id: 6,
     name: 'Mug The best is yet to come',
     thumbImage: 'mug-the-best-is-yet-to-come.jpg',
@@ -141,7 +141,7 @@ export default {
     quantity: 300,
     status: true,
   }),
-  demo_12: new ProductData({
+  demo_12: new FakerProduct({
     id: 7,
     name: 'Mug The adventure begins',
     thumbImage: 'mug-the-adventure-begins.jpg',
@@ -155,7 +155,7 @@ export default {
     quantity: 300,
     status: true,
   }),
-  demo_13: new ProductData({
+  demo_13: new FakerProduct({
     id: 8,
     name: 'Mug Today is a good day',
     coverImage: 'mug-today-is-a-good-day.jpg',
@@ -165,7 +165,7 @@ export default {
     quantity: 300,
     status: true,
   }),
-  demo_14: new ProductData({
+  demo_14: new FakerProduct({
     id: 19,
     name: 'Customizable mug',
     reference: 'demo_14',
@@ -180,7 +180,7 @@ export default {
     quantity: 300,
     status: true,
   }),
-  demo_18: new ProductData({
+  demo_18: new FakerProduct({
     id: 12,
     name: 'Mountain fox - Vector graphics',
     nameFR: 'Illustration vectorielle Renard',
@@ -195,7 +195,7 @@ export default {
     quantity: 300,
     status: true,
   }),
-  demo_19: new ProductData({
+  demo_19: new FakerProduct({
     id: 13,
     name: 'Brown bear - Vector graphics',
     reference: 'demo_19',
@@ -206,7 +206,7 @@ export default {
     quantity: 300,
     status: true,
   }),
-  demo_21: new ProductData({
+  demo_21: new FakerProduct({
     id: 15,
     name: 'Pack Mug + Framed poster',
     nameFR: 'Pack Mug + Affiche encadrée',

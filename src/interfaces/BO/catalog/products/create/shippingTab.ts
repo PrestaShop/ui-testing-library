@@ -2,7 +2,7 @@ import {BOBasePagePageInterface} from '@interfaces/BO';
 
 import type {Page} from '@playwright/test';
 
-import type ProductData from '@data/faker/product';
+import type FakerProduct from '@data/faker/product';
 
 export interface BOShippingTabPageInterface extends BOBasePagePageInterface {
     clickOnEditDeliveryTimeLink(page: Page): Promise<Page>;
@@ -12,5 +12,5 @@ export interface BOShippingTabPageInterface extends BOBasePagePageInterface {
     setDeliveryTime(page: Page, deliveryTime: string): Promise<void>;
     setDeliveryTimeInStockProducts(page: Page, numberOfDays: string): Promise<void>;
     setDeliveryTimeOutOfStockProducts(page: Page, numberOfDays: string): Promise<void>;
-    setPackageDimension(page: Page, productData: ProductData): Promise<void>;
+    setPackageDimension(page: Page, productData: FakerProduct): Promise<void>;
 }

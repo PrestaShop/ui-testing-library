@@ -6,7 +6,7 @@ import {faker} from '@faker-js/faker';
  * Create new review to use on FO on product page
  * @class
  */
-export default class ProductReviewData {
+export default class FakerProductReview {
   public reviewTitle: string;
 
   public reviewContent: string;

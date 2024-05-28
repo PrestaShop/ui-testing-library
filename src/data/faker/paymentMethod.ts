@@ -5,7 +5,7 @@ import {faker} from '@faker-js/faker';
 /**
  * @class
  */
-export default class PaymentMethodData {
+export default class FakerPaymentMethod {
   public readonly name: string;
 
   public readonly displayName: string;
@@ -13,7 +13,7 @@ export default class PaymentMethodData {
   public readonly moduleName: string;
 
   /**
-   * Constructor for class PaymentMethodData
+   * Constructor for class FakerPaymentMethod
    * @param valueToCreate {PaymentMethodCreator} Could be used to force the value of some members
    */
   constructor(valueToCreate: PaymentMethodCreator = {}) {

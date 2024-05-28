@@ -2,9 +2,9 @@
 import FOBasePage from '@pages/FO/FOBasePage';
 
 // Import data
-import AddressData from '@data/faker/address';
-import CustomerData from '@data/faker/customer';
-import CarrierData from '@data/faker/carrier';
+import FakerAddress from '@data/faker/address';
+import FakerCustomer from '@data/faker/customer';
+import FakerCarrier from '@data/faker/carrier';
 
 import {ProductDetailsBasic} from '@data/types/product';
 import {FoCheckoutPageInterface} from '@interfaces/FO/checkout';
@@ -586,31 +586,31 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
   /**
    * Fill personal information form and click on continue
    * @param page {Page} Browser tab
-   * @param customerData {CustomerData} Guest Customer's information to fill on form
+   * @param customer {FakerCustomer} Guest Customer's information to fill on form
    * @return {Promise<boolean>}
    */
-  async setGuestPersonalInformation(page: Page, customerData: CustomerData): Promise<boolean> {
-    await this.setChecked(page, this.checkoutGuestGenderInput(customerData.socialTitle === 'Mr.' ? 1 : 2));
+  async setGuestPersonalInformation(page: Page, customer: FakerCustomer): Promise<boolean> {
+    await this.setChecked(page, this.checkoutGuestGenderInput(customer.socialTitle === 'Mr.' ? 1 : 2));
 
-    await this.setValue(page, this.checkoutGuestFirstnameInput, customerData.firstName);
-    await this.setValue(page, this.checkoutGuestLastnameInput, customerData.lastName);
-    await this.setValue(page, this.checkoutGuestEmailInput, customerData.email);
-    await this.setValue(page, this.checkoutGuestPasswordInput, customerData.password);
+    await this.setValue(page, this.checkoutGuestFirstnameInput, customer.firstName);
+    await this.setValue(page, this.checkoutGuestLastnameInput, customer.lastName);
+    await this.setValue(page, this.checkoutGuestEmailInput, customer.email);
+    await this.setValue(page, this.checkoutGuestPasswordInput, customer.password);
 
     // Fill birthday input
     await this.setValue(
       page,
       this.checkoutGuestBirthdayInput,
-      `${customerData.monthOfBirth.padStart(2, '0')}/`
-      + `${customerData.dayOfBirth.padStart(2, '0')}/`
-      + `${customerData.yearOfBirth}`,
+      `${customer.monthOfBirth.padStart(2, '0')}/`
+      + `${customer.dayOfBirth.padStart(2, '0')}/`
+      + `${customer.yearOfBirth}`,
     );
 
-    if (customerData.partnerOffers) {
+    if (customer.partnerOffers) {
       await this.setChecked(page, this.checkoutGuestOptinCheckbox);
     }
 
-    if (customerData.newsletter) {
+    if (customer.newsletter) {
       await this.setChecked(page, this.checkoutGuestNewsletterCheckbox);
     }
 
@@ -727,10 +727,10 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
   /**
    * Fill address form, used for delivery and invoice addresses
    * @param page {Page} Browser tab
-   * @param address {AddressData} Address's information to fill form with
+   * @param address {FakerAddress} Address's information to fill form with
    * @returns {Promise<void>}
    */
-  async fillAddressForm(page: Page, address: AddressData): Promise<void> {
+  async fillAddressForm(page: Page, address: FakerAddress): Promise<void> {
     if (await this.elementVisible(page, this.addressStepAliasInput)) {
       await this.setValue(page, this.addressStepAliasInput, address.alias);
     }
@@ -752,9 +752,9 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
   /**
    * Set invoice address
    * @param page {Page} Browser tab
-   * @param invoiceAddress {AddressData} Address's information to fill form with
+   * @param invoiceAddress {FakerAddress} Address's information to fill form with
    */
-  async setInvoiceAddress(page: Page, invoiceAddress: AddressData): Promise<boolean> {
+  async setInvoiceAddress(page: Page, invoiceAddress: FakerAddress): Promise<boolean> {
     await this.fillAddressForm(page, invoiceAddress);
 
     if (await this.elementVisible(page, this.addressStepContinueButton, 2000)) {
@@ -769,11 +769,11 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
   /**
    * Set address step
    * @param page {Page} Browser tab
-   * @param deliveryAddress {AddressData|null} Address's information to add (for delivery)
-   * @param invoiceAddress {AddressData|null} Address's information to add (for invoice)
+   * @param deliveryAddress {FakerAddress|null} Address's information to add (for delivery)
+   * @param invoiceAddress {FakerAddress|null} Address's information to add (for invoice)
    * @returns {Promise<boolean>}
    */
-  async setAddress(page: Page, deliveryAddress: AddressData, invoiceAddress: AddressData | null = null): Promise<boolean> {
+  async setAddress(page: Page, deliveryAddress: FakerAddress, invoiceAddress: FakerAddress | null = null): Promise<boolean> {
     // Set delivery address
     await this.fillAddressForm(page, deliveryAddress);
 
@@ -1003,10 +1003,10 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
    * @param page {Page} Browser tab
    * @param carrierID {number} The carrier row in list
    */
-  async getCarrierData(page: Page, carrierID: number = 1): Promise<CarrierData> {
+  async getFakerCarrier(page: Page, carrierID: number = 1): Promise<FakerCarrier> {
     const priceText: string = await this.getTextContent(page, this.deliveryStepCarrierPrice(carrierID));
 
-    return new CarrierData({
+    return new FakerCarrier({
       name: await this.getTextContent(page, this.deliveryStepCarrierName(carrierID)),
       delay: await this.getTextContent(page, this.deliveryStepCarrierDelay(carrierID)),
       price: parseFloat(priceText),

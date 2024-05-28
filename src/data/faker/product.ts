@@ -16,7 +16,7 @@ import {faker} from '@faker-js/faker';
  * Create new product to use on creation form on product page on BO
  * @class
  */
-export default class ProductData {
+export default class FakerProduct {
   public id: number;
 
   public name: string;
@@ -134,9 +134,9 @@ export default class ProductData {
   public deliveryTime: string;
 
   /**
-     * Constructor for class ProductData
+     * Constructor for class FakerProduct
      * @param productToCreate {Object} Could be used to force the value of some members
-     * @todo Replace taxRule & tax by TaxData object
+     * @todo Replace taxRule & tax by FakerTax object
      * @todo Rename price to priceTaxIncluded
      * @todo Check if retailPrice & finalPrice can be removed
      */

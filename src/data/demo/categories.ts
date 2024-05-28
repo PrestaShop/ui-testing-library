@@ -1,6 +1,6 @@
-import CategoryData from '@data/faker/category';
+import FakerCategory from '@data/faker/category';
 
-const men: CategoryData = new CategoryData({
+const men: FakerCategory = new FakerCategory({
   id: 4,
   name: 'Men',
   description: 'T-shirts, sweaters, hoodies and men\'s accessories.',
@@ -8,7 +8,7 @@ const men: CategoryData = new CategoryData({
   displayed: true,
   products: ['demo_1'],
 });
-const women: CategoryData = new CategoryData({
+const women: FakerCategory = new FakerCategory({
   id: 5,
   name: 'Women',
   description: 'T-shirts, sweaters, hoodies and women\'s accessories. From basics to original creations, '
@@ -17,7 +17,7 @@ const women: CategoryData = new CategoryData({
   displayed: true,
   products: ['demo_3'],
 });
-const stationnery: CategoryData = new CategoryData({
+const stationnery: FakerCategory = new FakerCategory({
   id: 7,
   name: 'Stationery',
   description: 'Notebooks, agendas, office accessories and more.',
@@ -25,7 +25,7 @@ const stationnery: CategoryData = new CategoryData({
   displayed: true,
   products: ['demo_8', 'demo_9', 'demo_10'],
 });
-const homeAccessories: CategoryData = new CategoryData({
+const homeAccessories: FakerCategory = new FakerCategory({
   id: 8,
   name: 'Home Accessories',
   description: 'Details matter! Liven up your interior with our selection of home accessories.',
@@ -35,7 +35,7 @@ const homeAccessories: CategoryData = new CategoryData({
 });
 
 export default {
-  home: new CategoryData({
+  home: new FakerCategory({
     id: 2,
     name: 'Home',
     description: '',
@@ -43,7 +43,7 @@ export default {
     metaDescription: '',
     displayed: true,
   }),
-  clothes: new CategoryData({
+  clothes: new FakerCategory({
     id: 3,
     name: 'Clothes',
     description: 'Discover our favorites fashionable discoveries, a selection of cool items to integrate in your '
@@ -58,7 +58,7 @@ export default {
   }),
   men,
   women,
-  accessories: new CategoryData({
+  accessories: new FakerCategory({
     id: 6,
     name: 'Accessories',
     description: 'Items and accessories for your desk',
@@ -72,7 +72,7 @@ export default {
   }),
   stationery: stationnery,
   homeAccessories,
-  art: new CategoryData({
+  art: new FakerCategory({
     id: 9,
     name: 'Art',
     description: 'Framed poster and vector images',
