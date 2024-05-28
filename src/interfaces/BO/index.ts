@@ -2,140 +2,78 @@ import type {CommonPageInterface} from '@interfaces/index';
 import type {Frame, Page} from '@playwright/test';
 
 export interface BOBasePagePageInterface extends CommonPageInterface {
-    readonly ordersParentLink: string;
-
-    readonly ordersLink: string;
-
-    readonly invoicesLink: string;
-
-    readonly creditSlipsLink: string;
-
-    readonly deliverySlipslink: string;
-
-    readonly shoppingCartsLink: string;
-
-    readonly catalogParentLink: string;
-
-    readonly productsLink: string;
-
-    readonly categoriesLink: string;
-
-    readonly monitoringLink: string;
-
-    readonly attributesAndFeaturesLink: string;
-
-    readonly brandsAndSuppliersLink: string;
-
-    readonly filesLink: string;
-
-    readonly discountsLink: string;
-
-    readonly stocksLink: string;
-
-    readonly customersParentLink: string;
-
-    readonly customersLink: string;
-
     readonly addressesLink: string;
-
-    readonly outstandingLink: string;
-
-    readonly customerServiceParentLink: string;
-
-    readonly customerServiceLink: string;
-
-    readonly orderMessagesLink: string;
-
-    readonly merchandiseReturnsLink: string;
-
-    readonly modulesParentLink: string;
-
-    readonly moduleCatalogueLink: string;
-
-    readonly moduleManagerLink: string;
-
-    readonly designParentLink: string;
-
-    readonly themeAndLogoParentLink: string;
-
-    readonly themeAndLogoLink: string
-
-    readonly emailThemeLink: string;
-
-    readonly pagesLink: string;
-
-    readonly positionsLink: string;
-
-    readonly imageSettingsLink: string;
-
-    readonly linkWidgetLink: string;
-
-    readonly shippingLink: string;
-
-    readonly carriersLink: string;
-
-    readonly shippingPreferencesLink: string;
-
-    readonly paymentParentLink: string;
-
-    readonly paymentMethodsLink: string;
-
-    readonly preferencesLink: string;
-
-    readonly internationalParentLink: string;
-
-    readonly taxesLink: string;
-
-    readonly localizationLink: string;
-
-    readonly locationsLink: string;
-
-    readonly translationsLink: string;
-
-    readonly shopParametersParentLink: string;
-
-    readonly shopParametersGeneralLink: string;
-
-    readonly orderSettingsLink: string;
-
-    readonly productSettingsLink: string;
-
-    readonly customerSettingsLink: string;
-
-    readonly contactLink: string;
-
-    readonly trafficAndSeoLink: string;
-
-    readonly searchLink: string;
-
-    readonly advancedParametersLink: string;
-
-    readonly informationLink: string;
-
-    readonly performanceLink: string;
-
-    readonly administrationLink: string;
-
-    readonly emailLink: string;
-
-    readonly importLink: string;
-
-    readonly teamLink: string;
-
-    readonly databaseLink: string;
-
-    readonly webserviceLink: string;
-
-    readonly logsLink: string;
-
     readonly adminAPILink: string;
-
+    readonly administrationLink: string;
+    readonly advancedParametersLink: string;
+    readonly attributesAndFeaturesLink: string;
+    readonly brandsAndSuppliersLink: string;
+    readonly carriersLink: string;
+    readonly catalogParentLink: string;
+    readonly categoriesLink: string;
+    readonly contactLink: string;
+    readonly creditSlipsLink: string;
+    readonly customerServiceLink: string;
+    readonly customerServiceParentLink: string;
+    readonly customerSettingsLink: string;
+    readonly customersLink: string;
+    readonly customersParentLink: string;
+    readonly databaseLink: string;
+    readonly deliverySlipslink: string;
+    readonly designParentLink: string;
+    readonly discountsLink: string;
+    readonly emailLink: string;
+    readonly emailThemeLink: string;
     readonly featureFlagLink: string;
-
-    readonly securityLink: string;
-
-    readonly multistoreLink: string;
+    readonly filesLink: string;
+    readonly imageSettingsLink: string;
+    readonly importLink: string;
+    readonly informationLink: string;
+    readonly internationalParentLink: string;
+    readonly invoicesLink: string;
+    readonly linkWidgetLink: string;
+    readonly localizationLink: string;
+    readonly locationsLink: string;
+    readonly logsLink: string;
     readonly menuTree: { parent: string; children: string[] }[];
+    readonly merchandiseReturnsLink: string;
+    readonly moduleCatalogueLink: string;
+    readonly moduleManagerLink: string;
+    readonly modulesParentLink: string;
+    readonly monitoringLink: string;
+    readonly multistoreLink: string;
+    readonly orderMessagesLink: string;
+    readonly orderSettingsLink: string;
+    readonly ordersLink: string;
+    readonly ordersParentLink: string;
+    readonly outstandingLink: string;
+    readonly pagesLink: string;
+    readonly paymentMethodsLink: string;
+    readonly paymentParentLink: string;
+    readonly performanceLink: string;
+    readonly positionsLink: string;
+    readonly preferencesLink: string;
+    readonly productSettingsLink: string;
+    readonly productsLink: string;
+    readonly searchLink: string;
+    readonly securityLink: string;
+    readonly shippingLink: string;
+    readonly shippingPreferencesLink: string;
+    readonly shopParametersGeneralLink: string;
+    readonly shopParametersParentLink: string;
+    readonly shoppingCartsLink: string;
+    readonly stocksLink: string;
+    readonly successfulCreationMessage: string;
+    readonly successfulDeleteMessage: string;
+    readonly successfulMultiDeleteMessage: string;
+    readonly successfulUpdateMessage: string;
+    readonly taxesLink: string;
+    readonly teamLink: string;
+    readonly themeAndLogoLink: string
+    readonly themeAndLogoParentLink: string;
+    readonly trafficAndSeoLink: string;
+    readonly translationsLink: string;
+    readonly webserviceLink: string;
 
     clickOnNotification(page: Page, tabName: string, row?: number): Promise<void>;
     clickOnNotificationsLink(page: Page): Promise<boolean>;

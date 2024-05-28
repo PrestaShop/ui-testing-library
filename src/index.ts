@@ -53,6 +53,7 @@ export {default as FakerOrderStatus} from '@data/faker/orderStatus';
 export {default as FakerOrder} from '@data/faker/order';
 export {default as FakerPaymentMethod} from '@data/faker/paymentMethod';
 export {default as FakerProduct} from '@data/faker/product';
+export {default as FakerProductReview} from '@data/faker/productReview';
 export {default as FakerState} from '@data/faker/state';
 export {default as FakerTaxRule} from '@data/faker/taxRule';
 export {default as FakerTax} from '@data/faker/tax';
@@ -89,6 +90,7 @@ export {default as foClassicCheckoutPage} from '@pages/FO/classic/checkout';
 export {default as foClassicCheckoutOrderConfirmationPage} from '@pages/FO/classic/checkout/orderConfirmation';
 export {default as foClassicHomePage} from '@pages/FO/classic/home';
 export {default as foClassicLoginPage} from '@pages/FO/classic/login';
+export {default as foClassicProductPage} from '@pages/FO/classic/product';
 
 // Export Modules
 export {default as modBlockwishlistBoMain} from '@pages/BO/modules/blockwishlist';
