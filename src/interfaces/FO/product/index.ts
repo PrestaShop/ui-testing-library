@@ -3,7 +3,7 @@ import {FOBasePagePageInterface} from '@interfaces/FO';
 // Import data
 import ProductReviewData from '@data/faker/productReview';
 import type {
-    ProductAttribute, ProductImageUrls, ProductInformations,
+  ProductAttribute, ProductImageUrls, ProductInformations,
 } from '@data/types/product';
 
 import type {Page} from '@playwright/test';
@@ -13,13 +13,13 @@ export interface FoProductPageInterface extends FOBasePagePageInterface {
     readonly messageAlertNotificationEmailInvalid: string;
     readonly messageAlertNotificationSaved: string;
     readonly messageNotVisibleToCustomers: string;
-    
+
     addProductReview(page: Page, productReviewData: ProductReviewData): Promise<boolean>;
     addProductToTheCart(
-        page: Page, 
-        quantity: number | string, 
-        combination: ProductAttribute[], 
-        proceedToCheckout: boolean | null, 
+        page: Page,
+        quantity: number | string,
+        combination: ProductAttribute[],
+        proceedToCheckout: boolean | null,
         customizedText: string)
         : Promise<void>
     clickAddReviewButton(page: Page): Promise<void>;
