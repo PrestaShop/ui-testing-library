@@ -27,7 +27,7 @@ type CategoryFilter = {
 type CategoryRedirection = '301'|'302'|'404'|'410';
 
 export {
-    CategoryCreator,
-    CategoryFilter,
-    CategoryRedirection,
+  CategoryCreator,
+  CategoryFilter,
+  CategoryRedirection,
 };
