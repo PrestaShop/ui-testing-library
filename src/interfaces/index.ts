@@ -1,4 +1,4 @@
-import type {BrowserContext, Page} from '@playwright/test';
+import type {BrowserContext, Frame, Page} from '@playwright/test';
 
 export interface CommonPageInterface {
     changePage(browserContext: BrowserContext, tabId?: number): Promise<Page>;
@@ -8,4 +8,5 @@ export interface CommonPageInterface {
     goToFo(page: Page): Promise<void>;
     reloadPage(page: Page): Promise<void>;
     resize(page: Page, mobileSize: boolean): Promise<void>;
+    waitForSelectorAndClick(page: Frame | Page, selector: string, timeout?: number): Promise<void>
 }
