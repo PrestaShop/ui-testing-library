@@ -51,7 +51,6 @@ export interface CommonPageInterface {
     waitForSelector(page: Page | Frame, selector: string, state: PageWaitForSelectorOptionsState, timeout?: number)
         : Promise<void>;
     waitForSelectorAndClick(page: Frame | Page, selector: string, timeout?: number): Promise<void>
-    waitForSelectorAndClick(page: Frame | Page, selector: string, timeout?: number): Promise<void>;
     waitForVisibleLocator(locator: Locator, timeout?: number): Promise<void>;
     waitForVisibleSelector(page: Page | Frame, selector: string, timeout?: number): Promise<void>;
 }
