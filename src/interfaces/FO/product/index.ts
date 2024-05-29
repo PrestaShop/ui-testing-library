@@ -17,10 +17,10 @@ export interface FoProductPageInterface extends FOBasePagePageInterface {
     addProductReview(page: Page, productReviewData: FakerProductReview): Promise<boolean>;
     addProductToTheCart(
         page: Page,
-        quantity: number | string,
-        combination: ProductAttribute[],
-        proceedToCheckout: boolean | null,
-        customizedText: string)
+        quantity?: number | string,
+        combination?: ProductAttribute[],
+        proceedToCheckout?: boolean | null,
+        customizedText?: string)
         : Promise<void>
     clickAddReviewButton(page: Page): Promise<void>;
     clickOnAddToCartButton(page: Page): Promise<void>;
