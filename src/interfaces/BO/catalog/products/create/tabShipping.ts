@@ -1,8 +1,6 @@
-import {BOBasePagePageInterface} from '@interfaces/BO';
-
-import type {Page} from '@playwright/test';
-
 import type FakerProduct from '@data/faker/product';
+import {BOBasePagePageInterface} from '@interfaces/BO';
+import type {Page} from '@playwright/test';
 
 export interface BOProductsCreateTabShippingPageInterface extends BOBasePagePageInterface {
     clickOnEditDeliveryTimeLink(page: Page): Promise<Page>;

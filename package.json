@@ -26,6 +26,10 @@
   "dependencies": {
     "@faker-js/faker": "^8.3.1",
     "@playwright/test": "^1.40.1",
+    "csv-writer": "^1.6.0",
+    "jpeg-js": "^0.4.4",
+    "js-image-generator": "^1.0.4",
+    "pdfjs-dist": "^3.4.120",
     "semver": "^7.5.4"
   },
   "devDependencies": {

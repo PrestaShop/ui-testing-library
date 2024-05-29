@@ -1,9 +1,7 @@
-import {BOBasePagePageInterface} from '@interfaces/BO';
-
-import type {Page} from '@playwright/test';
-
 import FakerProduct from '@data/faker/product';
 import type {ProductSpecificPrice} from '@data/types/product';
+import {BOBasePagePageInterface} from '@interfaces/BO';
+import type {Page} from '@playwright/test';
 
 export interface BOProductsCreateTabPricingPageInterface extends BOBasePagePageInterface {
     addEcoTax(page: Page, ecoTax: number): Promise<void>

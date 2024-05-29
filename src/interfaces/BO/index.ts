@@ -80,6 +80,7 @@ export interface BOBasePagePageInterface extends CommonPageInterface {
     clickOnNotificationsTab(page: Page, tabName: string): Promise<void>;
     clickSubMenu(page: Page, parentSelector: string): Promise<void>;
     closeSfToolBar(page: Frame | Page): Promise<void>;
+    getAlertSuccessBlockParagraphContent(page: Frame | Page): Promise<string>;
     getAllNotificationsNumber(page: Page): Promise<number>;
     getNotificationsNumberInTab(page: Page, tabName: string): Promise<number>;
     goToMyProfile(page: Page): Promise<void>;

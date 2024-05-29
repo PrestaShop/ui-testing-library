@@ -134,12 +134,12 @@ export default class FakerProduct {
   public deliveryTime: string;
 
   /**
-     * Constructor for class FakerProduct
-     * @param productToCreate {Object} Could be used to force the value of some members
-     * @todo Replace taxRule & tax by FakerTax object
-     * @todo Rename price to priceTaxIncluded
-     * @todo Check if retailPrice & finalPrice can be removed
-     */
+   * Constructor for class FakerProduct
+   * @param productToCreate {Object} Could be used to force the value of some members
+   * @todo Replace taxRule & tax by FakerTax object
+   * @todo Rename price to priceTaxIncluded
+   * @todo Check if retailPrice & finalPrice can be removed
+   */
   constructor(productToCreate: ProductCreator = {}) {
     /** @type {number} ID of the product */
     this.id = productToCreate.id || 0;

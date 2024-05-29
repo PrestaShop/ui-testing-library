@@ -5,7 +5,9 @@ import type {Page} from '@playwright/test';
 
 export interface ModuleManagerPageInterface extends BOBasePagePageInterface {
     pageTitle: string;
+    readonly installModuleSuccessMessage: (moduleTag: string) => string;
     readonly resetModuleSuccessMessage: (moduleTag: string) => string;
+    readonly uninstallModuleSuccessMessage: (moduleTag: string) => string;
 
     goToConfigurationPage(page: Page, moduleTag: string): Promise<void>;
     isModalActionVisible(page: Page, module: FakerModule, action: string): Promise<boolean>;
