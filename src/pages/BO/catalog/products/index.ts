@@ -6,10 +6,10 @@ const psVersion = testContext.getPSVersion();
 
 /* eslint-disable global-require */
 function requirePage(): BOProductsPageInterface {
-    if (semver.gte(psVersion, '0.0.0')) {
-        return require('@versions/develop/pages/BO/catalog/products').productsPage;
-    }
+  if (semver.gte(psVersion, '0.0.0')) {
     return require('@versions/develop/pages/BO/catalog/products');
+  }
+  return require('@versions/develop/pages/BO/catalog/products');
 }
 
 /* eslint-enable global-require */
