@@ -1022,5 +1022,5 @@ class ProductsPage extends BOBasePage implements BOProductsPageInterface {
   }
 }
 
-const productsPage = new ProductsPage();
-export {productsPage, ProductsPage};
+module.exports.ProductsPage = ProductsPage;
+module.exports.productsPage = new ProductsPage();
