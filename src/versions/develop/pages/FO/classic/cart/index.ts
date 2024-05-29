@@ -337,7 +337,7 @@ class CartPage extends FOBasePage implements FoCartPageInterface {
    * @param page {Page} Browser tab
    * @returns {boolean}
    */
-  isProceedToCheckoutButtonDisabled(page: Page): Promise<boolean> {
+  async isProceedToCheckoutButtonDisabled(page: Page): Promise<boolean> {
     return this.elementVisible(page, this.disabledProceedToCheckoutButton, 1000);
   }
 
@@ -346,7 +346,7 @@ class CartPage extends FOBasePage implements FoCartPageInterface {
    * @param page {Page} Browser tab
    * @returns {boolean}
    */
-  isAlertWarningForMinimumPurchaseVisible(page: Page): Promise<boolean> {
+  async isAlertWarningForMinimumPurchaseVisible(page: Page): Promise<boolean> {
     return this.elementVisible(page, this.alertWarning, 1000);
   }
 
@@ -355,7 +355,7 @@ class CartPage extends FOBasePage implements FoCartPageInterface {
    * @param page {Page} Browser tab
    * @returns {Promise<string>}
    */
-  getAlertWarning(page: Page): Promise<string> {
+  async getAlertWarning(page: Page): Promise<string> {
     return this.getTextContent(page, this.alertWarning);
   }
 
@@ -364,7 +364,7 @@ class CartPage extends FOBasePage implements FoCartPageInterface {
    * @param page {Page} Browser tab
    * @returns {Promise<string>}
    */
-  getAlertWarningForPromoCode(page: Page): Promise<string> {
+  async getAlertWarningForPromoCode(page: Page): Promise<string> {
     return this.getTextContent(page, this.alertPromoCode);
   }
 
@@ -374,7 +374,7 @@ class CartPage extends FOBasePage implements FoCartPageInterface {
    * @param line {number} Cart summary line
    * @returns {Promise<boolean>}
    */
-  isCartRuleNameVisible(page: Page, line: number = 1): Promise<boolean> {
+  async isCartRuleNameVisible(page: Page, line: number = 1): Promise<boolean> {
     return this.elementVisible(page, this.cartRuleName(line), 1000);
   }
 
@@ -419,7 +419,7 @@ class CartPage extends FOBasePage implements FoCartPageInterface {
    * @param line {number} Cart summary line
    * @returns {Promise<number>}
    */
-  getCartRuleName(page: Page, line: number = 1): Promise<string> {
+  async getCartRuleName(page: Page, line: number = 1): Promise<string> {
     return this.getTextContent(page, this.cartRuleName(line));
   }
 
@@ -438,7 +438,7 @@ class CartPage extends FOBasePage implements FoCartPageInterface {
    * @param line {number} Cart summary line
    * @returns {Promise<number>}
    */
-  getDiscountValue(page: Page, line: number = 1): Promise<number> {
+  async getDiscountValue(page: Page, line: number = 1): Promise<number> {
     return this.getPriceFromText(page, this.discountValue(line), 2000);
   }
 
