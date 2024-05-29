@@ -775,7 +775,7 @@ class HomePage extends FOBasePage implements FoHomePageInterface {
    * @param page {Page} Browser tab
    * @returns {Promise<boolean>}
    */
-  isBlockCartModalVisible(page: Page): Promise<boolean> {
+  async isBlockCartModalVisible(page: Page): Promise<boolean> {
     return this.elementVisible(page, this.blockCartModalDiv, 2000);
   }
 
@@ -831,6 +831,7 @@ class HomePage extends FOBasePage implements FoHomePageInterface {
    */
   async continueShopping(page: Page): Promise<boolean> {
     await this.waitForSelectorAndClick(page, this.continueShoppingButton);
+
     return this.elementNotVisible(page, this.blockCartModalDiv, 2000);
   }
 
