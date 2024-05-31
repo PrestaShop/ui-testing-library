@@ -4,14 +4,13 @@ import testContext from '@utils/test';
 
 const psVersion = testContext.getPSVersion();
 
-/* eslint-disable global-require */
+/* eslint-disable global-require, @typescript-eslint/no-var-requires */
 function requirePage(): BOProductsPageInterface {
   if (semver.gte(psVersion, '0.0.0')) {
-    return require('@versions/develop/pages/BO/catalog/products');
+    return require('@versions/develop/pages/BO/catalog/products').productsPage;
   }
-  return require('@versions/develop/pages/BO/catalog/products');
+  return require('@versions/develop/pages/BO/catalog/products').productsPage;
 }
-
-/* eslint-enable global-require */
+/* eslint-disable global-require, @typescript-eslint/no-var-requires */
 
 export default requirePage();

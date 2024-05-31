@@ -1,5 +1,5 @@
 import {FOBasePagePageInterface} from '@interfaces/FO';
-import type {ProductAttribute} from '@data/types/product';
+import type {ProductAttribute, ProductDetailsWithDiscount} from '@data/types/product';
 import type {Page} from '@playwright/test';
 
 export interface FoCartPageInterface extends FOBasePagePageInterface {
@@ -28,7 +28,7 @@ export interface FoCartPageInterface extends FOBasePagePageInterface {
     getNoItemsInYourCartMessage(page: Page): Promise<string>;
     getNotificationMessage(page: Page): Promise<string>;
     getProductAttributes(page: Page, row: number): Promise<ProductAttribute[]>;
-    getProductDetail(page: Page, row: number): Promise<object>;
+    getProductDetail(page: Page, row: number): Promise<ProductDetailsWithDiscount>;
     getProductsNumber(page: Page): Promise<number>;
     getSubtotalDiscountValue(page: Page): Promise<number>;
     isAlertWarningForMinimumPurchaseVisible(page: Page): Promise<boolean>;
