@@ -1,0 +1,93 @@
+import FakerTaxOption from '@data/faker/taxOption';
+
+export default [
+  new FakerTaxOption({
+    enabled: true,
+    displayInShoppingCart: false,
+    basedOn: 'Delivery address',
+    useEcoTax: true,
+  }),
+  new FakerTaxOption({
+    enabled: true,
+    displayInShoppingCart: false,
+    basedOn: 'Delivery address',
+    useEcoTax: true,
+    ecoTax: 'EU VAT For Virtual Products',
+  }),
+  new FakerTaxOption({
+    enabled: true,
+    displayInShoppingCart: false,
+    basedOn: 'Delivery address',
+    useEcoTax: true,
+    ecoTax: 'FR Taux réduit (10%)',
+  }),
+  new FakerTaxOption({
+    enabled: true,
+    displayInShoppingCart: false,
+    basedOn: 'Delivery address',
+    useEcoTax: true,
+    ecoTax: 'FR Taux réduit (5.5%)',
+  }),
+  new FakerTaxOption({
+    enabled: true,
+    displayInShoppingCart: false,
+    basedOn: 'Delivery address',
+    useEcoTax: true,
+    ecoTax: 'FR Taux standard (20%)',
+  }),
+  new FakerTaxOption({
+    enabled: true,
+    displayInShoppingCart: false,
+    basedOn: 'Delivery address',
+    useEcoTax: true,
+    ecoTax: 'FR Taux super réduit (2.1%)',
+  }),
+  new FakerTaxOption({
+    enabled: true,
+    displayInShoppingCart: false,
+    basedOn: 'Invoice address',
+    useEcoTax: true,
+    ecoTax: 'EU VAT For Virtual Products',
+  }),
+  new FakerTaxOption({
+    enabled: true,
+    displayInShoppingCart: false,
+    basedOn: 'Invoice address',
+    useEcoTax: true,
+    ecoTax: 'FR Taux réduit (10%)',
+  }),
+  new FakerTaxOption({
+    enabled: true,
+    displayInShoppingCart: false,
+    basedOn: 'Invoice address',
+    useEcoTax: true,
+    ecoTax: 'FR Taux réduit (5.5%)',
+  }),
+  new FakerTaxOption({
+    enabled: true,
+    displayInShoppingCart: false,
+    basedOn: 'Invoice address',
+    useEcoTax: true,
+    ecoTax: 'FR Taux standard (20%)',
+  }),
+  new FakerTaxOption({
+    enabled: true,
+    displayInShoppingCart: false,
+    basedOn: 'Invoice address',
+    useEcoTax: true,
+    ecoTax: 'FR Taux super réduit (2.1%)',
+  }),
+  new FakerTaxOption({
+    enabled: true,
+    displayInShoppingCart: false,
+    basedOn: 'Invoice address',
+    useEcoTax: true,
+    ecoTax: 'No tax',
+  }),
+  new FakerTaxOption({
+    enabled: true,
+    displayInShoppingCart: false,
+    basedOn: 'Delivery address',
+    useEcoTax: false,
+  }),
+];

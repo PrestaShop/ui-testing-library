@@ -5,6 +5,7 @@ export type {
   CarrierRangeZone,
 } from '@data/types/carrier';
 export type {CartProductDetails} from '@data/types/cart';
+export type {EmployeePermission} from '@data/types/employee';
 export type {
   GlobalInstall,
   GlobalFO,
@@ -17,46 +18,98 @@ export type {
   GlobalMaildevConfig,
   GlobalKeycloakConfig,
 } from '@data/types/globals';
+export type {ImageTypeRegeneration, ImageTypeRegenerationSpecific} from '@data/types/imageType';
+export type {LinkWidgetPage} from '@data/types/linkWidget';
+export type {ModuleInfo} from '@data/types/module';
 export type {OrderCreator} from '@data/types/order';
+export type {ShoppingCartDetails} from '@data/types/shoppingCart';
 export type {
   PageWaitForSelectorOptionsState,
   WaitForNavigationWaitUntil,
 } from '@data/types/playwright';
 
+export {default as dataAddresses} from '@data/demo/addresses';
+export {default as dataAttributes} from '@data/demo/attributes';
+export {default as dataBOPages} from '@data/demo/boPages';
+export {default as dataBrandAddresses} from '@data/demo/brandAdresses';
+export {default as dataBrands} from '@data/demo/brands';
+export {default as dataCarriers} from '@data/demo/carriers';
 export {default as dataCategories} from '@data/demo/categories';
+export {default as dataCMSPages} from '@data/demo/cmsPage';
+export {default as dataContacts} from '@data/demo/contacts';
 export {default as dataCountries} from '@data/demo/countries';
 export {default as dataCurrencies} from '@data/demo/currencies';
 export {default as dataCustomers} from '@data/demo/customers';
+export {default as dataEmployeeRoles} from '@data/demo/employeeRoles';
+export {default as dataEmployees} from '@data/demo/employees';
+export {default as dataFeatures} from '@data/demo/features';
 export {default as dataGroups} from '@data/demo/groups';
+export {default as dataHooks} from '@data/demo/hooks';
+export {default as dataImageTypes} from '@data/demo/imageTypes';
+export {default as dataLanguages} from '@data/demo/languages';
+export {default as dataLinkWidgets} from '@data/demo/linkWidgets';
+export {default as dataModuleCategories} from '@data/demo/moduleCategories';
 export {default as dataModules} from '@data/demo/modules';
+export {default as dataOrderReturnStatuses} from '@data/demo/orderReturnStatuses';
 export {default as dataOrderStatuses} from '@data/demo/orderStatuses';
 export {default as dataOrders} from '@data/demo/orders';
 export {default as dataPaymentMethods} from '@data/demo/paymentMethods';
 export {default as dataProducts} from '@data/demo/products';
+export {default as dataSearchAliases} from '@data/demo/searchAliases';
+export {default as dataSearchEngines} from '@data/demo/searchEngines';
+export {default as dataSeoPages} from '@data/demo/seoPages';
+export {default as dataShoppingCarts} from '@data/demo/shoppingCarts';
 export {default as dataSocialTitles} from '@data/demo/socialTitles';
+export {default as dataSqlTables} from '@data/demo/sqlTables';
 export {default as dataStates} from '@data/demo/states';
+export {default as dataStores} from '@data/demo/stores';
+export {default as dataSuppliers} from '@data/demo/suppliers';
 export {default as dataTaxes} from '@data/demo/tax';
+export {default as dataTaxOptions} from '@data/demo/taxOptions';
 export {default as dataTaxRules} from '@data/demo/taxRule';
 export {default as dataTaxRuleBehaviours} from '@data/demo/taxRuleBehaviour';
 export {default as dataTitles} from '@data/demo/titles';
 export {default as dataZones} from '@data/demo/zones';
 
 export {default as FakerAddress} from '@data/faker/address';
+export {default as FakerAttribute} from '@data/faker/attribute';
+export {default as FakerAttributeValue} from '@data/faker/attributeValue';
+export {default as FakerBrand} from '@data/faker/brand';
+export {default as FakerBrandAddress} from '@data/faker/brandAddress';
 export {default as FakerCarrier} from '@data/faker/carrier';
 export {default as FakerCategory} from '@data/faker/category';
+export {default as FakerCMSPage} from '@data/faker/cmsPage';
+export {default as FakerContact} from '@data/faker/contact';
 export {default as FakerCountry} from '@data/faker/country';
 export {default as FakerCurrency} from '@data/faker/currency';
 export {default as FakerCustomer} from '@data/faker/customer';
+export {default as FakerEmployee} from '@data/faker/employee';
+export {default as FakerEmployeeRole} from '@data/faker/employeeRole';
+export {default as FakerFeature} from '@data/faker/feature';
+export {default as FakerFeatureValue} from '@data/faker/featureValue';
 export {default as FakerGroup} from '@data/faker/group';
+export {default as FakerHook} from '@data/faker/hook';
+export {default as FakerImageType} from '@data/faker/imageType';
+export {default as FakerLanguage} from '@data/faker/language';
+export {default as FakerLinkWidget} from '@data/faker/linkWidget';
 export {default as FakerModule} from '@data/faker/module';
+export {default as FakerOrderReturnStatus} from '@data/faker/orderReturnStatus';
 export {default as FakerOrderStatus} from '@data/faker/orderStatus';
 export {default as FakerOrder} from '@data/faker/order';
 export {default as FakerPaymentMethod} from '@data/faker/paymentMethod';
 export {default as FakerProduct} from '@data/faker/product';
 export {default as FakerProductReview} from '@data/faker/productReview';
+export {default as FakerSearchAlias} from '@data/faker/searchAlias';
+export {default as FakerSearchEngine} from '@data/faker/searchEngine';
+export {default as FakerSeoPage} from '@data/faker/seoPage';
+export {default as FakerShoppingCart} from '@data/faker/shoppingCart';
+export {default as FakerSqlTable} from '@data/faker/sqlTable';
 export {default as FakerState} from '@data/faker/state';
+export {default as FakerStore} from '@data/faker/store';
+export {default as FakerSupplier} from '@data/faker/supplier';
 export {default as FakerTaxRule} from '@data/faker/taxRule';
 export {default as FakerTax} from '@data/faker/tax';
+export {default as FakerTaxOption} from '@data/faker/taxOption';
 export {default as FakerTitle} from '@data/faker/title';
 export {default as FakerZone} from '@data/faker/zone';
 
