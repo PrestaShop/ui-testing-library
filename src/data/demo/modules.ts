@@ -17,6 +17,10 @@ export default {
     tag: 'ps_cashondelivery',
     name: 'Cash on delivery (COD)',
   }),
+  psCategoryProducts: new FakerModule({
+    tag: 'ps_categoryproducts',
+    name: 'Products in the same category',
+  }),
   psCheckPayment: new FakerModule({
     tag: 'ps_checkpayment',
     name: 'Payments by check',
@@ -24,7 +28,7 @@ export default {
   psEmailAlerts: new FakerModule({
     tag: 'ps_emailalerts',
     name: 'Mail alerts',
-    releaseZip: 'https://github.com/PrestaShop/ps_emailalerts/releases/download/v2.4.2/ps_emailalerts.zip',
+    releaseZip: 'https://github.com/PrestaShop/ps_emailalerts/releases/download/v3.0.0/ps_emailalerts.zip',
   }),
   psEmailSubscription: new FakerModule({
     tag: 'ps_emailsubscription',
@@ -33,11 +37,20 @@ export default {
   psFacetedSearch: new FakerModule({
     tag: 'ps_facetedsearch',
     name: 'Faceted search',
-    releaseZip: 'https://github.com/PrestaShop/ps_facetedsearch/releases/download/v3.14.1/ps_facetedsearch.zip',
+    releaseZip: 'https://github.com/PrestaShop/ps_facetedsearch/releases/download/v3.15.1/ps_facetedsearch.zip',
+  }),
+  psGdpr: new FakerModule({
+    tag: 'psgdpr',
+    name: 'Official GDPR compliance',
+  }),
+  psNewProducts: new FakerModule({
+    tag: 'ps_newproducts',
+    name: 'New products',
   }),
   psThemeCusto: new FakerModule({
     tag: 'ps_themecusto',
     name: 'Theme Customization',
+    releaseZip: 'https://github.com/PrestaShop/ps_themecusto/releases/download/v1.2.4/ps_themecusto.zip',
   }),
   contactForm: new FakerModule({
     tag: 'contactform',
@@ -58,6 +71,6 @@ export default {
   keycloak: new FakerModule({
     tag: 'keycloak_connector_demo',
     name: 'Keycloak OAuth2 connector demo',
-    releaseZip: 'https://github.com/PrestaShop/keycloak_connector_demo/releases/download/v1.0.4/keycloak_connector_demo.zip',
+    releaseZip: 'https://github.com/PrestaShop/keycloak_connector_demo/releases/download/v1.1.0/keycloak_connector_demo.zip',
   }),
 };

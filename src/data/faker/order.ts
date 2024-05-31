@@ -17,7 +17,7 @@ import {faker} from '@faker-js/faker';
 export default class FakerOrder {
   public readonly id: number;
 
-  public readonly reference: string;
+  public reference: string;
 
   public readonly newClient: boolean;
 
@@ -99,5 +99,14 @@ export default class FakerOrder {
       name: '',
       freeShipping: false,
     };
+  }
+
+  /**
+     * @param {string} reference
+     */
+  setReference(reference: string): this {
+    this.reference = reference;
+
+    return this;
   }
 }

@@ -1,0 +1,42 @@
+import FakerStore from '@data/faker/store';
+
+export default {
+  store_1: new FakerStore({
+    id: 1,
+    name: 'Dade County',
+    address1: '3030 SW 8th St Miami',
+    address2: '',
+    postcode: '33135',
+    city: 'Miami',
+    country: 'United States',
+    state: 'Florida',
+    phone: '',
+    fax: '',
+    status: true,
+  }),
+  store_2: new FakerStore({
+    id: 2,
+    name: 'E Fort Lauderdale',
+    address1: '1000 Northeast 4th Ave Fort Lauderdale',
+    address2: '',
+    postcode: ' 33304',
+    city: 'Miami',
+    country: 'United States',
+    state: 'Florida',
+    phone: '',
+    fax: '',
+    status: true,
+  }),
+  contact: new FakerStore({
+    name: global.INSTALL.SHOP_NAME,
+    email: global.BO.EMAIL,
+    registrationNumber: ' ',
+    address1: '',
+    address2: '',
+    postcode: '',
+    city: '',
+    country: 'France',
+    phone: '',
+    fax: '',
+  }),
+};
