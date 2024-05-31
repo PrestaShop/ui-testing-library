@@ -136,17 +136,31 @@ type ProductCustomizations = {
 };
 
 type ProductDetailsBasic = {
-  image: string
+  image?: string
   name: string
   price: number
-  quantity: number
+  quantity?: number
 };
 
 type ProductDetails = ProductDetailsBasic & {
-  summary: string
-  description: string
+  summary?: string
+  description?: string
   shipping?: string
   subtotal?: number
+  coverImage?:string,
+  thumbImage?:string,
+  taxShippingDeliveryLabel?: string,
+  shortDescription?: string,
+};
+
+type ProductDetailsWithDiscount = ProductDetailsBasic & {
+  discountPercentage: string,
+  regularPrice: number,
+  subtotal?: number,
+  taxShippingDeliveryLabel?: string,
+  coverImage?:string,
+  thumbImage?:string,
+  shortDescription?: string,
 };
 
 type ProductDiscount = {
@@ -242,6 +256,7 @@ export type {
   ProductCustomization,
   ProductDetails,
   ProductDetailsBasic,
+  ProductDetailsWithDiscount,
   ProductDiscount,
   ProductFilterMinMax,
   ProductHeaderSummary,

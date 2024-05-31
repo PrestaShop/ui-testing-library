@@ -3,7 +3,7 @@ import type {FoCartPageInterface} from '@interfaces/FO/cart';
 import FOBasePage from '@pages/FO/FOBasePage';
 
 // Import data
-import type {ProductAttribute} from '@data/types/product';
+import type {ProductAttribute, ProductDetailsWithDiscount} from '@data/types/product';
 
 import type {Page} from 'playwright';
 
@@ -216,15 +216,7 @@ class CartPage extends FOBasePage implements FoCartPageInterface {
    * @returns {Promise<{discountPercentage: string, image: string|null, quantity: number, totalPrice: number,
    *     price: number, regularPrice: number, name: string}>}
    */
-  async getProductDetail(page: Page, row: number): Promise<{
-    discountPercentage: string,
-    image: string | null,
-    quantity: number,
-    totalPrice: number,
-    price: number,
-    regularPrice: number,
-    name: string,
-  }> {
+  async getProductDetail(page: Page, row: number): Promise<ProductDetailsWithDiscount> {
     return {
       name: await this.getTextContent(page, this.productName(row)),
       regularPrice: await this.getPriceFromText(page, this.productRegularPrice(row)),
@@ -232,7 +224,7 @@ class CartPage extends FOBasePage implements FoCartPageInterface {
       discountPercentage: await this.getTextContent(page, this.productDiscountPercentage(row)),
       image: await this.getAttributeContent(page, this.productImage(row), 'src'),
       quantity: parseFloat(await this.getAttributeContent(page, this.productQuantity(row), 'value') ?? ''),
-      totalPrice: await this.getPriceFromText(page, this.productTotalPrice(row)),
+      subtotal: await this.getPriceFromText(page, this.productTotalPrice(row)),
     };
   }
 

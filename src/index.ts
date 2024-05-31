@@ -94,6 +94,8 @@ export {default as foClassicCheckoutPage} from '@pages/FO/classic/checkout';
 export {default as foClassicCheckoutOrderConfirmationPage} from '@pages/FO/classic/checkout/orderConfirmation';
 export {default as foClassicHomePage} from '@pages/FO/classic/home';
 export {default as foClassicLoginPage} from '@pages/FO/classic/login';
+export {default as foClassicModalBlockCartPage} from '@pages/FO/classic/modal/blockCart';
+export {default as foClassicModalQuickViewPage} from '@pages/FO/classic/modal/quickView';
 export {default as foClassicProductPage} from '@pages/FO/classic/product';
 
 // Export Modules
