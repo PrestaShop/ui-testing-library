@@ -11,6 +11,6 @@ function requirePage(): BOProductsCreateTabPricingPageInterface {
   }
   return require('@versions/develop/pages/BO/catalog/products/create/tabPricing').pricingTab;
 }
-/* eslint-disable global-require, @typescript-eslint/no-var-requires */
+/* eslint-enable global-require, @typescript-eslint/no-var-requires */
 
 export default requirePage();

@@ -11,6 +11,6 @@ function requirePage(): BOProductsCreateTabDescriptionPageInterface {
   }
   return require('@versions/develop/pages/BO/catalog/products/create/tabDescription').descriptionTab;
 }
-/* eslint-disable global-require, @typescript-eslint/no-var-requires */
+/* eslint-enable global-require, @typescript-eslint/no-var-requires */
 
 export default requirePage();

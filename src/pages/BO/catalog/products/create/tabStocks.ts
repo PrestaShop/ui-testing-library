@@ -11,6 +11,6 @@ function requirePage(): BOProductsCreateTabStocksPageInterface {
   }
   return require('@versions/develop/pages/BO/catalog/products/create/tabStocks').stocksTab;
 }
-/* eslint-disable global-require, @typescript-eslint/no-var-requires */
+/* eslint-enable global-require, @typescript-eslint/no-var-requires */
 
 export default requirePage();

@@ -11,6 +11,6 @@ function requirePage(): BOProductsCreateTabOptionsPageInterface {
   }
   return require('@versions/develop/pages/BO/catalog/products/create/tabOptions').optionsTab;
 }
-/* eslint-disable global-require, @typescript-eslint/no-var-requires */
+/* eslint-enable global-require, @typescript-eslint/no-var-requires */
 
 export default requirePage();
