@@ -170,4 +170,5 @@ class VirtualProductTab extends BOBasePage implements BOProductsCreateTabVirtual
   }
 }
 
-export default new VirtualProductTab();
+const virtualProductTab = new VirtualProductTab();
+export {virtualProductTab, VirtualProductTab};

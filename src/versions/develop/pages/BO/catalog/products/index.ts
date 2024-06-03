@@ -526,8 +526,7 @@ class ProductsPage extends BOBasePage implements BOProductsPageInterface {
     const modalBulkActionsProductsProgress = this.modalBulkActionsProductsProgress(
       (action === 'enable' || action === 'disable') ? `${action}_selection` : `bulk_${action}`,
     );
-    await this.waitForSelectorAndClick(page, modalBulkActionsProductsCloseButton);
-    await page.waitForURL('**/sell/catalog/products/**');
+    await this.clickAndWaitForLoadState(page, modalBulkActionsProductsCloseButton);
 
     return this.elementNotVisible(page, modalBulkActionsProductsProgress, 1000);
   }
@@ -718,7 +717,7 @@ class ProductsPage extends BOBasePage implements BOProductsPageInterface {
      */
   async resetFilter(page: Page): Promise<void> {
     if (!(await this.elementNotVisible(page, this.filterResetButton, 2000))) {
-      await this.clickAndWaitForURL(page, this.filterResetButton);
+      await this.clickAndWaitForLoadState(page, this.filterResetButton);
     }
   }
 
