@@ -45,6 +45,7 @@ class LoginPage extends BOBasePage implements LoginPageInterface {
     this.loginErrorText = 'The employee does not exist, or the password provided is incorrect.';
     this.resetPasswordSuccessText = 'Please, check your mailbox.';
 
+    this.shopVersion = '#login-header div.text-center';
     this.emailInput = '#email';
     this.passwordInput = '#passwd';
     this.submitLoginButton = '#submit_login';
@@ -60,6 +61,15 @@ class LoginPage extends BOBasePage implements LoginPageInterface {
   /*
   Methods
    */
+
+    /**
+     * Get shop version
+     * @param page {Page} Browser tab
+     * @return {Promise<string>}
+     */
+  async getShopVersion(page:Page):Promise<string>{
+    return this.getTextContent(page, this.shopVersion);
+  }
 
   /**
    * Fill email input

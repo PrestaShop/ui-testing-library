@@ -27,6 +27,8 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
 
   private readonly userProfileIconNonMigratedPages: string;
 
+  protected shopVersion: string;
+
   protected readonly userProfileIcon: string;
 
   private readonly userProfileFirstname: string;
@@ -301,6 +303,7 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
     this.pageSubtitle = '#content .page-subtitle';
 
     // top navbar
+    this.shopVersion = '#shop_version';
     this.userProfileIconNonMigratedPages = '#employee_infos';
     this.userProfileIcon = '#header_infos #header-employee-container';
     this.userProfileFirstname = '.employee-wrapper-avatar .employee_profile';
@@ -623,6 +626,16 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
   /*
   Methods
    */
+
+  /**
+   * Get shop version
+   * @param page {Page} Browser tab
+   * @returns {Promise<string>}
+   */
+  async getShopVersion(page:Page):Promise<string>{
+    return this.getTextContent(page, this.shopVersion);
+  }
+  
   /**
    * Get page subtitle
    * @param page {Page} Browser tab
@@ -722,11 +735,11 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
     await this.scrollTo(page, linkSelector);
     await this.clickAndWaitForURL(page, linkSelector);
 
-    const psVersion = testContext.getPSVersion();
+    const shopVersion = testContext.getPSVersion();
     let linkActiveClass: string = '-active';
 
     // >= 1.7.8.0
-    if (semver.gte(psVersion, '7.8.0')) {
+    if (semver.gte(shopVersion, '7.8.0')) {
       linkActiveClass = 'link-active';
     }
 
@@ -1059,10 +1072,10 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
    * @return {Promise<string|null>}
    */
   async getGrowlMessageContent(page: Page, timeout: number = 10000): Promise<string | null> {
-    const psVersion = testContext.getPSVersion();
+    const shopVersion = testContext.getPSVersion();
     let {growlMessageBlock} = this;
 
-    if (semver.lt(psVersion, '8.0.0')) {
+    if (semver.lt(shopVersion, '8.0.0')) {
       growlMessageBlock = `${this.growlDiv} .growl-message`;
     }
     return page.textContent(growlMessageBlock, {timeout});

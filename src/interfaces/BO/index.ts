@@ -82,6 +82,7 @@ export interface BOBasePagePageInterface extends CommonPageInterface {
     closeSfToolBar(page: Frame | Page): Promise<void>;
     getAllNotificationsNumber(page: Page): Promise<number>;
     getNotificationsNumberInTab(page: Page, tabName: string): Promise<number>;
+    getShopVersion(page:Page):Promise<string>;
     goToMyProfile(page: Page): Promise<void>;
     goToSubMenu(page: Page, parentSelector: string, linkSelector: string): Promise<void>;
     isMobileMenuVisible(page: Page): Promise<boolean>;
