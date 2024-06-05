@@ -632,10 +632,10 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
    * @param page {Page} Browser tab
    * @returns {Promise<string>}
    */
-  async getShopVersion(page:Page):Promise<string>{
+  async getShopVersion(page:Page):Promise<string> {
     return this.getTextContent(page, this.shopVersion);
   }
-  
+
   /**
    * Get page subtitle
    * @param page {Page} Browser tab
