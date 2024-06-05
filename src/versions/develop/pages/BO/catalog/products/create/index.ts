@@ -397,7 +397,8 @@ class CreateProduct extends BOBasePage implements BOProductsCreatePageInterface 
      * @returns {Promise<void>}
      */
   async clickOnSaveProductButton(page: Page): Promise<void> {
-    await this.clickAndWaitForLoadState(page, this.saveProductButton);
+    await page.locator(this.saveProductButton).click();
+    await page.waitForLoadState();
   }
 
   /**
