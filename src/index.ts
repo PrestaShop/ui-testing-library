@@ -19,10 +19,20 @@ export type {
   GlobalKeycloakConfig,
 } from '@data/types/globals';
 export type {ImageTypeRegeneration, ImageTypeRegenerationSpecific} from '@data/types/imageType';
+export type {
+  ImportAddress,
+  ImportBrand,
+  ImportCategory,
+  ImportCombination,
+  ImportCustomer,
+  ImportHeaderItem,
+  ImportProduct,
+} from '@data/types/import';
 export type {LinkWidgetPage} from '@data/types/linkWidget';
 export type {ModuleInfo} from '@data/types/module';
 export type {OrderCreator} from '@data/types/order';
 export type {ShoppingCartDetails} from '@data/types/shoppingCart';
+export type {WebservicePermission, WebserviceMethod} from '@data/types/webservice';
 export type {
   PageWaitForSelectorOptionsState,
   WaitForNavigationWaitUntil,
@@ -72,37 +82,54 @@ export {default as dataTitles} from '@data/demo/titles';
 export {default as dataZones} from '@data/demo/zones';
 
 export {default as FakerAddress} from '@data/faker/address';
+export {default as FakerAPIClient} from '@data/faker/apiClient';
 export {default as FakerAttribute} from '@data/faker/attribute';
 export {default as FakerAttributeValue} from '@data/faker/attributeValue';
 export {default as FakerBrand} from '@data/faker/brand';
 export {default as FakerBrandAddress} from '@data/faker/brandAddress';
 export {default as FakerCarrier} from '@data/faker/carrier';
+export {default as FakerCartRule} from '@data/faker/cartRule';
+export {default as FakerCatalogPriceRule} from '@data/faker/catalogPriceRule';
 export {default as FakerCategory} from '@data/faker/category';
+export {default as FakerCMSCategory} from '@data/faker/cmsCategory';
 export {default as FakerCMSPage} from '@data/faker/cmsPage';
 export {default as FakerContact} from '@data/faker/contact';
+export {default as FakerContactMessage} from '@data/faker/contactMessage';
 export {default as FakerCountry} from '@data/faker/country';
 export {default as FakerCurrency} from '@data/faker/currency';
 export {default as FakerCustomer} from '@data/faker/customer';
+export {default as FakerCustomerServiceOptions} from '@data/faker/customerServiceOptions';
 export {default as FakerEmployee} from '@data/faker/employee';
 export {default as FakerEmployeeRole} from '@data/faker/employeeRole';
 export {default as FakerFeature} from '@data/faker/feature';
 export {default as FakerFeatureValue} from '@data/faker/featureValue';
+export {default as FakerFile} from '@data/faker/file';
 export {default as FakerGroup} from '@data/faker/group';
 export {default as FakerHook} from '@data/faker/hook';
 export {default as FakerImageType} from '@data/faker/imageType';
+export {default as FakerImport} from '@data/faker/import';
 export {default as FakerLanguage} from '@data/faker/language';
 export {default as FakerLinkWidget} from '@data/faker/linkWidget';
 export {default as FakerModule} from '@data/faker/module';
-export {default as FakerOrderReturnStatus} from '@data/faker/orderReturnStatus';
-export {default as FakerOrderStatus} from '@data/faker/orderStatus';
 export {default as FakerOrder} from '@data/faker/order';
+export {default as FakerOrderDeliverySlipOptions} from '@data/faker/orderDeliverySlipOptions';
+export {default as FakerOrderInvoice} from '@data/faker/orderInvoice';
+export {default as FakerOrderMessage} from '@data/faker/orderMessage';
+export {default as FakerOrderReturnStatus} from '@data/faker/orderReturnStatus';
+export {default as FakerOrderShipping} from '@data/faker/orderShipping';
+export {default as FakerOrderStatus} from '@data/faker/orderStatus';
 export {default as FakerPaymentMethod} from '@data/faker/paymentMethod';
 export {default as FakerProduct} from '@data/faker/product';
 export {default as FakerProductReview} from '@data/faker/productReview';
+export {default as FakerQuickAccess} from '@data/faker/quickAccess';
 export {default as FakerSearchAlias} from '@data/faker/searchAlias';
 export {default as FakerSearchEngine} from '@data/faker/searchEngine';
+export {default as FakerSearchTag} from '@data/faker/searchTag';
 export {default as FakerSeoPage} from '@data/faker/seoPage';
+export {default as FakerShop} from '@data/faker/shop';
+export {default as FakerShopGroup} from '@data/faker/shopGroup';
 export {default as FakerShoppingCart} from '@data/faker/shoppingCart';
+export {default as FakerSqlQuery} from '@data/faker/sqlQuery';
 export {default as FakerSqlTable} from '@data/faker/sqlTable';
 export {default as FakerState} from '@data/faker/state';
 export {default as FakerStore} from '@data/faker/store';
@@ -110,7 +137,9 @@ export {default as FakerSupplier} from '@data/faker/supplier';
 export {default as FakerTaxRule} from '@data/faker/taxRule';
 export {default as FakerTax} from '@data/faker/tax';
 export {default as FakerTaxOption} from '@data/faker/taxOption';
+export {default as FakerTaxRulesGroup} from '@data/faker/taxRulesGroup';
 export {default as FakerTitle} from '@data/faker/title';
+export {default as FakerWebservice} from '@data/faker/webservice';
 export {default as FakerZone} from '@data/faker/zone';
 
 // Export Pages
