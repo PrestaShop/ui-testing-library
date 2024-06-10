@@ -243,6 +243,12 @@ type ProductStockMovement = {
   employee: string
 };
 
+type ProductOrderConfirmation = {
+  image: string
+  details: string
+  prices: string
+};
+
 export type {
   ProductAttribute,
   ProductAttributes,
@@ -263,6 +269,7 @@ export type {
   ProductImageUrls,
   ProductImageInformation,
   ProductInformations,
+  ProductOrderConfirmation,
   ProductPackItem,
   ProductPackInformation,
   ProductPackOptions,

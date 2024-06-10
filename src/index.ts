@@ -5,6 +5,11 @@ export type {
   CarrierRangeZone,
 } from '@data/types/carrier';
 export type {CartProductDetails} from '@data/types/cart';
+export type {
+  CategoryFilter,
+  CategoryRedirection,
+} from '@data/types/category';
+export type {CurrencyFormat} from '@data/types/currency';
 export type {EmployeePermission} from '@data/types/employee';
 export type {
   GlobalInstall,
@@ -28,9 +33,42 @@ export type {
   ImportHeaderItem,
   ImportProduct,
 } from '@data/types/import';
+export type {default as ImportContent} from '@data/types/localization';
 export type {LinkWidgetPage} from '@data/types/linkWidget';
+export type {default as MailDevEmail} from '@data/types/maildevEmail';
 export type {ModuleInfo} from '@data/types/module';
-export type {OrderCreator} from '@data/types/order';
+export type {
+  OrderCreator,
+  OrderHistory,
+  OrderHistoryMessage,
+  OrderMerchandiseProductReturn,
+  OrderMerchandiseReturns,
+  OrderMessage,
+  OrderPayment,
+} from '@data/types/order';
+export type {
+  ProductAttribute,
+  ProductAttributes,
+  ProductCombinationBulk,
+  ProductCombinationBulkRetailPrice,
+  ProductCombinationBulkSpecificReferences,
+  ProductCombinationBulkStock,
+  ProductCombinationOptions,
+  ProductDetailsBasic,
+  ProductDiscount,
+  ProductFeatures,
+  ProductFilterMinMax,
+  ProductHeaderSummary,
+  ProductImageInformation,
+  ProductImageUrls,
+  ProductInformations,
+  ProductOrderConfirmation,
+  ProductPackInformation,
+  ProductPackItem,
+  ProductPackOptions,
+  ProductSpecificPrice,
+  ProductStockMovement,
+} from '@data/types/product';
 export type {ShoppingCartDetails} from '@data/types/shoppingCart';
 export type {WebservicePermission, WebserviceMethod} from '@data/types/webservice';
 export type {
@@ -187,3 +225,6 @@ export {default as modBlockwishlistBoStatistics} from '@pages/BO/modules/blockwi
 // Export utils
 export {default as testContext} from '@utils/test';
 export {default as basicHelper} from '@utils/basicHelper';
+
+// Export packages
+export {default as MailDev} from 'maildev';

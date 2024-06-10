@@ -60,20 +60,20 @@ type OrderPayment = {
     currency : string
 }
 
-type MerchandiseReturns = {
+type OrderMerchandiseReturns = {
     orderReference: string
     fileName: string
     status: string
     dateIssued: string
 }
 
-type MerchandiseProductReturn = {
+type OrderMerchandiseProductReturn = {
     quantity: number
 }
 
 export type{
-  MerchandiseProductReturn,
-  MerchandiseReturns,
+  OrderMerchandiseProductReturn,
+  OrderMerchandiseReturns,
   OrderCreator,
   OrderDeliveryOption,
   OrderHistory,
