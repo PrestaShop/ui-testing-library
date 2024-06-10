@@ -86,13 +86,13 @@ declare module 'maildev' {
     /**
      * Client.
      */
-    envelope?: Object | undefined;
+    envelope?: object | undefined;
   }
 
   /**
    * Interface for {@link MailDev}.
    */
-  export class MailDev {
+  export default class MailDev {
     /**
      * Constructor.
      *
