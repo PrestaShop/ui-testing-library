@@ -9,9 +9,6 @@ function requirePage(): BOProductsCreateTabPricingPageInterface {
   if (semver.lt(psVersion, '8.1.0')) {
     return require('@versions/8.0/pages/BO/catalog/products/create/tabPricing').pricingTab;
   }
-  if (semver.lt(psVersion, '9.0.0')) {
-    return require('@versions/8.1/pages/BO/catalog/products/create/tabPricing').pricingTab;
-  }
   return require('@versions/develop/pages/BO/catalog/products/create/tabPricing').pricingTab;
 }
 /* eslint-enable global-require, @typescript-eslint/no-var-requires */
