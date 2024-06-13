@@ -7,7 +7,7 @@ import type {BOProductsCreateTabStocksPageInterface} from '@interfaces/BO/catalo
 import type {Page} from 'playwright';
 
 /**
- * Stocks tab on new product page, contains functions that can be used on the page
+ * Stocks tab on product page, contains functions that can be used on the page
  * @class
  * @extends BOBasePage
  */

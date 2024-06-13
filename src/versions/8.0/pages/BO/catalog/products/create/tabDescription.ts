@@ -7,9 +7,9 @@ import type FakerProduct from '@data/faker/product';
 import type {Page} from 'playwright';
 
 /**
- * Bo products page, contains functions that can be used on the page
+ * Bo product description tab, contains functions that can be used on the page
  * @class
- * @extends ProductsPage
+ * @extends DescriptionTab
  */
 class BOProductTabDescriptionVersion extends DescriptionTab implements BOProductsCreateTabDescriptionPageInterface {
   private readonly productShortDescriptionIframe: string;
@@ -20,7 +20,7 @@ class BOProductTabDescriptionVersion extends DescriptionTab implements BOProduct
 
   /**
      * @constructs
-     * Setting up texts and selectors to use on products page
+     * Setting up texts and selectors to use on description tab
      */
   constructor() {
     super();

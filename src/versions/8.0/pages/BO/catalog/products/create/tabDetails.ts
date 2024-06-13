@@ -15,7 +15,7 @@ import type {Page} from 'playwright';
 class DetailsTabVersion extends DetailsTab implements BOProductsCreateTabDetailsPageInterface {
   /**
      * @constructs
-     * Setting up texts and selectors to use on order confirmation page
+     * Setting up texts and selectors to use on details tab
      */
   constructor() {
     super();

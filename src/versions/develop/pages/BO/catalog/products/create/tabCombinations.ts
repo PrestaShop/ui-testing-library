@@ -15,7 +15,7 @@ import type {Frame, Page} from 'playwright';
 import type {BOProductsCreateTabCombinationsPageInterface} from '@interfaces/BO/catalog/products/create/tabCombinations';
 
 /**
- * Combinations tab on new product V2 page, contains functions that can be used on the page
+ * Combinations tab on product page, contains functions that can be used on the page
  * @class
  * @extends BOBasePage
  */

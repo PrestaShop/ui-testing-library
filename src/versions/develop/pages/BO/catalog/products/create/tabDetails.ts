@@ -9,7 +9,7 @@ import type {BOProductsCreateTabDetailsPageInterface} from '@interfaces/BO/catal
 import type {Frame, Page} from 'playwright';
 
 /**
- * Details tab on new product page, contains functions that can be used on the page
+ * Details tab on product page, contains functions that can be used on the page
  * @class
  * @extends BOBasePage
  */

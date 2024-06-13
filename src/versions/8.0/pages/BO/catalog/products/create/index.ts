@@ -5,9 +5,9 @@ import {CreateProduct} from '@versions/develop/pages/BO/catalog/products/create'
 import type {Page} from 'playwright';
 
 /**
- * Bo products page, contains functions that can be used on the page
+ * Bo create product page, contains functions that can be used on the page
  * @class
- * @extends ProductsPage
+ * @extends CreateProduct
  */
 class BOCreateProductVersion extends CreateProduct implements BOProductsCreatePageInterface {
   public readonly productOnlineTitle: string;
@@ -22,13 +22,12 @@ class BOCreateProductVersion extends CreateProduct implements BOProductsCreatePa
 
   /**
      * @constructs
-     * Setting up texts and selectors to use on products page
+     * Setting up texts and selectors to use on create product page
      */
   constructor() {
     super();
 
     this.successfulUpdateMessage = 'Settings updated.';
-    this.pageTitle = 'Product';
 
     this.productTypeSelect = '#form_step1_type_product';
     this.productName = '[id*="form_step1_name"]';
@@ -38,7 +37,6 @@ class BOCreateProductVersion extends CreateProduct implements BOProductsCreatePa
     this.productOnlineTitle = 'h2.for-switch.online-title';
     this.productActiveSwitchButtonToggleInput = '.product-footer div.switch-input';
     this.saveProductButton = '#form div.product-footer button.btn-primary[type="submit"]';
-
     this.previewProductButton = '#product_form_preview_btn';
     this.deleteProductLink = '.product-footer a.delete';
     this.footerProductDropDown = '#dropdownMenu';

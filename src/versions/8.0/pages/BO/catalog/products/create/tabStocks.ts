@@ -6,9 +6,9 @@ import type FakerProduct from '@data/faker/product';
 import type {Page} from 'playwright';
 
 /**
- * Bo products page, contains functions that can be used on the page
+ * Bo product stocks tab, contains functions that can be used on the page
  * @class
- * @extends ProductsPage
+ * @extends StocksTab
  */
 class BOProductTabStocksVersion extends StocksTab implements BOProductsCreateTabStocksPageInterface {
   private readonly labelWhenInStockInput: string;
@@ -17,7 +17,7 @@ class BOProductTabStocksVersion extends StocksTab implements BOProductsCreateTab
 
   /**
      * @constructs
-     * Setting up texts and selectors to use on products page
+     * Setting up texts and selectors to use on stocks tab
      */
   constructor() {
     super();

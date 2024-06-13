@@ -8,7 +8,7 @@ import type {ProductHeaderSummary} from '@data/types/product';
 export interface BOProductsCreatePageInterface extends BOBasePagePageInterface {
     readonly errorMessage: string;
     readonly errorMessageWhenSummaryTooLong: (number: number) => string;
-    pageTitle: string;
+    readonly pageTitle: string;
     readonly saveAndPublishButtonName: string;
     saveProductButton: string;
     readonly successfulDuplicateMessage: string;

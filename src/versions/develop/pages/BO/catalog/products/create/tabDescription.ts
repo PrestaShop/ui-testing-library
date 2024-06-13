@@ -7,7 +7,7 @@ import type {BOProductsCreateTabDescriptionPageInterface} from '@interfaces/BO/c
 import type {Page} from 'playwright';
 
 /**
- * Description tab on new product page, contains functions that can be used on the page
+ * Description tab on product page, contains functions that can be used on the page
  * @class
  * @extends BOBasePage
  */

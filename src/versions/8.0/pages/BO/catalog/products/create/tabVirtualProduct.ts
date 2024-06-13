@@ -5,7 +5,7 @@ import {VirtualProductTab} from '@versions/develop/pages/BO/catalog/products/cre
 /**
  * Virtual product tab in product page, contains functions that can be used on the page
  * @class
- * @extends DetailsTab
+ * @extends VirtualProductTab
  */
 class VirtualTabVersion extends VirtualProductTab implements BOProductsCreateTabVirtualProductPageInterface {
   /**

@@ -10,12 +10,12 @@ import type {Page} from 'playwright';
 /**
  * Pricing tab in product page, contains functions that can be used on the page
  * @class
- * @extends DetailsTab
+ * @extends PricingTab
  */
 class PricingTabVersion extends PricingTab implements BOProductsCreateTabPricingPageInterface {
   /**
      * @constructs
-     * Setting up texts and selectors to use on order confirmation page
+     * Setting up texts and selectors to use on pricing tab
      */
   constructor() {
     super();

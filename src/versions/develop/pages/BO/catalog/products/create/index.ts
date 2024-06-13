@@ -20,7 +20,7 @@ import type {Frame, Page} from 'playwright';
  * @extends BOBasePage
  */
 class CreateProduct extends BOBasePage implements BOProductsCreatePageInterface {
-  public pageTitle: string;
+  public readonly pageTitle: string;
 
   public readonly saveAndPublishButtonName: string;
 
@@ -112,12 +112,12 @@ class CreateProduct extends BOBasePage implements BOProductsCreatePageInterface 
 
   /**
      * @constructs
-     * Setting up texts and selectors to use on products V2 page
+     * Setting up texts and selectors to use on create product page
      */
   constructor() {
     super();
 
-    this.pageTitle = 'Products';
+    this.pageTitle = 'Product';
     this.saveAndPublishButtonName = 'Save and publish';
     this.successfulDuplicateMessage = 'Successful duplication';
     this.errorMessage = 'Unable to update settings.';

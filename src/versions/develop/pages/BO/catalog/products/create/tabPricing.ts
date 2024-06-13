@@ -7,7 +7,7 @@ import type {BOProductsCreateTabPricingPageInterface} from '@interfaces/BO/catal
 import type {Page} from 'playwright';
 
 /**
- * Pricing tab on new product page, contains functions that can be used on the page
+ * Pricing tab on product page, contains functions that can be used on the page
  * @class
  * @extends BOBasePage
  */

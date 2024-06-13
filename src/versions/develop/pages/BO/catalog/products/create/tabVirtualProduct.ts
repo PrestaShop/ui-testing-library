@@ -6,7 +6,7 @@ import type FakerProduct from '@data/faker/product';
 import type {BOProductsCreateTabVirtualProductPageInterface} from '@interfaces/BO/catalog/products/create/tabVirtualProduct';
 
 /**
- * Virtual product tab on new product page, contains functions that can be used on the page
+ * Virtual product tab on product page, contains functions that can be used on the page
  * @class
  * @extends BOBasePage
  */

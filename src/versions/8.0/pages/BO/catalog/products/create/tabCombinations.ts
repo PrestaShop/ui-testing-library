@@ -8,14 +8,14 @@ import type {ProductAttributes} from '@data/types/product';
 import type {Page} from 'playwright';
 
 /**
- * Bo products page, contains functions that can be used on the page
+ * Bo product combinations tab, contains functions that can be used on the page
  * @class
- * @extends ProductsPage
+ * @extends CombinationsTab
  */
-class BOProductTabCombinaisonVersion extends CombinationsTab implements BOProductsCreateTabCombinationsPageInterface {
+class BOProductTabCombinaisonsVersion extends CombinationsTab implements BOProductsCreateTabCombinationsPageInterface {
   /**
      * @constructs
-     * Setting up texts and selectors to use on products page
+     * Setting up texts and selectors to use on combination tab
      */
   constructor() {
     super();
@@ -52,5 +52,5 @@ class BOProductTabCombinaisonVersion extends CombinationsTab implements BOProduc
   }
 }
 
-const combinationsTab = new BOProductTabCombinaisonVersion();
-export {combinationsTab, BOProductTabCombinaisonVersion};
+const combinationsTab = new BOProductTabCombinaisonsVersion();
+export {combinationsTab, BOProductTabCombinaisonsVersion};
