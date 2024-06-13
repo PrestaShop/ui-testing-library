@@ -72,12 +72,12 @@ class BOProductsVersion extends ProductsPage implements BOProductsPageInterface 
     this.modalDialog = '.modal.show div.modal-dialog';
     this.modalDialogFooter = `${this.modalDialog} div.modal-footer`;
     this.modalDialogConfirmButton = `${this.modalDialogFooter} button[value="confirm"]`;
-    
+
     // Bulk actions
     this.selectAllProductsCheckbox = `${this.productListForm} .column-filters .md-checkbox label`;
     this.productBulkMenuButton = '#product_bulk_menu:not([disabled])';
     this.bulkActionsDropDownMenu = 'div.bulk-catalog div.dropdown-menu.show';
-    this.bulkActionsSelectionLink = (action: string) =>  `${this.bulkActionsDropDownMenu} a[onclick*=${action}]`;
+    this.bulkActionsSelectionLink = (action: string) => `${this.bulkActionsDropDownMenu} a[onclick*=${action}]`;
     this.modalBulkActionsProducts = (action: string) => `#catalog_${action}_modal`;
     this.modalBulkActionsProductsBody = (action: string) => `${this.modalBulkActionsProducts(action)} div.modal-body`;
     this.modalBulkActionsProductsFooter = (action: string) => `${this.modalBulkActionsProducts(action)} div.modal-footer`;
@@ -146,7 +146,7 @@ class BOProductsVersion extends ProductsPage implements BOProductsPageInterface 
    */
   async bulkSelectProducts(page: Page): Promise<boolean> {
     // @ts-ignore
-    await page.$eval(this.selectAllProductsCheckbox, el => el.click());
+    await page.$eval(this.selectAllProductsCheckbox, (el) => el.click());
 
     return this.elementNotVisible(page, `${this.productBulkMenuButton}[disabled]`, 1000);
   }
@@ -158,24 +158,25 @@ class BOProductsVersion extends ProductsPage implements BOProductsPageInterface 
    * @returns {Promise<string>}
    */
   async clickOnBulkActionsProducts(page: Page, action: string): Promise<string> {
-   let modalBulkAction :string = action;
-   if (action === 'delete'){
-     modalBulkAction = 'deletion';
-   }
+    let modalBulkAction :string = action;
+
+    if (action === 'delete') {
+      modalBulkAction = 'deletion';
+    }
     await Promise.all([
       this.waitForVisibleSelector(page, `${this.productBulkMenuButton}[aria-expanded='true']`),
       page.locator(this.productBulkMenuButton).click(),
     ]);
 
     const bulkActionsSelectionLink = this.bulkActionsSelectionLink(
-        (action === 'enable' || action === 'disable') ? `${action}_all` : `${action}`,
+      (action === 'enable' || action === 'disable') ? `${action}_all` : `${action}`,
     );
 
     const modalBulkActionsProducts = this.modalBulkActionsProducts(
-        (action === 'enable' || action === 'disable') ? `${action}_all` : `${modalBulkAction}`,
+      (action === 'enable' || action === 'disable') ? `${action}_all` : `${modalBulkAction}`,
     );
     const modalBulkActionsProductsBody = this.modalBulkActionsProductsBody(
-        (action === 'enable' || action === 'disable') ? `${action}_all` : `${modalBulkAction}`,
+      (action === 'enable' || action === 'disable') ? `${action}_all` : `${modalBulkAction}`,
     );
     await this.waitForSelectorAndClick(page, bulkActionsSelectionLink);
     await this.waitForVisibleSelector(page, modalBulkActionsProducts);
@@ -195,7 +196,6 @@ class BOProductsVersion extends ProductsPage implements BOProductsPageInterface 
 
     return this.getAlertSuccessBlockParagraphContent(page);
   }
-
 }
 
 const productsPage = new BOProductsVersion();

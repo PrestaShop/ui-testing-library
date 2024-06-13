@@ -13,11 +13,11 @@ class BOCreateProductVersion extends CreateProduct implements BOProductsCreatePa
   public readonly productOnlineTitle: string;
 
   public readonly deleteProductLink: string;
-  
+
   public readonly productTypeSelect: string;
-  
+
   public readonly goToCatalogFromDropDown: string;
-  
+
   public readonly newProductInDropDow: string;
 
   /**
@@ -45,7 +45,7 @@ class BOCreateProductVersion extends CreateProduct implements BOProductsCreatePa
     this.goToCatalogFromDropDown = '#form div.product-footer a.dropdown-item.go-catalog';
     this.goToCatalogButton = '#product_form_save_go_to_catalog_btn';
     this.newProductButton = '#product_form_save_new_btn';
-    this.newProductInDropDow = '#form div.product-footer a.dropdown-item.new-product'
+    this.newProductInDropDow = '#form div.product-footer a.dropdown-item.new-product';
   }
 
   /**
@@ -182,10 +182,10 @@ class BOCreateProductVersion extends CreateProduct implements BOProductsCreatePa
    */
   async goToCatalogPage(page: Page): Promise<void> {
     if (await this.elementVisible(page, this.goToCatalogButton, 1000)) {
-     await this.clickAndWaitForURL(page, this.goToCatalogButton);
+      await this.clickAndWaitForURL(page, this.goToCatalogButton);
     } else {
-        await page.locator(this.footerProductDropDown).click();
-        await this.clickAndWaitForURL(page, this.goToCatalogFromDropDown);
+      await page.locator(this.footerProductDropDown).click();
+      await this.clickAndWaitForURL(page, this.goToCatalogFromDropDown);
     }
   }
 
@@ -196,10 +196,10 @@ class BOCreateProductVersion extends CreateProduct implements BOProductsCreatePa
    */
   async clickOnNewProductButton(page: Page): Promise<boolean> {
     if (await this.elementVisible(page, this.newProductButton, 1000)) {
-     await this.clickAndWaitForURL(page, this.newProductButton);
+      await this.clickAndWaitForURL(page, this.newProductButton);
     } else {
-        await page.locator(this.footerProductDropDown).click();
-        await this.clickAndWaitForURL(page, this.newProductInDropDow);
+      await page.locator(this.footerProductDropDown).click();
+      await this.clickAndWaitForURL(page, this.newProductInDropDow);
     }
 
     return true;
