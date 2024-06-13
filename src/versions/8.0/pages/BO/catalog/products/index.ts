@@ -93,7 +93,6 @@ class BOProductsVersion extends ProductsPage implements BOProductsPageInterface 
     this.productNumberBloc = `${this.productListfooterRow} label.col-form-label`;
   }
 
-
   /**
    * Reset input filters
    * @param page {Page} Browser tab
