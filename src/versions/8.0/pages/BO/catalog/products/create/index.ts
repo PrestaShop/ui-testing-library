@@ -114,8 +114,7 @@ class BOCreateProductVersion extends CreateProduct implements BOProductsCreatePa
       default:
         throw new Error(`Type ${tabName} is not defined`);
     }
-
-    this.waitForSelectorAndClick(page, this.tabLink(tabId));
+    await this.waitForSelectorAndClick(page, this.tabLink(tabId));
     await this.waitForVisibleSelector(page, `${this.tabLink(tabId)} a.active`, 2000);
   }
 
