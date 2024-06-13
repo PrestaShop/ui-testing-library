@@ -38,11 +38,11 @@ class CreateProduct extends BOBasePage implements BOProductsCreatePageInterface 
 
   private readonly productImageUrl: string;
 
-  private readonly productName: string;
+  protected productName: string;
 
-  private readonly productNameInput: (locale: string) => string;
+  protected productNameInput: (locale: string) => string;
 
-  private readonly productNameLanguageButton: string;
+  protected productNameLanguageButton: string;
 
   private readonly productNameLanguageDropdown: string;
 
@@ -58,7 +58,7 @@ class CreateProduct extends BOBasePage implements BOProductsCreatePageInterface 
 
   private readonly modifyAllShopsNameSwitchButton: string;
 
-  private readonly productActiveSwitchButtonToggleInput: string;
+  protected productActiveSwitchButtonToggleInput: string;
 
   private readonly productHeaderSummary: string;
 
@@ -72,21 +72,21 @@ class CreateProduct extends BOBasePage implements BOProductsCreatePageInterface 
 
   private readonly productHeaderReference: (type: string) => string;
 
-  private readonly footerProductDropDown: string;
+  protected footerProductDropDown: string;
 
-  private readonly previewProductButton: string;
+  protected previewProductButton: string;
 
-  public readonly saveProductButton: string;
+  public saveProductButton: string;
 
   private readonly deleteProductButton: string;
 
   private readonly deleteProductFooterModal: string;
 
-  private readonly deleteProductSubmitButton: string;
+  protected deleteProductSubmitButton: string;
 
-  private readonly newProductButton: string;
+  protected newProductButton: string;
 
-  private readonly goToCatalogButton: string;
+  protected goToCatalogButton: string;
 
   private readonly duplicateProductButton: string;
 
@@ -94,11 +94,11 @@ class CreateProduct extends BOBasePage implements BOProductsCreatePageInterface 
 
   private readonly duplicateProductFooterModalConfirmSubmit: string;
 
-  private readonly formProductPage: string;
+  public formProductPage: string;
 
   private readonly dangerMessageShortDescription: string;
 
-  private readonly tabLink: (tabName: string) => string;
+  protected tabLink: (tabName: string) => string;
 
   private readonly modalSwitchType: string;
 
@@ -112,12 +112,12 @@ class CreateProduct extends BOBasePage implements BOProductsCreatePageInterface 
 
   /**
      * @constructs
-     * Setting up texts and selectors to use on products V2 page
+     * Setting up texts and selectors to use on create product page
      */
   constructor() {
     super();
 
-    this.pageTitle = 'Products';
+    this.pageTitle = 'Product';
     this.saveAndPublishButtonName = 'Save and publish';
     this.successfulDuplicateMessage = 'Successful duplication';
     this.errorMessage = 'Unable to update settings.';
@@ -208,7 +208,7 @@ class CreateProduct extends BOBasePage implements BOProductsCreatePageInterface 
      */
   async goToTab(
     page: Page,
-    tabName: 'combinations' | 'description' | 'details' | 'options' | 'pricing' | 'seo' | 'shipping' | 'stock',
+    tabName: string,
   ): Promise<void> {
     await this.waitForSelectorAndClick(page, this.tabLink(tabName));
     await this.waitForVisibleSelector(page, `${this.tabLink(tabName)} a.active`, 2000);
@@ -348,14 +348,15 @@ class CreateProduct extends BOBasePage implements BOProductsCreatePageInterface 
      * @param productData {FakerProduct} Data to set in new product page
      * @returns {Promise<string>}
      */
-  async setProduct(page: Page, productData: FakerProduct): Promise<string> {
-    // Set status
-    await this.setProductStatus(page, productData.status);
+  async setProduct(page: Page, productData: FakerProduct): Promise<string|null> {
     // Set description
     await descriptionTab.setProductDescription(page, productData);
     // Set name
-    await this.setProductName(page, productData.name, 'en');
     await this.setProductName(page, productData.nameFR, 'fr');
+    await this.setProductName(page, productData.name, 'en');
+
+    // Set status
+    await this.setProductStatus(page, productData.status);
 
     await detailsTab.setProductDetails(page, productData);
 
@@ -406,7 +407,7 @@ class CreateProduct extends BOBasePage implements BOProductsCreatePageInterface 
      * @param page {Page} Browser tab
      * @returns {Promise<string>}
      */
-  async saveProduct(page: Page): Promise<string> {
+  async saveProduct(page: Page): Promise<string|null> {
     await this.clickOnSaveProductButton(page);
 
     return this.getAlertSuccessBlockParagraphContent(page);

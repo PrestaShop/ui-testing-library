@@ -7,7 +7,7 @@ import type {BOProductsCreateTabShippingPageInterface} from '@interfaces/BO/cata
 import type {Page} from 'playwright';
 
 /**
- * Shipping tab on new product V2 page, contains functions that can be used on the page
+ * Shipping tab on product page, contains functions that can be used on the page
  * @class
  * @extends BOBasePage
  */

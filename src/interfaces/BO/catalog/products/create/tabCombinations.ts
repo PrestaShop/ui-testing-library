@@ -44,7 +44,7 @@ export interface BOProductsCreateTabCombinationsPageInterface extends BOBasePage
     getTextColumn(page: Page, column: string, row: number): Promise<string>;
     paginationNext(page: Page): Promise<string>
     paginationPrevious(page: Page): Promise<string>;
-    saveCombinationsForm(page: Page): Promise<string | null>;
+    saveCombinationsForm(page: Page): Promise<string|null>;
     selectAllCombinations(page: Page, allCombinations: boolean): Promise<boolean>;
     selectAllValues(page: Page, attribute: string): Promise<string>;
     selectAttribute(page: Page, combination: string): Promise<void>;
@@ -52,6 +52,6 @@ export interface BOProductsCreateTabCombinationsPageInterface extends BOBasePage
     setLabelWhenInStock(page: Page, label: string): Promise<void>;
     setLabelWhenOutOfStock(page: Page, label: string): Promise<void>;
     setOptionWhenOutOfStock(page: Page, option: string): Promise<void>;
-    setProductAttributes(page: Page, attributes: ProductAttributes[]): Promise<string>;
+    setProductAttributes(page: Page, attributes: ProductAttributes[]): Promise<string|null>;
     sortTable(page: Page, sortBy: string, column: number, sortDirection: string): Promise<void>;
 }

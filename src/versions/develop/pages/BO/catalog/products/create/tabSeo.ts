@@ -5,7 +5,7 @@ import type {BOProductsCreateTabSeoPageInterface} from '@interfaces/BO/catalog/p
 import type {Page} from 'playwright';
 
 /**
- * SEO tab on new product page, contains functions that can be used on the page
+ * SEO tab on product page, contains functions that can be used on the page
  * @class
  * @extends BOBasePage
  */

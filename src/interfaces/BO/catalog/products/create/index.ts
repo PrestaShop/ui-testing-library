@@ -10,7 +10,7 @@ export interface BOProductsCreatePageInterface extends BOBasePagePageInterface {
     readonly errorMessageWhenSummaryTooLong: (number: number) => string;
     readonly pageTitle: string;
     readonly saveAndPublishButtonName: string;
-    readonly saveProductButton: string;
+    saveProductButton: string;
     readonly successfulDuplicateMessage: string;
 
     applyChangesToAllStores(page: Page, status: boolean): Promise<void>;
@@ -33,9 +33,9 @@ export interface BOProductsCreatePageInterface extends BOBasePagePageInterface {
     isTabActive(page: Page, tabName: string): Promise<boolean>;
     isTabVisible(page: Page, tabName: string): Promise<boolean>;
     previewProduct(page: Page): Promise<Page>;
-    saveProduct(page: Page): Promise<string>;
+    saveProduct(page: Page): Promise<string|null>;
     selectStores(page: Page, storeID: number): Promise<void>;
-    setProduct(page: Page, productData: FakerProduct): Promise<string>;
+    setProduct(page: Page, productData: FakerProduct): Promise<string|null>;
     setProductName(page: Page, name: string, locale: string): Promise<void>;
     setProductStatus(page: Page, status: boolean): Promise<boolean>;
 }

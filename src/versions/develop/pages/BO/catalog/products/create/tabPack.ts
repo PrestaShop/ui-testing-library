@@ -11,7 +11,7 @@ import type {BOProductsCreateTabPackPageInterface} from '@interfaces/BO/catalog/
 import type {Locator, Page} from 'playwright';
 
 /**
- * Pack tab on new product V2 page, contains functions that can be used on the page
+ * Pack tab on product page, contains functions that can be used on the page
  * @class
  * @extends BOBasePage
  */

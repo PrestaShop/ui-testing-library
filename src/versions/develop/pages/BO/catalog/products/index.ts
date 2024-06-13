@@ -29,7 +29,7 @@ class ProductsPage extends BOBasePage implements BOProductsPageInterface {
 
   protected newProductIframeURL;
 
-  private readonly newProductButton: string;
+  protected newProductButton: string;
 
   private readonly addNewProductButton: string;
 
@@ -53,19 +53,19 @@ class ProductsPage extends BOBasePage implements BOProductsPageInterface {
 
   private readonly clearFilterButton: string;
 
-  private readonly productBulkMenuButton: string;
+  protected productBulkMenuButton: string;
 
-  private readonly bulkActionsDropDownMenu: string;
+  protected bulkActionsDropDownMenu: string;
 
-  private readonly bulkActionsSelectionLink: (action: string) => string;
+  protected bulkActionsSelectionLink: (action: string) => string;
 
-  private readonly modalBulkActionsProducts: (action: string) => string;
+  protected modalBulkActionsProducts: (action: string) => string;
 
-  private readonly modalBulkActionsProductsBody: (action: string) => string;
+  protected modalBulkActionsProductsBody: (action: string) => string;
 
-  private readonly modalBulkActionsProductsFooter: (action: string) => string;
+  protected modalBulkActionsProductsFooter: (action: string) => string;
 
-  private readonly modalDialogBulkActionButton: (action: string) => string;
+  protected modalDialogBulkActionButton: (action: string) => string;
 
   private readonly modalBulkActionsProductsProgress: (action: string) => string;
 
@@ -81,15 +81,15 @@ class ProductsPage extends BOBasePage implements BOProductsPageInterface {
 
   private readonly modalBulkActionsProductsCloseButton: (action: string) => string;
 
-  private readonly productGridTable: string;
+  protected productGridTable: string;
 
-  private readonly productTableFilterLine: string;
+  protected productTableFilterLine: string;
 
-  private readonly filterSearchButton: string;
+  protected filterSearchButton: string;
 
-  private readonly filterResetButton: string;
+  protected filterResetButton: string;
 
-  private readonly selectAllProductsCheckbox: string;
+  protected selectAllProductsCheckbox: string;
 
   private readonly tableHead: string;
 
@@ -97,59 +97,59 @@ class ProductsPage extends BOBasePage implements BOProductsPageInterface {
 
   private readonly sortColumnSpanButton: (column: string) => string;
 
-  private readonly productFilterIDMinInput: string;
+  protected productFilterIDMinInput: string;
 
-  private readonly productFilterIDMaxInput: string;
+  protected productFilterIDMaxInput: string;
 
-  private readonly productFilterNameInput: string;
+  protected productFilterNameInput: string;
 
-  private readonly productFilterReferenceInput: string;
+  protected productFilterReferenceInput: string;
 
-  private readonly productFilterCategoryInput: string;
+  protected productFilterCategoryInput: string;
 
-  private readonly productFilterPriceMinInput: string;
+  protected productFilterPriceMinInput: string;
 
-  private readonly productFilterPriceMaxInput: string;
+  protected productFilterPriceMaxInput: string;
 
-  private readonly productFilterQuantityMinInput: string;
+  protected productFilterQuantityMinInput: string;
 
-  private readonly productFilterQuantityMaxInput: string;
+  protected productFilterQuantityMaxInput: string;
 
-  private readonly productFilterSelectStatus: string;
+  protected productFilterSelectStatus: string;
 
   private readonly productFilterPositionInput: string;
 
-  private readonly productRow: string;
+  protected productRow: string;
 
   private readonly productEmptyRow: string;
 
-  private readonly productsListTableRow: (row: number) => string;
+  protected productsListTableRow: (row: number) => string;
 
   private readonly productsListTableColumn: (row: number, column: number) => string;
 
   private readonly productsListTableColumnBulk: (row: number) => string;
 
-  private readonly productsListTableColumnID: (row: number) => string;
+  protected productsListTableColumnID: (row: number) => string;
 
-  private readonly productsListTableColumnName: (row: number) => string;
+  protected productsListTableColumnName: (row: number) => string;
 
-  private readonly productsListTableColumnReference: (row: number) => string;
+  protected productsListTableColumnReference: (row: number) => string;
 
-  private readonly productsListTableColumnCategory: (row: number) => string;
+  protected productsListTableColumnCategory: (row: number) => string;
 
-  private readonly productsListTableColumnPriceTExc: (row: number) => string;
+  protected productsListTableColumnPriceTExc: (row: number) => string;
 
-  private readonly productsListTableColumnPriceATI: (row: number) => string;
+  protected productsListTableColumnPriceATI: (row: number) => string;
 
-  private readonly productsListTableColumnQuantity: (row: number) => string;
+  protected productsListTableColumnQuantity: (row: number) => string;
 
-  private readonly productsListTableColumnStatus: (row: number) => string;
+  protected productsListTableColumnStatus: (row: number) => string;
 
   private readonly productsListTableColumnPosition: (row: number) => string;
 
-  private readonly productListTableDropDownList: (row: number) => string;
+  protected productListTableDropDownList: (row: number) => string;
 
-  private readonly productListTableDeleteButton: (row: number) => string;
+  protected productListTableDeleteButton: (row: number) => string;
 
   private readonly productListTableDeleteFromStoreButton: (row: number) => string;
 
@@ -171,13 +171,13 @@ class ProductsPage extends BOBasePage implements BOProductsPageInterface {
 
   private readonly productType: (type: string) => string;
 
-  public readonly modalDialog: string;
+  public modalDialog: string;
 
-  private readonly modalDialogFooter: string;
+  protected modalDialogFooter: string;
 
   private readonly modalDialogCancelButton: string;
 
-  private readonly modalDialogConfirmButton: string;
+  protected modalDialogConfirmButton: string;
 
   private readonly paginationBlock: string;
 
@@ -187,15 +187,15 @@ class ProductsPage extends BOBasePage implements BOProductsPageInterface {
 
   private readonly paginationDropdown: string;
 
-  private readonly paginationPreviousLink: string;
+  protected paginationPreviousLink: string;
 
-  private readonly paginationNextLink: string;
+  protected paginationNextLink: string;
 
   private readonly paginationJumpToPage: string;
 
   /**
      * @constructs
-     * Setting up texts and selectors to use on products V2 page
+     * Setting up texts and selectors to use on products page
      */
   constructor() {
     super();
@@ -717,7 +717,8 @@ class ProductsPage extends BOBasePage implements BOProductsPageInterface {
      */
   async resetFilter(page: Page): Promise<void> {
     if (!(await this.elementNotVisible(page, this.filterResetButton, 2000))) {
-      await this.clickAndWaitForURL(page, this.filterResetButton);
+      await page.locator(this.filterResetButton).click();
+      await page.waitForLoadState();
     }
   }
 

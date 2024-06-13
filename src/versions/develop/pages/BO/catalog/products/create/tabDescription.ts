@@ -7,14 +7,14 @@ import type {BOProductsCreateTabDescriptionPageInterface} from '@interfaces/BO/c
 import type {Page} from 'playwright';
 
 /**
- * Description tab on new product page, contains functions that can be used on the page
+ * Description tab on product page, contains functions that can be used on the page
  * @class
  * @extends BOBasePage
  */
 class DescriptionTab extends BOBasePage implements BOProductsCreateTabDescriptionPageInterface {
   public readonly settingUpdatedMessage: string;
 
-  private readonly descriptionTabLink: string;
+  protected descriptionTabLink: string;
 
   private readonly productImageDropZoneDiv: string;
 
@@ -375,7 +375,7 @@ class DescriptionTab extends BOBasePage implements BOProductsCreateTabDescriptio
      */
   async setValueOnTinymceInput(page: Page, selector: string, value: string): Promise<void> {
     // Select all
-    await page.locator(`${selector} .mce-edit-area`).click({clickCount: 3});
+    await page.locator(`${selector} .mce-edit-area`).first().click({clickCount: 3});
 
     // Delete all text
     await page.keyboard.press('Backspace');

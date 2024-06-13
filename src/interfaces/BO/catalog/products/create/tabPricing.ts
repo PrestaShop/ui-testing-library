@@ -12,7 +12,7 @@ export interface BOProductsCreateTabPricingPageInterface extends BOBasePagePageI
     clickOnHideCatalogPriceRulesButton(page: Page): Promise<boolean>;
     clickOnManageCatalogPriceRuleLink(page: Page): Promise<Page>
     clickOnShowCatalogPriceRuleButton(page: Page): Promise<void>;
-    deleteSpecificPrice(page: Page, row: number): Promise<string | null>;
+    deleteSpecificPrice(page: Page, row: number): Promise<string|null>;
     getCatalogPriceRuleData(page: Page, row: number) :Promise<object>
     getSummary(page: Page): Promise<object>;
     getUnitPriceValue(page: Page): Promise<string>;
@@ -23,6 +23,6 @@ export interface BOProductsCreateTabPricingPageInterface extends BOBasePagePageI
     setProductPricing(page: Page, productData: FakerProduct): Promise<void>;
     setRetailPrice(page: Page, isTaxExcluded: boolean, price: number): Promise<void>;
     setRetailPricePerUnit(page: Page, isTaxExcluded: boolean, price: number, unit: string): Promise<void>;
-    setSpecificPrice(page: Page, specificPriceData: ProductSpecificPrice): Promise<string | null>;
+    setSpecificPrice(page: Page, specificPriceData: ProductSpecificPrice): Promise<string|null>;
     setTaxRule(page: Page, taxRule: string): Promise<void>;
 }

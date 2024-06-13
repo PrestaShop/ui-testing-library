@@ -3,9 +3,9 @@ import type {LoginPageInterface} from '@interfaces/BO/login';
 import {LoginPage} from '@versions/develop/pages/BO/login';
 
 /**
- * Order confirmation page, contains functions that can be used on the page
+ * Login page, contains functions that can be used on the page
  * @class
- * @extends OrderConfirmationPage
+ * @extends LoginPage
  */
 class LoginVersion extends LoginPage implements LoginPageInterface {
   /**

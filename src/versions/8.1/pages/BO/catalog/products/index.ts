@@ -3,14 +3,14 @@ import type {BOProductsPageInterface} from '@interfaces/BO/catalog/products';
 import {ProductsPage} from '@versions/develop/pages/BO/catalog/products';
 
 /**
- * Order confirmation page, contains functions that can be used on the page
+ * Bo products page, contains functions that can be used on the page
  * @class
- * @extends OrderConfirmationPage
+ * @extends ProductsPage
  */
 class BOProductsVersion extends ProductsPage implements BOProductsPageInterface {
   /**
      * @constructs
-     * Setting up texts and selectors to use on order confirmation page
+     * Setting up texts and selectors to use on products page
      */
   constructor() {
     super();
