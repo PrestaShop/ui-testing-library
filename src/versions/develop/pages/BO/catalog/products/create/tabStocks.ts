@@ -12,15 +12,15 @@ import type {Page} from 'playwright';
  * @extends BOBasePage
  */
 class StocksTab extends BOBasePage implements BOProductsCreateTabStocksPageInterface {
-  private readonly stocksTabLink: string;
+  protected stocksTabLink: string;
 
   private readonly initialQuantitySpan: string;
 
-  private readonly productQuantityInput: string;
+  protected productQuantityInput: string;
 
-  private readonly productMinimumQuantityInput: string;
+  protected productMinimumQuantityInput: string;
 
-  private readonly productStockLocationInput: string;
+  protected productStockLocationInput: string;
 
   private readonly productLowStockThresholdCheckbox: string;
 
@@ -42,11 +42,11 @@ class StocksTab extends BOBasePage implements BOProductsCreateTabStocksPageInter
 
   private readonly behaviourOutOfStockInput: (id: number) => string;
 
-  private readonly denyOrderRadioButton: string;
+  protected denyOrderRadioButton: string;
 
-  private readonly allowOrderRadioButton: string;
+  protected allowOrderRadioButton: string;
 
-  private readonly useDefaultBehaviourRadioButton: string;
+  protected useDefaultBehaviourRadioButton: string;
 
   private readonly stockMovementsDiv: string;
 

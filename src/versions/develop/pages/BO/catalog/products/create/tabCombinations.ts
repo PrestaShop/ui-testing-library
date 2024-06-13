@@ -30,7 +30,7 @@ class CombinationsTab extends BOBasePage implements BOProductsCreateTabCombinati
 
   public readonly successfulUpdateMessage: string;
 
-  private readonly combinationsTabLink: string;
+  protected combinationsTabLink: string;
 
   private readonly learnMoreButton: string;
 
@@ -38,13 +38,13 @@ class CombinationsTab extends BOBasePage implements BOProductsCreateTabCombinati
 
   private readonly generateFirstCombinationsButton: string;
 
-  private readonly generateCombinationButton: string;
+  protected generateCombinationButton: string;
 
   private readonly generateCombinationsModal: string;
 
   private readonly cancelButton: string;
 
-  private readonly searchAttributesButton: string;
+  protected searchAttributesInput: string;
 
   private readonly generateCombinationsButtonOnModal: string;
 
@@ -221,7 +221,7 @@ class CombinationsTab extends BOBasePage implements BOProductsCreateTabCombinati
     this.generateFirstCombinationsButton = '#combinations-empty-state button.generate-combinations-button';
     this.generateCombinationButton = '#combination-list-actions button.generate-combinations-button';
     this.generateCombinationsModal = '#product-combinations-generate div.modal.show';
-    this.searchAttributesButton = `${this.generateCombinationsModal} input.attributes-search`;
+    this.searchAttributesInput = `${this.generateCombinationsModal} input.attributes-search`;
     this.generateCombinationsButtonOnModal = `${this.generateCombinationsModal} footer button.btn.btn-primary`;
     this.generateCombinationsCloseButton = `${this.generateCombinationsModal} button.close`;
     this.saveCombinationEditButton = '#save-combinations-edition';
@@ -399,7 +399,7 @@ class CombinationsTab extends BOBasePage implements BOProductsCreateTabCombinati
      * @returns {Promise<void>}
      */
   async selectAttribute(page: Page, combination: string): Promise<void> {
-    await page.locator(this.searchAttributesButton).fill(combination);
+    await page.locator(this.searchAttributesInput).fill(combination);
     await page.keyboard.press('ArrowDown');
     await page.keyboard.press('Enter');
   }
@@ -410,7 +410,7 @@ class CombinationsTab extends BOBasePage implements BOProductsCreateTabCombinati
      * @param attributes {ProductAttributes[]} Combinations of the product
      * @returns {Promise<string>}
      */
-  async setProductAttributes(page: Page, attributes: ProductAttributes[]): Promise<string> {
+  async setProductAttributes(page: Page, attributes: ProductAttributes[]): Promise<string |null> {
     await this.waitForSelectorAndClick(page, this.combinationsTabLink);
     if (await this.elementVisible(page, this.generateCombinationButton, 2000)) {
       await this.waitForSelectorAndClick(page, this.generateCombinationButton);
@@ -425,7 +425,6 @@ class CombinationsTab extends BOBasePage implements BOProductsCreateTabCombinati
         await this.selectAttribute(page, `${attributes[i].name} : ${attributes[i].values[j]}`);
       }
     }
-    /* eslint-enable */
 
     return this.getTextContent(page, this.generateCombinationsButtonOnModal);
   }

@@ -11,27 +11,27 @@ import type {BOProductsCreateTabVirtualProductPageInterface} from '@interfaces/B
  * @extends BOBasePage
  */
 class VirtualProductTab extends BOBasePage implements BOProductsCreateTabVirtualProductPageInterface {
-  private readonly virtualProductTabLink: string;
+  protected virtualProductTabLink: string;
 
-  private readonly productQuantityInput: string;
+  protected productQuantityInput: string;
 
-  private readonly productMinimumQuantityInput: string;
+  protected productMinimumQuantityInput: string;
 
   private readonly productFileSection: string;
 
-  private readonly productChooseFile: (toCheck: number) => string;
+  protected productChooseFile: (toCheck: number) => string;
 
-  private readonly productFile: string;
+  protected productFile: string;
 
   private readonly errorMessageInFileInput: string;
 
-  private readonly productFileNameInput: string;
+  protected productFileNameInput: string;
 
-  private readonly productFileDownloadTimesLimit: string;
+  protected productFileDownloadTimesLimit: string;
 
-  private readonly productFileExpirationDate: string;
+  protected productFileExpirationDate: string;
 
-  private readonly productFileNumberOfDays: string;
+  protected productFileNumberOfDays: string;
 
   private readonly denyOrderRadioButton: string;
 

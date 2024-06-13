@@ -12,19 +12,19 @@ import type {Page} from 'playwright';
  * @extends BOBasePage
  */
 class PricingTab extends BOBasePage implements BOProductsCreateTabPricingPageInterface {
-  private readonly pricingTabLink: string;
+  protected pricingTabLink: string;
 
-  private readonly retailPriceInputTaxExcl: string;
+  protected retailPriceInputTaxExcl: string;
 
-  private readonly retailPriceInputTaxIncl: string;
+  protected retailPriceInputTaxIncl: string;
 
   private readonly taxRuleID: string;
 
   private readonly taxRuleSelect: string;
 
-  private readonly taxRuleSpan: string;
+  protected taxRuleSpan: string;
 
-  private readonly taxRuleList: string;
+  protected taxRuleList: string;
 
   private readonly wholesalePriceInput: string;
 
@@ -78,7 +78,7 @@ class PricingTab extends BOBasePage implements BOProductsCreateTabPricingPageInt
 
   private readonly closeSpecificPriceForm: string;
 
-  private readonly pricingOnSaleCheckBox: string;
+  protected pricingOnSaleCheckBox: string;
 
   private readonly specificPriceTable: string;
 

@@ -63,15 +63,6 @@ class LoginPage extends BOBasePage implements LoginPageInterface {
    */
 
   /**
-     * Get shop version
-     * @param page {Page} Browser tab
-     * @return {Promise<string>}
-     */
-  async getShopVersion(page:Page):Promise<string> {
-    return this.getTextContent(page, this.shopVersion);
-  }
-
-  /**
    * Fill email input
    * @param page {Page} Browser tab
    * @param email {string} String of employee email

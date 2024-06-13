@@ -26,7 +26,7 @@ class DetailsTab extends BOBasePage implements BOProductsCreateTabDetailsPageInt
 
   private readonly productMPNInput: string;
 
-  private readonly productReferenceInput: string;
+  protected productReferenceInput: string;
 
   private readonly productUPCInput: string;
 
