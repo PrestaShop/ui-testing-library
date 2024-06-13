@@ -717,8 +717,7 @@ class ProductsPage extends BOBasePage implements BOProductsPageInterface {
      */
   async resetFilter(page: Page): Promise<void> {
     if (!(await this.elementNotVisible(page, this.filterResetButton, 2000))) {
-      await page.locator(this.filterResetButton).click();
-      await page.waitForLoadState();
+      await this.clickAndWaitForURL(page, this.filterResetButton);
     }
   }
 
