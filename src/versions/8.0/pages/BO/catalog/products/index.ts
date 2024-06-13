@@ -94,6 +94,18 @@ class BOProductsVersion extends ProductsPage implements BOProductsPageInterface 
   }
 
   /**
+   * Reset input filters
+   * @param page {Page} Browser tab
+   * @return {Promise<void>}
+   */
+  async resetFilter(page: Page): Promise<void> {
+    if (!(await this.elementNotVisible(page, this.filterResetButton, 2000))) {
+      await page.locator(this.filterResetButton).click();
+      await page.waitForLoadState();
+    }
+  }
+
+  /**
    * Click on new product button
    * @param page {Page} Browser tab
    * @returns {Promise<boolean>}
