@@ -30,7 +30,7 @@ export interface BOProductsPageInterface extends BOBasePagePageInterface {
     clickOnPreviewProductButton(page: Page, row: number): Promise<Page>;
     closeBulkActionsProgressModal(page: Page, action: string): Promise<boolean>;
     closeNewProductModal(page: Page): Promise<boolean>;
-    filterProducts(page: Page, filterBy: string, value: string | ProductFilterMinMax, filterType: string): Promise<void>;
+    filterProducts(page: Page, filterBy: string, value: string|ProductFilterMinMax, filterType: string): Promise<void>;
     filterProductsByCategory(page: Page, categoryName: string): Promise<void>;
     filterProductsByID(page: Page, idMin: number, idMax: number): Promise<void>;
     filterProductsByPrice(page: Page, priceMin: number, priceMax: number): Promise<void>;
@@ -44,7 +44,7 @@ export interface BOProductsPageInterface extends BOBasePagePageInterface {
     getProductDescription(page: Page): Promise<string>;
     getProductPriceFromList(page: Page, row: number, withTaxes: boolean): Promise<number>;
     getProductStatusFromList(page: Page, row: number): Promise<boolean>;
-    getTextColumn(page: Page, columnName: string, row: number): Promise<string | number | boolean>;
+    getTextColumn(page: Page, columnName: string, row: number): Promise<string|number|boolean>;
     getTextColumnFromTable(page: Page, row: number, column: number): Promise<string>;
     getTextForEmptyTable(page: Page): Promise<string>;
     goToProductPage(page: Page, row: number): Promise<void>;

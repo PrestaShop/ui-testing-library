@@ -13,14 +13,14 @@ export interface BOProductsCreateTabDescriptionPageInterface extends BOBasePageP
     chooseDefaultCategory(page: Page, categoryRow: number): Promise<void>;
     clickOnMagnifyingGlass(page: Page): Promise<boolean>;
     closeImageZoom(page: Page): Promise<boolean>;
-    deleteImage(page: Page): Promise<string | null>;
+    deleteImage(page: Page): Promise<string|null>;
     getNumberOfImages(page: Page): Promise<number>;
     getProductIDImageCover(page: Page): Promise<number>;
     getProductImageInformation(page: Page, numImage: number): Promise<ProductImageInformation>;
     getSelectedCategories(page: Page): Promise<string>;
     getValue(page: Page, inputName: string, languageId?: string): Promise<string>;
     isDeleteCategoryIconVisible(page: Page, categoryRow: number): Promise<boolean>;
-    replaceImageSelection(page: Page, image: string): Promise<string | null>;
+    replaceImageSelection(page: Page, image: string): Promise<string|null>;
     setDescription(page: Page, description: string): Promise<void>;
     setIframeInDescription(page: Page, description: string): Promise<void>;
     setProductDescription(page: Page, productData: FakerProduct): Promise<void>;

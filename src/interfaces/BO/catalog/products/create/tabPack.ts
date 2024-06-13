@@ -13,7 +13,7 @@ export interface BOProductsCreateTabPackPageInterface extends BOBasePagePageInte
     addProductToPack(page: Page, product: string, quantity: number): Promise<void>;
     cancelDeleteProductFromPack(page: Page): Promise<void>;
     confirmDeleteProductFromPack(page: Page): Promise<void>;
-    deleteProduct(page: Page, productInList: number, toDelete: boolean): Promise<boolean | string>;
+    deleteProduct(page: Page, productInList: number, toDelete: boolean): Promise<boolean|string>;
     editPackOfProducts(page: Page, packData: ProductPackOptions): Promise<void>;
     editPackStockType(page: Page, packStockType: string): Promise<void>;
     editQuantity(page: Page, quantity: number): Promise<void>;
