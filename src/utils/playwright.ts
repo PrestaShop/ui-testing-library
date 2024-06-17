@@ -10,8 +10,6 @@ import {
   webkit,
 } from '@playwright/test';
 
-require('./globals');
-
 /**
  * @module BrowserHelper
  * @description Helper used to wrap low level functions from playwright using global parameters.
