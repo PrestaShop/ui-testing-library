@@ -412,7 +412,7 @@ export default {
    * @returns {string}
    */
   getRootPath(): string {
-    return path.resolve(__dirname, '../../../');
+    return path.resolve(__dirname, '../../../../../../../');
   },
 
   /**
