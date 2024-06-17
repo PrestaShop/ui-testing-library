@@ -223,8 +223,15 @@ export {default as modBlockwishlistBoMain} from '@pages/BO/modules/blockwishlist
 export {default as modBlockwishlistBoStatistics} from '@pages/BO/modules/blockwishlist/statistics';
 
 // Export utils
-export {default as testContext} from '@utils/test';
-export {default as basicHelper} from '@utils/basicHelper';
+export {default as utilsAPI} from '@utils/api';
+export {default as utilsCore} from '@utils/core';
+export {default as utilsDate} from '@utils/date';
+export {default as utilsFile} from '@utils/file';
+export {default as utilsKeycloak} from '@utils/keycloak';
+export {default as utilsMail} from '@utils/mail';
+export {default as utilsPlaywright} from '@utils/playwright';
+export {default as utilsTest} from '@utils/test';
+export {default as utilsXML} from '@utils/xml';
 
 // Export packages
 export {default as MailDev} from 'maildev';
