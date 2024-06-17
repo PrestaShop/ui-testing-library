@@ -252,7 +252,7 @@ export default {
         break;
       }
       case 'png': {
-        fs.copyFile(`${path.dirname(__dirname)}/data/files/sample.png`, imageName, (err: NodeJS.ErrnoException | null) => {
+        fs.copyFile(`${path.dirname(__dirname)}/assets/sample.png`, imageName, (err: NodeJS.ErrnoException | null) => {
           if (err) {
             throw err;
           }
@@ -260,7 +260,7 @@ export default {
         break;
       }
       case 'webp': {
-        fs.copyFile(`${path.dirname(__dirname)}/data/files/sample.webp`, imageName, (err: NodeJS.ErrnoException | null) => {
+        fs.copyFile(`${path.dirname(__dirname)}/assets/sample.webp`, imageName, (err: NodeJS.ErrnoException | null) => {
           if (err) {
             throw err;
           }
