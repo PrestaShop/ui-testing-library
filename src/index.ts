@@ -221,6 +221,7 @@ export {default as foClassicProductPage} from '@pages/FO/classic/product';
 // Export Modules
 export {default as modBlockwishlistBoMain} from '@pages/BO/modules/blockwishlist';
 export {default as modBlockwishlistBoStatistics} from '@pages/BO/modules/blockwishlist/statistics';
+export {default as modPsNewProductsBoMain} from '@pages/BO/modules/ps_newproducts';
 
 // Export utils
 export {default as utilsAPI} from '@utils/api';
