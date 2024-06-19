@@ -45,7 +45,7 @@ export default {
   }),
   psNewProducts: new FakerModule({
     tag: 'ps_newproducts',
-    name: 'New products',
+    name: 'New products block',
   }),
   psThemeCusto: new FakerModule({
     tag: 'ps_themecusto',
