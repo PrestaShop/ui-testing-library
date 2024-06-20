@@ -206,6 +206,7 @@ export {default as boProductsCreateTabSEOPage} from '@pages/BO/catalog/products/
 export {default as boProductsCreateTabShippingPage} from '@pages/BO/catalog/products/create/tabShipping';
 export {default as boProductsCreateTabStocksPage} from '@pages/BO/catalog/products/create/tabStocks';
 export {default as boProductsCreateTabVirtualProductPage} from '@pages/BO/catalog/products/create/tabVirtualProduct';
+export {default as boSearchPage} from '@pages/BO/shopParameters/search';
 // Export Pages FO
 export * as FOBasePage from '@pages/FO/FOBasePage';
 // Export Pages FO/Classic
