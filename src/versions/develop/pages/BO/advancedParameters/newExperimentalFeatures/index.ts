@@ -78,7 +78,7 @@ class NewExperimentalFeaturesPage extends BOBasePage implements BONewExperimenta
         throw new Error(`The feature flag ${featureFlag} is not defined`);
     }
 
-    const selector: string = this.featureFlagSwitchButton(isStable ? 'stable' : 'beta', featureFlag, toEnable ? 1 : 0);
+    const selector = this.featureFlagSwitchButton(isStable ? 'stable' : 'beta', featureFlag, toEnable ? 1 : 0);
 
     const isChecked = await this.isChecked(page, selector);
 
