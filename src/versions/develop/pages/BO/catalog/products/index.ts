@@ -339,6 +339,16 @@ class ProductsPage extends BOBasePage implements BOProductsPageInterface {
   /*
     Methods
      */
+
+  /**
+   * Is product page V2
+   * @param page {Page} Browser tab
+   * @returns {Promise<boolean>}
+   */
+  async isProductPageV2(page:Page):Promise<boolean> {
+    return this.elementVisible(page, this.headerTitle);
+  }
+
   /**
      * Check if new product modal is visible
      * @param page {Page} Browser tab

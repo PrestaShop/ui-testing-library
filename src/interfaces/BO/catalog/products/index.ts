@@ -51,6 +51,7 @@ export interface BOProductsPageInterface extends BOBasePagePageInterface {
     isClearFilterLinkVisible(page: Page): Promise<boolean>;
     isNewProductModalVisibleInFrame(page: Page): Promise<boolean>;
     isPositionColumnVisible(page: Page): Promise<boolean>;
+    isProductPageV2(page:Page):Promise<boolean>;
     isResetButtonVisible(page: Page): Promise<boolean>;
     isRowChecked(page: Page, row: number): Promise<boolean>;
     paginationNext(page: Page): Promise<string>;

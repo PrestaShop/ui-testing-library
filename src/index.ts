@@ -190,6 +190,7 @@ export {default as boDesignPositionsPage} from '@pages/BO/design/positions/index
 export {default as boDesignPositionsHookModulePage} from '@pages/BO/design/positions/hookModule';
 export {default as boModuleManagerPage} from '@pages/BO/modules/moduleManager';
 export {default as boModuleManagerUninstalledModulesPage} from '@pages/BO/modules/moduleManager/uninstalledModules';
+export {default as boNewExperimentalFeaturesPage} from '@pages/BO/advancedParameters/newExperimentalFeatures';
 export {default as boOrdersPage} from '@pages/BO/orders';
 export {default as boOrdersViewBasePage} from '@pages/BO/orders/view/viewOrderBasePage';
 export {default as boOrdersViewProductsBlockPage} from '@pages/BO/orders/view/productsBlock';
