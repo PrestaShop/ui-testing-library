@@ -223,6 +223,8 @@ export {default as foClassicProductPage} from '@pages/FO/classic/product';
 // Export Modules
 export {default as modBlockwishlistBoMain} from '@pages/BO/modules/blockwishlist';
 export {default as modBlockwishlistBoStatistics} from '@pages/BO/modules/blockwishlist/statistics';
+export {default as modPsFacetedsearchBoMain} from '@pages/BO/modules/ps_facetedsearch';
+export {default as modPsFacetedsearchBoFilterTemplate} from '@pages/BO/modules/ps_facetedsearch/filterTemplate';
 export {default as modPsNewProductsBoMain} from '@pages/BO/modules/ps_newproducts';
 
 // Export utils
