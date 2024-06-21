@@ -8,15 +8,15 @@ import {ProductsPage} from '@versions/8.0/pages/BO/catalog/products';
  * @extends ProductsPage
  */
 class BOProductsVersion extends ProductsPage implements BOProductsPageInterface {
-    /**
+  /**
      * @constructs
      * Setting up texts and selectors to use on products page
      */
-    constructor() {
-        super();
+  constructor() {
+    super();
 
-        this.selectAllProductsCheckbox = '#catalog-actions div.md-checkbox label';
-    }
+    this.selectAllProductsCheckbox = '#catalog-actions div.md-checkbox label';
+  }
 }
 
 const productsPage = new BOProductsVersion();
