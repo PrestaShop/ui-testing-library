@@ -591,7 +591,7 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
     // Growls
     this.growlDiv = '#growls';
     this.growlDefaultDiv = '#growls-default';
-    this.growlMessageBlock = `${this.growlDefaultDiv} .growl-message`;
+    this.growlMessageBlock = '.growl-message';
     this.growlCloseButton = `${this.growlDefaultDiv} .growl-close`;
 
     // Alert Text
@@ -1072,13 +1072,7 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
    * @return {Promise<string|null>}
    */
   async getGrowlMessageContent(page: Page, timeout: number = 10000): Promise<string | null> {
-    const shopVersion = testContext.getPSVersion();
-    let {growlMessageBlock} = this;
-
-    if (semver.lt(shopVersion, '8.0.0')) {
-      growlMessageBlock = `${this.growlDiv} .growl-message`;
-    }
-    return page.textContent(growlMessageBlock, {timeout});
+    return page.textContent(this.growlMessageBlock, {timeout});
   }
 
   /**
