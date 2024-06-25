@@ -12,6 +12,7 @@ export interface BOSearchPageInterface extends BOBasePagePageInterface {
     filterTable(page: Page, filterType: string, filterBy: string, value: string): Promise<void>;
     getAllRowsColumnContent(page: Page, columnName: string): Promise<string[]>;
     getBlacklistedWords(page: Page, idLang: number): Promise<string>;
+    getMinimumWordLength(page: Page): Promise<number>;
     getNumberOfElementInGrid(page: Page): Promise<number>;
     getStatus(page: Page, row: number): Promise<boolean>;
     getTextColumn(page: Page, row: number, columnName: string): Promise<string>;
@@ -25,6 +26,7 @@ export interface BOSearchPageInterface extends BOBasePagePageInterface {
     selectPaginationLimit(page: Page, number: number): Promise<string>;
     setBlacklistedWords(page: Page, idLang: number, words: string): Promise<string>;
     setFuzzySearch(page: Page, toEnable?: boolean): Promise<string>;
+    setMinimumWordLength(page: Page, length: number): Promise<string>;
     setStatus(page: Page, row: number, valueWanted?: boolean): Promise<boolean>;
     sortTable(page: Page, sortBy: string, sortDirection: string): Promise<void>;
 }

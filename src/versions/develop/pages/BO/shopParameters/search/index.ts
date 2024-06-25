@@ -102,6 +102,8 @@ class Search extends BOBasePage implements BOSearchPageInterface {
 
   private readonly fuzzySearchLabel: (status: string) => string;
 
+  private readonly minimumWordLengthInput: string;
+
   private readonly blacklistedWordsTextarea: (idLang: number) => string;
 
   private readonly saveFormButton: string;
@@ -189,6 +191,7 @@ class Search extends BOBasePage implements BOSearchPageInterface {
     // Search form
     this.aliasForm = '#alias_fieldset_search';
     this.fuzzySearchLabel = (status: string) => `#PS_SEARCH_FUZZY_${status}`;
+    this.minimumWordLengthInput = 'input[name="PS_SEARCH_MINWORDLEN"]';
     this.blacklistedWordsTextarea = (idLang: number) => `textarea[name="PS_SEARCH_BLACKLIST_${idLang}"]`;
     this.saveFormButton = `${this.aliasForm} button[name='submitOptionsalias']`;
   }
@@ -513,6 +516,28 @@ class Search extends BOBasePage implements BOSearchPageInterface {
     await this.setChecked(page, this.fuzzySearchLabel(toEnable ? 'on' : 'off'));
     await this.clickAndWaitForLoadState(page, this.saveFormButton);
     await this.elementNotVisible(page, this.fuzzySearchLabel(!toEnable ? 'on' : 'off'), 2000);
+
+    return this.getAlertSuccessBlockContent(page);
+  }
+
+  /**
+   * Returns the minimum word length (in characters)
+   * @param page {Page} Browser tab
+   * @returns {Promise<number>}
+   */
+  async getMinimumWordLength(page: Page): Promise<number> {
+    return parseInt(await this.getInputValue(page, this.minimumWordLengthInput), 10);
+  }
+
+  /**
+   * Define the minimum word length (in characters)
+   * @param page {Page} Browser tab
+   * @param length {number} Length
+   * @returns {Promise<string>}
+   */
+  async setMinimumWordLength(page: Page, length: number): Promise<string> {
+    await this.setValue(page, this.minimumWordLengthInput, length.toString());
+    await this.clickAndWaitForLoadState(page, this.saveFormButton);
 
     return this.getAlertSuccessBlockContent(page);
   }
