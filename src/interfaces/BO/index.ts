@@ -79,9 +79,11 @@ export interface BOBasePagePageInterface extends CommonPageInterface {
     clickOnNotificationsLink(page: Page): Promise<boolean>;
     clickOnNotificationsTab(page: Page, tabName: string): Promise<void>;
     clickSubMenu(page: Page, parentSelector: string): Promise<void>;
+    closeHelpSideBar(page: Page): Promise<boolean>;
     closeSfToolBar(page: Frame | Page): Promise<void>;
     getAlertSuccessBlockContent(page: Frame | Page): Promise<string>;
     getAllNotificationsNumber(page: Page): Promise<number>;
+    getHelpDocumentURL(page: Page): Promise<string>;
     getNotificationsNumberInTab(page: Page, tabName: string): Promise<number>;
     getShopVersion(page:Page):Promise<string>;
     goToMyProfile(page: Page): Promise<void>;
@@ -93,6 +95,7 @@ export interface BOBasePagePageInterface extends CommonPageInterface {
     isSubmenuVisible(page: Page, parentSelector: string, linkSelector: string): Promise<boolean>;
     logoutBO(page: Page): Promise<void>;
     navigateToPageWithInvalidToken(page: Page, url: string, continueToPage?: boolean): Promise<void>;
+    openHelpSideBar(page: Page): Promise<boolean>;
     quickAccessToPage(page: Page, linkName: string): Promise<void>;
     quickAccessToPageNewWindow(page: Page, linkName: string): Promise<Page>;
     quickAccessToPageWithFrame(page: Page, linkName: string): Promise<void>;
