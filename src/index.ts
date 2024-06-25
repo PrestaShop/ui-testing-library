@@ -219,6 +219,7 @@ export {default as foClassicLoginPage} from '@pages/FO/classic/login';
 export {default as foClassicModalBlockCartPage} from '@pages/FO/classic/modal/blockCart';
 export {default as foClassicModalQuickViewPage} from '@pages/FO/classic/modal/quickView';
 export {default as foClassicProductPage} from '@pages/FO/classic/product';
+export {default as foClassicSearchResultsPage} from '@pages/FO/classic/searchResults';
 
 // Export Modules
 export {default as modBlockwishlistBoMain} from '@pages/BO/modules/blockwishlist';
@@ -240,3 +241,6 @@ export {default as utilsXML} from '@utils/xml';
 
 // Export packages
 export {default as MailDev} from 'maildev';
+
+// Export temporary (to be removed)
+export {SearchResultsPage as foClassicSearchResultsPageClass} from '@versions/develop/pages/FO/classic/searchResults';
