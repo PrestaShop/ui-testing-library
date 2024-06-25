@@ -1,3 +1,4 @@
+import {FoSearchResultsPageInterface} from '@interfaces/FO/searchResults';
 import FOBasePage from '@pages/FO/FOBasePage';
 import foClassicModalQuickViewPage from '@pages/FO/classic/modal/quickView';
 
@@ -8,7 +9,7 @@ import type {Page} from 'playwright';
  * @class
  * @extends FOBasePage
  */
-class SearchResultsPage extends FOBasePage {
+class SearchResultsPage extends FOBasePage implements FoSearchResultsPageInterface {
   public readonly pageTitle: string;
 
   private readonly productListTopDiv: string;

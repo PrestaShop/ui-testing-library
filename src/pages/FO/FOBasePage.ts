@@ -634,6 +634,15 @@ export default class FOBasePage extends CommonPage implements FOBasePagePageInte
   }
 
   /**
+   * Get search input
+   * @param page {Page} Browser tab
+   * @returns {Promise<void>}
+   */
+  async getSearchInput(page: Page): Promise<string> {
+    return this.getAttributeContent(page, this.searchInput, 'value');
+  }
+
+  /**
    * Get text content of footer links
    * @param page {Page} Browser tab
    * @param position {number} Position of the links on footer

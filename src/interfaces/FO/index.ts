@@ -18,6 +18,7 @@ export interface FOBasePagePageInterface extends CommonPageInterface {
     getDefaultShopLanguage(page: Page): Promise<string>;
     getFooterLinksBlockTitle(page: Page, position: number): Promise<string>;
     getFooterLinksTextContent(page: Page, position: number): Promise<Array<string>>;
+    getSearchInput(page: Page): Promise<string>;
     getSearchValue(page: Page): Promise<string>;
     getShopLanguage(page: Page): Promise<string>;
     getStoreInformation(page: Page): Promise<string>;
