@@ -176,7 +176,7 @@ export default class FOBasePage extends CommonPage implements FOBasePagePageInte
     this.currencySelectorExpandIcon = `${this.currencySelectorDiv} i.expand-more`;
     this.currencySelectorMenuItemLink = (currency) => `${this.currencySelectorExpandIcon} ul li a[title='${currency}']`;
     this.currencySelect = 'select[aria-labelledby=\'currency-selector-label\']';
-    this.searchInput = '#search_widget input.ui-autocomplete-input';
+    this.searchInput = '#search_widget input.ui-autocomplete-input, #search_widget input.js-search-input';
     this.autocompleteSearchResult = '.ui-autocomplete';
     this.autocompleteSearchResultItem = `${this.autocompleteSearchResult} .ui-menu-item`;
     this.autocompleteSearchResultItemLink = (nthChild) => `${this.autocompleteSearchResult} `
