@@ -119,4 +119,4 @@ class CategoryPage extends CategoryPageVersion implements FoCategoryPageInterfac
   }
 }
 
-export default new CategoryPage();
+module.exports = new CategoryPage();
