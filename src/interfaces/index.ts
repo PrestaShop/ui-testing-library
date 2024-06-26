@@ -1,6 +1,6 @@
 import type {PageWaitForSelectorOptionsState, WaitForNavigationWaitUntil} from '@data/types/playwright';
 import type {
-  BrowserContext, ElementHandle, Frame, JSHandle, Locator, Page,
+  BrowserContext, ElementHandle, Frame, JSHandle, Locator, Page, Response,
 } from '@playwright/test';
 
 export interface CommonPageInterface {
@@ -25,7 +25,7 @@ export interface CommonPageInterface {
         : Promise<ElementHandle<HTMLElement> | JSHandle<undefined> | JSHandle<null>>;
     getPriceFromText(page: Frame|Page, selector: string, timeout?: number, waitForSelector?: boolean): Promise<number>;
     getTextContent(page: Page | Frame, selector: string, waitForSelector?: boolean): Promise<string>;
-    goTo(page: Page, url: string): Promise<void>;
+    goTo(page: Page, url: string): Promise<Response|null>;
     goToBO(page: Page): Promise<void>;
     goToFo(page: Page): Promise<void>;
     goToPreviousPage(page: Page, waitUntil?: WaitForNavigationWaitUntil): Promise<void>;

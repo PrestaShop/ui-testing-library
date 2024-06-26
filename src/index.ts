@@ -221,6 +221,7 @@ export {default as foClassicModalQuickViewPage} from '@pages/FO/classic/modal/qu
 export {default as foClassicProductPage} from '@pages/FO/classic/product';
 export {default as foClassicSearchResultsPage} from '@pages/FO/classic/searchResults';
 // Export Pages FO/Hummingbird
+export {default as foHummingbirdCategoryPage} from '@pages/FO/hummingbird/category';
 export {default as foHummingbirdSearchResultsPage} from '@pages/FO/hummingbird/searchResults';
 
 // Export Modules
