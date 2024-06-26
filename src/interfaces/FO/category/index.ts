@@ -21,10 +21,12 @@ export interface FoCategoryPageInterface extends FOBasePagePageInterface {
     getNumBlockCategories(page: Page): Promise<number>;
     getNumberOfProducts(page: Page): Promise<number>;
     getNumberOfProductsDisplayed(page: Page): Promise<number>;
+    getNumSearchFiltersCheckbox(page: Page, facetType: string, facetLabel?: string): Promise<number>;
     getPagesList(page: Page): Promise<string>;
     getProductHref(page: Page, productRow: number): Promise<string>;
     getProductPrice(page: Page, productRow: number): Promise<number>;
-    getQuickViewImageMain(page: Page): Promise<string | null>;
+    getProductTag(page: Page, id: number): Promise<string>;
+    getProductsNumber(page: Page): Promise<number>;
     getShowingItems(page: Page): Promise<string>;
     getSortByValue(page: Page): Promise<string>;
     goToNextPage(page: Page): Promise<void>;
@@ -37,10 +39,9 @@ export interface FoCategoryPageInterface extends FOBasePagePageInterface {
     isAddedToWishlist(page: Page, idxProduct: number): Promise<boolean>;
     isCategoryPage(page: Page): Promise<boolean>;
     isPagesListVisible(page: Page): Promise<boolean>;
-    isQuickViewProductModalVisible(page: Page): Promise<boolean>;
-    isSearchFilterDropdown(page: Page, facetType: string): Promise<boolean>;
-    isSearchFilterRadio(page: Page, facetType: string): Promise<boolean>;
-    isSearchFiltersCheckbox(page: Page, facetType: string): Promise<boolean>;
+    isSearchFilterDropdown(page: Page, facetType: string, facetLabel?: string): Promise<boolean>;
+    isSearchFilterRadio(page: Page, facetType: string, facetLabel?: string): Promise<boolean>;
+    isSearchFiltersCheckbox(page: Page, facetType: string, facetLabel?: string): Promise<boolean>;
     isSortButtonVisible(page: Page): Promise<boolean>;
     quickViewProduct(page: Page, id: number): Promise<void>;
     sortProductsList(page: Page, sortBy: string): Promise<void>;

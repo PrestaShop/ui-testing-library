@@ -3,7 +3,7 @@ import type {PageWaitForSelectorOptionsState, WaitForNavigationWaitUntil} from '
 import {CommonPageInterface} from '@interfaces/index';
 
 import type {
-  BrowserContext, ElementHandle, JSHandle, FileChooser, Frame, Page, Locator,
+  BrowserContext, ElementHandle, JSHandle, FileChooser, Frame, Page, Locator, Response,
 } from 'playwright';
 
 /**
@@ -24,10 +24,10 @@ export default class CommonPage implements CommonPageInterface {
    * Go to URL
    * @param page {Page} Browser tab
    * @param url {string} Url to go to
-   * @returns {Promise<void>}
+   * @returns {Promise<Response|null>}
    */
-  async goTo(page: Page, url: string): Promise<void> {
-    await page.goto(url);
+  async goTo(page: Page, url: string): Promise<Response|null> {
+    return page.goto(url);
   }
 
   /**
