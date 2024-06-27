@@ -16,6 +16,10 @@ class PsFacetedSearch extends ModuleConfiguration implements ModulePsFacetedsear
 
   public readonly msgSuccessfulDelete: string;
 
+  public readonly settingsSavedMessage: string;
+
+  public readonly settingsErrorMessage: string;
+
   private readonly gridPanel: string;
 
   private readonly gridTable: string;
@@ -42,6 +46,10 @@ class PsFacetedSearch extends ModuleConfiguration implements ModulePsFacetedsear
 
   private readonly addTemplateLink: string;
 
+  private readonly categoryFilterDepthInput: string;
+
+  private readonly btnConfigurationSave: string;
+
   /**
    * @constructs
    * Setting up titles and selectors to use on ps email subscription page
@@ -49,9 +57,14 @@ class PsFacetedSearch extends ModuleConfiguration implements ModulePsFacetedsear
   constructor() {
     super();
 
+    // Override
+    this.alertTextBlock = 'div.alert';
+
     this.pageSubTitle = 'Faceted search';
     this.msgSuccessfulCreation = (name: string) => `Your filter "${name}" was added successfully.`;
     this.msgSuccessfulDelete = 'Filter template deleted, categories updated (reverted to default Filter template).';
+    this.settingsSavedMessage = 'Settings saved successfully';
+    this.settingsErrorMessage = '';
 
     this.gridPanel = 'div.panel';
     this.gridTable = `${this.gridPanel} table.table`;
@@ -67,6 +80,9 @@ class PsFacetedSearch extends ModuleConfiguration implements ModulePsFacetedsear
       + 'a[href*="&deleteFilterTemplate=1"]';
     this.gridPanelFooter = `${this.gridPanel} div.panel-footer`;
     this.addTemplateLink = `${this.gridPanelFooter} a[href*="&add_new_filters_template=1"]`;
+
+    this.categoryFilterDepthInput = 'input[name="ps_layered_filter_category_depth"]';
+    this.btnConfigurationSave = 'button[name="submitLayeredSettings"]';
   }
 
   /* Methods */
@@ -105,6 +121,28 @@ class PsFacetedSearch extends ModuleConfiguration implements ModulePsFacetedsear
    */
   async goToAddNewTemplate(page: Page): Promise<void> {
     await page.locator(this.addTemplateLink).click();
+  }
+
+  /**
+   * Returns the value of the field "Category filter depth"
+   * @param page {Page} Browser tab
+   * @returns {Promise<number>}
+   */
+  async getCategoryFilterDepthValue(page: Page): Promise<number> {
+    return parseInt(await this.getInputValue(page, this.categoryFilterDepthInput), 10);
+  }
+
+  /**
+   * Define the value of the field "Category filter depth"
+   * @param page {Page} Browser tab
+   * @param value {string} Value of the field
+   * @returns {Promise<string>}
+   */
+  async setCategoryFilterDepthValue(page: Page, value: string): Promise<string> {
+    await this.setValue(page, this.categoryFilterDepthInput, value);
+    await page.locator(this.btnConfigurationSave).click();
+
+    return this.getAlertBlockContent(page);
   }
 }
 

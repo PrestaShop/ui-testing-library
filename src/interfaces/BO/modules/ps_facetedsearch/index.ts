@@ -5,8 +5,12 @@ export interface ModulePsFacetedsearchMainPageInterface extends ModuleConfigurat
     readonly msgSuccessfulCreation: (name: string) => string;
     readonly msgSuccessfulDelete: string;
     readonly pageSubTitle: string;
+    readonly settingsErrorMessage: string;
+    readonly settingsSavedMessage: string;
 
     deleteFilterTemplate(page: Page, row: number): Promise<string>;
     editFilterTemplate(page: Page, row: number): Promise<void>;
+    getCategoryFilterDepthValue(page: Page): Promise<number>;
     goToAddNewTemplate(page: Page): Promise<void>;
+    setCategoryFilterDepthValue(page: Page, value: string): Promise<string>;
 }
