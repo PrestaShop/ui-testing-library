@@ -194,6 +194,7 @@ export {default as boNewExperimentalFeaturesPage} from '@pages/BO/advancedParame
 export {default as boOrdersPage} from '@pages/BO/orders';
 export {default as boOrdersViewBasePage} from '@pages/BO/orders/view/viewOrderBasePage';
 export {default as boOrdersViewProductsBlockPage} from '@pages/BO/orders/view/productsBlock';
+export {default as boPerformancePage} from '@pages/BO/advancedParameters/performance';
 export {default as boProductsPage} from '@pages/BO/catalog/products';
 export {default as boProductsCreatePage} from '@pages/BO/catalog/products/create';
 export {default as boProductsCreateTabCombinationsPage} from '@pages/BO/catalog/products/create/tabCombinations';
