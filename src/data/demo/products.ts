@@ -107,11 +107,6 @@ export default {
     quantity: 1200,
     status: true,
   }),
-  demo_15: new FakerProduct({
-    id: 9,
-    name: 'Mountain fox cushion',
-    status: true,
-  }),
   demo_9: new FakerProduct({
     id: 17,
     name: 'Brown bear notebook',
@@ -126,6 +121,15 @@ export default {
         values: ['Ruled', 'Plain', 'Squared', 'Doted'],
       },
     ],
+  }),
+  demo_10: new FakerProduct({
+    id: 18,
+    name: 'Hummingbird notebook',
+    reference: 'demo_10',
+    category: 'Stationery',
+    price: 15.48,
+    quantity: 1200,
+    status: true,
   }),
   demo_11: new FakerProduct({
     id: 6,
@@ -178,6 +182,19 @@ export default {
     priceTaxExcluded: 13.90,
     finalPrice: 16.68,
     quantity: 300,
+    status: true,
+  }),
+  demo_15: new FakerProduct({
+    id: 9,
+    name: 'Mountain fox cushion',
+    reference: 'demo_15',
+    status: true,
+  }),
+  demo_16: new FakerProduct({
+    id: 10,
+    name: 'Brown bear cushion',
+    reference: 'demo_16',
+    category: 'Home Accessories',
     status: true,
   }),
   demo_18: new FakerProduct({

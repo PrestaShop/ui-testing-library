@@ -7,7 +7,7 @@ import type {Page} from 'playwright';
  * @class
  * @extends BOBasePage
  */
-class Search extends BOBasePage implements BOSearchPageInterface {
+class SearchPage extends BOBasePage implements BOSearchPageInterface {
   public readonly pageTitle: string;
 
   public readonly successfulUpdateStatusMessage: string;
@@ -102,6 +102,8 @@ class Search extends BOBasePage implements BOSearchPageInterface {
 
   private readonly fuzzySearchLabel: (status: string) => string;
 
+  private readonly maximumApproximateWordsInput: string;
+
   private readonly minimumWordLengthInput: string;
 
   private readonly blacklistedWordsTextarea: (idLang: number) => string;
@@ -191,6 +193,7 @@ class Search extends BOBasePage implements BOSearchPageInterface {
     // Search form
     this.aliasForm = '#alias_fieldset_search';
     this.fuzzySearchLabel = (status: string) => `#PS_SEARCH_FUZZY_${status}`;
+    this.maximumApproximateWordsInput = 'input[name="PS_SEARCH_FUZZY_MAX_LOOP"]';
     this.minimumWordLengthInput = 'input[name="PS_SEARCH_MINWORDLEN"]';
     this.blacklistedWordsTextarea = (idLang: number) => `textarea[name="PS_SEARCH_BLACKLIST_${idLang}"]`;
     this.saveFormButton = `${this.aliasForm} button[name='submitOptionsalias']`;
@@ -521,6 +524,28 @@ class Search extends BOBasePage implements BOSearchPageInterface {
   }
 
   /**
+   * Returns the maximum approximate words allowed by fuzzy search
+   * @param page {Page} Browser tab
+   * @returns {Promise<number>}
+   */
+  async getMaximumApproximateWords(page: Page): Promise<number> {
+    return parseInt(await this.getInputValue(page, this.maximumApproximateWordsInput), 10);
+  }
+
+  /**
+   * Define the maximum approximate words allowed by fuzzy search
+   * @param page {Page} Browser tab
+   * @param maxWords {number} Maximum approximate words
+   * @returns {Promise<string>}
+   */
+  async setMaximumApproximateWords(page: Page, maxWords: number): Promise<string> {
+    await this.setValue(page, this.maximumApproximateWordsInput, maxWords.toString());
+    await this.clickAndWaitForLoadState(page, this.saveFormButton);
+
+    return this.getAlertSuccessBlockContent(page);
+  }
+
+  /**
    * Returns the minimum word length (in characters)
    * @param page {Page} Browser tab
    * @returns {Promise<number>}
@@ -567,4 +592,4 @@ class Search extends BOBasePage implements BOSearchPageInterface {
   }
 }
 
-module.exports = new Search();
+module.exports = new SearchPage();
