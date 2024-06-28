@@ -189,6 +189,7 @@ export {default as boDashboardPage} from '@pages/BO/dashboard';
 export {default as boDesignPositionsPage} from '@pages/BO/design/positions/index';
 export {default as boDesignPositionsHookModulePage} from '@pages/BO/design/positions/hookModule';
 export {default as boModuleManagerPage} from '@pages/BO/modules/moduleManager';
+export {default as boModuleManagerAlertsPage} from '@pages/BO/modules/moduleManager/alerts';
 export {default as boModuleManagerUninstalledModulesPage} from '@pages/BO/modules/moduleManager/uninstalledModules';
 export {default as boNewExperimentalFeaturesPage} from '@pages/BO/advancedParameters/newExperimentalFeatures';
 export {default as boOrdersPage} from '@pages/BO/orders';

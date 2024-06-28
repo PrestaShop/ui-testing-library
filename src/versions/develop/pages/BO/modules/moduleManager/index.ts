@@ -1,4 +1,5 @@
 import FakerModule from '@data/faker/module';
+import {type ModuleInfo} from '@data/types/module';
 import {ModuleManagerPageInterface} from '@interfaces/BO/modules/moduleManager';
 import BOBasePage from '@pages/BO/BOBasePage';
 
@@ -9,7 +10,7 @@ import type {Page} from 'playwright';
  * @class
  * @extends BOBasePage
  */
-class ModuleManager extends BOBasePage implements ModuleManagerPageInterface {
+class ModuleManagerPage extends BOBasePage implements ModuleManagerPageInterface {
   public pageTitle: string;
 
   public readonly disableModuleSuccessMessage: (moduleTag: string) => string;
@@ -58,11 +59,13 @@ class ModuleManager extends BOBasePage implements ModuleManagerPageInterface {
 
   private readonly modulesListBlockTitle: string;
 
-  private readonly allModulesBlock: string;
+  private readonly moduleItem: string;
+
+  private readonly moduleItemNth: (nth: number) => string;
 
   private readonly moduleBlocks: string;
 
-  private readonly moduleBlock: (moduleTag: string) => string;
+  private readonly moduleItemName: (moduleTag: string) => string;
 
   private readonly moduleCheckboxButton: (moduleTag: string) => string;
 
@@ -154,10 +157,11 @@ class ModuleManager extends BOBasePage implements ModuleManagerPageInterface {
     // Modules list selectors
     this.modulesListBlock = '.module-short-list:not([style=\'display: none;\'])';
     this.modulesListBlockTitle = `${this.modulesListBlock} span.module-search-result-title`;
-    this.allModulesBlock = `${this.modulesListBlock} .module-item-list`;
+    this.moduleItem = `${this.modulesListBlock} .module-item-list`;
+    this.moduleItemNth = (nth: number) => `${this.moduleItem}:nth-child(${nth})`;
     this.moduleBlocks = 'div.module-short-list';
-    this.moduleBlock = (moduleTag: string) => `${this.allModulesBlock}[data-tech-name=${moduleTag}]`;
-    this.moduleCheckboxButton = (moduleTag: string) => `${this.moduleBlock(moduleTag)}`
+    this.moduleItemName = (moduleTag: string) => `${this.moduleItem}[data-tech-name=${moduleTag}]`;
+    this.moduleCheckboxButton = (moduleTag: string) => `${this.moduleItemName(moduleTag)}`
       + ' div.module-checkbox-bulk-list.md-checkbox label i';
     this.seeMoreButton = (blockName: string) => `#main-div div.module-short-list button.see-more[data-category=${blockName}]`;
     this.seeLessButton = (blockName: string) => `#main-div div.module-short-list button.see-less[data-category=${blockName}]`;
@@ -243,7 +247,7 @@ class ModuleManager extends BOBasePage implements ModuleManagerPageInterface {
    * @return {Promise<boolean>}
    */
   async isModuleVisible(page: Page, module: FakerModule): Promise<boolean> {
-    return this.elementVisible(page, this.moduleBlock(module.tag), 10000);
+    return this.elementVisible(page, this.moduleItemName(module.tag), 10000);
   }
 
   /**
@@ -253,7 +257,7 @@ class ModuleManager extends BOBasePage implements ModuleManagerPageInterface {
    * @return {Promise<string>}
    */
   async getModuleName(page: Page, module: FakerModule): Promise<string> {
-    return this.getAttributeContent(page, `${this.moduleBlock(module.tag)} [data-original-title]`, 'data-original-title');
+    return this.getAttributeContent(page, `${this.moduleItemName(module.tag)} [data-original-title]`, 'data-original-title');
   }
 
   /**
@@ -400,7 +404,7 @@ class ModuleManager extends BOBasePage implements ModuleManagerPageInterface {
    */
   async getAllModulesTechNames(page: Page): Promise<(string | null)[]> {
     return page
-      .locator(this.allModulesBlock)
+      .locator(this.moduleItem)
       .evaluateAll(
         (all) => all.map((el) => el.getAttribute('data-tech-name')),
       );
@@ -547,7 +551,33 @@ class ModuleManager extends BOBasePage implements ModuleManagerPageInterface {
   async getNumberOfModulesInBlock(page: Page, blockName: string): Promise<number> {
     return page.locator(this.moduleListBlock(blockName)).count();
   }
+
+  /**
+   * Get number of modules
+   * @param page {Page} Browser tab
+   * @return {Promise<number>}
+   */
+  async getNumberOfModules(page: Page): Promise<number> {
+    return page.locator(this.moduleItem).count();
+  }
+
+  /**
+   * Return informations about nTh module
+   * @param page {Page} Browser tab
+   * @param nth {number} Module tag
+   * @return {Promise<ModuleInfo>}
+   */
+  async getModuleInformationNth(page: Page, nth: number): Promise<ModuleInfo> {
+    const technicalName = await this.getAttributeContent(page, this.moduleItemNth(nth), 'data-tech-name');
+
+    return {
+      moduleId: parseInt(await this.getAttributeContent(page, this.moduleItemNth(nth), 'data-id'), 10),
+      technicalName,
+      version: await this.getAttributeContent(page, this.moduleItemNth(nth), 'data-version'),
+      enabled: await this.elementNotVisible(page, this.actionModuleButton(technicalName, 'enabled'), 1000),
+    };
+  }
 }
 
-module.exports.ModuleManager = ModuleManager;
-module.exports.moduleManager = new ModuleManager();
+const moduleManagerPage = new ModuleManagerPage();
+export {moduleManagerPage, ModuleManagerPage};
