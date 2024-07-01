@@ -1,8 +1,7 @@
 import type FakerCustomer from '@data/faker/customer';
 import {FoLoginPageInterface} from '@interfaces/FO/login';
 import FOBasePage from '@pages/FO/FOBasePage';
-
-import type {Page} from 'playwright';
+import type {Page} from '@playwright/test';
 
 /**
  * Login page, contains functions that can be used on the page
@@ -124,5 +123,5 @@ class LoginPage extends FOBasePage implements FoLoginPageInterface {
   }
 }
 
-module.exports.LoginPage = LoginPage;
-module.exports.loginPage = new LoginPage();
+const loginPage = new LoginPage();
+export {loginPage, LoginPage};
