@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import https from 'https';
+import XLSX from 'xlsx';
 
 import {createObjectCsvWriter} from 'csv-writer';
 import imgGen from 'js-image-generator';
@@ -115,6 +116,24 @@ export default {
     }
 
     return (pageTexts.join(' ').indexOf(text) !== -1);
+  },
+
+  /**
+   * Get page text from XLSX
+   * @param filePath {string | null} File path
+   * @param rowNth {number} Index based on 1
+   * @param colNth {number} Index based on 1
+   * @return {Promise<string>} Text in Cell
+   */
+  async getTextInXLSX(filePath: string | null, rowNth: number, colNth: number): Promise<string> {
+    if (filePath === null) {
+      return '';
+    }
+    const workbook = XLSX.readFile(filePath, {
+      sheets: 0,
+    });
+
+    return workbook.Sheets['Sheet1'][`${'ABCDEFGHIJKLMNOPQRSTUVWXYZ'[(colNth - 1) % 26]}${rowNth}`].v;
   },
 
   /**
