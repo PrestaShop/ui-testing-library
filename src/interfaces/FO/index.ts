@@ -2,6 +2,8 @@ import type {CommonPageInterface} from '@interfaces/index';
 import type {Page} from '@playwright/test';
 
 export interface FOBasePagePageInterface extends CommonPageInterface {
+    readonly restrictedContentCountry: string;
+
     changeCurrency(page: Page, isoCode?: string, symbol?: string): Promise<void>;
     changeLanguage(page: Page, lang?: string): Promise<void>;
     clickAutocompleteSearchResult(page: Page, productName: string, nthResult: number): Promise<void>;
@@ -18,6 +20,7 @@ export interface FOBasePagePageInterface extends CommonPageInterface {
     getDefaultShopLanguage(page: Page): Promise<string>;
     getFooterLinksBlockTitle(page: Page, position: number): Promise<string>;
     getFooterLinksTextContent(page: Page, position: number): Promise<Array<string>>;
+    getRestrictedText(page: Page): Promise<string|null>;
     getSearchInput(page: Page): Promise<string>;
     getSearchValue(page: Page): Promise<string>;
     getShopLanguage(page: Page): Promise<string>;
@@ -35,6 +38,7 @@ export interface FOBasePagePageInterface extends CommonPageInterface {
     isCurrencyVisible(page: Page): Promise<boolean>;
     isCustomerConnected(page: Page): Promise<boolean>;
     isLanguageListVisible(page: Page): Promise<boolean>;
+    isRestrictedPage(page: Page): Promise<boolean>;
     languageExists(page: Page, lang?: string): Promise<boolean>;
     logout(page: Page): Promise<void>;
     searchProduct(page: Page, productName: string): Promise<void>;
