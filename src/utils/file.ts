@@ -133,7 +133,7 @@ export default {
       sheets: 0,
     });
 
-    return workbook.Sheets['Sheet1'][`${'ABCDEFGHIJKLMNOPQRSTUVWXYZ'[(colNth - 1) % 26]}${rowNth}`].v;
+    return workbook.Sheets.Sheet1[`${'ABCDEFGHIJKLMNOPQRSTUVWXYZ'[(colNth - 1) % 26]}${rowNth}`].v;
   },
 
   /**
