@@ -31,6 +31,7 @@
     "@xmldom/xmldom": "^0.8.10",
     "csv-writer": "^1.6.0",
     "fast-xml-parser": "^4.4.0",
+    "gunzip-file": "^0.1.1",
     "jpeg-js": "^0.4.4",
     "js-image-generator": "^1.0.4",
     "libsodium-wrappers": "^0.7.13",
