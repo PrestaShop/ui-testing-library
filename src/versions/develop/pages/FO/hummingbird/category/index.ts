@@ -33,7 +33,7 @@ class CategoryPage extends CategoryPageVersion implements FoCategoryPageInterfac
 
     // Categories SideBlock
     this.sideBlockCategories = '.category-tree';
-    this.sideBlockCategoriesItem = `${this.sideBlockCategories} ul.category-tree__list ul li.category-tree__item`;
+    this.sideBlockCategoriesItem = `${this.sideBlockCategories} ul.category-tree__list li.category-tree__item`;
     this.sideBlockCategory = (text: string) => `${this.sideBlockCategoriesItem} a:text("${text}")`;
     this.searchFilters = '#search-filters';
     this.filterTypeButton = (facetType: string) => `.facet.accordion-item button:text("${facetType}")`;
