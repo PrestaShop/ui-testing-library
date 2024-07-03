@@ -74,18 +74,18 @@ class CategoryPage extends CategoryPageVersion implements FoCategoryPageInterfac
    * @param page {Page} Browser tab
    * @param facetType {string} Type of filter
    * @param checkboxName {string} Checkbox name
-   * @param toEnable {boolean} True if we need to enable (Not used in Hummingbird method)
    * @return {Promise<void>}
    */
-  async filterByCheckbox(page: Page, facetType: string, checkboxName: string, toEnable: boolean): Promise<void> {
-    console.log(`To-Do : Enable parameter 'toEnable' (value: ${toEnable})`);
+  async filterByCheckbox(page: Page, facetType: string, checkboxName: string): Promise<void> {
     await page.locator(this.filterTypeButton(facetType)).click();
+    await page.waitForTimeout(2000);
     if (facetType === 'Color') {
       await page.locator(`${this.searchFiltersLabel} span[style*="${checkboxName}"]`).click();
     } else {
       await page.locator(`${this.searchFiltersLabel} a[href*="${checkboxName}"]`).click();
     }
     await page.locator(this.filterTypeButton(facetType)).click();
+    await page.waitForTimeout(2000);
   }
 
   /**
