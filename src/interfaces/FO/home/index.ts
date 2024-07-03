@@ -33,6 +33,7 @@ export interface FoHomePageInterface extends FOBasePagePageInterface {
     goToAllProductsBlockPage(page: Page, blockID?: number): Promise<void>;
     goToAllProductsPage(page: Page): Promise<void>;
     goToProductPage(page: Page, id: number): Promise<void>;
+    hasProductsBlock(page: Page, blockName: 'bestsellers' | 'newproducts' | 'onsale' | 'popularproducts'): Promise<boolean>;
     isAddToCartButtonDisabled(page: Page): Promise<boolean>;
     isAddToCartButtonEnabled(page: Page): Promise<boolean>;
     isBannerVisible(page: Page): Promise<boolean>;
