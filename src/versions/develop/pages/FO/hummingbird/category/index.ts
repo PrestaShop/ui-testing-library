@@ -78,14 +78,15 @@ class CategoryPage extends CategoryPageVersion implements FoCategoryPageInterfac
    * @return {Promise<void>}
    */
   async filterByCheckbox(page: Page, facetType: string, checkboxName: string, toEnable: boolean): Promise<void> {
-    console.log(`To-Do : Enable parameter 'toEnable' (value: ${toEnable})`);
     await page.locator(this.filterTypeButton(facetType)).click();
+    await page.waitForTimeout(2000);
     if (facetType === 'Color') {
       await page.locator(`${this.searchFiltersLabel} span[style*="${checkboxName}"]`).click();
     } else {
       await page.locator(`${this.searchFiltersLabel} a[href*="${checkboxName}"]`).click();
     }
     await page.locator(this.filterTypeButton(facetType)).click();
+    await page.waitForTimeout(2000);
   }
 
   /**
