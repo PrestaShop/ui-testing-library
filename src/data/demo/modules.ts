@@ -53,6 +53,10 @@ export default {
     name: 'Theme Customization',
     releaseZip: 'https://github.com/PrestaShop/ps_themecusto/releases/download/v1.2.4/ps_themecusto.zip',
   }),
+  psWirePayment: new FakerModule({
+    tag: 'ps_wirepayment',
+    name: 'Wire payment',
+  }),
   contactForm: new FakerModule({
     tag: 'contactform',
     name: 'Contact form',
