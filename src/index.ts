@@ -220,6 +220,7 @@ export {default as foClassicHomePage} from '@pages/FO/classic/home';
 export {default as foClassicLoginPage} from '@pages/FO/classic/login';
 export {default as foClassicModalBlockCartPage} from '@pages/FO/classic/modal/blockCart';
 export {default as foClassicModalQuickViewPage} from '@pages/FO/classic/modal/quickView';
+export {default as foClassicModalWishlistPage} from '@pages/FO/classic/modal/wishlist';
 export {default as foClassicProductPage} from '@pages/FO/classic/product';
 export {default as foClassicSearchResultsPage} from '@pages/FO/classic/searchResults';
 // Export Pages FO/Hummingbird
