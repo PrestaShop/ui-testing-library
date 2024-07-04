@@ -1,6 +1,6 @@
-import { FoModalWishlistPageInterface } from "@interfaces/FO/modal/wishlist";
-import FOBasePage from "@pages/FO/FOBasePage";
-import { Page } from "@playwright/test";
+import {FoModalWishlistPageInterface} from '@interfaces/FO/modal/wishlist';
+import FOBasePage from '@pages/FO/FOBasePage';
+import {Page} from '@playwright/test';
 
 class WishlistModalPage extends FOBasePage implements FoModalWishlistPageInterface {
   public readonly messageAddedToWishlist: string;

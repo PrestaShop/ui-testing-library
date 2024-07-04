@@ -1,9 +1,6 @@
 import {FOBasePagePageInterface} from '@interfaces/FO';
 
-// Import data
-import type {ProductAttribute, ProductDetails, ProductDetailsWithDiscount} from '@data/types/product';
-
-import type {Page} from '@playwright/test';
+import {type Page} from '@playwright/test';
 
 export interface FoModalWishlistPageInterface extends FOBasePagePageInterface {
   readonly messageAddedToWishlist: string;
