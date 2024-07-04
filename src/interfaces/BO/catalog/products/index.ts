@@ -30,7 +30,7 @@ export interface BOProductsPageInterface extends BOBasePagePageInterface {
     clickOnPreviewProductButton(page: Page, row: number): Promise<Page>;
     closeBulkActionsProgressModal(page: Page, action: string): Promise<boolean>;
     closeNewProductModal(page: Page): Promise<boolean>;
-    filterProducts(page: Page, filterBy: string, value: string|ProductFilterMinMax, filterType: string): Promise<void>;
+    filterProducts(page: Page, filterBy: string, value: string|ProductFilterMinMax, filterType?: string): Promise<void>;
     filterProductsByCategory(page: Page, categoryName: string): Promise<void>;
     filterProductsByID(page: Page, idMin: number, idMax: number): Promise<void>;
     filterProductsByPrice(page: Page, priceMin: number, priceMax: number): Promise<void>;

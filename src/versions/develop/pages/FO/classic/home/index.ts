@@ -34,6 +34,8 @@ class HomePage extends FOBasePage implements FoHomePageInterface {
 
   protected productsBlock: (blockId: number) => string;
 
+  private readonly productsBlockByName: (blockName: string) => string;
+
   private readonly productsBlockTitle: (blockId: number) => string;
 
   private readonly productsBlockDiv: (blockId: number) => string;
@@ -173,6 +175,7 @@ class HomePage extends FOBasePage implements FoHomePageInterface {
     // Selectors for home page
     this.homePageSection = 'section#content.page-home';
     this.productsBlock = (blockId: number) => `#content section:nth-child(${blockId})`;
+    this.productsBlockByName = (blockName: string) => `#content section[data-type="${blockName}"]`;
     this.productsBlockTitle = (blockId: number) => `${this.productsBlock(blockId)} h2`;
     this.productsBlockDiv = (blockId: number) => `${this.productsBlock(blockId)} div.products div.js-product`;
     this.productArticle = (number: number) => `${this.productsBlock(2)} .products div:nth-child(${number}) article`;
@@ -397,6 +400,16 @@ class HomePage extends FOBasePage implements FoHomePageInterface {
     }
 
     return page.locator(columnSelector).count();
+  }
+
+  /**
+   * Has products block
+   * @param blockName {'bestsellers'|'newproducts'|'onsale'|'popularproducts'} The block name in the page
+   * @param page {Page} Browser tab
+   * @return {Promise<boolean>}
+   */
+  async hasProductsBlock(page: Page, blockName: 'bestsellers' | 'newproducts' | 'onsale' | 'popularproducts'): Promise<boolean> {
+    return (await page.locator(this.productsBlockByName(blockName)).count()) > 0;
   }
 
   /**

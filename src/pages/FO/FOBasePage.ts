@@ -12,6 +12,8 @@ import type {Page} from 'playwright';
 export default class FOBasePage extends CommonPage implements FOBasePagePageInterface {
   public readonly content: string;
 
+  public readonly restrictedContentCountry: string;
+
   private readonly desktopLogo: string;
 
   private readonly desktopLogoLink: string;
@@ -142,6 +144,8 @@ export default class FOBasePage extends CommonPage implements FOBasePagePageInte
 
   protected theme: string;
 
+  private readonly restrictedText: string;
+
   /**
    * @constructs
    * Setting up texts and selectors to use on all FO pages
@@ -150,6 +154,7 @@ export default class FOBasePage extends CommonPage implements FOBasePagePageInte
     super();
 
     this.theme = theme;
+    this.restrictedContentCountry = 'You cannot access this store from your country. We apologize for the inconvenience.';
 
     // Selectors for home page
     // Header links
@@ -234,6 +239,9 @@ export default class FOBasePage extends CommonPage implements FOBasePagePageInte
     this.navbarLink = '.navbar-brand';
     this.hCopyrightLink = '#footer div.footer__main p.copyright a[href*="www.prestashop-project.org"]';
     this.hSearchInput = '#search_widget .js-search-input';
+
+    // Restricted
+    this.restrictedText = '#layout-error .page-restricted p';
   }
 
   // Header methods
@@ -785,6 +793,24 @@ export default class FOBasePage extends CommonPage implements FOBasePagePageInte
    */
   async getSearchValue(page: Page): Promise<string> {
     return this.getInputValue(page, this.searchInput);
+  }
+
+  /**
+   * Returns if the page is a restricted page
+   * @param page {Page} Browser tab
+   * @returns {Promise<boolean>}
+   */
+  async isRestrictedPage(page: Page): Promise<boolean> {
+    return !(await this.elementNotVisible(page, this.restrictedText, 3000));
+  }
+
+  /**
+   * Returns the content of the restricted text
+   * @param page {Page} Browser tab
+   * @returns {Promise<string|null>}
+   */
+  async getRestrictedText(page: Page): Promise<string|null> {
+    return page.locator(this.restrictedText).textContent();
   }
 }
 

@@ -9,6 +9,7 @@ import {getDocument, OPS, PDFDocumentProxy} from 'pdfjs-dist/legacy/build/pdf.js
 import {TextItem, TextMarkedContent} from 'pdfjs-dist/types/src/display/api';
 import {RawImageData} from 'jpeg-js';
 import type FakerImport from '@data/faker/import';
+import gunzip from 'gunzip-file';
 
 /**
  * @module FilesHelper
@@ -47,6 +48,16 @@ export default {
   async getFilesPattern(path: string, regex: RegExp): Promise<string[]> {
     return fs.readdirSync(path)
       .filter((f: string) => regex.test(f));
+  },
+
+  /**
+   * Decompress a GZIP file
+   * @param input {string} Path of the input file
+   * @param output {string} Path of the output file
+   * @return {Promise<void>}
+   */
+  gunzip(input: string, output: string): void {
+    gunzip(input, output);
   },
 
   /**
