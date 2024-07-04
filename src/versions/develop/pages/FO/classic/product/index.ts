@@ -8,13 +8,14 @@ import type {
 } from '@data/types/product';
 
 import type {Page} from 'playwright';
+import {type FoProductPageInterface} from '@interfaces/FO/product';
 
 /**
  * Product page, contains functions that can be used on the page
  * @class
  * @extends FOBasePage
  */
-class Product extends FOBasePage {
+class Product extends FOBasePage implements FoProductPageInterface {
   public readonly messageNotVisibleToCustomers: string;
 
   public readonly messageAlertNotificationSaved: string;
@@ -203,6 +204,8 @@ class Product extends FOBasePage {
 
   private readonly productsBlock: (blockName: string) => string;
 
+  private readonly btnAddToWishlist: string;
+
   /**
      * @constructs
      * Setting up texts and selectors to use on product page
@@ -278,7 +281,7 @@ class Product extends FOBasePage {
     this.productMailAlertsBlock = `${this.productInformationBlock} div.js-mailalert`;
     this.productMailAlertsEmailInput = `${this.productMailAlertsBlock} input[type="email"]`;
     this.productMailAlertsGDPRLabel = `${this.productMailAlertsBlock} div.gdpr_consent label.psgdpr_consent_message `
-            + 'span:nth-of-type(2)';
+      + 'span:nth-of-type(2)';
     this.productMailAlertsNotifyButton = `${this.productMailAlertsBlock} button`;
     this.productMailAlertsNotification = `${this.productMailAlertsBlock} article`;
 
@@ -321,6 +324,9 @@ class Product extends FOBasePage {
             + ' div.pack-product-quantity';
 
     this.productsBlock = (blockName: string) => `#content-wrapper section[data-type="${blockName}"]`;
+
+    // Wishlist
+    this.btnAddToWishlist = '#add-to-cart-or-refresh button.wishlist-button-add';
   }
 
   // Methods
@@ -1259,6 +1265,26 @@ class Product extends FOBasePage {
      */
   async hasProductsBlock(page: Page, blockName: string = 'categoryproducts'): Promise<boolean> {
     return (await page.locator(this.productsBlock(blockName)).count()) > 0;
+  }
+
+  /**
+   * Click on the wishlist button
+   * @param page {Page}
+   * @returns Promise<string>
+   */
+  async clickAddToWishlistButton(page: Page): Promise<void> {
+    await page.locator(this.btnAddToWishlist).click();
+  }
+
+  /**
+   * Check if a product is added to a wishlist
+   * @param page {Page}
+   * @returns Promise<boolean>
+   */
+  async isAddedToWishlist(page: Page): Promise<boolean> {
+    await page.waitForTimeout(1000);
+
+    return ((await this.getTextContent(page, this.btnAddToWishlist)) === 'favorite');
   }
 }
 
