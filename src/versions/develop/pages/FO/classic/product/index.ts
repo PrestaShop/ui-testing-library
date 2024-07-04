@@ -1270,7 +1270,7 @@ class Product extends FOBasePage implements FoProductPageInterface {
   /**
    * Click on the wishlist button
    * @param page {Page}
-   * @returns Promise<string>
+   * @returns Promise<void>
    */
   async clickAddToWishlistButton(page: Page): Promise<void> {
     await page.locator(this.btnAddToWishlist).click();

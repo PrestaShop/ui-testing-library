@@ -19,7 +19,7 @@ class WishlistModalPage extends FOBasePage implements FoModalWishlistPageInterfa
 
   /**
      * @constructs
-     * Setting up texts and selectors to use on home page
+     * Setting up texts and selectors to use on wishlist modal
      */
   constructor(theme: string = 'classic') {
     super(theme);
@@ -73,7 +73,7 @@ class WishlistModalPage extends FOBasePage implements FoModalWishlistPageInterfa
    * Add to a wishlist
    * @param page {Page}
    * @param nth {number}
-   * @returns {Promise<void>}
+   * @returns {Promise<string>}
    */
   async addWishlist(page: Page, nth: number): Promise<string> {
     // Wait for the modal
