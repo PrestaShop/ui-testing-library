@@ -212,6 +212,7 @@ export {default as boSearchPage} from '@pages/BO/shopParameters/search';
 // Export Pages FO
 export * as FOBasePage from '@pages/FO/FOBasePage';
 // Export Pages FO/Classic
+export {default as foClassicAboutUsPage} from '@pages/FO/classic/aboutUs';
 export {default as foClassicCartPage} from '@pages/FO/classic/cart';
 export {default as foClassicCategoryPage} from '@pages/FO/classic/category';
 export {default as foClassicCheckoutPage} from '@pages/FO/classic/checkout';
@@ -224,6 +225,7 @@ export {default as foClassicModalWishlistPage} from '@pages/FO/classic/modal/wis
 export {default as foClassicProductPage} from '@pages/FO/classic/product';
 export {default as foClassicSearchResultsPage} from '@pages/FO/classic/searchResults';
 // Export Pages FO/Hummingbird
+export {default as foHummingbirdAboutUsPage} from '@pages/FO/hummingbird/aboutUs';
 export {default as foHummingbirdCategoryPage} from '@pages/FO/hummingbird/category';
 export {default as foHummingbirdLoginPage} from '@pages/FO/hummingbird/login';
 export {default as foHummingbirdModalQuickViewPage} from '@pages/FO/hummingbird/modal/quickView';
