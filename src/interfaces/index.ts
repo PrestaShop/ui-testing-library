@@ -24,7 +24,7 @@ export interface CommonPageInterface {
     getParentElement(page: Frame | Page, selector: string)
         : Promise<ElementHandle<HTMLElement> | JSHandle<undefined> | JSHandle<null>>;
     getPriceFromText(page: Frame|Page, selector: string, timeout?: number, waitForSelector?: boolean): Promise<number>;
-    getTextContent(page: Page | Frame, selector: string, waitForSelector?: boolean): Promise<string>;
+    getTextContent(page: Page | Frame, selector: string, waitForSelector?: boolean, withTrim?: boolean): Promise<string>;
     goTo(page: Page, url: string): Promise<Response|null>;
     goToBO(page: Page): Promise<void>;
     goToFo(page: Page): Promise<void>;
