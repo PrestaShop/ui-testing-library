@@ -3,6 +3,7 @@ import type {Page} from '@playwright/test';
 
 export interface FoMyWishlistsPageInterface extends FOBasePagePageInterface {
   readonly pageTitle: string;
+  readonly wishlistListItemNthTitle: (nth: number) => string;
 
   countWishlists(page: Page): Promise<number>;
   getWishlistName(page: Page, nth: number): Promise<string>;

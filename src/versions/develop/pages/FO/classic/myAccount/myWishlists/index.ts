@@ -1,5 +1,6 @@
 import {type FoMyWishlistsPageInterface} from '@interfaces/FO/myAccount/myWishlists';
 import FOBasePage from '@pages/FO/FOBasePage';
+import foClassicMyWishlistsViewPage from '@versions/develop/pages/FO/classic/myAccount/myWishlists/view';
 import type {Page} from 'playwright';
 
 /**
@@ -20,7 +21,7 @@ class MyWishlistsPage extends FOBasePage implements FoMyWishlistsPageInterface {
 
   private readonly wishlistListItemNthLink: (nth: number) => string;
 
-  private readonly wishlistListItemNthTitle: (nth: number) => string;
+  public readonly wishlistListItemNthTitle: (nth: number) => string;
 
   /**
    * @constructs
@@ -70,6 +71,10 @@ class MyWishlistsPage extends FOBasePage implements FoMyWishlistsPageInterface {
    */
   async goToWishlistPage(page: Page, nth: number): Promise<void> {
     await page.locator(this.wishlistListItemNthLink(nth)).click();
+
+    if (await this.elementNotVisible(page, foClassicMyWishlistsViewPage.productListEmpty, 3000)) {
+      await this.elementVisible(page, foClassicMyWishlistsViewPage.productListEmpty, 3000)
+    }
   }
 
   /**

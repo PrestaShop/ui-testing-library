@@ -8,12 +8,14 @@ import type {Page} from 'playwright';
  * @class
  * @extends FOBasePage
  */
-class WishlistPage extends FOBasePage implements FoMyWishlistsViewPageInterface {
+class WishlistViewPage extends FOBasePage implements FoMyWishlistsViewPageInterface {
   public readonly messageSuccessfullyRemoved: string;
 
   private readonly headerTitle: string;
 
-  private readonly productList: string;
+  public readonly productListEmpty: string;
+
+  public readonly productList: string;
 
   private readonly productListItem: string;
 
@@ -47,6 +49,7 @@ class WishlistPage extends FOBasePage implements FoMyWishlistsViewPageInterface 
 
     // Selectors
     this.headerTitle = '#content-wrapper h1';
+    this.productListEmpty = '.wishlist-list-empty';
     this.productList = '.wishlist-products-list';
     this.productListItem = `${this.productList} .wishlist-products-item`;
     this.productListItemNth = (nth: number) => `${this.productListItem}:nth-child(${nth})`;
@@ -186,9 +189,14 @@ class WishlistPage extends FOBasePage implements FoMyWishlistsViewPageInterface 
     await page.locator(this.modalDeleteBtnRemove).click();
     // Wait for the toast
     await this.elementVisible(page, this.toastText, 3000);
+    // Fetch the toast text
+    const textContent = this.getTextContent(page, this.toastText);
+    // Wait for the toast hidden
+    await this.elementNotVisible(page, this.toastText, 6000);
 
-    return this.getTextContent(page, this.toastText);
+    return textContent;
   }
 }
 
-module.exports = new WishlistPage();
+export default new WishlistViewPage();
+module.exports = new WishlistViewPage();
