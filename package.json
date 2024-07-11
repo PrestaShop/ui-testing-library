@@ -56,6 +56,7 @@
     "eslint-plugin-deprecation": "^2.0.0",
     "eslint-plugin-html": "^7.1.0",
     "eslint-plugin-import": "^2.29.1",
+    "ts-node": "^10.9.2",
     "tsc-alias": "^1.8.8",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.3.3"
