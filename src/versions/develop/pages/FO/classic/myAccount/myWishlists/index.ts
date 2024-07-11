@@ -73,7 +73,7 @@ class MyWishlistsPage extends FOBasePage implements FoMyWishlistsPageInterface {
     await page.locator(this.wishlistListItemNthLink(nth)).click();
 
     if (await this.elementNotVisible(page, foClassicMyWishlistsViewPage.productListEmpty, 3000)) {
-      await this.elementVisible(page, foClassicMyWishlistsViewPage.productListEmpty, 3000)
+      await this.elementVisible(page, foClassicMyWishlistsViewPage.productListEmpty, 3000);
     }
   }
 
