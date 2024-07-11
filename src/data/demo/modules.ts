@@ -51,7 +51,7 @@ export default {
   psThemeCusto: new FakerModule({
     tag: 'ps_themecusto',
     name: 'Theme Customization',
-    releaseZip: 'https://github.com/PrestaShop/ps_themecusto/releases/download/v1.2.3/ps_themecusto.zip',
+    releaseZip: 'https://github.com/PrestaShop/ps_themecusto/releases/download/v1.2.4/ps_themecusto.zip',
   }),
   psWirePayment: new FakerModule({
     tag: 'ps_wirepayment',
