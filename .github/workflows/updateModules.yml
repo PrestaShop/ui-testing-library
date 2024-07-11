@@ -39,7 +39,7 @@ jobs:
         run: npm ci
 
       - name: Execute script for updating modules
-        run: npm run check:data:modules > cron_php_update_modules.txt
+        run: npm run --silent check:data:modules > cron_php_update_modules.txt
 
       - name: Remove prestashop directory
         run: rm -rf ./prestashop/
