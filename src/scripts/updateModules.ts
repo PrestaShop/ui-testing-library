@@ -2,7 +2,7 @@ import fs from 'fs';
 import dataModules from '@data/demo/modules';
 
 function getComposerLockVersion(moduleName: string): null|string {
-  const rawData: string = fs.readFileSync('../prestashop/composer.lock', 'utf8');
+  const rawData: string = fs.readFileSync('./prestashop/composer.lock', 'utf8');
   const jsonData = JSON.parse(rawData);
 
   // eslint-disable-next-line no-restricted-syntax
