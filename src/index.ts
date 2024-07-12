@@ -224,6 +224,7 @@ export {default as foClassicLoginPage} from '@pages/FO/classic/login';
 export {default as foClassicModalBlockCartPage} from '@pages/FO/classic/modal/blockCart';
 export {default as foClassicModalQuickViewPage} from '@pages/FO/classic/modal/quickView';
 export {default as foClassicModalWishlistPage} from '@pages/FO/classic/modal/wishlist';
+export {default as foClassicMyAccountPage} from '@pages/FO/classic/myAccount';
 export {default as foClassicMyWishlistsPage} from '@pages/FO/classic/myAccount/myWishlists';
 export {default as foClassicMyWishlistsViewPage} from '@pages/FO/classic/myAccount/myWishlists/view';
 export {default as foClassicProductPage} from '@pages/FO/classic/product';
@@ -233,6 +234,7 @@ export {default as foHummingbirdAboutUsPage} from '@pages/FO/hummingbird/aboutUs
 export {default as foHummingbirdCategoryPage} from '@pages/FO/hummingbird/category';
 export {default as foHummingbirdLoginPage} from '@pages/FO/hummingbird/login';
 export {default as foHummingbirdModalQuickViewPage} from '@pages/FO/hummingbird/modal/quickView';
+export {default as foHummingbirdMyAccountPage} from '@pages/FO/hummingbird/myAccount';
 export {default as foHummingbirdMyWishlistsPage} from '@pages/FO/hummingbird/myAccount/myWishlists';
 export {default as foHummingbirdSearchResultsPage} from '@pages/FO/hummingbird/searchResults';
 
