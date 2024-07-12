@@ -13,15 +13,25 @@ class MyWishlistsPage extends FOBasePage implements FoMyWishlistsPageInterface {
 
   private readonly headerTitle: string;
 
+  private readonly wishlistCreateButton: string;
+
   private readonly wishlistList: string;
 
   private readonly wishlistListItem: string;
 
   private readonly wishlistListItemNth: (nth: number) => string;
 
+  private readonly wishlistListItemRight: (nth: number) => string;
+
   private readonly wishlistListItemNthLink: (nth: number) => string;
 
   public readonly wishlistListItemNthTitle: (nth: number) => string;
+
+  private readonly wishlistListItemButton1: (nth: number) => string;
+
+  private readonly wishlistListItemDropdown: (nth: number) => string;
+
+  private readonly wishlistListItemDropdownItem: (nth: number, nthDropdown: number) => string;
 
   /**
    * @constructs
@@ -34,11 +44,17 @@ class MyWishlistsPage extends FOBasePage implements FoMyWishlistsPageInterface {
 
     // Selectors
     this.headerTitle = '#content-wrapper h1';
+    this.wishlistCreateButton = '.wishlist-container-header a.wishlist-add-to-new';
     this.wishlistList = '.wishlist-list';
     this.wishlistListItem = `${this.wishlistList} .wishlist-list-item`;
     this.wishlistListItemNth = (nth: number) => `${this.wishlistListItem}:nth-child(${nth})`;
     this.wishlistListItemNthLink = (nth: number) => `${this.wishlistListItemNth(nth)} a.wishlist-list-item-link`;
     this.wishlistListItemNthTitle = (nth: number) => `${this.wishlistListItemNth(nth)} p.wishlist-list-item-title`;
+    this.wishlistListItemRight = (nth: number) => `${this.wishlistListItemNthLink(nth)} .wishlist-list-item-right`;
+    this.wishlistListItemButton1 = (nth: number) => `${this.wishlistListItemRight(nth)} > button:nth-child(1)`;
+    this.wishlistListItemDropdown = (nth: number) => `${this.wishlistListItemNth(nth)} .dropdown-menu`;
+    this.wishlistListItemDropdownItem = (nth: number, nthDropdown: number) => `${this.wishlistListItemDropdown(nth)} button`
+      + `:nth-child(${nthDropdown})`;
   }
 
   /*
@@ -92,6 +108,28 @@ class MyWishlistsPage extends FOBasePage implements FoMyWishlistsPageInterface {
         textContent.search(/\(/),
       )
       .trim();
+  }
+
+  /**
+   * Click on the share button
+   * @param page {Page}
+   * @returns Promise<void>
+   */
+  async clickShareWishlistButton(page: Page, nth: number): Promise<void> {
+    await page.locator(this.wishlistListItemButton1(nth)).click();
+    if (nth > 1) {
+      await this.elementVisible(page, `${this.wishlistListItemDropdown(nth)}.show`, 3000);
+      await page.locator(this.wishlistListItemDropdownItem(nth, 2)).click();
+    }
+  }
+
+  /**
+   * Click on the "Create new list" button
+   * @param page {Page}
+   * @returns Promise<void>
+   */
+  async clickCreateWishlistButton(page: Page): Promise<void> {
+    await page.locator(this.wishlistCreateButton).click();
   }
 }
 
