@@ -19,4 +19,4 @@ class MyAccountPage extends MyAccountPageVersion implements FoMyAccountPageInter
   }
 }
 
-export default new MyAccountPage();
+module.exports = new MyAccountPage();
