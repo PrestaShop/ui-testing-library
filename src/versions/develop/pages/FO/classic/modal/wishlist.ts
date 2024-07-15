@@ -113,8 +113,12 @@ class WishlistModalPage extends FOBasePage implements FoModalWishlistPageInterfa
     await page.locator(this.modalAddToListItem(nth)).click();
     // Wait for the toast
     await this.elementVisible(page, this.toastText, 3000);
+    // Fetch the toast text
+    const textContent = this.getTextContent(page, this.toastText);
+    // Wait for the toast hidden
+    await this.elementNotVisible(page, this.toastText, 6000);
 
-    return this.getTextContent(page, this.toastText);
+    return textContent;
   }
 
   /**
@@ -193,8 +197,12 @@ class WishlistModalPage extends FOBasePage implements FoModalWishlistPageInterfa
     await page.locator(this.modalCreateBtnCreate).click();
     // Wait for the toast
     await this.elementVisible(page, this.toastText, 3000);
+    // Fetch the toast text
+    const textContent = this.getTextContent(page, this.toastText);
+    // Wait for the toast hidden
+    await this.elementNotVisible(page, this.toastText, 6000);
 
-    return this.getTextContent(page, this.toastText);
+    return textContent;
   }
 }
 
