@@ -34,7 +34,7 @@ class MyAccountPage extends FOBasePage implements FoMyAccountPageInterface {
 
   private readonly myWishlistsLink: string;
 
-  private readonly psgdprLink: string;
+  protected psgdprLink: string;
 
   /**
    * @constructs

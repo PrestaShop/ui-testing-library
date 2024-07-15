@@ -16,6 +16,7 @@ class MyAccountPage extends MyAccountPageVersion implements FoMyAccountPageInter
 
     this.orderSlipsLink = '.account-menu #order-slips__link';
     this.logoutFooterLink = '#my-account .account-menu .account-menu--signout';
+    this.psgdprLink = '.customer-link #psgdpr-link';
   }
 }
 
