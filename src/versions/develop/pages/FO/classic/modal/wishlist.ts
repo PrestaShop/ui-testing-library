@@ -68,7 +68,7 @@ class WishlistModalPage extends FOBasePage implements FoModalWishlistPageInterfa
     this.modalCreateBtnCreate = `${this.modalCreate} div.modal-footer button.btn-primary`;
 
     // Toast
-    this.toastText = '.wishlist-toast .wishlist-toast-text';
+    this.toastText = '.wishlist-toast.isActive .wishlist-toast-text';
   }
 
   /**
@@ -114,7 +114,7 @@ class WishlistModalPage extends FOBasePage implements FoModalWishlistPageInterfa
     // Wait for the toast
     await this.elementVisible(page, this.toastText, 3000);
     // Fetch the toast text
-    const textContent = this.getTextContent(page, this.toastText);
+    const textContent = await this.getTextContent(page, this.toastText);
     // Wait for the toast hidden
     await this.elementNotVisible(page, this.toastText, 6000);
 
@@ -151,7 +151,7 @@ class WishlistModalPage extends FOBasePage implements FoModalWishlistPageInterfa
     // Wait for the toast
     await this.elementVisible(page, this.toastText, 3000);
     // Fetch the toast text
-    const textContent = this.getTextContent(page, this.toastText);
+    const textContent = await this.getTextContent(page, this.toastText);
     // Wait for the toast hidden
     await this.elementNotVisible(page, this.toastText, 6000);
 
@@ -198,7 +198,7 @@ class WishlistModalPage extends FOBasePage implements FoModalWishlistPageInterfa
     // Wait for the toast
     await this.elementVisible(page, this.toastText, 3000);
     // Fetch the toast text
-    const textContent = this.getTextContent(page, this.toastText);
+    const textContent = await this.getTextContent(page, this.toastText);
     // Wait for the toast hidden
     await this.elementNotVisible(page, this.toastText, 6000);
 
