@@ -433,6 +433,7 @@ class ProductsPage extends BOBasePage implements BOProductsPageInterface {
     const createProductFrame: Frame | null = page.frame({url: this.newProductIframeURL});
 
     await this.waitForSelectorAndClick(createProductFrame!, this.addNewProductButton);
+    await page.waitForLoadState('networkidle');
   }
 
   /**
