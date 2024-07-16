@@ -2,11 +2,12 @@ import type {CommonPageInterface} from '@interfaces/index';
 import type {Page} from '@playwright/test';
 
 export interface FOBasePagePageInterface extends CommonPageInterface {
+    readonly content: string;
     readonly restrictedContentCountry: string;
 
     changeCurrency(page: Page, isoCode?: string, symbol?: string): Promise<void>;
     changeLanguage(page: Page, lang?: string): Promise<void>;
-    clickAutocompleteSearchResult(page: Page, productName: string, nthResult: number): Promise<void>;
+    clickAutocompleteSearchResult(page: Page, nthResult: number): Promise<void>;
     clickOnBreadCrumbLink(page: Page, link: string): Promise<void>;
     clickOnHeaderLink(page: Page, link: string, hasPageChange?: boolean): Promise<void>;
     closeAutocompleteSearch(page: Page): Promise<void>;
@@ -42,4 +43,5 @@ export interface FOBasePagePageInterface extends CommonPageInterface {
     languageExists(page: Page, lang?: string): Promise<boolean>;
     logout(page: Page): Promise<void>;
     searchProduct(page: Page, productName: string): Promise<void>;
+    setProductNameInSearchInput(page: Page, productName: string): Promise<void>;
 }
