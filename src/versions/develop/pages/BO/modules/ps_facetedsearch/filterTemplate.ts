@@ -95,6 +95,9 @@ class PsFacetedSearchFilterTemplate extends ModuleConfiguration implements Modul
       case 'Product brand filter':
         selectorStatus = 'layered_selection_manufacturer';
         break;
+      case 'Product condition filter':
+        selectorStatus = 'layered_selection_condition';
+        break;
       case 'Product stock filter':
         selectorStatus = 'layered_selection_stock';
         break;
