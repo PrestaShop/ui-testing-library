@@ -14,6 +14,8 @@ class SearchPage extends BOBasePage implements BOSearchPageInterface {
 
   public readonly settingsUpdateMessage: string;
 
+  public readonly updateSuccessMessage;
+
   private readonly addNewAliasLink: string;
 
   private readonly tagsTabLink: string;
@@ -98,6 +100,14 @@ class SearchPage extends BOBasePage implements BOSearchPageInterface {
 
   private readonly sortColumnDiv: (column: string, direction: string) => string;
 
+  private readonly indexingForm: string;
+
+  private readonly indexationLabel: (status: string) => string;
+
+  private readonly indexedProducts: string;
+
+  private readonly addMissingProductsLink: string;
+
   private readonly aliasForm: string;
 
   private readonly fuzzySearchLabel: (status: string) => string;
@@ -120,7 +130,7 @@ class SearchPage extends BOBasePage implements BOSearchPageInterface {
     this.pageTitle = 'Search •';
     this.successfulCreationMessage = 'Successful creation';
     this.successfulUpdateStatusMessage = 'The status has been successfully updated.';
-    this.successfulUpdateMessage = 'Update successful';
+    this.updateSuccessMessage = 'Update successful';
     this.settingsUpdateMessage = 'The settings have been successfully updated.';
 
     // Selectors
@@ -189,6 +199,13 @@ class SearchPage extends BOBasePage implements BOSearchPageInterface {
     // Sort Selectors
     this.tableHead = `${this.gridTable} thead`;
     this.sortColumnDiv = (column: string, direction: string) => `${this.tableHead} a.${direction}-sort-column-${column}-link`;
+
+    // Indexing form
+    this.indexingForm = '#alias_fieldset_indexation';
+    this.indexationLabel = (status: string) => `#PS_SEARCH_INDEXATION_${status}`;
+    this.indexedProducts = `${this.indexingForm} div p strong`;
+    this.addMissingProductsLink = `${this.indexingForm} a.btn-link`
+      + '[href*="controller=AdminSearch&action=searchCron&ajax=1&token"]';
 
     // Search form
     this.aliasForm = '#alias_fieldset_search';
@@ -506,6 +523,66 @@ class SearchPage extends BOBasePage implements BOSearchPageInterface {
    */
   async sortTable(page: Page, sortBy: string, sortDirection: string): Promise<void> {
     await this.clickAndWaitForURL(page, `${this.sortColumnDiv(sortBy, sortDirection)} i`);
+  }
+
+  // Methods for Indexing form
+  /**
+   * Returns the number of indexed products
+   * @param page {Page} Browser tab
+   * @return {Promise<number>}
+   */
+  async getNumIndexedProducts(page: Page): Promise<number> {
+    const text = await this.getTextContent(page, this.indexedProducts);
+    const regexIndexedProducts: RegExp = /([0-9]+)\s\/\s/;
+    const regexMatch: RegExpMatchArray|null = text.match(regexIndexedProducts);
+
+    if (regexMatch === null) {
+      return 0;
+    }
+
+    return parseInt(regexMatch[1], 10);
+  }
+
+  /**
+   * Returns the number of total products
+   * @param page {Page} Browser tab
+   * @return {Promise<number>}
+   */
+  async getNumTotalProducts(page: Page): Promise<number> {
+    const text = await this.getTextContent(page, this.indexedProducts);
+    const regexIndexedProducts: RegExp = /\s\/\s([0-9]+)/;
+    const regexMatch: RegExpMatchArray|null = text.match(regexIndexedProducts);
+
+    if (regexMatch === null) {
+      return 0;
+    }
+
+    return parseInt(regexMatch[1], 10);
+  }
+
+  /**
+   * Enable/Disable indexing
+   * @param page {Page} Browser tab
+   * @param toEnable {boolean} True if we need to enable indexing
+   * @returns {Promise<string>}
+   */
+  async setIndexing(page: Page, toEnable: boolean = true): Promise<string> {
+    await this.setChecked(page, this.indexationLabel(toEnable ? 'on' : 'off'));
+    await this.clickAndWaitForLoadState(page, this.saveFormButton);
+    await this.elementNotVisible(page, this.indexationLabel(!toEnable ? 'on' : 'off'), 2000);
+
+    return this.getAlertSuccessBlockContent(page);
+  }
+
+  /**
+   * Click "Add missing products to the index"
+   * @param page {Page} Browser tab
+   * @returns {Promise<string>}
+   */
+  async clickAddMissingProductsToIndex(page: Page): Promise<string> {
+    await page.locator(this.addMissingProductsLink).click();
+
+    return this.getAlertSuccessBlockContent(page);
   }
 
   // Methods for search form
