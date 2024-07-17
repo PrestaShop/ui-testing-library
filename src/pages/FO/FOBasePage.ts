@@ -182,10 +182,10 @@ export default class FOBasePage extends CommonPage implements FOBasePagePageInte
     this.currencySelectorMenuItemLink = (currency) => `${this.currencySelectorExpandIcon} ul li a[title='${currency}']`;
     this.currencySelect = 'select[aria-labelledby=\'currency-selector-label\']';
     this.searchInput = '#search_widget input.ui-autocomplete-input, #search_widget input.js-search-input';
-    this.autocompleteSearchResult = '.ui-autocomplete';
-    this.autocompleteSearchResultItem = `${this.autocompleteSearchResult} .ui-menu-item`;
-    this.autocompleteSearchResultItemLink = (nthChild) => `${this.autocompleteSearchResult} `
-      + `.ui-menu-item:nth-child(${nthChild}) a`;
+    this.autocompleteSearchResult = '.ui-autocomplete, .js-search-dropdown';
+    this.autocompleteSearchResultItem = '.ui-autocomplete li.ui-menu-item, .js-search-dropdown li.search-result';
+    this.autocompleteSearchResultItemLink = (nthChild) => `.ui-autocomplete li.ui-menu-item:nth-child(${nthChild}) a`
+      + `, .js-search-dropdown li.search-result:nth-child(${nthChild}) a`;
 
     // Footer links
     // Products links selectors
@@ -512,7 +512,7 @@ export default class FOBasePage extends CommonPage implements FOBasePagePageInte
    * @returns {Promise<void>}
    */
   async goToSubCategory(page: Page, categoryID: number, subCategoryID: number): Promise<void> {
-    await page.locator(this.categoryMenu(categoryID)).hover();
+    await page.locator(this.categoryMenu(categoryID)).first().hover();
     await this.clickAndWaitForURL(page, this.categoryMenu(subCategoryID));
   }
 
@@ -553,7 +553,7 @@ export default class FOBasePage extends CommonPage implements FOBasePagePageInte
    * @returns {void}
    */
   async closeAutocompleteSearch(page: Page): Promise<void> {
-    await page.keyboard.press('Escape');
+    await page.mouse.click(5, 5);
   }
 
   /**
@@ -578,19 +578,6 @@ export default class FOBasePage extends CommonPage implements FOBasePagePageInte
   }
 
   /**
-   * Get autocomplete search result
-   * @param page {Page} Browser tab
-   * @param productName {string} Product name to search
-   * @returns {Promise<string>}
-   */
-  async getAutocompleteSearchResult(page: Page, productName: string): Promise<string> {
-    await this.setValue(page, this.searchInput, productName);
-    await this.waitForVisibleSelector(page, this.autocompleteSearchResult);
-
-    return this.getTextContent(page, this.autocompleteSearchResult);
-  }
-
-  /**
    * Set product name in search input
    * @param page {Page} Browser tab
    * @param productName {string} Product name to search
@@ -599,6 +586,18 @@ export default class FOBasePage extends CommonPage implements FOBasePagePageInte
   async setProductNameInSearchInput(page: Page, productName: string): Promise<void> {
     await this.setValue(page, this.searchInput, productName);
     await this.waitForVisibleSelector(page, this.autocompleteSearchResult);
+  }
+
+  /**
+   * Get autocomplete search result
+   * @param page {Page} Browser tab
+   * @param productName {string} Product name to search
+   * @returns {Promise<string>}
+   */
+  async getAutocompleteSearchResult(page: Page, productName: string): Promise<string> {
+    await this.setProductNameInSearchInput(page, productName);
+
+    return this.getTextContent(page, this.autocompleteSearchResult);
   }
 
   /**
@@ -637,6 +636,15 @@ export default class FOBasePage extends CommonPage implements FOBasePagePageInte
     await this.clickAndWaitForURL(page, this.autocompleteSearchResultItemLink(nthResult));
   }
 
+  /**
+   * Get search input
+   * @param page {Page} Browser tab
+   * @returns {Promise<void>}
+   */
+  async getSearchInput(page: Page): Promise<string> {
+    return this.getAttributeContent(page, this.searchInput, 'value');
+  }
+
   // Footer methods
   /**
    * Get Title of Block that contains links in footer
@@ -646,15 +654,6 @@ export default class FOBasePage extends CommonPage implements FOBasePagePageInte
    */
   async getFooterLinksBlockTitle(page: Page, position: number): Promise<string> {
     return this.getTextContent(page, this.wrapperTitle(position));
-  }
-
-  /**
-   * Get search input
-   * @param page {Page} Browser tab
-   * @returns {Promise<void>}
-   */
-  async getSearchInput(page: Page): Promise<string> {
-    return this.getAttributeContent(page, this.searchInput, 'value');
   }
 
   /**
