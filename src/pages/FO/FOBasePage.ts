@@ -608,8 +608,7 @@ export default class FOBasePage extends CommonPage implements FOBasePagePageInte
    * @returns {Promise<number>}
    */
   async countAutocompleteSearchResult(page: Page, productName: string): Promise<number> {
-    await this.setValue(page, this.searchInput, productName);
-    await this.waitForVisibleSelector(page, this.autocompleteSearchResultItem);
+    await this.setProductNameInSearchInput(page, productName);
 
     return page.locator(this.autocompleteSearchResultItem).count();
   }
