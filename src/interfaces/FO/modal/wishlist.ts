@@ -14,6 +14,7 @@ export interface FoModalWishlistPageInterface extends FOBasePagePageInterface {
   clickLoginOnModalLogin(page: Page): Promise<void>;
   clickCreateOnModalCreate(page: Page): Promise<string>;
   clickShareOnModalShare(page: Page): Promise<string>;
+  getModalAddToTitle(page: Page): Promise<string>;
   hasModalLogin(page: Page): Promise<boolean>;
   hasModalCreate(page: Page): Promise<boolean>;
   hasModalShare(page: Page): Promise<boolean>;

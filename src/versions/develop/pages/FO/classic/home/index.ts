@@ -450,13 +450,11 @@ class HomePage extends FOBasePage implements FoHomePageInterface {
    * Add a product (based on its index) to the first wishlist
    * @param page {Page} Browser tab
    * @param idxProduct {number} Id of product
-   * @returns Promise<string>
+   * @returns Promise<void>
    */
-  async addToWishList(page: Page, idxProduct: number): Promise<string> {
+  async clickAddWishListProduct(page: Page, idxProduct: number): Promise<void> {
     // Click on the heart
     await page.locator(this.productAddToWishlist(idxProduct)).click();
-
-    return foClassicModalWishlistPage.addWishlist(page, 1);
   }
 }
 
