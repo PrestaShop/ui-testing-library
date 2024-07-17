@@ -109,7 +109,7 @@ export default {
     }
     const pdf = await getDocument({
       url: filePath,
-      standardFontDataUrl: path.join(path.dirname(__dirname), 'node_modules/pdfjs-dist/standard_fonts/'),
+      standardFontDataUrl: path.join(__dirname, '../../../../', 'pdfjs-dist/standard_fonts/'),
     }).promise;
     const maxPages = pdf.numPages;
     const pageTextPromises = [];
@@ -156,9 +156,10 @@ export default {
     if (filePath === null) {
       return 0;
     }
+
     const pdf = await getDocument({
       url: filePath,
-      standardFontDataUrl: path.join(path.dirname(__dirname), 'node_modules/pdfjs-dist/standard_fonts/'),
+      standardFontDataUrl: path.join(__dirname, '../../../../', 'pdfjs-dist/standard_fonts/'),
     }).promise;
     const nbrPages = pdf.numPages;
     let imageNumber = 0;

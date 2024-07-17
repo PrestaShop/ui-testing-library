@@ -15,7 +15,7 @@ class HomePageVersion extends HomePage implements FoHomePageInterface {
   constructor(theme: string = 'classic') {
     super(theme);
 
-    this.productArticle = (number: number) => `${this.productsBlock(2)} .products article:nth-child(${number}) div`;
+    this.productArticle = (number: number) => `${this.productsBlockNth(2)} .products article:nth-child(${number}) div`;
   }
 }
 

@@ -335,21 +335,30 @@ class QuickViewModal extends FOBasePage implements FoModalQuickViewPageInterface
   }
 
   /**
-     * Is add to cart button disabled
-     * @param page {Page} Browser tab
-     * @returns {Promise<boolean>}
-     */
+   * Is add to cart button disabled
+   * @param page {Page} Browser tab
+   * @returns {Promise<boolean>}
+   */
   async isAddToCartButtonDisabled(page: Page): Promise<boolean> {
     return this.elementVisible(page, `${this.addToCartButton}[disabled]`, 1000);
   }
 
   /**
-     * Is add to cart button enabled
-     * @param page {Page} Browser tab
-     * @returns {Promise<boolean>}
-     */
+   * Is add to cart button enabled
+   * @param page {Page} Browser tab
+   * @returns {Promise<boolean>}
+   */
   async isAddToCartButtonEnabled(page: Page): Promise<boolean> {
     return !await this.elementVisible(page, `${this.addToCartButton}[disabled]`, 1000);
+  }
+
+  /**
+    * Is add to cart button visible
+    * @param page {Page} Browser tab
+    * @returns {Promise<boolean>}
+    */
+  async isAddToCartButtonVisible(page: Page): Promise<boolean> {
+    return this.elementVisible(page, this.addToCartButton, 1000);
   }
 
   /**

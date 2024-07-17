@@ -206,4 +206,5 @@ class WishlistModalPage extends FOBasePage implements FoModalWishlistPageInterfa
   }
 }
 
+export default new WishlistModalPage();
 module.exports = new WishlistModalPage();

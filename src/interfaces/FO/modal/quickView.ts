@@ -22,6 +22,7 @@ export interface FoModalQuickViewPageInterface extends FOBasePagePageInterface {
     getSocialSharingLink(page: Page, socialSharing: string): Promise<string>;
     isAddToCartButtonDisabled(page: Page): Promise<boolean>;
     isAddToCartButtonEnabled(page: Page): Promise<boolean>;
+    isAddToCartButtonVisible(page: Page): Promise<boolean>;
     isQuickViewProductModalVisible(page: Page): Promise<boolean>;
     selectThumbImage(page: Page, position: number): Promise<string>;
     setAttribute(page: Page, attributes: ProductAttribute): Promise<void>;

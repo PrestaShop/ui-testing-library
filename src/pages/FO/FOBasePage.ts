@@ -591,6 +591,17 @@ export default class FOBasePage extends CommonPage implements FOBasePagePageInte
   }
 
   /**
+   * Set product name in search input
+   * @param page {Page} Browser tab
+   * @param productName {string} Product name to search
+   * @returns {Promise<string>}
+   */
+  async setProductNameInSearchInput(page: Page, productName: string): Promise<void> {
+    await this.setValue(page, this.searchInput, productName);
+    await this.waitForVisibleSelector(page, this.autocompleteSearchResult);
+  }
+
+  /**
    * Count autocomplete search result
    * @param page {Page} Browser tab
    * @param productName {string} Product name to search
@@ -620,13 +631,10 @@ export default class FOBasePage extends CommonPage implements FOBasePagePageInte
   /**
    * Click autocomplete search on the nth result
    * @param page {Page} Browser tab
-   * @param productName {string} Product name to search
    * @param nthResult {number} Nth result to click
    * @returns {Promise<number>}
    */
-  async clickAutocompleteSearchResult(page: Page, productName: string, nthResult: number): Promise<void> {
-    await this.setValue(page, this.searchInput, productName);
-    await this.waitForVisibleSelector(page, this.autocompleteSearchResultItem);
+  async clickAutocompleteSearchResult(page: Page, nthResult: number): Promise<void> {
     await this.clickAndWaitForURL(page, this.autocompleteSearchResultItemLink(nthResult));
   }
 

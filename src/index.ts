@@ -233,6 +233,7 @@ export {default as foClassicSearchResultsPage} from '@pages/FO/classic/searchRes
 // Export Pages FO/Hummingbird
 export {default as foHummingbirdAboutUsPage} from '@pages/FO/hummingbird/aboutUs';
 export {default as foHummingbirdCategoryPage} from '@pages/FO/hummingbird/category';
+export {default as foHummingbirdHomePage} from '@pages/FO/hummingbird/home';
 export {default as foHummingbirdLoginPage} from '@pages/FO/hummingbird/login';
 export {default as foHummingbirdModalQuickViewPage} from '@pages/FO/hummingbird/modal/quickView';
 export {default as foHummingbirdMyAccountPage} from '@pages/FO/hummingbird/myAccount';
