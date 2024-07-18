@@ -1,21 +1,17 @@
-// Import FO Pages
-import FOBasePage from '@pages/FO/FOBasePage';
-
-// Import data
 import FakerProductReview from '@data/faker/productReview';
 import type {
-  ProductAttribute, ProductImageUrls, ProductInformations,
+  ProductAttribute, ProductDetailsBasic, ProductImageUrls, ProductInformations,
 } from '@data/types/product';
-
-import type {Page} from 'playwright';
 import {type FoProductPageInterface} from '@interfaces/FO/product';
+import FOBasePage from '@pages/FO/FOBasePage';
+import {type Page} from '@playwright/test';
 
 /**
  * Product page, contains functions that can be used on the page
  * @class
  * @extends FOBasePage
  */
-class Product extends FOBasePage implements FoProductPageInterface {
+class ProductPage extends FOBasePage implements FoProductPageInterface {
   public readonly messageNotVisibleToCustomers: string;
 
   public readonly messageAlertNotificationSaved: string;
@@ -207,9 +203,9 @@ class Product extends FOBasePage implements FoProductPageInterface {
   private readonly btnAddToWishlist: string;
 
   /**
-     * @constructs
-     * Setting up texts and selectors to use on product page
-     */
+   * @constructs
+   * Setting up texts and selectors to use on product page
+   */
   constructor(theme: string = 'classic') {
     super(theme);
 
@@ -233,7 +229,7 @@ class Product extends FOBasePage implements FoProductPageInterface {
     this.thumbImgProductModal = (row: number) => `#thumbnails li:nth-child(${row}) picture img.js-modal-thumb`;
     this.productQuantity = '#quantity_wanted';
     this.productRowQuantityUpDownButton = (direction: string) => 'span.input-group-btn-vertical'
-            + ` button.bootstrap-touchspin-${direction}`;
+      + ` button.bootstrap-touchspin-${direction}`;
     this.shortDescription = '#product-description-short';
     this.productDescription = '#description';
     this.customizationBlock = 'div.product-container div.product-information section.product-customization';
@@ -321,7 +317,7 @@ class Product extends FOBasePage implements FoProductPageInterface {
     this.productInPackName = (productInList: number) => `${this.productInPackList(productInList)} div.pack-product-name a`;
     this.productInPackPrice = (productInList: number) => `${this.productInPackList(productInList)} div.pack-product-price`;
     this.productInPackQuantity = (productInList: number) => `${this.productInPackList(productInList)}`
-            + ' div.pack-product-quantity';
+      + ' div.pack-product-quantity';
 
     this.productsBlock = (blockName: string) => `#content-wrapper section[data-type="${blockName}"]`;
 
@@ -332,84 +328,84 @@ class Product extends FOBasePage implements FoProductPageInterface {
   // Methods
 
   /**
-     * Get product page URL
-     * @param page {Page} Browser tab
-     * @returns {Promise<string>}
-     */
+   * Get product page URL
+   * @param page {Page} Browser tab
+   * @returns {Promise<string>}
+   */
   async getProductPageURL(page: Page): Promise<string> {
     return this.getAttributeContent(page, this.metaLink, 'content');
   }
 
   /**
-     * Get product tag
-     * @param page {Page} Browser tab
-     * @return {Promise<string>}
-     */
+   * Get product tag
+   * @param page {Page} Browser tab
+   * @return {Promise<string>}
+   */
   async getProductTag(page: Page): Promise<string> {
     return this.getTextContent(page, this.productFlags);
   }
 
   /**
-     * Is product tag visible
-     * @param page {Page} Browser tab
-     * @return {Promise<boolean>}
-     */
+   * Is product tag visible
+   * @param page {Page} Browser tab
+   * @return {Promise<boolean>}
+   */
   async isProductTagVisible(page: Page): Promise<boolean> {
     return this.elementVisible(page, this.productFlag(''));
   }
 
   /**
-     * Is a specific product flag visible
-     * @param page {Page} Browser tab
-     * @param name {string}
-     * @return {Promise<boolean>}
-     */
+   * Is a specific product flag visible
+   * @param page {Page} Browser tab
+   * @param name {string}
+   * @return {Promise<boolean>}
+   */
   async hasProductFlag(page: Page, name: string): Promise<boolean> {
     return this.elementVisible(page, this.productFlag(name), 2000);
   }
 
   /**
-     * Is the Block Mail Alert visible ?
-     * @param page {Page} Browser tab
-     * @return {Promise<boolean>}
-     */
+   * Is the Block Mail Alert visible ?
+   * @param page {Page} Browser tab
+   * @return {Promise<boolean>}
+   */
   async hasBlockMailAlert(page: Page): Promise<boolean> {
     return this.elementVisible(page, this.productMailAlertsBlock, 2000);
   }
 
   /**
-     * Return if the GDPR field is present
-     * @param page {Page} Browser tab
-     * @returns {Promise<boolean>}
-     */
+   * Return if the GDPR field is present
+   * @param page {Page} Browser tab
+   * @returns {Promise<boolean>}
+   */
   async hasBlockMailAlertGDPRLabel(page: Page): Promise<boolean> {
     return await page.locator(this.productMailAlertsGDPRLabel).count() !== 0;
   }
 
   /**
-     * Return the label for the GDPR field
-     * @param page {Page} Browser tab
-     * @returns {Promise<string>}
-     */
+   * Return the label for the GDPR field
+   * @param page {Page} Browser tab
+   * @returns {Promise<string>}
+   */
   async getBlockMailAlertGDPRLabel(page: Page): Promise<string> {
     return this.getTextContent(page, this.productMailAlertsGDPRLabel);
   }
 
   /**
-     * Returns notifications block in block Mail Alert
-     * @param page {Page} Browser tab
-     * @return {Promise<string>}
-     */
+   * Returns notifications block in block Mail Alert
+   * @param page {Page} Browser tab
+   * @return {Promise<string>}
+   */
   async getBlockMailAlertNotification(page: Page): Promise<string> {
     return this.getTextContent(page, this.productMailAlertsNotification);
   }
 
   /**
-     *
-     * @param page {Page} Browser tab
-     * @param email {string|null} Email if needed
-     * @return {Promise<string>}
-     */
+   *
+   * @param page {Page} Browser tab
+   * @param email {string|null} Email if needed
+   * @return {Promise<string>}
+   */
   async notifyEmailAlert(page: Page, email: string | null = null): Promise<string> {
     if (email) {
       await this.setValue(page, this.productMailAlertsEmailInput, email);
@@ -420,19 +416,19 @@ class Product extends FOBasePage implements FoProductPageInterface {
   }
 
   /**
-     * Get product price
-     * @param page {Page} Browser tab
-     * @returns {Promise<string>}
-     */
+   * Get product price
+   * @param page {Page} Browser tab
+   * @returns {Promise<string>}
+   */
   async getProductPrice(page: Page): Promise<string> {
     return this.getTextContent(page, this.productPrice);
   }
 
   /**
-     * Get Product information (Product name, price, short description, description)
-     * @param page {Page} Browser tab
-     * @returns {Promise<ProductInformations>}
-     */
+   * Get Product information (Product name, price, short description, description)
+   * @param page {Page} Browser tab
+   * @returns {Promise<ProductInformations>}
+   */
   async getProductInformation(page: Page): Promise<ProductInformations> {
     return {
       name: await this.getTextContent(page, this.productName),
@@ -445,52 +441,47 @@ class Product extends FOBasePage implements FoProductPageInterface {
   }
 
   /**
-     * Is iframe visible in product d
-     * @param page {Page} Browser tab
-     * @returns {Promise<boolean>}
-     */
+   * Is iframe visible in product d
+   * @param page {Page} Browser tab
+   * @returns {Promise<boolean>}
+   */
   async isIframeVisibleInProductDescription(page: Page): Promise<boolean> {
     return this.elementVisible(page, `${this.productDescription} iframe`, 1000);
   }
 
   /**
-     * Get URL in product description
-     * @param page {Page} Browser tab
-     * @returns {Promise<string>}
-     */
+   * Get URL in product description
+   * @param page {Page} Browser tab
+   * @returns {Promise<string>}
+   */
   async getURLInProductDescription(page: Page): Promise<string> {
     return this.getAttributeContent(page, `${this.productDescription} iframe`, 'src');
   }
 
   /**
-     * Get product information in pack
-     * @param page {Page} Browser tab
-     * @param productInList {number} Product in pack list
-     * @returns {Promise<{image: string, quantity: number, price: string, name: string}>}
-     */
-  async getProductInPackList(page: Page, productInList: number = 1): Promise<{
-        image: string | null,
-        quantity: number,
-        price: string,
-        name: string
-    }> {
+   * Get product information in pack
+   * @param page {Page} Browser tab
+   * @param productInList {number} Product in pack list
+   * @returns {Promise<ProductDetailsBasic>}
+   */
+  async getProductInPackList(page: Page, productInList: number = 1): Promise<ProductDetailsBasic> {
     // Add +1 due to span before the article
     const productIdentifier: number = productInList + 1;
 
     return {
       image: await this.getAttributeContent(page, this.productInPackImage(productIdentifier), 'src'),
       name: await this.getTextContent(page, this.productInPackName(productIdentifier)),
-      price: await this.getTextContent(page, this.productInPackPrice(productIdentifier)),
+      price: await this.getNumberFromText(page, this.productInPackPrice(productIdentifier)),
       quantity: await this.getNumberFromText(page, this.productInPackQuantity(productIdentifier)),
     };
   }
 
   /**
-     * Click on product in pack
-     * @param page {Page} Browser tab
-     * @param productInList {number} Product in pack list
-     * @returns {Promise<void>}
-     */
+   * Click on product in pack
+   * @param page {Page} Browser tab
+   * @param productInList {number} Product in pack list
+   * @returns {Promise<void>}
+   */
   async clickProductInPackList(page: Page, productInList: number = 1): Promise<void> {
     // Add +1 due to span before the article
     const productIdentifier: number = productInList + 1;
@@ -499,38 +490,38 @@ class Product extends FOBasePage implements FoProductPageInterface {
   }
 
   /**
-     * get regular price
-     * @param page {Page} Browser tab
-     * @returns {Promise<string>}
-     */
+   * get regular price
+   * @param page {Page} Browser tab
+   * @returns {Promise<string>}
+   */
   async getRegularPrice(page: Page): Promise<string> {
     return this.getTextContent(page, this.regularPrice);
   }
 
   /**
-     * Get the price of products in pack
-     * @param page {Page} Browser tab
-     * @returns {Promise<number>}
-     */
+   * Get the price of products in pack
+   * @param page {Page} Browser tab
+   * @returns {Promise<number>}
+   */
   async getPackProductsPrice(page: Page): Promise<number> {
     return this.getPriceFromText(page, this.packProductsPrice);
   }
 
   /**
-     * Get product attributes from a Ul selector
-     * @param page {Page} Browser tab
-     * @param ulSelector {string} Selector to locate the element
-     * @returns {Promise<Array<string>>}
-     */
+   * Get product attributes from a Ul selector
+   * @param page {Page} Browser tab
+   * @param ulSelector {string} Selector to locate the element
+   * @returns {Promise<Array<string>>}
+   */
   async getProductsAttributesFromUl(page: Page, ulSelector: string): Promise<Array<string | null>> {
     return page.locator(`${ulSelector} li .attribute-name`).allTextContents();
   }
 
   /**
-     * Get product attributes
-     * @param page {Page} Browser tab
-     * @returns {Promise<ProductAttribute[]>}
-     */
+   * Get product attributes
+   * @param page {Page} Browser tab
+   * @returns {Promise<ProductAttribute[]>}
+   */
   async getProductAttributes(page: Page): Promise<ProductAttribute[]> {
     return [
       {
@@ -545,10 +536,10 @@ class Product extends FOBasePage implements FoProductPageInterface {
   }
 
   /**
-     * Get product image urls
-     * @param page {Page} Browser tab
-     * @returns {Promise<ProductImageUrls>}
-     */
+   * Get product image urls
+   * @param page {Page} Browser tab
+   * @returns {Promise<ProductImageUrls>}
+   */
   async getProductImageUrls(page: Page): Promise<ProductImageUrls> {
     return {
       coverImage: await this.getAttributeContent(page, this.productCoverImg, 'src'),
@@ -557,118 +548,118 @@ class Product extends FOBasePage implements FoProductPageInterface {
   }
 
   /**
-     * Get product unit price
-     * @param page {Page} Browser tab
-     * @returns {Promise<string>}
-     */
+   * Get product unit price
+   * @param page {Page} Browser tab
+   * @returns {Promise<string>}
+   */
   async getProductUnitPrice(page: Page): Promise<string> {
     return this.getTextContent(page, this.productUnitPrice);
   }
 
   /**
-     * Get discount column title
-     * @param page {Page} Browser tab
-     * @returns {Promise<string>}
-     */
+   * Get discount column title
+   * @param page {Page} Browser tab
+   * @returns {Promise<string>}
+   */
   async getDiscountColumnTitle(page: Page): Promise<string> {
     return this.getTextContent(page, this.unitDiscountColumn);
   }
 
   /**
-     * Get quantity discount value from volume discounts table
-     * @param page {Page} Browser tab
-     * @returns {Promise<number>}
-     */
+   * Get quantity discount value from volume discounts table
+   * @param page {Page} Browser tab
+   * @returns {Promise<number>}
+   */
   async getQuantityDiscountValue(page: Page): Promise<number> {
     return this.getNumberFromText(page, this.quantityDiscountValue);
   }
 
   /**
-     * Get discount value from volume discounts table
-     * @param page {Page} Browser tab
-     * @returns {Promise<string>}
-     */
+   * Get discount value from volume discounts table
+   * @param page {Page} Browser tab
+   * @returns {Promise<string>}
+   */
   async getDiscountValue(page: Page): Promise<string> {
     return this.getTextContent(page, this.unitDiscountValue);
   }
 
   /**
-     * Get volume discount saved value
-     * @param page {Page} Browser tab
-     * @returns {Promise<string>}
-     */
+   * Get volume discount saved value
+   * @param page {Page} Browser tab
+   * @returns {Promise<string>}
+   */
   async getSavedValue(page: Page): Promise<string> {
     return this.getTextContent(page, this.savedValue);
   }
 
   /**
-     * Get discount amount
-     * @param page {Page} Browser tab
-     * @returns {Promise<string>}
-     */
+   * Get discount amount
+   * @param page {Page} Browser tab
+   * @returns {Promise<string>}
+   */
   async getDiscountAmount(page: Page): Promise<string> {
     return this.getTextContent(page, this.discountAmountSpan);
   }
 
   /**
-     * Get discount percentage
-     * @param page {Page} Browser tab
-     * @returns {Promise<string>}
-     */
+   * Get discount percentage
+   * @param page {Page} Browser tab
+   * @returns {Promise<string>}
+   */
   async getDiscountPercentage(page: Page): Promise<string> {
     return this.getTextContent(page, this.discountPercentageSpan);
   }
 
   /**
-     * Get product availability label
-     * @param page {Page} Browser tab
-     * @return {promise<string>}
-     */
+   * Get product availability label
+   * @param page {Page} Browser tab
+   * @return {promise<string>}
+   */
   async getProductAvailabilityLabel(page: Page): Promise<string> {
     return this.getTextContent(page, this.productAvailability, false);
   }
 
   /**
-     * Get minimal product quantity label
-     * @param page {Page} Browser tab
-     * @return {promise<string>}
-     */
+   * Get minimal product quantity label
+   * @param page {Page} Browser tab
+   * @return {promise<string>}
+   */
   async getMinimalProductQuantityLabel(page: Page): Promise<string> {
     return this.getTextContent(page, this.productMinimalQuantity);
   }
 
   /**
-     * Get delivery information text
-     * @param page {Page} Browser tab
-     * @return {Promise<string>}
-     */
+   * Get delivery information text
+   * @param page {Page} Browser tab
+   * @return {Promise<string>}
+   */
   async getDeliveryInformationText(page: Page): Promise<string> {
     return this.getTextContent(page, this.deliveryInformationSpan);
   }
 
   /**
-     * Is delivery time displayed
-     * @param page
-     */
+   * Is delivery time displayed
+   * @param page
+   */
   async isDeliveryTimeDisplayed(page: Page): Promise<boolean> {
     return this.elementVisible(page, this.deliveryInformationSpan);
   }
 
   /**
-     * get the URL of the cover image
-     * @param page {Page} Browser tab
-     * @returns {Promise<string|null>}
-     */
+   * get the URL of the cover image
+   * @param page {Page} Browser tab
+   * @returns {Promise<string|null>}
+   */
   async getCoverImage(page: Page): Promise<string | null> {
     return this.getAttributeContent(page, this.productCoverImg, 'src');
   }
 
   /**
-     * Select thumb image
-     * @param page {Page} Browser tab
-     * @param imageRow {number} Row of the image
-     * @returns {Promise<string>}
-     */
+   * Select thumb image
+   * @param page {Page} Browser tab
+   * @param imageRow {number} Row of the image
+   * @returns {Promise<string>}
+   */
   async selectThumbImage(page: Page, imageRow: number): Promise<string> {
     await this.waitForSelectorAndClick(page, this.thumbImg(imageRow));
     await this.waitForVisibleSelector(page, `${this.thumbImg(imageRow)}.selected`);
@@ -677,21 +668,21 @@ class Product extends FOBasePage implements FoProductPageInterface {
   }
 
   /**
-     * Scroll box arrows images
-     * @param page {Page} Browser tab
-     * @param direction {string} Direction to scroll
-     * @returns {Promise<void>}
-     */
+   * Scroll box arrows images
+   * @param page {Page} Browser tab
+   * @param direction {string} Direction to scroll
+   * @returns {Promise<void>}
+   */
   async scrollBoxArrowsImages(page: Page, direction: string): Promise<void> {
     await page.locator(this.scrollBoxImages(direction)).click();
     await page.waitForTimeout(1000);
   }
 
   /**
-     * Zoom cover image
-     * @param page {Page} Browser tab
-     * @returns {Promise<boolean>}
-     */
+   * Zoom cover image
+   * @param page {Page} Browser tab
+   * @returns {Promise<boolean>}
+   */
   async zoomCoverImage(page: Page): Promise<boolean> {
     await page.locator(this.zoomIcon).click({force: true});
 
@@ -699,11 +690,11 @@ class Product extends FOBasePage implements FoProductPageInterface {
   }
 
   /**
-     * Select thumb image
-     * @param page {Page} Browser tab
-     * @param imageRow {number} Row of the image
-     * @returns {Promise<string>}
-     */
+   * Select thumb image
+   * @param page {Page} Browser tab
+   * @param imageRow {number} Row of the image
+   * @returns {Promise<string>}
+   */
   async selectThumbImageFromProductModal(page: Page, imageRow: number): Promise<string> {
     await this.waitForSelectorAndClick(page, this.thumbImgProductModal(imageRow));
     await this.waitForVisibleSelector(page, `${this.thumbImgProductModal(imageRow)}.selected`);
@@ -712,19 +703,19 @@ class Product extends FOBasePage implements FoProductPageInterface {
   }
 
   /**
-     * get the URL of the cover image
-     * @param page {Page} Browser tab
-     * @returns {Promise<string|null>}
-     */
+   * get the URL of the cover image
+   * @param page {Page} Browser tab
+   * @returns {Promise<string|null>}
+   */
   async getCoverImageFromProductModal(page: Page): Promise<string | null> {
     return this.getAttributeContent(page, this.productCoverImg, 'src');
   }
 
   /**
-     * Close product modal
-     * @param page {Page} Browser tab
-     * @returns {Promise<boolean>}
-     */
+   * Close product modal
+   * @param page {Page} Browser tab
+   * @returns {Promise<boolean>}
+   */
   async closeProductModal(page: Page): Promise<boolean> {
     await page.mouse.click(5, 5);
 
@@ -732,11 +723,11 @@ class Product extends FOBasePage implements FoProductPageInterface {
   }
 
   /**
-     * Select default product attributes
-     * @param page {Page} Browser tab
-     * @param attributes {ProductAttribute[]}  Product's attributes data to select
-     * @returns {Promise<void>}
-     */
+   * Select default product attributes
+   * @param page {Page} Browser tab
+   * @param attributes {ProductAttribute[]}  Product's attributes data to select
+   * @returns {Promise<void>}
+   */
   async selectDefaultAttributes(page: Page, attributes: ProductAttribute[]): Promise<void> {
     if (attributes.length === 0) {
       return;
@@ -762,13 +753,13 @@ class Product extends FOBasePage implements FoProductPageInterface {
   }
 
   /**
-     * Select product attributes
-     * @param page {Page} Browser tab
-     * @param type {string} Type of block (Select or radio)
-     * @param attributes {ProductAttribute[]}  Product's attributes data to select
-     * @param itemNumber {number} The row of attribute block
-     * @returns {Promise<void>}
-     */
+   * Select product attributes
+   * @param page {Page} Browser tab
+   * @param type {string} Type of block (Select or radio)
+   * @param attributes {ProductAttribute[]}  Product's attributes data to select
+   * @param itemNumber {number} The row of attribute block
+   * @returns {Promise<void>}
+   */
   async selectAttributes(page: Page, type: string, attributes: ProductAttribute[], itemNumber: number = 1): Promise<void> {
     if (attributes.length === 0) {
       return;
@@ -789,12 +780,12 @@ class Product extends FOBasePage implements FoProductPageInterface {
   }
 
   /**
-     * Get selected attribute
-     * @param page {Page} Browser tab
-     * @param variantItem {string} Variant row
-     * @param type {string} Type of attribute
-     * @returns {Promise<string>}
-     */
+   * Get selected attribute
+   * @param page {Page} Browser tab
+   * @param variantItem {string} Variant row
+   * @param type {string} Type of attribute
+   * @returns {Promise<string>}
+   */
   async getSelectedAttribute(page: Page, variantItem: number, type: string = 'select'): Promise<string> {
     if (type === 'select') {
       return this.getTextContent(page, `${this.productAttributeSelect(variantItem)} option[selected]`, false);
@@ -803,22 +794,22 @@ class Product extends FOBasePage implements FoProductPageInterface {
   }
 
   /**
-     * Get selected attribute text
-     * @param page {Page} Browser tab
-     * @param variantItem {number} Variant row
-     * @returns {Promise<string>}
-     */
+   * Get selected attribute text
+   * @param page {Page} Browser tab
+   * @param variantItem {number} Variant row
+   * @returns {Promise<string>}
+   */
   async getSelectedAttributeText(page: Page, variantItem: number): Promise<string> {
     return this.getTextContent(page, this.productAttributeVariantSpan(variantItem));
   }
 
   /**
-     * Set product customizations
-     * @param page {Page} Browser tab
-     * @param customizedTexts {string[]} Texts to set in customizations input
-     * @param save {boolean} True if we need to save
-     * @returns {Promise<void>}
-     */
+   * Set product customizations
+   * @param page {Page} Browser tab
+   * @param customizedTexts {string[]} Texts to set in customizations input
+   * @param save {boolean} True if we need to save
+   * @returns {Promise<void>}
+   */
   async setProductCustomizations(page: Page, customizedTexts: string[], save: boolean = true): Promise<void> {
     for (let i = 1; i <= customizedTexts.length; i++) {
       await this.setValue(page, this.customizedTextarea(i), customizedTexts[i - 1]);
@@ -829,15 +820,15 @@ class Product extends FOBasePage implements FoProductPageInterface {
   }
 
   /**
-     * Set product file customizations
-     * @param page {Page} Browser tab
-     * @param customizedFiles {string[]} Files to set in customizations input
-     * @param row {number} Row to start
-     * @param save {boolean} True if we need to save
-     * @returns {Promise<void>}
-     */
+   * Set product file customizations
+   * @param page {Page} Browser tab
+   * @param customizedFiles {string[]} Files to set in customizations input
+   * @param row {number} Row to start
+   * @param save {boolean} True if we need to save
+   * @returns {Promise<void>}
+   */
   async setProductFileCustomizations(page: Page, customizedFiles: string[], row: number = 1, save: boolean = true):
-        Promise<void> {
+    Promise<void> {
     let j = row;
 
     for (let i = 1; i <= customizedFiles.length; i++) {
@@ -850,54 +841,54 @@ class Product extends FOBasePage implements FoProductPageInterface {
   }
 
   /**
-     * Get customizations messages
-     * @param page {Page} Browser tab
-     * @param customizationRow {number} Number of customizations to display
-     * @returns {Promise<string>}
-     */
+   * Get customizations messages
+   * @param page {Page} Browser tab
+   * @param customizationRow {number} Number of customizations to display
+   * @returns {Promise<string>}
+   */
   async getCustomizationsMessages(page: Page, customizationRow: number): Promise<string> {
     return this.getTextContent(page, this.customizationsMessage(customizationRow));
   }
 
   /**
-     * Is customization message visible
-     * @param page {Page} Browser tab
-     * @param customizationRow {number} Number of customizations to display
-     * @returns {Promise<string>}
-     */
+   * Is customization message visible
+   * @param page {Page} Browser tab
+   * @param customizationRow {number} Number of customizations to display
+   * @returns {Promise<string>}
+   */
   async isCustomizationMessageVisible(page: Page, customizationRow: number): Promise<boolean> {
     return this.elementVisible(page, this.customizationsMessage(customizationRow));
   }
 
   /**
-     * Get customization image
-     * @param page {Page} Browser tab
-     * @param customizationRow {number} Number of customizations to display
-     * @returns {Promise<string>}
-     */
+   * Get customization image
+   * @param page {Page} Browser tab
+   * @param customizationRow {number} Number of customizations to display
+   * @returns {Promise<string>}
+   */
   async getCustomizationImage(page: Page, customizationRow: number): Promise<string> {
     return this.getAttributeContent(page, this.customizationImg(customizationRow), 'href');
   }
 
   /**
-     * Is customization image visible
-     * @param page {Page} Browser tab
-     * @param customizationRow {number} Number of customizations to display
-     * @returns {Promise<string>}
-     */
+   * Is customization image visible
+   * @param page {Page} Browser tab
+   * @param customizationRow {number} Number of customizations to display
+   * @returns {Promise<string>}
+   */
   async isCustomizationImageVisible(page: Page, customizationRow: number): Promise<boolean> {
     return this.elementVisible(page, this.customizationImg(customizationRow));
   }
 
   /**
-     * Click on Add to cart button then on Proceed to checkout button in the modal
-     * @param page {Page} Browser tab
-     * @param quantity {number|string} Quantity of the product that customer wants
-     * @param combination {ProductAttribute[]}  Product's combination data to add to cart
-     * @param proceedToCheckout {boolean|null} True to click on proceed to checkout button on modal
-     * @param customizedText {string} Value of customization
-     * @returns {Promise<void>}
-     */
+   * Click on Add to cart button then on Proceed to checkout button in the modal
+   * @param page {Page} Browser tab
+   * @param quantity {number|string} Quantity of the product that customer wants
+   * @param combination {ProductAttribute[]}  Product's combination data to add to cart
+   * @param proceedToCheckout {boolean|null} True to click on proceed to checkout button on modal
+   * @param customizedText {string} Value of customization
+   * @returns {Promise<void>}
+   */
   async addProductToTheCart(
     page: Page,
     quantity: number | string = 1,
@@ -930,11 +921,11 @@ class Product extends FOBasePage implements FoProductPageInterface {
   }
 
   /**
-     * Go to social sharing link
-     * @param page {Page} Browser tab
-     * @param socialSharing {string} Social network's name to get link from
-     * @returns {Promise<string>}
-     */
+   * Go to social sharing link
+   * @param page {Page} Browser tab
+   * @param socialSharing {string} Social network's name to get link from
+   * @returns {Promise<string>}
+   */
   async getSocialSharingLink(page: Page, socialSharing: string): Promise<string> {
     let selector;
 
@@ -959,11 +950,11 @@ class Product extends FOBasePage implements FoProductPageInterface {
   }
 
   /**
-     * Click social sharing link
-     * @param page {Page} Browser tab
-     * @param socialSharing {string} Social network's name to get link from
-     * @returns {Promise<Page>}
-     */
+   * Click social sharing link
+   * @param page {Page} Browser tab
+   * @param socialSharing {string} Social network's name to get link from
+   * @returns {Promise<Page>}
+   */
   async clickOnSocialSharingLink(page: Page, socialSharing: string): Promise<Page> {
     let selector;
 
@@ -984,45 +975,45 @@ class Product extends FOBasePage implements FoProductPageInterface {
         throw new Error(`${socialSharing} was not found`);
     }
 
-    return this.openLinkWithTargetBlank(page, selector, 'body', 'networkidle');
+    return this.openLinkWithTargetBlank(page, selector, 'body', 'networkidle', false);
   }
 
   /**
-     * Set quantity
-     * @param page {Page} Browser tab
-     * @param quantity {number|string} Quantity to set
-     * @returns {Promise<void>}
-     */
+   * Set quantity
+   * @param page {Page} Browser tab
+   * @param quantity {number|string} Quantity to set
+   * @returns {Promise<void>}
+   */
   async setQuantity(page: Page, quantity: number | string): Promise<void> {
     await this.setValue(page, this.productQuantity, quantity);
     await page.waitForResponse((response) => response.url().includes('product&token='));
   }
 
   /**
-     * Click on add to cart button
-     * @param page {Page} Browser tab
-     * @returns {Promise<void>}
-     */
+   * Click on add to cart button
+   * @param page {Page} Browser tab
+   * @returns {Promise<void>}
+   */
   async clickOnAddToCartButton(page: Page): Promise<void> {
     await this.waitForSelectorAndClick(page, this.addToCartButton);
   }
 
   /**
-     * Get product quantity
-     * @param page {Page} Browser tab
-     * @returns {Promise<number>}
-     */
+   * Get product quantity
+   * @param page {Page} Browser tab
+   * @returns {Promise<number>}
+   */
   async getProductQuantity(page: Page): Promise<number> {
     return parseInt(await page.locator(this.productQuantity).evaluate((node: HTMLSelectElement) => node.value), 10);
   }
 
   /**
-     * Update quantity value arrow up down in quick view modal
-     * @param page {Page} Browser tab
-     * @param quantityWanted {number} Value to add/subtract from quantity
-     * @param direction {string} Direction to click on
-     * @returns {Promise<string>}
-     */
+   * Update quantity value arrow up down in quick view modal
+   * @param page {Page} Browser tab
+   * @param quantityWanted {number} Value to add/subtract from quantity
+   * @param direction {string} Direction to click on
+   * @returns {Promise<string>}
+   */
   async setQuantityByArrowUpDown(page: Page, quantityWanted: number, direction: string): Promise<void> {
     const inputValue = await this.getProductQuantity(page);
     const nbClick: number = Math.abs(inputValue - quantityWanted);
@@ -1033,20 +1024,20 @@ class Product extends FOBasePage implements FoProductPageInterface {
   }
 
   /**
-     * Is quantity displayed
-     * @param page {Page} Browser tab
-     * @returns {Promise<boolean>}
-     */
+   * Is quantity displayed
+   * @param page {Page} Browser tab
+   * @returns {Promise<boolean>}
+   */
   async isQuantityDisplayed(page: Page): Promise<boolean> {
     await this.waitForSelectorAndClick(page, this.productDetail);
     return this.elementVisible(page, this.productQuantitySpan, 1000);
   }
 
   /**
-     * Get product features list
-     * @param page {Page} Browser tab
-     * @returns {Promise<string>}
-     */
+   * Get product features list
+   * @param page {Page} Browser tab
+   * @returns {Promise<string>}
+   */
   async getProductFeaturesList(page: Page): Promise<string> {
     await this.waitForSelectorAndClick(page, this.productDetail);
 
@@ -1054,10 +1045,10 @@ class Product extends FOBasePage implements FoProductPageInterface {
   }
 
   /**
-     * Is features block visible
-     * @param page {Page} Browser tab
-     * @returns {Promise<boolean>}
-     */
+   * Is features block visible
+   * @param page {Page} Browser tab
+   * @returns {Promise<boolean>}
+   */
   async isFeaturesBlockVisible(page: Page): Promise<boolean> {
     await this.waitForSelectorAndClick(page, this.productDetail);
 
@@ -1065,10 +1056,10 @@ class Product extends FOBasePage implements FoProductPageInterface {
   }
 
   /**
-     * Get product condition
-     * @param page {Page} Browser tab
-     * @returns {Promise<string>}
-     */
+   * Get product condition
+   * @param page {Page} Browser tab
+   * @returns {Promise<string>}
+   */
   async getProductCondition(page: Page): Promise<string> {
     await this.waitForSelectorAndClick(page, this.productDetail);
 
@@ -1076,85 +1067,85 @@ class Product extends FOBasePage implements FoProductPageInterface {
   }
 
   /**
-     * Is customization block visible
-     * @param page {Page} Browser tab
-     * @returns {Promise<boolean>}
-     */
+   * Is customization block visible
+   * @param page {Page} Browser tab
+   * @returns {Promise<boolean>}
+   */
   async isCustomizationBlockVisible(page: Page): Promise<boolean> {
     return this.elementVisible(page, this.customizationBlock, 1000);
   }
 
   /**
-     * Is availability product displayed
-     * @param page {Page} Browser tab
-     * @returns {Promise<boolean>}
-     */
+   * Is availability product displayed
+   * @param page {Page} Browser tab
+   * @returns {Promise<boolean>}
+   */
   async isAvailabilityQuantityDisplayed(page: Page): Promise<boolean> {
     return this.elementVisible(page, this.productAvailabilityIcon, 1000);
   }
 
   /**
-     * Is price displayed
-     * @param page {Page} Browser tab
-     * @returns {Promise<boolean>}
-     */
+   * Is price displayed
+   * @param page {Page} Browser tab
+   * @returns {Promise<boolean>}
+   */
   async isPriceDisplayed(page: Page): Promise<boolean> {
     return this.elementVisible(page, this.productPrice, 1000);
   }
 
   /**
-     * Is add to cart button displayed
-     * @param page {Page} Browser tab
-     * @returns {Promise<boolean>}
-     */
+   * Is add to cart button displayed
+   * @param page {Page} Browser tab
+   * @returns {Promise<boolean>}
+   */
   async isAddToCartButtonDisplayed(page: Page): Promise<boolean> {
     return this.elementVisible(page, this.addToCartButton, 1000);
   }
 
   /**
-     * Is unavailable product size displayed
-     * @param page {Page} Browser tab
-     * @param size {string} The product size
-     * @returns {Promise<boolean>}
-     */
+   * Is unavailable product size displayed
+   * @param page {Page} Browser tab
+   * @param size {string} The product size
+   * @returns {Promise<boolean>}
+   */
   async isUnavailableProductSizeDisplayed(page: Page, size: string): Promise<boolean> {
     await page.waitForTimeout(2000);
     return (await page.locator(this.productSizeOption(size)).count()) !== 0;
   }
 
   /**
-     * Is unavailable product color displayed
-     * @param page {Page} Browser tab
-     * @param color {string} Product's color to check
-     * @returns {Promise<boolean>}
-     */
+   * Is unavailable product color displayed
+   * @param page {Page} Browser tab
+   * @param color {string} Product's color to check
+   * @returns {Promise<boolean>}
+   */
   async isUnavailableProductColorDisplayed(page: Page, color: string): Promise<boolean> {
     return this.elementVisible(page, this.productColorInput(color), 1000);
   }
 
   /**
-     * Is add to cart button enabled
-     * @param page {Page} Browser tab
-     * @returns {Promise<boolean>}
-     */
+   * Is add to cart button enabled
+   * @param page {Page} Browser tab
+   * @returns {Promise<boolean>}
+   */
   async isAddToCartButtonEnabled(page: Page): Promise<boolean> {
     return this.elementNotVisible(page, `${this.addToCartButton}:disabled`, 3000);
   }
 
   /**
-     * Check if delivery information text is visible
-     * @param page {Page} Browser tab
-     * @return {Promise<boolean>}
-     */
+   * Check if delivery information text is visible
+   * @param page {Page} Browser tab
+   * @return {Promise<boolean>}
+   */
   async isDeliveryInformationVisible(page: Page): Promise<boolean> {
     return this.elementVisible(page, this.deliveryInformationSpan, 1000);
   }
 
   /**
-     * Click on the button "Add a review"
-     * @param page {Page} Browser tab
-     * @returns {Promise<boolean>}
-     */
+   * Click on the button "Add a review"
+   * @param page {Page} Browser tab
+   * @returns {Promise<boolean>}
+   */
   async clickAddReviewButton(page: Page): Promise<void> {
     if (await this.getNumberOfComments(page) !== 0) {
       await page.locator(this.notEmptyReviewAddReviewButton).click();
@@ -1164,11 +1155,11 @@ class Product extends FOBasePage implements FoProductPageInterface {
   }
 
   /**
-     * Add a product review
-     * @param page {Page} Browser tab
-     * @param productReviewData {FakerProductReview} The content of the product review (title, content, rating)
-     * @returns {Promise<boolean>}
-     */
+   * Add a product review
+   * @param page {Page} Browser tab
+   * @param productReviewData {FakerProductReview} The content of the product review (title, content, rating)
+   * @returns {Promise<boolean>}
+   */
   async addProductReview(page: Page, productReviewData: FakerProductReview): Promise<boolean> {
     await this.clickAddReviewButton(page);
     await this.waitForVisibleSelector(page, this.productReviewModal);
@@ -1177,93 +1168,92 @@ class Product extends FOBasePage implements FoProductPageInterface {
     await page.locator(this.reviewRating(productReviewData.reviewRating)).click();
     await page.locator(this.reviewSubmitButton).click();
     await page.locator(this.closeReviewSentConfirmationModalButton).click();
-
     return this.elementNotVisible(page, this.reviewSentConfirmationModal, 3000);
   }
 
   /**
-     * Close the product review modal
-     * @param page {Page} Browser tab
-     * @returns {Promise<boolean>}
-     */
+   * Close the product review modal
+   * @param page {Page} Browser tab
+   * @returns {Promise<boolean>}
+   */
   async closeProductReviewModal(page: Page): Promise<boolean> {
     await page.locator(this.reviewCancelButton).click();
     return !(await this.elementNotVisible(page, this.productReviewModal, 3000));
   }
 
   /**
-     * Return if the GDPR field is present
-     * @param page {Page} Browser tab
-     * @returns {Promise<boolean>}
-     */
+   * Return if the GDPR field is present
+   * @param page {Page} Browser tab
+   * @returns {Promise<boolean>}
+   */
   async hasProductReviewGDPRLabel(page: Page): Promise<boolean> {
     return await page.locator(this.productReviewModalGDPRLabel).count() !== 0;
   }
 
   /**
-     * Return the label for the GDPR field
-     * @param page {Page} Browser tab
-     * @returns {Promise<string>}
-     */
+   * Return the label for the GDPR field
+   * @param page {Page} Browser tab
+   * @returns {Promise<string>}
+   */
   async getProductReviewGDPRLabel(page: Page): Promise<string> {
     return this.getTextContent(page, this.productReviewModalGDPRLabel);
   }
 
   /**
-     * Get the number of approved review for a product
-     * @param page {Page} The browser tab
-     * @returns {Promise<number>}
-     */
+   * Get the number of approved review for a product
+   * @param page {Page} The browser tab
+   * @returns {Promise<number>}
+   */
   async getNumberOfComments(page: Page): Promise<number> {
     return page.locator(this.productReviewRows).count();
   }
 
   /**
-     * Get the title of a review
-     * @param page {Page} browser tab
-     * @param row {Number} the review number in the list
-     * @returns {Promise<string>}
-     */
+   * Get the title of a review
+   * @param page {Page} browser tab
+   * @param row {Number} the review number in the list
+   * @returns {Promise<string>}
+   */
   async getReviewTitle(page: Page, row: number = 1): Promise<string> {
     return this.getTextContent(page, this.productReviewTitle(row));
   }
 
   /**
-     * Get the content of a review
-     * @param page {Page} browser tab
-     * @param row {Number} the review number in the list
-     * @returns {Promise<string>}
-     */
+   * Get the content of a review
+   * @param page {Page} browser tab
+   * @param row {Number} the review number in the list
+   * @returns {Promise<string>}
+   */
   async getReviewTextContent(page: Page, row: number = 1): Promise<string> {
     return this.getTextContent(page, this.productReviewContent(row));
   }
 
   /**
-     * Get the rating of a review
-     * @param page {Page} browser tab
-     * @param row {Number} the review number in the list
-     * @returns {Promise<number>}
-     */
+   * Get the rating of a review
+   * @param page {Page} browser tab
+   * @param row {Number} the review number in the list
+   * @returns {Promise<number>}
+   */
   async getReviewRating(page: Page, row: number = 1): Promise<number> {
     return page.locator(this.productRatingStar(row)).count();
   }
 
   /**
-     * Get the warning message
-     * @param page {Page} browser tab
-     * @returns {Promise<string>}
-     */
+   * Get the warning message
+   * @param page {Page} browser tab
+   * @returns {Promise<string>}
+   */
   async getWarningMessage(page: Page): Promise<string> {
     return this.getTextContent(page, this.warningMessage);
   }
 
   /**
-     * Has products block
-     * @param blockName {'categoryproducts'} The block name in the page
-     * @param page {Page} Browser tab
-     * @return {Promise<boolean>}
-     */
-  async hasProductsBlock(page: Page, blockName: string = 'categoryproducts'): Promise<boolean> {
+   * Has products block
+   * @param blockName {'categoryproducts'} The block name in the page
+   * @param page {Page} Browser tab
+   * @return {Promise<boolean>}
+   */
+  async hasProductsBlock(page: Page, blockName: 'categoryproducts'): Promise<boolean> {
     return (await page.locator(this.productsBlock(blockName)).count()) > 0;
   }
 
@@ -1288,5 +1278,5 @@ class Product extends FOBasePage implements FoProductPageInterface {
   }
 }
 
-const productPage = new Product();
-export {productPage, Product};
+const productPage = new ProductPage();
+export {productPage, ProductPage};
