@@ -75,6 +75,8 @@ export interface BOBasePagePageInterface extends CommonPageInterface {
     readonly translationsLink: string;
     readonly webserviceLink: string;
 
+    chooseShop(page: Page, shopNumber: number): Promise<void>;
+    clickOnMultiStoreHeader(page: Page): Promise<void>;
     clickOnNotification(page: Page, tabName: string, row?: number): Promise<void>;
     clickOnNotificationsLink(page: Page): Promise<boolean>;
     clickOnNotificationsTab(page: Page, tabName: string): Promise<void>;
@@ -82,9 +84,12 @@ export interface BOBasePagePageInterface extends CommonPageInterface {
     closeHelpSideBar(page: Page): Promise<boolean>;
     closeSfToolBar(page: Frame | Page): Promise<void>;
     getAlertSuccessBlockContent(page: Frame | Page): Promise<string>;
+    getAlertSuccessBlockParagraphContent(page: Frame | Page): Promise<string>;
     getAllNotificationsNumber(page: Page): Promise<number>;
     getHelpDocumentURL(page: Page): Promise<string>;
     getNotificationsNumberInTab(page: Page, tabName: string): Promise<number>;
+    getShopColor(page: Page): Promise<string>;
+    getShopName(page: Page): Promise<string>;
     getShopVersion(page:Page):Promise<string>;
     goToMyProfile(page: Page): Promise<void>;
     goToSubMenu(page: Page, parentSelector: string, linkSelector: string): Promise<void>;
@@ -103,4 +108,5 @@ export interface BOBasePagePageInterface extends CommonPageInterface {
     search(page: Page, query: string): Promise<void>;
     setSidebarCollapsed(page: Page, isCollapsed: boolean): Promise<void>;
     viewMyShop(page: Page): Promise<Page>;
+    viewMyStore(page: Page): Promise<Page>;
 }
