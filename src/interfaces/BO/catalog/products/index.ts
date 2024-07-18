@@ -23,11 +23,11 @@ export interface BOProductsPageInterface extends BOBasePagePageInterface {
     clickOnCancelDialogButton(page: Page): Promise<boolean>;
     clickOnClearFilterLink(page: Page): Promise<void>;
     clickOnConfirmDialogButton(page: Page): Promise<string>;
-    clickOnDeleteProductButton(page: Page, row: number): Promise<boolean>;
+    clickOnDeleteProductButton(page: Page, row?: number): Promise<boolean>;
     clickOnDeleteProductFromStoreButton(page: Page, row: number): Promise<boolean>;
-    clickOnDuplicateProductButton(page: Page, row: number): Promise<boolean>;
+    clickOnDuplicateProductButton(page: Page, row?: number): Promise<boolean>;
     clickOnNewProductButton(page: Page): Promise<boolean>;
-    clickOnPreviewProductButton(page: Page, row: number): Promise<Page>;
+    clickOnPreviewProductButton(page: Page, row?: number): Promise<Page>;
     closeBulkActionsProgressModal(page: Page, action: string): Promise<boolean>;
     closeNewProductModal(page: Page): Promise<boolean>;
     filterProducts(page: Page, filterBy: string, value: string|ProductFilterMinMax, filterType?: string): Promise<void>;
@@ -47,7 +47,7 @@ export interface BOProductsPageInterface extends BOBasePagePageInterface {
     getTextColumn(page: Page, columnName: string, row: number): Promise<string|number|boolean>;
     getTextColumnFromTable(page: Page, row: number, column: number): Promise<string>;
     getTextForEmptyTable(page: Page): Promise<string>;
-    goToProductPage(page: Page, row: number): Promise<void>;
+    goToProductPage(page: Page, row?: number): Promise<void>;
     isClearFilterLinkVisible(page: Page): Promise<boolean>;
     isNewProductModalVisibleInFrame(page: Page): Promise<boolean>;
     isPositionColumnVisible(page: Page): Promise<boolean>;

@@ -1,9 +1,13 @@
 import BOBasePage from '@pages/BO/BOBasePage';
 
-import type {Frame, Page} from 'playwright';
 import type {BOProductsPageInterface} from '@interfaces/BO/catalog/products';
 
 import {ProductFilterMinMax} from '@data/types/product';
+import {
+  expect,
+  type Frame,
+  type Page,
+} from '@playwright/test';
 
 /**
  * Products page, contains functions that can be used on the page
@@ -27,7 +31,7 @@ class ProductsPage extends BOBasePage implements BOProductsPageInterface {
 
   public readonly packOfProductsDescription: string;
 
-  protected newProductIframeURL;
+  protected newProductIframeURL: RegExp;
 
   protected newProductButton: string;
 
@@ -194,9 +198,9 @@ class ProductsPage extends BOBasePage implements BOProductsPageInterface {
   private readonly paginationJumpToPage: string;
 
   /**
-     * @constructs
-     * Setting up texts and selectors to use on products page
-     */
+   * @constructs
+   * Setting up texts and selectors to use on products V2 page
+   */
   constructor() {
     super();
 
@@ -207,13 +211,13 @@ class ProductsPage extends BOBasePage implements BOProductsPageInterface {
 
     this.standardProductDescription = 'A physical product that needs to be shipped.';
     this.productWithCombinationsDescription = 'A product with different variations (size, color, etc.) from which '
-            + 'customers can choose.';
+      + 'customers can choose.';
     this.virtualProductDescription = 'An intangible product that doesn\'t require shipping. You can also add a '
-            + 'downloadable file.';
+      + 'downloadable file.';
     this.packOfProductsDescription = 'A collection of products from your catalog.';
-    this.newProductIframeURL = /sell\/catalog\/products\/create/gmi;
 
     // Header selectors
+    this.newProductIframeURL = /sell\/catalog\/products\/create/gmi;
     this.newProductButton = '#page-header-desc-configuration-add';
 
     // Products page selectors
@@ -241,19 +245,19 @@ class ProductsPage extends BOBasePage implements BOProductsPageInterface {
     this.modalBulkActionsProductsBody = (action: string) => `${this.modalBulkActionsProducts(action)} div.modal-body`;
     this.modalBulkActionsProductsFooter = (action: string) => `${this.modalBulkActionsProducts(action)} div.modal-footer`;
     this.modalDialogBulkActionButton = (action: string) => `${this.modalBulkActionsProductsFooter(action)} `
-            + 'button.btn-confirm-submit';
+      + 'button.btn-confirm-submit';
     this.modalBulkActionsProductsProgress = (action: string) => `#product-ajax-${action}_ajax-progress-modal`;
     this.modalBulkActionsProductsProgressBody = (action: string) => `${this.modalBulkActionsProductsProgress(action)} `
-            + 'div.modal-body';
+      + 'div.modal-body';
     this.modalBulkActionsProgressSuccessMessage = (action: string) => `${this.modalBulkActionsProductsProgressBody(action)} `
-            + 'div.progress-message';
+      + 'div.progress-message';
     this.modalBulkActionsProductsProgressFooter = (action: string) => `${this.modalBulkActionsProductsProgress(action)} `
-            + 'div.modal-footer';
+      + 'div.modal-footer';
     this.modalBulkActionsProductsProgressBarDone = '#modal_progressbar_done';
     this.modalBulkActionsProductsStopProcessButton = (action: string) => `${this.modalBulkActionsProductsProgressFooter(action)} `
-            + 'button.stop-processing';
+      + 'button.stop-processing';
     this.modalBulkActionsProductsCloseButton = (action: string) => `${this.modalBulkActionsProductsProgressFooter(action)} `
-            + 'button.close-modal-button';
+      + 'button.close-modal-button';
 
     // Products table selectors
     this.productGridTable = '#product_grid_table';
@@ -285,29 +289,29 @@ class ProductsPage extends BOBasePage implements BOProductsPageInterface {
     this.productEmptyRow = `${this.productRow}.empty_row`;
     this.productsListTableRow = (row: number) => `${this.productRow}:nth-child(${row})`;
     this.productsListTableColumn = (row: number, column: number) => `${this.productRow}:nth-child(${row}) td:`
-            + `nth-child(${column})`;
+      + `nth-child(${column})`;
     this.productsListTableColumnBulk = (row: number) => `${this.productsListTableRow(row)} td.column-bulk input[type="checkbox"]`;
     this.productsListTableColumnID = (row: number) => `${this.productsListTableRow(row)} td.column-id_product`;
     this.productsListTableColumnName = (row: number) => `${this.productsListTableRow(row)} td.column-name a`;
     this.productsListTableColumnReference = (row: number) => `${this.productsListTableRow(row)} td.column-reference`;
     this.productsListTableColumnCategory = (row: number) => `${this.productsListTableRow(row)} td.column-category`;
     this.productsListTableColumnPriceTExc = (row: number) => `${this.productsListTableRow(row)} `
-            + 'td.column-final_price_tax_excluded a';
+      + 'td.column-final_price_tax_excluded a';
     this.productsListTableColumnPriceATI = (row: number) => `${this.productsListTableRow(row)} `
-            + 'td.column-price_tax_included';
+      + 'td.column-price_tax_included';
     this.productsListTableColumnQuantity = (row: number) => `${this.productsListTableRow(row)} td.column-quantity a`;
     this.productsListTableColumnStatus = (row: number) => `${this.productsListTableRow(row)} td.column-active input`;
     this.productsListTableColumnPosition = (row: number) => `${this.productsListTableRow(row)} td.column-position`;
     this.productListTableDropDownList = (row: number) => `${this.productsListTableRow(row)} td.column-actions `
-            + 'a.dropdown-toggle';
+      + 'a.dropdown-toggle';
     this.productListTableDeleteButton = (row: number) => `${this.productsListTableRow(row)}`
-            + ' td.column-actions a.grid-delete-row-link';
+      + ' td.column-actions a.grid-delete-row-link';
     this.productListTableDeleteFromStoreButton = (row: number) => `${this.productsListTableRow(row)}`
-            + ' td.column-actions a.grid-delete.from.store-row-link';
+      + ' td.column-actions a.grid-delete.from.store-row-link';
     this.productListTableDuplicateButton = (row: number) => `${this.productsListTableRow(row)}`
-            + ' td.column-actions a.grid-duplicate-row-link';
+      + ' td.column-actions a.grid-duplicate-row-link';
     this.productListTablePreviewButton = (row: number) => `${this.productsListTableRow(row)}`
-            + ' td.column-actions a.grid-preview-row-link';
+      + ' td.column-actions a.grid-preview-row-link';
 
     // Modal create product selectors
     this.modalCreateProduct = '#modal-create-product';
@@ -337,8 +341,8 @@ class ProductsPage extends BOBasePage implements BOProductsPageInterface {
   }
 
   /*
-    Methods
-     */
+  Methods
+   */
 
   /**
    * Is product page V2
@@ -350,24 +354,25 @@ class ProductsPage extends BOBasePage implements BOProductsPageInterface {
   }
 
   /**
-     * Check if new product modal is visible
-     * @param page {Page} Browser tab
-     * @returns {Promise<boolean>}
-     */
+   * Check if new product modal is visible
+   * @param page {Page} Browser tab
+   * @returns {Promise<boolean>}
+   */
   async isNewProductModalVisibleInFrame(page: Page): Promise<boolean> {
     await this.waitForVisibleSelector(page, `${this.modalCreateProduct} iframe`);
     await this.waitForHiddenSelector(page, this.modalCreateProductLoader);
 
     const createProductFrame: Frame | null = page.frame({url: this.newProductIframeURL});
+    expect(createProductFrame).not.toBeNull();
 
     return this.elementVisible(createProductFrame!, this.addNewProductButton, 2000);
   }
 
   /**
-     * Close new product modal in frame
-     * @param page {Page} Browser tab
-     * @returns {Promise<boolean>}
-     */
+   * Close new product modal in frame
+   * @param page {Page} Browser tab
+   * @returns {Promise<boolean>}
+   */
   async closeNewProductModal(page: Page): Promise<boolean> {
     await this.waitForSelectorAndClick(page, this.modalCreateProductCloseButton);
 
@@ -375,10 +380,10 @@ class ProductsPage extends BOBasePage implements BOProductsPageInterface {
   }
 
   /**
-     * Click on new product button
-     * @param page {Page} Browser tab
-     * @returns {Promise<boolean>}
-     */
+   * Click on new product button
+   * @param page {Page} Browser tab
+   * @returns {Promise<boolean>}
+   */
   async clickOnNewProductButton(page: Page): Promise<boolean> {
     await this.waitForSelectorAndClick(page, this.newProductButton);
 
@@ -386,90 +391,92 @@ class ProductsPage extends BOBasePage implements BOProductsPageInterface {
   }
 
   /**
-     * Get product type description
-     * @param page {Page} Browser tab
-     * @returns {Promise<string>}
-     */
+   * Get product type description
+   * @param page {Page} Browser tab
+   * @returns {Promise<string>}
+   */
   async getProductDescription(page: Page): Promise<string> {
     await this.waitForVisibleSelector(page, `${this.modalCreateProduct} iframe`);
     await this.waitForHiddenSelector(page, this.modalCreateProductLoader);
 
     const createProductFrame: Frame | null = page.frame({url: this.newProductIframeURL});
+    expect(createProductFrame).not.toBeNull();
 
     return this.getTextContent(createProductFrame!, this.productTypeDescription);
   }
 
   /**
-     * Get alert danger block content
-     * @param page {Page} Browser tab
-     * @returns {Promise<string>}
-     */
+   * Get alert danger block content
+   * @param page {Page} Browser tab
+   * @returns {Promise<string>}
+   */
   async getAlertDangerBlockContent(page: Page): Promise<string> {
     return this.getAlertDangerBlockParagraphContent(page);
   }
 
   /**
-     * Choose product type
-     * @param page {Page} Browser tab
-     * @param productType {string} Product type to select
-     * @returns {Promise<void>}
-     */
+   * Choose product type
+   * @param page {Page} Browser tab
+   * @param productType {string} Product type to select
+   * @returns {Promise<void>}
+   */
   async selectProductType(page: Page, productType: string): Promise<void> {
     await this.waitForVisibleSelector(page, `${this.modalCreateProduct} iframe`);
     await this.waitForHiddenSelector(page, this.modalCreateProductLoader);
     await this.waitForVisibleLocator(page.frameLocator(this.modalCreateProductIframe).locator(this.productType(productType)));
 
     const createProductFrame: Frame | null = page.frame({url: this.newProductIframeURL});
+    expect(createProductFrame).not.toBeNull();
 
     await this.waitForSelectorAndClick(createProductFrame!, this.productType(productType));
   }
 
   /**
-     * Choose product type
-     * @param page {Page} Browser tab
-     * @returns {Promise<void>}
-     */
+   * Choose product type
+   * @param page {Page} Browser tab
+   * @returns {Promise<void>}
+   */
   async clickOnAddNewProduct(page: Page): Promise<void> {
     const createProductFrame: Frame | null = page.frame({url: this.newProductIframeURL});
+    expect(createProductFrame).not.toBeNull();
 
     await this.waitForSelectorAndClick(createProductFrame!, this.addNewProductButton);
-    await page.waitForLoadState('networkidle');
   }
 
   /**
-     * Get number of products from header
-     * @param page {Page} Browser tab
-     * @returns {Promise<number>}
-     */
+   * Get number of products from header
+   * @param page {Page} Browser tab
+   * @returns {Promise<number>}
+   */
   async getNumberOfProductsFromHeader(page: Page): Promise<number> {
     return this.getNumberFromText(page, this.headerTitle);
   }
 
   /**
-     * Is reset button visible
-     * @param page {Page} Browser tab
-     * @returns {Promise<boolean>}
-     */
+   * Is reset button visible
+   * @param page {Page} Browser tab
+   * @returns {Promise<boolean>}
+   */
   async isResetButtonVisible(page: Page): Promise<boolean> {
     return this.elementVisible(page, this.filterResetButton, 1000);
   }
 
   /**
-     * Go to product page
-     * @param page {Page} Browser tab
-     * @param row {number} Row in product table
-     * @returns {Promise<void>}
-     */
+   * Go to product page
+   * @param page {Page} Browser tab
+   * @param row {number} Row in product table
+   * @returns {Promise<void>}
+   */
   async goToProductPage(page: Page, row: number = 1): Promise<void> {
     await this.clickAndWaitForURL(page, this.productsListTableColumnName(row));
   }
 
   // Bulk delete products functions
   /**
-     * Bulk select products
-     * @param page {Page} Browser tab
-     * @returns {Promise<boolean>}
-     */
+   * Bulk select products
+   * @param page {Page} Browser tab
+   * @returns {Promise<boolean>}
+   */
   async bulkSelectProducts(page: Page): Promise<boolean> {
     await this.waitForSelectorAndClick(page, this.selectAllProductsCheckbox);
 
@@ -477,11 +484,11 @@ class ProductsPage extends BOBasePage implements BOProductsPageInterface {
   }
 
   /**
-     * Click on bulk action products
-     * @param page {Page} Browser tab
-     * @param action {string} Enable/disable/duplicate or delete
-     * @returns {Promise<string>}
-     */
+   * Click on bulk action products
+   * @param page {Page} Browser tab
+   * @param action {string} Enable/disable/duplicate or delete
+   * @returns {Promise<string>}
+   */
   async clickOnBulkActionsProducts(page: Page, action: string): Promise<string> {
     await Promise.all([
       await this.waitForSelectorAndClick(page, this.productBulkMenuButton),
@@ -505,11 +512,11 @@ class ProductsPage extends BOBasePage implements BOProductsPageInterface {
   }
 
   /**
-     * Bulk actions products
-     * @param page {Page} Browser tab
-     * @param action {string} Enable/disable/duplicate or delete
-     * @returns {Promise<string>}
-     */
+   * Bulk actions products
+   * @param page {Page} Browser tab
+   * @param action {string} Enable/disable/duplicate or delete
+   * @returns {Promise<string>}
+   */
   async bulkActionsProduct(page: Page, action: string): Promise<string> {
     const actionSelector: string = (action === 'enable' || action === 'disable') ? `${action}_selection` : `bulk_${action}`;
 
@@ -525,11 +532,11 @@ class ProductsPage extends BOBasePage implements BOProductsPageInterface {
   }
 
   /**
-     * Close bulk actions progress modal
-     * @param page {Page} Browser tab
-     * @param action {string} Enable/disable/duplicate or delete
-     * @returns {Promise<boolean>}
-     */
+   * Close bulk actions progress modal
+   * @param page {Page} Browser tab
+   * @param action {string} Enable/disable/duplicate or delete
+   * @returns {Promise<boolean>}
+   */
   async closeBulkActionsProgressModal(page: Page, action: string): Promise<boolean> {
     const modalBulkActionsProductsCloseButton = this.modalBulkActionsProductsCloseButton(
       (action === 'enable' || action === 'disable') ? `${action}_selection` : `bulk_${action}`,
@@ -537,18 +544,19 @@ class ProductsPage extends BOBasePage implements BOProductsPageInterface {
     const modalBulkActionsProductsProgress = this.modalBulkActionsProductsProgress(
       (action === 'enable' || action === 'disable') ? `${action}_selection` : `bulk_${action}`,
     );
-    await this.clickAndWaitForLoadState(page, modalBulkActionsProductsCloseButton);
+    await this.waitForSelectorAndClick(page, modalBulkActionsProductsCloseButton);
+    await page.waitForURL('**/sell/catalog/products/**');
 
     return this.elementNotVisible(page, modalBulkActionsProductsProgress, 1000);
   }
 
   // Filter products table methods
   /**
-     * Reset filter by category
-     * @param page {Page} Browser tab
-     * @param categoryName {string} Category name to filter by
-     * @returns {Promise<void>}
-     */
+   * Reset filter by category
+   * @param page {Page} Browser tab
+   * @param categoryName {string} Category name to filter by
+   * @returns {Promise<void>}
+   */
   async filterProductsByCategory(page: Page, categoryName: string = 'Home'): Promise<void> {
     // Click and wait to be open
     await page.locator(this.filterByCategoriesButton).click();
@@ -582,19 +590,19 @@ class ProductsPage extends BOBasePage implements BOProductsPageInterface {
   }
 
   /**
-     * Get filter by categories button name
-     * @param page {Page} Browser tab
-     * @returns {Promise<string>}
-     */
+   * Get filter by categories button name
+   * @param page {Page} Browser tab
+   * @returns {Promise<string>}
+   */
   async getFilterByCategoryButtonName(page: Page): Promise<string> {
     return this.getTextContent(page, this.filterByCategoriesButton);
   }
 
   /**
-     * Reset filter by category
-     * @param page {Page} Browser tab
-     * @returns {Promise<void>}
-     */
+   * Reset filter by category
+   * @param page {Page} Browser tab
+   * @returns {Promise<void>}
+   */
   async resetFilterCategory(page: Page): Promise<void> {
     // Click and wait to be open
     await page.locator(this.filterByCategoriesButton).click();
@@ -606,78 +614,78 @@ class ProductsPage extends BOBasePage implements BOProductsPageInterface {
   }
 
   /**
-     * Is clear filter link visible
-     * @param page {Page} Browser tab
-     * @returns {Promise<boolean>}
-     */
+   * Is clear filter link visible
+   * @param page {Page} Browser tab
+   * @returns {Promise<boolean>}
+   */
   async isClearFilterLinkVisible(page: Page): Promise<boolean> {
     return this.elementVisible(page, this.clearFilterButton, 2000);
   }
 
   /**
-     * Click on clear filter link
-     * @param page {Page} Browser tab
-     * @returns {Promise<void>}
-     */
+   * Click on clear filter link
+   * @param page {Page} Browser tab
+   * @returns {Promise<void>}
+   */
   async clickOnClearFilterLink(page: Page): Promise<void> {
     await page.locator(this.clearFilterButton).click();
   }
 
   /**
-     * Is position column visible
-     * @param page {Page} Browser tab
-     * @returns {Promise<boolean>}
-     */
+   * Is position column visible
+   * @param page {Page} Browser tab
+   * @returns {Promise<boolean>}
+   */
   async isPositionColumnVisible(page: Page): Promise<boolean> {
     return this.elementVisible(page, this.productFilterPositionInput, 2000);
   }
 
   /**
-     * Filter products Min - Max
-     * @param page {Page} Browser tab
-     * @param idMin {number} Value of id min to set on filter input
-     * @param idMax {number} Value of id max to set on filter input
-     * @return {Promise<void>}
-     */
+   * Filter products Min - Max
+   * @param page {Page} Browser tab
+   * @param idMin {number} Value of id min to set on filter input
+   * @param idMax {number} Value of id max to set on filter input
+   * @return {Promise<void>}
+   */
   async filterProductsByID(page: Page, idMin: number, idMax: number): Promise<void> {
     await page.locator(this.productFilterIDMinInput).fill(idMin.toString());
     await page.locator(this.productFilterIDMaxInput).fill(idMax.toString());
   }
 
   /**
-     * Filter Quantity Min - Max
-     * @param page {Page} Browser tab
-     * @param quantityMin {number} Value of quantity min to set on input
-     * @param quantityMax {number} Value of quantity max to set on input
-     * @return {Promise<void>}
-     */
+   * Filter Quantity Min - Max
+   * @param page {Page} Browser tab
+   * @param quantityMin {number} Value of quantity min to set on input
+   * @param quantityMax {number} Value of quantity max to set on input
+   * @return {Promise<void>}
+   */
   async filterProductsByQuantity(page: Page, quantityMin: number, quantityMax: number): Promise<void> {
     await page.locator(this.productFilterQuantityMinInput).fill(quantityMin.toString());
     await page.locator(this.productFilterQuantityMaxInput).fill(quantityMax.toString());
   }
 
   /**
-     * Filter price Min - Max
-     * @param page {Page} Browser tab
-     * @param priceMin {number} Value of min price to set on filter input
-     * @param priceMax {number} Value of max price to set on filter input
-     * @return {Promise<void>}
-     */
+   * Filter price Min - Max
+   * @param page {Page} Browser tab
+   * @param priceMin {number} Value of min price to set on filter input
+   * @param priceMax {number} Value of max price to set on filter input
+   * @return {Promise<void>}
+   */
   async filterProductsByPrice(page: Page, priceMin: number, priceMax: number): Promise<void> {
     await page.locator(this.productFilterPriceMinInput).fill(priceMin.toString());
     await page.locator(this.productFilterPriceMaxInput).fill(priceMax.toString());
   }
 
   /**
-     * Filter products
-     * @param page {Page} Browser tab
-     * @param filterBy {string} Column to filter
-     * @param value {string|ProductFilterMinMax} Value to put on filter
-     * @param filterType {string} Input or select to choose method of filter
-     * @return {Promise<void>}
-     */
+   * Filter products
+   * @param page {Page} Browser tab
+   * @param filterBy {string} Column to filter
+   * @param value {string|ProductFilterMinMax} Value to put on filter
+   * @param filterType {string} Input or select to choose method of filter
+   * @return {Promise<void>}
+   */
   async filterProducts(page: Page, filterBy: string, value: string | ProductFilterMinMax = '', filterType: string = 'input')
-        : Promise<void> {
+    : Promise<void> {
     switch (filterType) {
       case 'input':
         if (typeof value === 'string') {
@@ -715,17 +723,17 @@ class ProductsPage extends BOBasePage implements BOProductsPageInterface {
         await this.selectByVisibleText(page, this.productFilterSelectStatus, typeof value === 'string' ? value : 'No');
         break;
       default:
-            // Do nothing
+      // Do nothing
     }
     // click on search
     await this.clickAndWaitForLoadState(page, this.filterSearchButton, 'networkidle', 10000);
   }
 
   /**
-     * Reset input filters
-     * @param page {Page} Browser tab
-     * @return {Promise<void>}
-     */
+   * Reset input filters
+   * @param page {Page} Browser tab
+   * @return {Promise<void>}
+   */
   async resetFilter(page: Page): Promise<void> {
     if (!(await this.elementNotVisible(page, this.filterResetButton, 2000))) {
       await this.clickAndWaitForURL(page, this.filterResetButton);
@@ -733,10 +741,10 @@ class ProductsPage extends BOBasePage implements BOProductsPageInterface {
   }
 
   /**
-     * Reset filter and get number of elements in list
-     * @param page {Page} Browser tab
-     * @returns {Promise<number>}
-     */
+   * Reset filter and get number of elements in list
+   * @param page {Page} Browser tab
+   * @returns {Promise<number>}
+   */
   async resetAndGetNumberOfLines(page: Page): Promise<number> {
     await this.resetFilter(page);
 
@@ -744,10 +752,10 @@ class ProductsPage extends BOBasePage implements BOProductsPageInterface {
   }
 
   /**
-     * Get number of products displayed in list
-     * @param page {Page} Browser tab
-     * @returns {Promise<number>}
-     */
+   * Get number of products displayed in list
+   * @param page {Page} Browser tab
+   * @returns {Promise<number>}
+   */
   async getNumberOfProductsFromList(page: Page): Promise<number> {
     const found = await this.elementVisible(page, this.paginationNextLink, 1000);
 
@@ -772,12 +780,12 @@ class ProductsPage extends BOBasePage implements BOProductsPageInterface {
   }
 
   /**
-     * Get Product Price
-     * @param page {Page} Browser tab
-     * @param row {number} Row on table
-     * @param withTaxes {boolean} True if we need to get product price with tax, false if not
-     * @returns {Promise<number>}
-     */
+   * Get Product Price
+   * @param page {Page} Browser tab
+   * @param row {number} Row on table
+   * @param withTaxes {boolean} True if we need to get product price with tax, false if not
+   * @returns {Promise<number>}
+   */
   async getProductPriceFromList(page: Page, row: number, withTaxes: boolean): Promise<number> {
     const selector = withTaxes ? this.productsListTableColumnPriceATI : this.productsListTableColumnPriceTExc;
     const text = await this.getTextContent(page, selector(row));
@@ -791,11 +799,11 @@ class ProductsPage extends BOBasePage implements BOProductsPageInterface {
   }
 
   /**
-     * Get Product Status
-     * @param page {Page} Browser tab
-     * @param row {number} Row on table
-     * @returns {Promise<boolean>}
-     */
+   * Get Product Status
+   * @param page {Page} Browser tab
+   * @param row {number} Row on table
+   * @returns {Promise<boolean>}
+   */
   async getProductStatusFromList(page: Page, row: number): Promise<boolean> {
     const inputValue = await this.getAttributeContent(
       page,
@@ -807,12 +815,12 @@ class ProductsPage extends BOBasePage implements BOProductsPageInterface {
   }
 
   /**
-     * Get text column
-     * @param page {Page} Browser tab
-     * @param columnName {string} Column name to get text content
-     * @param row {number} Row on table
-     * @returns {Promise<string|number|boolean>}
-     */
+   * Get text column
+   * @param page {Page} Browser tab
+   * @param columnName {string} Column name to get text content
+   * @param row {number} Row on table
+   * @returns {Promise<string|number|boolean>}
+   */
   async getTextColumn(page: Page, columnName: string, row: number = 1): Promise<string | number | boolean> {
     switch (columnName) {
       case 'id_product':
@@ -832,26 +840,26 @@ class ProductsPage extends BOBasePage implements BOProductsPageInterface {
       case 'position':
         return this.getNumberFromText(page, this.productsListTableColumnPosition(row));
       default:
-            // Do nothing
+      // Do nothing
     }
     throw new Error(`${columnName} was not found as column`);
   }
 
   /**
-     * Get text for empty table
-     * @param page {Page} Browser tab
-     * @returns {Promise<string>}
-     */
+   * Get text for empty table
+   * @param page {Page} Browser tab
+   * @returns {Promise<string>}
+   */
   async getTextForEmptyTable(page: Page): Promise<string> {
     return this.getTextContent(page, this.productEmptyRow);
   }
 
   /**
-     * Click on delete product button
-     * @param page {Page} Browser tab
-     * @param row {number} Row on table
-     * @returns {Promise<boolean>}
-     */
+   * Click on delete product button
+   * @param page {Page} Browser tab
+   * @param row {number} Row on table
+   * @returns {Promise<boolean>}
+   */
   async clickOnDeleteProductButton(page: Page, row: number = 1): Promise<boolean> {
     await this.waitForSelectorAndClick(page, this.productListTableDropDownList(row));
     await this.waitForSelectorAndClick(page, this.productListTableDeleteButton(row));
@@ -860,11 +868,11 @@ class ProductsPage extends BOBasePage implements BOProductsPageInterface {
   }
 
   /**
-     * Click on delete from store product button
-     * @param page {Page} Browser tab
-     * @param row {number} Row on table
-     * @returns {Promise<boolean>}
-     */
+   * Click on delete from store product button
+   * @param page {Page} Browser tab
+   * @param row {number} Row on table
+   * @returns {Promise<boolean>}
+   */
   async clickOnDeleteProductFromStoreButton(page: Page, row: number = 1): Promise<boolean> {
     await this.waitForSelectorAndClick(page, this.productListTableDropDownList(row));
     await this.waitForSelectorAndClick(page, this.productListTableDeleteFromStoreButton(row));
@@ -873,11 +881,11 @@ class ProductsPage extends BOBasePage implements BOProductsPageInterface {
   }
 
   /**
-     * Click on duplicate product button
-     * @param page {Page} Browser tab
-     * @param row {number} Row on table
-     * @returns {Promise<boolean>}
-     */
+   * Click on duplicate product button
+   * @param page {Page} Browser tab
+   * @param row {number} Row on table
+   * @returns {Promise<boolean>}
+   */
   async clickOnDuplicateProductButton(page: Page, row: number = 1): Promise<boolean> {
     await this.waitForSelectorAndClick(page, this.productListTableDropDownList(row));
     await this.waitForSelectorAndClick(page, this.productListTableDuplicateButton(row));
@@ -886,21 +894,21 @@ class ProductsPage extends BOBasePage implements BOProductsPageInterface {
   }
 
   /**
-     * Click on preview product button
-     * @param page {Page} Browser tab
-     * @param row {number} Row on table
-     * @returns {Promise<Page>}
-     */
+   * Click on preview product button
+   * @param page {Page} Browser tab
+   * @param row {number} Row on table
+   * @returns {Promise<Page>}
+   */
   async clickOnPreviewProductButton(page: Page, row: number = 1): Promise<Page> {
     await this.waitForSelectorAndClick(page, this.productListTableDropDownList(row));
     return this.openLinkWithTargetBlank(page, this.productListTablePreviewButton(row));
   }
 
   /**
-     * Cancel dialog product
-     * @param page {Page} Browser tab
-     * @returns {Promise<boolean>} Is the modal displayed ?
-     */
+   * Cancel dialog product
+   * @param page {Page} Browser tab
+   * @returns {Promise<boolean>} Is the modal displayed ?
+   */
   async clickOnCancelDialogButton(page: Page): Promise<boolean> {
     await this.waitForSelectorAndClick(page, this.modalDialogCancelButton);
 
@@ -908,10 +916,10 @@ class ProductsPage extends BOBasePage implements BOProductsPageInterface {
   }
 
   /**
-     * Confirm dialog product
-     * @param page {Page} Browser tab
-     * @returns {Promise<string>}
-     */
+   * Confirm dialog product
+   * @param page {Page} Browser tab
+   * @returns {Promise<string>}
+   */
   async clickOnConfirmDialogButton(page: Page): Promise<string> {
     await this.waitForSelectorAndClick(page, this.modalDialogConfirmButton);
 
@@ -919,31 +927,31 @@ class ProductsPage extends BOBasePage implements BOProductsPageInterface {
   }
 
   /**
-     * Return if the bulk column is checked
-     * @param page {Page} Browser tab
-     * @param row {number} Row on table
-     * @returns {Promise<boolean>}
-     */
+   * Return if the bulk column is checked
+   * @param page {Page} Browser tab
+   * @param row {number} Row on table
+   * @returns {Promise<boolean>}
+   */
   async isRowChecked(page: Page, row: number = 1): Promise<boolean> {
     return this.isChecked(page, this.productsListTableColumnBulk(row));
   }
 
   /* Pagination methods */
   /**
-     * Get pagination label
-     * @param page {Page} Browser tab
-     * @return {Promise<string>}
-     */
+   * Get pagination label
+   * @param page {Page} Browser tab
+   * @return {Promise<string>}
+   */
   async getPaginationLabel(page: Page): Promise<string> {
     return this.getTextContent(page, this.paginationActiveLabel);
   }
 
   /**
-     * Select pagination limit
-     * @param page {Page} Browser tab
-     * @param number {number} Value of pagination limit to select
-     * @returns {Promise<string>}
-     */
+   * Select pagination limit
+   * @param page {Page} Browser tab
+   * @param number {number} Value of pagination limit to select
+   * @returns {Promise<string>}
+   */
   async selectPaginationLimit(page: Page, number: number): Promise<string> {
     await this.selectByValue(page, this.paginationDropdown, number, true);
 
@@ -951,10 +959,10 @@ class ProductsPage extends BOBasePage implements BOProductsPageInterface {
   }
 
   /**
-     * Click on next
-     * @param page {Page} Browser tab
-     * @returns {Promise<string>}
-     */
+   * Click on next
+   * @param page {Page} Browser tab
+   * @returns {Promise<string>}
+   */
   async paginationNext(page: Page): Promise<string> {
     await this.clickAndWaitForURL(page, this.paginationNextLink);
 
@@ -962,10 +970,10 @@ class ProductsPage extends BOBasePage implements BOProductsPageInterface {
   }
 
   /**
-     * Click on previous
-     * @param page {Page} Browser tab
-     * @returns {Promise<string>}
-     */
+   * Click on previous
+   * @param page {Page} Browser tab
+   * @returns {Promise<string>}
+   */
   async paginationPrevious(page: Page): Promise<string> {
     await this.clickAndWaitForURL(page, this.paginationPreviousLink);
 
@@ -973,11 +981,11 @@ class ProductsPage extends BOBasePage implements BOProductsPageInterface {
   }
 
   /**
-     * Set pagination page
-     * @param page {Page} Browser tab
-     * @param number {number} Value of pagination limit to select
-     * @returns {Promise<string>}
-     */
+   * Set pagination page
+   * @param page {Page} Browser tab
+   * @param number {number} Value of pagination limit to select
+   * @returns {Promise<string>}
+   */
   async setPaginationPage(page: Page, number: number): Promise<string> {
     await this.setValue(page, this.paginationJumpToPage, number.toString());
     await page.keyboard.press('Enter');
@@ -986,11 +994,11 @@ class ProductsPage extends BOBasePage implements BOProductsPageInterface {
   }
 
   /**
-     * Get content from all rows
-     * @param page {Page} Browser tab
-     * @param column {string} Column to get text value
-     * @return {Promise<Array<string>>}
-     */
+   * Get content from all rows
+   * @param page {Page} Browser tab
+   * @param column {string} Column to get text value
+   * @return {Promise<Array<string>>}
+   */
   async getAllRowsColumnContent(page: Page, column: number): Promise<string[]> {
     const rowsNumber = await this.getNumberOfProductsFromList(page);
     const allRowsContentTable: string[] = [];
@@ -1004,23 +1012,23 @@ class ProductsPage extends BOBasePage implements BOProductsPageInterface {
   }
 
   /**
-     * Get text from a column
-     * @param page {Page} Browser tab
-     * @param row {number} Row in table to get text column
-     * @param column {number} Column to get text content
-     * @return {Promise<string>}
-     */
+   * Get text from a column
+   * @param page {Page} Browser tab
+   * @param row {number} Row in table to get text column
+   * @param column {number} Column to get text content
+   * @return {Promise<string>}
+   */
   async getTextColumnFromTable(page: Page, row: number, column: number): Promise<string> {
     return this.getTextContent(page, this.productsListTableColumn(row, column));
   }
 
   /**
-     * Sort table by clicking on column name
-     * @param page {Page} Browser tab
-     * @param sortBy {string} Column to sort with
-     * @param sortDirection {string} Sort direction asc or desc
-     * @returns {Promise<void>}
-     */
+   * Sort table by clicking on column name
+   * @param page {Page} Browser tab
+   * @param sortBy {string} Column to sort with
+   * @param sortDirection {string} Sort direction asc or desc
+   * @returns {Promise<void>}
+   */
   async sortTable(page: Page, sortBy: string, sortDirection: string): Promise<void> {
     const sortColumnDiv = `${this.sortColumnDiv(sortBy)}[data-sort-direction='${sortDirection}']`;
     const sortColumnSpanButton = this.sortColumnSpanButton(sortBy);
