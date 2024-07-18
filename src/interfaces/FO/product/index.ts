@@ -1,11 +1,8 @@
-import {FOBasePagePageInterface} from '@interfaces/FO';
-
-// Import data
 import FakerProductReview from '@data/faker/productReview';
 import type {
-  ProductAttribute, ProductImageUrls, ProductInformations,
+  ProductAttribute, ProductDetailsBasic, ProductImageUrls, ProductInformations,
 } from '@data/types/product';
-
+import {FOBasePagePageInterface} from '@interfaces/FO';
 import type {Page} from '@playwright/test';
 
 export interface FoProductPageInterface extends FOBasePagePageInterface {
@@ -21,7 +18,7 @@ export interface FoProductPageInterface extends FOBasePagePageInterface {
     combination?: ProductAttribute[],
     proceedToCheckout?: boolean | null,
     customizedText?: string
-  ): Promise<void>
+  ): Promise<void>;
   clickAddReviewButton(page: Page): Promise<void>;
   clickAddToWishlistButton(page: Page): Promise<void>;
   clickOnAddToCartButton(page: Page): Promise<void>;
@@ -48,7 +45,7 @@ export interface FoProductPageInterface extends FOBasePagePageInterface {
   getProductCondition(page: Page): Promise<string>;
   getProductFeaturesList(page: Page): Promise<string>;
   getProductImageUrls(page: Page): Promise<ProductImageUrls>;
-  getProductInPackList(page: Page, productInList: number): Promise<object>;
+  getProductInPackList(page: Page, productInList: number): Promise<ProductDetailsBasic>;
   getProductInformation(page: Page): Promise<ProductInformations>;
   getProductPageURL(page: Page): Promise<string>;
   getProductPrice(page: Page): Promise<string>;
@@ -89,15 +86,20 @@ export interface FoProductPageInterface extends FOBasePagePageInterface {
   isQuantityDisplayed(page: Page): Promise<boolean>;
   isUnavailableProductColorDisplayed(page: Page, color: string): Promise<boolean>;
   isUnavailableProductSizeDisplayed(page: Page, size: string): Promise<boolean>;
-  notifyEmailAlert(page: Page, email: string | null): Promise<string>;
+  notifyEmailAlert(page: Page, email?: string | null): Promise<string>;
   scrollBoxArrowsImages(page: Page, direction: string): Promise<void>;
   selectAttributes(page: Page, type: string, attributes: ProductAttribute[], itemNumber?: number): Promise<void>;
   selectDefaultAttributes(page: Page, attributes: ProductAttribute[]): Promise<void>;
   selectThumbImage(page: Page, imageRow: number): Promise<string>;
   selectThumbImageFromProductModal(page: Page, imageRow: number): Promise<string>;
-  setProductCustomizations(page: Page, customizedTexts: string[], save: boolean): Promise<void>;
-  setProductFileCustomizations(page: Page, customizedFiles: string[], row: number, save: boolean): Promise<void>;
+  setProductCustomizations(page: Page, customizedTexts: string[], save?: boolean): Promise<void>;
+  setProductFileCustomizations(page: Page, customizedFiles: string[], row?: number, save?: boolean): Promise<void>;
   setQuantity(page: Page, quantity: number | string): Promise<void>;
   setQuantityByArrowUpDown(page: Page, quantityWanted: number, direction: string): Promise<void>;
   zoomCoverImage(page: Page): Promise<boolean>;
+}
+
+//@todo : Move methods in FoProductPageInterface
+export interface FoProductHummingbirdPageInterface extends FoProductPageInterface {
+  clickOnArrowNextPrevInProductModal(page: Page, direction: string): Promise<string>;
 }
