@@ -110,6 +110,8 @@ class SearchPage extends BOBasePage implements BOSearchPageInterface {
 
   private readonly aliasForm: string;
 
+  private readonly searchExactEndMatchLabel: (status: string) => string;
+
   private readonly fuzzySearchLabel: (status: string) => string;
 
   private readonly maximumApproximateWordsInput: string;
@@ -209,6 +211,7 @@ class SearchPage extends BOBasePage implements BOSearchPageInterface {
 
     // Search form
     this.aliasForm = '#alias_fieldset_search';
+    this.searchExactEndMatchLabel = (status: string) => `#PS_SEARCH_END_${status}`;
     this.fuzzySearchLabel = (status: string) => `#PS_SEARCH_FUZZY_${status}`;
     this.maximumApproximateWordsInput = 'input[name="PS_SEARCH_FUZZY_MAX_LOOP"]';
     this.minimumWordLengthInput = 'input[name="PS_SEARCH_MINWORDLEN"]';
@@ -586,6 +589,29 @@ class SearchPage extends BOBasePage implements BOSearchPageInterface {
   }
 
   // Methods for search form
+  /**
+   * Returns if Search exact end match is checked
+   * @param page {Page} Browser tab
+   * @returns {Promise<boolean>}
+   */
+  async getSearchExactEndMatchStatus(page: Page): Promise<boolean> {
+    return this.isChecked(page, this.searchExactEndMatchLabel('on'));
+  }
+
+  /**
+   * Enable/Disable Search exact end match
+   * @param page {Page} Browser tab
+   * @param toEnable {boolean} True if we need to enable Search exact end match
+   * @returns {Promise<string>}
+   */
+  async setSearchExactEndMatch(page: Page, toEnable: boolean = true): Promise<string> {
+    await this.setChecked(page, this.searchExactEndMatchLabel(toEnable ? 'on' : 'off'));
+    await this.clickAndWaitForLoadState(page, this.saveFormButton);
+    await this.elementNotVisible(page, this.searchExactEndMatchLabel(!toEnable ? 'on' : 'off'), 2000);
+
+    return this.getAlertSuccessBlockContent(page);
+  }
+
   /**
    * Enable/Disable fuzzy search
    * @param page {Page} Browser tab

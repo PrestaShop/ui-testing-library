@@ -19,6 +19,7 @@ export interface BOSearchPageInterface extends BOBasePagePageInterface {
     getNumberOfElementInGrid(page: Page): Promise<number>;
     getNumIndexedProducts(page: Page): Promise<number>;
     getNumTotalProducts(page: Page): Promise<number>;
+    getSearchExactEndMatchStatus(page: Page): Promise<boolean>;
     getStatus(page: Page, row: number): Promise<boolean>;
     getTextColumn(page: Page, row: number, columnName: string): Promise<string>;
     goToAddNewAliasPage(page: Page): Promise<void>;
@@ -34,6 +35,7 @@ export interface BOSearchPageInterface extends BOBasePagePageInterface {
     setIndexing(page: Page, toEnable?: boolean): Promise<string>;
     setMaximumApproximateWords(page: Page, maxWords: number): Promise<string>;
     setMinimumWordLength(page: Page, length: number): Promise<string>;
+    setSearchExactEndMatch(page: Page, toEnable?: boolean): Promise<string>;
     setStatus(page: Page, row: number, valueWanted?: boolean): Promise<boolean>;
     sortTable(page: Page, sortBy: string, sortDirection: string): Promise<void>;
 }

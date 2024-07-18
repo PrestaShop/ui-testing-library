@@ -2,7 +2,6 @@ import {FoHomePageInterface} from '@interfaces/FO/home';
 import FOBasePage from '@pages/FO/FOBasePage';
 import {type Page} from '@playwright/test';
 import {quickViewModal as foClassicModalQuickViewPage} from '@versions/develop/pages/FO/classic/modal/quickView';
-import foClassicModalWishlistPage from '@versions/develop/pages/FO/classic/modal/wishlist';
 
 /**
  * Home page, contains functions that can be used on the page
