@@ -92,6 +92,9 @@ class PsFacetedSearchFilterTemplate extends ModuleConfiguration implements Modul
     let selectorFilterType: string;
 
     switch (filterName) {
+      case 'Attribute group: Paper Type':
+        selectorStatus = 'layered_selection_ag_4';
+        break;
       case 'Product brand filter':
         selectorStatus = 'layered_selection_manufacturer';
         break;
@@ -101,8 +104,8 @@ class PsFacetedSearchFilterTemplate extends ModuleConfiguration implements Modul
       case 'Product stock filter':
         selectorStatus = 'layered_selection_stock';
         break;
-      case 'Attribute group: Paper Type':
-        selectorStatus = 'layered_selection_ag_4';
+      case 'Sub-categories filter':
+        selectorStatus = 'layered_selection_subcategories';
         break;
       default:
         throw new Error(`The filter "${filterName}" has no defined selector.`);
