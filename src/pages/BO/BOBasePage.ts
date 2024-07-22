@@ -1031,7 +1031,7 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
    * @return {Promise<void>}
    */
   async closeSfToolBar(page: Frame | Page): Promise<void> {
-    if (await this.elementVisible(page, `${this.sfToolbarMainContentDiv}[style='display: block;']`, 1000)) {
+    if (!(await this.elementNotVisible(page, `${this.sfToolbarMainContentDiv}[style='display: block;']`, 1000))) {
       await page.locator(this.sfCloseToolbarLink).click();
     }
   }
