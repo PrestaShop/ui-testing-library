@@ -212,6 +212,10 @@ export {default as boProductsCreateTabStocksPage} from '@pages/BO/catalog/produc
 export {default as boProductsCreateTabVirtualProductPage} from '@pages/BO/catalog/products/create/tabVirtualProduct';
 export {default as boSearchPage} from '@pages/BO/shopParameters/search';
 export {default as boSearchAliasCreatePage} from '@pages/BO/shopParameters/search/alias/create';
+export {default as boThemeAdvancedConfigurationPage} from '@pages/BO/design/themeAndLogo/advancedConfiguration';
+export {default as boThemeAndLogoPage} from '@pages/BO/design/themeAndLogo';
+export {default as boThemeAndLogoImportPage} from '@pages/BO/design/themeAndLogo/themeAndLogo/import';
+export {default as boThemePagesConfigurationPage} from '@pages/BO/design/themeAndLogo/pagesConfiguration';
 // Export Pages FO
 export * as FOBasePage from '@pages/FO/FOBasePage';
 // Export Pages FO/Classic
