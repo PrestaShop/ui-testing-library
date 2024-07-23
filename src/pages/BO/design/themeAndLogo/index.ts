@@ -2,7 +2,7 @@ import {type BOThemeAndLogoPageInterface} from '@interfaces/BO/design/themeAndLo
 
 /* eslint-disable global-require, @typescript-eslint/no-var-requires */
 function requirePage(): BOThemeAndLogoPageInterface {
-  return require('@versions/develop/pages/BO/themeAndLogo');
+  return require('@versions/develop/pages/BO/design/themeAndLogo');
 }
 /* eslint-enable global-require, @typescript-eslint/no-var-requires */
 

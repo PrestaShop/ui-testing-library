@@ -2,7 +2,7 @@ import {type BOThemeAvancedConfigurationPageInterface} from '@interfaces/BO/desi
 
 /* eslint-disable global-require, @typescript-eslint/no-var-requires */
 function requirePage(): BOThemeAvancedConfigurationPageInterface {
-  return require('@versions/develop/pages/BO/themeAndLogo/advancedConfiguration');
+  return require('@versions/develop/pages/BO/design/themeAndLogo/advancedConfiguration');
 }
 /* eslint-enable global-require, @typescript-eslint/no-var-requires */
 
