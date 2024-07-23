@@ -32,6 +32,9 @@
       "@data/*": [
         "src/data/*"
       ],
+      "@ops/*": [
+        "src/ops/*"
+      ],
       "@types/*": [
         "src/types/*"
       ],

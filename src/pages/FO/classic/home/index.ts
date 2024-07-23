@@ -6,11 +6,11 @@ const psVersion = testContext.getPSVersion();
 
 /* eslint-disable global-require, @typescript-eslint/no-var-requires */
 function requirePage(): FoHomePageInterface {
-  // >= 1.7.7.9
-  if (semver.gte(psVersion, '7.7.0')) {
+  // >= 9.0
+  if (semver.gte(psVersion, '9.0.0')) {
     return require('@versions/develop/pages/FO/classic/home').homePage;
   }
-  return require('@versions/1.7.6/pages/FO/classic/home');
+  return require('@versions/8.1/pages/FO/classic/home');
 }
 /* eslint-enable global-require, @typescript-eslint/no-var-requires */
 

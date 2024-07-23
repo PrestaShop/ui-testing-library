@@ -180,6 +180,10 @@ export {default as FakerTitle} from '@data/faker/title';
 export {default as FakerWebservice} from '@data/faker/webservice';
 export {default as FakerZone} from '@data/faker/zone';
 
+// Export ops
+export {default as opsBOModules} from '@ops/BO/modules/moduleManager';
+export {default as opsBOProducts} from '@ops/BO/catalog/product';
+
 // Export Pages
 export * as CommonPage from '@pages/commonPage';
 // Export Pages BO

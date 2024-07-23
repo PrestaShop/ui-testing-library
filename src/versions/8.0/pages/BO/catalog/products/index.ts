@@ -1,6 +1,6 @@
 // Import pages
 import type {BOProductsPageInterface} from '@interfaces/BO/catalog/products';
-import {ProductsPage} from '@versions/develop/pages/BO/catalog/products';
+import {ProductsPage} from '@versions/8.1/pages/BO/catalog/products';
 
 import type {Page} from 'playwright';
 
@@ -91,18 +91,6 @@ class BOProductsVersion extends ProductsPage implements BOProductsPageInterface 
     this.paginationPreviousLink = `${this.productListForm} [data-role='previous-page-link']`;
     this.productListfooterRow = `${this.productListForm} div.pagination-block`;
     this.productNumberBloc = `${this.productListfooterRow} label.col-form-label`;
-  }
-
-  /**
-   * Reset input filters
-   * @param page {Page} Browser tab
-   * @return {Promise<void>}
-   */
-  async resetFilter(page: Page): Promise<void> {
-    if (!(await this.elementNotVisible(page, this.filterResetButton, 2000))) {
-      await page.locator(this.filterResetButton).click();
-      await page.waitForLoadState();
-    }
   }
 
   /**
