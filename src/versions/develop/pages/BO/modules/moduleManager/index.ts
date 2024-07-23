@@ -430,6 +430,12 @@ class ModuleManagerPage extends BOBasePage implements ModuleManagerPageInterface
 
     if (await this.elementVisible(page, this.actionModuleButton(module.tag, action), 1000)) {
       await this.waitForSelectorAndClick(page, this.actionModuleButton(module.tag, action));
+
+      if (cancel) {
+        await this.waitForSelectorAndClick(page, this.modalConfirmCancel(module.tag, action));
+        await this.elementNotVisible(page, this.modalConfirmAction(module.tag, action), 10000);
+        return '';
+      }
       if (action === 'disable' || action === 'uninstall' || action === 'reset') {
         await this.waitForSelectorAndClick(page, this.modalConfirmButton(module.tag, action));
       }
