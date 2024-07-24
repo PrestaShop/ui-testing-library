@@ -188,11 +188,13 @@ export {default as opsBOProducts} from '@ops/BO/catalog/product';
 export * as CommonPage from '@pages/commonPage';
 // Export Pages BO
 export * as BOBasePage from '@pages/BO/BOBasePage';
-export {default as boLoginPage} from '@pages/BO/login';
+export {default as boCountriesPage} from '@pages/BO/international/locations/countries';
+export {default as boCountriesCreatePage} from '@pages/BO/international/locations/countries/create';
 export {default as boDashboardPage} from '@pages/BO/dashboard';
 export {default as boDesignPositionsPage} from '@pages/BO/design/positions/index';
 export {default as boDesignPositionsHookModulePage} from '@pages/BO/design/positions/hookModule';
 export {default as boLocalizationPage} from '@pages/BO/international/localization';
+export {default as boLoginPage} from '@pages/BO/login';
 export {default as boModuleManagerPage} from '@pages/BO/modules/moduleManager';
 export {default as boModuleManagerAlertsPage} from '@pages/BO/modules/moduleManager/alerts';
 export {default as boModuleManagerUninstalledModulesPage} from '@pages/BO/modules/moduleManager/uninstalledModules';
