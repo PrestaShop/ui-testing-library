@@ -65,6 +65,7 @@ export interface FoProductPageInterface extends FOBasePagePageInterface {
   getSocialSharingLink(page: Page, socialSharing: string): Promise<string>;
   getURLInProductDescription(page: Page): Promise<string>;
   getWarningMessage(page: Page): Promise<string>;
+  hasAddToWishlistButton(page: Page): Promise<boolean>;
   hasBlockMailAlert(page: Page): Promise<boolean>;
   hasBlockMailAlertGDPRLabel(page: Page): Promise<boolean>;
   hasProductFlag(page: Page, name: string): Promise<boolean>;
