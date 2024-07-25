@@ -193,6 +193,7 @@ export {default as boCountriesCreatePage} from '@pages/BO/international/location
 export {default as boDashboardPage} from '@pages/BO/dashboard';
 export {default as boDesignPositionsPage} from '@pages/BO/design/positions/index';
 export {default as boDesignPositionsHookModulePage} from '@pages/BO/design/positions/hookModule';
+export {default as boInformationPage} from '@pages/BO/advancedParameters/information';
 export {default as boLocalizationPage} from '@pages/BO/international/localization';
 export {default as boLoginPage} from '@pages/BO/login';
 export {default as boModuleManagerPage} from '@pages/BO/modules/moduleManager';
