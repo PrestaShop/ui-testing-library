@@ -4,6 +4,7 @@ export default {
   blockwishlist: new FakerModule({
     tag: 'blockwishlist',
     name: 'Wishlist',
+    releaseZip: 'https://github.com/PrestaShop/blockwishlist/releases/download/v3.0.1/blockwishlist.zip',
   }),
   psApiResources: new FakerModule({
     tag: 'ps_apiresources',
