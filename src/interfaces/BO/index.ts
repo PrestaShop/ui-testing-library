@@ -95,6 +95,8 @@ export interface BOBasePagePageInterface extends CommonPageInterface {
     goToSubMenu(page: Page, parentSelector: string, linkSelector: string): Promise<void>;
     isMobileMenuVisible(page: Page): Promise<boolean>;
     isNavbarVisible(page: Page): Promise<boolean>;
+    isNotificationsLinkVisible(page: Page): Promise<boolean>;
+    isNotificationsTabVisible(page: Page, tabName: string): Promise<boolean>;
     isSidebarCollapsed(page: Page): Promise<boolean>;
     isSubMenuActive(page: Page, linkSelector: string): Promise<boolean>;
     isSubmenuVisible(page: Page, parentSelector: string, linkSelector: string): Promise<boolean>;

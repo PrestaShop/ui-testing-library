@@ -188,6 +188,7 @@ export {default as opsBOProducts} from '@ops/BO/catalog/product';
 export * as CommonPage from '@pages/commonPage';
 // Export Pages BO
 export * as BOBasePage from '@pages/BO/BOBasePage';
+export {default as boAdministrationPage} from '@pages/BO/advancedParameters/administration';
 export {default as boCountriesPage} from '@pages/BO/international/locations/countries';
 export {default as boCountriesCreatePage} from '@pages/BO/international/locations/countries/create';
 export {default as boDashboardPage} from '@pages/BO/dashboard';
