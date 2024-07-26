@@ -1258,6 +1258,15 @@ class ProductPage extends FOBasePage implements FoProductPageInterface {
   }
 
   /**
+   * Return if the wishlist button is present
+   * @param page {Page}
+   * @returns Promise<boolean>
+   */
+  async hasAddToWishlistButton(page: Page): Promise<boolean> {
+    return (await page.locator(this.btnAddToWishlist).count()) > 0;
+  }
+
+  /**
    * Click on the wishlist button
    * @param page {Page}
    * @returns Promise<void>
