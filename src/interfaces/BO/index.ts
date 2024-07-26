@@ -83,6 +83,7 @@ export interface BOBasePagePageInterface extends CommonPageInterface {
     clickSubMenu(page: Page, parentSelector: string): Promise<void>;
     closeHelpSideBar(page: Page): Promise<boolean>;
     closeSfToolBar(page: Frame | Page): Promise<void>;
+    getAlertInfoBlockParagraphContent(page: Page): Promise<string>;
     getAlertSuccessBlockContent(page: Frame | Page): Promise<string>;
     getAlertSuccessBlockParagraphContent(page: Frame | Page): Promise<string>;
     getAllNotificationsNumber(page: Page): Promise<number>;
@@ -93,6 +94,7 @@ export interface BOBasePagePageInterface extends CommonPageInterface {
     getShopVersion(page:Page):Promise<string>;
     goToMyProfile(page: Page): Promise<void>;
     goToSubMenu(page: Page, parentSelector: string, linkSelector: string): Promise<void>;
+    hasAlertBlock(page: Page): Promise<boolean>;
     isMobileMenuVisible(page: Page): Promise<boolean>;
     isNavbarVisible(page: Page): Promise<boolean>;
     isNotificationsLinkVisible(page: Page): Promise<boolean>;
