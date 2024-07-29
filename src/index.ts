@@ -193,6 +193,8 @@ export {default as boApiClientsPage} from '@pages/BO/advancedParameters/apiclien
 export {default as boApiClientsCreatePage} from '@pages/BO/advancedParameters/apiclients/create';
 export {default as boCountriesPage} from '@pages/BO/international/locations/countries';
 export {default as boCountriesCreatePage} from '@pages/BO/international/locations/countries/create';
+export {default as boCustomerGroupsPage} from '@pages/BO/shopParameters/customerSettings/groups';
+export {default as boCustomerGroupsCreatePage} from '@pages/BO/shopParameters/customerSettings/groups/create';
 export {default as boDashboardPage} from '@pages/BO/dashboard';
 export {default as boDesignPositionsPage} from '@pages/BO/design/positions/index';
 export {default as boDesignPositionsHookModulePage} from '@pages/BO/design/positions/hookModule';
