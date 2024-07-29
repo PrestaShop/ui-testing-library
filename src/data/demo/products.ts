@@ -82,6 +82,12 @@ export default {
         price: 58.8,
       },
     ],
+    features: [
+      {
+        featureName: 'Composition',
+        preDefinedValue: 'Matt paper',
+      },
+    ],
     quantity: 1500,
     status: true,
   }),
@@ -196,6 +202,10 @@ export default {
     reference: 'demo_16',
     category: 'Home Accessories',
     status: true,
+  }),
+  demo_17: new FakerProduct({
+    id: 11,
+    reference: 'demo_17',
   }),
   demo_18: new FakerProduct({
     id: 12,

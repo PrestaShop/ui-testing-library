@@ -8,6 +8,7 @@ import {
   type Frame,
   type Page,
 } from '@playwright/test';
+import FakerProduct from '@data/faker/product';
 
 /**
  * Products page, contains functions that can be used on the page
@@ -132,6 +133,10 @@ class ProductsPage extends BOBasePage implements BOProductsPageInterface {
   private readonly productsListTableColumn: (row: number, column: number) => string;
 
   private readonly productsListTableColumnBulk: (row: number) => string;
+
+  private readonly productsListTableColumnBulkCheckbox: (row: number) => string;
+
+  private readonly productsListTableColumnBulkInput: (row: number) => string;
 
   protected productsListTableColumnID: (row: number) => string;
 
@@ -290,7 +295,9 @@ class ProductsPage extends BOBasePage implements BOProductsPageInterface {
     this.productsListTableRow = (row: number) => `${this.productRow}:nth-child(${row})`;
     this.productsListTableColumn = (row: number, column: number) => `${this.productRow}:nth-child(${row}) td:`
       + `nth-child(${column})`;
-    this.productsListTableColumnBulk = (row: number) => `${this.productsListTableRow(row)} td.column-bulk input[type="checkbox"]`;
+    this.productsListTableColumnBulk = (row: number) => `${this.productsListTableRow(row)} td.column-bulk`;
+    this.productsListTableColumnBulkCheckbox = (row: number) => `${this.productsListTableRow(row)} div.md-checkbox`;
+    this.productsListTableColumnBulkInput = (row: number) => `${this.productsListTableRow(row)} input[type="checkbox"]`;
     this.productsListTableColumnID = (row: number) => `${this.productsListTableRow(row)} td.column-id_product`;
     this.productsListTableColumnName = (row: number) => `${this.productsListTableRow(row)} td.column-name a`;
     this.productsListTableColumnReference = (row: number) => `${this.productsListTableRow(row)} td.column-reference`;
@@ -432,6 +439,18 @@ class ProductsPage extends BOBasePage implements BOProductsPageInterface {
   }
 
   /**
+   * Return if product type is visible
+   * @param page {Page} Browser tab
+   * @param productType {string} Product type to select
+   * @returns {Promise<boolean>}
+   */
+  async hasProductType(page: Page, productType: string): Promise<boolean> {
+    await this.waitForVisibleSelector(page, `${this.modalCreateProduct} iframe`);
+    await this.waitForHiddenSelector(page, this.modalCreateProductLoader);
+    return (await page.frameLocator(this.modalCreateProductIframe).locator(this.productType(productType)).count()) === 1;
+  }
+
+  /**
    * Choose product type
    * @param page {Page} Browser tab
    * @returns {Promise<void>}
@@ -475,10 +494,24 @@ class ProductsPage extends BOBasePage implements BOProductsPageInterface {
   /**
    * Bulk select products
    * @param page {Page} Browser tab
+   * @param products {FakerProduct[]} List of products to choose or all
    * @returns {Promise<boolean>}
    */
-  async bulkSelectProducts(page: Page): Promise<boolean> {
-    await this.waitForSelectorAndClick(page, this.selectAllProductsCheckbox);
+  async bulkSelectProducts(page: Page, products: FakerProduct[] = []): Promise<boolean> {
+    if (products.length === 0) {
+      await this.waitForSelectorAndClick(page, this.selectAllProductsCheckbox);
+    } else {
+      const nbRows = await this.getNumberOfProductsFromList(page);
+
+      for (let incProduct = 0; incProduct < products.length; incProduct++) {
+        for (let incRow = 1; incRow <= nbRows; incRow++) {
+          if (await this.getTextColumn(page, 'id_product', incRow) === products[incProduct].id) {
+            await page.locator(this.productsListTableColumnBulkCheckbox(incRow)).click();
+            break;
+          }
+        }
+      }
+    }
 
     return this.elementNotVisible(page, `${this.productBulkMenuButton}[disabled]`, 1000);
   }
@@ -933,7 +966,7 @@ class ProductsPage extends BOBasePage implements BOProductsPageInterface {
    * @returns {Promise<boolean>}
    */
   async isRowChecked(page: Page, row: number = 1): Promise<boolean> {
-    return this.isChecked(page, this.productsListTableColumnBulk(row));
+    return this.isChecked(page, this.productsListTableColumnBulkInput(row));
   }
 
   /* Pagination methods */

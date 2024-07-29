@@ -9,5 +9,8 @@ export interface BOPerformancePageInterface extends BOBasePagePageInterface {
 
     clearCache(page: Page): Promise<string>;
     isDebugModeToggleVisible(page: Page): Promise<boolean>;
+    setCombinations(page: Page, toEnable: boolean): Promise<string>;
+    setCustomerGroups(page: Page, toEnable: boolean): Promise<string>;
     setDebugMode(page: Page, toEnable: boolean): Promise<string>;
+    setFeatures(page: Page, toEnable: boolean): Promise<string>;
 }
