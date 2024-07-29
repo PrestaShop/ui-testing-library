@@ -502,8 +502,9 @@ class ProductsPage extends BOBasePage implements BOProductsPageInterface {
       await this.waitForSelectorAndClick(page, this.selectAllProductsCheckbox);
     } else {
       const nbRows = await this.getNumberOfProductsFromList(page);
-      for (let incProduct = 0; incProduct < products.length ; incProduct++) {
-        for (let incRow = 1; incRow <= nbRows ; incRow++) {
+
+      for (let incProduct = 0; incProduct < products.length; incProduct++) {
+        for (let incRow = 1; incRow <= nbRows; incRow++) {
           if (await this.getTextColumn(page, 'id_product', incRow) === products[incProduct].id) {
             await page.locator(this.productsListTableColumnBulkCheckbox(incRow)).click();
             break;

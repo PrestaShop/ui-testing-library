@@ -51,9 +51,12 @@ class PerformancePage extends BOBasePage implements BOPerformancePageInterface {
 
     // Form "Optional features"
     this.formOptionalFeatures = '#optional_features';
-    this.combinationsButton = (toEnable: number) => `${this.formOptionalFeatures} #optional_features_combinations_${toEnable}`;
-    this.customerGroupsButton = (toEnable: number) => `${this.formOptionalFeatures} #optional_features_customer_groups_${toEnable}`;
-    this.featuresButton = (toEnable: number) => `${this.formOptionalFeatures} #optional_features_features_${toEnable}`;
+    this.combinationsButton = (toEnable: number) => `${this.formOptionalFeatures} ${this.formOptionalFeatures}`
+      + `_combinations_${toEnable}`;
+    this.customerGroupsButton = (toEnable: number) => `${this.formOptionalFeatures} ${this.formOptionalFeatures}`
+      + `_customer_groups_${toEnable}`;
+    this.featuresButton = (toEnable: number) => `${this.formOptionalFeatures} ${this.formOptionalFeatures}`
+      + `_features_${toEnable}`;
     this.saveOptionalFeaturesForm = `${this.formOptionalFeatures} div.card-footer button`;
   }
 
