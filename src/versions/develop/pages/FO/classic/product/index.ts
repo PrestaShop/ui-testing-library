@@ -1034,6 +1034,16 @@ class ProductPage extends FOBasePage implements FoProductPageInterface {
   }
 
   /**
+   * Return if product features list is visible
+   * @param page {Page} Browser tab
+   * @returns {Promise<string>}
+   */
+  async hasProductFeaturesList(page: Page): Promise<boolean> {
+    await this.waitForSelectorAndClick(page, this.productDetail);
+    return this.elementVisible(page, this.productFeaturesList, 2000);
+  }
+
+  /**
    * Get product features list
    * @param page {Page} Browser tab
    * @returns {Promise<string>}

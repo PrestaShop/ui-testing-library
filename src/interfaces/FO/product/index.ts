@@ -68,6 +68,7 @@ export interface FoProductPageInterface extends FOBasePagePageInterface {
   hasAddToWishlistButton(page: Page): Promise<boolean>;
   hasBlockMailAlert(page: Page): Promise<boolean>;
   hasBlockMailAlertGDPRLabel(page: Page): Promise<boolean>;
+  hasProductFeaturesList(page: Page): Promise<boolean>
   hasProductFlag(page: Page, name: string): Promise<boolean>;
   hasProductReviewGDPRLabel(page: Page): Promise<boolean>;
   hasProductsBlock(page: Page, blockName:string): Promise<boolean>;
