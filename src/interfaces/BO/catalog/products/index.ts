@@ -3,6 +3,7 @@ import {BOBasePagePageInterface} from '@interfaces/BO';
 import type {Page} from '@playwright/test';
 
 import {ProductFilterMinMax} from '@data/types/product';
+import type FakerProduct from '@data/faker/product';
 
 export interface BOProductsPageInterface extends BOBasePagePageInterface {
      readonly alertDangerIDFilterValue: string;
@@ -17,7 +18,7 @@ export interface BOProductsPageInterface extends BOBasePagePageInterface {
      readonly virtualProductDescription: string;
 
     bulkActionsProduct(page: Page, action: string): Promise<string>;
-    bulkSelectProducts(page: Page): Promise<boolean>;
+    bulkSelectProducts(page: Page, products?: FakerProduct[]): Promise<boolean>
     clickOnAddNewProduct(page: Page): Promise<void>;
     clickOnBulkActionsProducts(page: Page, action: string): Promise<string>;
     clickOnCancelDialogButton(page: Page): Promise<boolean>;
@@ -48,6 +49,7 @@ export interface BOProductsPageInterface extends BOBasePagePageInterface {
     getTextColumnFromTable(page: Page, row: number, column: number): Promise<string>;
     getTextForEmptyTable(page: Page): Promise<string>;
     goToProductPage(page: Page, row?: number): Promise<void>;
+    hasProductType(page: Page, productType: string): Promise<boolean>;
     isClearFilterLinkVisible(page: Page): Promise<boolean>;
     isNewProductModalVisibleInFrame(page: Page): Promise<boolean>;
     isPositionColumnVisible(page: Page): Promise<boolean>;
