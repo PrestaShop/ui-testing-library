@@ -260,6 +260,7 @@ export {default as foHummingbirdSearchResultsPage} from '@pages/FO/hummingbird/s
 // Export Modules
 export {default as modBlockwishlistBoMain} from '@pages/BO/modules/blockwishlist';
 export {default as modBlockwishlistBoStatistics} from '@pages/BO/modules/blockwishlist/statistics';
+export {default as modPsEmailSubscriptionBoMain} from '@pages/BO/modules/ps_emailsubscription';
 export {default as modPsFacetedsearchBoMain} from '@pages/BO/modules/ps_facetedsearch';
 export {default as modPsFacetedsearchBoFilterTemplate} from '@pages/BO/modules/ps_facetedsearch/filterTemplate';
 export {default as modPsNewProductsBoMain} from '@pages/BO/modules/ps_newproducts';
