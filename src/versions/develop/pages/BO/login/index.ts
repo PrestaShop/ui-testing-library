@@ -16,6 +16,18 @@ class LoginPage extends BOBasePage implements LoginPageInterface {
 
   public readonly resetPasswordSuccessText: string;
 
+  private readonly loginBackShopLink: string;
+
+  private readonly loginFooter: string;
+
+  private readonly allRightsReservedLink: string;
+
+  private readonly twitterLink: string;
+
+  private readonly facebookLink: string;
+
+  private readonly githubLink: string;
+
   private readonly emailInput: string;
 
   private readonly passwordInput: string;
@@ -45,6 +57,12 @@ class LoginPage extends BOBasePage implements LoginPageInterface {
     this.loginErrorText = 'The employee does not exist, or the password provided is incorrect.';
     this.resetPasswordSuccessText = 'Please, check your mailbox.';
 
+    this.loginBackShopLink = '#login-panel span.login-back-shop';
+    this.loginFooter = '#login-footer';
+    this.allRightsReservedLink = `${this.loginFooter} p.text-center.text-muted a`;
+    this.twitterLink = `${this.loginFooter} a.link-social.link-twitter`;
+    this.facebookLink = `${this.loginFooter} a.link-social.link-facebook`;
+    this.githubLink = `${this.loginFooter} a.link-social.link-github`;
     this.shopVersion = '#login-header div.text-center';
     this.emailInput = '#email';
     this.passwordInput = '#passwd';
@@ -61,6 +79,51 @@ class LoginPage extends BOBasePage implements LoginPageInterface {
   /*
   Methods
    */
+
+  /**
+   * Click on Back to shop name link
+   * @param page {Page} Browser tab
+   * @return {Promise<void>}
+   */
+  async clickOnBackToShopNameLink(page: Page): Promise<void> {
+    return this.clickAndWaitForURL(page, this.loginBackShopLink);
+  }
+
+  /**
+   * Click on all rights reserved link
+   * @param page {Page} Browser tab
+   * @return {Promise<Page>}
+   */
+  async clickOnAllRightsReservedLink(page: Page): Promise<Page> {
+    return this.openLinkWithTargetBlank(page, this.allRightsReservedLink, 'body header');
+  }
+
+  /**
+   * Click on twitter link
+   * @param page {Page} Browser tab
+   * @return {Promise<Page>}
+   */
+  async clickOnTwitterLink(page: Page): Promise<Page> {
+    return this.openLinkWithTargetBlank(page, this.twitterLink, 'body');
+  }
+
+  /**
+   * Click on facebook link
+   * @param page {Page} Browser tab
+   * @return {Promise<Page>}
+   */
+  async clickOnFacebookLink(page: Page): Promise<Page> {
+    return this.openLinkWithTargetBlank(page, this.facebookLink, 'body');
+  }
+
+  /**
+   * Click on github link
+   * @param page {Page} Browser tab
+   * @return {Promise<Page>}
+   */
+  async clickOnGithubLink(page: Page): Promise<Page> {
+    return this.openLinkWithTargetBlank(page, this.githubLink, 'body');
+  }
 
   /**
    * Fill email input

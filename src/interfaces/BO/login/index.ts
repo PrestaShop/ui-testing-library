@@ -7,6 +7,11 @@ export interface LoginPageInterface extends BOBasePagePageInterface {
     readonly loginErrorText: string;
     readonly resetPasswordSuccessText: string;
 
+    clickOnAllRightsReservedLink(page:Page): Promise<Page>;
+    clickOnBackToShopNameLink(page:Page): Promise<void>;
+    clickOnFacebookLink(page:Page): Promise<Page>;
+    clickOnGithubLink(page:Page): Promise<Page>;
+    clickOnTwitterLink(page:Page): Promise<Page>;
     failedLogin(page: Page, email: string, password: string): Promise<void>;
     getLoginError(page: Page): Promise<string>;
     getResetPasswordSuccessMessage(page: Page): Promise<string>;
