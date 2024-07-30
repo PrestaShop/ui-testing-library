@@ -6,6 +6,7 @@ export interface ModulePsFacetedsearchFilterTemplatePageInterface extends Module
     readonly title: string;
 
     getPanelTitle(page: Page): Promise<string>;
+    isTemplateFilterEnabled(page: Page, filterName: string): Promise<boolean>;
     saveTemplate(page: Page): Promise<string>;
     setTemplateFilterForm(
         page: Page,

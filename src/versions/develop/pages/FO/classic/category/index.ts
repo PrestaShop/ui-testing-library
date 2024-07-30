@@ -462,6 +462,17 @@ class CategoryPage extends FOBasePage implements FoCategoryPageInterface {
   }
 
   /**
+   * Return if search filters are visible
+   * @param page {Page} Browser tab
+   * @param facetType {string} Facet type
+   * @param facetLabel {string} Facet label
+   * @return {Promise<boolean>}
+   */
+  async hasSearchFilterType(page: Page, facetType: string, facetLabel: string = ''): Promise<boolean> {
+    return (await page.locator(this.searchFilter(facetType, facetLabel)).count()) !== 0;
+  }
+
+  /**
    * Return if search filters use checkbox button
    * @param page {Page} Browser tab
    * @param facetType {string} Facet type
