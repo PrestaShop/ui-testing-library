@@ -88,31 +88,9 @@ class PsFacetedSearchFilterTemplate extends ModuleConfiguration implements Modul
     filterType: string = '',
     filterLimit: string = '',
   ): Promise<void> {
-    let selectorStatus: string;
+    const selectorStatus: string = this.getSelectorStatus(filterName);
     let selectorFilterType: string;
 
-    switch (filterName) {
-      case 'Attribute group: Dimension':
-        selectorStatus = 'layered_selection_ag_3';
-        break;
-      case 'Attribute group: Paper Type':
-        selectorStatus = 'layered_selection_ag_4';
-        break;
-      case 'Product brand filter':
-        selectorStatus = 'layered_selection_manufacturer';
-        break;
-      case 'Product condition filter':
-        selectorStatus = 'layered_selection_condition';
-        break;
-      case 'Product stock filter':
-        selectorStatus = 'layered_selection_stock';
-        break;
-      case 'Sub-categories filter':
-        selectorStatus = 'layered_selection_subcategories';
-        break;
-      default:
-        throw new Error(`The filter "${filterName}" has no defined selector.`);
-    }
     await this.setChecked(page, `#${selectorStatus}`, status);
 
     if (filterType !== '') {
@@ -135,6 +113,53 @@ class PsFacetedSearchFilterTemplate extends ModuleConfiguration implements Modul
     if (filterLimit !== '') {
       await this.selectByValue(page, `select[name="${selectorStatus}_filter_show_limit"]`, filterLimit);
     }
+  }
+
+  /**
+   * Returns if the template filter is enabled
+   * @param page {Page} Browser tab
+   * @param filterName {string} Filter Name
+   * @returns {Promise<boolean>}
+   */
+  async isTemplateFilterEnabled(page: Page, filterName: string): Promise<boolean> {
+    return this.isChecked(page, `#${this.getSelectorStatus(filterName)}`);
+  }
+
+  /**
+   * Returns the selector depending on the filter name
+   * @param filterName {string} Filter Name
+   * @returns {string}
+   */
+  private getSelectorStatus(filterName: string): string {
+    let selectorStatus: string;
+
+    switch (filterName) {
+      case 'Attribute group: Dimension':
+        selectorStatus = 'layered_selection_ag_3';
+        break;
+      case 'Attribute group: Paper Type':
+        selectorStatus = 'layered_selection_ag_4';
+        break;
+      case 'Product brand filter':
+        selectorStatus = 'layered_selection_manufacturer';
+        break;
+      case 'Product condition filter':
+        selectorStatus = 'layered_selection_condition';
+        break;
+      case 'Product price filter':
+        selectorStatus = 'layered_selection_price_slider';
+        break;
+      case 'Product stock filter':
+        selectorStatus = 'layered_selection_stock';
+        break;
+      case 'Sub-categories filter':
+        selectorStatus = 'layered_selection_subcategories';
+        break;
+      default:
+        throw new Error(`The filter "${filterName}" has no defined selector.`);
+    }
+
+    return selectorStatus;
   }
 
   /**
