@@ -236,6 +236,7 @@ export {default as foClassicCartPage} from '@pages/FO/classic/cart';
 export {default as foClassicCategoryPage} from '@pages/FO/classic/category';
 export {default as foClassicCheckoutPage} from '@pages/FO/classic/checkout';
 export {default as foClassicCheckoutOrderConfirmationPage} from '@pages/FO/classic/checkout/orderConfirmation';
+export {default as foClassicEmailSubscriptionPage} from '@pages/FO/classic/emailSubscription';
 export {default as foClassicHomePage} from '@pages/FO/classic/home';
 export {default as foClassicLoginPage} from '@pages/FO/classic/login';
 export {default as foClassicModalBlockCartPage} from '@pages/FO/classic/modal/blockCart';
