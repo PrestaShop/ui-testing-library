@@ -92,6 +92,9 @@ class PsFacetedSearchFilterTemplate extends ModuleConfiguration implements Modul
     let selectorFilterType: string;
 
     switch (filterName) {
+      case 'Attribute group: Dimension':
+        selectorStatus = 'layered_selection_ag_3';
+        break;
       case 'Attribute group: Paper Type':
         selectorStatus = 'layered_selection_ag_4';
         break;
