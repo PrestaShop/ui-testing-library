@@ -19,11 +19,11 @@ class LoginPage extends BOBasePage implements LoginPageInterface {
   private readonly loginBackShopLink: string;
 
   private readonly loginFooter: string;
-  
+
   private readonly allRightsReservedLink: string;
 
   private readonly twitterLink: string;
-  
+
   private readonly facebookLink: string;
 
   private readonly githubLink: string;
@@ -59,10 +59,10 @@ class LoginPage extends BOBasePage implements LoginPageInterface {
 
     this.loginBackShopLink = '#login-panel span.login-back-shop';
     this.loginFooter = '#login-footer';
-    this.allRightsReservedLink= `${this.loginFooter} p.text-center.text-muted a`;
-    this.twitterLink= `${this.loginFooter} a.link-social.link-twitter`;
-    this.facebookLink= `${this.loginFooter} a.link-social.link-facebook`;
-    this.githubLink= `${this.loginFooter} a.link-social.link-github`;
+    this.allRightsReservedLink = `${this.loginFooter} p.text-center.text-muted a`;
+    this.twitterLink = `${this.loginFooter} a.link-social.link-twitter`;
+    this.facebookLink = `${this.loginFooter} a.link-social.link-facebook`;
+    this.githubLink = `${this.loginFooter} a.link-social.link-github`;
     this.shopVersion = '#login-header div.text-center';
     this.emailInput = '#email';
     this.passwordInput = '#passwd';
@@ -85,7 +85,7 @@ class LoginPage extends BOBasePage implements LoginPageInterface {
    * @param page {Page} Browser tab
    * @return {Promise<void>}
    */
-  async clickOnBackToShopNameLink(page:Page):Promise<void>{
+  async clickOnBackToShopNameLink(page: Page): Promise<void> {
     return this.clickAndWaitForURL(page, this.loginBackShopLink);
   }
 
@@ -94,7 +94,7 @@ class LoginPage extends BOBasePage implements LoginPageInterface {
    * @param page {Page} Browser tab
    * @return {Promise<Page>}
    */
-  async clickOnAllRightsReservedLink(page:Page):Promise<Page>{
+  async clickOnAllRightsReservedLink(page: Page): Promise<Page> {
     return this.openLinkWithTargetBlank(page, this.allRightsReservedLink, 'body header');
   }
 
@@ -103,16 +103,16 @@ class LoginPage extends BOBasePage implements LoginPageInterface {
    * @param page {Page} Browser tab
    * @return {Promise<Page>}
    */
-  async clickOnTwitterLink(page:Page):Promise<Page>{
+  async clickOnTwitterLink(page: Page): Promise<Page> {
     return this.openLinkWithTargetBlank(page, this.twitterLink, 'body');
-  } 
-  
+  }
+
   /**
    * Click on facebook link
    * @param page {Page} Browser tab
    * @return {Promise<Page>}
    */
-  async clickOnFacebookLink(page:Page):Promise<Page>{
+  async clickOnFacebookLink(page: Page): Promise<Page> {
     return this.openLinkWithTargetBlank(page, this.facebookLink, 'body');
   }
 
@@ -121,7 +121,7 @@ class LoginPage extends BOBasePage implements LoginPageInterface {
    * @param page {Page} Browser tab
    * @return {Promise<Page>}
    */
-  async clickOnGithubLink(page:Page):Promise<Page>{
+  async clickOnGithubLink(page: Page): Promise<Page> {
     return this.openLinkWithTargetBlank(page, this.githubLink, 'body');
   }
 
