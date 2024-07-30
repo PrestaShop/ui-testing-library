@@ -89,6 +89,7 @@ export interface BOBasePagePageInterface extends CommonPageInterface {
     getAllNotificationsNumber(page: Page): Promise<number>;
     getHelpDocumentURL(page: Page): Promise<string>;
     getNotificationsNumberInTab(page: Page, tabName: string): Promise<number>;
+    getPageSubTitle(page: Page): Promise<string>;
     getShopColor(page: Page): Promise<string>;
     getShopName(page: Page): Promise<string>;
     getShopVersion(page:Page):Promise<string>;
