@@ -256,7 +256,7 @@ export {default as foHummingbirdLoginPage} from '@pages/FO/hummingbird/login';
 export {default as foHummingbirdModalQuickViewPage} from '@pages/FO/hummingbird/modal/quickView';
 export {default as foHummingbirdMyAccountPage} from '@pages/FO/hummingbird/myAccount';
 export {default as foHummingbirdMyWishlistsPage} from '@pages/FO/hummingbird/myAccount/myWishlists';
-export {default as foHummingbirdPasswordReminderPage} from '@pages/FO/classic/passwordReminder';
+export {default as foHummingbirdPasswordReminderPage} from '@pages/FO/hummingbird/passwordReminder';
 export {default as foHummingbirdProductPage} from '@pages/FO/hummingbird/product';
 export {default as foHummingbirdSearchResultsPage} from '@pages/FO/hummingbird/searchResults';
 
