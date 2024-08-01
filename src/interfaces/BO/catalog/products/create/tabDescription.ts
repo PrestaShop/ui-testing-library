@@ -1,9 +1,7 @@
-import {BOBasePagePageInterface} from '@interfaces/BO';
-
-import type {Page} from '@playwright/test';
-
 import type FakerProduct from '@data/faker/product';
 import type {ProductImageInformation} from '@data/types/product';
+import {BOBasePagePageInterface} from '@interfaces/BO';
+import type {Page} from '@playwright/test';
 
 export interface BOProductsCreateTabDescriptionPageInterface extends BOBasePagePageInterface {
     addNewCategory(page: Page, categories: string[]): Promise<void>;

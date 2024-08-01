@@ -1,17 +1,15 @@
-import BOBasePage from '@pages/BO/BOBasePage';
-
-import type {BOProductsPageInterface} from '@interfaces/BO/catalog/products';
-
+import FakerProduct from '@data/faker/product';
 import {ProductFilterMinMax} from '@data/types/product';
+import {BOProductsPageInterface} from '@interfaces/BO/catalog/products';
+import BOBasePage from '@pages/BO/BOBasePage';
 import {
   expect,
   type Frame,
   type Page,
 } from '@playwright/test';
-import FakerProduct from '@data/faker/product';
 
 /**
- * Products page, contains functions that can be used on the page
+ * Products V2 page, contains functions that can be used on the page
  * @class
  * @extends BOBasePage
  */
@@ -166,7 +164,7 @@ class ProductsPage extends BOBasePage implements BOProductsPageInterface {
 
   private readonly productListTablePreviewButton: (row: number) => string;
 
-  public readonly modalCreateProduct: string;
+  readonly modalCreateProduct: string;
 
   private readonly modalCreateProductLoader: string;
 
@@ -204,7 +202,7 @@ class ProductsPage extends BOBasePage implements BOProductsPageInterface {
 
   /**
    * @constructs
-   * Setting up texts and selectors to use on products V2 page
+   * Setting up texts and selectors to use on products page
    */
   constructor() {
     super();

@@ -218,7 +218,7 @@ export {default as boProductsCreateTabDetailsPage} from '@pages/BO/catalog/produ
 export {default as boProductsCreateTabOptionsPage} from '@pages/BO/catalog/products/create/tabOptions';
 export {default as boProductsCreateTabPackPage} from '@pages/BO/catalog/products/create/tabPack';
 export {default as boProductsCreateTabPricingPage} from '@pages/BO/catalog/products/create/tabPricing';
-export {default as boProductsCreateTabSEOPage} from '@pages/BO/catalog/products/create/tabSeo';
+export {default as boProductsCreateTabSeoPage} from '@pages/BO/catalog/products/create/tabSeo';
 export {default as boProductsCreateTabShippingPage} from '@pages/BO/catalog/products/create/tabShipping';
 export {default as boProductsCreateTabStocksPage} from '@pages/BO/catalog/products/create/tabStocks';
 export {default as boProductsCreateTabVirtualProductPage} from '@pages/BO/catalog/products/create/tabVirtualProduct';

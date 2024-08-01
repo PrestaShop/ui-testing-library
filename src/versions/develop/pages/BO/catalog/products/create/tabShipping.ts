@@ -1,10 +1,7 @@
-import BOBasePage from '@pages/BO/BOBasePage';
-
 import type FakerProduct from '@data/faker/product';
-
-import type {BOProductsCreateTabShippingPageInterface} from '@interfaces/BO/catalog/products/create/tabShipping';
-
-import type {Page} from 'playwright';
+import {type BOProductsCreateTabShippingPageInterface} from '@interfaces/BO/catalog/products/create/tabShipping';
+import BOBasePage from '@pages/BO/BOBasePage';
+import {type Page} from '@playwright/test';
 
 /**
  * Shipping tab on product page, contains functions that can be used on the page
@@ -43,9 +40,9 @@ class ShippingTab extends BOBasePage implements BOProductsCreateTabShippingPageI
   private readonly deliveryTimeType: (type: number) => string;
 
   /**
-     * @constructs
-     * Setting up texts and selectors to use on Shipping tab
-     */
+   * @constructs
+   * Setting up texts and selectors to use on Shipping tab
+   */
   constructor() {
     super();
 
@@ -68,18 +65,18 @@ class ShippingTab extends BOBasePage implements BOProductsCreateTabShippingPageI
     this.productDeliveryTimeInput = 'input[name="product[shipping][delivery_time_note_type]"]';
     this.allCarriersSelect = '#carrier-checkboxes-dropdown button';
     this.availableCarrierCheckboxButton = (carrierID: number) => '#carrier-checkboxes-dropdown'
-            + ` div:nth-child(${carrierID}).md-checkbox label div`;
+      + ` div:nth-child(${carrierID}).md-checkbox label div`;
   }
 
   /*
-    Methods
-     */
+  Methods
+   */
   /**
-     * Set package dimension
-     * @param page {Page} Browser tab
-     * @param productData {FakerProduct} Data to set in package dimension form
-     * @returns {Promise<void>}
-     */
+   * Set package dimension
+   * @param page {Page} Browser tab
+   * @param productData {FakerProduct} Data to set in package dimension form
+   * @returns {Promise<void>}
+   */
   async setPackageDimension(page: Page, productData: FakerProduct): Promise<void> {
     await this.waitForSelectorAndClick(page, this.shippingTabLink);
     await this.setValue(page, this.productDimensionsWidthInput, productData.packageDimensionWidth);
@@ -89,11 +86,11 @@ class ShippingTab extends BOBasePage implements BOProductsCreateTabShippingPageI
   }
 
   /**
-     * Set delivery time
-     * @param page {Page} Browser tab
-     * @param deliveryTime {string} Delivery time value to check
-     * @returns {Promise<void>}
-     */
+   * Set delivery time
+   * @param page {Page} Browser tab
+   * @param deliveryTime {string} Delivery time value to check
+   * @returns {Promise<void>}
+   */
   async setDeliveryTime(page: Page, deliveryTime: string): Promise<void> {
     switch (deliveryTime) {
       case 'None':
@@ -111,51 +108,51 @@ class ShippingTab extends BOBasePage implements BOProductsCreateTabShippingPageI
   }
 
   /**
-     * Set delivery time in stock
-     * @param page {Page} Browser tab
-     * @param numberOfDays {string} Number of days of delivery
-     * @returns {Promise<void>}
-     */
+   * Set delivery time in stock
+   * @param page {Page} Browser tab
+   * @param numberOfDays {string} Number of days of delivery
+   * @returns {Promise<void>}
+   */
   async setDeliveryTimeInStockProducts(page: Page, numberOfDays: string): Promise<void> {
     await this.setValue(page, this.deliveryTimeInStockProducts, numberOfDays);
   }
 
   /**
-     * Set delivery time out of stock
-     * @param page {Page} Browser tab
-     * @param numberOfDays {string} Number of days of delivery
-     * @returns {Promise<void>}
-     */
+   * Set delivery time out of stock
+   * @param page {Page} Browser tab
+   * @param numberOfDays {string} Number of days of delivery
+   * @returns {Promise<void>}
+   */
   async setDeliveryTimeOutOfStockProducts(page: Page, numberOfDays: string): Promise<void> {
     await this.setValue(page, this.deliveryTimeOutOfStockProducts, numberOfDays);
   }
 
   /**
-     * Click on edit delivery time link
-     * @param page {Page} Browser tab
-     * @returns {Promise<Page>}
-     */
+   * Click on edit delivery time link
+   * @param page {Page} Browser tab
+   * @returns {Promise<Page>}
+   */
   async clickOnEditDeliveryTimeLink(page: Page): Promise<Page> {
     return this.openLinkWithTargetBlank(page, this.editDeliveryTimeLink);
   }
 
   /**
-     * Set additional shipping costs
-     * @param page {Page} Browser tab
-     * @param shippingCosts {number} Shipping cost
-     * @returns {Promise<void>}
-     */
+   * Set additional shipping costs
+   * @param page {Page} Browser tab
+   * @param shippingCosts {number} Shipping cost
+   * @returns {Promise<void>}
+   */
   async setAdditionalShippingCosts(page: Page, shippingCosts: number): Promise<void> {
     await this.waitForSelectorAndClick(page, this.shippingTabLink);
     await this.setValue(page, this.productAdditionalShippingCostInput, shippingCosts);
   }
 
   /**
-     * Select available carrier
-     * @param page {Page} Browser tab
-     * @param carrier {string} Carrier to choose
-     * @returns {Promise<void>}
-     */
+   * Select available carrier
+   * @param page {Page} Browser tab
+   * @param carrier {string} Carrier to choose
+   * @returns {Promise<void>}
+   */
   async selectAvailableCarrier(page: Page, carrier: string): Promise<void> {
     await this.waitForSelectorAndClick(page, this.allCarriersSelect);
     switch (carrier) {
@@ -177,11 +174,11 @@ class ShippingTab extends BOBasePage implements BOProductsCreateTabShippingPageI
   }
 
   /**
-     * Returns the value of a form element
-     * @param page {Page}
-     * @param inputName {string}
-     * @param languageId {string | undefined}
-     */
+   * Returns the value of a form element
+   * @param page {Page}
+   * @param inputName {string}
+   * @param languageId {string | undefined}
+   */
   async getValue(page: Page, inputName: string, languageId?: string): Promise<string> {
     switch (inputName) {
       case 'additional_delivery_times':
@@ -206,5 +203,4 @@ class ShippingTab extends BOBasePage implements BOProductsCreateTabShippingPageI
   }
 }
 
-const shippingTab = new ShippingTab();
-export {shippingTab, ShippingTab};
+module.exports = new ShippingTab();

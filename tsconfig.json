@@ -26,6 +26,9 @@
       "@interfaces/*": [
         "src/interfaces/*"
       ],
+      "@ops/*": [
+        "src/ops/*"
+      ],
       "@pages/*": [
         "src/pages/*"
       ],

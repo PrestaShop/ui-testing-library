@@ -1,21 +1,18 @@
-import {BOBasePagePageInterface} from '@interfaces/BO';
-
-import type {Page} from '@playwright/test';
-
-import {ProductFilterMinMax} from '@data/types/product';
 import type FakerProduct from '@data/faker/product';
+import {type ProductFilterMinMax} from '@data/types/product';
+import {type BOBasePagePageInterface} from '@interfaces/BO';
+import {type Page} from '@playwright/test';
 
 export interface BOProductsPageInterface extends BOBasePagePageInterface {
-     readonly alertDangerIDFilterValue: string;
-     readonly alertDangerPriceFilterValue: string;
-     readonly alertDangerQuantityFilterValue: string;
-     readonly modalCreateProduct: string;
-     readonly modalDialog: string;
-     readonly packOfProductsDescription: string;
-     readonly pageTitle: string;
-     readonly productWithCombinationsDescription: string;
-     readonly standardProductDescription: string;
-     readonly virtualProductDescription: string;
+    readonly alertDangerIDFilterValue: string;
+    readonly alertDangerPriceFilterValue: string;
+    readonly alertDangerQuantityFilterValue: string;
+    readonly modalCreateProduct: string;
+    readonly packOfProductsDescription: string;
+    readonly pageTitle: string;
+    readonly productWithCombinationsDescription: string;
+    readonly standardProductDescription: string;
+    readonly virtualProductDescription: string;
 
     bulkActionsProduct(page: Page, action: string): Promise<string>;
     bulkSelectProducts(page: Page, products?: FakerProduct[]): Promise<boolean>

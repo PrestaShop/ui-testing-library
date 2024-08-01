@@ -1,15 +1,12 @@
 import BOBasePage from '@pages/BO/BOBasePage';
-
-import type {BOProductsCreateTabSeoPageInterface} from '@interfaces/BO/catalog/products/create/tabSeo';
-
-import type {Page} from 'playwright';
+import type {Page} from '@playwright/test';
 
 /**
  * SEO tab on product page, contains functions that can be used on the page
  * @class
  * @extends BOBasePage
  */
-class SeoTab extends BOBasePage implements BOProductsCreateTabSeoPageInterface {
+class SeoTab extends BOBasePage {
   private readonly productMetaTitleInput: string;
 
   private readonly productMetaDescriptionInput: string;
@@ -31,9 +28,9 @@ class SeoTab extends BOBasePage implements BOProductsCreateTabSeoPageInterface {
   private readonly searchOptionTargetInput: string;
 
   /**
-     * @constructs
-     * Setting up texts and selectors to use on Shipping tab
-     */
+   * @constructs
+   * Setting up texts and selectors to use on Shipping tab
+   */
   constructor() {
     super();
 
@@ -51,72 +48,72 @@ class SeoTab extends BOBasePage implements BOProductsCreateTabSeoPageInterface {
   }
 
   /*
-    Methods
-     */
+  Methods
+   */
   /**
-     * Set meta title
-     * @param page {Page} Browser tab
-     * @param metaTitle {string} Meta title to set in the input
-     * @returns {Promise<void>}
-     */
+   * Set meta title
+   * @param page {Page} Browser tab
+   * @param metaTitle {string} Meta title to set in the input
+   * @returns {Promise<void>}
+   */
   async setMetaTitle(page: Page, metaTitle: string): Promise<void> {
     await this.setValue(page, `${this.productMetaTitleInput}_1`, metaTitle);
   }
 
   /**
-     * Set meta description
-     * @param page {Page} Browser tab
-     * @param metaDescription {string} Meta description to set in the input
-     * @returns {Promise<void>}
-     */
+   * Set meta description
+   * @param page {Page} Browser tab
+   * @param metaDescription {string} Meta description to set in the input
+   * @returns {Promise<void>}
+   */
   async setMetaDescription(page: Page, metaDescription: string): Promise<void> {
     await this.setValue(page, `${this.productMetaDescriptionInput}_1`, metaDescription);
   }
 
   /**
-     * Set friendly URL
-     * @param page {Page} Browser tab
-     * @param friendlyUrl {string} Friendly URL to set in the input
-     * @returns {Promise<void>}
-     */
+   * Set friendly URL
+   * @param page {Page} Browser tab
+   * @param friendlyUrl {string} Friendly URL to set in the input
+   * @returns {Promise<void>}
+   */
   async setFriendlyUrl(page: Page, friendlyUrl: string): Promise<void> {
     await this.setValue(page, this.productLinkRewriteInput(1), friendlyUrl);
   }
 
   /**
-     * Get error message of friendly URL
-     * @param page {Page} Browser tab
-     * @returns {Promise<string>}
-     */
+   * Get error message of friendly URL
+   * @param page {Page} Browser tab
+   * @returns {Promise<string>}
+   */
   async getErrorMessageOfFriendlyUrl(page: Page): Promise<string> {
     return this.getTextContent(page, this.alertText);
   }
 
   /**
-     * Click on generate URL from name button
-     * @param page {Page} Browser tab
-     * @returns {Promise<void>}
-     */
+   * Click on generate URL from name button
+   * @param page {Page} Browser tab
+   * @returns {Promise<void>}
+   */
   async clickOnGenerateUrlFromNameButton(page: Page): Promise<void> {
     await page.locator(this.generateURLFromNameButton).click();
   }
 
   /**
-     * Select redirect page
-     * @param page {Page} Browser tab
-     * @param redirectionPage {string} Redirect page to select
-     * @returns {Promise<void>}
-     */
+   * Select redirect page
+   * @param page {Page} Browser tab
+   * @param redirectionPage {string} Redirect page to select
+   * @returns {Promise<void>}
+   */
   async selectRedirectionPage(page: Page, redirectionPage: string): Promise<void> {
     await this.selectByVisibleText(page, this.redirectionWhenOfflineSelect, redirectionPage);
   }
 
   /**
-     * Search option target
-     * @param page {Page} Browser tab
-     * @param target {string} Target to search
-     * @returns {Promise<void>}
-     */
+   * Search option target
+   * @param page {Page} Browser tab
+   * @param target {string} Target to search
+   * @returns {Promise<void>}
+   */
   async searchOptionTarget(page: Page, target: string): Promise<void> {
     await page.locator(this.searchOptionTargetInput).fill(target);
     await page.waitForTimeout(1000);
@@ -125,22 +122,22 @@ class SeoTab extends BOBasePage implements BOProductsCreateTabSeoPageInterface {
   }
 
   /**
-     * Set tag
-     * @param page {Page} Browser tab
-     * @param tag {string} tag to set in the input
-     * @returns {Promise<void>}
-     */
+   * Set tag
+   * @param page {Page} Browser tab
+   * @param tag {string} tag to set in the input
+   * @returns {Promise<void>}
+   */
   async setTag(page: Page, tag: string): Promise<void> {
     await page.locator(this.tagInput).fill(tag);
     await page.keyboard.press('Enter');
   }
 
   /**
-     * Returns the value of a form element
-     * @param page {Page}
-     * @param inputName {string}
-     * @param languageId {string | undefined}
-     */
+   * Returns the value of a form element
+   * @param page {Page}
+   * @param inputName {string}
+   * @param languageId {string | undefined}
+   */
   async getValue(page: Page, inputName: string, languageId?: string): Promise<string> {
     switch (inputName) {
       case 'id_type_redirected':
@@ -159,5 +156,4 @@ class SeoTab extends BOBasePage implements BOProductsCreateTabSeoPageInterface {
   }
 }
 
-const seoTab = new SeoTab();
-export {seoTab, SeoTab};
+module.exports = new SeoTab();

@@ -37,7 +37,6 @@ export interface FoCategoryPageInterface extends FOBasePagePageInterface {
     hasSearchFilterType(page: Page, facetType: string, facetLabel?: string): Promise<boolean>;
     isActiveFilterNotVisible(page: Page): Promise<boolean>;
     isAddedToWishlist(page: Page, idxProduct: number): Promise<boolean>;
-    isAddedToWishlist(page: Page, idxProduct: number): Promise<boolean>;
     isCategoryPage(page: Page): Promise<boolean>;
     isPagesListVisible(page: Page): Promise<boolean>;
     isSearchFilterDropdown(page: Page, facetType: string, facetLabel?: string): Promise<boolean>;

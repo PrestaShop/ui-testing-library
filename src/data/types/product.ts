@@ -87,6 +87,16 @@ type ProductFiles = {
   file: string,
 }
 
+type ProductImageInformation = {
+  id: number,
+  isCover: boolean,
+  position: number,
+  caption: {
+    en: string,
+    fr: string
+  },
+};
+
 type ProductCombinationOptions = {
   reference: string
   impactOnPriceTExc: number
@@ -198,16 +208,6 @@ type ProductImageUrls = {
   thumbImage: string
 };
 
-type ProductImageInformation = {
-  id: number,
-  isCover: boolean,
-  position: number,
-  caption: {
-    en: string,
-    fr: string
-  },
-};
-
 type ProductPackItem = {
   reference: string
   quantity: number
@@ -266,8 +266,8 @@ export type {
   ProductDiscount,
   ProductFilterMinMax,
   ProductHeaderSummary,
-  ProductImageUrls,
   ProductImageInformation,
+  ProductImageUrls,
   ProductInformations,
   ProductOrderConfirmation,
   ProductPackItem,
