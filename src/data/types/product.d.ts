@@ -279,4 +279,5 @@ export type {
   ProductFeatures,
   ProductFiles,
   ProductCustomizations,
+  ProductOrderConfirmation,
 };

@@ -203,6 +203,7 @@ export {default as boLocalizationPage} from '@pages/BO/international/localizatio
 export {default as boLoginPage} from '@pages/BO/login';
 export {default as boModuleManagerPage} from '@pages/BO/modules/moduleManager';
 export {default as boModuleManagerAlertsPage} from '@pages/BO/modules/moduleManager/alerts';
+export {default as boModuleManagerSelectionPage} from '@pages/BO/modules/moduleManager/selection';
 export {default as boModuleManagerUninstalledModulesPage} from '@pages/BO/modules/moduleManager/uninstalledModules';
 export {default as boNewExperimentalFeaturesPage} from '@pages/BO/advancedParameters/newExperimentalFeatures';
 export {default as boOrdersPage} from '@pages/BO/orders';
@@ -222,6 +223,7 @@ export {default as boProductsCreateTabSEOPage} from '@pages/BO/catalog/products/
 export {default as boProductsCreateTabShippingPage} from '@pages/BO/catalog/products/create/tabShipping';
 export {default as boProductsCreateTabStocksPage} from '@pages/BO/catalog/products/create/tabStocks';
 export {default as boProductsCreateTabVirtualProductPage} from '@pages/BO/catalog/products/create/tabVirtualProduct';
+export {default as boRouterPage} from '@pages/BO/BORouterPage';
 export {default as boSearchPage} from '@pages/BO/shopParameters/search';
 export {default as boSearchAliasCreatePage} from '@pages/BO/shopParameters/search/alias/create';
 export {default as boThemeAdvancedConfigurationPage} from '@pages/BO/design/themeAndLogo/advancedConfiguration';

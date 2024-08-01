@@ -170,13 +170,17 @@ export default class CommonPage implements CommonPageInterface {
   /**
    * Is element visible
    * @param page {Frame|Page} Browser tab
-   * @param selector {string} String to locate the element
+   * @param selector {string|Locator} String to locate the element
    * @param timeout {number} Time to wait on milliseconds before throwing an error
    * @returns {Promise<boolean>} True if visible, false if not
    */
-  async elementVisible(page: Frame | Page, selector: string, timeout: number = 10): Promise<boolean> {
+  async elementVisible(page: Frame | Page, selector: string|Locator, timeout: number = 10): Promise<boolean> {
     try {
-      await this.waitForVisibleSelector(page, selector, timeout);
+      if (typeof selector === 'string') {
+        await this.waitForVisibleSelector(page, selector, timeout);
+      } else {
+        await this.waitForVisibleLocator(selector, timeout);
+      }
       return true;
     } catch (error) {
       return false;
@@ -416,42 +420,58 @@ export default class CommonPage implements CommonPageInterface {
   /**
    * Go to Page and wait for load State
    * @param page {Frame|Page} Browser tab
-   * @param selector {string} String to locate the element
+   * @param selector {string|Locator} String to locate the element
    * @param state {'load'|'domcontentloaded'|'networkidle'} The event to wait after click
    * @param timeout {number} Time to wait for navigation
    * @return {Promise<void>}
    */
   async clickAndWaitForLoadState(
     page: Frame | Page,
-    selector: string,
+    selector: string|Locator,
     state: 'load' | 'domcontentloaded' | 'networkidle' = 'networkidle',
     timeout: number = 30000,
   ): Promise<void> {
+    let locator: Locator;
+
+    if (typeof selector === 'string') {
+      locator = page.locator(selector);
+    } else {
+      locator = selector;
+    }
+
     await Promise.all([
       page.waitForLoadState(state, {timeout}),
-      page.locator(selector).click(),
+      locator.click(),
     ]);
   }
 
   /**
    * Go to Page and wait for change URL
    * @param page {Frame|Page} Browser tab
-   * @param selector {string} String to locate the element
+   * @param selector {string|Locator} String to locate the element
    * @param waitUntil {WaitForNavigationWaitUntil} The event to wait after click
    * @param timeout {number} Time to wait for navigation
    * @return {Promise<void>}
    */
   async clickAndWaitForURL(
     page: Frame | Page,
-    selector: string,
+    selector: string|Locator,
     waitUntil: WaitForNavigationWaitUntil = 'networkidle',
     timeout: number = 30000,
   ): Promise<void> {
+    let locator: Locator;
+
+    if (typeof selector === 'string') {
+      locator = page.locator(selector);
+    } else {
+      locator = selector;
+    }
+
     const currentUrl: string = page.url();
 
     await Promise.all([
       page.waitForURL((url: URL): boolean => url.toString() !== currentUrl, {waitUntil, timeout}),
-      page.locator(selector).first().click(),
+      locator.click(),
     ]);
   }
 

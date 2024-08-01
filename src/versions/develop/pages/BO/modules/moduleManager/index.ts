@@ -55,7 +55,7 @@ class ModuleManagerPage extends BOBasePage implements ModuleManagerPageInterface
 
   private readonly bulkActionsModalConfirmButton: string;
 
-  private readonly modulesListBlock: string;
+  protected modulesListBlock: string;
 
   private readonly modulesListBlockTitle: string;
 
@@ -81,7 +81,7 @@ class ModuleManagerPage extends BOBasePage implements ModuleManagerPageInterface
 
   private readonly actionsDropdownButton: (moduleTag: string) => string;
 
-  private readonly actionModuleButtonInDropdownList: (action: string) => string;
+  protected actionModuleButtonInDropdownList: (action: string) => string;
 
   private readonly modalConfirmAction: (moduleTag: string, action: string) => string;
 
@@ -446,7 +446,7 @@ class ModuleManagerPage extends BOBasePage implements ModuleManagerPageInterface
 
       if (cancel) {
         await this.waitForSelectorAndClick(page, this.modalConfirmCancel(module.tag, action));
-        await this.elementNotVisible(page, this.modalConfirmAction(module.tag, action), 10000);
+        await this.waitForHiddenSelector(page, this.modalConfirmAction(module.tag, action), 10000);
         return '';
       }
       if (action === 'uninstall' && forceDeletion) {

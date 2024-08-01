@@ -9,9 +9,9 @@ export default {
     category: 'Men',
     summary: 'Regular fit, round neckline, short sleeves. Made of extra long staple pima cotton.',
     description: 'Symbol of lightness and delicacy, the hummingbird evokes curiosity and joy. Studio Design\' '
-            + 'PolyFaune collection features classic products with colorful patterns, inspired by the traditional japanese '
-            + 'origamis. To wear with a chino or jeans. The sublimation textile printing process provides an exceptional '
-            + 'color rendering and a color, guaranteed overtime.',
+      + 'PolyFaune collection features classic products with colorful patterns, inspired by the traditional japanese '
+      + 'origamis. To wear with a chino or jeans. The sublimation textile printing process provides an exceptional '
+      + 'color rendering and a color, guaranteed overtime.',
     retailPrice: 28.68,
     tax: 20,
     price: 23.90,
