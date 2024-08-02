@@ -8,13 +8,14 @@ export interface FoHomePageInterface extends FOBasePagePageInterface {
   readonly successSendVerificationEmailMessage: string;
   readonly successSubscriptionMessage: string;
 
-  clickAddWishListProduct(page: Page, idxProduct: number): Promise<void>
+  clickAddWishListProduct(page: Page, idxProduct: number): Promise<void>;
   clickOnLeftOrRightArrow(page: Page, direction: string): Promise<void>;
   getBlockTitle(page: Page, blockName: 'bestsellers' | 'newproducts' | 'onsale' | 'popularproducts' | string): Promise<string>;
   getProductsBlockNumber(
     page: Page,
     blockName: 'bestsellers' | 'newproducts' | 'onsale' | 'popularproducts' | string,
   ): Promise<number>;
+  getProductPrice(page: Page, id: number): Promise<string>;
   getSliderURL(page: Page): Promise<string>;
   getSubscribeNewsletterRGPDLabel(page: Page): Promise<string>;
   goToAllProductsBlockPage(page: Page, blockID?: number): Promise<void>;
