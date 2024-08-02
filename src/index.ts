@@ -195,6 +195,8 @@ export {default as boCountriesPage} from '@pages/BO/international/locations/coun
 export {default as boCountriesCreatePage} from '@pages/BO/international/locations/countries/create';
 export {default as boCustomerGroupsPage} from '@pages/BO/shopParameters/customerSettings/groups';
 export {default as boCustomerGroupsCreatePage} from '@pages/BO/shopParameters/customerSettings/groups/create';
+export {default as boCurrenciesCreatePage} from '@pages/BO/international/localization/currencies/create';
+export {default as boCurrenciesPage} from '@pages/BO/international/localization/currencies';
 export {default as boDashboardPage} from '@pages/BO/dashboard';
 export {default as boDesignPositionsPage} from '@pages/BO/design/positions/index';
 export {default as boDesignPositionsHookModulePage} from '@pages/BO/design/positions/hookModule';

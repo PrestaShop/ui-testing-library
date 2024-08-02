@@ -214,6 +214,16 @@ class HomePage extends FOBasePage implements FoHomePageInterface {
   }
 
   /**
+   * Get product price
+   * @param page {Page} Browser tab
+   * @param id {number} index of product in list of products
+   * @return {Promise<string>}
+   */
+  async getProductPrice(page:Page, id: number = 1): Promise<string> {
+    return this.getTextContent(page, this.productPrice(id));
+  }
+
+  /**
    * Check new flag
    * @param page {Page} Browser tab
    * @param id {number} Index of product in list of products
