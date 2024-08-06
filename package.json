@@ -12,7 +12,7 @@
     "lint": "eslint --ignore-path .gitignore .",
     "build": "tsc && tsc-alias && npm run copy:assets",
     "prepare": "npm run build",
-    "copy:assets": "cp assets dist/ -R",
+    "copy:assets": "cp -R assets dist/",
     "// Scripts": "",
     "// - Check data modules": "Script to check if data modules are updated",
     "check:data:modules": "ts-node -r tsconfig-paths/register src/scripts/updateModules.ts"
