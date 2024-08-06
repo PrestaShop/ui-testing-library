@@ -4,11 +4,11 @@ help: ## Display this help menu
 check:
 	npm run build
 
-test: ## Build and copy to the dependencies directory for the project 
-	rm dist -rf
+test: ## Build and copy to the dependencies directory for the project
+	rm -rf dist
 	npm run build
-	rm $(filter-out $@,$(MAKECMDGOALS))/tests/UI/node_modules/@prestashop-core/ui-testing/dist/ -r
-	cp dist $(filter-out $@,$(MAKECMDGOALS))/tests/UI/node_modules/@prestashop-core/ui-testing/ -r
+	rm -r $(filter-out $@,$(MAKECMDGOALS))/tests/UI/node_modules/@prestashop-core/ui-testing/dist/
+	cp -r dist $(filter-out $@,$(MAKECMDGOALS))/tests/UI/node_modules/@prestashop-core/ui-testing/
 	cp package.json $(filter-out $@,$(MAKECMDGOALS))/tests/UI/node_modules/@prestashop-core/ui-testing/
 
 .DEFAULT_GOAL := help

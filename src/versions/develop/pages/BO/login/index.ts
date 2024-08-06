@@ -59,7 +59,7 @@ class LoginPage extends BOBasePage implements LoginPageInterface {
 
     this.loginBackShopLink = '#login-panel span.login-back-shop';
     this.loginFooter = '#login-footer';
-    this.allRightsReservedLink = `${this.loginFooter} p.text-center.text-muted a`;
+    this.allRightsReservedLink = `${this.loginFooter} .text-muted a`;
     this.twitterLink = `${this.loginFooter} a.link-social.link-twitter`;
     this.facebookLink = `${this.loginFooter} a.link-social.link-facebook`;
     this.githubLink = `${this.loginFooter} a.link-social.link-github`;

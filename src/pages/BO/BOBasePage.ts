@@ -61,6 +61,8 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
 
   protected readonly helpButton: string;
 
+  protected readonly closeHelpButton: string;
+
   private readonly menuMobileButton: string;
 
   private readonly notificationsLink: string;
@@ -323,6 +325,7 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
 
     // Header links
     this.helpButton = '#product_form_open_help';
+    this.closeHelpButton = '#right-sidebar #ps-quicknav-sidebar .quicknav-header [data-target=".sidebar"]';
     this.menuMobileButton = '.js-mobile-menu';
     this.notificationsLink = '#notification,#notif';
     this.notificationsDropDownMenu = '#notification div.dropdown-menu-right.notifs_dropdown,#notif div.dropdown-menu';
@@ -1052,7 +1055,7 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
    * @returns {Promise<boolean>}
    */
   async closeHelpSideBar(page: Page): Promise<boolean> {
-    await this.waitForSelectorAndClick(page, this.helpButton);
+    await this.waitForSelectorAndClick(page, this.closeHelpButton);
     return this.elementVisible(page, `${this.rightSidebar}:not(.sidebar-open)`, 2000);
   }
 
