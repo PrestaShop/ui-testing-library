@@ -2,7 +2,7 @@ import dataCarriers from '@data/demo/carriers';
 import dataCustomers from '@data/demo/customers';
 import type FakerCarrier from '@data/faker/carrier';
 import type FakerCustomer from '@data/faker/customer';
-import type {ShoppingCartCreator} from '@data/types/shoppingCart';
+import type {ShoppingCartCreator, ShoppingCartStatus} from '@data/types/shoppingCart';
 
 /**
  * Create new tax rule to use on tax rule form on BO
@@ -18,6 +18,8 @@ export default class FakerShoppingCart {
   public readonly carrier: FakerCarrier;
 
   public readonly online: boolean;
+
+  public readonly status: ShoppingCartStatus;
 
   /**
    * Constructor for class FakerShoppingCart
@@ -38,5 +40,8 @@ export default class FakerShoppingCart {
 
     /** @type {boolean} */
     this.online = valueToCreate.online || true;
+
+    /** @type {ShoppingCartStatus} */
+    this.status = valueToCreate.status || 'Non ordered';
   }
 }

@@ -9,6 +9,7 @@ export default [
     customer: dataCustomers.johnDoe,
     carrier: dataCarriers.myCarrier,
     online: false,
+    status: 'Ordered',
   }),
   new FakerShoppingCart({
     id: 2,
@@ -16,6 +17,7 @@ export default [
     customer: dataCustomers.johnDoe,
     carrier: dataCarriers.myCarrier,
     online: false,
+    status: 'Ordered',
   }),
   new FakerShoppingCart({
     id: 3,
@@ -23,6 +25,7 @@ export default [
     customer: dataCustomers.johnDoe,
     carrier: dataCarriers.myCarrier,
     online: false,
+    status: 'Ordered',
   }),
   new FakerShoppingCart({
     id: 4,
@@ -30,6 +33,7 @@ export default [
     customer: dataCustomers.johnDoe,
     carrier: dataCarriers.myCarrier,
     online: false,
+    status: 'Ordered',
   }),
   new FakerShoppingCart({
     id: 5,
@@ -37,5 +41,6 @@ export default [
     customer: dataCustomers.johnDoe,
     carrier: dataCarriers.myCarrier,
     online: false,
+    status: 'Ordered',
   }),
 ];
