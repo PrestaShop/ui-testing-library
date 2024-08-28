@@ -7,6 +7,7 @@ type ShoppingCartCreator = {
   customer?: FakerCustomer
   carrier?: FakerCarrier
   online?: boolean
+  status?: ShoppingCartStatus
 }
 
 type ShoppingCartDetails = {
@@ -20,7 +21,10 @@ type ShoppingCartDetails = {
   online?: string
 }
 
+type ShoppingCartStatus = 'Ordered' | 'Non ordered' | 'Abandoned cart';
+
 export type {
   ShoppingCartCreator,
   ShoppingCartDetails,
+  ShoppingCartStatus,
 };
