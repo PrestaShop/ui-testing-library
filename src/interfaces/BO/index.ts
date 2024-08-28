@@ -94,6 +94,7 @@ export interface BOBasePagePageInterface extends CommonPageInterface {
     getShopColor(page: Page): Promise<string>;
     getShopName(page: Page): Promise<string>;
     getShopVersion(page:Page):Promise<string>;
+    goToDashboardPage(page: Page): Promise<void>;
     goToMyProfile(page: Page): Promise<void>;
     goToSubMenu(page: Page, parentSelector: string, linkSelector: string): Promise<void>;
     hasAlertBlock(page: Page): Promise<boolean>;
