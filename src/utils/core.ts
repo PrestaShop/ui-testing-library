@@ -68,6 +68,30 @@ export default {
   },
 
   /**
+   * Make a string into a slug (all lower case, remove accent, replace space and the rest by -)
+   * Ex: Hello it's beautiful here => hello-it-s-beautiful-here
+   *
+   * @param value {string}
+   * @returns {string}
+   */
+  slugify(value: string): string {
+    if (!value) {
+      return '';
+    }
+
+    return value
+      // make lower case and trim
+      .toLowerCase().trim()
+      // remove accents from characters
+      .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+      // replace invalid chars with spaces
+      .replace(/[^a-z0-9\s-]/g, ' ')
+      .trim()
+      // replace multiple spaces or hyphens with a single hyphen
+      .replace(/[\s-]+/g, '-');
+  },
+
+  /**
      * Search occurrence of a value in text
      * @param text {string}
      * @param searchedValue {string}
