@@ -191,6 +191,8 @@ export * as BOBasePage from '@pages/BO/BOBasePage';
 export {default as boAdministrationPage} from '@pages/BO/advancedParameters/administration';
 export {default as boApiClientsPage} from '@pages/BO/advancedParameters/apiclients';
 export {default as boApiClientsCreatePage} from '@pages/BO/advancedParameters/apiclients/create';
+export {default as boCarriersPage} from '@pages/BO/shipping/carriers';
+export {default as boCarriersCreatePage} from '@pages/BO/shipping/carriers/create';
 export {default as boCountriesPage} from '@pages/BO/international/locations/countries';
 export {default as boCountriesCreatePage} from '@pages/BO/international/locations/countries/create';
 export {default as boCustomerGroupsPage} from '@pages/BO/shopParameters/customerSettings/groups';
