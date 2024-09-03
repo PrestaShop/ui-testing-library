@@ -1008,7 +1008,7 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
 
     return new FakerCarrier({
       name: await this.getTextContent(page, this.deliveryStepCarrierName(carrierID)),
-      delay: await this.getTextContent(page, this.deliveryStepCarrierDelay(carrierID)),
+      transitName: await this.getTextContent(page, this.deliveryStepCarrierDelay(carrierID)),
       price: parseFloat(priceText),
       priceText,
     });

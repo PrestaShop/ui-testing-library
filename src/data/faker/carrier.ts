@@ -1,3 +1,4 @@
+import type FakerGroup from '@data/faker/group';
 import TaxRules from '@data/demo/taxRule';
 import FakerTaxRule from '@data/faker/taxRule';
 import {CarrierCreator, CarrierRange} from '@data/types/carrier';
@@ -20,8 +21,6 @@ export default class FakerCarrier {
   public readonly name: string;
 
   public readonly transitName: string;
-
-  public readonly delay: string;
 
   public readonly speedGrade: number;
 
@@ -55,6 +54,8 @@ export default class FakerCarrier {
 
   public readonly ranges: CarrierRange[];
 
+  public readonly groupAccesses: FakerGroup[];
+
   /**
    * Constructor for class FakerCarrier
    * @param carrierToCreate {CarrierCreator} Could be used to force the value of some members
@@ -71,9 +72,6 @@ export default class FakerCarrier {
 
     /** @type {string} Transit name of the carrier */
     this.transitName = carrierToCreate.transitName || faker.company.name();
-
-    /** @type {string} Delay of the carrier */
-    this.delay = carrierToCreate.delay || '';
 
     /** @type {number} Shipping delay, 0 for longest and 9 for shortest */
     this.speedGrade = carrierToCreate.speedGrade || faker.number.int({min: 1, max: 9});
@@ -122,5 +120,8 @@ export default class FakerCarrier {
 
     /** @type {CarrierRange[]} Ranges */
     this.ranges = carrierToCreate.ranges || [];
+
+    /** @type {FakerGroup[]} Group Accesses */
+    this.groupAccesses = carrierToCreate.groupAccesses || [];
   }
 }

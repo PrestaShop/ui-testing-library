@@ -1,4 +1,5 @@
 import FakerCarrier from '@data/faker/carrier';
+import FakerGroup from '@data/faker/group';
 import {CarrierRange} from '@data/types/carrier';
 import {type BOCarriersCreatePageInterface} from '@interfaces/BO/shipping/carriers/create';
 import BOBasePage from '@pages/BO/BOBasePage';
@@ -62,6 +63,10 @@ class BOCarriersCreatePage extends BOBasePage implements BOCarriersCreatePageInt
 
   private readonly maxWeightInput: string;
 
+  private readonly groupAccessInput: string;
+
+  private readonly groupAccessIdInput: (groupAccessId: number) => string;
+
   private readonly enableToggle: (toggle: string) => string;
 
   private readonly nextButton: string;
@@ -113,6 +118,8 @@ class BOCarriersCreatePage extends BOBasePage implements BOCarriersCreatePageInt
     this.maxHeightInput = '#max_height';
     this.maxDepthInput = '#max_depth';
     this.maxWeightInput = '#max_weight';
+    this.groupAccessInput = 'input[name="groupBox[]"]';
+    this.groupAccessIdInput = (groupAccessId: number) => `${this.groupAccessInput}#groupBox_${groupAccessId}`;
 
     // Summary
     this.enableToggle = (toggle: string) => `${this.carrierForm} #active_${toggle}`;
@@ -139,7 +146,9 @@ class BOCarriersCreatePage extends BOBasePage implements BOCarriersCreatePageInt
     await page.locator(this.nextButton).click();
 
     // Set shipping locations and costs
-    await this.setChecked(page, this.addHandlingCostsToggle(carrierData.handlingCosts ? 'on' : 'off'));
+    if (!carrierData.freeShipping) {
+      await this.setChecked(page, this.addHandlingCostsToggle(carrierData.handlingCosts ? 'on' : 'off'));
+    }
     await this.setChecked(page, this.freeShippingToggle(carrierData.freeShipping ? 'on' : 'off'));
 
     if (carrierData.billing === 'According to total price') {
@@ -151,37 +160,45 @@ class BOCarriersCreatePage extends BOBasePage implements BOCarriersCreatePageInt
     await this.selectByVisibleText(page, this.rangeBehaviorSelect, carrierData.outOfRangeBehavior);
 
     // Set range sup only if free shipping is disabled
-    if (!carrierData.freeShipping) {
-      for (let idxRange: number = 0; idxRange < carrierData.ranges.length; idxRange++) {
-        const carrierRange: CarrierRange = carrierData.ranges[idxRange];
+    for (let idxRange: number = 0; idxRange < carrierData.ranges.length; idxRange++) {
+      const carrierRange: CarrierRange = carrierData.ranges[idxRange];
 
-        await this.setValue(page, this.rangeInfInput(idxRange), carrierRange.weightMin);
-        await this.setValue(page, this.rangeSupInput(idxRange), carrierRange.weightMax);
+      if (!carrierData.freeShipping) {
+        if (carrierRange.weightMin) {
+          await this.setValue(page, this.rangeInfInput(idxRange), carrierRange.weightMin);
+        }
+        if (carrierRange.weightMax) {
+          await this.setValue(page, this.rangeSupInput(idxRange), carrierRange.weightMax);
+        }
+      }
 
-        for (let idxZone: number = 0; idxZone < carrierRange.zones.length; idxZone++) {
-          const carrierRangeZone = carrierRange.zones[idxZone].zone;
-          const carrierRangePrice = carrierRange.zones[idxZone].price;
+      for (let idxZone: number = 0; idxZone < carrierRange.zones.length; idxZone++) {
+        const carrierRangeZone = carrierRange.zones[idxZone].zone;
+        const carrierRangePrice = carrierRange.zones[idxZone].price;
 
-          if (typeof carrierRangeZone === 'string') {
-            await page.locator(this.allZonesRadioButton).setChecked(true);
+        if (typeof carrierRangeZone === 'string') {
+          await page.locator(this.allZonesRadioButton).setChecked(true);
+          if (typeof carrierRangePrice !== 'undefined' && !carrierData.freeShipping) {
             await page.locator(this.allZonesValueInput(idxRange)).fill(carrierRangePrice.toString());
             await page.waitForTimeout(1000);
             await page.locator(this.allZonesValueInput(idxRange)).dispatchEvent('change');
             await page.waitForTimeout(2000);
-          } else {
-            await page.locator(
-              this.rangeZoneCheckbox(carrierRangeZone.id!.toString()),
-            ).setChecked(true);
+          }
+        } else {
+          await page.locator(
+            this.rangeZoneCheckbox(carrierRangeZone.id!.toString()),
+          ).setChecked(true);
+          if (typeof carrierRangePrice !== 'undefined' && !carrierData.freeShipping) {
             await page.locator(
               this.rangePriceInput(idxRange, carrierRangeZone.id!.toString()),
             ).fill(carrierRangePrice.toString());
           }
         }
+      }
 
-        // Click on the "Add new range" button
-        if (idxRange < (carrierData.ranges.length - 1)) {
-          await page.locator(this.addNewRangeButton).click();
-        }
+      // Click on the "Add new range" button
+      if (idxRange < (carrierData.ranges.length - 1)) {
+        await page.locator(this.addNewRangeButton).click();
       }
     }
     await page.locator(this.nextButton).click();
@@ -191,6 +208,18 @@ class BOCarriersCreatePage extends BOBasePage implements BOCarriersCreatePageInt
     await this.setValue(page, this.maxHeightInput, carrierData.maxHeight);
     await this.setValue(page, this.maxDepthInput, carrierData.maxDepth);
     await this.setValue(page, this.maxWeightInput, carrierData.maxWeight);
+
+    const locatorGroupAccessInputs = await page.locator(this.groupAccessInput).all();
+
+    // eslint-disable-next-line no-restricted-syntax
+    for (const locatorGroupAccessInput of locatorGroupAccessInputs) {
+      await locatorGroupAccessInput.setChecked(false);
+    }
+    for (let idxGroupAccess: number = 0; idxGroupAccess < carrierData.groupAccesses.length; idxGroupAccess++) {
+      const groupAccess: FakerGroup = carrierData.groupAccesses[idxGroupAccess];
+      await page.locator(this.groupAccessIdInput(groupAccess.id)).setChecked(true);
+    }
+
     await page.locator(this.nextButton).click();
 
     // Summary
