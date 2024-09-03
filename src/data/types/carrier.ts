@@ -1,13 +1,14 @@
+import type FakerGroup from '@data/faker/group';
 import ZoneCreator from '@data/types/zone';
 
 type CarrierRangeZone = {
   zone: ZoneCreator | string
-  price: number
+  price?: number
 }
 
 type CarrierRange = {
-  weightMin: number
-  weightMax: number
+  weightMin?: number
+  weightMax?: number
   zones: CarrierRangeZone[]
 }
 
@@ -16,7 +17,6 @@ type CarrierCreator = {
   position?: number
   name?: string
   transitName?: string
-  delay?: string
   speedGrade?: number
   trackingURL?: string
   handlingCosts?: boolean
@@ -33,6 +33,7 @@ type CarrierCreator = {
   priceText?: string
   priceTTC?: number
   ranges?: CarrierRange[]
+  groupAccesses?: FakerGroup[]
 };
 
 export type {

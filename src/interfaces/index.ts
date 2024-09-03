@@ -39,7 +39,6 @@ export interface CommonPageInterface {
     waitForVisible?: boolean,
   ): Promise<Page>;
   reloadPage(page: Page): Promise<void>;
-  reloadPage(page: Page): Promise<void>;
   resize(page: Page, mobileSize: boolean): Promise<void>;
   scrollTo(page: Page, selector: string): Promise<void>;
   selectByValue(page: Frame | Page, selector: string, valueToSelect: number|string, force?: boolean): Promise<void>;
