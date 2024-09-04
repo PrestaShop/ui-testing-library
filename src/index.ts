@@ -255,6 +255,7 @@ export {default as foClassicProductPage} from '@pages/FO/classic/product';
 export {default as foClassicSearchResultsPage} from '@pages/FO/classic/searchResults';
 // Export Pages FO/Hummingbird
 export {default as foHummingbirdAboutUsPage} from '@pages/FO/hummingbird/aboutUs';
+export {default as foHummingbirdCartPage} from '@pages/FO/hummingbird/cart';
 export {default as foHummingbirdCategoryPage} from '@pages/FO/hummingbird/category';
 export {default as foHummingbirdHomePage} from '@pages/FO/hummingbird/home';
 export {default as foHummingbirdLoginPage} from '@pages/FO/hummingbird/login';

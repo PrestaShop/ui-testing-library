@@ -7,15 +7,21 @@ export interface FoCartPageInterface extends FOBasePagePageInterface {
     readonly cartRuleAlertMessageText: string;
     readonly cartRuleAlreadyInYourCartErrorText: string;
     readonly cartRuleAlreadyUsedErrorText: string;
+    readonly cartRuleCannotUseVoucherAlertMessageText: string;
+    readonly cartRuleChooseCarrierAlertMessageText: string;
     readonly cartRuleLimitUsageErrorText: string;
     readonly cartRuleMustEnterVoucherErrorText: string;
     readonly cartRuleNotExistingErrorText: string;
+    readonly errorNotificationForProductQuantity: string;
+    readonly minimumAmountErrorMessage: string;
     readonly noItemsInYourCartMessage: string;
     readonly pageTitle: string;
 
     addPromoCode(page: Page, code: string, clickOnPromoCodeLink?: boolean): Promise<void>;
     clickOnProceedToCheckout(page: Page): Promise<void>;
+    clickOnProductCustomization(page: Page, row?: number): Promise<boolean>;
     clickOnPromoCode(page: Page): Promise<void>;
+    closeProductCustomizationModal(page: Page, row?: number): Promise<boolean>
     deleteProduct(page: Page, productID: number): Promise<void>;
     editProductQuantity(page: Page, productID: number, quantity: number | string): Promise<void>;
     getATIPrice(page: Page): Promise<number>;
@@ -28,12 +34,18 @@ export interface FoCartPageInterface extends FOBasePagePageInterface {
     getNoItemsInYourCartMessage(page: Page): Promise<string>;
     getNotificationMessage(page: Page): Promise<string>;
     getProductAttributes(page: Page, row: number): Promise<ProductAttribute[]>;
+    getProductCustomizationModal(page: Page, row?: number): Promise<string>;
     getProductDetail(page: Page, row: number): Promise<ProductDetailsWithDiscount>;
     getProductsNumber(page: Page): Promise<number>;
     getSubtotalDiscountValue(page: Page): Promise<number>;
     isAlertWarningForMinimumPurchaseVisible(page: Page): Promise<boolean>;
     isCartRuleNameVisible(page: Page, line?: number): Promise<boolean>;
     isProceedToCheckoutButtonDisabled(page: Page): Promise<boolean>;
-    removeVoucher(page: Page, line?: number): Promise<void>;
+    removeVoucher(page: Page, line?: number): Promise<boolean>;
     setProductQuantity(page: Page, productRow?: number, quantity?: number): Promise<number>;
+}
+
+//@todo : Move methods in FoCartPageInterface
+export interface FoCartHummingbirdPageInterface extends FoCartPageInterface {
+    setQuantity(page: Page, productID: number, quantity: number | string): Promise<void>
 }
