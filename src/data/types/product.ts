@@ -160,7 +160,8 @@ type ProductDetailsWithDiscount = ProductDetailsBasic & {
   taxShippingDeliveryLabel?: string,
   coverImage?:string,
   thumbImage?:string,
-  shortDescription?: string,
+  shortDescription?: string
+  totalPrice?: number
 };
 
 type ProductDiscount = {

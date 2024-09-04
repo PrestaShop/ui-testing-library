@@ -1,11 +1,7 @@
-// Import pages
-import type {FoCartPageInterface} from '@interfaces/FO/cart';
-import FOBasePage from '@pages/FO/FOBasePage';
-
-// Import data
 import type {ProductAttribute, ProductDetailsWithDiscount} from '@data/types/product';
-
-import type {Page} from 'playwright';
+import {type FoCartPageInterface} from '@interfaces/FO/cart';
+import FOBasePage from '@pages/FO/FOBasePage';
+import {type Page} from '@playwright/test';
 
 /**
  * Cart page, contains functions that can be used on the page
@@ -61,13 +57,21 @@ class CartPage extends FOBasePage implements FoCartPageInterface {
 
   protected noItemsInYourCartSpan: string;
 
+  protected customizationLink: (row: number) => string;
+
+  protected customizationModal: (row: number) => string;
+
+  protected readonly customizationModalBody: (row: number) => string;
+
+  protected customizationModalCloseButton: (row: number) => string;
+
   protected alertMessage: string;
 
   private readonly subtotalDiscountValueSpan: string;
 
-  private readonly cartTotalATI: string;
+  protected cartTotalATI: string;
 
-  private readonly blockPromoDiv: string;
+  protected blockPromoDiv: string;
 
   protected cartSummaryLine: (line: number) => string;
 
@@ -87,9 +91,9 @@ class CartPage extends FOBasePage implements FoCartPageInterface {
 
   private readonly cartRuleAlertMessage: string;
 
-  private readonly highlightPromoCodeBlock: string;
+  protected highlightPromoCodeBlock: string;
 
-  private readonly highlightPromoCode: string;
+  protected highlightPromoCode: string;
 
   public readonly cartRuleChooseCarrierAlertMessageText: string;
 
@@ -149,6 +153,11 @@ class CartPage extends FOBasePage implements FoCartPageInterface {
     this.productImage = (number: number) => `${this.productItem(number)} span.product-image img`;
     this.deleteIcon = (number: number) => `${this.productItem(number)} .remove-from-cart`;
     this.noItemsInYourCartSpan = 'div.cart-grid-body div.cart-overview.js-cart span.no-items';
+    this.customizationLink = (row: number) => `${this.productItem(row)} div.product-line-grid-body`
+      + " a[data-target*='#product-customizations-modal']";
+    this.customizationModal = (row: number) => `${this.productItem(row)} [id*="product-customizations-modal"]`;
+    this.customizationModalBody = (row: number) => `${this.customizationModal(row)} .modal-body`;
+    this.customizationModalCloseButton = (row: number) => `${this.customizationModal(row)} .modal-header button.close`;
 
     // Notifications
     this.alertMessage = '#notifications div.notifications-container';
@@ -213,8 +222,7 @@ class CartPage extends FOBasePage implements FoCartPageInterface {
    * Get Product detail from cart
    * @param page {Page} Browser tab
    * @param row {number} Row number in the table
-   * @returns {Promise<{discountPercentage: string, image: string|null, quantity: number, totalPrice: number,
-   *     price: number, regularPrice: number, name: string}>}
+   * @returns {Promise<ProductDetailsWithDiscount>}
    */
   async getProductDetail(page: Page, row: number): Promise<ProductDetailsWithDiscount> {
     return {
@@ -224,7 +232,7 @@ class CartPage extends FOBasePage implements FoCartPageInterface {
       discountPercentage: await this.getTextContent(page, this.productDiscountPercentage(row)),
       image: await this.getAttributeContent(page, this.productImage(row), 'src'),
       quantity: parseFloat(await this.getAttributeContent(page, this.productQuantity(row), 'value') ?? ''),
-      subtotal: await this.getPriceFromText(page, this.productTotalPrice(row)),
+      totalPrice: await this.getPriceFromText(page, this.productTotalPrice(row)),
     };
   }
 
@@ -245,6 +253,40 @@ class CartPage extends FOBasePage implements FoCartPageInterface {
         value: await this.getTextContent(page, this.productColor(row)),
       },
     ];
+  }
+
+  /**
+   * Click on product customization
+   * @param page {Page} Browser tab
+   * @param row {number} Row number in the table
+   * @returns {Promise<boolean>}
+   */
+  async clickOnProductCustomization(page: Page, row: number = 1): Promise<boolean> {
+    await page.locator(this.customizationLink(row)).click();
+
+    return this.elementVisible(page, this.customizationModal(row), 1000);
+  }
+
+  /**
+   * Get product customization modal
+   * @param page {Page} Browser tab
+   * @param row {number} Row number in the table
+   * @returns {Promise<string>}
+   */
+  async getProductCustomizationModal(page: Page, row: number = 1): Promise<string> {
+    return this.getTextContent(page, this.customizationModalBody(row));
+  }
+
+  /**
+   * Close product customization modal
+   * @param page {Page} Browser tab
+   * @param row {number} Row number in the table
+   * @returns {Promise<string>}
+   */
+  async closeProductCustomizationModal(page: Page, row: number = 1): Promise<boolean> {
+    await page.locator(this.customizationModalCloseButton(row)).click();
+
+    return this.elementNotVisible(page, this.customizationModal(row), 1000);
   }
 
   /**
@@ -293,7 +335,9 @@ class CartPage extends FOBasePage implements FoCartPageInterface {
       }
     }
 
-    return parseInt(await this.getAttributeContent(page, this.productQuantity(productRow), 'value'), 10);
+    if (quantity > 0) {
+      return parseInt(await this.getAttributeContent(page, this.productQuantity(productRow), 'value'), 10);
+    } return 0;
   }
 
   /**
@@ -402,7 +446,10 @@ class CartPage extends FOBasePage implements FoCartPageInterface {
    */
   async clickOnPromoCode(page: Page): Promise<void> {
     await this.waitForSelectorAndClick(page, this.highlightPromoCode);
-    await page.locator(this.addPromoCodeButton).click();
+    await Promise.all([
+      page.locator(this.addPromoCodeButton).click(),
+      page.waitForResponse((response) => response.url().includes('action=refresh')),
+    ]);
   }
 
   /**
@@ -438,11 +485,13 @@ class CartPage extends FOBasePage implements FoCartPageInterface {
    * Remove voucher
    * @param page {Page} Browser tab
    * @param line {number} Cart summary line
-   * @returns {Promise<void>}
+   * @returns {Promise<boolean>}
    */
-  async removeVoucher(page: Page, line: number = 1): Promise<void> {
+  async removeVoucher(page: Page, line: number = 1): Promise<boolean> {
     await this.waitForSelectorAndClick(page, this.promoCodeRemoveIcon(line));
     await this.waitForHiddenSelector(page, this.promoCodeRemoveIcon(line));
+
+    return this.elementNotVisible(page, this.promoCodeRemoveIcon(line), 1000);
   }
 }
 
