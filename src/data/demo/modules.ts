@@ -49,6 +49,10 @@ export default {
     name: 'New products block',
     releaseZip: 'https://github.com/PrestaShop/ps_newproducts/releases/download/v1.0.4/ps_newproducts.zip',
   }),
+  psSupplierList: new FakerModule({
+    tag: 'ps_supplierlist',
+    name: 'Supplier List',
+  }),
   psThemeCusto: new FakerModule({
     tag: 'ps_themecusto',
     name: 'Theme Customization',
