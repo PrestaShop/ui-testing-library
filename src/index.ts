@@ -273,6 +273,7 @@ export {default as modPsEmailSubscriptionBoMain} from '@pages/BO/modules/ps_emai
 export {default as modPsFacetedsearchBoMain} from '@pages/BO/modules/ps_facetedsearch';
 export {default as modPsFacetedsearchBoFilterTemplate} from '@pages/BO/modules/ps_facetedsearch/filterTemplate';
 export {default as modPsNewProductsBoMain} from '@pages/BO/modules/ps_newproducts';
+export {default as modPsSupplierListBoMain} from '@pages/BO/modules/ps_supplierlist';
 
 // Export utils
 export {default as utilsAPI} from '@utils/api';

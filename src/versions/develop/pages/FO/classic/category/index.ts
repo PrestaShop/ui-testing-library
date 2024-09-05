@@ -95,6 +95,10 @@ class CategoryPage extends FOBasePage implements FoCategoryPageInterface {
 
   private readonly activeSearchFilters: string;
 
+  private readonly searchFiltersSuppliers: string;
+
+  private readonly searchFiltersSuppliersDropdown: string;
+
   private readonly wishlistModal: string;
 
   private readonly wishlistModalListItem: string;
@@ -169,6 +173,10 @@ class CategoryPage extends FOBasePage implements FoCategoryPageInterface {
     this.clearAllFiltersLink = '#_desktop_search_filters_clear_all button.js-search-filters-clear-all';
     this.activeSearchFilters = '#js-active-search-filters';
     this.closeOneFilter = (row: number) => `#js-active-search-filters ul li:nth-child(${row}) a i`;
+
+    // Filter Supplier
+    this.searchFiltersSuppliers = '#search_filters_suppliers';
+    this.searchFiltersSuppliersDropdown = `${this.searchFiltersSuppliers} .suppliers-sort.dropdown`;
 
     // Wishlist
     this.wishlistModal = '.wishlist-add-to .wishlist-modal.show';
@@ -452,6 +460,15 @@ class CategoryPage extends FOBasePage implements FoCategoryPageInterface {
   /////////////////////////
   // Side Block : Filters
   /////////////////////////
+  /**
+   * Return if the supplier list is a dropdown
+   * @param page {Page} Browser tab
+   * @return {Promise<boolean>}
+   */
+  async isSupplierListDropdown(page: Page): Promise<boolean> {
+    return (await page.locator(this.searchFiltersSuppliersDropdown).count()) === 1;
+  }
+
   /**
    * Return if search filters are visible
    * @param page {Page} Browser tab
