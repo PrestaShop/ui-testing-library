@@ -44,6 +44,7 @@ export interface FoCategoryPageInterface extends FOBasePagePageInterface {
     isSearchFilterRadio(page: Page, facetType: string, facetLabel?: string): Promise<boolean>;
     isSearchFiltersCheckbox(page: Page, facetType: string, facetLabel?: string): Promise<boolean>;
     isSortButtonVisible(page: Page): Promise<boolean>;
+    isSupplierListDropdown(page: Page): Promise<boolean>;
     quickViewProduct(page: Page, id: number): Promise<void>;
     sortProductsList(page: Page, sortBy: string): Promise<void>;
 }
