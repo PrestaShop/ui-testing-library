@@ -1,5 +1,4 @@
 import FakerCategory from '@data/faker/category';
-import { Faker } from '@faker-js/faker';
 
 // Level 2
 const men: FakerCategory = new FakerCategory({
