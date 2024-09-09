@@ -51,7 +51,9 @@ class CategoryPage extends FOBasePage implements FoCategoryPageInterface {
 
   private readonly subCategoriesList: string;
 
-  private readonly subCategoriesItem: (title: string) => string;
+  private readonly subCategoriesItem: string;
+
+  private readonly subCategoriesItemLink: (title: string) => string;
 
   private readonly productList: string;
 
@@ -135,7 +137,8 @@ class CategoryPage extends FOBasePage implements FoCategoryPageInterface {
 
     // SubCategories List
     this.subCategoriesList = '#subcategories ul.subcategories-list';
-    this.subCategoriesItem = (title: string) => `${this.subCategoriesList} li a[title="${title}"]`;
+    this.subCategoriesItem = `${this.subCategoriesList} li`;
+    this.subCategoriesItemLink = (title: string) => `${this.subCategoriesItem} a[title="${title}"]`;
 
     // Products list
     this.productList = '#js-product-list';
@@ -386,6 +389,15 @@ class CategoryPage extends FOBasePage implements FoCategoryPageInterface {
   }
 
   /**
+   * Return if the number of categories in content block
+   * @param page {Page} Browser tab
+   * @return {Promise<number>}
+   */
+  async getNumContentCategories(page: Page): Promise<number> {
+    return page.locator(this.subCategoriesItem).count();
+  }
+
+  /**
    * Get category description
    * @param page {Page} Browser tab
    * @return {Promise<string>}
@@ -401,7 +413,7 @@ class CategoryPage extends FOBasePage implements FoCategoryPageInterface {
    * @returns {Promise<string|null>}
    */
   async getCategoryImageMain(page: Page, name: string): Promise<string | null> {
-    return this.getAttributeContent(page, `${this.subCategoriesItem(name)} source`, 'srcset');
+    return this.getAttributeContent(page, `${this.subCategoriesItemLink(name)} source`, 'srcset');
   }
 
   /**

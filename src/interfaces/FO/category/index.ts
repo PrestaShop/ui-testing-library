@@ -19,6 +19,7 @@ export interface FoCategoryPageInterface extends FOBasePagePageInterface {
     getMinimumPrice(page: Page): Promise<number>;
     getNThChildFromIDProduct(page: Page, idProduct: number): Promise<number | null>;
     getNumBlockCategories(page: Page): Promise<number>;
+    getNumContentCategories(page: Page): Promise<number>;
     getNumberOfProducts(page: Page): Promise<number>;
     getNumberOfProductsDisplayed(page: Page): Promise<number>;
     getNumSearchFiltersCheckbox(page: Page, facetType: string, facetLabel?: string): Promise<number>;
