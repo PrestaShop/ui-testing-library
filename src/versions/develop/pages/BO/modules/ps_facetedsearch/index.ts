@@ -46,6 +46,10 @@ class PsFacetedSearch extends ModuleConfiguration implements ModulePsFacetedsear
 
   private readonly addTemplateLink: string;
 
+  private readonly showProductsFromSubcategoriesCheckbox: (toggle: string) => string;
+
+  private readonly showProductsOnlyFromDefaultCategoryCheckbox: (toggle: string) => string;
+
   private readonly categoryFilterDepthInput: string;
 
   private readonly btnConfigurationSave: string;
@@ -81,6 +85,8 @@ class PsFacetedSearch extends ModuleConfiguration implements ModulePsFacetedsear
     this.gridPanelFooter = `${this.gridPanel} div.panel-footer`;
     this.addTemplateLink = `${this.gridPanelFooter} a[href*="&add_new_filters_template=1"]`;
 
+    this.showProductsFromSubcategoriesCheckbox = (toggle: string) => `#ps_layered_full_tree_${toggle}`;
+    this.showProductsOnlyFromDefaultCategoryCheckbox = (toggle: string) => `#ps_layered_filter_by_default_category_${toggle}`;
     this.categoryFilterDepthInput = 'input[name="ps_layered_filter_category_depth"]';
     this.btnConfigurationSave = 'button[name="submitLayeredSettings"]';
   }
@@ -121,6 +127,46 @@ class PsFacetedSearch extends ModuleConfiguration implements ModulePsFacetedsear
    */
   async goToAddNewTemplate(page: Page): Promise<void> {
     await page.locator(this.addTemplateLink).click();
+  }
+
+  /**
+   * Returns if the field "Show products from subcategories" is checked
+   * @param page {Page} Browser tab
+   * @returns {Promise<boolean>}
+   */
+  async isShowProductsFromSubcategoriesChecked(page: Page): Promise<boolean> {
+    return this.isChecked(page, this.showProductsFromSubcategoriesCheckbox('on'));
+  }
+
+  /**
+   * Returns if the field "Show products from subcategories" is disabled
+   * @param page {Page} Browser tab
+   * @returns {Promise<boolean>}
+   */
+  async isShowProductsFromSubcategoriesDisabled(page: Page): Promise<boolean> {
+    return this.isDisabled(page, this.showProductsFromSubcategoriesCheckbox('on'));
+  }
+
+  /**
+   * Returns if the field "Show products only from default category" is checked
+   * @param page {Page} Browser tab
+   * @returns {Promise<boolean>}
+   */
+  async isShowProductsOnlyFromDefaultCategoryChecked(page: Page): Promise<boolean> {
+    return this.isChecked(page, this.showProductsOnlyFromDefaultCategoryCheckbox('on'));
+  }
+
+  /**
+   * Define the value of the field "Show products only from default category"
+   * @param page {Page} Browser tab
+   * @param value {boolean} Value of the field
+   * @returns {Promise<string>}
+   */
+  async setShowProductsOnlyFromDefaultCategoryValue(page: Page, value: boolean): Promise<string> {
+    await this.setChecked(page, this.showProductsOnlyFromDefaultCategoryCheckbox(value ? 'on' : 'off'), true);
+    await page.locator(this.btnConfigurationSave).click();
+
+    return this.getAlertBlockContent(page);
   }
 
   /**

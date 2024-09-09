@@ -12,5 +12,9 @@ export interface ModulePsFacetedsearchMainPageInterface extends ModuleConfigurat
     editFilterTemplate(page: Page, row: number): Promise<void>;
     getCategoryFilterDepthValue(page: Page): Promise<number>;
     goToAddNewTemplate(page: Page): Promise<void>;
+    isShowProductsFromSubcategoriesChecked(page: Page): Promise<boolean>;
+    isShowProductsFromSubcategoriesDisabled(page: Page): Promise<boolean>;
+    isShowProductsOnlyFromDefaultCategoryChecked(page: Page): Promise<boolean>;
     setCategoryFilterDepthValue(page: Page, value: string): Promise<string>;
+    setShowProductsOnlyFromDefaultCategoryValue(page: Page, value: boolean): Promise<string>;
 }
