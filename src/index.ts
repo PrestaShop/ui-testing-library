@@ -274,6 +274,10 @@ export {default as modKeycloakConnectorDemoBoMain} from '@pages/BO/modules/keycl
 export {default as modPsEmailSubscriptionBoMain} from '@pages/BO/modules/ps_emailsubscription';
 export {default as modPsFacetedsearchBoMain} from '@pages/BO/modules/ps_facetedsearch';
 export {default as modPsFacetedsearchBoFilterTemplate} from '@pages/BO/modules/ps_facetedsearch/filterTemplate';
+export {default as modPsGdprBoMain} from '@pages/BO/modules/psgdpr';
+export {default as modPsGdprBoTabCustomerActivity} from '@pages/BO/modules/psgdpr/tabCustomerActivity';
+export {default as modPsGdprBoTabDataConfig} from '@pages/BO/modules/psgdpr/tabDataConfig';
+export {default as modPsGdprBoTabDataConsent} from '@pages/BO/modules/psgdpr/tabDataConsent';
 export {default as modPsNewProductsBoMain} from '@pages/BO/modules/ps_newproducts';
 export {default as modPsSupplierListBoMain} from '@pages/BO/modules/ps_supplierlist';
 
