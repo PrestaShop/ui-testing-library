@@ -281,6 +281,7 @@ export {default as modPsGdprBoTabDataConfig} from '@pages/BO/modules/psgdpr/tabD
 export {default as modPsGdprBoTabDataConsent} from '@pages/BO/modules/psgdpr/tabDataConsent';
 export {default as modPsNewProductsBoMain} from '@pages/BO/modules/ps_newproducts';
 export {default as modPsSupplierListBoMain} from '@pages/BO/modules/ps_supplierlist';
+export {default as modPsWirepaymentBoMain} from '@pages/BO/modules/ps_wirepayment';
 
 // Export utils
 export {default as utilsAPI} from '@utils/api';
