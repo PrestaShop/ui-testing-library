@@ -13,6 +13,10 @@ class PsNewProducts extends ModuleConfiguration implements ModulePsNewProductsMa
 
   public readonly updateSettingsSuccessMessage: string;
 
+  public readonly emptyErrorMessage: string;
+
+  public readonly invalidNumberMessage: string;
+
   private readonly productsToDisplayInput: string;
 
   private readonly numDaysConsideredAsNewInput: string;
@@ -26,8 +30,13 @@ class PsNewProducts extends ModuleConfiguration implements ModulePsNewProductsMa
   constructor() {
     super();
 
+    // Override
+    this.alertTextBlock = 'div.alert';
+
     this.pageSubTitle = 'New products block';
     this.updateSettingsSuccessMessage = 'The settings have been updated.';
+    this.emptyErrorMessage = 'Please complete the "products to display" field.';
+    this.invalidNumberMessage = 'Invalid number';
 
     // Selectors
     this.productsToDisplayInput = '#NEW_PRODUCTS_NBR';
@@ -39,14 +48,14 @@ class PsNewProducts extends ModuleConfiguration implements ModulePsNewProductsMa
   /**
    * Set Products to display
    * @param page {Page} Browser tab
-   * @param value {number}
+   * @param value {number|string}
    * @returns {Promise<string>}
    */
-  async setNumProductsToDisplay(page: Page, value: number): Promise<string> {
+  async setNumProductsToDisplay(page: Page, value: number|string): Promise<string> {
     await page.locator(this.productsToDisplayInput).fill(value.toString());
     await this.clickAndWaitForLoadState(page, this.saveSettingsForm);
 
-    return this.getAlertSuccessBlockContent(page);
+    return this.getAlertBlockContent(page);
   }
 
   /**
