@@ -140,6 +140,9 @@ class PsFacetedSearchFilterTemplate extends ModuleConfiguration implements Modul
       case 'Attribute group: Paper Type':
         selectorStatus = 'layered_selection_ag_4';
         break;
+      case 'Attribute group: Size':
+        selectorStatus = 'layered_selection_ag_1';
+        break;
       case 'Product brand filter':
         selectorStatus = 'layered_selection_manufacturer';
         break;
