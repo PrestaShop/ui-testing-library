@@ -211,13 +211,15 @@ class BOCarriersCreatePage extends BOBasePage implements BOCarriersCreatePageInt
 
     const locatorGroupAccessInputs = await page.locator(this.groupAccessInput).all();
 
-    // eslint-disable-next-line no-restricted-syntax
-    for (const locatorGroupAccessInput of locatorGroupAccessInputs) {
-      await locatorGroupAccessInput.setChecked(false);
-    }
-    for (let idxGroupAccess: number = 0; idxGroupAccess < carrierData.groupAccesses.length; idxGroupAccess++) {
-      const groupAccess: FakerGroup = carrierData.groupAccesses[idxGroupAccess];
-      await page.locator(this.groupAccessIdInput(groupAccess.id)).setChecked(true);
+    if (carrierData.groupAccesses.length) {
+      // eslint-disable-next-line no-restricted-syntax
+      for (const locatorGroupAccessInput of locatorGroupAccessInputs) {
+        await locatorGroupAccessInput.setChecked(false);
+      }
+      for (let idxGroupAccess: number = 0; idxGroupAccess < carrierData.groupAccesses.length; idxGroupAccess++) {
+        const groupAccess: FakerGroup = carrierData.groupAccesses[idxGroupAccess];
+        await page.locator(this.groupAccessIdInput(groupAccess.id)).setChecked(true);
+      }
     }
 
     await page.locator(this.nextButton).click();
