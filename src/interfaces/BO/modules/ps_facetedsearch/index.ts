@@ -15,6 +15,8 @@ export interface ModulePsFacetedsearchMainPageInterface extends ModuleConfigurat
     isShowProductsFromSubcategoriesChecked(page: Page): Promise<boolean>;
     isShowProductsFromSubcategoriesDisabled(page: Page): Promise<boolean>;
     isShowProductsOnlyFromDefaultCategoryChecked(page: Page): Promise<boolean>;
+    isShowUnavailableOutOfStockLastChecked(page: Page): Promise<boolean>;
     setCategoryFilterDepthValue(page: Page, value: string): Promise<string>;
     setShowProductsOnlyFromDefaultCategoryValue(page: Page, value: boolean): Promise<string>;
+    setShowUnavailableOutOfStockLastValue(page: Page, value: boolean): Promise<string>;
 }

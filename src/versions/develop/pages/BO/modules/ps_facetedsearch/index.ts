@@ -50,6 +50,8 @@ class PsFacetedSearch extends ModuleConfiguration implements ModulePsFacetedsear
 
   private readonly showProductsOnlyFromDefaultCategoryCheckbox: (toggle: string) => string;
 
+  private readonly showUnavailableOutOfStockLastCheckbox: (toggle: string) => string;
+
   private readonly categoryFilterDepthInput: string;
 
   private readonly btnConfigurationSave: string;
@@ -87,6 +89,7 @@ class PsFacetedSearch extends ModuleConfiguration implements ModulePsFacetedsear
 
     this.showProductsFromSubcategoriesCheckbox = (toggle: string) => `#ps_layered_full_tree_${toggle}`;
     this.showProductsOnlyFromDefaultCategoryCheckbox = (toggle: string) => `#ps_layered_filter_by_default_category_${toggle}`;
+    this.showUnavailableOutOfStockLastCheckbox = (toggle: string) => `#ps_layered_filter_show_out_of_stock_last_${toggle}`;
     this.categoryFilterDepthInput = 'input[name="ps_layered_filter_category_depth"]';
     this.btnConfigurationSave = 'button[name="submitLayeredSettings"]';
   }
@@ -186,6 +189,28 @@ class PsFacetedSearch extends ModuleConfiguration implements ModulePsFacetedsear
    */
   async setCategoryFilterDepthValue(page: Page, value: string): Promise<string> {
     await this.setValue(page, this.categoryFilterDepthInput, value);
+    await page.locator(this.btnConfigurationSave).click();
+
+    return this.getAlertBlockContent(page);
+  }
+
+  /**
+   * Returns if the field "Show unavailable, out of stock last" is checked
+   * @param page {Page} Browser tab
+   * @returns {Promise<boolean>}
+   */
+  async isShowUnavailableOutOfStockLastChecked(page: Page): Promise<boolean> {
+    return this.isChecked(page, this.showUnavailableOutOfStockLastCheckbox('on'));
+  }
+
+  /**
+   * Define the value of the field "Show unavailable, out of stock last"
+   * @param page {Page} Browser tab
+   * @param value {boolean} Value of the field
+   * @returns {Promise<string>}
+   */
+  async setShowUnavailableOutOfStockLastValue(page: Page, value: boolean): Promise<string> {
+    await this.setChecked(page, this.showUnavailableOutOfStockLastCheckbox(value ? 'on' : 'off'), true);
     await page.locator(this.btnConfigurationSave).click();
 
     return this.getAlertBlockContent(page);
