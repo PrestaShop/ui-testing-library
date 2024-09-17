@@ -170,12 +170,14 @@ class BOCarriersCreatePage extends BOBasePage implements BOCarriersCreatePageInt
       await this.dialogListener(page);
       // Remove all colums
       const numDeleteRangeButtons = await page.locator(this.deleteRangeButton).count();
-      // eslint-disable-next-line no-restricted-syntax
+
       for (let i: number = 0; i < numDeleteRangeButtons; i++) {
         await page.locator(this.deleteRangeButton).nth(0).click();
       }
+
       // Remove all ranges
       const locatorRangeZoneCheckboxes = await page.locator(this.rangeZoneCheckbox).all();
+
       // eslint-disable-next-line no-restricted-syntax
       for (const locatorRangeZoneCheckbox of locatorRangeZoneCheckboxes) {
         await locatorRangeZoneCheckbox.setChecked(false);
@@ -192,7 +194,7 @@ class BOCarriersCreatePage extends BOBasePage implements BOCarriersCreatePageInt
         if (carrierRange.weightMax) {
           await this.setValue(page, this.rangeSupInput(idxRange), carrierRange.weightMax);
         }
-      }     
+      }
       for (let idxZone: number = 0; idxZone < carrierRange.zones.length; idxZone++) {
         const carrierRangeZone = carrierRange.zones[idxZone].zone;
         const carrierRangePrice = carrierRange.zones[idxZone].price;
