@@ -1005,11 +1005,12 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
    */
   async getFakerCarrier(page: Page, carrierID: number = 1): Promise<FakerCarrier> {
     const priceText: string = await this.getTextContent(page, this.deliveryStepCarrierPrice(carrierID));
+    const price: number = await this.getNumberFromText(page, this.deliveryStepCarrierPrice(carrierID));
 
     return new FakerCarrier({
       name: await this.getTextContent(page, this.deliveryStepCarrierName(carrierID)),
       transitName: await this.getTextContent(page, this.deliveryStepCarrierDelay(carrierID)),
-      price: parseFloat(priceText),
+      price,
       priceText,
     });
   }
