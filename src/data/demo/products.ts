@@ -149,6 +149,10 @@ export default {
     finalPrice: 14.28,
     tax: 20,
     quantity: 300,
+    packageDimensionWidth: 0,
+    packageDimensionHeight: 0,
+    packageDimensionDepth: 0,
+    packageDimensionWeight: 0.300,
     status: true,
   }),
   demo_12: new FakerProduct({
