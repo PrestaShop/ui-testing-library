@@ -49,11 +49,15 @@ class BOCarriersCreatePage extends BOBasePage implements BOCarriersCreatePageInt
 
   private readonly allZonesValueInput: (numColumn: number) => string;
 
-  private readonly rangeZoneCheckbox: (zoneID: string) => string;
+  private readonly rangeZoneCheckbox: string;
+
+  private readonly rangeZoneIDCheckbox: (zoneID: string) => string;
 
   private readonly rangePriceInput: (numColumn: number, zoneID: string) => string;
 
   private readonly addNewRangeButton: string;
+
+  private readonly deleteRangeButton: string;
 
   private readonly maxWidthInput: string;
 
@@ -108,10 +112,12 @@ class BOCarriersCreatePage extends BOBasePage implements BOCarriersCreatePageInt
     this.allZonesRadioButton = `${this.zonesTable} tr.fees_all input[onclick*='checkAllZones']`;
     this.allZonesValueInput = (numColumn: number) => `${this.zonesTable} tr.fees_all td:nth-child(${numColumn + 3})`
       + ' .input-group input';
-    this.rangeZoneCheckbox = (zoneID: string) => `${this.zonesTable} #zone_${zoneID}`;
+    this.rangeZoneCheckbox = `${this.zonesTable} input.input_zone`;
+    this.rangeZoneIDCheckbox = (zoneID: string) => `${this.rangeZoneCheckbox}#zone_${zoneID}`;
     this.rangePriceInput = (numColumn: number, zoneID: string) => `${this.zonesTable} td:nth-child(${numColumn + 3})`
       + ` input[name^="fees[${zoneID}]"]`;
     this.addNewRangeButton = '#add_new_range';
+    this.deleteRangeButton = `${this.zonesTable} tr.delete_range td button`;
 
     // Size, weight and group access
     this.maxWidthInput = '#max_width';
@@ -146,10 +152,10 @@ class BOCarriersCreatePage extends BOBasePage implements BOCarriersCreatePageInt
     await page.locator(this.nextButton).click();
 
     // Set shipping locations and costs
+    await this.setChecked(page, this.freeShippingToggle(carrierData.freeShipping ? 'on' : 'off'));
     if (!carrierData.freeShipping) {
       await this.setChecked(page, this.addHandlingCostsToggle(carrierData.handlingCosts ? 'on' : 'off'));
     }
-    await this.setChecked(page, this.freeShippingToggle(carrierData.freeShipping ? 'on' : 'off'));
 
     if (carrierData.billing === 'According to total price') {
       await page.locator(this.billingPriceRadioButton).click();
@@ -159,6 +165,22 @@ class BOCarriersCreatePage extends BOBasePage implements BOCarriersCreatePageInt
     await this.selectByVisibleText(page, this.taxRuleSelect, carrierData.taxRule);
     await this.selectByVisibleText(page, this.rangeBehaviorSelect, carrierData.outOfRangeBehavior);
 
+    // Reset data before adding
+    if (!carrierData.freeShipping) {
+      await this.dialogListener(page);
+      // Remove all colums
+      const numDeleteRangeButtons = await page.locator(this.deleteRangeButton).count();
+      // eslint-disable-next-line no-restricted-syntax
+      for (let i: number = 0; i < numDeleteRangeButtons; i++) {
+        await page.locator(this.deleteRangeButton).nth(0).click();
+      }
+      // Remove all ranges
+      const locatorRangeZoneCheckboxes = await page.locator(this.rangeZoneCheckbox).all();
+      // eslint-disable-next-line no-restricted-syntax
+      for (const locatorRangeZoneCheckbox of locatorRangeZoneCheckboxes) {
+        await locatorRangeZoneCheckbox.setChecked(false);
+      }
+    }
     // Set range sup only if free shipping is disabled
     for (let idxRange: number = 0; idxRange < carrierData.ranges.length; idxRange++) {
       const carrierRange: CarrierRange = carrierData.ranges[idxRange];
@@ -170,8 +192,7 @@ class BOCarriersCreatePage extends BOBasePage implements BOCarriersCreatePageInt
         if (carrierRange.weightMax) {
           await this.setValue(page, this.rangeSupInput(idxRange), carrierRange.weightMax);
         }
-      }
-
+      }     
       for (let idxZone: number = 0; idxZone < carrierRange.zones.length; idxZone++) {
         const carrierRangeZone = carrierRange.zones[idxZone].zone;
         const carrierRangePrice = carrierRange.zones[idxZone].price;
@@ -186,7 +207,7 @@ class BOCarriersCreatePage extends BOBasePage implements BOCarriersCreatePageInt
           }
         } else {
           await page.locator(
-            this.rangeZoneCheckbox(carrierRangeZone.id!.toString()),
+            this.rangeZoneIDCheckbox(carrierRangeZone.id!.toString()),
           ).setChecked(true);
           if (typeof carrierRangePrice !== 'undefined' && !carrierData.freeShipping) {
             await page.locator(
@@ -198,7 +219,10 @@ class BOCarriersCreatePage extends BOBasePage implements BOCarriersCreatePageInt
 
       // Click on the "Add new range" button
       if (idxRange < (carrierData.ranges.length - 1)) {
-        await page.locator(this.addNewRangeButton).click();
+        // Only if there is no next range (useful for edition)
+        if ((await page.locator(this.rangeInfInput(idxRange + 1)).count() === 0)) {
+          await page.locator(this.addNewRangeButton).click();
+        }
       }
     }
     await page.locator(this.nextButton).click();
