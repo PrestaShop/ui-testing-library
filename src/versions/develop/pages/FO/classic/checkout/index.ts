@@ -35,6 +35,8 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
 
   private readonly paymentOptionInput: (name: string) => string;
 
+  protected paymentOptionAlertDanger: string;
+
   private readonly conditionToApproveLabel: string;
 
   private readonly conditionToApproveCheckbox: string;
@@ -47,11 +49,9 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
 
   protected shippingValueSpan: string;
 
-  private readonly blockPromoDiv: string;
+  protected cartSummaryLine: (line: number) => string;
 
-  private readonly cartSummaryLine: (line: number) => string;
-
-  private readonly cartRuleName: (line: number) => string;
+  protected cartRuleName: (line: number) => string;
 
   private readonly discountValue: (line: number) => string;
 
@@ -101,6 +101,8 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
 
   private readonly checkoutGuestEmailInput: string;
 
+  private readonly createAccountCheckbox: string;
+
   private readonly checkoutGuestPasswordInput: string;
 
   private readonly checkoutGuestBirthdayInput: string;
@@ -119,11 +121,11 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
 
   protected checkoutSummary: string;
 
-  private readonly checkoutPromoBlock: string;
+  protected checkoutPromoBlock: string;
 
   private readonly checkoutHavePromoCodeButton: string;
 
-  private readonly checkoutRemoveDiscountLink: string;
+  protected checkoutRemoveDiscountLink: (row: number) => string;
 
   protected checkoutLoginForm: string;
 
@@ -231,7 +233,7 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
 
   private readonly invoiceAddressRadioButton: (addressID: number) => string;
 
-  private readonly cartTotalATI: string;
+  protected cartTotalATI: string;
 
   private readonly cartRuleAlertMessage: string;
 
@@ -275,6 +277,7 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
     this.checkoutGuestFirstnameInput = `${this.checkoutGuestForm} input[name='firstname']`;
     this.checkoutGuestLastnameInput = `${this.checkoutGuestForm} input[name='lastname']`;
     this.checkoutGuestEmailInput = `${this.checkoutGuestForm} input[name='email']`;
+    this.createAccountCheckbox = '#password-form__check';
     this.checkoutGuestPasswordInput = `${this.checkoutGuestForm} input[name='password']`;
     this.checkoutGuestBirthdayInput = `${this.checkoutGuestForm} input[name='birthday']`;
     this.checkoutGuestOptinCheckbox = `${this.checkoutGuestForm} input[name='optin']`;
@@ -300,7 +303,7 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
     this.addressStepContent = `${this.addressStepSection} div.content`;
     this.addressStepCreateAddressForm = `${this.addressStepSection} .js-address-form`;
     this.addressStepAliasInput = '#field-alias';
-    this.addressStepCompanyInput = '#field-company';
+    this.addressStepCompanyInput = `${this.addressStepSection} #field-company`;
     this.addressStepAddress1Input = '#field-address1';
     this.addressStepPostCodeInput = '#field-postcode';
     this.addressStepCityInput = '#field-city';
@@ -351,6 +354,7 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
     this.paymentStepSection = '#checkout-payment-step';
     this.paymentOptionInput = (name: string) => `${this.paymentStepSection} input[name='payment-option']`
       + `[data-module-name='${name}']`;
+    this.paymentOptionAlertDanger = '.payment-options p.alert-danger';
     this.conditionToApproveLabel = `${this.paymentStepSection} #conditions-to-approve label`;
     this.conditionToApproveCheckbox = '#conditions_to_approve\\[terms-and-conditions\\]';
     this.termsOfServiceLink = '#cta-terms-and-conditions-0';
@@ -362,15 +366,15 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
     this.checkoutSummary = '#js-checkout-summary';
     this.checkoutPromoBlock = `${this.checkoutSummary} div.block-promo`;
     this.checkoutHavePromoCodeButton = `${this.checkoutPromoBlock} p.promo-code-button a`;
-    this.checkoutRemoveDiscountLink = `${this.checkoutPromoBlock} a[data-link-action='remove-voucher'] i`;
+    this.checkoutRemoveDiscountLink = (row: number) => `li.cart-summary-line:nth-child(${row})`
+      + ' a[data-link-action="remove-voucher"] i';
     this.cartTotalATI = '.cart-summary-totals span.value';
     this.cartRuleAlertMessage = '#promo-code div.alert-danger span.js-error-text';
     this.promoCodeArea = '#promo-code';
     this.checkoutHavePromoInputArea = `${this.promoCodeArea} input.promo-input`;
     this.checkoutPromoCodeAddButton = `${this.promoCodeArea} button.btn-primary`;
     this.shippingValueSpan = '#cart-subtotal-shipping span.value';
-    this.blockPromoDiv = '.block-promo';
-    this.cartSummaryLine = (line: number) => `${this.blockPromoDiv} li:nth-child(${line}).cart-summary-line`;
+    this.cartSummaryLine = (line: number) => `${this.checkoutPromoBlock} li:nth-child(${line}).cart-summary-line`;
     this.cartRuleName = (line: number) => `${this.cartSummaryLine(line)} span.label`;
     this.discountValue = (line: number) => `${this.cartSummaryLine(line)} div span`;
 
@@ -434,7 +438,7 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
    * Get product details
    * @param page {Page} Browser tab
    * @param productRow {number} Product row in details block
-   * @returns {Promise<ProductDetailsBasic>
+   * @returns {Promise<ProductDetailsBasic>}
    */
   async getProductDetails(page: Page, productRow: number): Promise<ProductDetailsBasic> {
     return {
@@ -586,31 +590,34 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
   /**
    * Fill personal information form and click on continue
    * @param page {Page} Browser tab
-   * @param customer {FakerCustomer} Guest Customer's information to fill on form
+   * @param customerData {FakerCustomer} Guest Customer's information to fill on form
    * @return {Promise<boolean>}
    */
-  async setGuestPersonalInformation(page: Page, customer: FakerCustomer): Promise<boolean> {
-    await this.setChecked(page, this.checkoutGuestGenderInput(customer.socialTitle === 'Mr.' ? 1 : 2));
+  async setGuestPersonalInformation(page: Page, customerData: FakerCustomer): Promise<boolean> {
+    await this.setChecked(page, this.checkoutGuestGenderInput(customerData.socialTitle === 'Mr.' ? 1 : 2));
 
-    await this.setValue(page, this.checkoutGuestFirstnameInput, customer.firstName);
-    await this.setValue(page, this.checkoutGuestLastnameInput, customer.lastName);
-    await this.setValue(page, this.checkoutGuestEmailInput, customer.email);
-    await this.setValue(page, this.checkoutGuestPasswordInput, customer.password);
+    await this.setValue(page, this.checkoutGuestFirstnameInput, customerData.firstName);
+    await this.setValue(page, this.checkoutGuestLastnameInput, customerData.lastName);
+    await this.setValue(page, this.checkoutGuestEmailInput, customerData.email);
+    if (this.theme === 'hummingbird') {
+      await this.setChecked(page, this.createAccountCheckbox, true);
+    }
+    await this.setValue(page, this.checkoutGuestPasswordInput, customerData.password);
 
     // Fill birthday input
     await this.setValue(
       page,
       this.checkoutGuestBirthdayInput,
-      `${customer.monthOfBirth.padStart(2, '0')}/`
-      + `${customer.dayOfBirth.padStart(2, '0')}/`
-      + `${customer.yearOfBirth}`,
+      `${customerData.monthOfBirth.padStart(2, '0')}/`
+      + `${customerData.dayOfBirth.padStart(2, '0')}/`
+      + `${customerData.yearOfBirth}`,
     );
 
-    if (customer.partnerOffers) {
+    if (customerData.partnerOffers) {
       await this.setChecked(page, this.checkoutGuestOptinCheckbox);
     }
 
-    if (customer.newsletter) {
+    if (customerData.newsletter) {
       await this.setChecked(page, this.checkoutGuestNewsletterCheckbox);
     }
 
@@ -697,6 +704,18 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
   }
 
   /**
+   * Return if the delivery address is selected
+   * @param page {Page} Browser tab
+   * @param row {number} The row of the address
+   * @returns {Promise<boolean>}
+   */
+  async isDeliveryAddressSelected(page: Page, row: number): Promise<boolean> {
+    const addressID = await this.getDeliveryAddressID(page, row);
+
+    return this.isChecked(page, this.deliveryAddressRadioButton(addressID));
+  }
+
+  /**
    * Select invoice address
    * @param page {Page} Browser tab
    * @param row {number} The row of the address
@@ -704,6 +723,18 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
   async selectInvoiceAddress(page: Page, row: number = 1): Promise<void> {
     const addressID = await this.getInvoiceAddressID(page, row);
     await this.setChecked(page, this.invoiceAddressRadioButton(addressID), true);
+  }
+
+  /**
+   * Return if the invoice address is selected
+   * @param page {Page} Browser tab
+   * @param row {number} The row of the address
+   * @returns {Promise<boolean>}
+   */
+  async isInvoiceAddressSelected(page: Page, row: number): Promise<boolean> {
+    const addressID = await this.getInvoiceAddressID(page, row);
+
+    return this.isChecked(page, this.invoiceAddressRadioButton(addressID));
   }
 
   /**
@@ -720,8 +751,18 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
    * Is address form visible
    * @param page {Page} Browser tab
    */
-  isAddressFormVisible(page: Page): Promise<boolean> {
+  async isAddressFormVisible(page: Page): Promise<boolean> {
     return this.elementVisible(page, this.addressStepCreateAddressForm, 2000);
+  }
+
+  /**
+   * Returns all available countries in Address form
+   * @param page {Page} Browser tab
+   * @returns {Promise<string[]>}
+   */
+  async getAvailableAddressCountries(page: Page): Promise<string[]> {
+    return (await page.locator(`${this.addressStepCountrySelect} option`).allInnerTexts())
+      .filter((e: string) => e !== 'Please choose');
   }
 
   /**
@@ -731,7 +772,7 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
    * @returns {Promise<void>}
    */
   async fillAddressForm(page: Page, address: FakerAddress): Promise<void> {
-    if (await this.elementVisible(page, this.addressStepAliasInput)) {
+    if (await this.elementVisible(page, this.addressStepAliasInput, 500)) {
       await this.setValue(page, this.addressStepAliasInput, address.alias);
     }
     await this.setValue(page, this.addressStepPhoneInput, address.phone);
@@ -769,7 +810,7 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
   /**
    * Set address step
    * @param page {Page} Browser tab
-   * @param deliveryAddress {FakerAddress|null} Address's information to add (for delivery)
+   * @param deliveryAddress {FakerAddress} Address's information to add (for delivery)
    * @param invoiceAddress {FakerAddress|null} Address's information to add (for invoice)
    * @returns {Promise<boolean>}
    */
@@ -873,11 +914,11 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
   }
 
   /**
-   * Check if the Delivery Step is displayed
+   * Check if the Addresses Step is displayed
    * @param page {Page} Browser tab
    * @returns {Promise<boolean>}
    */
-  async isDeliveryStep(page: Page): Promise<boolean> {
+  async isAddressesStep(page: Page): Promise<boolean> {
     await this.waitForVisibleSelector(page, this.addressStepContent);
 
     return this.elementVisible(page, this.addressStepContent, 1000);
@@ -953,8 +994,18 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
    * @param shippingMethodID {number} Position of the shipping method
    * @returns {Promise<boolean>}
    */
-  isShippingMethodVisible(page: Page, shippingMethodID: number): Promise<boolean> {
+  async isShippingMethodVisible(page: Page, shippingMethodID: number): Promise<boolean> {
     return this.elementVisible(page, this.deliveryOptionLabel(shippingMethodID), 2000);
+  }
+
+  /**
+   * Return shipping method label
+   * @param page {Page} Browser tab
+   * @param shippingMethodID {number} Position of the shipping method
+   * @returns {Promise<string>}
+   */
+  async getShippingMethodName(page: Page, shippingMethodID: number): Promise<string> {
+    return this.getTextContent(page, this.deliveryOptionNameSpan(shippingMethodID));
   }
 
   /**
@@ -1003,7 +1054,7 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
    * @param page {Page} Browser tab
    * @param carrierID {number} The carrier row in list
    */
-  async getFakerCarrier(page: Page, carrierID: number = 1): Promise<FakerCarrier> {
+  async getCarrierData(page: Page, carrierID: number = 1): Promise<FakerCarrier> {
     const priceText: string = await this.getTextContent(page, this.deliveryStepCarrierPrice(carrierID));
     const price: number = await this.getNumberFromText(page, this.deliveryStepCarrierPrice(carrierID));
 
@@ -1053,7 +1104,7 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
    * @param page {Page} Browser tab
    * @returns {Promise<string>}
    */
-  getNoPaymentNeededBlockContent(page: Page): Promise<string> {
+  async getNoPaymentNeededBlockContent(page: Page): Promise<string> {
     return this.getTextContent(page, this.noPaymentNeededElement);
   }
 
@@ -1096,7 +1147,7 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
    * @param line {number} Cart rule line
    * @return {string}
    */
-  getCartRuleName(page: Page, line: number = 1): Promise<string> {
+  async getCartRuleName(page: Page, line: number = 1): Promise<string> {
     return this.getTextContent(page, this.cartRuleName(line));
   }
 
@@ -1122,19 +1173,20 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
    * @param page {Page} Browser tab
    * @returns {Promise<number>}
    */
-  getATIPrice(page: Page): Promise<number> {
+  async getATIPrice(page: Page): Promise<number> {
     return this.getPriceFromText(page, this.cartTotalATI, 2000);
   }
 
   /**
    * Delete the discount
    * @param page {Page} Browser tab
+   * @param row {number} Row of the delete icon
    * @returns {Promise<boolean>}
    */
-  async removePromoCode(page: Page): Promise<boolean> {
-    await page.locator(this.checkoutRemoveDiscountLink).click();
+  async removePromoCode(page: Page, row: number = 1): Promise<boolean> {
+    await page.locator(this.checkoutRemoveDiscountLink(row)).click();
 
-    return this.elementNotVisible(page, this.checkoutRemoveDiscountLink, 1000);
+    return this.elementNotVisible(page, this.checkoutRemoveDiscountLink(row), 1000);
   }
 
   /**
@@ -1175,11 +1227,20 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
   }
 
   /**
+   * get no payment available message
+   * @param page {Page} Browser tab
+   * @returns {Promise<string>}
+   */
+  async getNoPaymentAvailableMessage(page: Page): Promise<string> {
+    return this.getTextContent(page, this.paymentOptionAlertDanger);
+  }
+
+  /**
    * Check if checkbox of condition to approve is visible
    * @param page {Page} Browser tab
    * @returns {Promise<boolean>}
    */
-  isConditionToApproveCheckboxVisible(page: Page): Promise<boolean> {
+  async isConditionToApproveCheckboxVisible(page: Page): Promise<boolean> {
     return this.elementVisible(page, this.conditionToApproveCheckbox, 1000);
   }
 
@@ -1199,7 +1260,7 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
    * @param page {Page} Browser tab
    * @return {Promise<boolean>}
    */
-  isGiftCheckboxVisible(page: Page): Promise<boolean> {
+  async isGiftCheckboxVisible(page: Page): Promise<boolean> {
     return this.elementVisible(page, this.giftCheckbox, 1000);
   }
 
@@ -1217,7 +1278,7 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
    * @param page {Page} Browser tab
    * @returns {Promise<boolean>}
    */
-  isGiftMessageTextareaVisible(page: Page): Promise<boolean> {
+  async isGiftMessageTextareaVisible(page: Page): Promise<boolean> {
     return this.elementVisible(page, this.giftMessageTextarea, 2000);
   }
 
@@ -1236,7 +1297,7 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
    * @param page {Page} Browser tab
    * @return {Promise<boolean>}
    */
-  isRecycledPackagingCheckboxVisible(page: Page): Promise<boolean> {
+  async isRecycledPackagingCheckboxVisible(page: Page): Promise<boolean> {
     return this.elementVisible(page, this.recyclableGiftCheckbox, 1000);
   }
 
