@@ -4,7 +4,8 @@ export default {
   blockwishlist: new FakerModule({
     tag: 'blockwishlist',
     name: 'Wishlist',
-    releaseZip: 'https://github.com/PrestaShop/blockwishlist/releases/download/v3.0.1/blockwishlist.zip',
+    versionCurrent: 'v3.0.1',
+    releaseZip: 'https://github.com/PrestaShop/blockwishlist/releases/download/%version%/blockwishlist.zip',
   }),
   psApiResources: new FakerModule({
     tag: 'ps_apiresources',
@@ -29,7 +30,8 @@ export default {
   psEmailAlerts: new FakerModule({
     tag: 'ps_emailalerts',
     name: 'Mail alerts',
-    releaseZip: 'https://github.com/PrestaShop/ps_emailalerts/releases/download/v3.0.0/ps_emailalerts.zip',
+    versionCurrent: 'v3.0.0',
+    releaseZip: 'https://github.com/PrestaShop/ps_emailalerts/releases/download/%version%/ps_emailalerts.zip',
   }),
   psEmailSubscription: new FakerModule({
     tag: 'ps_emailsubscription',
@@ -38,7 +40,8 @@ export default {
   psFacetedSearch: new FakerModule({
     tag: 'ps_facetedsearch',
     name: 'Faceted search',
-    releaseZip: 'https://github.com/PrestaShop/ps_facetedsearch/releases/download/v3.16.1/ps_facetedsearch.zip',
+    versionCurrent: 'v3.16.1',
+    releaseZip: 'https://github.com/PrestaShop/ps_facetedsearch/releases/download/%version%/ps_facetedsearch.zip',
   }),
   psGdpr: new FakerModule({
     tag: 'psgdpr',
@@ -47,7 +50,9 @@ export default {
   psNewProducts: new FakerModule({
     tag: 'ps_newproducts',
     name: 'New products block',
-    releaseZip: 'https://github.com/PrestaShop/ps_newproducts/releases/download/v1.0.4/ps_newproducts.zip',
+    versionCurrent: 'v1.0.4',
+    versionOld: 'v1.0.3',
+    releaseZip: 'https://github.com/PrestaShop/ps_newproducts/releases/download/%version%/ps_newproducts.zip',
   }),
   psSupplierList: new FakerModule({
     tag: 'ps_supplierlist',
@@ -56,7 +61,8 @@ export default {
   psThemeCusto: new FakerModule({
     tag: 'ps_themecusto',
     name: 'Theme Customization',
-    releaseZip: 'https://github.com/PrestaShop/ps_themecusto/releases/download/v1.2.4/ps_themecusto.zip',
+    versionCurrent: 'v1.2.4',
+    releaseZip: 'https://github.com/PrestaShop/ps_themecusto/releases/download/%version%/ps_themecusto.zip',
   }),
   psWirePayment: new FakerModule({
     tag: 'ps_wirepayment',
@@ -81,6 +87,7 @@ export default {
   keycloak: new FakerModule({
     tag: 'keycloak_connector_demo',
     name: 'Keycloak OAuth2 connector demo',
-    releaseZip: 'https://github.com/PrestaShop/keycloak_connector_demo/releases/download/v1.1.0/keycloak_connector_demo.zip',
+    versionCurrent: 'v1.1.0',
+    releaseZip: 'https://github.com/PrestaShop/keycloak_connector_demo/releases/download/%version%/keycloak_connector_demo.zip',
   }),
 };

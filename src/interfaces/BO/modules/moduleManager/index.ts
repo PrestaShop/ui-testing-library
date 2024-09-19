@@ -10,6 +10,7 @@ export interface ModuleManagerPageInterface extends BOBasePagePageInterface {
     readonly installModuleSuccessMessage: (moduleTag: string) => string;
     readonly resetModuleSuccessMessage: (moduleTag: string) => string;
     readonly uninstallModuleSuccessMessage: (moduleTag: string) => string;
+    readonly updateModuleSuccessMessage: (moduleTag: string) => string;
     readonly uploadModuleSuccessMessage: string;
 
     bulkActions(page: Page, action: string): Promise<string | null>;
