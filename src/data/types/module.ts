@@ -1,6 +1,8 @@
 type FakerModuleCreator = {
   tag?: string
   name?: string
+  versionCurrent?: string
+  versionOld?: string
   releaseZip?: string
 }
 

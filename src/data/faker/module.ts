@@ -8,7 +8,11 @@ export default class FakerModule {
 
   public readonly name: string;
 
-  public readonly releaseZip: string;
+  public readonly versionCurrent: string;
+
+  public readonly versionOld: string;
+
+  protected readonly releaseZipUrl: string;
 
   /**
    * Constructor for class FakerModule
@@ -21,7 +25,17 @@ export default class FakerModule {
     /** @type {string} Name of the module */
     this.name = valueToCreate.name || '';
 
+    /** @type {string} Current version of the module */
+    this.versionCurrent = valueToCreate.versionCurrent || '';
+
+    /** @type {string} Previous version of the module */
+    this.versionOld = valueToCreate.versionOld || '';
+
     /** @type {string} Release URL */
-    this.releaseZip = valueToCreate.releaseZip || '';
+    this.releaseZipUrl = valueToCreate.releaseZip || '';
+  }
+
+  releaseZip(version:string): string {
+    return this.releaseZipUrl.replace('%version%', version);
   }
 }
