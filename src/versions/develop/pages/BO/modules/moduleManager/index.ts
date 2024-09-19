@@ -23,6 +23,8 @@ class ModuleManagerPage extends BOBasePage implements ModuleManagerPageInterface
 
   public readonly uninstallModuleSuccessMessage: (moduleTag: string) => string;
 
+  public readonly updateModuleSuccessMessage: (moduleTag: string) => string;
+
   public readonly uploadModuleSuccessMessage: string;
 
   private readonly alertsTab: string;
@@ -91,6 +93,12 @@ class ModuleManagerPage extends BOBasePage implements ModuleManagerPageInterface
 
   private readonly modalConfirmUninstallForceDeletion: (moduleTag: string) => string;
 
+  private readonly modalConfirmUpdate: string;
+
+  private readonly modalConfirmUpdateButton: string;
+
+  private readonly modalConfirmUpdateCancel: string;
+
   private readonly statusDropdownDiv: string;
 
   private readonly statusDropdownMenu: string;
@@ -118,6 +126,7 @@ class ModuleManagerPage extends BOBasePage implements ModuleManagerPageInterface
     this.resetModuleSuccessMessage = (moduleTag: string) => `Reset action on module ${moduleTag} succeeded.`;
     this.installModuleSuccessMessage = (moduleTag: string) => `Install action on module ${moduleTag} succeeded.`;
     this.uninstallModuleSuccessMessage = (moduleTag: string) => `Uninstall action on module ${moduleTag} succeeded.`;
+    this.updateModuleSuccessMessage = (moduleTag: string) => `Update action on module ${moduleTag} succeeded.`;
     this.uploadModuleSuccessMessage = 'Module installed!';
 
     // Tabs
@@ -186,6 +195,10 @@ class ModuleManagerPage extends BOBasePage implements ModuleManagerPageInterface
       + ' div.modal-footer input[type="button"][data-dismiss="modal"]';
     this.modalConfirmUninstallForceDeletion = (moduleTag: string) => `${this.modalConfirmAction(moduleTag, 'uninstall')}`
       + ' #force_deletion';
+    this.modalConfirmUpdate = '#confirm-module-update-modal';
+    this.modalConfirmUpdateButton = `${this.modalConfirmUpdate} div.modal-footer button.btn-confirm-submit`;
+    this.modalConfirmUpdateCancel = `${this.modalConfirmUpdate} div.modal-footer button:not(.btn-confirm-submit)`
+      + '[data-dismiss="modal"]';
   }
 
   /*
@@ -432,12 +445,20 @@ class ModuleManagerPage extends BOBasePage implements ModuleManagerPageInterface
       await this.waitForSelectorAndClick(page, this.actionModuleButton(module.tag, action));
 
       if (cancel) {
-        await this.waitForSelectorAndClick(page, this.modalConfirmCancel(module.tag, action));
-        await this.elementNotVisible(page, this.modalConfirmAction(module.tag, action), 10000);
+        if (action === 'upgrade') {
+          await this.waitForSelectorAndClick(page, this.modalConfirmUpdateCancel);
+          await this.elementNotVisible(page, this.modalConfirmUpdate, 10000);
+        } else {
+          await this.waitForSelectorAndClick(page, this.modalConfirmCancel(module.tag, action));
+          await this.elementNotVisible(page, this.modalConfirmAction(module.tag, action), 10000);
+        }
         return '';
       }
       if (action === 'disable' || action === 'uninstall' || action === 'reset') {
         await this.waitForSelectorAndClick(page, this.modalConfirmButton(module.tag, action));
+      }
+      if (action === 'upgrade') {
+        await this.waitForSelectorAndClick(page, this.modalConfirmUpdateButton);
       }
     } else {
       await page.locator(this.actionsDropdownButton(module.tag)).click();
@@ -445,8 +466,13 @@ class ModuleManagerPage extends BOBasePage implements ModuleManagerPageInterface
       await this.waitForSelectorAndClick(page, this.actionModuleButtonInDropdownList(action));
 
       if (cancel) {
-        await this.waitForSelectorAndClick(page, this.modalConfirmCancel(module.tag, action));
-        await this.elementNotVisible(page, this.modalConfirmAction(module.tag, action), 10000);
+        if (action === 'upgrade') {
+          await this.waitForSelectorAndClick(page, this.modalConfirmUpdateCancel);
+          await this.elementNotVisible(page, this.modalConfirmUpdate, 10000);
+        } else {
+          await this.waitForSelectorAndClick(page, this.modalConfirmCancel(module.tag, action));
+          await this.elementNotVisible(page, this.modalConfirmAction(module.tag, action), 10000);
+        }
         return '';
       }
       if (action === 'uninstall' && forceDeletion) {
@@ -454,6 +480,9 @@ class ModuleManagerPage extends BOBasePage implements ModuleManagerPageInterface
       }
       if (action === 'disable' || action === 'uninstall' || action === 'reset') {
         await this.waitForSelectorAndClick(page, this.modalConfirmButton(module.tag, action));
+      }
+      if (action === 'upgrade') {
+        await this.waitForSelectorAndClick(page, this.modalConfirmUpdateButton);
       }
     }
 
