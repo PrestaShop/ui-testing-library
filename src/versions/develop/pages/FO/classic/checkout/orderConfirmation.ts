@@ -219,7 +219,7 @@ class OrderConfirmationPage extends FOBasePage implements FoCheckoutOrderConfirm
   /**
    * Get number of products
    * @param page {Page} Browser tab
-   * @returns {Promise<string>}
+   * @returns {Promise<number>}
    */
   async getNumberOfProducts(page: Page): Promise<number> {
     return page.locator(this.productRow).count();
@@ -253,7 +253,7 @@ class OrderConfirmationPage extends FOBasePage implements FoCheckoutOrderConfirm
   /**
    * Get modal product customization content
    * @param page{Page} Browser tab
-   * @returns {Promise<boolean>}
+   * @returns {Promise<string>}
    */
   async getModalProductCustomizationContent(page: Page): Promise<string> {
     return this.getTextContent(page, this.customizationModalBody);

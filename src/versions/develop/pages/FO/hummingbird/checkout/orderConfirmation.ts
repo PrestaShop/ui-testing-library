@@ -6,7 +6,7 @@ import {
 } from '@versions/develop/pages/FO/classic/checkout/orderConfirmation';
 
 /**
- * Cart page, contains functions that can be used on the page
+ * Order confirmation page, contains functions that can be used on the page
  * @class
  * @extends FOBasePage
  */
