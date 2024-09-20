@@ -3,10 +3,19 @@ import {BOBasePagePageInterface} from '@interfaces/BO';
 import type {Page} from '@playwright/test';
 
 export interface BOViewOrderBasePageInterface extends BOBasePagePageInterface {
+    readonly discountCannotExceedTotalErrorMessage: string;
+    readonly discountMustBeNumberErrorMessage: string;
+    readonly errorAddSameProduct: string;
+    readonly errorAddSameProductInInvoice: (invoice: string) => string;
     readonly errorAssignSameStatus: string;
+    readonly errorMinimumQuantityMessage: string;
+    readonly invalidPercentValueErrorMessage: string;
     readonly noAvailableDocumentsMessage: string;
     readonly pageTitle: string;
+    readonly partialRefundValidationMessage: string;
+    readonly percentValueNotPositiveErrorMessage: string;
     readonly successfulAddProductMessage: string;
+    readonly successfulDeleteProductMessage: string;
     readonly updateSuccessfullMessage: string;
     readonly validationSendMessage: string;
 
