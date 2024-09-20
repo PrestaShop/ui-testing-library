@@ -214,7 +214,8 @@ export {default as boModuleManagerUninstalledModulesPage} from '@pages/BO/module
 export {default as boNewExperimentalFeaturesPage} from '@pages/BO/advancedParameters/newExperimentalFeatures';
 export {default as boOrdersPage} from '@pages/BO/orders';
 export {default as boOrdersViewBasePage} from '@pages/BO/orders/view/viewOrderBasePage';
-export {default as boOrdersViewProductsBlockPage} from '@pages/BO/orders/view/productsBlock';
+export {default as boOrdersViewBlockProductsPage} from '@pages/BO/orders/view/blockProducts';
+export {default as boOrdersViewBlockTabListPage} from '@pages/BO/orders/view/blockTabList';
 export {default as boPaymentMethodsPage} from '@pages/BO/payment/paymentMethods';
 export {default as boPerformancePage} from '@pages/BO/advancedParameters/performance';
 export {default as boProductsPage} from '@pages/BO/catalog/products';

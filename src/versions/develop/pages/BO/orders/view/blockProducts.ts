@@ -1,4 +1,4 @@
-import {BOProductBlockPageInterface} from '@interfaces/BO/orders/view/productsBlock';
+import {BOProductBlockPageInterface} from '@interfaces/BO/orders/view/blockProducts';
 import {ViewOrderBasePage} from '@versions/develop/pages/BO/orders/view/viewOrderBasePage';
 
 import type {ProductDiscount} from '@data/types/product';
