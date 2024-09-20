@@ -9,6 +9,7 @@ export interface FoProductPageInterface extends FOBasePagePageInterface {
   readonly messageAlertNotificationAlreadyRegistered:string;
   readonly messageAlertNotificationEmailInvalid: string;
   readonly messageAlertNotificationSaved: string;
+  readonly messageCartContainsAlreadyProducts: string;
   readonly messageNotVisibleToCustomers: string;
 
   addProductReview(page: Page, productReviewData: FakerProductReview): Promise<boolean>;
@@ -38,6 +39,7 @@ export interface FoProductPageInterface extends FOBasePagePageInterface {
   getDiscountPercentage(page: Page): Promise<string>;
   getDiscountValue(page: Page): Promise<string>;
   getMinimalProductQuantityLabel(page: Page): Promise<string>;
+  getNotificationMessage(page: Page): Promise<string>;
   getNumberOfComments(page: Page): Promise<number>;
   getPackProductsPrice(page: Page): Promise<number>;
   getProductAttributes(page: Page): Promise<ProductAttribute[]>;
@@ -68,6 +70,7 @@ export interface FoProductPageInterface extends FOBasePagePageInterface {
   hasAddToWishlistButton(page: Page): Promise<boolean>;
   hasBlockMailAlert(page: Page): Promise<boolean>;
   hasBlockMailAlertGDPRLabel(page: Page): Promise<boolean>;
+  hasNotificationMessage(page: Page): Promise<boolean>;
   hasProductFeaturesList(page: Page): Promise<boolean>
   hasProductFlag(page: Page, name: string): Promise<boolean>;
   hasProductReviewGDPRLabel(page: Page): Promise<boolean>;

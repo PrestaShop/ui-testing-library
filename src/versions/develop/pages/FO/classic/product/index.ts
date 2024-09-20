@@ -20,6 +20,8 @@ class ProductPage extends FOBasePage implements FoProductPageInterface {
 
   public readonly messageAlertNotificationAlreadyRegistered: string;
 
+  public readonly messageCartContainsAlreadyProducts: string;
+
   protected warningMessage: string;
 
   protected productFlags: string;
@@ -202,6 +204,8 @@ class ProductPage extends FOBasePage implements FoProductPageInterface {
 
   private readonly btnAddToWishlist: string;
 
+  private readonly notificationsContainer: string;
+
   /**
    * @constructs
    * Setting up texts and selectors to use on product page
@@ -214,6 +218,7 @@ class ProductPage extends FOBasePage implements FoProductPageInterface {
     this.messageAlertNotificationSaved = 'Request notification registered';
     this.messageAlertNotificationEmailInvalid = 'Your email address is invalid.';
     this.messageAlertNotificationAlreadyRegistered = 'You will be notified when this product is available.';
+    this.messageCartContainsAlreadyProducts = 'Your cart contains 1 of these products.';
 
     // Selectors for product page
     this.warningMessage = 'main div.alert-warning p.alert-text';
@@ -323,6 +328,9 @@ class ProductPage extends FOBasePage implements FoProductPageInterface {
 
     // Wishlist
     this.btnAddToWishlist = '#add-to-cart-or-refresh button.wishlist-button-add';
+
+    // Notifications
+    this.notificationsContainer = '#notifications div.notifications-container';
   }
 
   // Methods
@@ -1294,6 +1302,24 @@ class ProductPage extends FOBasePage implements FoProductPageInterface {
     await page.waitForTimeout(1000);
 
     return ((await this.getTextContent(page, this.btnAddToWishlist)) === 'favorite');
+  }
+
+  /**
+   * Return if notification message is present
+   * @param page {Page} Browser tab
+   * @returns {Promise<string>}
+   */
+  async hasNotificationMessage(page: Page): Promise<boolean> {
+    return (await page.locator(`${this.notificationsContainer} article`).count() > 0);
+  }
+
+  /**
+   * Get notification message
+   * @param page {Page} Browser tab
+   * @returns {Promise<string>}
+   */
+  async getNotificationMessage(page: Page): Promise<string> {
+    return this.getTextContent(page, this.notificationsContainer);
   }
 }
 
