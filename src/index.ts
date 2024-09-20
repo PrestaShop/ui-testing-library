@@ -234,6 +234,7 @@ export {default as boSearchPage} from '@pages/BO/shopParameters/search';
 export {default as boSearchAliasCreatePage} from '@pages/BO/shopParameters/search/alias/create';
 export {default as boShopParametersPage} from '@pages/BO/shopParameters/general';
 export {default as boShoppingCartsPage} from '@pages/BO/orders/shoppingCarts';
+export {default as boStockPage} from '@pages/BO/catalog/stock';
 export {default as boSuppliersCreate} from '@pages/BO/catalog/suppliers/create';
 export {default as boThemeAdvancedConfigurationPage} from '@pages/BO/design/themeAndLogo/advancedConfiguration';
 export {default as boThemeAndLogoPage} from '@pages/BO/design/themeAndLogo';
