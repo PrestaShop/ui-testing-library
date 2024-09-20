@@ -3,7 +3,12 @@ import {BOBasePagePageInterface} from '@interfaces/BO';
 import type {Page} from '@playwright/test';
 
 export interface BOViewOrderBasePageInterface extends BOBasePagePageInterface {
+    readonly errorAssignSameStatus: string;
+    readonly noAvailableDocumentsMessage: string;
     readonly pageTitle: string;
+    readonly successfulAddProductMessage: string;
+    readonly updateSuccessfullMessage: string;
+    readonly validationSendMessage: string;
 
     clickOnPartialRefund(page: Page): Promise<void>;
     clickOnReturnProductsButton(page: Page): Promise<void>;

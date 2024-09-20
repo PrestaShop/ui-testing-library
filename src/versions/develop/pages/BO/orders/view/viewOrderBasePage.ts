@@ -26,9 +26,9 @@ class ViewOrderBasePage extends BOBasePage implements BOViewOrderBasePageInterfa
 
   public readonly noAvailableDocumentsMessage: string;
 
-  public readonly updateSuccessMessage: string;
+  public readonly updateSuccessfullMessage: string;
 
-  public readonly commentSuccessMessage: string;
+  public readonly commentSuccessfullMessage: string;
 
   public readonly validationSendMessage: string;
 
@@ -76,8 +76,8 @@ class ViewOrderBasePage extends BOBasePage implements BOViewOrderBasePageInterfa
     this.errorAddSameProductInInvoice = (invoice: string) => `This product is already in the invoice #${invoice}, `
             + 'please edit the quantity instead.';
     this.noAvailableDocumentsMessage = 'There is no available document';
-    this.updateSuccessMessage = 'Update successful';
-    this.commentSuccessMessage = 'Comment successfully added.';
+    this.updateSuccessfullMessage = 'Update successful';
+    this.commentSuccessfullMessage = 'Comment successfully added.';
     this.validationSendMessage = 'The message was successfully sent to the customer.';
     this.errorAssignSameStatus = 'The order has already been assigned this status.';
     this.discountMustBeNumberErrorMessage = 'Discount value must be a number.';
