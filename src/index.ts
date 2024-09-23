@@ -208,6 +208,7 @@ export {default as boDesignPositionsHookModulePage} from '@pages/BO/design/posit
 export {default as boInformationPage} from '@pages/BO/advancedParameters/information';
 export {default as boLocalizationPage} from '@pages/BO/international/localization';
 export {default as boLoginPage} from '@pages/BO/login';
+export {default as boMaintenancePage} from '@pages/BO/shopParameters/general/maintenance';
 export {default as boModuleManagerPage} from '@pages/BO/modules/moduleManager';
 export {default as boModuleManagerAlertsPage} from '@pages/BO/modules/moduleManager/alerts';
 export {default as boModuleManagerUninstalledModulesPage} from '@pages/BO/modules/moduleManager/uninstalledModules';
