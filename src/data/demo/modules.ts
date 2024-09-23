@@ -18,6 +18,9 @@ export default {
   psCashOnDelivery: new FakerModule({
     tag: 'ps_cashondelivery',
     name: 'Cash on delivery (COD)',
+    versionCurrent: 'v2.0.1',
+    versionOld: 'v2.0.0',
+    releaseZip: 'https://github.com/PrestaShop/ps_cashondelivery/releases/download/%version%/ps_cashondelivery.zip',
   }),
   psCategoryProducts: new FakerModule({
     tag: 'ps_categoryproducts',
