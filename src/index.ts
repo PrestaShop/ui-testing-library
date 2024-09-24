@@ -203,7 +203,8 @@ export {default as boCurrenciesPage} from '@pages/BO/international/localization/
 export {default as boCustomersPage} from '@pages/BO/customers';
 export {default as boDashboardPage} from '@pages/BO/dashboard';
 export {default as boDbBackupPage} from '@pages/BO/advancedParameters/database/dbBackup';
-export {default as boDesignPositionsPage} from '@pages/BO/design/positions/index';
+export {default as boDesignEmailThemesPage} from '@pages/BO/design/emailThemes';
+export {default as boDesignPositionsPage} from '@pages/BO/design/positions';
 export {default as boDesignPositionsHookModulePage} from '@pages/BO/design/positions/hookModule';
 export {default as boInformationPage} from '@pages/BO/advancedParameters/information';
 export {default as boLocalizationPage} from '@pages/BO/international/localization';
