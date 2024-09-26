@@ -937,10 +937,11 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
     }
     if (await this.elementVisible(page, this.userProfileYourProfileLink, 1000)) {
       await this.waitForVisibleSelector(page, this.userProfileYourProfileLink);
+      await this.clickAndWaitForURL(page, this.userProfileYourProfileLink);
     } else {
       await this.waitForVisibleSelector(page, this.userProfileYourProfileLinkNonMigratedPages);
+      await this.clickAndWaitForURL(page, this.userProfileYourProfileLinkNonMigratedPages);
     }
-    await this.clickAndWaitForURL(page, this.userProfileYourProfileLink);
   }
 
   /**

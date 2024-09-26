@@ -290,6 +290,7 @@ export {default as modPsGdprBoMain} from '@pages/BO/modules/psgdpr';
 export {default as modPsGdprBoTabCustomerActivity} from '@pages/BO/modules/psgdpr/tabCustomerActivity';
 export {default as modPsGdprBoTabDataConfig} from '@pages/BO/modules/psgdpr/tabDataConfig';
 export {default as modPsGdprBoTabDataConsent} from '@pages/BO/modules/psgdpr/tabDataConsent';
+export {default as modPsGdprBoTabHelp} from '@pages/BO/modules/psgdpr/tabHelp';
 export {default as modPsNewProductsBoMain} from '@pages/BO/modules/ps_newproducts';
 export {default as modPsSupplierListBoMain} from '@pages/BO/modules/ps_supplierlist';
 export {default as modPsWirepaymentBoMain} from '@pages/BO/modules/ps_wirepayment';
