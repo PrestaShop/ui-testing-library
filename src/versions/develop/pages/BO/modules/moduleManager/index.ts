@@ -11,7 +11,9 @@ import type {Page} from 'playwright';
  * @extends BOBasePage
  */
 class ModuleManagerPage extends BOBasePage implements ModuleManagerPageInterface {
-  public pageTitle: string;
+  public readonly pageTitle: string;
+
+  public readonly pageTitleFr: string;
 
   public readonly disableModuleSuccessMessage: (moduleTag: string) => string;
 
@@ -120,7 +122,8 @@ class ModuleManagerPage extends BOBasePage implements ModuleManagerPageInterface
   constructor() {
     super();
 
-    this.pageTitle = 'Module manager •';
+    this.pageTitle = `Module manager • ${global.INSTALL.SHOP_NAME}`;
+    this.pageTitleFr = `Gestionnaire de modules • ${global.INSTALL.SHOP_NAME}`;
     this.disableModuleSuccessMessage = (moduleTag: string) => `Disable action on module ${moduleTag} succeeded.`;
     this.enableModuleSuccessMessage = (moduleTag: string) => `Enable action on module ${moduleTag} succeeded.`;
     this.resetModuleSuccessMessage = (moduleTag: string) => `Reset action on module ${moduleTag} succeeded.`;

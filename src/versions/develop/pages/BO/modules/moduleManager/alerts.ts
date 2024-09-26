@@ -7,6 +7,8 @@ import {ModuleManagerPage} from '@versions/develop/pages/BO/modules/moduleManage
  * @extends ModuleManagerPage
  */
 class ModuleAlertsPage extends ModuleManagerPage implements ModuleManagerAlertsPageInterface {
+  public readonly pageTitle: string;
+
   constructor() {
     super();
 

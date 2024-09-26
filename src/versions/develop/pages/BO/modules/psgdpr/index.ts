@@ -10,6 +10,8 @@ import {type Page} from '@playwright/test';
 class PsGdprPage extends ModuleConfiguration implements ModulePsGdprBoMainPageInterface {
   public readonly pageSubTitle: string;
 
+  public readonly pageSubTitleFr: string;
+
   private readonly menuTab: (nth: number) => string;
 
   private readonly tabDataConfig: string;
@@ -17,6 +19,8 @@ class PsGdprPage extends ModuleConfiguration implements ModulePsGdprBoMainPageIn
   private readonly tabDataConsent: string;
 
   private readonly tabCustomerActivity: string;
+
+  private readonly tabHelp: string;
 
   /**
    * @constructs
@@ -27,6 +31,8 @@ class PsGdprPage extends ModuleConfiguration implements ModulePsGdprBoMainPageIn
 
     this.pageSubTitle = 'Official GDPR compliance';
 
+    this.pageSubTitleFr = 'RGPD Officiel';
+
     this.menuTab = (nth: number) => `#psgdpr-menu .list-group:nth-child(1) a.list-group-item:nth-child(${nth})`;
 
     this.tabDataConfig = '#dataConfig .panel';
@@ -34,6 +40,8 @@ class PsGdprPage extends ModuleConfiguration implements ModulePsGdprBoMainPageIn
     this.tabDataConsent = '#dataConsent .panel';
 
     this.tabCustomerActivity = '#customerActivity .panel';
+
+    this.tabHelp = '#faq .panel';
   }
 
   /**
@@ -56,6 +64,9 @@ class PsGdprPage extends ModuleConfiguration implements ModulePsGdprBoMainPageIn
         break;
       case 4:
         selectorBlock = this.tabCustomerActivity;
+        break;
+      case 5:
+        selectorBlock = this.tabHelp;
         break;
       default:
         throw new Error(`The block #${nth} has not defined a defined selector.`);
