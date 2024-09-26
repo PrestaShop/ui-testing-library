@@ -1,6 +1,6 @@
 import {type ModulePsGdprBoTabHelpPageInterface} from '@interfaces/BO/modules/psgdpr/tabHelp';
 import ModuleConfiguration from '@pages/BO/modules/moduleConfiguration';
-import {Request, Route, type Page} from '@playwright/test';
+import {type Page} from '@playwright/test';
 
 /**
  * Module configuration page for module : psgdpr, contains selectors and functions for the page
@@ -36,7 +36,7 @@ class PsGdprTabHelpPage extends ModuleConfiguration implements ModulePsGdprBoTab
 
     this.faqGroup = (text: string) => `${this.faqPanel} span.faq-h1:text("${text}")`;
 
-    this.faqQuestion = `ul > li`;
+    this.faqQuestion = 'ul > li';
 
     this.faqQuestionNth = (nth: number) => `${this.faqQuestion}:nth-child(${nth}) span.faq-h2`;
 
@@ -76,11 +76,10 @@ class PsGdprTabHelpPage extends ModuleConfiguration implements ModulePsGdprBoTab
   /**
    * Download the documentation
    * @param page {Page}
-   * @returns {Promise<number>}
+   * @returns {Promise<string|null>}
    */
   async downloadDocumentation(page: Page): Promise<string|null> {
-    await page.$eval(this.linkDocumentation, (el: HTMLLinkElement) =>
-      el.setAttribute('download', 'download'),
+    await page.$eval(this.linkDocumentation, (el: HTMLLinkElement) => el.setAttribute('download', 'download'),
     );
     return this.clickAndWaitForDownload(page, this.linkDocumentation, true);
   }
