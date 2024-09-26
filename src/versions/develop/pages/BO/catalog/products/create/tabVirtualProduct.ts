@@ -46,9 +46,9 @@ class VirtualProductTab extends BOBasePage implements BOProductsCreateTabVirtual
   private readonly labelWhenOutOfStock: string;
 
   /**
-     * @constructs
-     * Setting up texts and selectors to use on Virtual product tab
-     */
+   * @constructs
+   * Setting up texts and selectors to use on Virtual product tab
+   */
   constructor() {
     super();
 
@@ -79,22 +79,22 @@ class VirtualProductTab extends BOBasePage implements BOProductsCreateTabVirtual
      */
 
   /**
-     * Set product quantity
-     * @param page {Page} Browser tab
-     * @param quantity {string} Product quantity to set in the input
-     * @returns {Promise<void>}
-     */
+   * Set product quantity
+   * @param page {Page} Browser tab
+   * @param quantity {string} Product quantity to set in the input
+   * @returns {Promise<void>}
+   */
   async setProductQuantity(page: Page, quantity: number): Promise<void> {
     await this.waitForSelectorAndClick(page, this.virtualProductTabLink);
     await this.setValue(page, this.productQuantityInput, quantity);
   }
 
   /**
-     * Set virtual product
-     * @param page {Page} Browser tab
-     * @param productData {FakerProduct} Data to set in virtual product form
-     * @returns {Promise<void>}
-     */
+   * Set virtual product
+   * @param page {Page} Browser tab
+   * @param productData {FakerProduct} Data to set in virtual product form
+   * @returns {Promise<void>}
+   */
   async setVirtualProduct(page: Page, productData: FakerProduct): Promise<void> {
     await this.setProductQuantity(page, productData.quantity);
     await this.setValue(page, this.productMinimumQuantityInput, productData.minimumQuantity);
@@ -110,21 +110,21 @@ class VirtualProductTab extends BOBasePage implements BOProductsCreateTabVirtual
   }
 
   /**
-     * Get error message in downloaded file input
-     * @param page {Page} Browser tab
-     * @returns {Promise<string>}
-     */
+   * Get error message in downloaded file input
+   * @param page {Page} Browser tab
+   * @returns {Promise<string>}
+   */
   async getErrorMessageInDownloadFileInput(page: Page): Promise<string> {
     return this.getTextContent(page, this.errorMessageInFileInput);
   }
 
   // Methods for when out of stock
   /**
-     * Set option when out of stock
-     * @param page {Page} Browser tab
-     * @param option {string} Option to check
-     * @returns {Promise<void>}
-     */
+   * Set option when out of stock
+   * @param page {Page} Browser tab
+   * @param option {string} Option to check
+   * @returns {Promise<void>}
+   */
   async setOptionWhenOutOfStock(page: Page, option: string): Promise<void> {
     switch (option) {
       case 'Deny orders':
@@ -142,29 +142,29 @@ class VirtualProductTab extends BOBasePage implements BOProductsCreateTabVirtual
   }
 
   /**
-     * Click on edit default behaviour link
-     * @param page {Page} Browser tab
-     * @returns {Promise<Page>}
-     */
+   * Click on edit default behaviour link
+   * @param page {Page} Browser tab
+   * @returns {Promise<Page>}
+   */
   async clickOnEditDefaultBehaviourLink(page: Page): Promise<Page> {
     return this.openLinkWithTargetBlank(page, this.editDefaultBehaviourLink);
   }
 
   /**
-     * Set label when in stock
-     * @param page {Page} Browser tab
-     * @param label {string} Label to set when in stock in the input
-     * @returns {Promise<void>}
-     */
+   * Set label when in stock
+   * @param page {Page} Browser tab
+   * @param label {string} Label to set when in stock in the input
+   * @returns {Promise<void>}
+   */
   async setLabelWhenInStock(page: Page, label: string): Promise<void> {
     await this.setValue(page, this.labelWhenInStock, label);
   }
 
   /**
-     * Set label when out of stock
-     * @param page {Page} Browser tab
-     * @param label {string} Label to set when out of stock in the input
-     */
+   * Set label when out of stock
+   * @param page {Page} Browser tab
+   * @param label {string} Label to set when out of stock in the input
+   */
   async setLabelWhenOutOfStock(page: Page, label: string): Promise<void> {
     await this.setValue(page, this.labelWhenOutOfStock, label);
   }
