@@ -88,6 +88,7 @@ export interface BOBasePagePageInterface extends CommonPageInterface {
     getAlertSuccessBlockContent(page: Frame | Page): Promise<string>;
     getAlertSuccessBlockParagraphContent(page: Frame | Page): Promise<string>;
     getAllNotificationsNumber(page: Page): Promise<number>;
+    getCurrentEmployeeAvatar(page: Page): Promise<string | null>;
     getHelpDocumentURL(page: Page): Promise<string>;
     getNotificationsNumberInTab(page: Page, tabName: string): Promise<number>;
     getPageSubTitle(page: Page): Promise<string>;
