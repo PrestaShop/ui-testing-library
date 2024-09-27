@@ -51,6 +51,15 @@ export default {
       const successMessage = await boModuleManagerPage.setActionInModule(page, module, 'reset');
       expect(successMessage).toEqual(boModuleManagerPage.resetModuleSuccessMessage(module.tag));
     });
+
+    await test.step('Reset module: should logout', async () => {
+      await utilsTest.addContextItem(test.info(), 'testIdentifier', 'logout', baseContext);
+
+      await boModuleManagerPage.logoutBO(page);
+
+      const pageTitle = await boLoginPage.getPageTitle(page);
+      expect(pageTitle).toContain(boLoginPage.pageTitle);
+    });
   },
 
   /**
@@ -131,6 +140,15 @@ export default {
       const isModuleVisible = await boModuleManagerPage.searchModule(page, module);
       expect(isModuleVisible).toBeTruthy();
     });
+
+    await test.step('Install module: should logout', async () => {
+      await utilsTest.addContextItem(test.info(), 'testIdentifier', 'logout', baseContext);
+
+      await boModuleManagerPage.logoutBO(page);
+
+      const pageTitle = await boLoginPage.getPageTitle(page);
+      expect(pageTitle).toContain(boLoginPage.pageTitle);
+    });
   },
 
   /**
@@ -176,6 +194,16 @@ export default {
 
       const successMessage = await boModuleManagerPage.setActionInModule(page, module, 'uninstall', false, true);
       expect(successMessage).toEqual(boModuleManagerPage.uninstallModuleSuccessMessage(module.tag));
+    });
+
+    await test.step('Uninstall module: should logout', async () => {
+      await utilsTest.addContextItem(test.info(), 'testIdentifier', 'logout', baseContext);
+
+      await boModuleManagerPage.reloadPage(page);
+      await boModuleManagerPage.logoutBO(page);
+
+      const pageTitle = await boLoginPage.getPageTitle(page);
+      expect(pageTitle).toContain(boLoginPage.pageTitle);
     });
   },
 };
