@@ -1,13 +1,13 @@
 import {FoHomeHummingbirdPageInterface} from '@interfaces/FO/home';
 import {type Page} from '@playwright/test';
-import {HomePage as HomePageVersion} from '@versions/develop/pages/FO/classic/home';
+import {FoHomePage as FoHomePageVersion} from '@versions/develop/pages/FO/classic/home';
 
 /**
  * Home page, contains functions that can be used on the page
  * @class
  * @extends HomePage
  */
-class HomePage extends HomePageVersion implements FoHomeHummingbirdPageInterface {
+class FoHomePage extends FoHomePageVersion implements FoHomeHummingbirdPageInterface {
   private readonly addToCartIcon: (number: number) => string;
 
   private readonly productColor: (number: number, color: string) => string;
@@ -100,4 +100,4 @@ class HomePage extends HomePageVersion implements FoHomeHummingbirdPageInterface
   }
 }
 
-module.exports = new HomePage();
+module.exports = new FoHomePage();

@@ -8,7 +8,7 @@ import {quickViewModal as foClassicModalQuickViewPage} from '@versions/develop/p
  * @class
  * @extends FOBasePage
  */
-class HomePage extends FOBasePage implements FoHomePageInterface {
+class FoHomePage extends FOBasePage implements FoHomePageInterface {
   public readonly pageTitle: string;
 
   public readonly successAddToCartMessage: string;
@@ -354,11 +354,11 @@ class HomePage extends FOBasePage implements FoHomePageInterface {
   /**
    * Quick view product
    * @param page {Page} Browser tab
-   * @param row {number} Row of product to quick view
+   * @param id {number} Row of product to quick view
    * @return {Promise<void>}
    */
-  async quickViewProduct(page: Page, row: number): Promise<void> {
-    await page.locator(this.productImg(row)).hover();
+  async quickViewProduct(page: Page, id: number): Promise<void> {
+    await page.locator(this.productImg(id)).hover();
     let displayed: boolean = false;
 
     /* eslint-disable no-await-in-loop */
@@ -375,14 +375,14 @@ class HomePage extends FOBasePage implements FoHomePageInterface {
           }
           return window.getComputedStyle(element, ':after').getPropertyValue('display') === 'block';
         },
-        this.productDescriptionDiv(row),
+        this.productDescriptionDiv(id),
       );
       await page.waitForTimeout(100);
     }
     /* eslint-enable no-await-in-loop */
     await Promise.all([
       this.waitForVisibleSelector(page, foClassicModalQuickViewPage.quickViewModalDiv),
-      page.locator(this.productQuickViewLink(row)).evaluate((el: HTMLElement) => el.click()),
+      page.locator(this.productQuickViewLink(id)).evaluate((el: HTMLElement) => el.click()),
     ]);
   }
 
@@ -467,5 +467,5 @@ class HomePage extends FOBasePage implements FoHomePageInterface {
   }
 }
 
-const homePage = new HomePage();
-export {homePage, HomePage};
+const foHomePage = new FoHomePage();
+export {foHomePage, FoHomePage};

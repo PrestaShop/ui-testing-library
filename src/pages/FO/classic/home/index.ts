@@ -6,11 +6,15 @@ const psVersion = testContext.getPSVersion();
 
 /* eslint-disable global-require, @typescript-eslint/no-var-requires */
 function requirePage(): FoHomePageInterface {
-  // >= 9.0
-  if (semver.gte(psVersion, '9.0.0')) {
-    return require('@versions/develop/pages/FO/classic/home').homePage;
+  // > 1.7.7.0
+  if (semver.lt(psVersion, '7.7.0')) {
+    return require('@versions/1.7.6/pages/FO/classic/home');
   }
-  return require('@versions/8.1/pages/FO/classic/home');
+  // > 9.0.0
+  if (semver.lt(psVersion, '9.0.0')) {
+    return require('@versions/8.1/pages/FO/classic/home').foHomePage;
+  }
+  return require('@versions/develop/pages/FO/classic/home').foHomePage;
 }
 /* eslint-enable global-require, @typescript-eslint/no-var-requires */
 
