@@ -2,6 +2,8 @@ import {BOBasePagePageInterface} from '@interfaces/BO';
 import {Page} from '@playwright/test';
 
 export interface BOSearchPageInterface extends BOBasePagePageInterface {
+    readonly errorFillFieldMessage: string;
+    readonly errorMaxWordLengthInvalidMessage: string;
     readonly pageTitle: string;
     readonly settingsUpdateMessage: string;
     readonly successfulUpdateStatusMessage: string;
@@ -15,6 +17,7 @@ export interface BOSearchPageInterface extends BOBasePagePageInterface {
     getAllRowsColumnContent(page: Page, columnName: string): Promise<string[]>;
     getBlacklistedWords(page: Page, idLang: number): Promise<string>;
     getMaximumApproximateWords(page: Page): Promise<number>;
+    getMaximumWordLength(page: Page): Promise<number>;
     getMinimumWordLength(page: Page): Promise<number>;
     getNumberOfElementInGrid(page: Page): Promise<number>;
     getNumIndexedProducts(page: Page): Promise<number>;
@@ -34,6 +37,7 @@ export interface BOSearchPageInterface extends BOBasePagePageInterface {
     setFuzzySearch(page: Page, toEnable?: boolean): Promise<string>;
     setIndexing(page: Page, toEnable?: boolean): Promise<string>;
     setMaximumApproximateWords(page: Page, maxWords: number): Promise<string>;
+    setMaximumWordLength(page: Page, length: number|string): Promise<string>;
     setMinimumWordLength(page: Page, length: number): Promise<string>;
     setSearchExactEndMatch(page: Page, toEnable?: boolean): Promise<string>;
     setStatus(page: Page, row: number, valueWanted?: boolean): Promise<boolean>;
