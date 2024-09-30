@@ -6,6 +6,8 @@ import type FakerProduct from '@data/faker/product';
 import type {ProductImageInformation} from '@data/types/product';
 
 export interface BOProductsCreateTabDescriptionPageInterface extends BOBasePagePageInterface {
+    readonly settingUpdatedMessage: string;
+
     addNewCategory(page: Page, categories: string[]): Promise<void>;
     addProductImages(page: Page, imagesPaths: any[]): Promise<void>;
     addRelatedProduct(page: Page, productName: string): Promise<void>;
@@ -30,9 +32,9 @@ export interface BOProductsCreateTabDescriptionPageInterface extends BOBasePageP
         useAsCoverImage: boolean | undefined,
         captionEn: string | undefined,
         captionFr: string | undefined,
-        selectAll: boolean | undefined,
-        toSave: boolean,
-        toClose: boolean,
+        selectAll?: boolean | undefined,
+        toSave?: boolean,
+        toClose?: boolean,
     ): Promise<string | null>
     setValueOnTinymceInput(page: Page, selector: string, value: string): Promise<void>;
     uploadProductImages(page: Page, imagesPaths: any[]): Promise<void>;

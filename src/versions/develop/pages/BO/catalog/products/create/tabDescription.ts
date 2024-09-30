@@ -20,6 +20,8 @@ class DescriptionTab extends BOBasePage implements BOProductsCreateTabDescriptio
 
   private readonly imagePreviewBlock: string;
 
+  private readonly imageDefaultBlock: string;
+
   private readonly imagePreviewCover: string;
 
   private readonly productImage: string;
@@ -99,9 +101,9 @@ class DescriptionTab extends BOBasePage implements BOProductsCreateTabDescriptio
   private readonly productManufacturerList: (brandRow: number) => string;
 
   /**
-     * @constructs
-     * Setting up texts and selectors to use on description tab
-     */
+   * @constructs
+   * Setting up texts and selectors to use on description tab
+   */
   constructor() {
     super();
 
@@ -113,6 +115,7 @@ class DescriptionTab extends BOBasePage implements BOProductsCreateTabDescriptio
     // Image selectors
     this.productImageDropZoneDiv = '#product-images-dropzone';
     this.imagePreviewBlock = `${this.productImageDropZoneDiv} div.dz-preview.openfilemanager`;
+    this.imageDefaultBlock = `${this.productImageDropZoneDiv} div.dz-default.openfilemanager`;
     this.imagePreviewCover = `${this.productImageDropZoneDiv} div.dz-preview.is-cover`;
     this.productImage = `${this.productImageDropZoneDiv} div.dz-preview.dz-image-preview.dz-complete`;
     this.productImageContainer = '#product-images-container';
@@ -121,20 +124,20 @@ class DescriptionTab extends BOBasePage implements BOProductsCreateTabDescriptio
     this.productImageDropZoneBtnLang = `${this.productImageDropZoneWindow} #product_dropzone_lang`;
     this.productImageDropZoneDropdown = `${this.productImageDropZoneWindow} .locale-dropdown-menu.show`;
     this.productImageDropZoneDropdownItem = (locale: string) => `${this.productImageDropZoneDropdown} span`
-            + `[data-locale="${locale}"]`;
+      + `[data-locale="${locale}"]`;
     this.productImageDropZoneCaption = `${this.productImageDropZoneWindow} #caption-textarea`;
     this.productImageDropZoneBtnSubmit = `${this.productImageDropZoneWindow} button.save-image-settings`;
     this.productImageDropZoneSelectAllLink = `${this.productImageDropZoneWindow} p.dropzone-window-select`;
     this.productImageDropZoneCloseButton = `${this.productImageDropZoneWindow} div.dropzone-window-header-right`
-            + ' i[data-original-title="Close window"]';
+      + ' i[data-original-title="Close window"]';
     this.productImageDropZoneZoomIcon = `${this.productImageDropZoneWindow} div.dropzone-window-header-right`
-            + ' i[data-original-title="Zoom on selection"]';
+      + ' i[data-original-title="Zoom on selection"]';
     this.productImageDropZoneZoomImage = `${this.productImageContainer} div.pswp--open.pswp--visible`;
     this.productImageDropZoneCloseZoom = `${this.productImageContainer} button.pswp__button--close`;
     this.productImageDropZoneReplaceImageSelection = `${this.productImageContainer} div.dropzone-window-header-right`
-            + ' i[data-original-title="Replace selection"]';
+      + ' i[data-original-title="Replace selection"]';
     this.productImageDropZoneDeleteImageSelection = `${this.productImageContainer} div.dropzone-window-header-right`
-            + ' i[data-original-title="Delete selection"]';
+      + ' i[data-original-title="Delete selection"]';
     this.applyDeleteImageButton = `${this.productImageContainer} footer button.btn-primary`;
     // Description & summary selectors
     this.productSummary = '#product_description_description_short';
@@ -154,65 +157,65 @@ class DescriptionTab extends BOBasePage implements BOProductsCreateTabDescriptio
     this.categoriesList = '#product_description_categories_product_categories';
     this.defaultCategorySelectButton = '#select2-product_description_categories_default_category_id-container';
     this.defaultCategoryList = (categoryRow: number) => '#select2-product_description_categories_default_category_id-results'
-            + ` li:nth-child(${categoryRow})`;
+      + ` li:nth-child(${categoryRow})`;
     this.deleteCategoryIcon = (categoryRow: number) => `#product_description_categories_product_categories_${categoryRow}_name`
-            + ' + a.pstaggerClosingCross:not(.d-none)';
+      + ' + a.pstaggerClosingCross:not(.d-none)';
     // Brand selectors
     this.productManufacturer = '#product_description_manufacturer';
     this.productManufacturerSelectButton = '#select2-product_description_manufacturer-container';
     this.productManufacturerList = (BrandRow: number) => '#select2-product_description_manufacturer-results'
-            + ` li:nth-child(${BrandRow})`;
+      + ` li:nth-child(${BrandRow})`;
     // Related product selectors
     this.relatedProductSelectButton = '#product_description_related_products_search_input';
   }
 
   /*
-    Methods
-     */
+  Methods
+   */
 
   /**
-     * Get Number of images to set on the product
-     * @param page {Page} Browser tab
-     * @returns {Promise<number>}
-     */
+   * Get Number of images to set on the product
+   * @param page {Page} Browser tab
+   * @returns {Promise<number>}
+   */
   async getNumberOfImages(page: Page): Promise<number> {
     return page.locator(this.productImage).count();
   }
 
   /**
-     * Upload product image
-     * @param page {Page} Browser tab
-     * @param imagesPaths {Array<?string>} Paths of the images to add to the product
-     * @returns {Promise<void>}
-     */
+   * Upload product image
+   * @param page {Page} Browser tab
+   * @param imagesPaths {Array<?string>} Paths of the images to add to the product
+   * @returns {Promise<void>}
+   */
   async uploadProductImages(page: Page, imagesPaths: any[] = []): Promise<void> {
     const filteredImagePaths = imagesPaths.filter((el) => el !== null);
 
     if (filteredImagePaths !== null && filteredImagePaths.length !== 0) {
-      const numberOfImages = await this.getNumberOfImages(page);
+      const imagePreviewBlock = await page.locator(this.imagePreviewBlock).isVisible({timeout: 5000});
       await this.uploadOnFileChooser(
         page,
-        numberOfImages === 0 ? this.productImageDropZoneDiv : this.imagePreviewBlock,
+        imagePreviewBlock ? this.imagePreviewBlock : this.imageDefaultBlock,
         filteredImagePaths,
       );
     }
   }
 
   /**
-     * Add product images
-     * @param page {Page} Browser tab
-     * @param imagesPaths {Array<?string>} Paths of the images to add to the product
-     * @returns {Promise<void>}
-     */
+   * Add product images
+   * @param page {Page} Browser tab
+   * @param imagesPaths {Array<?string>} Paths of the images to add to the product
+   * @returns {Promise<void>}
+   */
   async addProductImages(page: Page, imagesPaths: any[] = []): Promise<void> {
     const filteredImagePaths = imagesPaths.filter((el) => el !== null);
 
     if (filteredImagePaths !== null && filteredImagePaths.length !== 0) {
       const numberOfImages = await this.getNumberOfImages(page);
-      await this.waitForVisibleSelector(page, numberOfImages === 0 ? this.productImageDropZoneDiv : this.imagePreviewBlock);
+      const imagePreviewBlock = await page.locator(this.imagePreviewBlock).isVisible({timeout: 5000});
       await this.uploadOnFileChooser(
         page,
-        numberOfImages === 0 ? this.productImageDropZoneDiv : this.imagePreviewBlock,
+        imagePreviewBlock ? this.imagePreviewBlock : this.imageDefaultBlock,
         filteredImagePaths,
       );
 
@@ -222,11 +225,11 @@ class DescriptionTab extends BOBasePage implements BOProductsCreateTabDescriptio
   }
 
   /**
-     * Get Product Image Information
-     * @param page {Page} Browser tab
-     * @param numImage {number} Number of the image
-     * @returns {Promise<ProductImageInformation>}
-     */
+   * Get Product Image Information
+   * @param page {Page} Browser tab
+   * @param numImage {number} Number of the image
+   * @returns {Promise<ProductImageInformation>}
+   */
   async getProductImageInformation(page: Page, numImage: number): Promise<ProductImageInformation> {
     await page.locator(this.productImage).nth(numImage - 1).click();
 
@@ -260,17 +263,17 @@ class DescriptionTab extends BOBasePage implements BOProductsCreateTabDescriptio
   }
 
   /**
-     * Set Product Image Information
-     * @param page {Page} Browser tab
-     * @param numImage {number} Number of the image
-     * @param useAsCoverImage {boolean|undefined} Use as cover image
-     * @param captionEn {string|undefined} Caption in English
-     * @param captionFr {string|undefined} Caption in French
-     * @param selectAll {boolean|undefined} Select all
-     * @param toSave {boolean} True if we need to save
-     * @param toClose {boolean} True if we need to close
-     * @returns {Promise<string|null>}
-     */
+   * Set Product Image Information
+   * @param page {Page} Browser tab
+   * @param numImage {number} Number of the image
+   * @param useAsCoverImage {boolean|undefined} Use as cover image
+   * @param captionEn {string|undefined} Caption in English
+   * @param captionFr {string|undefined} Caption in French
+   * @param selectAll {boolean|undefined} Select all
+   * @param toSave {boolean} True if we need to save
+   * @param toClose {boolean} True if we need to close
+   * @returns {Promise<string|null>}
+   */
   async setProductImageInformation(
     page: Page,
     numImage: number,
@@ -281,7 +284,7 @@ class DescriptionTab extends BOBasePage implements BOProductsCreateTabDescriptio
     toSave: boolean = true,
     toClose: boolean = false,
   ): Promise<string | null> {
-    let returnValue: string | null = null;
+    let returnValue: string|null = null;
     // Select the image
     await page.locator(this.productImage).nth(numImage - 1).click();
 
@@ -319,10 +322,10 @@ class DescriptionTab extends BOBasePage implements BOProductsCreateTabDescriptio
   }
 
   /**
-     * Click on magnifying glass
-     * @param page {Page} Browser tab
-     * @returns {Promise<boolean>}
-     */
+   * Click on magnifying glass
+   * @param page {Page} Browser tab
+   * @returns {Promise<boolean>}
+   */
   async clickOnMagnifyingGlass(page: Page): Promise<boolean> {
     await page.locator(this.productImageDropZoneZoomIcon).click();
 
@@ -330,10 +333,10 @@ class DescriptionTab extends BOBasePage implements BOProductsCreateTabDescriptio
   }
 
   /**
-     * Close image zoom
-     * @param page {Page} Browser tab
-     * @returns {Promise<boolean>}
-     */
+   * Close image zoom
+   * @param page {Page} Browser tab
+   * @returns {Promise<boolean>}
+   */
   async closeImageZoom(page: Page): Promise<boolean> {
     await page.locator(this.productImageDropZoneCloseZoom).click();
 
@@ -341,11 +344,11 @@ class DescriptionTab extends BOBasePage implements BOProductsCreateTabDescriptio
   }
 
   /**
-     * Replace image selection
-     * @param page {Page} Browser tab
-     * @param image {string} Browser tab
-     * @returns {Promise<string>}
-     */
+   * Replace image selection
+   * @param page {Page} Browser tab
+   * @param image {string} Browser tab
+   * @returns {Promise<string>}
+   */
   async replaceImageSelection(page: Page, image: string): Promise<string | null> {
     await this.uploadOnFileChooser(page, this.productImageDropZoneReplaceImageSelection, [image]);
     await page.locator(this.productImageDropZoneBtnSubmit).click();
@@ -354,10 +357,10 @@ class DescriptionTab extends BOBasePage implements BOProductsCreateTabDescriptio
   }
 
   /**
-     * Delete image
-     * @param page {Page} Browser tab
-     * @returns {Promise<string>}
-     */
+   * Delete image
+   * @param page {Page} Browser tab
+   * @returns {Promise<string>}
+   */
   async deleteImage(page: Page): Promise<string | null> {
     await this.closeGrowlMessage(page);
     await page.locator(this.productImageDropZoneDeleteImageSelection).click();
@@ -367,15 +370,15 @@ class DescriptionTab extends BOBasePage implements BOProductsCreateTabDescriptio
   }
 
   /**
-     * Set value on tinyMce textarea
-     * @param page {Page} Browser tab
-     * @param selector {string} Value of selector to use
-     * @param value {string} Text to set on tinymce input
-     * @returns {Promise<void>}
-     */
+   * Set value on tinyMce textarea
+   * @param page {Page} Browser tab
+   * @param selector {string} Value of selector to use
+   * @param value {string} Text to set on tinymce input
+   * @returns {Promise<void>}
+   */
   async setValueOnTinymceInput(page: Page, selector: string, value: string): Promise<void> {
     // Select all
-    await page.locator(`${selector} .mce-edit-area`).first().click({clickCount: 3});
+    await page.locator(`${selector} .mce-edit-area`).click({clickCount: 3});
 
     // Delete all text
     await page.keyboard.press('Backspace');
@@ -385,10 +388,10 @@ class DescriptionTab extends BOBasePage implements BOProductsCreateTabDescriptio
   }
 
   /**
-     * Set description
-     * @param page {Page} Browser tab
-     * @param description {string} Data to set in description textarea
-     */
+   * Set description
+   * @param page {Page} Browser tab
+   * @param description {string} Data to set in description textarea
+   */
   async setDescription(page: Page, description: string): Promise<void> {
     await page.locator(this.productDescriptionTabLocale('en')).click();
     await this.elementVisible(page, `${this.productDescriptionTabLocale('en')}.active`);
@@ -396,11 +399,11 @@ class DescriptionTab extends BOBasePage implements BOProductsCreateTabDescriptio
   }
 
   /**
-     * Set product description
-     * @param page {Page} Browser tab
-     * @param productData {FakerProduct} Data to set in description form
-     * @returns {Promise<void>}
-     */
+   * Set product description
+   * @param page {Page} Browser tab
+   * @param productData {FakerProduct} Data to set in description form
+   * @returns {Promise<void>}
+   */
   async setProductDescription(page: Page, productData: FakerProduct): Promise<void> {
     await this.waitForSelectorAndClick(page, this.descriptionTabLink);
 
@@ -414,10 +417,10 @@ class DescriptionTab extends BOBasePage implements BOProductsCreateTabDescriptio
   }
 
   /**
-     * Set iframe in description
-     * @param page {Page} Browser tab
-     * @param description {string} Data to set in the description
-     */
+   * Set iframe in description
+   * @param page {Page} Browser tab
+   * @param description {string} Data to set in the description
+   */
   async setIframeInDescription(page: Page, description: string): Promise<void> {
     await this.waitForSelectorAndClick(page, this.descriptionTabLink);
     await page.locator(this.productDescriptionSourceCodeLink).first().click();
@@ -426,20 +429,20 @@ class DescriptionTab extends BOBasePage implements BOProductsCreateTabDescriptio
   }
 
   /**
-     * Get Product ID Image Cover
-     * @param page {Page} Browser tab
-     * @returns {Promise<number>}
-     */
+   * Get Product ID Image Cover
+   * @param page {Page} Browser tab
+   * @returns {Promise<number>}
+   */
   async getProductIDImageCover(page: Page): Promise<number> {
     return parseInt(await this.getAttributeContent(page, this.imagePreviewCover, 'data-id'), 10);
   }
 
   /**
-     * Returns the value of a form element
-     * @param page {Page}
-     * @param inputName {string}
-     * @param languageId {string | undefined}
-     */
+   * Returns the value of a form element
+   * @param page {Page}
+   * @param inputName {string}
+   * @param languageId {string | undefined}
+   */
   async getValue(page: Page, inputName: string, languageId?: string): Promise<string> {
     switch (inputName) {
       case 'description':
@@ -456,11 +459,11 @@ class DescriptionTab extends BOBasePage implements BOProductsCreateTabDescriptio
   }
 
   /**
-     * Add new category
-     * @param page {Page} Browser tab
-     * @param categories {string[]} Browser tab
-     * @returns {Promise<void>}
-     */
+   * Add new category
+   * @param page {Page} Browser tab
+   * @param categories {string[]} Browser tab
+   * @returns {Promise<void>}
+   */
   async addNewCategory(page: Page, categories: string[]): Promise<void> {
     await page.locator(this.addCategoryButton).click();
     await this.waitForVisibleSelector(page, this.addCategoryInput);
@@ -475,52 +478,52 @@ class DescriptionTab extends BOBasePage implements BOProductsCreateTabDescriptio
   }
 
   /**
-     * Get selected categories
-     * @param page {Page} Browser tab
-     * @returns {Promise<string>}
-     */
+   * Get selected categories
+   * @param page {Page} Browser tab
+   * @returns {Promise<string>}
+   */
   async getSelectedCategories(page: Page): Promise<string> {
     return this.getTextContent(page, this.categoriesList);
   }
 
   /**
-     * Get selected categories
-     * @param page {Page} Browser tab
-     * @param categoryRow {number} Category row
-     * @returns {Promise<void>}
-     */
+   * Get selected categories
+   * @param page {Page} Browser tab
+   * @param categoryRow {number} Category row
+   * @returns {Promise<void>}
+   */
   async chooseDefaultCategory(page: Page, categoryRow: number): Promise<void> {
     await page.locator(this.defaultCategorySelectButton).click();
     await page.locator(this.defaultCategoryList(categoryRow)).click();
   }
 
   /**
-     * Is delete category icon visible
-     * @param page {Page} Browser tab
-     * @param categoryRow {number} Category row
-     * @returns {Promise<number>}
-     */
+   * Is delete category icon visible
+   * @param page {Page} Browser tab
+   * @param categoryRow {number} Category row
+   * @returns {Promise<number>}
+   */
   async isDeleteCategoryIconVisible(page: Page, categoryRow: number): Promise<boolean> {
     return (await page.locator(this.deleteCategoryIcon(categoryRow)).count()) !== 0;
   }
 
   /**
-     * Is delete category icon visible
-     * @param page {Page} Browser tab
-     * @param brandRow {number} Brand row
-     * @returns {Promise<void>}
-     */
+   * Is delete category icon visible
+   * @param page {Page} Browser tab
+   * @param brandRow {number} Brand row
+   * @returns {Promise<void>}
+   */
   async chooseBrand(page: Page, brandRow: number): Promise<void> {
     await page.locator(this.productManufacturerSelectButton).click();
     await page.locator(this.productManufacturerList(brandRow)).click();
   }
 
   /**
-     * Add related product
-     * @param page {Page} Browser tab
-     * @param productName {string} Product name
-     * @returns {Promise<void>}
-     */
+   * Add related product
+   * @param page {Page} Browser tab
+   * @param productName {string} Product name
+   * @returns {Promise<void>}
+   */
   async addRelatedProduct(page: Page, productName: string): Promise<void> {
     await page.locator(this.relatedProductSelectButton).fill(productName);
     await page.keyboard.press('ArrowDown');
