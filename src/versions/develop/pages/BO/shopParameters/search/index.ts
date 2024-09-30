@@ -14,7 +14,11 @@ class SearchPage extends BOBasePage implements BOSearchPageInterface {
 
   public readonly settingsUpdateMessage: string;
 
-  public readonly updateSuccessMessage;
+  public readonly updateSuccessMessage: string;
+
+  public readonly errorFillFieldMessage: string;
+
+  public readonly errorMaxWordLengthInvalidMessage: string;
 
   private readonly addNewAliasLink: string;
 
@@ -116,6 +120,8 @@ class SearchPage extends BOBasePage implements BOSearchPageInterface {
 
   private readonly maximumApproximateWordsInput: string;
 
+  private readonly maximumWordLengthInput: string;
+
   private readonly minimumWordLengthInput: string;
 
   private readonly blacklistedWordsTextarea: (idLang: number) => string;
@@ -134,6 +140,8 @@ class SearchPage extends BOBasePage implements BOSearchPageInterface {
     this.successfulUpdateStatusMessage = 'The status has been successfully updated.';
     this.updateSuccessMessage = 'Update successful';
     this.settingsUpdateMessage = 'The settings have been successfully updated.';
+    this.errorFillFieldMessage = 'Please fill in this field.';
+    this.errorMaxWordLengthInvalidMessage = 'The Maximum word length (in characters) field is invalid.';
 
     // Selectors
     // Header links
@@ -214,6 +222,7 @@ class SearchPage extends BOBasePage implements BOSearchPageInterface {
     this.searchExactEndMatchLabel = (status: string) => `#PS_SEARCH_END_${status}`;
     this.fuzzySearchLabel = (status: string) => `#PS_SEARCH_FUZZY_${status}`;
     this.maximumApproximateWordsInput = 'input[name="PS_SEARCH_FUZZY_MAX_LOOP"]';
+    this.maximumWordLengthInput = 'input[name="PS_SEARCH_MAX_WORD_LENGTH"]';
     this.minimumWordLengthInput = 'input[name="PS_SEARCH_MINWORDLEN"]';
     this.blacklistedWordsTextarea = (idLang: number) => `textarea[name="PS_SEARCH_BLACKLIST_${idLang}"]`;
     this.saveFormButton = `${this.aliasForm} button[name='submitOptionsalias']`;
@@ -646,6 +655,36 @@ class SearchPage extends BOBasePage implements BOSearchPageInterface {
     await this.clickAndWaitForLoadState(page, this.saveFormButton);
 
     return this.getAlertSuccessBlockContent(page);
+  }
+
+  /**
+   * Returns the maximum word length (in characters)
+   * @param page {Page} Browser tab
+   * @returns {Promise<number>}
+   */
+  async getMaximumWordLength(page: Page): Promise<number> {
+    return parseInt(await this.getInputValue(page, this.maximumWordLengthInput), 10);
+  }
+
+  /**
+   * Define the maximum word length (in characters)
+   * @param page {Page} Browser tab
+   * @param length {number|string} Length
+   * @returns {Promise<string>}
+   */
+  async setMaximumWordLength(page: Page, length: number|string): Promise<string> {
+    await this.setValue(page, this.maximumWordLengthInput, length.toString());
+    await this.clickAndWaitForLoadState(page, this.saveFormButton);
+
+    const validationMessage = await page
+      .locator(this.maximumWordLengthInput)
+      .evaluate((element: HTMLInputElement) => element.validationMessage);
+
+    if (validationMessage.length > 0) {
+      return validationMessage;
+    }
+
+    return this.getTextContent(page, this.alertBlock);
   }
 
   /**
