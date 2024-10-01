@@ -10,6 +10,7 @@ export type {
   CategoryRedirection,
 } from '@data/types/category';
 export type {CurrencyFormat} from '@data/types/currency';
+export type {default as DashboardTrafficSource} from '@data/types/dashboard';
 export type {EmployeePermission} from '@data/types/employee';
 export type {
   GlobalInstall,

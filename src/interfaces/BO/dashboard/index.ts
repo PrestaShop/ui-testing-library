@@ -1,3 +1,4 @@
+import type DashboardTrafficSource from '@data/types/dashboard';
 import {BOBasePagePageInterface} from '@interfaces/BO';
 import {type Page} from '@playwright/test';
 
@@ -6,7 +7,7 @@ export interface DashboardPageInterface extends BOBasePagePageInterface {
 
     clickOnAbandonedCartsLink(page: Page): Promise<void>;
     clickOnActiveShoppingCartsLink(page: Page): Promise<void>;
-    clickOnConfigureLink(page: Page): Promise<boolean>;
+    clickOnConfigureActivityOverviewLink(page: Page): Promise<boolean>;
     clickOnConfigureProductsAndSalesLink(page: Page): Promise<boolean>;
     clickOnDetailsButtonOfRecentOrdersTable(page: Page, row?: number): Promise<void>;
     clickOnNewCustomersLink(page: Page): Promise<void>;
@@ -19,6 +20,7 @@ export interface DashboardPageInterface extends BOBasePagePageInterface {
     clickOnTotalSubscribersLink(page: Page): Promise<void>;
     clickOnVisitsLink(page: Page): Promise<void>;
     closeHelpCard(page: Page): Promise<boolean>;
+    getFormActivityOverviewValue(page: Page, inputName: string): Promise<string>;
     getBestSellersTabTitle(page: Page): Promise<string>;
     getHelpDocumentTitle(page: Page): Promise<string>;
     getMostViewedTabTitle(page: Page): Promise<string>;
@@ -36,6 +38,7 @@ export interface DashboardPageInterface extends BOBasePagePageInterface {
     getRecentOrdersTitle(page: Page): Promise<string>;
     getSalesScore(page: Page): Promise<number>;
     getTopSearchersTabTitle(page: Page): Promise<string>;
+    getTrafficSources(page: Page): Promise<DashboardTrafficSource[]>;
     goToBestSellersTab(page: Page): Promise<void>;
     goToMostViewedTab(page: Page): Promise<void>;
     goToTopSearchersTab(page: Page): Promise<void>;
@@ -44,6 +47,13 @@ export interface DashboardPageInterface extends BOBasePagePageInterface {
     isTopSearchersTableVisible(page: Page): Promise<boolean>;
     openHelpCard(page: Page): Promise<boolean>;
     setDemoMode(page: Page, toEnable: boolean): Promise<void>;
+    setFormActivityOverview(
+        page: Page,
+        nbActiveCarts?: number | undefined,
+        nbOnlineVisitors?: number | undefined,
+        nbAbandonedCartsMin?: number | undefined,
+        nbAbandonedCartsMax?: number | undefined,
+    ): Promise<void>
     setFormProductAndSales(
         page: Page,
         nbRecentsOrders?: number | undefined,
