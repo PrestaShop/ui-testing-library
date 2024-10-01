@@ -112,9 +112,21 @@ class Dashboard extends BOBasePage implements DashboardPageInterface {
 
   private readonly topSearchersTable: string;
 
+  private readonly dashproductsSection: string;
+
   private readonly configureProductsAndSalesLink: string;
 
   private readonly configureProductsAndSalesForm: string;
+
+  private readonly nbRecentsOrdersSelect: string;
+
+  private readonly nbBestSellersSelect: string;
+
+  private readonly nbMostViewedSelect: string;
+
+  private readonly nbTopSearchesSelect: string;
+
+  private readonly configureProductsAndSalesBtn: string;
 
   private readonly helpCardButton: string;
 
@@ -153,8 +165,14 @@ class Dashboard extends BOBasePage implements DashboardPageInterface {
     this.topSearchersTab = '#dashproducts a[href*=\'#dash_top_search\']';
     this.topSearchersTabTitle = '#dash_top_search div.panel-heading';
     this.topSearchersTable = '#table_top_10_most_search';
-    this.configureProductsAndSalesLink = '#dashproducts i.process-icon-configure';
-    this.configureProductsAndSalesForm = '#fieldset_0_1 div.form-wrapper';
+    this.dashproductsSection = '#dashproducts';
+    this.configureProductsAndSalesLink = `${this.dashproductsSection} i.process-icon-configure`;
+    this.configureProductsAndSalesForm = `${this.dashproductsSection} #fieldset_0_1 div.form-wrapper`;
+    this.nbRecentsOrdersSelect = `${this.configureProductsAndSalesForm} #DASHPRODUCT_NBR_SHOW_LAST_ORDER`;
+    this.nbBestSellersSelect = `${this.configureProductsAndSalesForm} #DASHPRODUCT_NBR_SHOW_BEST_SELLER`;
+    this.nbMostViewedSelect = `${this.configureProductsAndSalesForm} #DASHPRODUCT_NBR_SHOW_MOST_VIEWED`;
+    this.nbTopSearchesSelect = `${this.configureProductsAndSalesForm} #DASHPRODUCT_NBR_SHOW_TOP_SEARCH`;
+    this.configureProductsAndSalesBtn = `${this.dashproductsSection} button[name="submitDashConfig"]`;
     // Activity overview selectors
     this.dashboardLiveSection = '#dash_live span.data_label';
     this.onlineVisitorLink = `${this.dashboardLiveSection} a[href*='controller=AdminStats']`;
@@ -591,6 +609,28 @@ class Dashboard extends BOBasePage implements DashboardPageInterface {
     await page.locator(this.configureProductsAndSalesLink).click();
 
     return this.elementVisible(page, this.configureProductsAndSalesForm, 1000);
+  }
+
+  async setFormProductAndSales(
+    page: Page,
+    nbRecentsOrders: number | undefined,
+    nbBestSellers: number | undefined,
+    nbMostViewed: number | undefined,
+    nbTopSearches: number | undefined,
+  ): Promise<void> {
+    if (typeof nbRecentsOrders !== 'undefined') {
+      await page.locator(this.nbRecentsOrdersSelect).selectOption({label: nbRecentsOrders.toString()});
+    }
+    if (typeof nbBestSellers !== 'undefined') {
+      await page.locator(this.nbBestSellersSelect).selectOption({label: nbBestSellers.toString()});
+    }
+    if (typeof nbMostViewed !== 'undefined') {
+      await page.locator(this.nbMostViewedSelect).selectOption({label: nbMostViewed.toString()});
+    }
+    if (typeof nbTopSearches !== 'undefined') {
+      await page.locator(this.nbTopSearchesSelect).selectOption({label: nbTopSearches.toString()});
+    }
+    await page.locator(this.configureProductsAndSalesBtn).click();
   }
 
   /**
