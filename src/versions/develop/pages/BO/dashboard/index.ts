@@ -1,8 +1,7 @@
-import BOBasePage from '@pages/BO/BOBasePage';
-
-import type {Page} from 'playwright';
-
+import type DashboardTrafficSource from '@data/types/dashboard';
 import {DashboardPageInterface} from '@interfaces/BO/dashboard';
+import BOBasePage from '@pages/BO/BOBasePage';
+import {type Page} from '@playwright/test';
 
 /**
  * Dashboard page, contains selectors and functions for the page
@@ -82,9 +81,27 @@ class Dashboard extends BOBasePage implements DashboardPageInterface {
 
   private readonly dashboardTrafficSourceSection: string;
 
+  private readonly dashboardTrafficSourceItem: string;
+
+  private readonly dashboardTrafficSourceLabel: (nth: number) => string;
+
+  private readonly dashboardTrafficSourceValue: (nth: number) => string;
+
+  private readonly dashactivitySection: string;
+
   private readonly configureLink: string;
 
   private readonly configureForm: string;
+
+  private readonly nbActiveCartsSelect: string;
+
+  private readonly nbOnlineVisitorsSelect: string;
+
+  private readonly nbAbandonedCartsMinInput: string;
+
+  private readonly nbAbandonedCartsMaxInput: string;
+
+  private readonly configureActivityOverviewBtn: string;
 
   private readonly recentOrdersTitle: string;
 
@@ -206,8 +223,17 @@ class Dashboard extends BOBasePage implements DashboardPageInterface {
     this.uniqueVisitorsNumber = '#unique_visitors';
     this.uniqueVisitorsLink = `${this.dashboardTrafficSections} li:nth-child(2) span.data_label a[href*='controller=AdminStats']`;
     this.dashboardTrafficSourceSection = '#dash_traffic_source';
-    this.configureLink = '#dashactivity span.panel-heading-action i.process-icon-configure';
-    this.configureForm = '#fieldset_0 div.form-wrapper';
+    this.dashboardTrafficSourceItem = `${this.dashboardTrafficSourceSection} li`;
+    this.dashboardTrafficSourceLabel = (nth: number) => `${this.dashboardTrafficSourceItem}:nth-child(${nth}) span.data_label`;
+    this.dashboardTrafficSourceValue = (nth: number) => `${this.dashboardTrafficSourceItem}:nth-child(${nth}) span.data_value`;
+    this.dashactivitySection = '#dashactivity';
+    this.configureLink = `${this.dashactivitySection} span.panel-heading-action i.process-icon-configure`;
+    this.configureForm = `${this.dashactivitySection} #fieldset_0 div.form-wrapper`;
+    this.nbActiveCartsSelect = `${this.configureForm} #DASHACTIVITY_CART_ACTIVE`;
+    this.nbOnlineVisitorsSelect = `${this.configureForm} #DASHACTIVITY_VISITOR_ONLINE`;
+    this.nbAbandonedCartsMinInput = `${this.configureForm} #DASHACTIVITY_CART_ABANDONED_MIN`;
+    this.nbAbandonedCartsMaxInput = `${this.configureForm} #DASHACTIVITY_CART_ABANDONED_MAX`;
+    this.configureActivityOverviewBtn = `${this.dashactivitySection} button[name="submitDashConfig"]`;
   }
 
   /* Methods */
@@ -483,10 +509,21 @@ class Dashboard extends BOBasePage implements DashboardPageInterface {
   /**
    * Get traffic sources
    * @param page {Page} Browser tab
-   * @returns {Promise<number>}
+   * @returns {Promise<DashboardTrafficSource[]>}
    */
-  async getTrafficSources(page: Page): Promise<string> {
-    return this.getTextContent(page, this.dashboardTrafficSourceSection);
+  async getTrafficSources(page: Page): Promise<DashboardTrafficSource[]> {
+    const nbItems = await page.locator(this.dashboardTrafficSourceItem).count();
+
+    const sources: DashboardTrafficSource[] = [];
+
+    for (let key = 1; key <= nbItems; key++) {
+      sources.push({
+        label: await this.getTextContent(page, this.dashboardTrafficSourceLabel(key)),
+        value: parseInt(await this.getTextContent(page, this.dashboardTrafficSourceValue(key)), 10),
+      });
+    }
+
+    return sources;
   }
 
   /**
@@ -494,10 +531,62 @@ class Dashboard extends BOBasePage implements DashboardPageInterface {
    * @param page {Page} Browser tab
    * @returns {Promise<boolean>}
    */
-  async clickOnConfigureLink(page: Page): Promise<boolean> {
+  async clickOnConfigureActivityOverviewLink(page: Page): Promise<boolean> {
     await page.locator(this.configureLink).click();
 
     return this.elementVisible(page, this.configureForm, 1000);
+  }
+
+  /**
+   * Set values for the Activity Overview Configure form
+   * @param page {Page}
+   * @returns {Promise<void>}
+   */
+  async setFormActivityOverview(
+    page: Page,
+    nbActiveCarts: number | undefined,
+    nbOnlineVisitors: number | undefined,
+    nbAbandonedCartsMin: number | undefined,
+    nbAbandonedCartsMax: number | undefined,
+  ): Promise<void> {
+    if (typeof nbActiveCarts !== 'undefined') {
+      await page.locator(this.nbActiveCartsSelect).selectOption({label: nbActiveCarts.toString()});
+    }
+    if (typeof nbOnlineVisitors !== 'undefined') {
+      await page.locator(this.nbOnlineVisitorsSelect).selectOption({label: nbOnlineVisitors.toString()});
+    }
+    if (typeof nbAbandonedCartsMin !== 'undefined') {
+      await page.locator(this.nbAbandonedCartsMinInput).fill(nbAbandonedCartsMin.toString());
+    }
+    if (typeof nbAbandonedCartsMax !== 'undefined') {
+      await page.locator(this.nbAbandonedCartsMaxInput).fill(nbAbandonedCartsMax.toString());
+    }
+    await page.locator(this.configureActivityOverviewBtn).click();
+  }
+
+  /**
+   * Returns for the Activity Overview Configure form the value of the specified input
+   * @param page {Page}
+   * @param inputName {string}
+   * @returns {Promise<string>}
+   */
+  async getFormActivityOverviewValue(page: Page, inputName: string): Promise<string> {
+    switch (inputName) {
+      case 'active_cart':
+        return page
+          .locator(this.nbActiveCartsSelect)
+          .evaluate((el: HTMLSelectElement) => el.value);
+      case 'online_visitor':
+        return page
+          .locator(this.nbOnlineVisitorsSelect)
+          .evaluate((el: HTMLSelectElement) => el.value);
+      case 'abandoned_cart_min':
+        return (await page.locator(this.nbAbandonedCartsMinInput).getAttribute('value') ?? '');
+      case 'abandoned_cart_max':
+        return (await page.locator(this.nbAbandonedCartsMaxInput).getAttribute('value') ?? '');
+      default:
+        throw new Error(`Input ${inputName} was not found`);
+    }
   }
 
   /**
