@@ -44,4 +44,11 @@ export interface DashboardPageInterface extends BOBasePagePageInterface {
     isTopSearchersTableVisible(page: Page): Promise<boolean>;
     openHelpCard(page: Page): Promise<boolean>;
     setDemoMode(page: Page, toEnable: boolean): Promise<void>;
+    setFormProductAndSales(
+        page: Page,
+        nbRecentsOrders?: number | undefined,
+        nbBestSellers?: number | undefined,
+        nbMostViewed?: number | undefined,
+        nbTopSearches?: number | undefined,
+    ): Promise<void>
 }
