@@ -80,6 +80,17 @@ class BOMyProfilePage extends EmployeeBasePage implements BOMyProfilePageInterfa
   }
 
   /**
+   * Edit language
+   * @param page {Page} Browser tab
+   * @param language {string} Language to edit
+   * @returns {Promise<void>}
+   */
+  async editLanguage(page: Page, language: string): Promise<void> {
+    await this.selectByVisibleText(page, this.languageSelect, language);
+    await this.clickAndWaitForLoadState(page, this.saveButton);
+  }
+
+  /**
    * Get the value of an input
    * @override
    * @param page {Page} Browser tab
