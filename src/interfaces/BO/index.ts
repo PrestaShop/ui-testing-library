@@ -75,7 +75,7 @@ export interface BOBasePagePageInterface extends CommonPageInterface {
   readonly trafficAndSeoLink: string;
   readonly translationsLink: string;
   readonly webserviceLink: string;
-  
+
   chooseShop(page: Page, shopNumber: number): Promise<void>;
   clickOnMultiStoreHeader(page: Page): Promise<void>;
   clickOnNotification(page: Page, tabName: string, row?: number): Promise<void>;
@@ -89,6 +89,7 @@ export interface BOBasePagePageInterface extends CommonPageInterface {
   getAlertSuccessBlockContent(page: Frame | Page): Promise<string>;
   getAlertSuccessBlockParagraphContent(page: Frame | Page): Promise<string>;
   getAllNotificationsNumber(page: Page): Promise<number>;
+  getCurrentEmployeeAvatar(page: Page): Promise<string | null>;
   getHelpDocumentURL(page: Page): Promise<string>;
   getNotificationsNumberInTab(page: Page, tabName: string): Promise<number>;
   getPageSubTitle(page: Page): Promise<string>;
