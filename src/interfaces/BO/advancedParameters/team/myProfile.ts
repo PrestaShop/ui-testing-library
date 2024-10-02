@@ -8,6 +8,7 @@ export interface BOMyProfilePageInterface extends BOTeamBasePageInterface {
   readonly errorInvalidLastNameMessage: string;
   readonly successfulUpdateMessageFR: string;
 
+  editLanguage(page: Page, language: string): Promise<void>;
   getAlertError(page: Page): Promise<string>;
   getAlertSuccess(page: Page): Promise<string>;
   isGravatarEnabled(page: Page): Promise<boolean>;
