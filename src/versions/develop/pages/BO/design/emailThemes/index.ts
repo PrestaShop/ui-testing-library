@@ -111,6 +111,12 @@ class BODesignEmailThemesPage extends BOBasePage implements BODesignEmailThemesP
   }
 
   /* Translate emails methods */
+  /**
+   * Select translate email language
+   * @param page {Page} Browser tab
+   * @param language {string} Language to select
+   * @return {Promise<void>}
+   */
   async selectTranslateEmailLanguage(page: Page, language: string): Promise<void> {
     await this.selectByVisibleText(page, this.languageToTranslateSelect, language);
     await this.clickAndWaitForLoadState(page, this.translateEmailsButton)
