@@ -100,7 +100,7 @@ class BODesignEmailThemesPreviewPage extends BOBasePage implements BODesignEmail
    * @return {Promise<Page>}
    */
   async viewHTTPLink(page: Page, row: number): Promise<Page> {
-    return this.openLinkWithTargetBlank(page, this.tableActionColumnHTTPLink(row), 'body')
+    return this.openLinkWithTargetBlank(page, this.tableActionColumnHTTPLink(row), 'body');
   }
 
   /**

@@ -120,9 +120,9 @@ class BODesignEmailThemesPage extends BOBasePage implements BODesignEmailThemesP
    */
   async selectTranslateEmailLanguage(page: Page, language: string): Promise<void> {
     await this.selectByVisibleText(page, this.languageToTranslateSelect, language);
-    await this.clickAndWaitForLoadState(page, this.translateEmailsButton)
+    await this.clickAndWaitForLoadState(page, this.translateEmailsButton);
   }
-  
+ 
   /* Email themes grid methods */
   /**
    * Preview email theme

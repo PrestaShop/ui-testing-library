@@ -11,7 +11,7 @@ export interface BODesignEmailThemesPreviewPageInterface extends BOBasePagePageI
   getNumberOfLayoutInGrid(page: Page): Promise<number>;
   getTextFromViewLayoutPage(page: Page): Promise<string>;
   goBackToEmailThemesPage(page: Page): Promise<void>;
-  sendTestEmail(page: Page, row: number): Promise<String>;
+  sendTestEmail(page: Page, row: number): Promise<string>;
   viewHTTPLink(page: Page, row: number): Promise<Page>;
   viewRawHtml(page: Page, row: number): Promise<Page>;
   viewRawText(page: Page, row: number): Promise<Page>;
