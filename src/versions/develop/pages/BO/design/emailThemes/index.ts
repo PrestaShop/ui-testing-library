@@ -122,7 +122,7 @@ class BODesignEmailThemesPage extends BOBasePage implements BODesignEmailThemesP
     await this.selectByVisibleText(page, this.languageToTranslateSelect, language);
     await this.clickAndWaitForLoadState(page, this.translateEmailsButton);
   }
- 
+
   /* Email themes grid methods */
   /**
    * Preview email theme
