@@ -100,7 +100,7 @@ class BODesignEmailThemesPreviewPage extends BOBasePage implements BODesignEmail
    * @return {Promise<Page>}
    */
   async viewHTTPLink(page: Page, row: number): Promise<Page> {
-    return this.openLinkWithTargetBlank(page, this.tableActionColumnHTTPLink(1), 'body')
+    return this.openLinkWithTargetBlank(page, this.tableActionColumnHTTPLink(row), 'body')
   }
 
   /**
@@ -147,7 +147,7 @@ class BODesignEmailThemesPreviewPage extends BOBasePage implements BODesignEmail
    * @param row {number} Row on table
    * @return {Promise<String>}
    */
-  async sendTestEmail(page: Page, row: number): Promise<String> {
+  async sendTestEmail(page: Page, row: number): Promise<string> {
     // Click on dropdown
     await page.locator(this.tableActionColumnDropDownLink(row)).click();
     await page.locator(this.tableActionColumnRawTestEmailLink(row)).click();

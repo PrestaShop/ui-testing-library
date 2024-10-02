@@ -100,7 +100,8 @@ class BODesignEmailThemesPage extends BOBasePage implements BODesignEmailThemesP
    * @param themeToOvewrite {boolean} True if we need to overwrite template
    * @param overwrite
    */
-  async configureGenerateEmails(page: Page, theme: string, language: string, themeToOvewrite: string, overwrite: boolean): Promise<string> {
+  async configureGenerateEmails(
+    page: Page, theme: string, language: string, themeToOvewrite: string, overwrite: boolean): Promise<string> {
     await this.selectByVisibleText(page, this.emailThemeSelect, theme);
     await this.selectByVisibleText(page, this.languageSelect, language);
     await this.selectByVisibleText(page, this.themeToOverwriteSelect, themeToOvewrite);
@@ -121,8 +122,7 @@ class BODesignEmailThemesPage extends BOBasePage implements BODesignEmailThemesP
     await this.selectByVisibleText(page, this.languageToTranslateSelect, language);
     await this.clickAndWaitForLoadState(page, this.translateEmailsButton)
   }
-
-
+  
   /* Email themes grid methods */
   /**
    * Preview email theme
