@@ -10,11 +10,27 @@ import {type Page} from '@playwright/test';
 class BODesignEmailThemesPage extends BOBasePage implements BODesignEmailThemesPageInterface {
   public readonly pageTitle: string;
 
+  public readonly pageTitleFR: string;
+
   public readonly emailThemeConfigurationSuccessfulMessage: string;
 
   private readonly defaultEmailThemeSelect: string;
 
   private readonly configurationFormSaveButton: string;
+
+  private readonly emailThemeSelect: string;
+
+  private readonly languageSelect: string;
+
+  private readonly themeToOverwriteSelect: string;
+
+  private readonly overwriteTemplateRadio: (toOverwrite: number) => string;
+
+  private readonly generateEmailsButton: string;
+
+  private readonly languageToTranslateSelect: string;
+
+  private readonly translateEmailsButton: string;
 
   private readonly emailThemeTable: string;
 
@@ -34,11 +50,23 @@ class BODesignEmailThemesPage extends BOBasePage implements BODesignEmailThemesP
     super();
 
     this.pageTitle = `Email theme • ${global.INSTALL.SHOP_NAME}`;
+    this.pageTitleFR = `Thème d'e-mail • ${global.INSTALL.SHOP_NAME}`;
     this.emailThemeConfigurationSuccessfulMessage = 'Email theme configuration saved successfully';
 
     // Configuration form selectors
     this.defaultEmailThemeSelect = '#form_defaultTheme';
     this.configurationFormSaveButton = '#save-configuration-form';
+
+    // Generate emails form selectors
+    this.emailThemeSelect = '#generate_mails_mailTheme';
+    this.languageSelect = '#generate_mails_language';
+    this.themeToOverwriteSelect = '#generate_mails_theme';
+    this.overwriteTemplateRadio = (toOverwrite: number) => `#generate_mails_overwrite_${toOverwrite}`;
+    this.generateEmailsButton = 'form[name="generate_mails"] div.card-footer button';
+
+    // Translate emails form selectors
+    this.languageToTranslateSelect = '#translate_mails_body_language';
+    this.translateEmailsButton = 'form[name="translate_mails_body"] div.card-footer button';
 
     // Email Theme table selectors
     this.emailThemeTable = 'table.grid-table';
@@ -62,6 +90,32 @@ class BODesignEmailThemesPage extends BOBasePage implements BODesignEmailThemesP
 
     return this.getAlertSuccessBlockParagraphContent(page);
   }
+
+  /* Generate emails form methods */
+  /**
+   * Configure generate emails
+   * @param page {Page} Browser tab
+   * @param theme {string} Value of email theme to select
+   * @param language {string} Language to select
+   * @param themeToOvewrite {boolean} True if we need to overwrite template
+   * @param overwrite
+   */
+  async configureGenerateEmails(page: Page, theme: string, language: string, themeToOvewrite: string, overwrite: boolean): Promise<string> {
+    await this.selectByVisibleText(page, this.emailThemeSelect, theme);
+    await this.selectByVisibleText(page, this.languageSelect, language);
+    await this.selectByVisibleText(page, this.themeToOverwriteSelect, themeToOvewrite);
+    await page.setChecked(this.overwriteTemplateRadio(overwrite ? 1 : 0), overwrite);
+    await this.clickAndWaitForLoadState(page, this.generateEmailsButton);
+
+    return this.getAlertSuccessBlockParagraphContent(page);
+  }
+
+  /* Translate emails methods */
+  async selectTranslateEmailLanguage(page: Page, language: string): Promise<void> {
+    await this.selectByVisibleText(page, this.languageToTranslateSelect, language);
+    await this.clickAndWaitForLoadState(page, this.translateEmailsButton)
+  }
+
 
   /* Email themes grid methods */
   /**

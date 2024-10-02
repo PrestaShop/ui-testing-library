@@ -17,6 +17,8 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
 
   public successfulUpdateMessage: string;
 
+  public successfulUpdateMessageFR: string;
+
   public successfulDeleteMessage: string;
 
   public successfulMultiDeleteMessage: string;
@@ -295,6 +297,7 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
     // Successful Messages
     this.successfulCreationMessage = 'Successful creation';
     this.successfulUpdateMessage = 'Successful update';
+    this.successfulUpdateMessageFR = 'Mise à jour réussie';
     this.successfulDeleteMessage = 'Successful deletion';
     this.successfulMultiDeleteMessage = 'The selection has been successfully deleted.';
 
