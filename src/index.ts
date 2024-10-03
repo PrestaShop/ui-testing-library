@@ -220,6 +220,7 @@ export {default as boOrdersPage} from '@pages/BO/orders';
 export {default as boOrdersViewBasePage} from '@pages/BO/orders/view/viewOrderBasePage';
 export {default as boOrdersViewBlockProductsPage} from '@pages/BO/orders/view/blockProducts';
 export {default as boOrdersViewBlockTabListPage} from '@pages/BO/orders/view/blockTabList';
+export {default as boOrderSettingsPage} from '@pages/BO/shopParameters/orderSettings';
 export {default as boPaymentMethodsPage} from '@pages/BO/payment/paymentMethods';
 export {default as boPerformancePage} from '@pages/BO/advancedParameters/performance';
 export {default as boProductsPage} from '@pages/BO/catalog/products';
