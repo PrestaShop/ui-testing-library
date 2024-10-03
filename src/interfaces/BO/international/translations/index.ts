@@ -20,4 +20,3 @@ export interface BOTranslationsPageInterface extends BOBasePagePageInterface {
   translateExpression(page: Page, translation: string): Promise<string>;
   uncheckSelectedOptions(page: Page, types: string[]): Promise<void>;
 }
-
