@@ -3,6 +3,7 @@ import {type Page} from '@playwright/test';
 
 export interface BODesignEmailThemesPageInterface extends BOBasePagePageInterface {
   readonly emailThemeConfigurationSuccessfulMessage: string;
+  readonly generateEmailsSuccessMessage: (theme: string, language: string) => string;
   readonly pageTitle: string;
   readonly pageTitleFR: string;
 

@@ -53,7 +53,7 @@ class BODesignEmailThemesPreviewPage extends BOBasePage implements BODesignEmail
 
     this.pageTitle = 'Previewing theme';
     this.pageTitleFR = 'Prévisualisation du thème';
-    this.successMessageSendEmail = (layout: string) => `Test email for layout ${layout} was successfully sent to`;
+    this.successMessageSendEmail = (layout: string) => `Test email for layout ${layout} was successfully sent`;
     this.successMessageSendEmailFR = (layout: string) => `L'e-mail de test du format ${layout} a été envoyé à`;
     this.errorMessageSendEmail = 'Cannot send test email for theme';
 
