@@ -14,7 +14,7 @@ class BODesignEmailThemesPage extends BOBasePage implements BODesignEmailThemesP
 
   public readonly emailThemeConfigurationSuccessfulMessage: string;
 
-  public readonly generateEmailsSuccessMessage: (theme:string, language:string)=> string;
+  public readonly generateEmailsSuccessMessage: (theme: string, language: string) => string;
 
   private readonly defaultEmailThemeSelect: string;
 
@@ -54,7 +54,8 @@ class BODesignEmailThemesPage extends BOBasePage implements BODesignEmailThemesP
     this.pageTitle = `Email theme • ${global.INSTALL.SHOP_NAME}`;
     this.pageTitleFR = `Thème d'e-mail • ${global.INSTALL.SHOP_NAME}`;
     this.emailThemeConfigurationSuccessfulMessage = 'Email theme configuration saved successfully';
-    this.generateEmailsSuccessMessage = (theme:string, language:string) => `Successfully overwrote email templates for theme ${theme} with locale ${language}`
+    this.generateEmailsSuccessMessage = (theme: string, language: string) => `Successfully overwrote email templates for `
+      + `theme ${theme} with locale ${language}`
 
     // Configuration form selectors
     this.defaultEmailThemeSelect = '#form_defaultTheme';
