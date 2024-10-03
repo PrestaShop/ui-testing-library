@@ -14,6 +14,8 @@ class PsGdprPage extends ModuleConfiguration implements ModulePsGdprBoMainPageIn
 
   private readonly menuTab: (nth: number) => string;
 
+  private readonly currentTab: string;
+
   private readonly tabDataConfig: string;
 
   private readonly tabDataConsent: string;
@@ -35,6 +37,8 @@ class PsGdprPage extends ModuleConfiguration implements ModulePsGdprBoMainPageIn
 
     this.menuTab = (nth: number) => `#psgdpr-menu .list-group:nth-child(1) a.list-group-item:nth-child(${nth})`;
 
+    this.currentTab = '.psgdpr_menu:not(.addons-hide)';
+
     this.tabDataConfig = '#dataConfig .panel';
 
     this.tabDataConsent = '#dataConsent .panel';
@@ -51,6 +55,8 @@ class PsGdprPage extends ModuleConfiguration implements ModulePsGdprBoMainPageIn
    * @returns {Promise<boolean>}
    */
   async goToTab(page: Page, nth: number): Promise<boolean> {
+    // Wait for current tab to be visible, if we click before the tabs are initialized the click doesn't work
+    await this.elementVisible(page, this.currentTab, 500);
     await this.clickAndWaitForLoadState(page, this.menuTab(nth));
 
     let selectorBlock: string;

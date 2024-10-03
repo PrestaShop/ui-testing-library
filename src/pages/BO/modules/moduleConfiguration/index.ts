@@ -2,6 +2,8 @@ import {ModuleConfigurationPageInterface} from '@interfaces/BO/modules/moduleCon
 import BOBasePage from '@pages/BO/BOBasePage';
 
 import type {Page} from 'playwright';
+import semver from 'semver';
+import utilsTest from '@utils/test';
 
 /**
  * Module configuration page, contains selectors and functions for the page.
@@ -32,9 +34,15 @@ export default class ModuleConfiguration extends BOBasePage implements ModuleCon
     // Header selectors
     this.pageHeadSubtitle = '.page-subtitle';
 
-    this.pageHeadButtonBack = '#desc-module-back';
-    this.pageHeadButtonTranslate = '#desc-module-translate';
-    this.pageHeadButtonManageHooks = '#desc-module-hook';
+    if (semver.gte(utilsTest.getPSVersion(), '9.0.0')) {
+      this.pageHeadButtonBack = '#page-header-desc-configuration-module-back';
+      this.pageHeadButtonTranslate = '#page-header-desc-configuration-module-translate';
+      this.pageHeadButtonManageHooks = '#page-header-desc-configuration-module-hook';
+    } else {
+      this.pageHeadButtonBack = '#desc-module-back';
+      this.pageHeadButtonTranslate = '#desc-module-translate';
+      this.pageHeadButtonManageHooks = '#desc-module-hook';
+    }
 
     this.modalTranslate = '#moduleTradLangSelect';
     this.modalTranslateCloseButton = `${this.modalTranslate} div.modal-header button[data-dismiss="modal"]`;
