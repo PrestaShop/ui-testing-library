@@ -21,6 +21,8 @@ class BlockwishlistStatistics extends ModuleConfiguration implements ModuleBlock
 
   private readonly gridTableEmptyRow: string;
 
+  private readonly gridTableRow: string;
+
   /**
    * @constructs
    */
@@ -35,6 +37,7 @@ class BlockwishlistStatistics extends ModuleConfiguration implements ModuleBlock
     this.gridTable = '#statistics_all_time_grid_table';
     this.gridTableBody = `${this.gridTable} tbody`;
     this.gridTableEmptyRow = `${this.gridTableBody} tr.empty_row`;
+    this.gridTableRow = `${this.gridTableBody} tr:not(.empty_row)`;
   }
 
   // Methods
@@ -44,6 +47,15 @@ class BlockwishlistStatistics extends ModuleConfiguration implements ModuleBlock
    */
   async getTextForEmptyTable(page: Page): Promise<string> {
     return this.getTextContent(page, this.gridTableEmptyRow);
+  }
+
+  /**
+   * Returns the number of products
+   * @param page {Page}
+   * @returns Promise<number>
+   */
+  async getNumProducts(page: Page): Promise<number> {
+    return page.locator(this.gridTableRow).count();
   }
 
   /**
