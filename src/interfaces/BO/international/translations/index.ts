@@ -13,7 +13,7 @@ export interface BOTranslationsPageInterface extends BOBasePagePageInterface {
   exportPrestashopTranslations(page: Page, language: string, types: string[]): Promise<string | null>;
   getLanguagesFromUpdateResult(page: Page): Promise<string>;
   modifyTranslation(page: Page, translation: string, theme: string, language: string, 
-                    module: string, emailType: string): Promise<void>
+    module: string, emailType: string): Promise<void>
   resetTranslation(page: Page): Promise<string>;
   searchTranslation(page: Page, expression: string): Promise<void>;
   selectExportLanguage(page: Page, language: string): Promise<void>;

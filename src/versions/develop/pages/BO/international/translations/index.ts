@@ -139,7 +139,7 @@ class BOTranslationsPage extends BOBasePage implements BOTranslationsPageInterfa
    * @returns {Promise<void>}
    */
   async modifyTranslation(page: Page, translation: string, theme: string, language: string, module: string = '',
-                          emailType: string = ''): Promise<void> {
+    emailType: string = ''): Promise<void> {
     await this.selectByVisibleText(page, this.typeOfTranslationSelect, translation);
 
     if (await this.elementVisible(page, this.selectYourThemeSelect, 2000)) {
