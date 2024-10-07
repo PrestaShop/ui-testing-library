@@ -21,6 +21,8 @@ class WishlistModalPage extends FOBasePage implements FoModalWishlistPageInterfa
 
   private readonly modalAddToListItem: (nth: number) => string;
 
+  private readonly modalAddToCreateNewList: string;
+
   public readonly modalShare: string;
 
   public readonly modalShareBtnCancel: string;
@@ -58,6 +60,7 @@ class WishlistModalPage extends FOBasePage implements FoModalWishlistPageInterfa
     this.modalAddTo = '.wishlist-add-to .wishlist-modal.show';
     this.modalAddToTitle = `${this.modalAddTo} .modal-title`;
     this.modalAddToListItem = (nth: number) => `${this.modalAddTo} ul.wishlist-list li.wishlist-list-item:nth-child(${nth})`;
+    this.modalAddToCreateNewList = `${this.modalAddTo} .modal-footer a.wishlist-add-to-new`;
 
     // Modal "Share"
     this.modalShare = '.wishlist-share .wishlist-modal.show';
@@ -134,6 +137,18 @@ class WishlistModalPage extends FOBasePage implements FoModalWishlistPageInterfa
     await this.elementVisible(page, this.modalAddTo, 3000);
 
     return this.getTextContent(page, this.modalAddToTitle);
+  }
+
+  /**
+   * Returns the title of the modal
+   * @param page {Page}
+   * @returns {Promise<string>}
+   */
+  async getModalAddToCreateWislistLabel(page: Page): Promise<string> {
+    // Wait for the modal
+    await this.elementVisible(page, this.modalAddTo, 3000);
+
+    return this.getTextContent(page, this.modalAddToCreateNewList);
   }
 
   /**
