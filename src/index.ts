@@ -210,6 +210,8 @@ export {default as boDesignPositionsPage} from '@pages/BO/design/positions';
 export {default as boDesignPositionsHookModulePage} from '@pages/BO/design/positions/hookModule';
 export {default as boEmailPage} from '@pages/BO/advancedParameters/email';
 export {default as boInformationPage} from '@pages/BO/advancedParameters/information';
+export {default as boLanguagesPage} from '@pages/BO/international/languages';
+export {default as boLanguagesCreatePage} from '@pages/BO/international/languages/create';
 export {default as boLocalizationPage} from '@pages/BO/international/localization';
 export {default as boLoginPage} from '@pages/BO/login';
 export {default as boMaintenancePage} from '@pages/BO/shopParameters/general/maintenance';
