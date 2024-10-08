@@ -240,7 +240,7 @@ export {default as boProductsCreateTabShippingPage} from '@pages/BO/catalog/prod
 export {default as boProductsCreateTabStocksPage} from '@pages/BO/catalog/products/create/tabStocks';
 export {default as boProductsCreateTabVirtualProductPage} from '@pages/BO/catalog/products/create/tabVirtualProduct';
 export {default as boProductSettingsPage} from '@pages/BO/shopParameters/productSettings';
-export {default as boTranslationsPage} from '@pages/BO/international/translations';
+export {default as boQuickAccessPage} from '@pages/BO/quickAccess';
 export {default as boSearchPage} from '@pages/BO/shopParameters/search';
 export {default as boSearchAliasCreatePage} from '@pages/BO/shopParameters/search/alias/create';
 export {default as boShopParametersPage} from '@pages/BO/shopParameters/general';
@@ -254,6 +254,7 @@ export {default as boThemeAdvancedConfigurationPage} from '@pages/BO/design/them
 export {default as boThemeAndLogoPage} from '@pages/BO/design/themeAndLogo';
 export {default as boThemeAndLogoImportPage} from '@pages/BO/design/themeAndLogo/themeAndLogo/import';
 export {default as boThemePagesConfigurationPage} from '@pages/BO/design/themeAndLogo/pagesConfiguration';
+export {default as boTranslationsPage} from '@pages/BO/international/translations';
 // Export Pages FO
 export * as FOBasePage from '@pages/FO/FOBasePage';
 // Export Pages FO/Classic
