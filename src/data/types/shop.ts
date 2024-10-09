@@ -3,6 +3,7 @@ type ShopCreator = {
   shopGroup: string
   color?: string
   categoryRoot: string
+  theme?: string
 };
 
 export default ShopCreator;
