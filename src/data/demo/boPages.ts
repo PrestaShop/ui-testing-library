@@ -1,6 +1,6 @@
 export default {
   pages: [
-    'Dashboard',
+    'Categories',
     'Orders',
     'Products',
   ],

@@ -578,7 +578,7 @@ class ProductsPage extends BOBasePage implements BOProductsPageInterface {
       (action === 'enable' || action === 'disable') ? `${action}_selection` : `bulk_${action}`,
     );
     await this.waitForSelectorAndClick(page, modalBulkActionsProductsCloseButton);
-    await page.waitForURL('**/sell/catalog/products/**');
+    await page.waitForLoadState('networkidle');
 
     return this.elementNotVisible(page, modalBulkActionsProductsProgress, 1000);
   }
