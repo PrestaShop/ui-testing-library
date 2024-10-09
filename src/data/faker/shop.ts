@@ -7,6 +7,8 @@ import {faker} from '@faker-js/faker';
  * @class
  */
 export default class FakerShop {
+  public id: number;
+
   public readonly name: string;
 
   public readonly shopGroup: string;
@@ -15,11 +17,16 @@ export default class FakerShop {
 
   public readonly categoryRoot: string;
 
+  public readonly theme: string;
+
   /**
    * Constructor for class ShopGroupData
    * @param shopToCreate {ShopCreator} Could be used to force the value of some members
    */
   constructor(shopToCreate: ShopCreator) {
+    /** @type {number} ID of the shop */
+    this.id = 0;
+
     /** @type {string} Name of the shop */
     this.name = shopToCreate.name || `shop_${faker.lorem.word()}`;
 
@@ -31,5 +38,17 @@ export default class FakerShop {
 
     /** @type {string} Root category of the shop */
     this.categoryRoot = shopToCreate.categoryRoot;
+
+    /** @type {string} Front Theme of the shop */
+    this.theme = shopToCreate.theme || 'classic';
+  }
+
+  /**
+     * @param {number} id
+     */
+  setID(id: number): this {
+    this.id = id;
+
+    return this;
   }
 }
