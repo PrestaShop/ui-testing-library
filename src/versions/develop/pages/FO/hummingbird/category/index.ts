@@ -40,7 +40,7 @@ class CategoryPage extends CategoryPageVersion implements FoCategoryPageInterfac
     this.searchFiltersLabel = `${this.searchFilters} label.form-check-label`;
     this.clearAllFiltersLink = `${this.searchFilters} button.js-search-filters-clear-all`;
     this.searchFilterPriceSlider = 'div.faceted-slider';
-    this.searchFiltersSlider = 'div.noUi-base';
+    this.searchFiltersSlider = () => `${this.searchFilters} div.faceted-slider`;
     this.closeOneFilter = (row: number) => `#js-active-search-filters ul li:nth-child(${row + 1}) a i`;
 
     // Pagination selectors

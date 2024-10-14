@@ -87,9 +87,9 @@ class CategoryPage extends FOBasePage implements FoCategoryPageInterface {
 
   private readonly searchFiltersDropdown: (facetType: string, facetLabel: string) => string;
 
-  protected closeOneFilter: (row: number) => string;
+  protected searchFiltersSlider: (facetType: string, facetLabel: string) => string;
 
-  protected searchFiltersSlider: string;
+  protected closeOneFilter: (row: number) => string;
 
   private readonly searchFilterPriceValues: string;
 
@@ -171,7 +171,8 @@ class CategoryPage extends FOBasePage implements FoCategoryPageInterface {
       + 'label.facet-label input[type="radio"]';
     this.searchFiltersDropdown = (facetType: string, facetLabel: string) => `${this.searchFilter(facetType, facetLabel)
     } .facet-dropdown`;
-    this.searchFiltersSlider = '.ui-slider-horizontal';
+    this.searchFiltersSlider = (facetType: string, facetLabel: string) => `${this.searchFilter(facetType, facetLabel)
+    }.faceted-slider`;
     this.searchFilterPriceValues = '[id*=facet_label]';
     this.clearAllFiltersLink = '#_desktop_search_filters_clear_all button.js-search-filters-clear-all';
     this.activeSearchFilters = '#js-active-search-filters';
@@ -508,7 +509,7 @@ class CategoryPage extends FOBasePage implements FoCategoryPageInterface {
    * @param facetLabel {string} Facet label
    * @return {Promise<boolean>}
    */
-  async isSearchFiltersCheckbox(page: Page, facetType: string, facetLabel: string = ''): Promise<boolean> {
+  async isSearchFilterCheckbox(page: Page, facetType: string, facetLabel: string = ''): Promise<boolean> {
     return (await this.getNumSearchFiltersCheckbox(page, facetType, facetLabel)) !== 0;
   }
 
@@ -632,7 +633,7 @@ class CategoryPage extends FOBasePage implements FoCategoryPageInterface {
    * @return {Promise<void>}
    */
   async filterByPrice(page: Page, minPrice: number, maxPrice: number, filterFrom: number, filterTo: number): Promise<void> {
-    const sliderTrack = page.locator(this.searchFiltersSlider);
+    const sliderTrack = page.locator(this.searchFiltersSlider('price', ''));
     const sliderOffsetWidth = await sliderTrack.evaluate((el) => el.getBoundingClientRect().width);
     const pxOneEuro = sliderOffsetWidth / (maxPrice - minPrice);
 
@@ -666,6 +667,17 @@ class CategoryPage extends FOBasePage implements FoCategoryPageInterface {
    */
   async isSearchFilterDropdown(page: Page, facetType: string, facetLabel: string = ''): Promise<boolean> {
     return (await page.locator(this.searchFiltersDropdown(facetType, facetLabel)).count()) !== 0;
+  }
+
+  /**
+   * Return if search filters use slider
+   * @param page {Page} Browser tab
+   * @param facetType {string} Facet type
+   * @param facetLabel {string} Facet label
+   * @return {Promise<boolean>}
+   */
+  async isSearchFilterSlider(page: Page, facetType: string, facetLabel: string = ''): Promise<boolean> {
+    return (await page.locator(this.searchFiltersSlider(facetType, facetLabel)).count()) !== 0;
   }
 
   /**
