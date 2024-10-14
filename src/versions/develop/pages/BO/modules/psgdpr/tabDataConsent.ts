@@ -25,7 +25,7 @@ class PsGdprTabDataConsentPage extends ModuleConfiguration implements ModulePsGd
 
   private readonly checkboxModuleForm: (status: boolean) => string;
 
-  private readonly messageModuleForm: (idLang: number) => string;
+  private readonly messageModuleForm: (nth: number) => string;
 
   private readonly saveButton: string;
 
@@ -45,7 +45,8 @@ class PsGdprTabDataConsentPage extends ModuleConfiguration implements ModulePsGd
       + ' button.dropdown-toggle';
     this.btnDropdownItemLangModuleForm = (idLang: number) => `div.open ul.dropdown-menu a[data-id="${idLang}"]`;
     this.checkboxModuleForm = (status: boolean) => `input[id^="switch_registered_module_"]${status ? '.yes' : '.no'}`;
-    this.messageModuleForm = (idLang: number) => `iframe[id^="psgdpr_registered_module_"][id$="_${idLang}_ifr"]`;
+    this.messageModuleForm = (nth: number) => `div:nth-child(${nth + 1} of [id^="registered_module_message"]) `
+      + 'div.translatable-field:not([style="display:none"]) iframe';
     this.saveButton = '#submitDataConsent';
   }
 
@@ -112,7 +113,10 @@ class PsGdprTabDataConsentPage extends ModuleConfiguration implements ModulePsGd
    * @returns {Promise<void>}
    */
   async setNewsletterMessage(page: Page, message: string): Promise<void> {
-    await this.setTinyMCEInputValue(page.frameLocator(this.messageModuleForm(dataLanguages.english.id)).nth(0), message);
+    await this.setTinyMCEInputValue(
+      page.locator(this.messageModuleForm(0)).contentFrame(),
+      message,
+    );
   }
 
   /**
@@ -134,7 +138,10 @@ class PsGdprTabDataConsentPage extends ModuleConfiguration implements ModulePsGd
    * @returns {Promise<void>}
    */
   async setContactFormMessage(page: Page, message: string): Promise<void> {
-    await this.setTinyMCEInputValue(page.frameLocator(this.messageModuleForm(dataLanguages.english.id)).nth(2), message);
+    await this.setTinyMCEInputValue(
+      page.locator(this.messageModuleForm(2)).contentFrame(),
+      message,
+    );
   }
 
   /**
@@ -156,7 +163,10 @@ class PsGdprTabDataConsentPage extends ModuleConfiguration implements ModulePsGd
    * @returns {Promise<void>}
    */
   async setProductCommentsMessage(page: Page, message: string): Promise<void> {
-    await this.setTinyMCEInputValue(page.frameLocator(this.messageModuleForm(dataLanguages.english.id)).nth(1), message);
+    await this.setTinyMCEInputValue(
+      page.locator(this.messageModuleForm(1)).contentFrame(),
+      message,
+    );
   }
 
   /**
@@ -181,7 +191,7 @@ class PsGdprTabDataConsentPage extends ModuleConfiguration implements ModulePsGd
   async setMailAlertsMessage(page: Page, message: string, idLang: number = dataLanguages.english.id): Promise<void> {
     await page.locator(this.btnDropdownLangModuleForm).nth(3).click();
     await page.locator(this.btnDropdownItemLangModuleForm(idLang)).click();
-    await this.setTinyMCEInputValue(page.frameLocator(this.messageModuleForm(idLang)).nth(3), message);
+    await this.setTinyMCEInputValue(page.locator(this.messageModuleForm(3)).contentFrame(), message);
   }
 
   /**
