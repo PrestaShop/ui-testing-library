@@ -6,6 +6,7 @@ type LinkWidgetCreator = {
   hook?: FakerHook
   contentPages?: string[]
   productsPages?: string[]
+  categoriesPages?: string[]
   staticPages?: string[]
   customPages?: LinkWidgetPage[]
 };

@@ -206,6 +206,8 @@ export {default as boDashboardPage} from '@pages/BO/dashboard';
 export {default as boDbBackupPage} from '@pages/BO/advancedParameters/database/dbBackup';
 export {default as boDesignEmailThemesPage} from '@pages/BO/design/emailThemes';
 export {default as boDesignEmailThemesPreviewPage} from '@pages/BO/design/emailThemes/preview';
+export {default as boDesignLinkListPage} from '@pages/BO/design/linkList';
+export {default as boDesignLinkListCreatePage} from '@pages/BO/design/linkList/create';
 export {default as boDesignPositionsPage} from '@pages/BO/design/positions';
 export {default as boDesignPositionsHookModulePage} from '@pages/BO/design/positions/hookModule';
 export {default as boEmailPage} from '@pages/BO/advancedParameters/email';
