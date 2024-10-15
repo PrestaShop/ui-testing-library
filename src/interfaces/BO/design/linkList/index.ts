@@ -2,9 +2,6 @@ import {BOBasePagePageInterface} from '@interfaces/BO';
 
 import type {Page} from '@playwright/test';
 
-import FakerLinkWidget from '@data/faker/linkWidget';
-import {LinkWidgetPage} from '@data/types/linkWidget';
-
 export interface BODesignLinkListPageInterface extends BOBasePagePageInterface {
   readonly pageTitle: string;
 

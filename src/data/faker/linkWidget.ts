@@ -16,7 +16,7 @@ export default class FakerLinkWidget {
   public readonly contentPages: string[];
 
   public readonly productsPages: string[];
-  
+
   public readonly categoriesPages: string[];
 
   public readonly staticPages: string[];
@@ -42,7 +42,7 @@ export default class FakerLinkWidget {
 
     /** @type {string[]} */
     this.productsPages = valueToCreate.productsPages || [];
-    
+
     /** @type {string[]} */
     this.categoriesPages = valueToCreate.categoriesPages || [];
 

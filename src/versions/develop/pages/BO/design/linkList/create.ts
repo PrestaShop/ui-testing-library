@@ -241,6 +241,7 @@ class CreateLinkBlockPage extends BOBasePage implements BODesignLinkListCreatePa
    */
   async addCustomPages(page: Page, customPages: LinkWidgetPage[], id: number): Promise<void> {
     let j = 1;
+
     for (let i = id; i <= customPages.length; i++) {
       // Set english title and url
       await this.changeLanguage(page, 'en');
@@ -252,7 +253,9 @@ class CreateLinkBlockPage extends BOBasePage implements BODesignLinkListCreatePa
       await this.setValue(page, this.customUrlInput(i, 2), customPages[j - 1].url);
       // Add another custom page block
       await page.locator(this.addCustomBlockButton).click();
+      /* eslint-disable no-plusplus */
       j++;
+      /* eslint-disable-next-line no-plusplus */
     }
   }
 
