@@ -22,7 +22,7 @@ export interface CommonPageInterface {
   getNumberFromText(page: Page | Frame, selector: string, timeout?: number): Promise<number>;
   getPageTitle(page: Page): Promise<string>;
   getParentElement(page: Frame | Page, selector: string)
-    : Promise<ElementHandle<HTMLElement> | JSHandle<undefined> | JSHandle<null>>;
+    : Promise<ElementHandle<HTMLElement> | JSHandle<HTMLElement | null | undefined> | JSHandle<null>>;
   getPriceFromText(page: Frame|Page, selector: string, timeout?: number, waitForSelector?: boolean): Promise<number>;
   getTextContent(page: Page | Frame, selector: string, waitForSelector?: boolean, withTrim?: boolean): Promise<string>;
   goTo(page: Page, url: string): Promise<Response|null>;

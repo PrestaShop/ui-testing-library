@@ -597,8 +597,8 @@ export default class CommonPage implements CommonPageInterface {
    * @param selector {string} String to locate the child element
    * @return {Promise<ElementHandle>}
    */
-  getParentElement(page: Frame | Page, selector: string)
-    : Promise<ElementHandle<HTMLElement> | JSHandle<undefined> | JSHandle<null>> {
+  async getParentElement(page: Frame | Page, selector: string)
+    : Promise<ElementHandle<HTMLElement> | JSHandle<HTMLElement | null | undefined> | JSHandle<null>> {
     return page.evaluateHandle((sl: string) => document.querySelector(sl)?.parentElement, selector);
   }
 
