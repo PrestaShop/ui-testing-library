@@ -91,7 +91,7 @@ class CategoryPage extends FOBasePage implements FoCategoryPageInterface {
 
   protected closeOneFilter: (row: number) => string;
 
-  private readonly searchFilterPriceValues: string;
+  private readonly searchFilterPriceValues: (facetType: string, facetLabel: string) => string;
 
   protected clearAllFiltersLink: string;
 
@@ -172,8 +172,9 @@ class CategoryPage extends FOBasePage implements FoCategoryPageInterface {
     this.searchFiltersDropdown = (facetType: string, facetLabel: string) => `${this.searchFilter(facetType, facetLabel)
     } .facet-dropdown`;
     this.searchFiltersSlider = (facetType: string, facetLabel: string) => `${this.searchFilter(facetType, facetLabel)
-    }.faceted-slider`;
-    this.searchFilterPriceValues = '[id*=facet_label]';
+    }.faceted-slider .ui-slider`;
+    this.searchFilterPriceValues = (facetType: string, facetLabel: string) => `${this.searchFilter(facetType, facetLabel)} `
+      + '[id*=facet_label]';
     this.clearAllFiltersLink = '#_desktop_search_filters_clear_all button.js-search-filters-clear-all';
     this.activeSearchFilters = '#js-active-search-filters';
     this.closeOneFilter = (row: number) => `#js-active-search-filters ul li:nth-child(${row}) a i`;
@@ -607,7 +608,7 @@ class CategoryPage extends FOBasePage implements FoCategoryPageInterface {
    * @return {Promise<number>}
    */
   async getMaximumPrice(page: Page): Promise<number> {
-    const test = await this.getTextContent(page, this.searchFilterPriceValues);
+    const test = await this.getTextContent(page, this.searchFilterPriceValues('price', 'Price'));
 
     return (parseInt(test.split('€')[2], 10));
   }
@@ -618,7 +619,7 @@ class CategoryPage extends FOBasePage implements FoCategoryPageInterface {
    * @return {Promise<number>}
    */
   async getMinimumPrice(page: Page): Promise<number> {
-    const test = await this.getTextContent(page, this.searchFilterPriceValues);
+    const test = await this.getTextContent(page, this.searchFilterPriceValues('price', 'Price'));
 
     return (parseInt(test.split('€')[1], 10));
   }

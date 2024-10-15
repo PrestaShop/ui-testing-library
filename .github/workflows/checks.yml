@@ -2,6 +2,9 @@ name: Lint And Typescript Checks
 
 on:
   pull_request:
+  push:
+    branches:
+      - main
 
 env:
   NODE_VERSION: '16'
