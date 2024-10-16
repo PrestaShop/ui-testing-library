@@ -5,4 +5,8 @@ export default {
     id: 37,
     name: 'displayFooter',
   }),
+  displayFooterBefore: new FakerHook({
+    id: 38,
+    name: 'displayFooterBefore',
+  }),
 };
