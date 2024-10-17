@@ -8,7 +8,7 @@ import {type Page} from '@playwright/test';
  * @class
  * @extends BOBasePage
  */
-class BOEmployeesPage extends BOBasePage implements BOEmployeesPageInterface{
+class BOEmployeesPage extends BOBasePage implements BOEmployeesPageInterface {
   public readonly pageTitle: string;
 
   public readonly successfulUpdateStatusMessage: string;

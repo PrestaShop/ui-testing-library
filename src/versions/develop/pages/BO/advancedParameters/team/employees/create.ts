@@ -9,7 +9,7 @@ import FakerEmployee from '@data/faker/employee';
  * @class
  * @extends EmployeeBasePage
  */
-class BOEmployeeCreatePage extends EmployeeBasePage implements BOEmployeeCreatePageInterface{
+class BOEmployeeCreatePage extends EmployeeBasePage implements BOEmployeeCreatePageInterface {
   public readonly pageTitleCreate: string;
 
   private readonly passwordInput: string;
