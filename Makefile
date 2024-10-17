@@ -11,4 +11,10 @@ test: ## Build and copy to the dependencies directory for the project
 	cp -r dist $(filter-out $@,$(MAKECMDGOALS))/tests/UI/node_modules/@prestashop-core/ui-testing/
 	cp package.json $(filter-out $@,$(MAKECMDGOALS))/tests/UI/node_modules/@prestashop-core/ui-testing/
 
+gitclean: ## Rebase & Clean git
+	git fetch upstream
+	git rebase "upstream/main"
+	git push origin
+	git fetch --prune
+
 .DEFAULT_GOAL := help

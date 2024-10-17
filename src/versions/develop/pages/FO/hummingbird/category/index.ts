@@ -40,11 +40,13 @@ class CategoryPage extends CategoryPageVersion implements FoCategoryPageInterfac
     this.searchFiltersLabel = `${this.searchFilters} label.form-check-label`;
     this.clearAllFiltersLink = `${this.searchFilters} button.js-search-filters-clear-all`;
     this.searchFilterPriceSlider = 'div.faceted-slider';
-    this.searchFiltersSlider = () => `${this.searchFilters} div.faceted-slider`;
     this.closeOneFilter = (row: number) => `#js-active-search-filters ul li:nth-child(${row + 1}) a i`;
 
     // Pagination selectors
     this.pagesList = 'ul.pagination';
+
+    // Filter selectors
+    this.searchFiltersSlider = () => `${this.searchFilters} .faceted-slider`;
   }
 
   /**
@@ -85,6 +87,24 @@ class CategoryPage extends CategoryPageVersion implements FoCategoryPageInterfac
       await page.locator(`${this.searchFiltersLabel} a[href*="${checkboxName}"]`).click();
     }
     await page.locator(this.filterTypeButton(facetType)).click();
+    await page.waitForTimeout(2000);
+  }
+
+  /**
+   * Filter by price
+   * @param page {Page} Browser tab
+   * @param minPrice {number} Minimum price in the slider
+   * @param maxPrice {number} Maximum price in the slider
+   * @param filterFrom {number} The minimum value to filter
+   * @param filterTo {number} The maximum value to filter
+   * @return {Promise<void>}
+   */
+  async filterByPrice(page: Page, minPrice: number, maxPrice: number, filterFrom: number, filterTo: number): Promise<void> {
+    await page.locator(this.filterTypeButton('Price')).click();
+
+    await super.filterByPrice(page, minPrice, maxPrice, filterFrom, filterTo);
+
+    await page.locator(this.filterTypeButton('Price')).click();
     await page.waitForTimeout(2000);
   }
 

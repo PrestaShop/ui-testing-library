@@ -45,8 +45,7 @@ class AddAliasPage extends BOBasePage implements BOAliasCreatePageInterface {
   async setAlias(page: Page, aliasData: FakerSearchAlias): Promise<string> {
     await this.setValue(page, this.aliasInput, aliasData.alias);
     await this.setValue(page, this.resultInput, aliasData.result);
-
-    await this.clickAndWaitForURL(page, this.saveButton);
+    await page.locator(this.saveButton).click();
     return this.getAlertSuccessBlockContent(page);
   }
 }
