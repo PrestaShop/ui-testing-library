@@ -211,6 +211,8 @@ export {default as boDesignLinkListCreatePage} from '@pages/BO/design/linkList/c
 export {default as boDesignPositionsPage} from '@pages/BO/design/positions';
 export {default as boDesignPositionsHookModulePage} from '@pages/BO/design/positions/hookModule';
 export {default as boEmailPage} from '@pages/BO/advancedParameters/email';
+export {default as boEmployeesPage} from '@pages/BO/advancedParameters/team/employees';
+export {default as boEmployeesCreatePage} from '@pages/BO/advancedParameters/team/employees/create';
 export {default as boFeatureFlagPage} from '@pages/BO/advancedParameters/featureFlag';
 export {default as boInformationPage} from '@pages/BO/advancedParameters/information';
 export {default as boImportPage} from '@pages/BO/advancedParameters/import';
@@ -245,6 +247,8 @@ export {default as boProductsCreateTabStocksPage} from '@pages/BO/catalog/produc
 export {default as boProductsCreateTabVirtualProductPage} from '@pages/BO/catalog/products/create/tabVirtualProduct';
 export {default as boProductSettingsPage} from '@pages/BO/shopParameters/productSettings';
 export {default as boQuickAccessPage} from '@pages/BO/quickAccess';
+export {default as boRolesPage} from '@pages/BO/advancedParameters/team/roles';
+export {default as boRolesCreatePage} from '@pages/BO/advancedParameters/team/roles/create';
 export {default as boSearchPage} from '@pages/BO/shopParameters/search';
 export {default as boSearchAliasCreatePage} from '@pages/BO/shopParameters/search/alias/create';
 export {default as boShopParametersPage} from '@pages/BO/shopParameters/general';
