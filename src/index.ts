@@ -326,3 +326,28 @@ export {default as utilsXML} from '@utils/xml';
 
 // Export packages
 export {default as MailDev} from 'maildev';
+export type {
+  APIRequestContext,
+  APIResponse,
+  // @todo : After migration, to remove
+  Browser,
+  BrowserContext,
+  // @todo : After migration, to remove
+  ElementHandle,
+  // @todo : After migration, to remove
+  FileChooser,
+  // @todo : After migration, to remove
+  FrameLocator,
+  // @todo : After migration, to remove
+  JSHandle,
+  // @todo : After migration, to remove
+  Locator,
+  Frame,
+  Page,
+  // @todo : After migration, to remove
+  Response,
+} from '@playwright/test';
+export type {
+  // @todo : After migration, to remove
+  PageFunction,
+} from 'playwright-core/types/structs';
