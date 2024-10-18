@@ -2,7 +2,7 @@ import {BOBasePagePageInterface} from '@interfaces/BO';
 import {type Page} from '@playwright/test';
 import FakerEmployeeRole from '@data/faker/employeeRole';
 
-export interface BORoleCreatePageInterface extends BOBasePagePageInterface {
+export interface BORolesCreatePageInterface extends BOBasePagePageInterface {
   readonly pageTitleCreate: string;
   readonly pageTitleEdit: (name: string) => string;
 

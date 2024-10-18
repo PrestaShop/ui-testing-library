@@ -1,4 +1,4 @@
-import {type BOEmployeeCreatePageInterface} from '@interfaces/BO/advancedParameters/team/employees/create';
+import {type BOEmployeesCreatePageInterface} from '@interfaces/BO/advancedParameters/team/employees/create';
 import EmployeeBasePage from '@pages/BO/advancedParameters/team/base';
 import {type Page} from '@playwright/test';
 
@@ -9,7 +9,7 @@ import FakerEmployee from '@data/faker/employee';
  * @class
  * @extends EmployeeBasePage
  */
-class BOEmployeeCreatePage extends EmployeeBasePage implements BOEmployeeCreatePageInterface {
+class BOEmployeesCreatePage extends EmployeeBasePage implements BOEmployeesCreatePageInterface {
   public readonly pageTitleCreate: string;
 
   private readonly passwordInput: string;
@@ -53,4 +53,4 @@ class BOEmployeeCreatePage extends EmployeeBasePage implements BOEmployeeCreateP
   }
 }
 
-module.exports = new BOEmployeeCreatePage();
+module.exports = new BOEmployeesCreatePage();

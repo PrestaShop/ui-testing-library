@@ -1,4 +1,4 @@
-import {type BORoleCreatePageInterface} from '@interfaces/BO/advancedParameters/team/roles/create';
+import {type BORolesCreatePageInterface} from '@interfaces/BO/advancedParameters/team/roles/create';
 import BOBasePage from '@pages/BO/BOBasePage';
 import {type Page} from '@playwright/test';
 import FakerEmployeeRole from '@data/faker/employeeRole';
@@ -8,7 +8,7 @@ import FakerEmployeeRole from '@data/faker/employeeRole';
  * @class
  * @extends BOBasePage
  */
-class BORoleCreatePage extends BOBasePage implements BORoleCreatePageInterface {
+class BORolesCreatePage extends BOBasePage implements BORolesCreatePageInterface {
   public readonly pageTitleCreate: string;
 
   public readonly pageTitleEdit: (name: string) => string;
@@ -50,4 +50,4 @@ class BORoleCreatePage extends BOBasePage implements BORoleCreatePageInterface {
   }
 }
 
-module.exports = new BORoleCreatePage();
+module.exports = new BORolesCreatePage();
