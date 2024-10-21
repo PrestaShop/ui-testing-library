@@ -435,7 +435,7 @@ class ProductsPage extends BOBasePage implements BOProductsPageInterface {
     const createProductFrame: Frame | null = page.frame({url: this.newProductIframeURL});
     expect(createProductFrame).not.toBeNull();
 
-    await this.waitForSelectorAndClick(createProductFrame!, this.productType(productType));
+    await createProductFrame!.locator(this.productType(productType)).first().click();
   }
 
   /**
@@ -460,6 +460,12 @@ class ProductsPage extends BOBasePage implements BOProductsPageInterface {
     expect(createProductFrame).not.toBeNull();
 
     await this.waitForSelectorAndClick(createProductFrame!, this.addNewProductButton);
+    await this.waitForHiddenSelector(page, this.modalCreateProductIframe, 30000);
+    await page.waitForURL((url: URL): boolean => url.toString().includes('/sell/catalog/products/')
+        && url.toString().includes('/edit'),
+    {
+      waitUntil: 'load',
+    });
   }
 
   /**
@@ -772,7 +778,7 @@ class ProductsPage extends BOBasePage implements BOProductsPageInterface {
       // Move the mouse to avoid the tooltip on first row
       await page.mouse.move(0, 0);
       await this.clickAndWaitForLoadState(page, this.filterResetButton);
-      await this.waitForHiddenSelector(page, this.filterResetButton, 2000);
+      await this.waitForHiddenSelector(page, this.filterResetButton, 5000);
     }
   }
 

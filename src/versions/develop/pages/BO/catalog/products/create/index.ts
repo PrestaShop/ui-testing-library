@@ -349,6 +349,8 @@ class CreateProduct extends BOBasePage implements BOProductsCreatePageInterface 
      * @returns {Promise<string>}
      */
   async setProduct(page: Page, productData: FakerProduct): Promise<string|null> {
+    await this.waitForVisibleSelector(page, this.productActiveSwitchButtonToggleInput);
+
     // Set description
     await descriptionTab.setProductDescription(page, productData);
     // Set name
