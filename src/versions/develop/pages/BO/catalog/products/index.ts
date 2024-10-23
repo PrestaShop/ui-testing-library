@@ -461,7 +461,7 @@ class ProductsPage extends BOBasePage implements BOProductsPageInterface {
 
     await this.waitForSelectorAndClick(createProductFrame!, this.addNewProductButton);
     await this.waitForHiddenSelector(page, this.modalCreateProductIframe, 30000);
-    await page.waitForURL((url: URL): boolean => url.toString().includes('/sell/catalog/products/')
+    await page.waitForURL((url: URL): boolean => url.toString().includes('/sell/catalog/products')
         && url.toString().includes('/edit'),
     {
       waitUntil: 'load',
