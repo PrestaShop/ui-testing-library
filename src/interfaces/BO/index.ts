@@ -82,6 +82,7 @@ export interface BOBasePagePageInterface extends CommonPageInterface {
   clickOnNotificationsLink(page: Page): Promise<boolean>;
   clickOnNotificationsTab(page: Page, tabName: string): Promise<void>;
   clickSubMenu(page: Page, parentSelector: string): Promise<void>;
+  closeAlertBlock(page: Page): Promise<void>;
   closeHelpSideBar(page: Page): Promise<boolean>;
   closeSfToolBar(page: Frame | Page): Promise<void>;
   getAlertDangerBlockParagraphContent(page: Page): Promise<string>;
