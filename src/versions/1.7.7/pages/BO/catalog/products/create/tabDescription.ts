@@ -1,6 +1,6 @@
 // Import pages
 import type {BOProductsCreateTabDescriptionPageInterface} from '@interfaces/BO/catalog/products/create/tabDescription';
-import {DescriptionTab} from '@versions/develop/pages/BO/catalog/products/create/tabDescription';
+import {DescriptionTab} from '@versions/8.0/pages/BO/catalog/products/create/tabDescription';
 
 import type FakerProduct from '@data/faker/product';
 
@@ -16,12 +16,6 @@ class BOProductTabDescriptionVersion extends DescriptionTab implements BOProduct
 
   private readonly shortDescriptionTabLink: string;
 
-  private readonly productShortDescriptionIframe: string;
-
-  private readonly productDescriptionIframe: string;
-
-  private readonly productWithCombinationsInput: string;
-
   /**
    * @constructs
    * Setting up texts and selectors to use on description tab
@@ -32,10 +26,6 @@ class BOProductTabDescriptionVersion extends DescriptionTab implements BOProduct
     this.basicSettingsTabLink = '#tab_step1';
     this.descriptionTabLink = '#tab_description';
     this.shortDescriptionTabLink = '#tab_description_short';
-
-    this.productShortDescriptionIframe = '#form_step1_description_short';
-    this.productDescriptionIframe = '#form_step1_description';
-    this.productWithCombinationsInput = '#show_variations_selector div:nth-of-type(2) input';
   }
 
   /**

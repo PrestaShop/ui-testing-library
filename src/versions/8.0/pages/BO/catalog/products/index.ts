@@ -20,7 +20,7 @@ class BOProductsVersion extends ProductsPage implements BOProductsPageInterface 
 
   private readonly productNumberBloc: string;
 
-  private readonly productsListTableColumnStatusInput: (row: number) => string;
+  protected productsListTableColumnStatusInput: (row: number) => string;
 
   /**
      * @constructs
