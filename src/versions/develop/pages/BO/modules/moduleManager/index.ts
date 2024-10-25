@@ -613,6 +613,7 @@ class ModuleManagerPage extends BOBasePage implements ModuleManagerPageInterface
       technicalName,
       version: await this.getAttributeContent(page, this.moduleItemNth(nth), 'data-version'),
       enabled: await this.elementNotVisible(page, this.actionModuleButton(technicalName, 'enabled'), 1000),
+      installed: (await this.getAttributeContent(page, this.moduleItemNth(nth), 'data-installed')) === '1',
     };
   }
 }
