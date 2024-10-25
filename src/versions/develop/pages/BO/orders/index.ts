@@ -71,9 +71,9 @@ class OrdersPage extends BOBasePage implements BOOrdersPageInterface {
 
   private readonly previewOrderButton: string;
 
-  private readonly actionsColumn: (row: number) => string;
+  protected actionsColumn: (row: number) => string;
 
-  private readonly viewRowLink: (row: number) => string;
+  protected viewRowLink: (row: number) => string;
 
   private readonly viewInvoiceRowLink: (row: number) => string;
 
