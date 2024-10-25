@@ -11,6 +11,7 @@ type ModuleInfo = {
   technicalName: string
   version: string
   enabled: boolean
+  installed: boolean
 }
 
 export type {
