@@ -6,6 +6,9 @@ const psVersion = testContext.getPSVersion();
 
 /* eslint-disable global-require, @typescript-eslint/no-var-requires */
 function requirePage(): BOProductsPageInterface {
+  if (semver.lt(psVersion, '7.8.0')) {
+    return require('@versions/1.7.7/pages/BO/catalog/products').productsPage;
+  }
   if (semver.lt(psVersion, '8.0.0')) {
     return require('@versions/1.7.8/pages/BO/catalog/products').productsPage;
   }
