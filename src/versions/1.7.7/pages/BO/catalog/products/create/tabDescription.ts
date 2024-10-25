@@ -25,7 +25,8 @@ class BOProductTabDescriptionVersion extends DescriptionTab implements BOProduct
 
     this.basicSettingsTabLink = '#tab_step1';
     this.descriptionTabLink = '#tab_description';
-    this.shortDescriptionTabLink = '#tab_description_short';}
+    this.shortDescriptionTabLink = '#tab_description_short';
+  }
 
   /**
    * Set product description
