@@ -10,7 +10,6 @@ import type {Page} from 'playwright';
  * @extends ProductsPage
  */
 class BOProductsVersion extends ProductsPage implements BOProductsPageInterface {
-
   /**
    * @constructs
    * Setting up texts and selectors to use on products page
