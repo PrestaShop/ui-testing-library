@@ -6,7 +6,7 @@ const psVersion = testContext.getPSVersion();
 
 /* eslint-disable global-require, @typescript-eslint/no-var-requires */
 function requirePage(): BOProductsCreateTabDescriptionPageInterface {
-  if (semver.lt(psVersion, '8.0.0')) {
+  if (semver.lt(psVersion, '7.8.0')) {
     return require('@versions/1.7.7/pages/BO/catalog/products/create/tabDescription').descriptionTab;
   }
   if (semver.lt(psVersion, '8.1.0')) {
