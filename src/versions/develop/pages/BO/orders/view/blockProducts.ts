@@ -171,7 +171,7 @@ class BOProductBlockProductsPage extends ViewOrderBasePage implements BOProductB
     this.orderProductsTableProductPrice = (row: number) => `${this.orderProductsRowTable(row)} td.cellProductTotalPrice`;
     this.deleteProductButton = (row: number) => `${this.orderProductsRowTable(row)} button.js-order-product-delete-btn`;
     this.editProductButton = (row: number) => `${this.orderProductsRowTable(row)} button.js-order-product-edit-btn`;
-    this.productQuantitySpan = (row: number) => `${this.orderProductsRowTable(row)} td.cellProductQuantity span`;
+    this.productQuantitySpan = (row: number) => `${this.orderProductsRowTable(row)} td.cellProductQuantity`;
     this.refundProductColumn = `${this.orderProductsTable} th.cellProductRefunded`;
 
     // Edit row table
