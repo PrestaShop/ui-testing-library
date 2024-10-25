@@ -1,6 +1,6 @@
 // Import pages
 import type {FoHomePageInterface} from '@interfaces/FO/home';
-import {FoHomePage} from '@versions/develop/pages/FO/classic/home/index';
+import {FoHomePage} from '@versions/8.1/pages/FO/classic/home/index';
 
 /**
  * FO home page, contains functions that can be used on the page
