@@ -10,7 +10,7 @@ import {OrdersPage} from '@versions/develop/pages/BO/orders/index';
 class OrdersPageVersion extends OrdersPage implements BOOrdersPageInterface {
   /**
    * @constructs
-   * Setting up texts and selectors to use on order confirmation page
+   * Setting up texts and selectors to use in orders page
    */
   constructor() {
     super();

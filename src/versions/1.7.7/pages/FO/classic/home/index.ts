@@ -3,14 +3,14 @@ import type {FoHomePageInterface} from '@interfaces/FO/home';
 import {FoHomePage} from '@versions/develop/pages/FO/classic/home/index';
 
 /**
- * Order confirmation page, contains functions that can be used on the page
+ * FO home page, contains functions that can be used on the page
  * @class
- * @extends OrderConfirmationPage
+ * @extends FoHomePage
  */
 class FoHomePageVersion extends FoHomePage implements FoHomePageInterface {
   /**
    * @constructs
-   * Setting up texts and selectors to use on order confirmation page
+   * Setting up texts and selectors to use in home page
    */
   constructor(theme: string = 'classic') {
     super(theme);
