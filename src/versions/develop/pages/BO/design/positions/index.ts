@@ -139,6 +139,7 @@ class PositionsPage extends BOBasePage implements BODesignPositionsPageInterface
   /**
    * Return the filtered module name
    * @param page {Page} Browser tab
+   * @returns {Promise<string>}
    */
   async getModuleFilter(page: Page): Promise<string> {
     return this.getTextContent(page, `${this.filterModuleSelect} option[selected='selected']`, false);
