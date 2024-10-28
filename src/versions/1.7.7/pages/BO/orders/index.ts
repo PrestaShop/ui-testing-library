@@ -19,4 +19,5 @@ class OrdersPageVersion extends OrdersPage implements BOOrdersPageInterface {
   }
 }
 
-module.exports = new OrdersPageVersion();
+const ordersPage = new OrdersPageVersion();
+export {ordersPage, OrdersPageVersion as OrdersPage};

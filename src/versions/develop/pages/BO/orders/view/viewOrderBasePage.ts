@@ -61,9 +61,9 @@ class ViewOrderBasePage extends BOBasePage implements BOViewOrderBasePageInterfa
   private readonly returnProductsButton: string;
 
   /**
-     * @constructs
-     * Setting up texts and selectors to use on view/edit order page
-     */
+   * @constructs
+   * Setting up texts and selectors to use on view/edit order page
+   */
   constructor() {
     super();
 
@@ -74,7 +74,7 @@ class ViewOrderBasePage extends BOBasePage implements BOViewOrderBasePageInterfa
     this.errorMinimumQuantityMessage = 'Minimum quantity of "3" must be added';
     this.errorAddSameProduct = 'This product is already in your order, please edit the quantity instead.';
     this.errorAddSameProductInInvoice = (invoice: string) => `This product is already in the invoice #${invoice}, `
-            + 'please edit the quantity instead.';
+      + 'please edit the quantity instead.';
     this.noAvailableDocumentsMessage = 'There is no available document';
     this.updateSuccessfullMessage = 'Update successful';
     this.commentSuccessfullMessage = 'Comment successfully added.';
@@ -102,30 +102,30 @@ class ViewOrderBasePage extends BOBasePage implements BOViewOrderBasePageInterfa
     Methods
      */
   /**
-     * Get order ID
-     * @param page {Page} Browser tab
-     * @returns {Promise<number>}
-     */
+   * Get order ID
+   * @param page {Page} Browser tab
+   * @returns {Promise<number>}
+   */
   async getOrderID(page: Page): Promise<number> {
     return this.getNumberFromText(page, this.orderID);
   }
 
   /**
-     * Get order reference
-     * @param page {Page} Browser tab
-     * @returns {Promise<string>}
-     */
+   * Get order reference
+   * @param page {Page} Browser tab
+   * @returns {Promise<string>}
+   */
   async getOrderReference(page: Page): Promise<string> {
     return this.getTextContent(page, this.orderReference);
   }
 
   // Methods for order actions
   /**
-     * Does status exist
-     * @param page {Page} Browser tab
-     * @param statusName {string} Status to check
-     * @returns {Promise<boolean>}
-     */
+   * Does status exist
+   * @param page {Page} Browser tab
+   * @param statusName {string} Status to check
+   * @returns {Promise<boolean>}
+   */
   async doesStatusExist(page: Page, statusName: string): Promise<boolean> {
     const options = await page
       .locator(this.orderStatusesOptionSelect)
@@ -135,38 +135,38 @@ class ViewOrderBasePage extends BOBasePage implements BOViewOrderBasePageInterfa
   }
 
   /**
-     * Is update status button disabled
-     * @param page {Page} Browser tab
-     * @returns {Promise<boolean>}
-     */
+   * Is update status button disabled
+   * @param page {Page} Browser tab
+   * @returns {Promise<boolean>}
+   */
   async isUpdateStatusButtonDisabled(page: Page): Promise<boolean> {
     return this.elementVisible(page, `${this.updateStatusButton}[disabled]`, 1000);
   }
 
   /**
-     * Select order status
-     * @param page {Page} Browser tab
-     * @param status {string} Status to edit
-     * @returns {Promise<void>}
-     */
+   * Select order status
+   * @param page {Page} Browser tab
+   * @param status {string} Status to edit
+   * @returns {Promise<void>}
+   */
   async selectOrderStatus(page: Page, status: string): Promise<void> {
     await this.selectByVisibleText(page, this.orderStatusesSelect, status);
   }
 
   /**
-     * Get order status
-     * @param page {Page} Browser tab
-     * @returns {Promise<string>}
-     */
+   * Get order status
+   * @param page {Page} Browser tab
+   * @returns {Promise<string>}
+   */
   async getOrderStatus(page: Page): Promise<string> {
     return this.getTextContent(page, `${this.orderStatusesOptionSelect}[selected='selected']`, false);
   }
 
   /**
-     * Get order status ID
-     * @param page {Page} Browser tab
-     * @returns {Promise<string>}
-     */
+   * Get order status ID
+   * @param page {Page} Browser tab
+   * @returns {Promise<string>}
+   */
   async getOrderStatusID(page: Page): Promise<number> {
     return parseInt(
       await this.getAttributeContent(page, `${this.orderStatusesOptionSelect}[selected='selected']`, 'value'),
@@ -175,11 +175,11 @@ class ViewOrderBasePage extends BOBasePage implements BOViewOrderBasePageInterfa
   }
 
   /**
-     * Modify the order status
-     * @param page {Page} Browser tab
-     * @param status {string} Status to edit
-     * @returns {Promise<string>}
-     */
+   * Modify the order status
+   * @param page {Page} Browser tab
+   * @param status {string} Status to edit
+   * @returns {Promise<string>}
+   */
   async modifyOrderStatus(page: Page, status: string): Promise<string> {
     const actualStatus = await this.getOrderStatus(page);
 
@@ -194,82 +194,82 @@ class ViewOrderBasePage extends BOBasePage implements BOViewOrderBasePageInterfa
   }
 
   /**
-     * Is view invoice button visible
-     * @param page {Page} Browser tab
-     * @returns {Promise<boolean>}
-     */
+   * Is view invoice button visible
+   * @param page {Page} Browser tab
+   * @returns {Promise<boolean>}
+   */
   async isViewInvoiceButtonVisible(page: Page): Promise<boolean> {
     return this.elementVisible(page, this.viewInvoiceButton, 1000);
   }
 
   /**
-     * Click on view invoice button to download the invoice
-     * @param page {Page} Browser tab
-     * @returns {Promise<string|null>}
-     */
+   * Click on view invoice button to download the invoice
+   * @param page {Page} Browser tab
+   * @returns {Promise<string|null>}
+   */
   async viewInvoice(page: Page): Promise<string | null> {
     return this.clickAndWaitForDownload(page, this.viewInvoiceButton);
   }
 
   /**
-     * Is partial refund button visible
-     * @param page {Page} Browser tab
-     * @returns {Promise<boolean>}
-     */
+   * Is partial refund button visible
+   * @param page {Page} Browser tab
+   * @returns {Promise<boolean>}
+   */
   async isPartialRefundButtonVisible(page: Page): Promise<boolean> {
     return this.elementVisible(page, this.partialRefundButton, 1000);
   }
 
   /**
-     * Click on partial refund button
-     * @param page {Page} Browser tab
-     * @returns {Promise<void>}
-     */
+   * Click on partial refund button
+   * @param page {Page} Browser tab
+   * @returns {Promise<void>}
+   */
   async clickOnPartialRefund(page: Page): Promise<void> {
     await page.locator(this.partialRefundButton).click();
   }
 
   /**
-     * Is delivery slip button visible
-     * @param page {Page} Browser tab
-     * @returns {Promise<boolean>}
-     */
+   * Is delivery slip button visible
+   * @param page {Page} Browser tab
+   * @returns {Promise<boolean>}
+   */
   async isDeliverySlipButtonVisible(page: Page): Promise<boolean> {
     return this.elementVisible(page, this.viewDeliverySlipButton, 1000);
   }
 
   /**
-     * Click on view delivery slip button to download the invoice
-     * @param page {Page} Browser tab
-     * @returns {Promise<string|null>}
-     */
+   * Click on view delivery slip button to download the invoice
+   * @param page {Page} Browser tab
+   * @returns {Promise<string|null>}
+   */
   async viewDeliverySlip(page: Page): Promise<string | null> {
     return this.clickAndWaitForDownload(page, this.viewDeliverySlipButton);
   }
 
   /**
-     * Is return products button visible
-     * @param page {Page} Browser tab
-     * @returns {Promise<boolean>}
-     */
+   * Is return products button visible
+   * @param page {Page} Browser tab
+   * @returns {Promise<boolean>}
+   */
   async isReturnProductsButtonVisible(page: Page): Promise<boolean> {
     return this.elementVisible(page, this.returnProductsButton, 2000);
   }
 
   /**
-     * Is return product button disabled
-     * @param page {Page} Browser tab
-     * @returns {Promise<boolean>}
-     */
+   * Is return product button disabled
+   * @param page {Page} Browser tab
+   * @returns {Promise<boolean>}
+   */
   async isReturnProductsButtonDisabled(page: Page): Promise<boolean> {
     return this.elementVisible(page, `${this.returnProductsButton}[disabled]`, 2000);
   }
 
   /**
-     * Click on return product button
-     * @param page {Page} Browser tab
-     * @returns {Promise<void>}
-     */
+   * Click on return product button
+   * @param page {Page} Browser tab
+   * @returns {Promise<void>}
+   */
   async clickOnReturnProductsButton(page: Page): Promise<void> {
     await page.locator(this.returnProductsButton).click();
   }

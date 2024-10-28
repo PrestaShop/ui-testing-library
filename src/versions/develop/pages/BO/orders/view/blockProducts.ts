@@ -15,7 +15,7 @@ class BOProductBlockProductsPage extends ViewOrderBasePage implements BOProductB
 
   private readonly orderProductsLoading: string;
 
-  private readonly orderProductsTable: string;
+  protected orderProductsTable: string;
 
   private readonly generateVoucherCheckbox: string;
 
@@ -25,7 +25,7 @@ class BOProductBlockProductsPage extends ViewOrderBasePage implements BOProductB
 
   private readonly returnQuantityCheckbox: (row: number) => string;
 
-  private readonly orderProductsRowTable: (row: number) => string;
+  protected orderProductsRowTable: (row: number) => string;
 
   private readonly orderProductsTableNameColumn: (row: number) => string;
 
@@ -43,17 +43,17 @@ class BOProductBlockProductsPage extends ViewOrderBasePage implements BOProductB
 
   private readonly deleteProductButton: (row: number) => string;
 
-  private readonly editProductButton: (row: number) => string;
+  protected editProductButton: (row: number) => string;
 
-  private readonly productQuantitySpan: (row: number) => string;
+  protected productQuantitySpan: (row: number) => string;
 
-  private readonly orderProductsEditRowTable: string;
+  protected orderProductsEditRowTable: string;
 
-  private readonly editProductQuantityInput: string;
+  protected editProductQuantityInput: string;
 
   private readonly editProductPriceInput: string;
 
-  private readonly updateProductButton: string;
+  protected updateProductButton: string;
 
   private readonly modalConfirmNewPrice: string;
 
@@ -142,9 +142,9 @@ class BOProductBlockProductsPage extends ViewOrderBasePage implements BOProductB
   private readonly refundProductColumn: string;
 
   /**
-     * @constructs
-     * Setting up texts and selectors to use on products block
-     */
+   * @constructs
+   * Setting up texts and selectors to use on products block
+   */
   constructor() {
     super();
 
@@ -244,14 +244,14 @@ class BOProductBlockProductsPage extends ViewOrderBasePage implements BOProductB
 
   // Methods for create partial refund
   /**
-     * Add partial refund product
-     * @param page {Page} Browser tab
-     * @param productRow {number} Product row on table
-     * @param quantity {number} Quantity value to set
-     * @param amount {number} Amount value to set
-     * @param shipping {number} Shipping cost to set
-     * @returns {Promise<string>}
-     */
+   * Add partial refund product
+   * @param page {Page} Browser tab
+   * @param productRow {number} Product row on table
+   * @param quantity {number} Quantity value to set
+   * @param amount {number} Amount value to set
+   * @param shipping {number} Shipping cost to set
+   * @returns {Promise<string>}
+   */
   async addPartialRefundProduct(
     page: Page,
     productRow: number,
@@ -548,12 +548,12 @@ class BOProductBlockProductsPage extends ViewOrderBasePage implements BOProductB
   }
 
   /**
-     * Get product details
-     * @param page {Frame|Page} Browser tab
-     * @param row {number} Product row on table
-     * @returns {Promise<{orderDetailId:string, productId:number, name: string, reference:string, basePrice: number, quantity: number, available: number, total: number}>}
-     */
-  async getProductDetails(page: Frame | Page, row: number) :Promise<{
+   * Get product details
+   * @param page {Frame|Page} Browser tab
+   * @param row {number} Product row on table
+   * @returns {Promise<{orderDetailId:string, productId:number, name: string, reference:string, basePrice: number, quantity: number, available: number, total: number}>}
+   */
+  async getProductDetails(page: Frame | Page, row: number): Promise<{
     reference: string,
     total: number,
     quantity: number,
@@ -604,7 +604,7 @@ class BOProductBlockProductsPage extends ViewOrderBasePage implements BOProductB
    * @param page {Page} Browser tab
    * @returns {Promise<{stockLocation: string, available: number, price:number;}>}
    */
-  async getSearchedProductDetails(page: Page): Promise<{ stockLocation: string, available: number, price: number}> {
+  async getSearchedProductDetails(page: Page): Promise<{ stockLocation: string, available: number, price: number }> {
     return {
       stockLocation: await this.getTextContent(page, this.addProductRowStockLocation),
       available: parseInt(await this.getTextContent(page, this.addProductAvailable), 10),
@@ -778,4 +778,5 @@ class BOProductBlockProductsPage extends ViewOrderBasePage implements BOProductB
   }
 }
 
-module.exports = new BOProductBlockProductsPage();
+const productsBlockOrdersPage = new BOProductBlockProductsPage();
+export {productsBlockOrdersPage, BOProductBlockProductsPage};
