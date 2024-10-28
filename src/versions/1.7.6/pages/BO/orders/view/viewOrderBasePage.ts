@@ -10,8 +10,13 @@ import type {Page} from 'playwright-core';
  */
 class ViewOrderBasePageVersion extends ViewOrderBasePage implements BOViewOrderBasePageInterface {
   private readonly orderStatus: string;
-  
+
+  private readonly orderStatusSearchInput: string;
+
+  private readonly orderStatusSearchFirstResult: string;
+
   private readonly submitStatusButton: string;
+
   /**
    * @constructs
    * Setting up texts and selectors to use on view order page
@@ -20,6 +25,8 @@ class ViewOrderBasePageVersion extends ViewOrderBasePage implements BOViewOrderB
     super();
 
     this.orderStatus = '#id_order_state_chosen';
+    this.orderStatusSearchInput = '#id_order_state_chosen div.chosen-search input';
+    this.orderStatusSearchFirstResult = 'li.active-result:nth-child(1)';
     this.submitStatusButton = '#submit_state';
   }
 
@@ -43,8 +50,10 @@ class ViewOrderBasePageVersion extends ViewOrderBasePage implements BOViewOrderB
 
     if (status !== actualStatus) {
       await page.locator(this.orderStatus).click();
-      await this.setValue(page, '#id_order_state_chosen div.chosen-search input', status);
-      await page.locator('li.active-result:nth-child(1)').click();
+      await this.setValue(page, this.orderStatusSearchInput, status);
+      await page.locatorthis.orderStatusSearchFirstResult
+    ).
+      click();
       await this.clickAndWaitForLoadState(page, this.submitStatusButton);
       return this.getOrderStatus(page);
     }

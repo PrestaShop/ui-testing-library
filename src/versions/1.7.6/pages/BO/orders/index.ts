@@ -30,7 +30,7 @@ class OrdersPageVersion extends OrdersPage implements BOOrdersPageInterface {
     this.tableRow = (row: number) => `${this.tableRows}:nth-child(${row})`;
     this.tableRowColumn = (row: number, column: number) => `${this.tableRow(row)} td:nth-child(${column})`;
     this.viewRowLink = (row: number) => `${this.tableRow(row)} a[href*='view']`;
-    
+
     // Filters
     this.filterColumn = (filterBy: string) => `${this.gridTable} [name='orderFilter_${filterBy}']`;
     this.filterSearchButton = `${this.gridTable} #submitFilterButtonorder`;

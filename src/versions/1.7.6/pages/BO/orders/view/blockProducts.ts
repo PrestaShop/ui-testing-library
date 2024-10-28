@@ -1,7 +1,6 @@
 // Import pages
 import type {BOProductBlockProductsPageInterface} from '@interfaces/BO/orders/view/blockProducts';
 import {BOProductBlockProductsPage} from '@versions/develop/pages/BO/orders/view/blockProducts';
-import type {Page} from 'playwright-core';
 
 /**
  * View orders page, contains functions that can be used in the block products
@@ -9,7 +8,6 @@ import type {Page} from 'playwright-core';
  * @extends OrdersPage
  */
 class ProductsBlockOrdersPageVersion extends BOProductBlockProductsPage implements BOProductBlockProductsPageInterface {
-
   /**
    * @constructs
    * Setting up texts and selectors to use on products block in view order page
