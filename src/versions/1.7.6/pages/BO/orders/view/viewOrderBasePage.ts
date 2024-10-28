@@ -51,9 +51,7 @@ class ViewOrderBasePageVersion extends ViewOrderBasePage implements BOViewOrderB
     if (status !== actualStatus) {
       await page.locator(this.orderStatus).click();
       await this.setValue(page, this.orderStatusSearchInput, status);
-      await page.locatorthis.orderStatusSearchFirstResult
-    ).
-      click();
+      await page.locator(this.orderStatusSearchFirstResult).click();
       await this.clickAndWaitForLoadState(page, this.submitStatusButton);
       return this.getOrderStatus(page);
     }
