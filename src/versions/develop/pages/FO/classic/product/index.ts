@@ -1276,6 +1276,16 @@ class ProductPage extends FOBasePage implements FoProductPageInterface {
   }
 
   /**
+   * Is the price displayed in Products block ?
+   * @param blockName {'categoryproducts'} The block name in the page
+   * @param page {Page} Browser tab
+   * @return {Promise<boolean>}
+   */
+  async hasProductsBlockPrice(page: Page, blockName: 'categoryproducts'): Promise<boolean> {
+    return (await page.locator(`${this.productsBlock(blockName)} .product-price-and-shipping`).count()) > 0;
+  }
+
+  /**
    * Return if the wishlist button is present
    * @param page {Page}
    * @returns Promise<boolean>
