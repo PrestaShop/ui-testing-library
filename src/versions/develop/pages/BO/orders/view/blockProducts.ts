@@ -15,7 +15,7 @@ class BOProductBlockProductsPage extends ViewOrderBasePage implements BOProductB
 
   private readonly orderProductsLoading: string;
 
-  private readonly orderProductsTable: string;
+  protected orderProductsTable: string;
 
   private readonly generateVoucherCheckbox: string;
 
@@ -25,7 +25,7 @@ class BOProductBlockProductsPage extends ViewOrderBasePage implements BOProductB
 
   private readonly returnQuantityCheckbox: (row: number) => string;
 
-  private readonly orderProductsRowTable: (row: number) => string;
+  protected orderProductsRowTable: (row: number) => string;
 
   private readonly orderProductsTableNameColumn: (row: number) => string;
 
@@ -43,17 +43,17 @@ class BOProductBlockProductsPage extends ViewOrderBasePage implements BOProductB
 
   private readonly deleteProductButton: (row: number) => string;
 
-  private readonly editProductButton: (row: number) => string;
+  protected editProductButton: (row: number) => string;
 
-  private readonly productQuantitySpan: (row: number) => string;
+  protected productQuantitySpan: (row: number) => string;
 
-  private readonly orderProductsEditRowTable: string;
+  protected orderProductsEditRowTable: string;
 
-  private readonly editProductQuantityInput: string;
+  protected editProductQuantityInput: string;
 
   private readonly editProductPriceInput: string;
 
-  private readonly updateProductButton: string;
+  protected updateProductButton: string;
 
   private readonly modalConfirmNewPrice: string;
 
@@ -778,4 +778,5 @@ class BOProductBlockProductsPage extends ViewOrderBasePage implements BOProductB
   }
 }
 
-module.exports = new BOProductBlockProductsPage();
+const productsBlockOrdersPage = new BOProductBlockProductsPage();
+export {productsBlockOrdersPage, BOProductBlockProductsPage as BOProductBlockProductsPage};

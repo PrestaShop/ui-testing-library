@@ -27,9 +27,9 @@ class OrdersPage extends BOBasePage implements BOOrdersPageInterface {
 
   private readonly sortColumnSpanButton: (column: string) => string;
 
-  private readonly filterColumn: (filterBy: string) => string;
+  protected filterColumn: (filterBy: string) => string;
 
-  private readonly filterSearchButton: string;
+  protected filterSearchButton: string;
 
   protected filterResetButton: string;
 
