@@ -13,55 +13,55 @@ class BOSuppliersCreatePage extends BOBasePage implements BOSuppliersCreatePageI
 
   public readonly pageTitleEdit: string;
 
-  private readonly nameInput: string;
+  protected nameInput: string;
 
   private readonly descriptionDiv: string;
 
   private readonly descriptionLangNavItemLink: (lang: string) => string;
 
-  private readonly descriptionIFrame: (id: number) => string;
+  protected descriptionIFrame: (id: number) => string;
 
-  private readonly homePhoneInput: string;
+  protected homePhoneInput: string;
 
-  private readonly mobilePhoneInput: string;
+  protected mobilePhoneInput: string;
 
-  private readonly addressInput: string;
+  protected addressInput: string;
 
-  private readonly secondaryAddressInput: string;
+  protected secondaryAddressInput: string;
 
-  private readonly postalCodeInput: string;
+  protected postalCodeInput: string;
 
-  private readonly cityInput: string;
+  protected cityInput: string;
 
   private readonly countryInput: string;
 
-  private readonly selectCountryList: string;
+  protected selectCountryList: string;
 
-  private readonly searchCountryInput: string;
+  protected searchCountryInput: string;
 
-  private readonly countrySearchResult: string;
+  protected countrySearchResult: string;
 
   private readonly stateInput: string;
 
-  private readonly logoFileInput: string;
+  protected logoFileInput: string;
 
   private readonly metaTitleLangButton: string;
 
   private readonly metaTitleLangSpan: (lang: string) => string;
 
-  private readonly metaTitleInput: (id: number) => string;
+  protected metaTitleInput: (id: number) => string;
 
-  private readonly metaDescriptionTextarea: (id: number) => string;
+  protected metaDescriptionTextarea: (id: number) => string;
 
   private readonly metaKeywordsInput: (id: number) => string;
 
-  private readonly statusToggleInput: (toggle: number) => string;
+  protected statusToggleInput: (toggle: number) => string;
 
   private readonly taggableFieldDiv: (lang: string) => string;
 
   private readonly deleteKeywordLink: (lang: string) => string;
 
-  private readonly saveButton: string;
+  protected saveButton: string;
 
   /**
    * @constructs
@@ -214,4 +214,5 @@ class BOSuppliersCreatePage extends BOBasePage implements BOSuppliersCreatePageI
   }
 }
 
-module.exports = new BOSuppliersCreatePage();
+const createSupplier = new BOSuppliersCreatePage();
+export {createSupplier, BOSuppliersCreatePage as CreateSupplier};
