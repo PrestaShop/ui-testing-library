@@ -12,14 +12,6 @@ import type {Page} from 'playwright';
  */
 class BOCreateSupplierVersion extends CreateSupplier implements BOSuppliersCreatePageInterface {
   /**
-   * @constructs
-   * Setting up texts and selectors to use on create supplier page
-   */
-  constructor() {
-    super();
-  }
-
-  /**
    * Create or edit Supplier
    * @param page {Page} Browser tab
    * @param supplierData {FakerSupplier} Data to set on new/edit supplier form
