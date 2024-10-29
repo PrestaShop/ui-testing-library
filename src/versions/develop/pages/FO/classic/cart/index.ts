@@ -337,7 +337,8 @@ class CartPage extends FOBasePage implements FoCartPageInterface {
 
     if (quantity > 0) {
       return parseInt(await this.getAttributeContent(page, this.productQuantity(productRow), 'value'), 10);
-    } return 0;
+    }
+    return 0;
   }
 
   /**
