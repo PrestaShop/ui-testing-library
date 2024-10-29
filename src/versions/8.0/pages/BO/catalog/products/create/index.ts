@@ -204,4 +204,4 @@ class BOCreateProductVersion extends CreateProduct implements BOProductsCreatePa
 }
 
 const createProduct = new BOCreateProductVersion();
-export {createProduct, BOCreateProductVersion};
+export {createProduct, BOCreateProductVersion as CreateProduct};
