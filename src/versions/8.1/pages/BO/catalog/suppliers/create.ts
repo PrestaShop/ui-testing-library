@@ -42,11 +42,19 @@ class BOCreateSupplierVersion extends CreateSupplier implements BOSuppliersCreat
     await this.setValue(page, this.metaTitleInput(1), supplierData.metaTitle);
     await this.setValue(page, this.metaDescriptionTextarea(1), supplierData.metaDescription);
 
+    // delete Keywords and other new ones
+    await this.deleteKeywords(page, 'en');
+    await this.addKeywords(page, supplierData.metaKeywords, 1);
+
     // Fill Description, meta title, meta description and meta keywords in french
     await this.changeLanguageForSelectors(page, 'fr');
     await this.setValueOnTinymceInput(page, this.descriptionIFrame(2), supplierData.descriptionFr);
     await this.setValue(page, this.metaTitleInput(2), supplierData.metaTitleFr);
     await this.setValue(page, this.metaDescriptionTextarea(2), supplierData.metaDescriptionFr);
+
+    // delete Keywords and other new ones
+    await this.deleteKeywords(page, 'fr');
+    await this.addKeywords(page, supplierData.metaKeywords, 2);
 
     // Set status value
     await this.setChecked(page, this.statusToggleInput(supplierData.enabled ? 1 : 0));
