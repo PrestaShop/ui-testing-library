@@ -6,8 +6,8 @@ const psVersion = testContext.getPSVersion();
 
 /* eslint-disable global-require, @typescript-eslint/no-var-requires */
 function requirePage(): BOSuppliersCreatePageInterface {
-  if (semver.gte(psVersion, '9.0.0')) {
-    return require('@versions/9.0/pages/BO/catalog/suppliers/create').createSupplier;
+  if (semver.lt(psVersion, '9.0.0')) {
+    return require('@versions/8.1.0/pages/BO/catalog/suppliers/create').createSupplier;
   }
   return require('@versions/develop/pages/BO/catalog/suppliers/create').createSupplier;
 }
