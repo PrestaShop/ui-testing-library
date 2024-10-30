@@ -217,7 +217,7 @@ export default class CommonPage implements CommonPageInterface {
   ): Promise<Page> {
     const [newPage] = await Promise.all([
       page.waitForEvent('popup'),
-      page.locator(selector).first().click(),
+      page.locator(selector).click(),
     ]);
 
     await newPage.waitForLoadState(state);
