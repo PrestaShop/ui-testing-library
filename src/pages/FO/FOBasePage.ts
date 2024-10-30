@@ -417,11 +417,12 @@ export default class FOBasePage extends CommonPage implements FOBasePagePageInte
       this.waitForVisibleSelector(page, this.languageSelectorList),
     ]);
     let language: string = lang;
+    
     if (semver.lt(utilsTest.getPSVersion(), '7.5.0')) {
       if (lang === 'en') {
         language = '1';
       } else {
-        language = '2'
+        language = '2';
       }
     }
     await this.clickAndWaitForLoadState(page, this.languageSelectorMenuItemLink(language));
