@@ -40,6 +40,7 @@ export interface BOSearchPageInterface extends BOBasePagePageInterface {
     setMaximumWordLength(page: Page, length: number|string): Promise<string>;
     setMinimumWordLength(page: Page, length: number): Promise<string>;
     setSearchExactEndMatch(page: Page, toEnable?: boolean): Promise<string>;
+    setSearchWithinWord(page: Page, toEnable?: boolean): Promise<string>;
     setStatus(page: Page, row: number, valueWanted?: boolean): Promise<boolean>;
     sortTable(page: Page, sortBy: string, sortDirection: string): Promise<void>;
 }

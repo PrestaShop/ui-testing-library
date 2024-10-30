@@ -114,6 +114,8 @@ class SearchPage extends BOBasePage implements BOSearchPageInterface {
 
   private readonly aliasForm: string;
 
+  private readonly searchWithinWordInput: (status: string) => string;
+
   private readonly searchExactEndMatchLabel: (status: string) => string;
 
   private readonly fuzzySearchLabel: (status: string) => string;
@@ -219,6 +221,7 @@ class SearchPage extends BOBasePage implements BOSearchPageInterface {
 
     // Search form
     this.aliasForm = '#alias_fieldset_search';
+    this.searchWithinWordInput = (status: string) => `#PS_SEARCH_START_${status}`;
     this.searchExactEndMatchLabel = (status: string) => `#PS_SEARCH_END_${status}`;
     this.fuzzySearchLabel = (status: string) => `#PS_SEARCH_FUZZY_${status}`;
     this.maximumApproximateWordsInput = 'input[name="PS_SEARCH_FUZZY_MAX_LOOP"]';
@@ -605,6 +608,19 @@ class SearchPage extends BOBasePage implements BOSearchPageInterface {
    */
   async getSearchExactEndMatchStatus(page: Page): Promise<boolean> {
     return this.isChecked(page, this.searchExactEndMatchLabel('on'));
+  }
+
+  /**
+   * Enable/Disable Search within word
+   * @param page {Page} Browser tab
+   * @param toEnable {boolean} True if we need to enable Search within word
+   * @returns {Promise<string>}
+   */
+  async setSearchWithinWord(page: Page, toEnable: boolean = true): Promise<string> {
+    await this.setChecked(page, this.searchWithinWordInput(toEnable ? 'on' : 'off'));
+    await this.clickAndWaitForLoadState(page, this.saveFormButton);
+
+    return this.getAlertSuccessBlockContent(page);
   }
 
   /**
