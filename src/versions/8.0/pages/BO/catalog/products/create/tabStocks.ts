@@ -11,14 +11,14 @@ import type {Page} from 'playwright';
  * @extends StocksTab
  */
 class BOProductTabStocksVersion extends StocksTab implements BOProductsCreateTabStocksPageInterface {
-  private readonly labelWhenInStockInput: string;
+  protected labelWhenInStockInput: string;
 
-  private readonly labelWhenOutOfStock: string;
+  protected labelWhenOutOfStock: string;
 
   /**
-     * @constructs
-     * Setting up texts and selectors to use on stocks tab
-     */
+   * @constructs
+   * Setting up texts and selectors to use on stocks tab
+   */
   constructor() {
     super();
 
@@ -34,11 +34,11 @@ class BOProductTabStocksVersion extends StocksTab implements BOProductsCreateTab
   }
 
   /**
-     * Set option when out of stock
-     * @param page {Page} Browser tab
-     * @param option {string} Option to check
-     * @returns {Promise<void>}
-     */
+   * Set option when out of stock
+   * @param page {Page} Browser tab
+   * @param option {string} Option to check
+   * @returns {Promise<void>}
+   */
   async setOptionWhenOutOfStock(page: Page, option: string): Promise<void> {
     switch (option) {
       case 'Deny orders':
@@ -60,11 +60,11 @@ class BOProductTabStocksVersion extends StocksTab implements BOProductsCreateTab
   }
 
   /**
-     * Set product stock
-     * @param page {Page} Browser tab
-     * @param productData {FakerProduct} Data to set in stock form
-     * @returns {Promise<void>}
-     */
+   * Set product stock
+   * @param page {Page} Browser tab
+   * @param productData {FakerProduct} Data to set in stock form
+   * @returns {Promise<void>}
+   */
   async setProductStock(page: Page, productData: FakerProduct): Promise<void> {
     await this.waitForSelectorAndClick(page, this.stocksTabLink);
 
@@ -81,4 +81,4 @@ class BOProductTabStocksVersion extends StocksTab implements BOProductsCreateTab
 }
 
 const stocksTab = new BOProductTabStocksVersion();
-export {stocksTab, BOProductTabStocksVersion};
+export {stocksTab, BOProductTabStocksVersion as StocksTab};
