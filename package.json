@@ -30,7 +30,7 @@
   "dependencies": {
     "@faker-js/faker": "^9.0.3",
     "@playwright/test": "^1.48.1",
-    "@s3pweb/keycloak-admin-client-cjs": "^22.0.1",
+    "@s3pweb/keycloak-admin-client-cjs": "^26.0.0",
     "@xmldom/xmldom": "^0.8.10",
     "csv-writer": "^1.6.0",
     "fast-xml-parser": "^4.4.0",
