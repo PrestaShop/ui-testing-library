@@ -1,9 +1,9 @@
 import type {FoMyAccountPageInterface} from '@interfaces/FO/myAccount';
 
-/* eslint-disable global-require, @typescript-eslint/no-var-requires */
+/* eslint-disable global-require, @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires */
 function requirePage(): FoMyAccountPageInterface {
   return require('@versions/develop/pages/FO/classic/myAccount').myAccountPage;
 }
-/* eslint-enable global-require, @typescript-eslint/no-var-requires */
+/* eslint-enable global-require, @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires */
 
 export default requirePage();

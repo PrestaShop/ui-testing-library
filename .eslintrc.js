@@ -53,6 +53,7 @@ module.exports = {
     '@typescript-eslint/no-unused-vars': [
       'error',
       {
+        caughtErrorsIgnorePattern: 'error',
         varsIgnorePattern: '^getPSVersion$',
       },
     ],

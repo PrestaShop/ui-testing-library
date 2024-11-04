@@ -4,7 +4,7 @@ import semver from 'semver';
 
 const psVersion = testContext.getPSVersion();
 
-/* eslint-disable global-require, @typescript-eslint/no-var-requires */
+/* eslint-disable global-require, @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires */
 function requirePage(): FoHomePageInterface {
   // < 1.7.7.0
   if (semver.lt(psVersion, '7.7.0')) {
@@ -19,6 +19,6 @@ function requirePage(): FoHomePageInterface {
   }
   return require('@versions/develop/pages/FO/classic/home').foHomePage;
 }
-/* eslint-enable global-require, @typescript-eslint/no-var-requires */
+/* eslint-enable global-require, @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires */
 
 export default requirePage();

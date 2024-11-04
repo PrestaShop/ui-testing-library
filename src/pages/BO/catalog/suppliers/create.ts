@@ -4,7 +4,7 @@ import semver from 'semver';
 
 const psVersion = testContext.getPSVersion();
 
-/* eslint-disable global-require, @typescript-eslint/no-var-requires */
+/* eslint-disable global-require, @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires */
 function requirePage(): BOSuppliersCreatePageInterface {
   if (semver.lt(psVersion, '9.0.0')) {
     return require('@versions/8.1/pages/BO/catalog/suppliers/create').createSupplier;
@@ -12,6 +12,6 @@ function requirePage(): BOSuppliersCreatePageInterface {
   return require('@versions/develop/pages/BO/catalog/suppliers/create').createSupplier;
 }
 
-/* eslint-enable global-require, @typescript-eslint/no-var-requires */
+/* eslint-enable global-require, @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires */
 
 export default requirePage();

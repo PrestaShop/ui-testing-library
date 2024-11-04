@@ -4,13 +4,13 @@ import semver from 'semver';
 
 const psVersion = testContext.getPSVersion();
 
-/* eslint-disable global-require, @typescript-eslint/no-var-requires */
+/* eslint-disable global-require, @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires */
 function requirePage(): FoModalBlockCartPageInterface {
   if (semver.gte(psVersion, '0.0.0')) {
     return require('@versions/develop/pages/FO/classic/modal/blockCart').blockCartModal;
   }
   return require('@versions/develop/pages/FO/classic/modal/blockCart').blockCartModal;
 }
-/* eslint-enable global-require, @typescript-eslint/no-var-requires */
+/* eslint-enable global-require, @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires */
 
 export default requirePage();
