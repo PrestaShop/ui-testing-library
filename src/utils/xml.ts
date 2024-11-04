@@ -1,4 +1,4 @@
-import {DOMParser} from '@xmldom/xmldom';
+import {Document, DOMParser, MIME_TYPE} from '@xmldom/xmldom';
 import {XMLValidator} from 'fast-xml-parser';
 import * as xpath from 'xpath-ts';
 
@@ -11,7 +11,7 @@ export default {
    * @return {Document}
    */
   getXmlDocument(xml: string): Document {
-    return domParser.parseFromString(xml);
+    return domParser.parseFromString(xml, MIME_TYPE.XML_TEXT);
   },
 
   /**
