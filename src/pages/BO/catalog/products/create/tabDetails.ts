@@ -4,13 +4,13 @@ import testContext from '@utils/test';
 
 const psVersion = testContext.getPSVersion();
 
-/* eslint-disable global-require, @typescript-eslint/no-var-requires */
+/* eslint-disable global-require, @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires */
 function requirePage(): BOProductsCreateTabDetailsPageInterface {
   if (semver.lt(psVersion, '8.1.0')) {
     return require('@versions/8.0/pages/BO/catalog/products/create/tabDetails').detailsTab;
   }
   return require('@versions/develop/pages/BO/catalog/products/create/tabDetails').detailsTab;
 }
-/* eslint-enable global-require, @typescript-eslint/no-var-requires */
+/* eslint-enable global-require, @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires */
 
 export default requirePage();

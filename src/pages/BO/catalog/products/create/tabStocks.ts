@@ -4,7 +4,7 @@ import testContext from '@utils/test';
 
 const psVersion = testContext.getPSVersion();
 
-/* eslint-disable global-require, @typescript-eslint/no-var-requires */
+/* eslint-disable global-require, @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires */
 function requirePage(): BOProductsCreateTabStocksPageInterface {
   if (semver.lt(psVersion, '7.5.0')) {
     return require('@versions/1.7.4/pages/BO/catalog/products/create/tabStocks').stocksTab;
@@ -14,6 +14,6 @@ function requirePage(): BOProductsCreateTabStocksPageInterface {
   }
   return require('@versions/develop/pages/BO/catalog/products/create/tabStocks').stocksTab;
 }
-/* eslint-enable global-require, @typescript-eslint/no-var-requires */
+/* eslint-enable global-require, @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires */
 
 export default requirePage();

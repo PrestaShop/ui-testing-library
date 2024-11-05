@@ -80,7 +80,7 @@ export default class BOThemeAndLogoBasePage extends BOBasePage implements BOThem
     while (!growlNotVisible) {
       try {
         await page.locator(this.growlCloseButton).click();
-      } catch (e) {
+      } catch (error) {
         // If element does not exist it's already not visible
       }
 
