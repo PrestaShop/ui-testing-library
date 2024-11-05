@@ -13,6 +13,7 @@ export interface BOSearchPageInterface extends BOBasePagePageInterface {
     bulkSetStatus(page: Page, enable?: boolean): Promise<string>;
     deleteAlias(page: Page, row: number): Promise<string>;
     clickAddMissingProductsToIndex(page: Page): Promise<string>;
+    clickRebuildEntireIndex(page: Page): Promise<string>;
     filterTable(page: Page, filterType: string, filterBy: string, value: string): Promise<void>;
     getAllRowsColumnContent(page: Page, columnName: string): Promise<string[]>;
     getBlacklistedWords(page: Page, idLang: number): Promise<string>;

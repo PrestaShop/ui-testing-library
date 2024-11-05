@@ -112,6 +112,8 @@ class SearchPage extends BOBasePage implements BOSearchPageInterface {
 
   private readonly addMissingProductsLink: string;
 
+  private readonly rebuildEntireIndexLink: string;
+
   private readonly aliasForm: string;
 
   private readonly searchWithinWordInput: (status: string) => string;
@@ -218,6 +220,8 @@ class SearchPage extends BOBasePage implements BOSearchPageInterface {
     this.indexedProducts = `${this.indexingForm} div p strong`;
     this.addMissingProductsLink = `${this.indexingForm} a.btn-link`
       + '[href*="controller=AdminSearch&action=searchCron&ajax=1&token"]';
+    this.rebuildEntireIndexLink = `${this.indexingForm} a.btn-link`
+      + '[href*="controller=AdminSearch&action=searchCron&ajax=1&full=1&token"]';
 
     // Search form
     this.aliasForm = '#alias_fieldset_search';
@@ -596,6 +600,17 @@ class SearchPage extends BOBasePage implements BOSearchPageInterface {
    */
   async clickAddMissingProductsToIndex(page: Page): Promise<string> {
     await page.locator(this.addMissingProductsLink).click();
+
+    return this.getAlertSuccessBlockContent(page);
+  }
+
+  /**
+   * Click "Re-build the entire index"
+   * @param page {Page} Browser tab
+   * @returns {Promise<string>}
+   */
+  async clickRebuildEntireIndex(page: Page): Promise<string> {
+    await page.locator(this.rebuildEntireIndexLink).click();
 
     return this.getAlertSuccessBlockContent(page);
   }
