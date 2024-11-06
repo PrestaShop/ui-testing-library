@@ -6,6 +6,8 @@ import type FakerProduct from '@data/faker/product';
 import type {ProductFeatures} from '@data/types/product';
 
 export interface BOProductsCreateTabDetailsPageInterface extends BOBasePagePageInterface {
+    readonly featureCustomValueNotDefaultLanguageMessage: string;
+
     addNewCustomizations(page: Page, productData: FakerProduct): Promise<void>;
     addNewFile(page: Page, productData: FakerProduct): Promise<void>;
     clickOnManageAllFiles(page: Page): Promise<Page>;
