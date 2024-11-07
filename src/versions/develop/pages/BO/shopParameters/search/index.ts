@@ -114,6 +114,8 @@ class SearchPage extends BOBasePage implements BOSearchPageInterface {
 
   private readonly rebuildEntireIndexLink: string;
 
+  private readonly rebuildEntireIndexCronJobLink: string;
+
   private readonly aliasForm: string;
 
   private readonly searchWithinWordInput: (status: string) => string;
@@ -221,6 +223,8 @@ class SearchPage extends BOBasePage implements BOSearchPageInterface {
     this.addMissingProductsLink = `${this.indexingForm} a.btn-link`
       + '[href*="controller=AdminSearch&action=searchCron&ajax=1&token"]';
     this.rebuildEntireIndexLink = `${this.indexingForm} a.btn-link`
+      + '[href*="controller=AdminSearch&action=searchCron&ajax=1&full=1&token"]';
+    this.rebuildEntireIndexCronJobLink = `${this.indexingForm} a:not(.btn-link)`
       + '[href*="controller=AdminSearch&action=searchCron&ajax=1&full=1&token"]';
 
     // Search form
@@ -613,6 +617,17 @@ class SearchPage extends BOBasePage implements BOSearchPageInterface {
     await page.locator(this.rebuildEntireIndexLink).click();
 
     return this.getAlertSuccessBlockContent(page);
+  }
+
+  /**
+   * Click on the cron jon link for "Re-build the entire index"
+   * @param page {Page} Browser tab
+   * @returns {Promise<void>}
+   */
+  async clickRebuildEntireIndexCronJobLink(page: Page): Promise<void> {
+    await page.locator(this.rebuildEntireIndexCronJobLink).click({
+      button: 'middle',
+    });
   }
 
   // Methods for search form
