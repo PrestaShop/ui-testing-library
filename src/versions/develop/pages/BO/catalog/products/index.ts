@@ -122,7 +122,7 @@ class ProductsPage extends BOBasePage implements BOProductsPageInterface {
 
   protected productFilterSelectStatus: string;
 
-  private readonly productFilterPositionInput: string;
+  protected productFilterPositionInput: string;
 
   protected productRow: string;
 
@@ -765,7 +765,6 @@ class ProductsPage extends BOBasePage implements BOProductsPageInterface {
       // Do nothing
     }
     // click on search
-    await page.mouse.click(100, 100);
     await this.clickAndWaitForLoadState(page, this.filterSearchButton, 'networkidle', 10000);
   }
 
