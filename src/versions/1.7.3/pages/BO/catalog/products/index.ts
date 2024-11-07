@@ -1,7 +1,7 @@
 // Import pages
 import type {BOProductsPageInterface} from '@interfaces/BO/catalog/products';
 import {ProductsPage} from '@versions/1.7.5/pages/BO/catalog/products';
-import {ProductFilterMinMax} from '@data/types/product';
+import {type ProductFilterMinMax} from '@data/types/product';
 import {type Page} from '@playwright/test';
 
 /**
