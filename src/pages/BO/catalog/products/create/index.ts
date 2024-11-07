@@ -8,7 +8,7 @@ const psVersion = testContext.getPSVersion();
 function requirePage(): BOProductsCreatePageInterface {
   if (semver.lt(psVersion, '7.4.0')) {
     return require('@versions/1.7.3/pages/BO/catalog/products/create').createProduct;
-  } 
+  }
   if (semver.lt(psVersion, '7.6.0')) {
     return require('@versions/1.7.5/pages/BO/catalog/products/create').createProduct;
   }

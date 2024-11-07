@@ -738,6 +738,7 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
    */
   async goToSubMenu(page: Page, parentSelector: string, linkSelector: string): Promise<void> {
     const shopVersion = testContext.getPSVersion();
+
     if (semver.lt(shopVersion, '7.4.0')) {
       await page.hover(parentSelector);
       await this.clickAndWaitForURL(page, linkSelector);
@@ -1002,14 +1003,13 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
     const args = {selector: iFrameSelector, vl: value, hasP: hasParagraph};
     // eslint-disable-next-line no-eval
     const fn: { fnSetValueOnTinymceInput: PageFunction<{ selector: string, vl: string, hasP: boolean }, void> } = eval(`({
-			async fnSetValueOnTinymceInput(args) {
-				/* eslint-env browser */
-				const iFrameElement = await document.querySelector(args.selector);
-				const iFrameHtml = iFrameElement.contentDocument.documentElement;
-				const textElement = await iFrameHtml.querySelector(args.hasP ? 'body p' : 'body');
-				textElement.textContent = args.vl;
-			}
-		})`);
+    async fnSetValueOnTinymceInput(args) {
+      /* eslint-env browser */
+      const iFrameElement = await document.querySelector(args.selector);
+      const iFrameHtml = iFrameElement.contentDocument.documentElement;
+      const textElement = await iFrameHtml.querySelector(args.hasP ? 'body p' : 'body');
+      textElement.textContent = args.vl;
+    }})`);
     await page.evaluate(fn.fnSetValueOnTinymceInput, args);
   }
 
@@ -1035,15 +1035,14 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
     const args = {selector, value, onChange};
     // eslint-disable-next-line no-eval
     const fn: { fnSetValueOnDTPickerInput: PageFunction<{ selector: string, value: string, onChange: boolean }, void> } = eval(`({
-			async fnSetValueOnDTPickerInput(args) {
-				/* eslint-env browser */
-				const textElement = await document.querySelector(args.selector);
-				textElement.value = args.value;
-				if (args.onChange) {
-					textElement.dispatchEvent(new Event('change'));
-				}
-			}
-		})`);
+    async fnSetValueOnDTPickerInput(args) {
+      /* eslint-env browser */
+      const textElement = await document.querySelector(args.selector);
+      textElement.value = args.value;
+      if (args.onChange) {
+        textElement.dispatchEvent(new Event('change'));
+      }
+    }})`);
     await page.evaluate(fn.fnSetValueOnDTPickerInput, args);
   }
 
