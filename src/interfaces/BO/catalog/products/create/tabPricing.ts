@@ -3,7 +3,7 @@ import {BOBasePagePageInterface} from '@interfaces/BO';
 import type {Page} from '@playwright/test';
 
 import FakerProduct from '@data/faker/product';
-import type {ProductSpecificPrice} from '@data/types/product';
+import type {ProductPricingCatalogPriceRule, ProductPricingSummary, ProductSpecificPrice} from '@data/types/product';
 
 export interface BOProductsCreateTabPricingPageInterface extends BOBasePagePageInterface {
     addEcoTax(page: Page, ecoTax: number): Promise<void>
@@ -13,8 +13,8 @@ export interface BOProductsCreateTabPricingPageInterface extends BOBasePagePageI
     clickOnManageCatalogPriceRuleLink(page: Page): Promise<Page>
     clickOnShowCatalogPriceRuleButton(page: Page): Promise<void>;
     deleteSpecificPrice(page: Page, row: number): Promise<string|null>;
-    getCatalogPriceRuleData(page: Page, row: number) :Promise<object>
-    getSummary(page: Page): Promise<object>;
+    getCatalogPriceRuleData(page: Page, row: number) :Promise<ProductPricingCatalogPriceRule>
+    getSummary(page: Page): Promise<ProductPricingSummary>;
     getUnitPriceValue(page: Page): Promise<string>;
     getValue(page: Page, inputName: string): Promise<string>
     setCostPrice(page: Page, costPrice: number): Promise<void>;
