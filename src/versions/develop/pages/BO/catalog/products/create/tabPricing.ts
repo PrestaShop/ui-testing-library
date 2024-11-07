@@ -1,7 +1,7 @@
 import BOBasePage from '@pages/BO/BOBasePage';
 
 import FakerProduct from '@data/faker/product';
-import type {ProductSpecificPrice} from '@data/types/product';
+import type {ProductPricingCatalogPriceRule, ProductPricingSummary, ProductSpecificPrice} from '@data/types/product';
 import type {BOProductsCreateTabPricingPageInterface} from '@interfaces/BO/catalog/products/create/tabPricing';
 
 import type {Page} from 'playwright';
@@ -265,18 +265,18 @@ class PricingTab extends BOBasePage implements BOProductsCreateTabPricingPageInt
   }
 
   /**
-     * Get summary
-     * @param page {Page} Browser tab
-     * @returns {Promise<object>}
-     */
-  async getSummary(page: Page): Promise<object> {
+   * Get summary
+   * @param page {Page} Browser tab
+   * @returns {Promise<ProductPricingSummary>}
+   */
+  async getSummary(page: Page): Promise<ProductPricingSummary> {
     await this.waitForSelectorAndClick(page, this.pricingTabLink);
     return {
       priceTaxExcludedValue: await this.getTextContent(page, this.priceTaxExcludedValue),
       priceTaxIncludedValue: await this.getTextContent(page, this.priceTaxIncludedValue),
       marginValue: await this.getTextContent(page, this.marginValue),
       marginRateValue: await this.getTextContent(page, this.marginRateValue),
-      WholesalePriceValue: await this.getTextContent(page, this.wholeSalePriceValue),
+      wholesalePriceValue: await this.getTextContent(page, this.wholeSalePriceValue),
     };
   }
 
@@ -404,7 +404,7 @@ class PricingTab extends BOBasePage implements BOProductsCreateTabPricingPageInt
      * @param page {Page} Browser tab
      * @param row {number} Row of catalog price rule
      */
-  async getCatalogPriceRuleData(page: Page, row: number) :Promise<object> {
+  async getCatalogPriceRuleData(page: Page, row: number): Promise<ProductPricingCatalogPriceRule> {
     return {
       id: await this.getTextContent(page, this.catalogPriceRuleRowColumn(row, 'catalog-price-rule-id')),
       name: await this.getTextContent(page, this.catalogPriceRuleRowColumn(row, 'name')),

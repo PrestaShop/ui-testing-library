@@ -175,6 +175,25 @@ type ProductFilterMinMax = {
   max: number
 }
 
+type ProductPricingCatalogPriceRule = {
+  id: string
+  name: string
+  currency: string
+  country: string
+  group: string
+  store: string
+  discount: string
+  fromQuantity: number
+}
+
+type ProductPricingSummary = {
+  priceTaxExcludedValue: string
+  priceTaxIncludedValue: string
+  marginValue: string
+  marginRateValue: string
+  wholesalePriceValue: string
+}
+
 type ProductHeaderSummary = {
   imageUrl: string
   reference: string
@@ -274,6 +293,8 @@ export type {
   ProductPackItem,
   ProductPackInformation,
   ProductPackOptions,
+  ProductPricingSummary,
+  ProductPricingCatalogPriceRule,
   ProductReviewCreator,
   ProductSpecificPrice,
   ProductStockMovement,
