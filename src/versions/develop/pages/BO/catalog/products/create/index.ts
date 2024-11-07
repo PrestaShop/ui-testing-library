@@ -78,7 +78,7 @@ class CreateProduct extends BOBasePage implements BOProductsCreatePageInterface 
 
   public saveProductButton: string;
 
-  private readonly deleteProductButton: string;
+  protected deleteProductButton: string;
 
   private readonly deleteProductFooterModal: string;
 

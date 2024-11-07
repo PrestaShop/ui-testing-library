@@ -617,7 +617,7 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
 
     // Symfony Toolbar
     this.sfToolbarMainContentDiv = "div[id*='sfToolbarMainContent']";
-    this.sfCloseToolbarLink = "[id*='sfToolbarHideButton']";
+    this.sfCloseToolbarLink = "[id*='sfToolbarHideButton'], a.hide-button";
 
     // Sidebar
     this.rightSidebar = '#right-sidebar';
@@ -638,7 +638,7 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
    * @param page {Page} Browser tab
    * @returns {Promise<string>}
    */
-  async getShopVersion(page:Page):Promise<string> {
+  async getShopVersion(page: Page): Promise<string> {
     return this.getTextContent(page, this.shopVersion);
   }
 
@@ -737,22 +737,26 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
    * @returns {Promise<void>}
    */
   async goToSubMenu(page: Page, parentSelector: string, linkSelector: string): Promise<void> {
-    await this.clickSubMenu(page, parentSelector);
-    await this.scrollTo(page, linkSelector);
-    await this.clickAndWaitForURL(page, linkSelector);
-
     const shopVersion = testContext.getPSVersion();
-    let linkActiveClass: string = '-active';
-
-    // >= 1.7.8.0
-    if (semver.gte(shopVersion, '7.8.0')) {
-      linkActiveClass = 'link-active';
-    }
-
-    if (await this.isSidebarCollapsed(page)) {
-      await this.waitForHiddenSelector(page, `${linkSelector}.${linkActiveClass}`);
+    if (semver.lt(shopVersion, '7.4.0')) {
+      await page.hover(parentSelector);
+      await this.clickAndWaitForURL(page, linkSelector);
     } else {
-      await this.waitForVisibleSelector(page, `${linkSelector}.${linkActiveClass}`);
+      await this.clickSubMenu(page, parentSelector);
+      await this.scrollTo(page, linkSelector);
+      await this.clickAndWaitForURL(page, linkSelector);
+      let linkActiveClass: string = '-active';
+
+      // >= 1.7.8.0
+      if (semver.gte(shopVersion, '7.8.0')) {
+        linkActiveClass = 'link-active';
+      }
+
+      if (await this.isSidebarCollapsed(page)) {
+        await this.waitForHiddenSelector(page, `${linkSelector}.${linkActiveClass}`);
+      } else {
+        await this.waitForVisibleSelector(page, `${linkSelector}.${linkActiveClass}`);
+      }
     }
   }
 
@@ -998,14 +1002,14 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
     const args = {selector: iFrameSelector, vl: value, hasP: hasParagraph};
     // eslint-disable-next-line no-eval
     const fn: { fnSetValueOnTinymceInput: PageFunction<{ selector: string, vl: string, hasP: boolean }, void> } = eval(`({
-      async fnSetValueOnTinymceInput(args) {
-        /* eslint-env browser */
-        const iFrameElement = await document.querySelector(args.selector);
-        const iFrameHtml = iFrameElement.contentDocument.documentElement;
-        const textElement = await iFrameHtml.querySelector(args.hasP ? 'body p' : 'body');
-        textElement.textContent = args.vl;
-      }
-    })`);
+			async fnSetValueOnTinymceInput(args) {
+				/* eslint-env browser */
+				const iFrameElement = await document.querySelector(args.selector);
+				const iFrameHtml = iFrameElement.contentDocument.documentElement;
+				const textElement = await iFrameHtml.querySelector(args.hasP ? 'body p' : 'body');
+				textElement.textContent = args.vl;
+			}
+		})`);
     await page.evaluate(fn.fnSetValueOnTinymceInput, args);
   }
 
@@ -1031,15 +1035,15 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
     const args = {selector, value, onChange};
     // eslint-disable-next-line no-eval
     const fn: { fnSetValueOnDTPickerInput: PageFunction<{ selector: string, value: string, onChange: boolean }, void> } = eval(`({
-      async fnSetValueOnDTPickerInput(args) {
-        /* eslint-env browser */
-        const textElement = await document.querySelector(args.selector);
-        textElement.value = args.value;
-        if (args.onChange) {
-          textElement.dispatchEvent(new Event('change'));
-        }
-      }
-    })`);
+			async fnSetValueOnDTPickerInput(args) {
+				/* eslint-env browser */
+				const textElement = await document.querySelector(args.selector);
+				textElement.value = args.value;
+				if (args.onChange) {
+					textElement.dispatchEvent(new Event('change'));
+				}
+			}
+		})`);
     await page.evaluate(fn.fnSetValueOnDTPickerInput, args);
   }
 
