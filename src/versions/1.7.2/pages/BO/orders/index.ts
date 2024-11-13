@@ -9,7 +9,6 @@ import type {Page} from 'playwright-core';
  * @extends OrdersPage
  */
 class OrdersPageVersion extends OrdersPage implements BOOrdersPageInterface {
-
   /**
    * @constructs
    * Setting up texts and selectors to use on order confirmation page

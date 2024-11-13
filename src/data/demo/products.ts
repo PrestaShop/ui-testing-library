@@ -249,7 +249,7 @@ export default {
   old_demo_1: new FakerProduct({
     id: 1,
     name: 'Faded Short Sleeves T-shirt',
-    description : 'Fashion has been creating well-designed collections since 2010.',
+    description: 'Fashion has been creating well-designed collections since 2010.',
     finalPrice: 19.81,
     reference: 'demo_1',
     category: 'T-shirts',

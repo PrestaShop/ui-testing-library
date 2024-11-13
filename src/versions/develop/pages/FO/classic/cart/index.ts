@@ -225,7 +225,7 @@ class CartPage extends FOBasePage implements FoCartPageInterface {
    * @returns {Promise<string>}
    */
   async getProductName(page: Page, row: number): Promise<string> {
-    return await this.getTextContent(page, this.productName(row));
+    return this.getTextContent(page, this.productName(row));
   }
 
   /**
@@ -235,7 +235,7 @@ class CartPage extends FOBasePage implements FoCartPageInterface {
    * @returns {Promise<string>}
    */
   async getProductPrice(page: Page, row: number): Promise<number> {
-    return await this.getPriceFromText(page, this.productPrice(row));
+    return this.getPriceFromText(page, this.productPrice(row));
   }
 
   /**

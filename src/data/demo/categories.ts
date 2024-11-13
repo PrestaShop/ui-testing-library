@@ -69,7 +69,7 @@ const art: FakerCategory = new FakerCategory({
   products: ['demo_5', 'demo_6', 'demo_7', 'demo_18', 'demo_19', 'demo_20'],
 });
 // Categories demo for PS version <= 1.7.2
-const old_women: FakerCategory = new FakerCategory({
+const oldWomen: FakerCategory = new FakerCategory({
   id: 3,
   name: 'Women',
   description: 'You will find here all woman fashion collections. This category includes all the basics of your '
@@ -77,10 +77,10 @@ const old_women: FakerCategory = new FakerCategory({
   position: 1,
   displayed: true,
 });
-const evening_dresses: FakerCategory = new FakerCategory({
+const eveningDresses: FakerCategory = new FakerCategory({
   id: 10,
   name: 'Evening Dresses',
-  description: '	Browse our different dresses to choose the perfect dress for an unforgettable evening!',
+  description: 'Browse our different dresses to choose the perfect dress for an unforgettable evening!',
   position: 2,
   displayed: true,
 });
@@ -106,6 +106,6 @@ export default {
   stationery,
   homeAccessories,
   art,
-  old_women,
-  evening_dresses,
+  oldWomen,
+  eveningDresses,
 };

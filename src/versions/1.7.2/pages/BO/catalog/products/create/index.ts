@@ -9,7 +9,6 @@ import {type Page} from '@playwright/test';
  * @extends CreateProduct
  */
 class BOCreateProductVersion extends CreateProduct implements BOProductsCreatePageInterface {
-
   private readonly confirmationModalContinueButton: string;
 
   /**
