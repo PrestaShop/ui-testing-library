@@ -8,7 +8,7 @@ import {LoginPage} from '@versions/8.1/pages/BO/login';
  * @class
  * @extends OrderConfirmationPage
  */
-class Login extends LoginPage implements LoginPageInterface {
+class BOLoginVersion extends LoginPage implements LoginPageInterface {
   private readonly onboardingCloseButton: string;
 
   private readonly onboardingStopButton: string;
@@ -50,4 +50,5 @@ class Login extends LoginPage implements LoginPageInterface {
   }
 }
 
-module.exports = new Login();
+const loginPage = new BOLoginVersion();
+export {loginPage, BOLoginVersion as LoginPage};

@@ -5,6 +5,9 @@ import semver from 'semver';
 const psVersion = testContext.getPSVersion();
 /* eslint-disable global-require, @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires */
 function requirePage(): BOViewOrderBasePageInterface {
+  if (semver.lt(psVersion, '7.3.0')) {
+    return require('@versions/1.7.2/pages/BO/orders/view/viewOrderBasePage').viewOrderBasePage;
+  }
   if (semver.lt(psVersion, '7.7.0')) {
     return require('@versions/1.7.6/pages/BO/orders/view/viewOrderBasePage').viewOrderBasePage;
   }

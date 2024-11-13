@@ -9,7 +9,7 @@ import type {Page} from 'playwright-core';
  * @extends OrdersPage
  */
 class OrdersPageVersion extends OrdersPage implements BOOrdersPageInterface {
-  private readonly tableRowColumn: (row: number, column: number) => string;
+  protected tableRowColumn: (row: number, column: number) => string;
 
   /**
    * @constructs
@@ -22,7 +22,6 @@ class OrdersPageVersion extends OrdersPage implements BOOrdersPageInterface {
     this.gridPanel = '#form-order .panel .panel-heading';
     this.gridTable = '#table-order';
     this.gridHeaderTitle = `${this.gridPanel} span.badge`;
-    this.filterResetButton = `${this.gridTable} button[name="submitResetorder"]`;
 
     // Table rows
     this.tableBody = `${this.gridTable} tbody`;
