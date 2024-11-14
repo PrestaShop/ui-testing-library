@@ -232,7 +232,7 @@ class CartPage extends FOBasePage implements FoCartPageInterface {
    * Get product price
    * @param page {Page} Browser tab
    * @param row {number} Row number in the table
-   * @returns {Promise<string>}
+   * @returns {Promise<number>}
    */
   async getProductPrice(page: Page, row: number): Promise<number> {
     return this.getPriceFromText(page, this.productPrice(row));
@@ -242,7 +242,7 @@ class CartPage extends FOBasePage implements FoCartPageInterface {
    * Get product quantity
    * @param page {Page} Browser tab
    * @param row {number} Row number in the table
-   * @returns {Promise<string>}
+   * @returns {Promise<number>}
    */
   async getProductQuantity(page: Page, row: number): Promise<number> {
     return parseFloat(await this.getAttributeContent(page, this.productQuantity(row), 'value') ?? '');

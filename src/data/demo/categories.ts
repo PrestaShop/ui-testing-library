@@ -69,6 +69,7 @@ const art: FakerCategory = new FakerCategory({
   products: ['demo_5', 'demo_6', 'demo_7', 'demo_18', 'demo_19', 'demo_20'],
 });
 // Categories demo for PS version <= 1.7.2
+//@todo : to find for a solution in case of upgrade 1.7.2 to 1.7.8
 const oldWomen: FakerCategory = new FakerCategory({
   id: 3,
   name: 'Women',
@@ -77,6 +78,7 @@ const oldWomen: FakerCategory = new FakerCategory({
   position: 1,
   displayed: true,
 });
+//@todo : to find for a solution in case of upgrade 1.7.2 to 1.7.8
 const eveningDresses: FakerCategory = new FakerCategory({
   id: 10,
   name: 'Evening Dresses',
