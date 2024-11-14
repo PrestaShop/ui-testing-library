@@ -15,7 +15,7 @@ class ViewOrderBasePageVersion extends ViewOrderBasePage implements BOViewOrderB
 
   private readonly orderStatusSearchFirstResult: string;
 
-  private readonly submitStatusButton: string;
+  protected submitStatusButton: string;
 
   /**
    * @constructs

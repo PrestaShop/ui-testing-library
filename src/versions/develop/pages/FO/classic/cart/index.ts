@@ -219,6 +219,36 @@ class CartPage extends FOBasePage implements FoCartPageInterface {
   }
 
   /**
+   * Get product name
+   * @param page {Page} Browser tab
+   * @param row {number} Row number in the table
+   * @returns {Promise<string>}
+   */
+  async getProductName(page: Page, row: number): Promise<string> {
+    return this.getTextContent(page, this.productName(row));
+  }
+
+  /**
+   * Get product price
+   * @param page {Page} Browser tab
+   * @param row {number} Row number in the table
+   * @returns {Promise<number>}
+   */
+  async getProductPrice(page: Page, row: number): Promise<number> {
+    return this.getPriceFromText(page, this.productPrice(row));
+  }
+
+  /**
+   * Get product quantity
+   * @param page {Page} Browser tab
+   * @param row {number} Row number in the table
+   * @returns {Promise<number>}
+   */
+  async getProductQuantity(page: Page, row: number): Promise<number> {
+    return parseFloat(await this.getAttributeContent(page, this.productQuantity(row), 'value') ?? '');
+  }
+
+  /**
    * Get Product detail from cart
    * @param page {Page} Browser tab
    * @param row {number} Row number in the table

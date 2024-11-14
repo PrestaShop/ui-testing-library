@@ -9,9 +9,9 @@ export default {
     category: 'Men',
     summary: 'Regular fit, round neckline, short sleeves. Made of extra long staple pima cotton.',
     description: 'Symbol of lightness and delicacy, the hummingbird evokes curiosity and joy. Studio Design\' '
-            + 'PolyFaune collection features classic products with colorful patterns, inspired by the traditional japanese '
-            + 'origamis. To wear with a chino or jeans. The sublimation textile printing process provides an exceptional '
-            + 'color rendering and a color, guaranteed overtime.',
+      + 'PolyFaune collection features classic products with colorful patterns, inspired by the traditional japanese '
+      + 'origamis. To wear with a chino or jeans. The sublimation textile printing process provides an exceptional '
+      + 'color rendering and a color, guaranteed overtime.',
     retailPrice: 28.68,
     tax: 20,
     price: 23.90,
@@ -243,6 +243,60 @@ export default {
     nameFR: 'Pack Mug + Affiche encadrée',
     reference: 'demo_21',
     category: 'Home Accessories',
+    status: true,
+  }),
+  // Products demo for PS version <= 1.7.2
+  //@todo : to find for a solution in case of upgrade 1.7.2 to 1.7.8
+  old_demo_1: new FakerProduct({
+    id: 1,
+    name: 'Faded Short Sleeves T-shirt',
+    description: 'Fashion has been creating well-designed collections since 2010.',
+    finalPrice: 19.81,
+    reference: 'demo_1',
+    category: 'T-shirts',
+    status: true,
+  }),
+  old_demo_2: new FakerProduct({
+    id: 2,
+    name: 'Blouse',
+    finalPrice: 32.39,
+    reference: 'demo_2',
+    category: 'Blouses',
+    status: true,
+  }),
+  old_demo_3: new FakerProduct({
+    id: 3,
+    name: 'Printed Dress',
+    reference: 'demo_3',
+    category: 'Casual Dresses',
+    status: true,
+  }),
+  old_demo_4: new FakerProduct({
+    id: 4,
+    name: 'Printed Dress',
+    reference: 'demo_4',
+    category: 'Evening Dresses',
+    status: true,
+  }),
+  old_demo_5: new FakerProduct({
+    id: 5,
+    name: 'Printed Summer Dress',
+    reference: 'demo_5',
+    category: 'Summer Dresses',
+    status: true,
+  }),
+  old_demo_6: new FakerProduct({
+    id: 6,
+    name: 'Printed Summer Dress',
+    reference: 'demo_6',
+    category: 'Summer Dresses',
+    status: true,
+  }),
+  old_demo_7: new FakerProduct({
+    id: 7,
+    name: 'Printed Chiffon Dress',
+    reference: 'demo_7',
+    category: 'Summer Dresses',
     status: true,
   }),
 };

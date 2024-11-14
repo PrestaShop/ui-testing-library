@@ -32,7 +32,7 @@ class LoginPage extends BOBasePage implements LoginPageInterface {
 
   private readonly passwordInput: string;
 
-  private readonly submitLoginButton: string;
+  protected submitLoginButton: string;
 
   protected alertDangerDiv: string;
 

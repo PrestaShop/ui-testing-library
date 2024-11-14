@@ -13,7 +13,7 @@ const women: FakerCategory = new FakerCategory({
   id: 5,
   name: 'Women',
   description: 'T-shirts, sweaters, hoodies and women\'s accessories. From basics to original creations, '
-        + 'for every style.',
+    + 'for every style.',
   position: 2,
   displayed: true,
   products: ['demo_3'],
@@ -39,7 +39,7 @@ const clothes: FakerCategory = new FakerCategory({
   id: 3,
   name: 'Clothes',
   description: 'Discover our favorites fashionable discoveries, a selection of cool items to integrate in your '
-          + 'wardrobe. Compose a unique style with personality which matches your own.',
+    + 'wardrobe. Compose a unique style with personality which matches your own.',
   position: 1,
   displayed: true,
   children: [
@@ -68,6 +68,24 @@ const art: FakerCategory = new FakerCategory({
   displayed: true,
   products: ['demo_5', 'demo_6', 'demo_7', 'demo_18', 'demo_19', 'demo_20'],
 });
+// Categories demo for PS version <= 1.7.2
+//@todo : to find for a solution in case of upgrade 1.7.2 to 1.7.8
+const oldWomen: FakerCategory = new FakerCategory({
+  id: 3,
+  name: 'Women',
+  description: 'You will find here all woman fashion collections. This category includes all the basics of your '
+    + 'wardrobe and much more: shoes, accessories, printed t-shirts, feminine dresses, women\'s jeans!\'',
+  position: 1,
+  displayed: true,
+});
+//@todo : to find for a solution in case of upgrade 1.7.2 to 1.7.8
+const eveningDresses: FakerCategory = new FakerCategory({
+  id: 10,
+  name: 'Evening Dresses',
+  description: 'Browse our different dresses to choose the perfect dress for an unforgettable evening!',
+  position: 2,
+  displayed: true,
+});
 
 export default {
   home: new FakerCategory({
@@ -90,4 +108,6 @@ export default {
   stationery,
   homeAccessories,
   art,
+  oldWomen,
+  eveningDresses,
 };

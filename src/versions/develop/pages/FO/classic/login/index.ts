@@ -15,13 +15,13 @@ class LoginPage extends FOBasePage implements FoLoginPageInterface {
 
   public readonly disabledAccountErrorText: string;
 
-  private readonly loginForm: string;
+  protected loginForm: string;
 
   private readonly emailInput: string;
 
   private readonly passwordInput: string;
 
-  private readonly signInButton: string;
+  protected signInButton: string;
 
   protected displayRegisterFormLink: string;
 
