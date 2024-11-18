@@ -258,7 +258,7 @@ class ProductPage extends FOBasePage implements FoProductPageInterface {
     this.productAttributeButton = (itemNumber: number) => `div.product-variants-item:nth-child(${itemNumber}) ul input`;
     this.productSizeSelect = '#group_1';
     this.productSizeOption = (size: string) => `${this.productSizeSelect} option[title=${size}]`;
-    this.productColorUl = '#group_2, #group_3';
+    this.productColorUl = 'ul[id^="group_"]';
     this.productColorInput = (color: string) => `${this.productColorUl} input[title=${color}]`;
     this.productColors = 'div.product-variants div:nth-child(2)';
     this.metaLink = '#main > meta';
