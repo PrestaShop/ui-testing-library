@@ -166,7 +166,8 @@ class LoginPage extends BOBasePage implements LoginPageInterface {
   async clickOnLoginButton(page: Page, waitForNavigation: boolean): Promise<void> {
     // Wait for navigation if the login is successful
     if (waitForNavigation) {
-      await this.clickAndWaitForURL(page, this.submitLoginButton, 'networkidle', 100000);
+      await this.clickAndWaitForURL(page, this.submitLoginButton, 'load');
+      await this.isNavbarVisible(page);
     } else {
       await page.locator(this.submitLoginButton).click();
     }
