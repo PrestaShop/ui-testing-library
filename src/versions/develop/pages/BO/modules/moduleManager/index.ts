@@ -231,7 +231,7 @@ class ModuleManagerPage extends BOBasePage implements ModuleManagerPageInterface
 
     await this.uploadOnFileChooser(page, this.uploadModuleLink, [file]);
 
-    return this.getTextContent(page, this.uploadModuleModalSuccessMessage);
+    return this.getTextContent(page, this.uploadModuleModalSuccessMessage, true, true, 30000);
   }
 
   /**
@@ -492,7 +492,7 @@ class ModuleManagerPage extends BOBasePage implements ModuleManagerPageInterface
       }
     }
 
-    return this.getGrowlMessageContent(page);
+    return this.getGrowlMessageContent(page, 300000);
   }
 
   /**
