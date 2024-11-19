@@ -24,7 +24,7 @@ class BOProductTabCombinaisonsVersion extends CombinationsTab implements BOProdu
     this.searchAttributesInput = '#form_step3_attributes-tokenfield';
     this.generateCombinationButton = '#create-combinations';
   }
-  
+
   /**
      * Set product attributes
      * @param page {Page} Browser tab
