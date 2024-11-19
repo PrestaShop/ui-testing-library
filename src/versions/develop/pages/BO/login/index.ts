@@ -34,6 +34,8 @@ class LoginPage extends BOBasePage implements LoginPageInterface {
 
   protected submitLoginButton: string;
 
+  protected shopVersion: string;
+
   protected alertDangerDiv: string;
 
   private readonly alertDangerTextBlock: string;
@@ -79,6 +81,14 @@ class LoginPage extends BOBasePage implements LoginPageInterface {
   /*
   Methods
    */
+  /**
+   * Get shop version
+   * @param page {Page} Browser tab
+   * @returns {Promise<string>}
+   */
+  async getShopVersion(page: Page): Promise<string> {
+    return this.getTextContent(page, this.shopVersion);
+  }
 
   /**
    * Click on Back to shop name link
