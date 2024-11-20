@@ -1,3 +1,5 @@
+import type FakerBrand from '@data/faker/brand';
+
 type ProductAttribute = {
   name: string
   value: string
@@ -67,6 +69,8 @@ type ProductCreator = {
   metaTitle?: string | null
   metaDescription?: string | null
   friendlyUrl?: string | null
+  brand?: FakerBrand | null
+  tags?: string
 };
 
 type ProductCombination = {

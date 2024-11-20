@@ -489,12 +489,13 @@ class DescriptionTab extends BOBasePage implements BOProductsCreateTabDescriptio
   /**
    * Get selected categories
    * @param page {Page} Browser tab
-   * @param categoryRow {number} Category row
+   * @param categoryName {string} Category Name
    * @returns {Promise<void>}
    */
-  async chooseDefaultCategory(page: Page, categoryRow: number): Promise<void> {
-    await page.locator(this.defaultCategorySelectButton).click();
-    await page.locator(this.defaultCategoryList(categoryRow)).click();
+  async chooseDefaultCategory(page: Page, categoryName: string): Promise<void> {
+    await page.locator(this.productDefaultCategory).selectOption({
+      label: categoryName,
+    });
   }
 
   /**
@@ -508,14 +509,14 @@ class DescriptionTab extends BOBasePage implements BOProductsCreateTabDescriptio
   }
 
   /**
-   * Is delete category icon visible
    * @param page {Page} Browser tab
-   * @param brandRow {number} Brand row
+   * @param brandName {string} Brand row
    * @returns {Promise<void>}
    */
-  async chooseBrand(page: Page, brandRow: number): Promise<void> {
-    await page.locator(this.productManufacturerSelectButton).click();
-    await page.locator(this.productManufacturerList(brandRow)).click();
+  async chooseBrand(page: Page, brandName: string): Promise<void> {
+    await page.locator(this.productManufacturer).selectOption({
+      label: brandName,
+    });
   }
 
   /**

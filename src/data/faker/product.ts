@@ -1,3 +1,4 @@
+import FakerBrand from '@data/faker/brand';
 import {
   ProductAttributes,
   ProductCombination,
@@ -133,6 +134,10 @@ export default class FakerProduct {
 
   public deliveryTime: string;
 
+  public brand: FakerBrand | null;
+
+  public tags: string;
+
   /**
      * Constructor for class FakerProduct
      * @param productToCreate {Object} Could be used to force the value of some members
@@ -163,7 +168,7 @@ export default class FakerProduct {
     this.thumbImageFR = productToCreate.thumbImageFR || this.thumbImage;
 
     /** @type {string} Category for the product */
-    this.category = productToCreate.category || 'Root';
+    this.category = productToCreate.category || '';
 
     /** @type {string} Type of the product */
     this.type = productToCreate.type || 'standard';
@@ -367,5 +372,11 @@ export default class FakerProduct {
 
     /** @type {ProductCombination[]} */
     this.combinations = productToCreate.combinations || [];
+
+    /** @type {FakerBrand|null} */
+    this.brand = productToCreate.brand || null;
+
+    /** @type {string} */
+    this.tags = productToCreate.tags || '';
   }
 }

@@ -11,8 +11,8 @@ export interface BOProductsCreateTabDescriptionPageInterface extends BOBasePageP
     addNewCategory(page: Page, categories: string[]): Promise<void>;
     addProductImages(page: Page, imagesPaths: any[]): Promise<void>;
     addRelatedProduct(page: Page, productName: string): Promise<void>;
-    chooseBrand(page: Page, brandRow: number): Promise<void>;
-    chooseDefaultCategory(page: Page, categoryRow: number): Promise<void>;
+    chooseBrand(page: Page, brandName: string): Promise<void>;
+    chooseDefaultCategory(page: Page, categoryName: string): Promise<void>;
     clickOnMagnifyingGlass(page: Page): Promise<boolean>;
     closeImageZoom(page: Page): Promise<boolean>;
     deleteImage(page: Page): Promise<string|null>;
