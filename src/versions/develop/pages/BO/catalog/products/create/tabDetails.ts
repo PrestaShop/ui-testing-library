@@ -16,7 +16,7 @@ import type {Frame, Page} from 'playwright';
 class DetailsTab extends BOBasePage implements BOProductsCreateTabDetailsPageInterface {
   public readonly featureCustomValueNotDefaultLanguageMessage: string;
 
-  private readonly detailsTabLink: string;
+  protected detailsTabLink: string;
 
   private readonly productEAN13Input: string;
 
