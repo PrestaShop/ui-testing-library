@@ -1,3 +1,4 @@
+import type SearchWeight from '@data/types/search';
 import {BOBasePagePageInterface} from '@interfaces/BO';
 import {Page} from '@playwright/test';
 
@@ -27,6 +28,7 @@ export interface BOSearchPageInterface extends BOBasePagePageInterface {
     getSearchExactEndMatchStatus(page: Page): Promise<boolean>;
     getStatus(page: Page, row: number): Promise<boolean>;
     getTextColumn(page: Page, row: number, columnName: string): Promise<string>;
+    getWeightInputValue(page: Page, field: SearchWeight): Promise<number>;
     goToAddNewAliasPage(page: Page): Promise<void>;
     gotoEditAliasPage(page: Page, row: number): Promise<void>;
     goToTagsPage(page: Page): Promise<void>;
@@ -44,5 +46,6 @@ export interface BOSearchPageInterface extends BOBasePagePageInterface {
     setSearchExactEndMatch(page: Page, toEnable?: boolean): Promise<string>;
     setSearchWithinWord(page: Page, toEnable?: boolean): Promise<string>;
     setStatus(page: Page, row: number, valueWanted?: boolean): Promise<boolean>;
+    setWeightInputValue(page: Page, field: SearchWeight, value: number): Promise<string>;
     sortTable(page: Page, sortBy: string, sortDirection: string): Promise<void>;
 }

@@ -1,3 +1,4 @@
+import type SearchWeight from '@data/types/search';
 import {BOSearchPageInterface} from '@interfaces/BO/shopParameters/search';
 import BOBasePage from '@pages/BO/BOBasePage';
 import type {Page} from 'playwright';
@@ -134,6 +135,12 @@ class SearchPage extends BOBasePage implements BOSearchPageInterface {
 
   private readonly saveFormButton: string;
 
+  private readonly weightForm: string;
+
+  private readonly weightInputValue: (field: string) => string;
+
+  private readonly weightSaveFormButton: string;
+
   /**
    * @constructs
    * Setting up titles and selectors to use on search page
@@ -237,6 +244,11 @@ class SearchPage extends BOBasePage implements BOSearchPageInterface {
     this.minimumWordLengthInput = 'input[name="PS_SEARCH_MINWORDLEN"]';
     this.blacklistedWordsTextarea = (idLang: number) => `textarea[name="PS_SEARCH_BLACKLIST_${idLang}"]`;
     this.saveFormButton = `${this.aliasForm} button[name='submitOptionsalias']`;
+
+    // Weight form
+    this.weightForm = '#alias_fieldset_relevance';
+    this.weightInputValue = (field: string) => `${this.weightForm} input[name="PS_SEARCH_WEIGHT_${field}"]`;
+    this.weightSaveFormButton = `${this.weightForm} button[name='submitOptionsalias']`;
   }
 
   /*
@@ -775,6 +787,73 @@ class SearchPage extends BOBasePage implements BOSearchPageInterface {
   async setBlacklistedWords(page: Page, idLang: number, words: string): Promise<string> {
     await this.setValue(page, this.blacklistedWordsTextarea(idLang), words);
     await this.clickAndWaitForLoadState(page, this.saveFormButton);
+
+    return this.getAlertSuccessBlockContent(page);
+  }
+
+  /**
+   * Returns the field configuration depending the field label
+   * @param field {SearchWeight}
+   * @returns {string}
+   */
+  protected getWeightSelector(field: SearchWeight): string {
+    let selField: string = '';
+
+    switch (field) {
+      case 'Product name weight':
+        selField = 'PNAME';
+        break;
+      case 'Reference weight':
+        selField = 'REF';
+        break;
+      case 'Short description weight':
+        selField = 'SHORTDESC';
+        break;
+      case 'Description weight':
+        selField = 'DESC';
+        break;
+      case 'Category weight':
+        selField = 'CNAME';
+        break;
+      case 'Brand weight':
+        selField = 'MNAME';
+        break;
+      case 'Tags weight':
+        selField = 'TAG';
+        break;
+      case 'Attributes weight':
+        selField = 'ATTRIBUTE';
+        break;
+      case 'Features weight':
+        selField = 'FEATURE';
+        break;
+      default:
+        throw new Error(`The field "${field}" is not managed`);
+    }
+
+    return selField;
+  }
+
+  /**
+   * Get Weight Input Value
+   * @param page {Page} Browser tab
+   * @param field {SearchWeight} Name of the field
+   * @returns {Promise<number>}
+   */
+  async getWeightInputValue(page: Page, field: SearchWeight): Promise<number> {
+    return parseInt(await this.getInputValue(page, this.weightInputValue(this.getWeightSelector(field))), 10);
+  }
+
+  /**
+   * Set Weight Input Value
+   * @param page {Page} Browser tab
+   * @param field {SearchWeight} Name of the field
+   * @param value {number} Value of the field
+   * @returns {Promise<string>}
+   */
+  async setWeightInputValue(page: Page, field: SearchWeight, value: number): Promise<string> {
+    await this.setInputValue(page, this.weightInputValue(this.getWeightSelector(field)), value.toString());
+    await page.locator(this.weightSaveFormButton).click();
 
     return this.getAlertSuccessBlockContent(page);
   }
