@@ -12,8 +12,9 @@ export interface BOProductsCreateTabDetailsPageInterface extends BOBasePagePageI
     addNewFile(page: Page, productData: FakerProduct): Promise<void>;
     clickOnManageAllFiles(page: Page): Promise<Page>;
     clickonManageFeatures(page: Page): Promise<Page>;
+    countFeatures(page: Page): Promise<number>;
     deleteCustomizations(page: Page, productData: FakerProduct): Promise<void>;
-    deleteFeatures(page: Page, productFeatures: ProductFeatures[]): Promise<void>;
+    deleteFeatures(page: Page, numFeatures: number): Promise<void>;
     deleteFiles(page: Page, productData: FakerProduct): Promise<void>;
     getErrorMessageInReferencesForm(page: Page, inputNumber: number): Promise<string>;
     getNoFileAttachedMessage(page: Page): Promise<string>;
