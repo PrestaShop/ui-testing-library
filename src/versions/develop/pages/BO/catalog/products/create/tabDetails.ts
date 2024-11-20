@@ -177,6 +177,7 @@ class DetailsTab extends BOBasePage implements BOProductsCreateTabDetailsPageInt
     await this.waitForSelectorAndClick(page, this.detailsTabLink);
     await this.setValue(page, this.productReferenceInput, productData.reference);
     await this.setCondition(page, productData);
+    await this.setFeature(page, productData.features);
   }
 
   /**

@@ -7,6 +7,7 @@ import detailsTab from '@pages/BO/catalog/products/create/tabDetails';
 import stocksTab from '@pages/BO/catalog/products/create/tabStocks';
 import pricingTab from '@pages/BO/catalog/products/create/tabPricing';
 import packTab from '@pages/BO/catalog/products/create/tabPack';
+import tabSEO from '@pages/BO/catalog/products/create/tabSeo';
 
 import type FakerProduct from '@data/faker/product';
 import type {ProductHeaderSummary} from '@data/types/product';
@@ -351,17 +352,28 @@ class CreateProduct extends BOBasePage implements BOProductsCreatePageInterface 
   async setProduct(page: Page, productData: FakerProduct): Promise<string|null> {
     await this.waitForVisibleSelector(page, this.productActiveSwitchButtonToggleInput);
 
+    //// Tab "Description"
     // Set description
     await descriptionTab.setProductDescription(page, productData);
     // Set name
     await this.setProductName(page, productData.nameFR, 'fr');
     await this.setProductName(page, productData.name, 'en');
-
+    // Set categories
+    if (productData.category !== '') {
+      await descriptionTab.addNewCategory(page, [productData.category]);
+      await descriptionTab.chooseDefaultCategory(page, productData.category);
+    }
+    // Set brand
+    if (productData.brand) {
+      await descriptionTab.chooseBrand(page, productData.brand.name);
+    }
     // Set status
     await this.setProductStatus(page, productData.status);
 
+    //// Tab "Details"
     await detailsTab.setProductDetails(page, productData);
 
+    //// Tab "Stocks"
     if (productData.type === 'virtual') {
       await virtualProductTab.setVirtualProduct(page, productData);
     } else if (productData.type !== 'combinations') {
@@ -372,7 +384,12 @@ class CreateProduct extends BOBasePage implements BOProductsCreatePageInterface 
       await packTab.setPackOfProducts(page, productData.pack);
     }
 
+    //// Tab "Pricing"
     await pricingTab.setProductPricing(page, productData);
+
+    //// Tab "SEO"
+    await this.goToTab(page, 'seo');
+    await tabSEO.setTag(page, productData.tags);
 
     return this.saveProduct(page);
   }
