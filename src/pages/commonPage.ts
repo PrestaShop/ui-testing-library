@@ -135,6 +135,7 @@ export default class CommonPage implements CommonPageInterface {
    * @param selector{string} From where to get text
    * @param waitForSelector {boolean} True to wait for selector to be visible before getting text
    * @param withTrim {boolean} True to trim the text
+   * @param timeout {number} Time to wait on milliseconds before throwing an error
    * @return {Promise<string>}
    */
   async getTextContent(
@@ -142,9 +143,10 @@ export default class CommonPage implements CommonPageInterface {
     selector: string,
     waitForSelector: boolean = true,
     withTrim: boolean = true,
+    timeout: number = 10000,
   ): Promise<string> {
     if (waitForSelector) {
-      await this.waitForVisibleSelector(page, selector);
+      await this.waitForVisibleSelector(page, selector, timeout);
     }
     const textContent = await page.locator(selector).first().textContent();
 
