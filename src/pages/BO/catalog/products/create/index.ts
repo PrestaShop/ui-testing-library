@@ -18,6 +18,9 @@ function requirePage(): BOProductsCreatePageInterface {
   if (semver.lt(psVersion, '8.1.0')) {
     return require('@versions/8.0/pages/BO/catalog/products/create').createProduct;
   }
+  if (semver.lt(psVersion, '8.2.0')) {
+    return require('@versions/8.1/pages/BO/catalog/products/create').createProduct;
+  }
   return require('@versions/develop/pages/BO/catalog/products/create').createProduct;
 }
 

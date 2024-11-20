@@ -33,7 +33,7 @@ class BOCreateProductVersion extends CreateProduct implements BOProductsCreatePa
     this.productName = '[id*="form_step1_name"]';
     this.productNameInput = (locale: string) => `${this.productName} div[data-locale=${locale}] input`;
     this.productNameLanguageButton = '#form_switch_language';
-    this.tabLink = (tabName: string) => `tab_step${tabName}`;
+    this.tabLink = (tabName: string) => `#tab_step${tabName}`;
     this.productOnlineTitle = 'h2.for-switch.online-title';
     this.productActiveSwitchButtonToggleInput = '.product-footer div.switch-input';
     this.saveProductButton = '#form div.product-footer button.btn-primary[type="submit"]';

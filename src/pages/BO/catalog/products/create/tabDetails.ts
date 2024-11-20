@@ -9,6 +9,9 @@ function requirePage(): BOProductsCreateTabDetailsPageInterface {
   if (semver.lt(psVersion, '8.1.0')) {
     return require('@versions/8.0/pages/BO/catalog/products/create/tabDetails').detailsTab;
   }
+  if (semver.lt(psVersion, '8.2.0')) {
+    return require('@versions/8.1/pages/BO/catalog/products/create/tabDetails').detailsTab;
+  }
   return require('@versions/develop/pages/BO/catalog/products/create/tabDetails').detailsTab;
 }
 /* eslint-enable global-require, @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires */
