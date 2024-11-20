@@ -36,7 +36,9 @@ class DetailsTab extends BOBasePage implements BOProductsCreateTabDetailsPageInt
 
   private readonly tableFeatures: string;
 
-  private readonly tableFeaturesRow: (nthChild: number) => string;
+  private readonly tableFeaturesRow: string;
+
+  private readonly tableFeaturesRowNth: (nthChild: number) => string;
 
   private readonly tableFeaturesCellAction: (nthChild: number) => string;
 
@@ -131,8 +133,9 @@ class DetailsTab extends BOBasePage implements BOProductsCreateTabDetailsPageInt
     this.deleteFeatureModal = '#modal-confirm-delete-feature-value';
     this.confirmDeleteFeatureButton = `${this.deleteFeatureModal} div.modal-footer button.btn-confirm-submit`;
     this.tableFeatures = '#product_details_features_feature_collection tbody';
-    this.tableFeaturesRow = (nthChild: number) => `${this.tableFeatures} tr:nth-child(${nthChild})`;
-    this.tableFeaturesCellAction = (nthChild: number) => `${this.tableFeaturesRow(nthChild)} td.feature-actions`;
+    this.tableFeaturesRow = `${this.tableFeatures} tr`;
+    this.tableFeaturesRowNth = (nthChild: number) => `${this.tableFeaturesRow}:nth-child(${nthChild})`;
+    this.tableFeaturesCellAction = (nthChild: number) => `${this.tableFeaturesRowNth(nthChild)} td.feature-actions`;
     this.tableFeaturesBtnDelete = (nthChild: number) => `${this.tableFeaturesCellAction(nthChild)} button`;
     this.manageFeaturesLink = 'div.product-features-controls + div > a';
     // Attached files section
@@ -177,7 +180,14 @@ class DetailsTab extends BOBasePage implements BOProductsCreateTabDetailsPageInt
     await this.waitForSelectorAndClick(page, this.detailsTabLink);
     await this.setValue(page, this.productReferenceInput, productData.reference);
     await this.setCondition(page, productData);
-    await this.setFeature(page, productData.features);
+    if (productData.features.length > 0) {
+      const numFeatures = await this.countFeatures(page);
+
+      if (numFeatures) {
+        await this.deleteFeatures(page, numFeatures);
+      }
+      await this.setFeature(page, productData.features);
+    }
   }
 
   /**
@@ -273,8 +283,18 @@ class DetailsTab extends BOBasePage implements BOProductsCreateTabDetailsPageInt
      * @param productFeatures {ProductFeatures[]} Data to delete feature
      * @returns {Promise<void>}
      */
-  async deleteFeatures(page: Page, productFeatures: ProductFeatures[]): Promise<void> {
-    for (let i: number = 0; i < productFeatures.length; i++) {
+  async countFeatures(page: Page): Promise<number> {
+    return (await page.locator(this.tableFeaturesRow).count()) - 1;
+  }
+
+  /**
+     * Delete all features
+     * @param page {Page} Browser tab
+     * @param productFeatures {ProductFeatures[]} Data to delete feature
+     * @returns {Promise<void>}
+     */
+  async deleteFeatures(page: Page, numFeatures: number): Promise<void> {
+    for (let i: number = 0; i < numFeatures; i++) {
       // Why tr:nth-child(2) : It's one-based selector and the first row is hidden ?
       await this.waitForSelectorAndClick(page, this.tableFeaturesBtnDelete(2));
       await this.waitForSelectorAndClick(page, this.confirmDeleteFeatureButton);
