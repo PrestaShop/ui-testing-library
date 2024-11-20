@@ -27,4 +27,4 @@ class DetailsTabVersion extends DetailsTab implements BOProductsCreateTabDetails
 }
 
 const detailsTab = new DetailsTabVersion();
-export {detailsTab, DetailsTabVersion};
+export {detailsTab, DetailsTabVersion as DetailsTab};

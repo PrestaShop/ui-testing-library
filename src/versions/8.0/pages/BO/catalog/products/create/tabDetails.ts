@@ -1,6 +1,6 @@
 // Import pages
 import type {BOProductsCreateTabDetailsPageInterface} from '@interfaces/BO/catalog/products/create/tabDetails';
-import {DetailsTab} from '@versions/develop/pages/BO/catalog/products/create/tabDetails';
+import {DetailsTab} from '@versions/8.2/pages/BO/catalog/products/create/tabDetails';
 
 // Import data
 import type FakerProduct from '@data/faker/product';
