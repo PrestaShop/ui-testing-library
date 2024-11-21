@@ -247,6 +247,7 @@ export default {
   }),
   // Products demo for PS version <= 1.7.2
   //@todo : to find for a solution in case of upgrade 1.7.2 to 1.7.8
+  //@todo : Clean FakerCartRule & FakerSearchTag
   old_demo_1: new FakerProduct({
     id: 1,
     name: 'Faded Short Sleeves T-shirt',

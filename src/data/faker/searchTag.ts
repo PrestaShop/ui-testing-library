@@ -6,7 +6,14 @@ import SearchTagCreator from '@data/types/searchTag';
 
 import {faker} from '@faker-js/faker';
 
-const productsNames: string[] = Object.values(dataProducts).map((product: FakerProduct) => product.name);
+const productsNames: string[] = Object.entries(dataProducts)
+  .map((value: [string, FakerProduct]) => {
+    if (value[0].startsWith('old_')) {
+      return '';
+    }
+    return value[1].name;
+  })
+  .filter((value: string) => value !== '');
 const languagesNames: string[] = Object.values(dataLanguages).map((language: FakerLanguage) => language.name);
 
 /**
