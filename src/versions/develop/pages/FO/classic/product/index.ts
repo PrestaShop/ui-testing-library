@@ -66,7 +66,7 @@ class ProductPage extends FOBasePage implements FoProductPageInterface {
 
   private readonly addToCartButton: string;
 
-  private readonly blockCartModal: string;
+  protected blockCartModal: string;
 
   protected proceedToCheckoutButton: string;
 

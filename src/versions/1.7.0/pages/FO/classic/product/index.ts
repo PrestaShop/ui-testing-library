@@ -1,6 +1,6 @@
 // Import pages
 import type {FoProductPageInterface} from '@interfaces/FO/product';
-import {ProductPage} from '@versions/develop/pages/FO/classic/product/index';
+import {ProductPage} from '@versions/1.7.7/pages/FO/classic/product/index';
 
 import {type Page} from '@playwright/test';
 
@@ -16,16 +16,8 @@ class FoProductPageVersion extends ProductPage implements FoProductPageInterface
    */
   constructor(theme: string = 'classic') {
     super(theme);
-  }
-  
-  /**
-   * Get product attributes from a Ul selector
-   * @param page {Page} Browser tab
-   * @param ulSelector {string} Selector to locate the element
-   * @returns {Promise<Array<string>>}
-   */
-  async getProductsAttributesFromUl(page: Page, ulSelector: string): Promise<Array<string | null>> {
-    return page.locator(`${ulSelector} li span.sr-only`).allTextContents();
+
+    this.proceedToCheckoutButton = `${this.blockCartModal} a.btn-primary`;
   }
 }
 
