@@ -17,7 +17,7 @@ class FoProductPageVersion extends ProductPage implements FoProductPageInterface
   constructor(theme: string = 'classic') {
     super(theme);
   }
-  
+
   /**
    * Get product attributes from a Ul selector
    * @param page {Page} Browser tab

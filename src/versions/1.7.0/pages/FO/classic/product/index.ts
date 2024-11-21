@@ -2,8 +2,6 @@
 import type {FoProductPageInterface} from '@interfaces/FO/product';
 import {ProductPage} from '@versions/1.7.7/pages/FO/classic/product/index';
 
-import {type Page} from '@playwright/test';
-
 /**
  * FO product page, contains functions that can be used on the page
  * @class

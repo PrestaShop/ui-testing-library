@@ -2,8 +2,6 @@
 import type {FoCheckoutPageInterface} from '@interfaces/FO/checkout';
 import {CheckoutPage} from '@versions/develop/pages/FO/classic/checkout';
 
-import {type Page} from '@playwright/test';
-
 /**
  * FO checkout page, contains functions that can be used on the page
  * @class

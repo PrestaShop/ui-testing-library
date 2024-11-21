@@ -2,8 +2,6 @@
 import type {FoModalBlockCartPageInterface} from '@interfaces/FO/modal/blockCart';
 import {BlockCartModal} from '@versions/develop/pages/FO/classic/modal/blockCart';
 
-import {type Page} from '@playwright/test';
-
 /**
  * FO block cart modal, contains functions that can be used on the page
  * @class
