@@ -39,17 +39,33 @@ type GlobalBrowser = {
   sandboxArgs: Array<string>
   acceptDownloads: boolean
   config: GlobalBrowserConfig
-  interceptErrors: any
+  captureErrors: boolean
 }
 
 type GlobalPSConfig = {
   parametersFile: string
 }
 
+type GlobalBrowserErrorConsole = {
+  url: string
+  error: string
+}
+
+type GlobalBrowserErrorJs = {
+  url: string
+  error: string
+}
+
+type GlobalBrowserErrorResponse = {
+  url: string
+  requestUrl: string
+  status: string
+}
+
 type GlobalBrowserErrors = {
-  responses: Array<any>
-  js: Array<any>
-  console: Array<any>
+  responses: Array<GlobalBrowserErrorResponse>
+  js: Array<GlobalBrowserErrorJs>
+  console: Array<GlobalBrowserErrorConsole>
 }
 
 type GlobalScreenshot = {
@@ -78,6 +94,9 @@ export type {
   GlobalBrowser,
   GlobalBrowserConfig,
   GlobalPSConfig,
+  GlobalBrowserErrorConsole,
+  GlobalBrowserErrorJs,
+  GlobalBrowserErrorResponse,
   GlobalBrowserErrors,
   GlobalScreenshot,
   GlobalMaildevConfig,
