@@ -1,3 +1,4 @@
+import {GlobalBrowserErrorConsole, GlobalBrowserErrorJs, GlobalBrowserErrorResponse} from '@data/types/globals';
 import {
   APIRequestContext,
   BrowserContext,
@@ -20,7 +21,7 @@ export default {
    * @param attempt {number} Number of attempts to restart browser creation if function throw error
    * @return {Promise<Browser>}
    */
-  async createBrowser(attempt = 1): Promise<Browser> {
+  async createBrowser(attempt: number = 1): Promise<Browser> {
     const browsers: Record<string, BrowserType> = {
       chromium,
       webkit,
@@ -95,8 +96,8 @@ export default {
   async newTab(context: BrowserContext): Promise<Page> {
     const page = await context.newPage();
 
-    if (global.BROWSER.interceptErrors) {
-      await this.interceptAllErrors(page);
+    if (global.BROWSER.captureErrors) {
+      await this.captureAllErrors(page);
     }
     return page;
   },
@@ -117,62 +118,6 @@ export default {
    */
   async closeBrowser(browser: Browser): Promise<void> {
     await browser.close();
-  },
-
-  /**
-   * Intercept response errors
-   * @param page {Page} Browser tab given
-   */
-  interceptResponseErrors(page: Page): void {
-    page.on('response', (response) => {
-      const status = response.status().toString();
-      const url = page.url();
-      const requestUrl = response.request().url();
-
-      if (status.startsWith('4') || status.startsWith('5')) {
-        global.browserErrors.responses.push({url, requestUrl, status});
-      }
-    });
-  },
-
-  /**
-   * Intercept js errors
-   * @param page {Page} Browser tab given
-   */
-  interceptJsErrors(page: Page): void {
-    page.on('pageerror', (e) => {
-      global.browserErrors.js.push(
-        {
-          url: page.url(),
-          error: e.toString(),
-        },
-      );
-    });
-  },
-
-  /**
-   * Intercept console errors
-   * @param page {Page} Browser tab given
-   */
-  interceptConsoleErrors(page: Page): void {
-    page.on('console', (msg) => {
-      if (msg.type() === 'error') {
-        global.browserErrors.console.push({
-          url: page.url(),
-          error: msg.text(),
-        });
-      }
-    });
-  },
-
-  /**
-   * Intercept all errors (response, js, console)
-   * @param page {Page} Browser tab given
-   */
-  interceptAllErrors(page: Page): void {
-    this.interceptResponseErrors(page);
-    this.interceptJsErrors(page);
-    this.interceptConsoleErrors(page);
   },
 
   /**
@@ -208,5 +153,120 @@ export default {
   getNumberTabs(browserContext: BrowserContext): number {
     // Get pages from last created context
     return browserContext.pages().length;
+  },
+
+  /**
+   * Returns if errors are captured
+   * @returns boolean
+   */
+  isErrorsCaptured(): boolean {
+    return global.BROWSER.captureErrors;
+  },
+
+  /**
+   * Define if errors are captured
+   * @param captureErrors {boolean}
+   * @returns void
+   */
+  setErrorsCaptured(captureErrors: boolean): void {
+    global.BROWSER.captureErrors = captureErrors;
+  },
+
+  /**
+   * Intercept response errors
+   * @param page {Page} Browser tab given
+   */
+  captureResponseErrors(page: Page): void {
+    page.on('response', (response) => {
+      const status = response.status().toString();
+      const url = page.url();
+      const requestUrl = response.request().url();
+
+      if (status.startsWith('4') || status.startsWith('5')) {
+        global.browserErrors.responses.push({url, requestUrl, status});
+      }
+    });
+  },
+
+  /**
+   * Intercept js errors
+   * @param page {Page} Browser tab given
+   */
+  captureJsErrors(page: Page): void {
+    page.on('pageerror', (e) => {
+      global.browserErrors.js.push(
+        {
+          url: page.url(),
+          error: e.toString(),
+        },
+      );
+    });
+  },
+
+  /**
+   * Intercept console errors
+   * @param page {Page} Browser tab given
+   */
+  captureConsoleErrors(page: Page): void {
+    page.on('console', (msg) => {
+      if (msg.type() === 'error') {
+        global.browserErrors.console.push({
+          url: page.url(),
+          error: msg.text(),
+        });
+      }
+    });
+  },
+
+  /**
+   * Intercept all errors (response, js, console)
+   * @param page {Page} Browser tab given
+   */
+  captureAllErrors(page: Page): void {
+    this.captureResponseErrors(page);
+    this.captureJsErrors(page);
+    this.captureConsoleErrors(page);
+  },
+
+  /**
+   * Returns Console captured errors
+   */
+  getConsoleErrors(): Array<GlobalBrowserErrorConsole> {
+    return global.browserErrors.console;
+  },
+
+  /**
+   * Returns JS captured errors
+   */
+  getJsErrors(): Array<GlobalBrowserErrorJs> {
+    return global.browserErrors.js;
+  },
+
+  /**
+   * Returns Response captured errors
+   */
+  getResponseErrors(): Array<GlobalBrowserErrorResponse> {
+    return global.browserErrors.responses;
+  },
+
+  /**
+   * Reset Console captured errors
+   */
+  resetConsoleErrors(): void {
+    global.browserErrors.console = [];
+  },
+
+  /**
+   * Reset JS captured errors
+   */
+  resetJsErrors(): void {
+    global.browserErrors.js = [];
+  },
+
+  /**
+   * Reset Response captured errors
+   */
+  resetResponseErrors(): void {
+    global.browserErrors.responses = [];
   },
 };
