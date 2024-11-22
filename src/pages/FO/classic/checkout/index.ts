@@ -6,8 +6,8 @@ const psVersion = testContext.getPSVersion();
 
 /* eslint-disable global-require, @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires */
 function requirePage(): FoCheckoutPageInterface {
-  if (semver.gte(psVersion, '0.0.0')) {
-    return require('@versions/develop/pages/FO/classic/checkout').checkoutPage;
+  if (semver.lt(psVersion, '7.1.0')) {
+    return require('@versions/1.7.0/pages/FO/classic/checkout').checkoutPage;
   }
   return require('@versions/develop/pages/FO/classic/checkout').checkoutPage;
 }

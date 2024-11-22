@@ -31,13 +31,13 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
 
   public readonly authenticationErrorMessage: string;
 
-  private readonly paymentStepSection: string;
+  protected paymentStepSection: string;
 
-  private readonly paymentOptionInput: (name: string) => string;
+  protected paymentOptionInput: (name: string) => string;
 
   protected paymentOptionAlertDanger: string;
 
-  private readonly conditionToApproveLabel: string;
+  protected conditionToApproveLabel: string;
 
   private readonly conditionToApproveCheckbox: string;
 
