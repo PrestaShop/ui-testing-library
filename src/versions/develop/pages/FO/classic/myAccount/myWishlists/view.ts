@@ -1,14 +1,13 @@
 import {type FoMyWishlistsViewPageInterface} from '@interfaces/FO/myAccount/myWishlists/view';
 import FOBasePage from '@pages/FO/FOBasePage';
-
-import type {Page} from 'playwright';
+import {type Page} from '@playwright/test';
 
 /**
  * My Wishlists View page, contains functions that can be used on the page
  * @class
  * @extends FOBasePage
  */
-class WishlistViewPage extends FOBasePage implements FoMyWishlistsViewPageInterface {
+class MyWishlistViewPage extends FOBasePage implements FoMyWishlistsViewPageInterface {
   public readonly messageSuccessfullyRemoved: string;
 
   private readonly headerTitle: string;
@@ -198,5 +197,5 @@ class WishlistViewPage extends FOBasePage implements FoMyWishlistsViewPageInterf
   }
 }
 
-export default new WishlistViewPage();
-module.exports = new WishlistViewPage();
+const myWishlistViewPage = new MyWishlistViewPage();
+export {myWishlistViewPage, MyWishlistViewPage};
