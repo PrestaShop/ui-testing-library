@@ -1,7 +1,7 @@
 import {type FoMyWishlistsPageInterface} from '@interfaces/FO/myAccount/myWishlists';
 import FOBasePage from '@pages/FO/FOBasePage';
-import foClassicMyWishlistsViewPage from '@versions/develop/pages/FO/classic/myAccount/myWishlists/view';
-import type {Page} from 'playwright';
+import foClassicMyWishlistsViewPage from '@pages/FO/classic/myAccount/myWishlists/view';
+import {type Page} from '@playwright/test';
 
 /**
  * My Wishlists page, contains functions that can be used on the page
