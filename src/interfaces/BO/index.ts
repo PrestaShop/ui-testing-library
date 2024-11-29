@@ -47,6 +47,7 @@ export interface BOBasePagePageInterface extends CommonPageInterface {
   readonly ordersLink: string;
   readonly ordersParentLink: string;
   readonly outstandingLink: string;
+  readonly statsLink: string
   readonly pagesLink: string;
   readonly paymentMethodsLink: string;
   readonly paymentParentLink: string;
