@@ -123,6 +123,8 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
 
   public readonly outstandingLink: string;
 
+  public readonly statsLink: string;
+
   public readonly customerServiceParentLink: string;
 
   public readonly customerServiceLink: string;
@@ -395,6 +397,9 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
     this.customersLink = '#subtab-AdminCustomers';
     this.addressesLink = '#subtab-AdminAddresses';
     this.outstandingLink = '#subtab-AdminOutstanding';
+
+    // Stats
+    this.statsLink = 'li#subtab-AdminStats';
 
     // Customer Service
     this.customerServiceParentLink = '#subtab-AdminParentCustomerThreads';
@@ -743,8 +748,10 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
       await page.hover(parentSelector);
       await this.clickAndWaitForURL(page, linkSelector);
     } else {
-      await this.clickSubMenu(page, parentSelector);
-      await this.scrollTo(page, linkSelector);
+      if (parentSelector !== '') {
+        await this.clickSubMenu(page, parentSelector);
+        await this.scrollTo(page, linkSelector);
+      }
       await this.clickAndWaitForURL(page, linkSelector);
       let linkActiveClass: string = '-active';
 

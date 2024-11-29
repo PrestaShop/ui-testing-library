@@ -7,6 +7,21 @@ export default {
     versionCurrent: 'v3.0.2',
     releaseZip: 'https://github.com/PrestaShop/blockwishlist/releases/download/%version%/blockwishlist.zip',
   }),
+  contactForm: new FakerModule({
+    tag: 'contactform',
+    name: 'Contact form',
+  }),
+  keycloak: new FakerModule({
+    tag: 'keycloak_connector_demo',
+    name: 'Keycloak OAuth2 connector demo',
+    versionCurrent: 'v1.2.0',
+    versionOld: 'v1.1.0',
+    releaseZip: 'https://github.com/PrestaShop/keycloak_connector_demo/releases/download/%version%/keycloak_connector_demo.zip',
+  }),
+  pagesnotfound: new FakerModule({
+    tag: 'pagesnotfound',
+    name: 'Pages not found',
+  }),
   psApiResources: new FakerModule({
     tag: 'ps_apiresources',
     name: 'PrestaShop API Resources',
@@ -50,6 +65,10 @@ export default {
     tag: 'psgdpr',
     name: 'Official GDPR compliance',
   }),
+  psMainMenu: new FakerModule({
+    tag: 'ps_mainmenu',
+    name: 'Main menu',
+  }),
   psNewProducts: new FakerModule({
     tag: 'ps_newproducts',
     name: 'New products block',
@@ -71,26 +90,72 @@ export default {
     tag: 'ps_wirepayment',
     name: 'Wire payment',
   }),
-  contactForm: new FakerModule({
-    tag: 'contactform',
-    name: 'Contact form',
+  statsbestcategories: new FakerModule({
+    tag: 'statsbestcategories',
+    name: 'Best categories',
   }),
-  themeCustomization: new FakerModule({
-    tag: 'ps_themecusto',
-    name: 'Theme Customization',
+  statsbestcustomers: new FakerModule({
+    tag: 'statsbestcustomers',
+    name: 'Best customers',
   }),
-  availableQuantities: new FakerModule({
+  statsbestmanufacturers: new FakerModule({
+    tag: 'statsbestmanufacturers',
+    name: 'Best manufacturers',
+  }),
+  statsbestproducts: new FakerModule({
+    tag: 'statsbestproducts',
+    name: 'Best-selling products',
+  }),
+  statsbestsuppliers: new FakerModule({
+    tag: 'statsbestsuppliers',
+    name: 'Best suppliers',
+  }),
+  statsbestvouchers: new FakerModule({
+    tag: 'statsbestvouchers',
+    name: 'Best vouchers',
+  }),
+  statscarrier: new FakerModule({
+    tag: 'statscarrier',
+    name: 'Carrier distribution',
+  }),
+  statscatalog: new FakerModule({
+    tag: 'statscatalog',
+    name: 'Catalog statistics',
+  }),
+  statscheckup: new FakerModule({
+    tag: 'statscheckup',
+    name: 'Catalog evaluation',
+  }),
+  statsforecast: new FakerModule({
+    tag: 'statsforecast',
+    name: 'Stats Dashboard',
+  }),
+  statsnewsletter: new FakerModule({
+    tag: 'statsnewsletter',
+    name: 'Newsletter',
+  }),
+  statspersonalinfos: new FakerModule({
+    tag: 'statspersonalinfos',
+    name: 'Registered customer information',
+  }),
+  statsproduct: new FakerModule({
+    tag: 'statsproduct',
+    name: 'Product details',
+  }),
+  statsregistrations: new FakerModule({
+    tag: 'statsregistrations',
+    name: 'Customer accounts',
+  }),
+  statssales: new FakerModule({
+    tag: 'statssales',
+    name: 'Sales and orders',
+  }),
+  statssearch: new FakerModule({
+    tag: 'statssearch',
+    name: 'Shop search',
+  }),
+  statsstock: new FakerModule({
     tag: 'statsstock',
     name: 'Available quantities',
-  }),
-  mainMenu: new FakerModule({
-    tag: 'ps_mainmenu',
-    name: 'Main menu',
-  }),
-  keycloak: new FakerModule({
-    tag: 'keycloak_connector_demo',
-    name: 'Keycloak OAuth2 connector demo',
-    versionCurrent: 'v1.2.0',
-    releaseZip: 'https://github.com/PrestaShop/keycloak_connector_demo/releases/download/%version%/keycloak_connector_demo.zip',
   }),
 };
