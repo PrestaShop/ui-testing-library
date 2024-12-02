@@ -8,16 +8,16 @@ import {type Page} from '@playwright/test';
  * @class
  * @extends BOBasePage
  */
-class AddAliasPage extends BOBasePage implements BOAliasCreatePageInterface {
-  public readonly pageTitleCreate: string;
+class BOSearchAliasCreatePage extends BOBasePage implements BOAliasCreatePageInterface {
+  public pageTitleCreate: string;
 
-  public readonly pageTitleEdit: string;
+  public pageTitleEdit: string;
 
-  private readonly aliasInput: string;
+  protected aliasInput: string;
 
-  private readonly resultInput: string;
+  protected resultInput: string;
 
-  private readonly saveButton: string;
+  protected saveButton: string;
 
   /**
    * @constructs
@@ -26,13 +26,13 @@ class AddAliasPage extends BOBasePage implements BOAliasCreatePageInterface {
   constructor() {
     super();
 
-    this.pageTitleCreate = 'Search > Add new •';
-    this.pageTitleEdit = 'Search > Edit:';
+    this.pageTitleCreate = `New aliases • ${global.INSTALL.SHOP_NAME}`;
+    this.pageTitleEdit = 'Edit aliases for ';
 
     // selectors
-    this.aliasInput = '#alias';
-    this.resultInput = '#search';
-    this.saveButton = '#alias_form_submit_btn';
+    this.aliasInput = '#search_term_search';
+    this.resultInput = '#search_term_aliases_0_alias';
+    this.saveButton = '#save-button';
   }
 
   /* Methods */
@@ -43,11 +43,12 @@ class AddAliasPage extends BOBasePage implements BOAliasCreatePageInterface {
    * @returns {Promise<string>}
    */
   async setAlias(page: Page, aliasData: FakerSearchAlias): Promise<string> {
-    await this.setValue(page, this.aliasInput, aliasData.alias);
-    await this.setValue(page, this.resultInput, aliasData.result);
+    await this.setValue(page, this.aliasInput, aliasData.search);
+    await this.setValue(page, this.resultInput, aliasData.alias);
     await page.locator(this.saveButton).click();
-    return this.getAlertSuccessBlockContent(page);
+    return this.getAlertSuccessBlockParagraphContent(page);
   }
 }
 
-module.exports = new AddAliasPage();
+const boSearchAliasCreatePage = new BOSearchAliasCreatePage();
+export {boSearchAliasCreatePage, BOSearchAliasCreatePage};
