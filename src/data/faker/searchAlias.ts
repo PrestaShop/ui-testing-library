@@ -7,19 +7,19 @@ import {faker} from '@faker-js/faker';
  * @class
  */
 export default class FakerSearchAlias {
-  public readonly alias: string;
+  public readonly search: string;
 
-  public readonly result: string;
+  public readonly alias: string;
 
   /**
    * Constructor for class FakerSearchAlias
    * @param aliasToCreate {Object} Could be used to force the value of some members
    */
   constructor(aliasToCreate: SearchAliasCreator = {}) {
-    /** @type {string} Name of the alias */
-    this.alias = aliasToCreate.alias || `alias_${faker.lorem.word()}`;
+    /** @type {string} */
+    this.search = aliasToCreate.search || `search_${faker.lorem.word()}`;
 
-    /** @type {string} Result to display on the search */
-    this.result = aliasToCreate.result || `result_${faker.lorem.word()}`;
+    /** @type {string} */
+    this.alias = aliasToCreate.alias || `alias_${faker.lorem.word()}`;
   }
 }
