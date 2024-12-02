@@ -26,6 +26,7 @@ export interface ModuleManagerPageInterface extends BOBasePagePageInterface {
     getNumberOfBlocks(page: Page): Promise<number>;
     getNumberOfModules(page: Page): Promise<number>;
     goToAlertsTab(page: Page): Promise<void>;
+    goToUpdatesTab(page: Page): Promise<void>;
     goToConfigurationPage(page: Page, moduleTag: string): Promise<void>;
     isBulkActionsButtonDisabled(page: Page): Promise<boolean>;
     isModalActionVisible(page: Page, module: FakerModule, action: string): Promise<boolean>;
