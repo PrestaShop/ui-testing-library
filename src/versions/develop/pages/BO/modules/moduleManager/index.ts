@@ -33,6 +33,8 @@ class ModuleManagerPage extends BOBasePage implements ModuleManagerPageInterface
 
   private readonly alertsTab: string;
 
+  private readonly updatesTab: string;
+
   private readonly searchModuleTagInput: string;
 
   private readonly searchModuleButton: string;
@@ -137,6 +139,7 @@ class ModuleManagerPage extends BOBasePage implements ModuleManagerPageInterface
 
     // Tabs
     this.alertsTab = '#subtab-AdminModulesNotifications';
+    this.updatesTab = '#subtab-AdminModulesUpdates';
 
     // Header Selectors
     this.searchModuleTagInput = '#search-input-group input.pstaggerAddTagInput';
@@ -218,6 +221,15 @@ class ModuleManagerPage extends BOBasePage implements ModuleManagerPageInterface
    */
   async goToAlertsTab(page: Page): Promise<void> {
     await page.locator(this.alertsTab).click();
+  }
+
+  /**
+   * Go to the Updates Tab
+   * @param page {Page} Browser tab
+   * @return {Promise<void>}
+   */
+  async goToUpdatesTab(page: Page): Promise<void> {
+    await page.locator(this.updatesTab).click();
   }
 
   /**
