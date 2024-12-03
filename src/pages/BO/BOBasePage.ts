@@ -357,8 +357,8 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
     this.multistoreTopBar = `${this.multistoreHeader} div.header-multishop-top-bar`;
     this.storeName = `${this.multistoreTopBar} div h2`;
 
-    // Dashboard
-    this.dashboardLink = '#tab-AdminDashboard';
+    // Dashboard (works if link is first level or sub tab)
+    this.dashboardLink = '[id$=tab-AdminDashboard]';
 
     // SELL
     // Orders
