@@ -63,8 +63,31 @@ export default class FakerEmployee {
     /** @type {string} Password for the employee account */
     this.password = employeeToCreate.password || 'prestashop_demo';
 
+    /** @type {string} Permission profile to set on the employee */
+    this.permissionProfile = employeeToCreate.permissionProfile || faker.helpers.arrayElement(profileNames);
+
     /** @type {string} Default page where employee should access after login */
-    this.defaultPage = employeeToCreate.defaultPage || faker.helpers.arrayElement(dataBOPages.pages);
+    if (employeeToCreate.defaultPage) {
+      this.defaultPage = employeeToCreate.defaultPage;
+    } else {
+      switch (this.permissionProfile) {
+        case 'SuperAdmin':
+          this.defaultPage = faker.helpers.arrayElement(dataBOPages.SuperAdmin);
+          break;
+        case 'Logistician':
+          this.defaultPage = faker.helpers.arrayElement(dataBOPages.Logistician);
+          break;
+        case 'Salesman':
+          this.defaultPage = faker.helpers.arrayElement(dataBOPages.Salesman);
+          break;
+        case 'Translator':
+          this.defaultPage = faker.helpers.arrayElement(dataBOPages.Translator);
+          break;
+        default:
+          this.defaultPage = 'Products';
+          break;
+      }
+    }
 
     /** @type {string} Default BO language for the employee */
     this.language = employeeToCreate.language
@@ -72,9 +95,6 @@ export default class FakerEmployee {
 
     /** @type {boolean} Status of the employee */
     this.active = employeeToCreate.active === undefined ? true : employeeToCreate.active;
-
-    /** @type {string} Permission profile to set on the employee */
-    this.permissionProfile = employeeToCreate.permissionProfile || faker.helpers.arrayElement(profileNames);
 
     /** @type {string|null} Path of the avatar of the employee */
     this.avatarFile = employeeToCreate.avatarFile || null;
