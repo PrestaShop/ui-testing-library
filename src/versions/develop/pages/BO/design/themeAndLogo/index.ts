@@ -26,6 +26,8 @@ class ThemeAndLogoPage extends BOThemeAndLogoBasePage implements BOThemeAndLogoP
 
   private readonly removeThemeModalDialogYesButton: string;
 
+  private readonly chooseLayoutsButton: string;
+
   /**
    * @constructs
    * Setting up texts and selectors to use on theme & logo page
@@ -45,6 +47,7 @@ class ThemeAndLogoPage extends BOThemeAndLogoBasePage implements BOThemeAndLogoP
       + 'button.js-display-delete-theme-modal';
     this.removeThemeModalDialog = '#delete_theme_modal .modal-dialog';
     this.removeThemeModalDialogYesButton = `${this.removeThemeModalDialog} .js-submit-delete-theme`;
+    this.chooseLayoutsButton = '.layout-configuration a.choose-layouts-button';
   }
 
   /**
@@ -100,6 +103,15 @@ class ThemeAndLogoPage extends BOThemeAndLogoBasePage implements BOThemeAndLogoP
     await this.waitForSelectorAndClick(page, this.removeThemeModalDialogYesButton);
 
     return this.getAlertSuccessBlockParagraphContent(page);
+  }
+
+  /**
+   * Go to "Choose Layouts" page
+   * @param page {Page} Browser tab
+   * @returns {Promise<String>}
+   */
+  async goToChooseLayoutsPage(page: Page): Promise<void> {
+    await page.locator(this.chooseLayoutsButton).click();
   }
 }
 

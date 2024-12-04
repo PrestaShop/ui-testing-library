@@ -264,6 +264,7 @@ export {default as boStockPage} from '@pages/BO/catalog/stock';
 export {default as boSuppliersCreate} from '@pages/BO/catalog/suppliers/create';
 export {default as boThemeAdvancedConfigurationPage} from '@pages/BO/design/themeAndLogo/advancedConfiguration';
 export {default as boThemeAndLogoPage} from '@pages/BO/design/themeAndLogo';
+export {default as boThemeAndLogoChooseLayoutsPage} from '@pages/BO/design/themeAndLogo/themeAndLogo/chooseLayouts';
 export {default as boThemeAndLogoImportPage} from '@pages/BO/design/themeAndLogo/themeAndLogo/import';
 export {default as boThemePagesConfigurationPage} from '@pages/BO/design/themeAndLogo/pagesConfiguration';
 export {default as boTranslationsPage} from '@pages/BO/international/translations';
