@@ -86,6 +86,7 @@ export interface BOBasePagePageInterface extends CommonPageInterface {
   closeAlertBlock(page: Page): Promise<void>;
   closeHelpSideBar(page: Page): Promise<boolean>;
   closeSfToolBar(page: Frame | Page): Promise<void>;
+  getAlertBlockContent(page: Page): Promise<string>;
   getAlertDangerBlockParagraphContent(page: Page): Promise<string>;
   getAlertInfoBlockParagraphContent(page: Page): Promise<string>;
   getAlertSuccessBlockContent(page: Frame | Page): Promise<string>;
