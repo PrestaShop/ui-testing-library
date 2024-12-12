@@ -22,7 +22,7 @@ export default class FOBasePage extends CommonPage implements FOBasePagePageInte
 
   private readonly breadCrumb: string;
 
-  private readonly breadCrumbLink: (link: string) => string;
+  private readonly breadCrumbLink: (attributeSel: string, link: string) => string;
 
   private readonly cartProductsCount: string;
 
@@ -164,7 +164,7 @@ export default class FOBasePage extends CommonPage implements FOBasePagePageInte
     this.desktopLogo = '#_desktop_logo';
     this.desktopLogoLink = `${this.desktopLogo} a`;
     this.breadCrumb = '#wrapper nav';
-    this.breadCrumbLink = (link) => `${this.breadCrumb} a[href*=${link}]`;
+    this.breadCrumbLink = (attributeSel: string, link: string) => `${this.breadCrumb} a[href${attributeSel}="${link}"]`;
     this.cartProductsCount = '#_desktop_cart .cart-products-count';
     this.cartLink = '#_desktop_cart a';
     this.userInfoLink = '#_desktop_user_info';
@@ -307,7 +307,7 @@ export default class FOBasePage extends CommonPage implements FOBasePagePageInte
   async clickOnBreadCrumbLink(page: Page, link: string): Promise<void> {
     const currentUrl: string = page.url();
 
-    await page.locator(this.breadCrumbLink(link)).first().click();
+    await page.locator(this.breadCrumbLink(link === '/' ? '$' : '*', link)).first().click();
     await page.waitForURL((url: URL): boolean => url.toString() !== currentUrl, {waitUntil: 'networkidle'});
   }
 
