@@ -1,6 +1,6 @@
 type SearchAliasCreator = {
+  search?: string
   alias?: string
-  result?: string
 };
 
 export default SearchAliasCreator;
