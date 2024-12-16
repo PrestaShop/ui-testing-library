@@ -13,6 +13,8 @@ export default class FakerLanguage {
 
   public readonly isoCode: string;
 
+  public readonly locale: string;
+
   public readonly languageCode: string;
 
   public readonly dateFormat: string;
@@ -44,6 +46,9 @@ export default class FakerLanguage {
     /** @type {string} Language of the code */
     this.languageCode = LanguageToCreate.languageCode || this.isoCode;
 
+    /** @type {string} Locale of the language*/
+    this.locale = LanguageToCreate.locale || this.buildLocaleFromCode(this.languageCode);
+
     /** @type {string} Date format for the chosen language */
     this.dateFormat = LanguageToCreate.dateFormat || 'Y-m-d';
 
@@ -61,5 +66,15 @@ export default class FakerLanguage {
 
     /** @type {string} Language no picture path */
     this.noPicture = LanguageToCreate.noPicture || `no_picture_${this.name}.png`;
+  }
+
+  private buildLocaleFromCode(languageCode: string): string {
+    const languageParts = languageCode.split('-');
+
+    if (languageParts.length === 2) {
+      return `${languageParts[0]}-${languageParts[1].toUpperCase()}`;
+    }
+
+    return languageCode;
   }
 }

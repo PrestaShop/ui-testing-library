@@ -5,6 +5,7 @@ export default {
     id: 1,
     name: 'English (English)',
     isoCode: 'en',
+    locale: 'en-US',
     languageCode: 'en-us',
     dateFormat: 'm/d/Y',
     fullDateFormat: 'm/d/Y H:i:s',
@@ -15,6 +16,7 @@ export default {
     id: 2,
     name: 'Français (French)',
     isoCode: 'fr',
+    locale: 'fr-FR',
     languageCode: 'fr',
     dateFormat: 'd/m/Y',
     fullDateFormat: 'd/m/Y H:i:s',
@@ -24,6 +26,7 @@ export default {
   spanish: new FakerLanguage({
     name: 'Español (Spanish)',
     isoCode: 'es',
+    locale: 'es-ES',
     languageCode: 'es-es',
     dateFormat: 'd/m/Y',
     fullDateFormat: 'd/m/Y H:i:s',
@@ -35,6 +38,7 @@ export default {
   deutsch: new FakerLanguage({
     name: 'Deutsch (German)',
     isoCode: 'de',
+    locale: 'de-DE',
     languageCode: 'de-de',
     dateFormat: 'd.m.Y',
     fullDateFormat: 'd.m.Y H:i:s',
@@ -46,6 +50,7 @@ export default {
   turkish: new FakerLanguage({
     name: 'Türkçe (Turkish)',
     isoCode: 'tr',
+    locale: 'tr-TR',
     languageCode: 'tr-tr',
     dateFormat: 'Y-m-d',
     fullDateFormat: 'Y-m-d H:i:s',
@@ -57,6 +62,7 @@ export default {
   spanishAR: new FakerLanguage({
     name: 'Español AR (Spanish)',
     isoCode: 'ag',
+    locale: 'es-AR',
     languageCode: 'es-ar',
     dateFormat: 'Y-m-d',
     fullDateFormat: 'Y-m-d H:i:s',
@@ -68,6 +74,7 @@ export default {
   dutch: new FakerLanguage({
     name: 'Nederlands (Dutch)',
     isoCode: 'nl',
+    locale: 'nl-NL',
     languageCode: 'nl-nl',
     dateFormat: 'd-m-Y',
     fullDateFormat: 'd-m-Y H:i:s',
@@ -79,6 +86,7 @@ export default {
   portuguese: new FakerLanguage({
     name: 'Português BR (Portuguese)',
     isoCode: 'br',
+    locale: 'pt-BR',
     languageCode: 'pt-br',
     dateFormat: 'Y-m-d',
     fullDateFormat: 'Y-m-d H:i:s',
@@ -90,6 +98,7 @@ export default {
   croatian: new FakerLanguage({
     name: 'Hrvatski (Croatian)',
     isoCode: 'hr',
+    locale: 'hr-HR',
     languageCode: 'hr-hr',
     dateFormat: 'Y-m-d',
     fullDateFormat: 'Y-m-d H:i:s',
@@ -101,6 +110,7 @@ export default {
   simplifiedChinese: new FakerLanguage({
     name: '中文 (Simplified Chinese)',
     isoCode: 'zh',
+    locale: 'zh-CN',
     languageCode: 'zh-cn',
     dateFormat: 'Y-m-d',
     fullDateFormat: 'Y-m-d H:i:s',
@@ -112,6 +122,7 @@ export default {
   traditionalChinese: new FakerLanguage({
     name: '繁體中文 (Traditional Chinese)',
     isoCode: 'tw',
+    locale: 'zh-TW',
     languageCode: 'zh-tw',
     dateFormat: 'Y-m-d',
     fullDateFormat: 'Y-m-d H:i:s',

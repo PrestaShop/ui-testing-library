@@ -2,6 +2,7 @@ type LanguageCreator = {
     id?: number
     name?: string
     isoCode?: string
+    locale?: string
     languageCode?: string
     dateFormat?: string
     fullDateFormat?: string
