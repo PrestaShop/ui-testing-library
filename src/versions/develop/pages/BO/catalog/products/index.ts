@@ -464,7 +464,8 @@ class ProductsPage extends BOBasePage implements BOProductsPageInterface {
     await page.waitForURL((url: URL): boolean => url.toString().includes('/sell/catalog/products')
         && url.toString().includes('/edit'),
     {
-      waitUntil: 'load',
+      waitUntil: 'domcontentloaded',
+      timeout: 30000,
     });
   }
 
