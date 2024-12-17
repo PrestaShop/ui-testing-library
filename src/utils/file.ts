@@ -5,7 +5,7 @@ import XLSX from 'xlsx';
 
 import {createObjectCsvWriter} from 'csv-writer';
 import imgGen from 'js-image-generator';
-import {getDocument, OPS, PDFDocumentProxy} from 'pdfjs-dist/legacy/build/pdf.js';
+import {getDocument, OPS, PDFDocumentProxy} from 'pdfjs-dist/legacy/build/pdf.mjs';
 import {TextItem, TextMarkedContent} from 'pdfjs-dist/types/src/display/api';
 import {RawImageData} from 'jpeg-js';
 import type FakerImport from '@data/faker/import';
