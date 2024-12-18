@@ -48,7 +48,7 @@ export default {
   psEmailAlerts: new FakerModule({
     tag: 'ps_emailalerts',
     name: 'Mail alerts',
-    versionCurrent: 'v3.0.0',
+    versionCurrent: 'v3.0.1',
     releaseZip: 'https://github.com/PrestaShop/ps_emailalerts/releases/download/%version%/ps_emailalerts.zip',
   }),
   psEmailSubscription: new FakerModule({
@@ -58,7 +58,7 @@ export default {
   psFacetedSearch: new FakerModule({
     tag: 'ps_facetedsearch',
     name: 'Faceted search',
-    versionCurrent: 'v3.16.1',
+    versionCurrent: 'v4.0.0',
     releaseZip: 'https://github.com/PrestaShop/ps_facetedsearch/releases/download/%version%/ps_facetedsearch.zip',
   }),
   psGdpr: new FakerModule({
