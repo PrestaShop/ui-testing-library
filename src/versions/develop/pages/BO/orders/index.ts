@@ -425,7 +425,7 @@ class OrdersPage extends BOBasePage implements BOOrdersPageInterface {
       page.locator(this.updateStatusInTableButton(row)).click(),
       this.waitForVisibleSelector(page, `${this.updateStatusInTableDropdown(row)}.show`),
     ]);
-    await this.clickAndWaitForLoadState(page, this.updateStatusInTableDropdownChoice(row, status.id));
+    await this.clickAndWaitForURL(page, this.updateStatusInTableDropdownChoice(row, status.id));
     await this.elementNotVisible(page, this.updateStatusInTableDropdownChoice(row, status.id), 2000);
 
     return this.getAlertSuccessBlockParagraphContent(page);
