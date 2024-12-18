@@ -158,4 +158,8 @@ export default {
     tag: 'statsstock',
     name: 'Available quantities',
   }),
+  autoupgrade: new FakerModule({
+    tag: 'autoupgrade',
+    name: '1-Click Upgrade',
+  }),
 };

@@ -308,6 +308,7 @@ export {default as foHummingbirdProductPage} from '@pages/FO/hummingbird/product
 export {default as foHummingbirdSearchResultsPage} from '@pages/FO/hummingbird/searchResults';
 
 // Export Modules
+export {default as modAutoupgradeBoMain} from '@pages/BO/modules/autoupgrade';
 export {default as modBlockwishlistBoMain} from '@pages/BO/modules/blockwishlist';
 export {default as modBlockwishlistBoStatistics} from '@pages/BO/modules/blockwishlist/statistics';
 export {default as modKeycloakConnectorDemoBoMain} from '@pages/BO/modules/keycloakConnectorDemo';
