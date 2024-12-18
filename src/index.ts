@@ -287,6 +287,7 @@ export {default as foClassicModalWishlistPage} from '@pages/FO/classic/modal/wis
 export {default as foClassicMyAccountPage} from '@pages/FO/classic/myAccount';
 export {default as foClassicMyWishlistsPage} from '@pages/FO/classic/myAccount/myWishlists';
 export {default as foClassicMyWishlistsViewPage} from '@pages/FO/classic/myAccount/myWishlists/view';
+export {default as foClassicOrderHistoryPage} from '@pages/FO/classic/myAccount/orderHistory';
 export {default as foClassicPasswordReminderPage} from '@pages/FO/classic/passwordReminder';
 export {default as foClassicProductPage} from '@pages/FO/classic/product';
 export {default as foClassicSearchResultsPage} from '@pages/FO/classic/searchResults';
