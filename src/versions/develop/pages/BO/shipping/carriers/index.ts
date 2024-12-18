@@ -12,39 +12,39 @@ class BOCarriersPage extends BOBasePage implements BOCarriersPageInterface {
 
   public readonly successfulUpdateStatusMessage: string;
 
-  private readonly addNewCarrierLink: string;
+  protected addNewCarrierLink: string;
 
-  private readonly gridForm: string;
+  protected gridForm: string;
 
-  private readonly gridTableHeaderTitle: string;
+  protected gridTableHeaderTitle: string;
 
-  private readonly gridTableNumberOfTitlesSpan: string;
+  protected gridTableNumberOfTitlesSpan: string;
 
-  private readonly gridTable: string;
+  protected gridTable: string;
 
-  private readonly filterRow: string;
+  protected filterRow: string;
 
-  private readonly filterColumn: (filterBy: string) => string;
+  protected filterColumn: (filterBy: string) => string;
 
-  private readonly filterSearchButton: string;
+  protected filterSearchButton: string;
 
-  private readonly filterResetButton: string;
+  protected filterResetButton: string;
 
-  private readonly tableBody: string;
+  protected tableBody: string;
 
-  private readonly tableBodyRows: string;
+  protected tableBodyRows: string;
 
-  private readonly tableBodyRow: (row: number) => string;
+  protected tableBodyRow: (row: number) => string;
 
-  private readonly tableBodyColumn: (row: number) => string;
+  protected tableBodyColumn: (row: number) => string;
 
   private readonly tableBodyColumnNth: (column: number) => string;
 
-  private readonly tableColumnId: (row: number) => string;
+  protected tableColumnId: (row: number) => string;
 
-  private readonly tableColumnName: (row: number) => string;
+  protected tableColumnName: (row: number) => string;
 
-  private readonly tableColumnDelay: (row: number) => string;
+  protected tableColumnDelay: (row: number) => string;
 
   private readonly tableColumnActive: (row: number) => string;
 
@@ -56,15 +56,15 @@ class BOCarriersPage extends BOBasePage implements BOCarriersPageInterface {
 
   private readonly tableColumnPosition: (row: number) => string;
 
-  private readonly tableColumnActions: (row: number) => string;
+  protected tableColumnActions: (row: number) => string;
 
-  private readonly tableColumnActionsEditLink: (row: number) => string;
+  protected tableColumnActionsEditLink: (row: number) => string;
 
-  private readonly tableColumnActionsToggleButton: (row: number) => string;
+  protected tableColumnActionsToggleButton: (row: number) => string;
 
-  private readonly tableColumnActionsDropdownMenu: (row: number) => string;
+  protected tableColumnActionsDropdownMenu: (row: number) => string;
 
-  private readonly tableColumnActionsDeleteLink: (row: number) => string;
+  protected tableColumnActionsDeleteLink: (row: number) => string;
 
   private readonly tableHead: string;
 
@@ -84,7 +84,7 @@ class BOCarriersPage extends BOBasePage implements BOCarriersPageInterface {
 
   private readonly paginationNextLink: string;
 
-  private readonly deleteModalButtonYes: string;
+  protected deleteModalButtonYes: string;
 
   private readonly bulkActionBlock: string;
 
@@ -116,21 +116,21 @@ class BOCarriersPage extends BOBasePage implements BOCarriersPageInterface {
     this.growlMessageBlock = '#growls .growl-message:last-of-type';
 
     // Header links
-    this.addNewCarrierLink = 'a[data-role=page-header-desc-carrier-link]';
+    this.addNewCarrierLink = 'a#page-header-desc-configuration-add';
 
     // Form selectors
-    this.gridForm = '#form-carrier';
-    this.gridTableHeaderTitle = `${this.gridForm} .panel-heading`;
-    this.gridTableNumberOfTitlesSpan = `${this.gridTableHeaderTitle} span.badge`;
+    this.gridForm = '#carrier_grid_panel';
+    this.gridTableHeaderTitle = '';
+    this.gridTableNumberOfTitlesSpan = `${this.gridTableHeaderTitle} h3.card-header-title`;
 
     // Table selectors
-    this.gridTable = '#table-carrier';
+    this.gridTable = '#carrier_grid_table';
 
     // Filter selectors
-    this.filterRow = `${this.gridTable} tr.filter`;
-    this.filterColumn = (filterBy: string) => `${this.filterRow} [name='carrierFilter_${filterBy}']`;
-    this.filterSearchButton = '#submitFilterButtoncarrier';
-    this.filterResetButton = 'button[name=\'submitResetcarrier\']';
+    this.filterRow = `${this.gridTable} tr.column-filters`;
+    this.filterColumn = (filterBy: string) => `${this.filterRow} td[data-column-id="${filterBy}"] input`;
+    this.filterSearchButton = 'button.grid-search-button[name="carrier[actions][search]"]';
+    this.filterResetButton = 'button.js-reset-search[name="carrier[actions][reset]"]';
 
     // Table body selectors
     this.tableBody = `${this.gridTable} tbody`;
@@ -140,9 +140,9 @@ class BOCarriersPage extends BOBasePage implements BOCarriersPageInterface {
     this.tableBodyColumnNth = (column: number) => `${this.tableBodyRows} td:nth-child(${column})`;
 
     // Columns selectors
-    this.tableColumnId = (row: number) => `${this.tableBodyColumn(row)}:nth-child(2)`;
-    this.tableColumnName = (row: number) => `${this.tableBodyColumn(row)}:nth-child(3)`;
-    this.tableColumnDelay = (row: number) => `${this.tableBodyColumn(row)}:nth-child(5)`;
+    this.tableColumnId = (row: number) => `${this.tableBodyColumn(row)}.column-id_carrier`;
+    this.tableColumnName = (row: number) => `${this.tableBodyColumn(row)}.column-name`;
+    this.tableColumnDelay = (row: number) => `${this.tableBodyColumn(row)}.column-delay`;
     this.tableColumnActive = (row: number) => `${this.tableBodyColumn(row)}:nth-child(6) a`;
     this.enableColumnValidIcon = (row: number) => `${this.tableColumnActive(row)} i.icon-check`;
     this.tableColumnIsFree = (row: number) => `${this.tableBodyColumn(row)}:nth-child(7) a`;
@@ -150,11 +150,11 @@ class BOCarriersPage extends BOBasePage implements BOCarriersPageInterface {
     this.tableColumnPosition = (row: number) => `${this.tableBodyColumn(row)}:nth-child(8)`;
 
     // Row actions selectors
-    this.tableColumnActions = (row: number) => `${this.tableBodyColumn(row)} .btn-group-action`;
-    this.tableColumnActionsEditLink = (row: number) => `${this.tableColumnActions(row)} a.edit`;
-    this.tableColumnActionsToggleButton = (row: number) => `${this.tableColumnActions(row)} button.dropdown-toggle`;
+    this.tableColumnActions = (row: number) => `${this.tableBodyColumn(row)}.column-actions`;
+    this.tableColumnActionsEditLink = (row: number) => `${this.tableColumnActions(row)} a.grid-edit-row-link`;
+    this.tableColumnActionsToggleButton = (row: number) => `${this.tableColumnActions(row)} a.dropdown-toggle`;
     this.tableColumnActionsDropdownMenu = (row: number) => `${this.tableColumnActions(row)} .dropdown-menu`;
-    this.tableColumnActionsDeleteLink = (row: number) => `${this.tableColumnActionsDropdownMenu(row)} a.delete`;
+    this.tableColumnActionsDeleteLink = (row: number) => `${this.tableColumnActionsDropdownMenu(row)} .grid-delete-row-link`;
 
     // Sort Selectors
     this.tableHead = `${this.gridTable} thead`;
@@ -170,7 +170,7 @@ class BOCarriersPage extends BOBasePage implements BOCarriersPageInterface {
     this.paginationNextLink = `${this.gridForm} .icon-angle-right`;
 
     // Confirmation modal
-    this.deleteModalButtonYes = '#popup_ok';
+    this.deleteModalButtonYes = '#carrier-grid-confirm-modal button.btn-confirm-submit';
 
     // Bulk actions selectors
     this.bulkActionBlock = 'div.bulk-actions';
@@ -332,7 +332,7 @@ class BOCarriersPage extends BOBasePage implements BOCarriersPageInterface {
     await this.clickAndWaitForURL(page, this.deleteModalButtonYes);
 
     // Get successful message
-    return this.getAlertSuccessBlockContent(page);
+    return this.getAlertSuccessBlockParagraphContent(page);
   }
 
   // Sort methods
@@ -579,4 +579,5 @@ class BOCarriersPage extends BOBasePage implements BOCarriersPageInterface {
   }
 }
 
-module.exports = new BOCarriersPage();
+const boCarriersPage = new BOCarriersPage();
+export {boCarriersPage, BOCarriersPage};
