@@ -1,14 +1,15 @@
-import {type OrderHistory, type OrderHistoryMessage} from '@data/types/order';
-import {type FoMyOrderHistoryPageInterface} from '@interfaces/FO/myAccount/orderHistory';
+import {FoOrderHistoryPageInterface} from '@interfaces/FO/myAccount/orderHistory';
 import FOBasePage from '@pages/FO/FOBasePage';
-import type {Page} from '@playwright/test';
+import {type OrderHistory, OrderHistoryMessage} from '@data/types/order';
+
+import type {Page} from 'playwright';
 
 /**
- * My account page, contains functions that can be used on the page
+ * Order history page, contains functions that can be used on the page
  * @class
  * @extends FOBasePage
  */
-class MyOrderHistoryPage extends FOBasePage implements FoMyOrderHistoryPageInterface {
+class OrderHistoryPage extends FOBasePage implements FoOrderHistoryPageInterface {
   public readonly pageTitle: string;
 
   public readonly messageSuccessSent: string;
@@ -258,5 +259,5 @@ class MyOrderHistoryPage extends FOBasePage implements FoMyOrderHistoryPageInter
   }
 }
 
-const myOrderHistoryPage = new MyOrderHistoryPage();
-export {myOrderHistoryPage, MyOrderHistoryPage};
+const orderHistoryPage = new OrderHistoryPage();
+export {orderHistoryPage, OrderHistoryPage};
