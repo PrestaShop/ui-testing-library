@@ -100,7 +100,7 @@ export default {
    * Check text in PDF
    * @param filePath {string|null} Path of the PDF file
    * @param text {string} Text to check on the file
-   * @param deleteComma {boolean} True if we need to delete comma
+   * @param deleteComma {boolean} True if we need to delete comma. PDF to txt conversion adds comma where newlines are.
    * @returns {Promise<boolean>}
    */
   async isTextInPDF(filePath: string | null, text: string, deleteComma: boolean = false): Promise<boolean> {
@@ -120,6 +120,7 @@ export default {
 
     const pageTexts = await Promise.all(pageTextPromises);
 
+    // delete commas from the page text. getPageTextFromPdf adds commas to newlines in some cases
     if (deleteComma) {
       return ((pageTexts.join(' ').split(/,\//).join('/').split(/,\s*,?/)
         .join(' '))
