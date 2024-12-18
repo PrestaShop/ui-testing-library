@@ -1,3 +1,4 @@
+import dataZones from '@data/demo/zones';
 import FakerCarrier from '@data/faker/carrier';
 import FakerGroup from '@data/faker/group';
 import {CarrierRange} from '@data/types/carrier';
@@ -11,71 +12,87 @@ import type {Page} from '@playwright/test';
  * @extends BOBasePage
  */
 class BOCarriersCreatePage extends BOBasePage implements BOCarriersCreatePageInterface {
-  public readonly pageTitleCreate: string;
+  public pageTitleCreate: string;
 
-  public readonly pageTitleEdit: string;
+  public pageTitleEdit: string;
 
-  private readonly carrierForm: string;
+  protected carrierForm: string;
 
-  private readonly nameInput: string;
+  private readonly tabGeneralSettings: string;
 
-  private readonly transitTimeInput: string;
+  protected nameInput: string;
 
-  private readonly speedGradeInput: string;
+  protected transitTimeInput: string;
 
-  private readonly logoInput: string;
+  protected speedGradeInput: string;
 
-  private readonly trackingURLInput: string;
+  protected logoInput: string;
 
-  private readonly addHandlingCostsToggle: (toggle: string) => string;
+  protected trackingURLInput: string;
 
-  private readonly freeShippingToggle: (toggle: string) => string;
+  private readonly tabShippingSettings: string;
 
-  private readonly billingPriceRadioButton: string;
+  protected addHandlingCostsToggle: (toggle: string) => string;
 
-  private readonly billingWeightButton: string;
+  protected freeShippingToggle: (toggle: string) => string;
 
-  private readonly taxRuleSelect: string;
+  protected billingPriceRadioButton: string;
 
-  private readonly rangeBehaviorSelect: string;
+  protected billingWeightButton: string;
 
-  private readonly zonesTable: string;
+  protected taxRuleSelect: string;
 
-  private readonly rangeInfInput: (numColumn: number) => string;
+  protected rangeBehaviorSelect: string;
 
-  private readonly rangeSupInput: (numColumn: number) => string;
+  private readonly zonesWidget: string;
 
-  private readonly allZonesRadioButton: string;
+  private readonly zonesRemoveButton: string;
 
-  private readonly allZonesValueInput: (numColumn: number) => string;
+  private readonly zonesSelect2: string;
 
-  private readonly rangeZoneCheckbox: string;
+  private readonly zonesSelect2Input: string;
 
-  private readonly rangeZoneIDCheckbox: (zoneID: string) => string;
+  private readonly rangesButton: string;
 
-  private readonly rangePriceInput: (numColumn: number, zoneID: string) => string;
+  private readonly rangesModal: string;
 
-  private readonly addNewRangeButton: string;
+  private readonly rangesRemoveButton: string;
 
-  private readonly deleteRangeButton: string;
+  private readonly rangesRow: (nth: number) => string;
 
-  private readonly maxWidthInput: string;
+  private readonly rangesRowInputFrom: (nth: number) => string;
 
-  private readonly maxHeightInput: string;
+  private readonly rangesRowInputTo: (nth: number) => string;
 
-  private readonly maxDepthInput: string;
+  private readonly rangesAddButton: string;
 
-  private readonly maxWeightInput: string;
+  private readonly rangesApplyButton: string;
 
-  private readonly groupAccessInput: string;
+  private readonly costsBlock: string;
 
-  private readonly groupAccessIdInput: (groupAccessId: number) => string;
+  private readonly costsZoneBlock: (zoneId: number) => string;
 
-  private readonly enableToggle: (toggle: string) => string;
+  private readonly costsPriceInput: (zoneId: number, from: number, to: number) => string;
 
-  private readonly nextButton: string;
+  private readonly tabSizeWeightSettings: string;
 
-  private readonly finishButton: string;
+  protected maxWidthInput: string;
+
+  protected maxHeightInput: string;
+
+  protected maxDepthInput: string;
+
+  protected maxWeightInput: string;
+
+  protected groupAccessInputAll: string;
+
+  protected groupAccessInput: string;
+
+  protected groupAccessIdInput: (groupAccessId: number) => string;
+
+  protected enableToggle: (toggle: string) => string;
+
+  private readonly submitButton: string;
 
   /**
    * @constructs
@@ -84,54 +101,59 @@ class BOCarriersCreatePage extends BOBasePage implements BOCarriersCreatePageInt
   constructor() {
     super();
 
-    this.pageTitleCreate = 'Carriers > View •';
-    this.pageTitleEdit = 'Carriers >';
+    this.pageTitleCreate = `New Carrier • ${global.INSTALL.SHOP_NAME}`;
+    this.pageTitleEdit = `Carrier • ${global.INSTALL.SHOP_NAME}`;
 
-    this.alertSuccessBlockParagraph = '.alert-success';
-
+    this.carrierForm = 'form[name="carrier"]';
     // General settings
-    this.carrierForm = '#carrier_wizard';
-    this.nameInput = '#name';
-    this.transitTimeInput = '#delay_1';
-    this.speedGradeInput = '#grade';
-    this.logoInput = '#carrier_logo_input';
-    this.trackingURLInput = '#url';
+    this.tabGeneralSettings = '#carrier_general_settings-tab-nav a';
+    this.nameInput = '#carrier_general_settings_name';
+    this.transitTimeInput = '#carrier_general_settings_localized_delay_1';
+    this.enableToggle = (toggle: string) => `${this.carrierForm} #carrier_general_settings_active_${toggle}`;
+    this.speedGradeInput = '#carrier_general_settings_grade';
+    this.logoInput = '#carrier_general_settings_logo';
+    this.trackingURLInput = '#carrier_general_settings_tracking_url';
+    this.groupAccessInputAll = 'input.js-choice-table-select-all';
+    this.groupAccessInput = 'input[name="carrier[general_settings][group_access][]"]';
+    this.groupAccessIdInput = (groupAccessId: number) => `${this.groupAccessInput}[value="${groupAccessId}"]`;
 
     // Shipping locations and costs
-    this.addHandlingCostsToggle = (toggle: string) => `${this.carrierForm} #shipping_handling_${toggle}`;
-    this.freeShippingToggle = (toggle: string) => `${this.carrierForm} #is_free_${toggle}`;
-    this.billingPriceRadioButton = '#billing_price';
-    this.billingWeightButton = '#billing_weight';
-    this.taxRuleSelect = '#id_tax_rules_group';
-    this.rangeBehaviorSelect = '#range_behavior';
-    this.zonesTable = '#zones_table';
-    this.rangeInfInput = (numColumn: number) => `${this.zonesTable} tr.range_inf td:nth-child(${numColumn + 3}) `
-      + 'input[name^=\'range_inf\']';
-    this.rangeSupInput = (numColumn: number) => `${this.zonesTable} tr.range_sup td:nth-child(${numColumn + 3}) `
-      + 'input[name^=\'range_sup\']';
-    this.allZonesRadioButton = `${this.zonesTable} tr.fees_all input[onclick*='checkAllZones']`;
-    this.allZonesValueInput = (numColumn: number) => `${this.zonesTable} tr.fees_all td:nth-child(${numColumn + 3})`
-      + ' .input-group input';
-    this.rangeZoneCheckbox = `${this.zonesTable} input.input_zone`;
-    this.rangeZoneIDCheckbox = (zoneID: string) => `${this.rangeZoneCheckbox}#zone_${zoneID}`;
-    this.rangePriceInput = (numColumn: number, zoneID: string) => `${this.zonesTable} td:nth-child(${numColumn + 3})`
-      + ` input[name^="fees[${zoneID}]"]`;
-    this.addNewRangeButton = '#add_new_range';
-    this.deleteRangeButton = `${this.zonesTable} tr.delete_range td button`;
+    this.tabShippingSettings = '#carrier_shipping_settings-tab-nav a';
+    this.addHandlingCostsToggle = (toggle: string) => `${this.carrierForm
+    } #carrier_shipping_settings_has_additional_handling_fee_${toggle}`;
+    this.freeShippingToggle = (toggle: string) => `${this.carrierForm} #carrier_shipping_settings_is_free_${toggle}`;
+    this.billingPriceRadioButton = `${this.carrierForm} #carrier_shipping_settings_shipping_method_0`;
+    this.billingWeightButton = `${this.carrierForm} #carrier_shipping_settings_shipping_method_1`;
+    this.taxRuleSelect = `${this.carrierForm} #carrier_shipping_settings_id_tax_rule_group`;
+    this.rangeBehaviorSelect = `${this.carrierForm} #carrier_shipping_settings_range_behavior`;
+    /// Zones
+    this.zonesWidget = `${this.carrierForm} .multiple_zone_choice-widget`;
+    this.zonesRemoveButton = `${this.zonesWidget} .select2-selection__choice__remove`;
+    this.zonesSelect2 = `${this.zonesWidget} .select2-selection`;
+    this.zonesSelect2Input = `${this.zonesSelect2} .select2-search__field`;
+    /// Ranges
+    this.rangesButton = `${this.carrierForm} #carrier_shipping_settings_ranges_show_modal`;
+    this.rangesModal = '#carrier_shipping_settings_ranges-app .modal-content';
+    this.rangesRemoveButton = `${this.rangesModal} .modal-body button.btn-delete`;
+    this.rangesRow = (nth: number) => `${this.rangesModal} .modal-body tr[data-row="${nth}"]`;
+    this.rangesRowInputFrom = (nth: number) => `${this.rangesRow(nth)} input.form-from`;
+    this.rangesRowInputTo = (nth: number) => `${this.rangesRow(nth)} input.form-to`;
+    this.rangesAddButton = `${this.rangesModal} .modal-body .table-container > button:not(.btn-delete)`;
+    this.rangesApplyButton = `${this.rangesModal} .modal-footer button.btn-primary`;
+    /// Costs
+    this.costsBlock = '#carrier_shipping_settings_ranges_costs';
+    this.costsZoneBlock = (zoneId: number) => `${this.costsBlock} .js-carrier-zone-row[data-zone-id="${zoneId}"]`;
+    this.costsPriceInput = (zoneId: number, from: number, to: number) => `${this.costsZoneBlock(zoneId)} input.form-control`
+      + `[data-from="${from}"][data-to="${to}"]`;
 
     // Size, weight and group access
-    this.maxWidthInput = '#max_width';
-    this.maxHeightInput = '#max_height';
-    this.maxDepthInput = '#max_depth';
-    this.maxWeightInput = '#max_weight';
-    this.groupAccessInput = 'input[name="groupBox[]"]';
-    this.groupAccessIdInput = (groupAccessId: number) => `${this.groupAccessInput}#groupBox_${groupAccessId}`;
+    this.tabSizeWeightSettings = '#carrier_size_weight_settings-tab-nav a';
+    this.maxWidthInput = '#carrier_size_weight_settings_max_width';
+    this.maxHeightInput = '#carrier_size_weight_settings_max_height';
+    this.maxDepthInput = '#carrier_size_weight_settings_max_depth';
+    this.maxWeightInput = '#carrier_size_weight_settings_max_weight';
 
-    // Summary
-    this.enableToggle = (toggle: string) => `${this.carrierForm} #active_${toggle}`;
-
-    this.nextButton = `${this.carrierForm} .buttonNext`;
-    this.finishButton = `${this.carrierForm} .buttonFinish`;
+    this.submitButton = '#carrier__footer_buttons_submit';
   }
 
   /* Methods */
@@ -143,116 +165,137 @@ class BOCarriersCreatePage extends BOBasePage implements BOCarriersCreatePageInt
    * @return {Promise<string>}
    */
   async createEditCarrier(page: Page, carrierData: FakerCarrier): Promise<string> {
+    // Tab generat settings
+    await page.locator(this.tabGeneralSettings).click();
     // Set general settings
     await this.setValue(page, this.nameInput, carrierData.name);
     await this.setValue(page, this.transitTimeInput, carrierData.transitName);
+    await this.setHiddenCheckboxValue(page, this.enableToggle('1'), carrierData.enable);
     await this.setValue(page, this.speedGradeInput, carrierData.speedGrade);
     await this.uploadFile(page, this.logoInput, `${carrierData.name}.jpg`);
     await this.setValue(page, this.trackingURLInput, carrierData.trackingURL);
-    await page.locator(this.nextButton).click();
 
+    if (carrierData.groupAccesses.length) {
+      await this.setCheckedWithIcon(page, this.groupAccessInputAll, false);
+
+      for (let idxGroupAccess: number = 0; idxGroupAccess < carrierData.groupAccesses.length; idxGroupAccess++) {
+        const groupAccess: FakerGroup = carrierData.groupAccesses[idxGroupAccess];
+        await this.setCheckedWithIcon(page, this.groupAccessIdInput(groupAccess.id), true);
+      }
+    }
+
+    // Tab shipping locations and costs
+    await page.locator(this.tabShippingSettings).click();
     // Set shipping locations and costs
-    await this.setChecked(page, this.freeShippingToggle(carrierData.freeShipping ? 'on' : 'off'));
-    if (!carrierData.freeShipping) {
-      await this.setChecked(page, this.addHandlingCostsToggle(carrierData.handlingCosts ? 'on' : 'off'));
-    }
+    /// Zones - START
+    // Remove all zones
+    const numZonesRemoveButton = await page.locator(this.zonesRemoveButton).count();
 
-    if (carrierData.billing === 'According to total price') {
-      await page.locator(this.billingPriceRadioButton).click();
-    } else {
-      await page.locator(this.billingWeightButton).click();
-    }
-    await this.selectByVisibleText(page, this.taxRuleSelect, carrierData.taxRule);
-    await this.selectByVisibleText(page, this.rangeBehaviorSelect, carrierData.outOfRangeBehavior);
-
-    // Reset data before adding
-    if (!carrierData.freeShipping) {
-      await this.dialogListener(page);
-      // Remove all colums
-      const numDeleteRangeButtons = await page.locator(this.deleteRangeButton).count();
-
-      for (let i: number = 0; i < numDeleteRangeButtons; i++) {
-        await page.locator(this.deleteRangeButton).nth(0).click();
+    if (numZonesRemoveButton > 0) {
+      for (let i: number = 0; i < numZonesRemoveButton; i++) {
+        await page.locator(this.zonesRemoveButton).nth(0).click();
       }
 
-      // Remove all ranges
-      const locatorRangeZoneCheckboxes = await page.locator(this.rangeZoneCheckbox).all();
-
-      // eslint-disable-next-line no-restricted-syntax
-      for (const locatorRangeZoneCheckbox of locatorRangeZoneCheckboxes) {
-        await locatorRangeZoneCheckbox.setChecked(false);
-      }
+      await page.mouse.click(5, 5);
     }
-    // Set range sup only if free shipping is disabled
-    for (let idxRange: number = 0; idxRange < carrierData.ranges.length; idxRange++) {
-      const carrierRange: CarrierRange = carrierData.ranges[idxRange];
 
-      if (!carrierData.freeShipping) {
-        if (carrierRange.weightMin) {
-          await this.setValue(page, this.rangeInfInput(idxRange), carrierRange.weightMin);
-        }
-        if (carrierRange.weightMax) {
-          await this.setValue(page, this.rangeSupInput(idxRange), carrierRange.weightMax);
-        }
-      }
+    // Add zones
+    if (carrierData.ranges.length > 0) {
+      const carrierRange: CarrierRange = carrierData.ranges[0];
+
       for (let idxZone: number = 0; idxZone < carrierRange.zones.length; idxZone++) {
         const carrierRangeZone = carrierRange.zones[idxZone].zone;
-        const carrierRangePrice = carrierRange.zones[idxZone].price;
-
+        await page.locator(this.zonesSelect2).click();
+        await this.waitForVisibleSelector(page, `${this.zonesSelect2}[aria-expanded='true']`);
         if (typeof carrierRangeZone === 'string') {
-          await page.locator(this.allZonesRadioButton).setChecked(true);
-          if (typeof carrierRangePrice !== 'undefined' && !carrierData.freeShipping) {
-            await page.locator(this.allZonesValueInput(idxRange)).fill(carrierRangePrice.toString());
-            await page.waitForTimeout(1000);
-            await page.locator(this.allZonesValueInput(idxRange)).dispatchEvent('change');
-            await page.waitForTimeout(2000);
+          // eslint-disable-next-line no-restricted-syntax
+          for (const zone of Object.values(dataZones)) {
+            await this.setValue(page, this.zonesSelect2Input, zone.name);
+            await page.keyboard.press('Enter');
           }
         } else {
-          await page.locator(
-            this.rangeZoneIDCheckbox(carrierRangeZone.id!.toString()),
-          ).setChecked(true);
-          if (typeof carrierRangePrice !== 'undefined' && !carrierData.freeShipping) {
-            await page.locator(
-              this.rangePriceInput(idxRange, carrierRangeZone.id!.toString()),
-            ).fill(carrierRangePrice.toString());
-          }
-        }
-      }
-
-      // Click on the "Add new range" button
-      if (idxRange < (carrierData.ranges.length - 1)) {
-        // Only if there is no next range (useful for edition)
-        if ((await page.locator(this.rangeInfInput(idxRange + 1)).count() === 0)) {
-          await page.locator(this.addNewRangeButton).click();
+          await this.setValue(page, this.zonesSelect2Input, carrierRangeZone.name!);
+          await page.keyboard.press('Enter');
         }
       }
     }
-    await page.locator(this.nextButton).click();
+    /// Zones - END
 
-    // Set size, weight and group access
+    await this.setHiddenCheckboxValue(page, this.freeShippingToggle('1'), carrierData.freeShipping);
+    if (!carrierData.freeShipping) {
+      await this.setChecked(page, this.addHandlingCostsToggle('1'), carrierData.handlingCosts, true);
+      await this.selectByVisibleText(page, this.taxRuleSelect, carrierData.taxRule);
+      if (carrierData.billing === 'According to total price') {
+        await page.locator(this.billingPriceRadioButton).click();
+      } else {
+        await page.locator(this.billingWeightButton).click();
+      }
+      await this.selectByVisibleText(page, this.rangeBehaviorSelect, carrierData.outOfRangeBehavior);
+
+      /// Ranges - START
+      await page.locator(this.rangesButton).click();
+      await this.waitForVisibleSelector(page, this.rangesModal);
+      // Remove all ranges
+      const numRangesRemoveButton = await page.locator(this.rangesRemoveButton).count();
+
+      for (let i: number = 0; i < numRangesRemoveButton; i++) {
+        await page.locator(this.rangesRemoveButton).nth(0).click();
+      }
+      // Add ranges
+      for (let idxRange: number = 0; idxRange < carrierData.ranges.length; idxRange++) {
+        const carrierRange: CarrierRange = carrierData.ranges[idxRange];
+
+        await this.setValue(page, this.rangesRowInputFrom(idxRange), carrierRange.weightMin!);
+        await this.setValue(page, this.rangesRowInputTo(idxRange), carrierRange.weightMax!);
+
+        // Click on the "Add new range" button
+        if (idxRange < (carrierData.ranges.length - 1)) {
+          await page.locator(this.rangesAddButton).click();
+        }
+      }
+      await page.locator(this.rangesApplyButton).click();
+      await this.waitForHiddenSelector(page, this.rangesModal);
+      /// Ranges - END
+
+      /// Prices - START
+      for (let idxRange: number = 0; idxRange < carrierData.ranges.length; idxRange++) {
+        const carrierRange: CarrierRange = carrierData.ranges[idxRange];
+
+        for (let idxZone: number = 0; idxZone < carrierRange.zones.length; idxZone++) {
+          const carrierRangeZone = carrierRange.zones[idxZone].zone;
+          const carrierRangePrice = carrierRange.zones[idxZone].price;
+
+          if (typeof carrierRangeZone === 'string') {
+            // eslint-disable-next-line no-restricted-syntax
+            for (const zone of Object.values(dataZones)) {
+              await this.setValue(
+                page,
+                this.costsPriceInput(zone.id, carrierRange.weightMin!, carrierRange.weightMax!),
+                carrierRangePrice!,
+              );
+            }
+          } else {
+            await this.setValue(
+              page,
+              this.costsPriceInput(carrierRangeZone.id!, carrierRange.weightMin!, carrierRange.weightMax!),
+              carrierRangePrice!,
+            );
+          }
+        }
+      }
+    }
+    /// Ranges - END
+
+    // Tab size, weight
+    await page.locator(this.tabSizeWeightSettings).click();
+    // Set size, weight
     await this.setValue(page, this.maxWidthInput, carrierData.maxWidth);
     await this.setValue(page, this.maxHeightInput, carrierData.maxHeight);
     await this.setValue(page, this.maxDepthInput, carrierData.maxDepth);
     await this.setValue(page, this.maxWeightInput, carrierData.maxWeight);
 
-    const locatorGroupAccessInputs = await page.locator(this.groupAccessInput).all();
-
-    if (carrierData.groupAccesses.length) {
-      // eslint-disable-next-line no-restricted-syntax
-      for (const locatorGroupAccessInput of locatorGroupAccessInputs) {
-        await locatorGroupAccessInput.setChecked(false);
-      }
-      for (let idxGroupAccess: number = 0; idxGroupAccess < carrierData.groupAccesses.length; idxGroupAccess++) {
-        const groupAccess: FakerGroup = carrierData.groupAccesses[idxGroupAccess];
-        await page.locator(this.groupAccessIdInput(groupAccess.id)).setChecked(true);
-      }
-    }
-
-    await page.locator(this.nextButton).click();
-
     // Summary
-    await this.setChecked(page, this.enableToggle(carrierData.enable ? 'on' : 'off'));
-    await page.locator(this.finishButton).click();
+    await page.locator(this.submitButton).click();
 
     // Return successful message
     return this.getAlertSuccessBlockParagraphContent(page);
@@ -265,14 +308,15 @@ class BOCarriersCreatePage extends BOBasePage implements BOCarriersCreatePageInt
    * @returns {Promise<string>}
    */
   async setHandlingCosts(page: Page, toEnable: boolean = true): Promise<string> {
-    await page.locator(this.nextButton).click();
-    await this.setChecked(page, this.addHandlingCostsToggle(toEnable ? 'on' : 'off'));
+    await page.locator(this.tabShippingSettings).click();
+    await this.setChecked(page, this.addHandlingCostsToggle('1'), toEnable, true);
 
-    await page.locator(this.finishButton).click();
+    await page.locator(this.submitButton).click();
 
     // Return successful message
     return this.getAlertSuccessBlockParagraphContent(page);
   }
 }
 
-module.exports = new BOCarriersCreatePage();
+const boCarriersCreatePage = new BOCarriersCreatePage();
+export {boCarriersCreatePage, BOCarriersCreatePage};
