@@ -12,31 +12,31 @@ class BOCarriersPage extends BOBasePage implements BOCarriersPageInterface {
 
   public readonly successfulUpdateStatusMessage: string;
 
-  private readonly addNewCarrierLink: string;
+  protected addNewCarrierLink: string;
 
-  private readonly gridForm: string;
+  protected gridForm: string;
 
-  private readonly gridTableHeaderTitle: string;
+  protected gridTableHeaderTitle: string;
 
-  private readonly gridTableNumberOfTitlesSpan: string;
+  protected gridTableNumberOfTitlesSpan: string;
 
-  private readonly gridTable: string;
+  protected gridTable: string;
 
   private readonly filterRow: string;
 
   private readonly filterColumn: (filterBy: string) => string;
 
-  private readonly filterSearchButton: string;
+  protected filterSearchButton: string;
 
-  private readonly filterResetButton: string;
+  protected filterResetButton: string;
 
-  private readonly tableBody: string;
+  protected tableBody: string;
 
-  private readonly tableBodyRows: string;
+  protected tableBodyRows: string;
 
-  private readonly tableBodyRow: (row: number) => string;
+  protected tableBodyRow: (row: number) => string;
 
-  private readonly tableBodyColumn: (row: number) => string;
+  protected tableBodyColumn: (row: number) => string;
 
   private readonly tableBodyColumnNth: (column: number) => string;
 
@@ -56,9 +56,9 @@ class BOCarriersPage extends BOBasePage implements BOCarriersPageInterface {
 
   private readonly tableColumnPosition: (row: number) => string;
 
-  private readonly tableColumnActions: (row: number) => string;
+  protected tableColumnActions: (row: number) => string;
 
-  private readonly tableColumnActionsEditLink: (row: number) => string;
+  protected tableColumnActionsEditLink: (row: number) => string;
 
   private readonly tableColumnActionsToggleButton: (row: number) => string;
 
@@ -116,21 +116,21 @@ class BOCarriersPage extends BOBasePage implements BOCarriersPageInterface {
     this.growlMessageBlock = '#growls .growl-message:last-of-type';
 
     // Header links
-    this.addNewCarrierLink = 'a[data-role=page-header-desc-carrier-link]';
+    this.addNewCarrierLink = 'a#page-header-desc-configuration-add';
 
     // Form selectors
-    this.gridForm = '#form-carrier';
-    this.gridTableHeaderTitle = `${this.gridForm} .panel-heading`;
-    this.gridTableNumberOfTitlesSpan = `${this.gridTableHeaderTitle} span.badge`;
+    this.gridForm = '#carrier_grid_panel';
+    this.gridTableHeaderTitle = '';
+    this.gridTableNumberOfTitlesSpan = `${this.gridTableHeaderTitle} h3.card-header-title`;
 
     // Table selectors
-    this.gridTable = '#table-carrier';
+    this.gridTable = '#carrier_grid_table';
 
     // Filter selectors
     this.filterRow = `${this.gridTable} tr.filter`;
     this.filterColumn = (filterBy: string) => `${this.filterRow} [name='carrierFilter_${filterBy}']`;
-    this.filterSearchButton = '#submitFilterButtoncarrier';
-    this.filterResetButton = 'button[name=\'submitResetcarrier\']';
+    this.filterSearchButton = 'button.grid-search-button[name="carrier[actions][search]"]';
+    this.filterResetButton = 'button.js-reset-search[name="carrier[actions][reset]"]';
 
     // Table body selectors
     this.tableBody = `${this.gridTable} tbody`;
@@ -150,8 +150,8 @@ class BOCarriersPage extends BOBasePage implements BOCarriersPageInterface {
     this.tableColumnPosition = (row: number) => `${this.tableBodyColumn(row)}:nth-child(8)`;
 
     // Row actions selectors
-    this.tableColumnActions = (row: number) => `${this.tableBodyColumn(row)} .btn-group-action`;
-    this.tableColumnActionsEditLink = (row: number) => `${this.tableColumnActions(row)} a.edit`;
+    this.tableColumnActions = (row: number) => `${this.tableBodyColumn(row)}.column-actions`;
+    this.tableColumnActionsEditLink = (row: number) => `${this.tableColumnActions(row)} a.grid-edit-row-link`;
     this.tableColumnActionsToggleButton = (row: number) => `${this.tableColumnActions(row)} button.dropdown-toggle`;
     this.tableColumnActionsDropdownMenu = (row: number) => `${this.tableColumnActions(row)} .dropdown-menu`;
     this.tableColumnActionsDeleteLink = (row: number) => `${this.tableColumnActionsDropdownMenu(row)} a.delete`;
@@ -579,4 +579,5 @@ class BOCarriersPage extends BOBasePage implements BOCarriersPageInterface {
   }
 }
 
-module.exports = new BOCarriersPage();
+const boCarriersPage = new BOCarriersPage();
+export {boCarriersPage, BOCarriersPage};
