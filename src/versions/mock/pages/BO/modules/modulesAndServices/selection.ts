@@ -26,7 +26,7 @@ class SelectionPage extends BOBasePage implements SelectionPageInterface {
   Methods
    */
   /**
-   * Install the module and return if installed
+   * Install the module and return success message
    * @returns {Promise<string>}
    */
   async installModule(): Promise<string|null> {

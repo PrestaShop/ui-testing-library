@@ -34,7 +34,7 @@ class Marketplace extends BOBasePage implements MarketplacePageInterface {
   }
 
   /**
-   * Install the module and return if installed
+   * Install the module and return success message
    * @returns {Promise<string>}
    */
   async installModule(): Promise<string|null> {

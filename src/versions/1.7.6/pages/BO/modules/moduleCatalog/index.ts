@@ -39,7 +39,7 @@ class ModuleCatalogPage extends BOBasePage implements ModuleCatalogPageInterface
    */
 
   /**
-   * Install the module and return if installed
+   * Install the module and return success message
    * @param {Page} page
    * @param {string} moduleTag
    * @returns {Promise<string>}
