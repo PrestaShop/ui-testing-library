@@ -223,6 +223,9 @@ export {default as boLanguagesCreatePage} from '@pages/BO/international/language
 export {default as boLocalizationPage} from '@pages/BO/international/localization';
 export {default as boLoginPage} from '@pages/BO/login';
 export {default as boMaintenancePage} from '@pages/BO/shopParameters/general/maintenance';
+export {default as boMarketplacePage} from '@pages/BO/modules/marketplace';
+export {default as boInstalledModulesPage} from '@pages/BO/modules/modulesAndServices/installedModules';
+export {default as boSelectionPage} from '@pages/BO/modules/modulesAndServices/selection';
 export {default as boModuleManagerPage} from '@pages/BO/modules/moduleManager';
 export {default as boModuleManagerAlertsPage} from '@pages/BO/modules/moduleManager/alerts';
 export {default as boModuleManagerUninstalledModulesPage} from '@pages/BO/modules/moduleManager/uninstalledModules';
