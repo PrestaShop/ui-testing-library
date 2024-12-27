@@ -1,9 +1,9 @@
 import {Page} from '@playwright/test';
-import {SelectionPageInterface} from '../../../../../../interfaces/BO/modules/modulesAndServices/selection';
-import BOBasePage from '../../../../../../pages/BO/BOBasePage';
+import {SelectionPageInterface} from '@interfaces/BO/modules/modulesAndServices/selection';
+import BOBasePage from '@pages/BO/BOBasePage';
 
 /**
- * Marketplace page, contains selectors and functions for the page
+ * Selection page, contains selectors and functions for the page
  * @class
  * @extends BOBasePage
  */
@@ -22,7 +22,7 @@ class SelectionPage extends BOBasePage implements SelectionPageInterface {
 
   /**
    * @constructs
-   * Setting up titles and selectors to use on modules catalog page
+   * Setting up titles and selectors to use on selection page
    */
   constructor() {
     super();

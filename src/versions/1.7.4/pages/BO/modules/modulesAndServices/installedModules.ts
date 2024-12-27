@@ -27,7 +27,7 @@ class InstalledModulesPage extends BOBasePage implements InstalledModulesPageInt
 
   /**
    * @constructs
-   * Setting up titles and selectors to use on modules catalog page
+   * Setting up titles and selectors to use on installed modules page
    */
   constructor() {
     super();

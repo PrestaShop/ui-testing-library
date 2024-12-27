@@ -6,7 +6,7 @@ const psVersion = testContext.getPSVersion();
 
 /* eslint-disable global-require, @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires */
 function requirePage(): MarketplacePageInterface {
-  if (semver.gte(psVersion, '8.0.0')) {
+  if (semver.gte(psVersion, '7.6.0')) {
     return require('@versions/mock/pages/BO/modules/marketplace');
   }
   return require('@versions/1.7.5/pages/BO/modules/marketplace');
