@@ -28,7 +28,7 @@ class Autoupgrade extends ModuleConfiguration implements ModuleAutoupgradeMainPa
 
   private readonly checkRequirementsFailedAlerts: string;
 
-  private readonly goToMaintenancePageLink: string;
+  protected goToMaintenancePageLink: string;
 
   private readonly checkRequirementsButton: string;
 
@@ -176,6 +176,7 @@ class Autoupgrade extends ModuleConfiguration implements ModuleAutoupgradeMainPa
    */
   async goToNextStep(page: Page): Promise<void> {
     await page.locator(this.nextStepButton).click();
+    await page.waitForTimeout(2000);
   }
 
   /**
@@ -231,4 +232,5 @@ class Autoupgrade extends ModuleConfiguration implements ModuleAutoupgradeMainPa
   }
 }
 
-module.exports = new Autoupgrade();
+const autoupgrade = new Autoupgrade();
+export {autoupgrade, Autoupgrade};

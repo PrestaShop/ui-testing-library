@@ -14,7 +14,7 @@ class BOMaintenancePage extends BOBasePage implements BOMaintenancePageInterface
 
   private readonly generalForm: string;
 
-  private readonly shopStatusToggleInput: (toggle: number) => string;
+  protected shopStatusToggleInput: (toggle: number) => string;
 
   private readonly allowAdminsToggleInput: (toggle: number) => string;
 
@@ -24,11 +24,11 @@ class BOMaintenancePage extends BOBasePage implements BOMaintenancePageInterface
 
   private readonly maintenanceTextInputFR: string;
 
-  private readonly addMyIPAddressButton: string;
+  protected addMyIPAddressButton: string;
 
   private readonly maintenanceIpInput: string;
 
-  private readonly saveFormButton: string;
+  protected saveFormButton: string;
 
   /**
    * @constructs
@@ -124,4 +124,5 @@ class BOMaintenancePage extends BOBasePage implements BOMaintenancePageInterface
   }
 }
 
-module.exports = new BOMaintenancePage();
+const maintenancePage = new BOMaintenancePage();
+export {maintenancePage, BOMaintenancePage};
