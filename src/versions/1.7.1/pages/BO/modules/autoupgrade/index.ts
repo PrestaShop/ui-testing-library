@@ -14,7 +14,7 @@ class AutoupgradeVersion extends Autoupgrade implements ModuleAutoupgradeMainPag
   constructor() {
     super();
 
-    this.pageTitle = 'AdminSelfUpgrade > AdminSelfUpgrade • PrestaShop';
+    this.pageTitle = `AdminSelfUpgrade > AdminSelfUpgrade • ${global.INSTALL.SHOP_NAME}`;
   }
 }
 
