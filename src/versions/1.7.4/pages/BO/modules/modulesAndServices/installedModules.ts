@@ -36,7 +36,7 @@ class InstalledModulesPage extends BOBasePage implements InstalledModulesPageInt
 
     // Selectors
     this.selectionLink = '#subtab-AdminModulesCatalog';
-    this.configureModuleButton = '.dropdown-menu form[action*=\'configure\']';
+    this.configureModuleButton = '.dropdown-menu form[action*=\'configure\'], .module_action_menu_configure';
     this.searchModuleTagInput = '#search-input-group input.pstaggerAddTagInput';
     this.searchModuleButton = '#module-search-button';
     this.moduleItemName = (moduleTag: string) => `.module-item-list[data-tech-name=${moduleTag}]`;

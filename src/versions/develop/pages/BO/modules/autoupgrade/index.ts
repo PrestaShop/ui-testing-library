@@ -226,7 +226,7 @@ class Autoupgrade extends ModuleConfiguration implements ModuleAutoupgradeMainPa
    * @return {Promise<string}
    */
   async checkUpdateSuccess(page: Page): Promise<string> {
-    await this.waitForVisibleSelector(page, this.updateProgressBar, 500000);
+    await this.waitForVisibleSelector(page, this.updateProgressBar, 1000000);
 
     return this.getTextContent(page, this.updateAlertSuccessMessage);
   }
