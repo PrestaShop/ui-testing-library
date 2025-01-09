@@ -24,6 +24,8 @@ class Autoupgrade extends ModuleConfiguration implements ModuleAutoupgradeMainPa
 
   private readonly radioCardLoader: string;
 
+  private readonly radioCardLoaderWrapper: string;
+
   private readonly checkRequirementBlock: string;
 
   private readonly checkRequirementsFailedAlerts: string;
@@ -81,6 +83,7 @@ class Autoupgrade extends ModuleConfiguration implements ModuleAutoupgradeMainPa
     // 1 : version choose step
     this.newVersionRadioButton = '#online';
     this.radioCardLoader = '.radio-card__loader-title';
+    this.radioCardLoaderWrapper = '.radio-card__loader-wrapper';
     this.checkRequirementBlock = '.check-requirements';
     this.checkRequirementsFailedAlerts = '.check-requirements--failed';
     this.goToMaintenancePageLink = '#radio_card_online div.radio-card__check-requirements a[href*="AdminMaintenance"]';
@@ -144,11 +147,12 @@ class Autoupgrade extends ModuleConfiguration implements ModuleAutoupgradeMainPa
    * @param page {Page} Browser tab
    * @return {Promise<string}
    */
-  async checkRequirements(page: Page): Promise<string> {
+  async checkRequirements(page: Page): Promise<boolean> {
     await page.locator(this.checkRequirementsButton).click();
     await this.waitForVisibleSelector(page, this.radioCardLoader);
+    await this.waitForHiddenSelector(page, this.radioCardLoaderWrapper);
 
-    return this.getTextContent(page, this.alertSuccessMessage);
+    return this.elementNotVisible(page, `${this.nextStepButton}[disabled='true']`, 2000);
   }
 
   /**
