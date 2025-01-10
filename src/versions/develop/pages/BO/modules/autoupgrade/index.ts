@@ -8,7 +8,7 @@ import type {Page} from '@playwright/test';
  * @extends ModuleConfiguration
  */
 class Autoupgrade extends ModuleConfiguration implements ModuleAutoupgradeMainPageInterface {
-  public readonly pageTitle: string;
+  public pageTitle: string;
 
   public readonly checkRequirementSuccessMessage: string;
 
