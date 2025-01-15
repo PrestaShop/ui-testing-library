@@ -205,6 +205,7 @@ export {default as boCustomerSettingsPage} from '@pages/BO/shopParameters/custom
 export {default as boCurrenciesCreatePage} from '@pages/BO/international/localization/currencies/create';
 export {default as boCurrenciesPage} from '@pages/BO/international/localization/currencies';
 export {default as boCustomersPage} from '@pages/BO/customers';
+export {default as boCustomersCreatePage} from '@pages/BO/customers/create';
 export {default as boDashboardPage} from '@pages/BO/dashboard';
 export {default as boDbBackupPage} from '@pages/BO/advancedParameters/database/dbBackup';
 export {default as boDesignEmailThemesPage} from '@pages/BO/design/emailThemes';
