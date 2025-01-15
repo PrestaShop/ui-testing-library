@@ -198,6 +198,7 @@ export {default as boCarriersPage} from '@pages/BO/shipping/carriers';
 export {default as boCarriersCreatePage} from '@pages/BO/shipping/carriers/create';
 export {default as boCountriesPage} from '@pages/BO/international/locations/countries';
 export {default as boCountriesCreatePage} from '@pages/BO/international/locations/countries/create';
+export {default as boCreditSlipsPage} from '@pages/BO/orders/creditSlips';
 export {default as boCustomerGroupsPage} from '@pages/BO/shopParameters/customerSettings/groups';
 export {default as boCustomerGroupsCreatePage} from '@pages/BO/shopParameters/customerSettings/groups/create';
 export {default as boCustomerSettingsPage} from '@pages/BO/shopParameters/customerSettings';
