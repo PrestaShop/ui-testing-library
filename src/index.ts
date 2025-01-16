@@ -193,6 +193,7 @@ export {default as boAdministrationPage} from '@pages/BO/advancedParameters/admi
 export {default as boApiClientsPage} from '@pages/BO/advancedParameters/apiclients';
 export {default as boApiClientsCreatePage} from '@pages/BO/advancedParameters/apiclients/create';
 export {default as boAttributesPage} from '@pages/BO/catalog/attributes';
+export {default as boAttributesCreatePage} from '@pages/BO/catalog/attributes/createAttribute';
 export {default as boBrandsPage} from '@pages/BO/catalog/brands';
 export {default as boCarriersPage} from '@pages/BO/shipping/carriers';
 export {default as boCarriersCreatePage} from '@pages/BO/shipping/carriers/create';
