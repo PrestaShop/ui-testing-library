@@ -1,6 +1,6 @@
 // Import pages
 import type {BOProductsCreatePageInterface} from '@interfaces/BO/catalog/products/create';
-import {CreateProduct} from '@versions/develop/pages/BO/catalog/products/create';
+import {BOProductsCreatePage} from '@versions/develop/pages/BO/catalog/products/create';
 
 import descriptionTab from '@pages/BO/catalog/products/create/tabDescription';
 import pricingTab from '@pages/BO/catalog/products/create/tabPricing';
@@ -16,9 +16,9 @@ import type {Page} from 'playwright';
 /**
  * Bo create product page, contains functions that can be used on the page
  * @class
- * @extends CreateProduct
+ * @extends BOProductsCreatePage
  */
-class BOCreateProductVersion extends CreateProduct implements BOProductsCreatePageInterface {
+class BOProductsCreatePageVersion extends BOProductsCreatePage implements BOProductsCreatePageInterface {
   /**
    * Set product
    * @param page {Page} Browser tab
@@ -59,5 +59,5 @@ class BOCreateProductVersion extends CreateProduct implements BOProductsCreatePa
   }
 }
 
-const createProduct = new BOCreateProductVersion();
-export {createProduct, BOCreateProductVersion as CreateProduct};
+const boProductsCreatePage = new BOProductsCreatePageVersion();
+export {boProductsCreatePage, BOProductsCreatePageVersion as BOProductsCreatePage};

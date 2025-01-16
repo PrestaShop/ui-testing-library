@@ -1,26 +1,24 @@
-import BOBasePage from '@pages/BO/BOBasePage';
-
-import productsPage from '@pages/BO/catalog/products';
-import virtualProductTab from '@pages/BO/catalog/products/create/tabVirtualProduct';
-import descriptionTab from '@pages/BO/catalog/products/create/tabDescription';
-import detailsTab from '@pages/BO/catalog/products/create/tabDetails';
-import stocksTab from '@pages/BO/catalog/products/create/tabStocks';
-import pricingTab from '@pages/BO/catalog/products/create/tabPricing';
-import packTab from '@pages/BO/catalog/products/create/tabPack';
-import tabSEO from '@pages/BO/catalog/products/create/tabSeo';
-
 import type FakerProduct from '@data/faker/product';
 import type {ProductHeaderSummary} from '@data/types/product';
 import type {BOProductsCreatePageInterface} from '@interfaces/BO/catalog/products/create';
-
-import type {Frame, Page} from 'playwright';
+import BOBasePage from '@pages/BO/BOBasePage';
+import boProductsPage from '@pages/BO/catalog/products';
+import boProductsCreateTabVirtualProductPage from '@pages/BO/catalog/products/create/tabVirtualProduct';
+import boProductsCreateTabDescriptionPage from '@pages/BO/catalog/products/create/tabDescription';
+import boProductsCreateTabDetailsPage from '@pages/BO/catalog/products/create/tabDetails';
+import boProductsCreateTabPackPage from '@pages/BO/catalog/products/create/tabPack';
+import boProductsCreateTabPricingPage from '@pages/BO/catalog/products/create/tabPricing';
+import boProductsCreateTabSEOPage from '@pages/BO/catalog/products/create/tabSeo';
+import boProductsCreateTabShippingPage from '@pages/BO/catalog/products/create/tabShipping';
+import boProductsCreateTabStocksPage from '@pages/BO/catalog/products/create/tabStocks';
+import type {Frame, Page} from '@playwright/test';
 
 /**
  * Create Product page, contains functions that can be used on the page
  * @class
  * @extends BOBasePage
  */
-class CreateProduct extends BOBasePage implements BOProductsCreatePageInterface {
+class BOProductsCreatePage extends BOBasePage implements BOProductsCreatePageInterface {
   public readonly pageTitle: string;
 
   public readonly saveAndPublishButtonName: string;
@@ -112,13 +110,13 @@ class CreateProduct extends BOBasePage implements BOProductsCreatePageInterface 
   private readonly modalConfirmTypeBtnSubmit: string;
 
   /**
-     * @constructs
-     * Setting up texts and selectors to use on create product page
-     */
+   * @constructs
+   * Setting up texts and selectors to use on products V2 page
+   */
   constructor() {
     super();
 
-    this.pageTitle = 'Product';
+    this.pageTitle = 'Products';
     this.saveAndPublishButtonName = 'Save and publish';
     this.successfulDuplicateMessage = 'Successful duplication';
     this.errorMessage = 'Unable to update settings.';
@@ -139,7 +137,7 @@ class CreateProduct extends BOBasePage implements BOProductsCreatePageInterface 
     this.productNameLanguageButton = `${this.productName}_dropdown`;
     this.productNameLanguageDropdown = `${this.productName} .dropdown .dropdown-menu`;
     this.productNameLanguageDropdownItem = (locale: string) => `${this.productNameLanguageDropdown} span`
-            + `[data-locale="${locale}"]`;
+      + `[data-locale="${locale}"]`;
     this.productTypePreview = '.product-type-preview';
     this.productTypePreviewLabel = `${this.productTypePreview}-label`;
     this.productTypeLabel = '.product-type-preview-label';
@@ -149,7 +147,7 @@ class CreateProduct extends BOBasePage implements BOProductsCreatePageInterface 
     this.productHeaderQuantity = `${this.productHeaderSummary} div[data-role=quantity]`;
     this.productHeaderReferences = '.product-header-references';
     this.productHeaderReference = (type: string) => `${this.productHeaderReferences} .product-reference`
-            + `[data-reference-type="${type}"] span`;
+      + `[data-reference-type="${type}"] span`;
 
     // Footer selectors
     this.footerProductDropDown = '#product_footer_actions_dropdown';
@@ -176,22 +174,22 @@ class CreateProduct extends BOBasePage implements BOProductsCreatePageInterface 
     // Modal : Switch Product Type
     this.modalSwitchType = '#switch-product-type-modal';
     this.modalSwitchTypeBtnChoice = (productType: string) => `${this.modalSwitchType} button.product-type-choice`
-            + `[data-value="${productType}"]`;
+      + `[data-value="${productType}"]`;
     this.modalSwitchTypeBtnSubmit = `${this.modalSwitchType} .modal-footer button.btn-confirm-submit`;
     this.modalConfirmType = '#modal-confirm-product-type';
     this.modalConfirmTypeBtnSubmit = `${this.modalConfirmType} .modal-footer button.btn-confirm-submit`;
   }
 
   /*
-    Methods
-     */
+  Methods
+   */
 
   /**
-     * Select stores
-     * @param page {Page} Browser tab
-     * @param storeID {number} Store ID to select
-     * @returns {Promise<void>}
-     */
+   * Select stores
+   * @param page {Page} Browser tab
+   * @param storeID {number} Store ID to select
+   * @returns {Promise<void>}
+   */
   async selectStores(page: Page, storeID: number): Promise<void> {
     await this.waitForSelectorAndClick(page, this.selectStoresLink);
 
@@ -202,25 +200,25 @@ class CreateProduct extends BOBasePage implements BOProductsCreatePageInterface 
   }
 
   /**
-     * Go to a tab
-     * @param page {Page} Browser tab
-     * @param tabName {'combinations'|'description'|'details'|'options'|'pricing'|'seo'|'shipping'|'stock'} Name of the tab
-     * @returns {Promise<void>}
-     */
+   * Go to a tab
+   * @param page {Page} Browser tab
+   * @param tabName {'combinations'|'description'|'details'|'options'|'pricing'|'seo'|'shipping'|'stock'} Name of the tab
+   * @returns {Promise<void>}
+   */
   async goToTab(
     page: Page,
-    tabName: string,
+    tabName: 'combinations' | 'description' | 'details' | 'options' | 'pricing' | 'seo' | 'shipping' | 'stock',
   ): Promise<void> {
     await this.waitForSelectorAndClick(page, this.tabLink(tabName));
     await this.waitForVisibleSelector(page, `${this.tabLink(tabName)} a.active`, 2000);
   }
 
   /**
-     * Is Tab active
-     * @param page {Page} Browser tab
-     * @param tabName {'combinations'|'description'|'details'|'options'|'pricing'|'seo'|'shipping'|'stock'} Name of the tab
-     * @returns {Promise<boolean>}
-     */
+   * Is Tab active
+   * @param page {Page} Browser tab
+   * @param tabName {'combinations'|'description'|'details'|'options'|'pricing'|'seo'|'shipping'|'stock'} Name of the tab
+   * @returns {Promise<boolean>}
+   */
   async isTabActive(
     page: Page,
     tabName: 'combinations' | 'description' | 'details' | 'options' | 'pricing' | 'seo' | 'shipping' | 'stock',
@@ -229,11 +227,11 @@ class CreateProduct extends BOBasePage implements BOProductsCreatePageInterface 
   }
 
   /**
-     * Is Tab visible
-     * @param page {Page} Browser tab
-     * @param tabName {'combinations'|'description'|'details'|'options'|'pricing'|'seo'|'shipping'|'stock'} Name of the tab
-     * @returns {Promise<boolean>}
-     */
+   * Is Tab visible
+   * @param page {Page} Browser tab
+   * @param tabName {'combinations'|'description'|'details'|'options'|'pricing'|'seo'|'shipping'|'stock'} Name of the tab
+   * @returns {Promise<boolean>}
+   */
   async isTabVisible(
     page: Page,
     tabName: 'combinations' | 'description' | 'details' | 'options' | 'pricing' | 'seo' | 'shipping' | 'stock',
@@ -242,10 +240,10 @@ class CreateProduct extends BOBasePage implements BOProductsCreatePageInterface 
   }
 
   /**
-     * Get product header summary
-     * @param page {Page} Browser tab
-     * @returns {Promise<ProductHeaderSummary>}
-     */
+   * Get product header summary
+   * @param page {Page} Browser tab
+   * @returns {Promise<ProductHeaderSummary>}
+   */
   async getProductHeaderSummary(page: Page): Promise<ProductHeaderSummary> {
     return {
       imageUrl: await this.getAttributeContent(page, this.productImageUrl, 'value'),
@@ -271,19 +269,19 @@ class CreateProduct extends BOBasePage implements BOProductsCreatePageInterface 
   }
 
   /**
-     * Get product header summary
-     * @param page {Page} Browser tab
-     * @returns {Promise<number>}
-     */
+   * Get product header summary
+   * @param page {Page} Browser tab
+   * @returns {Promise<number>}
+   */
   async getProductID(page: Page): Promise<number> {
     return parseInt(await this.getAttributeContent(page, this.formProductPage, 'data-product-id'), 10);
   }
 
   /**
-     * Return the product type
-     * @param page {Page} Browser tab
-     * @returns {Promise<string>}
-     */
+   * Return the product type
+   * @param page {Page} Browser tab
+   * @returns {Promise<string>}
+   */
   async getProductType(page: Page): Promise<string> {
     const typeLabel = await this.getTextContent(page, this.productTypePreviewLabel);
 
@@ -302,11 +300,11 @@ class CreateProduct extends BOBasePage implements BOProductsCreatePageInterface 
   }
 
   /**
-     * Set product status
-     * @param page {Page} Browser tab
-     * @param status {boolean} The product status
-     * @returns {Promise<void>}
-     */
+   * Set product status
+   * @param page {Page} Browser tab
+   * @param status {boolean} The product status
+   * @returns {Promise<void>}
+   */
   async setProductStatus(page: Page, status: boolean): Promise<boolean> {
     if (await this.getProductStatus(page) !== status) {
       await this.clickAndWaitForLoadState(page, this.productActiveSwitchButton);
@@ -317,20 +315,20 @@ class CreateProduct extends BOBasePage implements BOProductsCreatePageInterface 
   }
 
   /**
-     * Apply changes to all stores
-     * @param page {Page} Browser tab
-     * @param status {boolean} True if we need to apply all changes
-     * @returns {Promise<void>}
-     */
+   * Apply changes to all stores
+   * @param page {Page} Browser tab
+   * @param status {boolean} True if we need to apply all changes
+   * @returns {Promise<void>}
+   */
   async applyChangesToAllStores(page: Page, status: boolean): Promise<void> {
     await this.setChecked(page, this.modifyAllShopsNameSwitchButton, status, true);
   }
 
   /**
-     * Get product status
-     * @param page {Page} Browser tab
-     * @returns {Promise<void>}
-     */
+   * Get product status
+   * @param page {Page} Browser tab
+   * @returns {Promise<void>}
+   */
   async getProductStatus(page: Page): Promise<boolean> {
     // Get value of the check input
     const inputValue = await this.getAttributeContent(
@@ -344,63 +342,65 @@ class CreateProduct extends BOBasePage implements BOProductsCreatePageInterface 
   }
 
   /**
-     * Set product
-     * @param page {Page} Browser tab
-     * @param productData {FakerProduct} Data to set in new product page
-     * @returns {Promise<string>}
-     */
+   * Set product
+   * @param page {Page} Browser tab
+   * @param productData {FakerProduct} Data to set in new product page
+   * @returns {Promise<string>}
+   */
   async setProduct(page: Page, productData: FakerProduct): Promise<string|null> {
     await this.waitForVisibleSelector(page, this.productActiveSwitchButtonToggleInput);
 
     //// Tab "Description"
+    // Set status
+    await this.setProductStatus(page, productData.status);
     // Set description
-    await descriptionTab.setProductDescription(page, productData);
+    await boProductsCreateTabDescriptionPage.setProductDescription(page, productData);
     // Set name
-    await this.setProductName(page, productData.nameFR, 'fr');
     await this.setProductName(page, productData.name, 'en');
+    await this.setProductName(page, productData.nameFR, 'fr');
     // Set categories
     if (productData.category !== '') {
-      await descriptionTab.addNewCategory(page, [productData.category]);
-      await descriptionTab.chooseDefaultCategory(page, productData.category);
+      await boProductsCreateTabDescriptionPage.addNewCategory(page, [productData.category]);
+      await boProductsCreateTabDescriptionPage.chooseDefaultCategory(page, productData.category);
     }
     // Set brand
     if (productData.brand) {
-      await descriptionTab.chooseBrand(page, productData.brand.name);
+      await boProductsCreateTabDescriptionPage.chooseBrand(page, productData.brand.name);
     }
-    // Set status
-    await this.setProductStatus(page, productData.status);
 
     //// Tab "Details"
-    await detailsTab.setProductDetails(page, productData);
+    await boProductsCreateTabDetailsPage.setProductDetails(page, productData);
 
     //// Tab "Stocks"
     if (productData.type === 'virtual') {
-      await virtualProductTab.setVirtualProduct(page, productData);
+      await boProductsCreateTabVirtualProductPage.setVirtualProduct(page, productData);
     } else if (productData.type !== 'combinations') {
-      await stocksTab.setProductStock(page, productData);
+      await boProductsCreateTabStocksPage.setProductStock(page, productData);
     }
 
     if (productData.type === 'pack') {
-      await packTab.setPackOfProducts(page, productData.pack);
+      await boProductsCreateTabPackPage.setPackOfProducts(page, productData.pack);
+    }
+    if (productData.type !== 'virtual') {
+      await boProductsCreateTabShippingPage.setPackageDimension(page, productData);
     }
 
     //// Tab "Pricing"
-    await pricingTab.setProductPricing(page, productData);
-
+    await boProductsCreateTabPricingPage.setProductPricing(page, productData);//// Tab "SEO"
     //// Tab "SEO"
     await this.goToTab(page, 'seo');
-    await tabSEO.setTag(page, productData.tags);
+    await boProductsCreateTabSEOPage.setTag(page, productData.tags);
 
     return this.saveProduct(page);
   }
 
   /**
-     * Set product name
-     * @param page {Page} Browser tab
-     * @param name {string} Name of the product
-     * @param locale {string} Locale
-     * @returns {Promise<void>}
-     */
+   * Set product name
+   * @param page {Page} Browser tab
+   * @param name {string} Name of the product
+   * @param locale {string} Locale
+   * @returns {Promise<void>}
+   */
   async setProductName(page: Page, name: string, locale: string = 'en'): Promise<void> {
     await this.waitForSelectorAndClick(page, this.productNameLanguageButton);
     await this.waitForSelectorAndClick(page, this.productNameLanguageDropdownItem(locale));
@@ -412,40 +412,40 @@ class CreateProduct extends BOBasePage implements BOProductsCreatePageInterface 
   }
 
   /**
-     * Click on save product button
-     * @param page {Page} Browser tab
-     * @returns {Promise<void>}
-     */
+   * Click on save product button
+   * @param page {Page} Browser tab
+   * @returns {Promise<void>}
+   */
   async clickOnSaveProductButton(page: Page): Promise<void> {
     await page.locator(this.saveProductButton).click();
     await page.waitForLoadState();
   }
 
   /**
-     * Save product
-     * @param page {Page} Browser tab
-     * @returns {Promise<string>}
-     */
-  async saveProduct(page: Page): Promise<string|null> {
-    await this.clickOnSaveProductButton(page);
+   * Save product
+   * @param page {Page} Browser tab
+   * @returns {Promise<string>}
+   */
+  async saveProduct(page: Page): Promise<string> {
+    await this.clickAndWaitForURL(page, this.saveProductButton);
 
     return this.getAlertSuccessBlockParagraphContent(page);
   }
 
   /**
-     * Get save button name
-     * @param page {Page} Browser tab
-     * @returns {Promise<string>}
-     */
+   * Get save button name
+   * @param page {Page} Browser tab
+   * @returns {Promise<string>}
+   */
   async getSaveButtonName(page: Page): Promise<string> {
     return this.getTextContent(page, this.saveProductButton);
   }
 
   /**
-     * Preview product in new tab
-     * @param page {Page} Browser tab
-     * @return {Promise<Page>}
-     */
+   * Preview product in new tab
+   * @param page {Page} Browser tab
+   * @return {Promise<Page>}
+   */
   async previewProduct(page: Page): Promise<Page> {
     await this.waitForSelectorAndClick(page, this.footerProductDropDown);
     const newPage = await this.openLinkWithTargetBlank(page, this.previewProductButton, 'body a');
@@ -458,45 +458,45 @@ class CreateProduct extends BOBasePage implements BOProductsCreatePageInterface 
   }
 
   /**
-     * Delete product
-     * @param page {Page} Browser tab
-     * @returns {Promise<string>}
-     */
+   * Delete product
+   * @param page {Page} Browser tab
+   * @returns {Promise<string>}
+   */
   async deleteProduct(page: Page): Promise<string> {
     await this.waitForSelectorAndClick(page, this.footerProductDropDown);
     await this.waitForSelectorAndClick(page, this.deleteProductButton);
     await this.waitForVisibleSelector(page, this.deleteProductFooterModal);
     await this.clickAndWaitForURL(page, this.deleteProductSubmitButton);
 
-    return this.getAlertSuccessBlockParagraphContent(page);
+    return boProductsPage.getAlertSuccessBlockParagraphContent(page);
   }
 
   /**
-     * Go to catalog page
-     * @param page {Page} Browser tab
-     * @returns {Promise<void>}
-     */
+   * Go to catalog page
+   * @param page {Page} Browser tab
+   * @returns {Promise<void>}
+   */
   async goToCatalogPage(page: Page): Promise<void> {
     await this.clickAndWaitForURL(page, this.goToCatalogButton);
   }
 
   /**
-     * Click on new product button
-     * @param page {Page} Browser tab
-     * @returns {Promise<boolean>}
-     */
+   * Click on new product button
+   * @param page {Page} Browser tab
+   * @returns {Promise<boolean>}
+   */
   async clickOnNewProductButton(page: Page): Promise<boolean> {
     await this.waitForSelectorAndClick(page, this.footerProductDropDown);
     await this.waitForSelectorAndClick(page, this.newProductButton);
 
-    return this.elementVisible(page, productsPage.modalCreateProduct, 1000);
+    return this.elementVisible(page, boProductsPage.modalCreateProduct, 1000);
   }
 
   /**
-     * Click on duplicate product button
-     * @param page {Page} Browser tab
-     * @returns {Promise<string>}
-     */
+   * Click on duplicate product button
+   * @param page {Page} Browser tab
+   * @returns {Promise<string>}
+   */
   async duplicateProduct(page: Page): Promise<string> {
     await this.waitForSelectorAndClick(page, this.footerProductDropDown);
     await this.waitForSelectorAndClick(page, this.duplicateProductButton);
@@ -507,25 +507,25 @@ class CreateProduct extends BOBasePage implements BOProductsCreatePageInterface 
   }
 
   /**
-     * Choose product type
-     * @param page {Page} Browser tab
-     * @param productType {string} Data to choose in product type
-     * @returns {Promise<void>}
-     */
+   * Choose product type
+   * @param page {Page} Browser tab
+   * @param productType {string} Data to choose in product type
+   * @returns {Promise<void>}
+   */
   async chooseProductType(page: Page, productType: string): Promise<void> {
     const currentUrl: string = page.url();
 
-    await productsPage.selectProductType(page, productType);
-    await productsPage.clickOnAddNewProduct(page);
+    await boProductsPage.selectProductType(page, productType);
+    await boProductsPage.clickOnAddNewProduct(page);
     await page.waitForURL((url: URL): boolean => url.toString() !== currentUrl, {waitUntil: 'networkidle'});
   }
 
   /**
-     * Change product type
-     * @param page {Page} Browser tab
-     * @param productType {string} Data to choose in product type
-     * @returns {Promise<string>}
-     */
+   * Change product type
+   * @param page {Page} Browser tab
+   * @param productType {string} Data to choose in product type
+   * @returns {Promise<string>}
+   */
   async changeProductType(page: Page, productType: string): Promise<string> {
     // Click on the type label
     await page.locator(this.productTypePreview).click();
@@ -542,29 +542,29 @@ class CreateProduct extends BOBasePage implements BOProductsCreatePageInterface 
   }
 
   /**
-     * Is choose product iframe visible
-     * @param page {Page} Browser tab
-     * @returns {Promise<boolean>}
-     */
+   * Is choose product iframe visible
+   * @param page {Page} Browser tab
+   * @returns {Promise<boolean>}
+   */
   async isChooseProductIframeVisible(page: Page): Promise<boolean> {
-    return !(await this.elementNotVisible(page, `${productsPage.modalCreateProduct} iframe`, 1000));
+    return !(await this.elementNotVisible(page, `${boProductsPage.modalCreateProduct} iframe`, 1000));
   }
 
   /**
-     * Return the product name
-     * @param page {Page} Browser tab
-     * @param locale {string} Locale
-     * @returns {Promise<string>}
-     */
+   * Return the product name
+   * @param page {Page} Browser tab
+   * @param locale {string} Locale
+   * @returns {Promise<string>}
+   */
   async getProductName(page: Page, locale: string = 'en'): Promise<string> {
     return this.getAttributeContent(page, this.productNameInput(locale), 'value');
   }
 
   /**
-     * Get the error message when short description is too long
-     * @param page {Page} Browser tab
-     * @returns {Promise<string>}
-     */
+   * Get the error message when short description is too long
+   * @param page {Page} Browser tab
+   * @returns {Promise<string>}
+   */
   async getErrorMessageWhenSummaryIsTooLong(page: Page): Promise<string> {
     await this.clickAndWaitForURL(page, this.saveProductButton);
 
@@ -572,5 +572,5 @@ class CreateProduct extends BOBasePage implements BOProductsCreatePageInterface 
   }
 }
 
-const createProduct = new CreateProduct();
-export {createProduct, CreateProduct};
+const boProductsCreatePage = new BOProductsCreatePage();
+export {boProductsCreatePage, BOProductsCreatePage};

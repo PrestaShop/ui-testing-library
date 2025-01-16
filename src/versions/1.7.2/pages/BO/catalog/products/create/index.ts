@@ -1,14 +1,14 @@
 // Import pages
 import type {BOProductsCreatePageInterface} from '@interfaces/BO/catalog/products/create';
-import {CreateProduct} from '@versions/1.7.3/pages/BO/catalog/products/create';
+import {BOProductsCreatePage} from '@versions/1.7.3/pages/BO/catalog/products/create';
 import {type Page} from '@playwright/test';
 
 /**
  * Bo create product page, contains functions that can be used on the page
  * @class
- * @extends CreateProduct
+ * @extends BOProductsCreatePage
  */
-class BOCreateProductVersion extends CreateProduct implements BOProductsCreatePageInterface {
+class BOProductsCreatePageVersion extends BOProductsCreatePage implements BOProductsCreatePageInterface {
   private readonly confirmationModalContinueButton: string;
 
   /**
@@ -36,5 +36,5 @@ class BOCreateProductVersion extends CreateProduct implements BOProductsCreatePa
   }
 }
 
-const createProduct = new BOCreateProductVersion();
-export {createProduct, BOCreateProductVersion as CreateProduct};
+const boProductsCreatePage = new BOProductsCreatePageVersion();
+export {boProductsCreatePage, BOProductsCreatePageVersion as BOProductsCreatePage};

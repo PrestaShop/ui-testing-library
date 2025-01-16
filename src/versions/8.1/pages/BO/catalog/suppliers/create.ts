@@ -8,7 +8,7 @@ import type {Page} from 'playwright';
 /**
  * Bo create supplier page, contains functions that can be used on the page
  * @class
- * @extends CreateProduct
+ * @extends CreateSupplier
  */
 class BOCreateSupplierVersion extends CreateSupplier implements BOSuppliersCreatePageInterface {
   /**

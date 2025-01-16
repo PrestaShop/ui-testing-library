@@ -1,15 +1,15 @@
 // Import pages
 import type {BOProductsCreatePageInterface} from '@interfaces/BO/catalog/products/create';
-import {CreateProduct} from '@versions/8.2/pages/BO/catalog/products/create';
+import {BOProductsCreatePage} from '@versions/8.2/pages/BO/catalog/products/create';
 
 import type {Page} from 'playwright';
 
 /**
  * Bo create product page, contains functions that can be used on the page
  * @class
- * @extends CreateProduct
+ * @extends BOProductsCreatePage
  */
-class BOCreateProductVersion extends CreateProduct implements BOProductsCreatePageInterface {
+class BOProductsCreatePageVersion extends BOProductsCreatePage implements BOProductsCreatePageInterface {
   public readonly productOnlineTitle: string;
 
   public readonly deleteProductLink: string;
@@ -123,12 +123,12 @@ class BOCreateProductVersion extends CreateProduct implements BOProductsCreatePa
    * @param page {Page} Browser tab
    * @returns {Promise<string>}
    */
-  async saveProduct(page: Page): Promise<string|null> {
+  async saveProduct(page: Page): Promise<string> {
     await page.click(this.saveProductButton);
     const growlTextMessage = await this.getGrowlMessageContent(page, 30000);
     await this.closeGrowlMessage(page);
 
-    return growlTextMessage;
+    return growlTextMessage ?? '';
   }
 
   /**
@@ -203,5 +203,5 @@ class BOCreateProductVersion extends CreateProduct implements BOProductsCreatePa
   }
 }
 
-const createProduct = new BOCreateProductVersion();
-export {createProduct, BOCreateProductVersion as CreateProduct};
+const boProductsCreatePage = new BOProductsCreatePageVersion();
+export {boProductsCreatePage, BOProductsCreatePageVersion as BOProductsCreatePage};

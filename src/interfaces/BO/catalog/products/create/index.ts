@@ -36,6 +36,6 @@ export interface BOProductsCreatePageInterface extends BOBasePagePageInterface {
     saveProduct(page: Page): Promise<string|null>;
     selectStores(page: Page, storeID: number): Promise<void>;
     setProduct(page: Page, productData: FakerProduct): Promise<string|null>;
-    setProductName(page: Page, name: string, locale: string): Promise<void>;
+    setProductName(page: Page, name: string, locale?: string): Promise<void>;
     setProductStatus(page: Page, status: boolean): Promise<boolean>;
 }
