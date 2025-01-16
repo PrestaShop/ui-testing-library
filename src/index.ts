@@ -237,6 +237,7 @@ export {default as boModuleSelectionPage} from '@pages/BO/modules/modulesAndServ
 export {default as boMyProfilePage} from '@pages/BO/advancedParameters/team/myProfile';
 export {default as boNewExperimentalFeaturesPage} from '@pages/BO/advancedParameters/newExperimentalFeatures';
 export {default as boOrdersPage} from '@pages/BO/orders';
+export {default as boOrdersCreatePage} from '@pages/BO/orders/create';
 export {default as boOrdersViewBasePage} from '@pages/BO/orders/view/viewOrderBasePage';
 export {default as boOrdersViewBlockProductsPage} from '@pages/BO/orders/view/blockProducts';
 export {default as boOrdersViewBlockTabListPage} from '@pages/BO/orders/view/blockTabList';
