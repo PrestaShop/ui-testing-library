@@ -208,6 +208,7 @@ export {default as boCustomersPage} from '@pages/BO/customers';
 export {default as boCustomersCreatePage} from '@pages/BO/customers/create';
 export {default as boDashboardPage} from '@pages/BO/dashboard';
 export {default as boDbBackupPage} from '@pages/BO/advancedParameters/database/dbBackup';
+export {default as boDeliverySlipsPage} from '@pages/BO/orders/deliverySlips';
 export {default as boDesignEmailThemesPage} from '@pages/BO/design/emailThemes';
 export {default as boDesignEmailThemesPreviewPage} from '@pages/BO/design/emailThemes/preview';
 export {default as boDesignLinkListPage} from '@pages/BO/design/linkList';
