@@ -221,6 +221,7 @@ export {default as boEmployeesCreatePage} from '@pages/BO/advancedParameters/tea
 export {default as boFeatureFlagPage} from '@pages/BO/advancedParameters/featureFlag';
 export {default as boInformationPage} from '@pages/BO/advancedParameters/information';
 export {default as boImportPage} from '@pages/BO/advancedParameters/import';
+export {default as boInvoicesPage} from '@pages/BO/orders/invoices';
 export {default as boLanguagesPage} from '@pages/BO/international/languages';
 export {default as boLanguagesCreatePage} from '@pages/BO/international/languages/create';
 export {default as boLogsPage} from '@pages/BO/advancedParameters/logs';
