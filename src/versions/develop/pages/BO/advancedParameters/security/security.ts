@@ -11,9 +11,9 @@ import {type Page} from '@playwright/test';
 class BOSecurityPage extends BOBasePage implements BOSecurityPageInterface {
   public readonly pageTitle: string;
 
-  private readonly customerSessionsTab: string;
+  private readonly customerSessionsPage: string;
 
-  private readonly employeeSessionsTab: string;
+  private readonly employeeSessionsPage: string;
 
   /**
    * @constructs
@@ -25,8 +25,8 @@ class BOSecurityPage extends BOBasePage implements BOSecurityPageInterface {
     this.pageTitle = 'Security •';
 
     // Header links
-    this.customerSessionsTab = '#subtab-AdminSecuritySessionEmployee';
-    this.employeeSessionsTab = '#subtab-AdminSecuritySessionEmployee';
+    this.customerSessionsPage = '#subtab-AdminSecuritySessionEmployee';
+    this.employeeSessionsPage = '#subtab-AdminSecuritySessionEmployee';
   }
 
   /*
@@ -40,7 +40,7 @@ class BOSecurityPage extends BOBasePage implements BOSecurityPageInterface {
    * @returns {Promise<void>}
    */
   async goToCustomerSessionsPage(page: Page): Promise<void> {
-    await this.clickAndWaitForURL(page, this.customerSessionsTab);
+    await this.clickAndWaitForURL(page, this.customerSessionsPage);
   }
 
   /**
@@ -49,11 +49,12 @@ class BOSecurityPage extends BOBasePage implements BOSecurityPageInterface {
    * @returns {Promise<void>}
    */
   async goToEmployeeSessionsPage(page: Page): Promise<void> {
-    await this.clickAndWaitForURL(page, this.employeeSessionsTab);
+    await this.clickAndWaitForURL(page, this.employeeSessionsPage);
   }
 }
 
-module.exports = new BOSecurityPage();
+module.exports = new BOSecurityPage(); //Cree une instance d'une class
 
+//avec heritage
 const boSecurityPage = new BOSecurityPage();
 export {boSecurityPage, BOSecurityPage};
