@@ -1,6 +1,5 @@
 import {type BOSecurityPageInterface} from '@interfaces/BO/advancedParameters/security';
 import BOBasePage from '@pages/BO/BOBasePage';
-
 import {type Page} from '@playwright/test';
 
 /**
