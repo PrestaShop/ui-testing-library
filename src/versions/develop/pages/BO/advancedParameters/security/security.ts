@@ -53,8 +53,4 @@ class BOSecurityPage extends BOBasePage implements BOSecurityPageInterface {
   }
 }
 
-module.exports = new BOSecurityPage(); //Cree une instance d'une class
-
-//avec heritage
-const boSecurityPage = new BOSecurityPage();
-export {boSecurityPage, BOSecurityPage};
+module.exports = new BOSecurityPage();
