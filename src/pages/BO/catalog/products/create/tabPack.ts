@@ -2,7 +2,7 @@ import type {BOProductsCreateTabPackPageInterface} from '@interfaces/BO/catalog/
 
 /* eslint-disable global-require, @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires */
 function requirePage(): BOProductsCreateTabPackPageInterface {
-  return require('@versions/develop/pages/BO/catalog/products/create/tabPack').packtab;
+  return require('@versions/develop/pages/BO/catalog/products/create/tabPack');
 }
 /* eslint-enable global-require, @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires */
 

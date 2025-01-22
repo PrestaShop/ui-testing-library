@@ -363,4 +363,4 @@ class PackTab extends BOBasePage implements BOProductsCreateTabPackPageInterface
   }
 }
 
-export default new PackTab();
+module.exports = new PackTab();
