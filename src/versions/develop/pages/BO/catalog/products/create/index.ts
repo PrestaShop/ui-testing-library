@@ -386,7 +386,7 @@ class BOProductsCreatePage extends BOBasePage implements BOProductsCreatePageInt
     }
 
     //// Tab "Pricing"
-    await boProductsCreateTabPricingPage.setProductPricing(page, productData);//// Tab "SEO"
+    await boProductsCreateTabPricingPage.setProductPricing(page, productData);
     //// Tab "SEO"
     await this.goToTab(page, 'seo');
     await boProductsCreateTabSEOPage.setTag(page, productData.tags);
