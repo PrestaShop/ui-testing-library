@@ -1,6 +1,6 @@
 import type FakerProduct from '@data/faker/product';
-import type {ProductHeaderSummary} from '@data/types/product';
-import type {BOProductsCreatePageInterface} from '@interfaces/BO/catalog/products/create';
+import {type ProductHeaderSummary} from '@data/types/product';
+import {type BOProductsCreatePageInterface} from '@interfaces/BO/catalog/products/create';
 import BOBasePage from '@pages/BO/BOBasePage';
 import boProductsPage from '@pages/BO/catalog/products';
 import boProductsCreateTabVirtualProductPage from '@pages/BO/catalog/products/create/tabVirtualProduct';
@@ -11,7 +11,7 @@ import boProductsCreateTabPricingPage from '@pages/BO/catalog/products/create/ta
 import boProductsCreateTabSEOPage from '@pages/BO/catalog/products/create/tabSeo';
 import boProductsCreateTabShippingPage from '@pages/BO/catalog/products/create/tabShipping';
 import boProductsCreateTabStocksPage from '@pages/BO/catalog/products/create/tabStocks';
-import type {Frame, Page} from '@playwright/test';
+import {type Frame, type Page} from '@playwright/test';
 
 /**
  * Create Product page, contains functions that can be used on the page
