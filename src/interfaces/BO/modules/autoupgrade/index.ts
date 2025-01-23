@@ -2,10 +2,8 @@ import {ModuleConfigurationPageInterface} from '@interfaces/BO/modules/moduleCon
 import type {Page} from '@playwright/test';
 
 export interface ModuleAutoupgradeMainPageInterface extends ModuleConfigurationPageInterface {
-  readonly pageTitle: string;
-
   readonly checkRequirementSuccessMessage: string;
-
+  readonly pageTitle: string;
   readonly updateSuccessMessage: string;
 
   cancelBackup(page:Page):Promise<boolean>;
