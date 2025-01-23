@@ -231,6 +231,7 @@ export {default as boLoginPage} from '@pages/BO/login';
 export {default as boMaintenancePage} from '@pages/BO/shopParameters/general/maintenance';
 export {default as boMarketplacePage} from '@pages/BO/modules/marketplace';
 export {default as boInstalledModulesPage} from '@pages/BO/modules/modulesAndServices/installedModules';
+export {default as boMerchandiseReturnsPage} from '@pages/BO/customerService/merchandiseReturns';
 export {default as boModuleCatalogPage} from '@pages/BO/modules/moduleCatalog';
 export {default as boModuleManagerAlertsPage} from '@pages/BO/modules/moduleManager/alerts';
 export {default as boModuleManagerPage} from '@pages/BO/modules/moduleManager';
