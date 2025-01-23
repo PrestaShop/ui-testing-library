@@ -3,6 +3,7 @@ import {BOBasePagePageInterface} from '@interfaces/BO';
 import type {Page} from '@playwright/test';
 
 export interface BOViewOrderBasePageInterface extends BOBasePagePageInterface {
+    readonly commentSuccessfullMessage: string;
     readonly discountCannotExceedTotalErrorMessage: string;
     readonly discountMustBeNumberErrorMessage: string;
     readonly errorAddSameProduct: string;
