@@ -208,6 +208,7 @@ export {default as boCurrenciesCreatePage} from '@pages/BO/international/localiz
 export {default as boCurrenciesPage} from '@pages/BO/international/localization/currencies';
 export {default as boCustomersPage} from '@pages/BO/customers';
 export {default as boCustomersCreatePage} from '@pages/BO/customers/create';
+export {default as boCustomersViewPage} from '@pages/BO/customers/view';
 export {default as boCustomerServicePage} from '@pages/BO/customerService/customerService';
 export {default as boDashboardPage} from '@pages/BO/dashboard';
 export {default as boDbBackupPage} from '@pages/BO/advancedParameters/database/dbBackup';
