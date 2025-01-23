@@ -238,6 +238,7 @@ export {default as boModuleManagerPage} from '@pages/BO/modules/moduleManager';
 export {default as boModuleManagerUninstalledModulesPage} from '@pages/BO/modules/moduleManager/uninstalledModules';
 export {default as boModuleManagerUpdatesPage} from '@pages/BO/modules/moduleManager/updates';
 export {default as boModuleSelectionPage} from '@pages/BO/modules/modulesAndServices/selection';
+export {default as boMonitoringPage} from '@pages/BO/catalog/monitoring';
 export {default as boMyProfilePage} from '@pages/BO/advancedParameters/team/myProfile';
 export {default as boNewExperimentalFeaturesPage} from '@pages/BO/advancedParameters/newExperimentalFeatures';
 export {default as boOrdersPage} from '@pages/BO/orders';
