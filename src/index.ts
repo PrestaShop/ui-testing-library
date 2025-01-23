@@ -248,6 +248,7 @@ export {default as boOrdersCreatePage} from '@pages/BO/orders/create';
 export {default as boOrdersViewBasePage} from '@pages/BO/orders/view/viewOrderBasePage';
 export {default as boOrdersViewBlockCustomersPage} from '@pages/BO/orders/view/blockCustomers';
 export {default as boOrdersViewBlockMessagesPage} from '@pages/BO/orders/view/blockMessages';
+export {default as boOrdersViewBlockPaymentsPage} from '@pages/BO/orders/view/blockPayments';
 export {default as boOrdersViewBlockProductsPage} from '@pages/BO/orders/view/blockProducts';
 export {default as boOrdersViewBlockTabListPage} from '@pages/BO/orders/view/blockTabList';
 export {default as boOrderSettingsPage} from '@pages/BO/shopParameters/orderSettings';
