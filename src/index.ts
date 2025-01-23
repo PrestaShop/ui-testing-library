@@ -190,6 +190,7 @@ export * as CommonPage from '@pages/commonPage';
 // Export Pages BO
 export * as BOBasePage from '@pages/BO/BOBasePage';
 export {default as boAdministrationPage} from '@pages/BO/advancedParameters/administration';
+export {default as boAddressesCreatePage} from '@pages/BO/customers/addresses/create';
 export {default as boApiClientsPage} from '@pages/BO/advancedParameters/apiclients';
 export {default as boApiClientsCreatePage} from '@pages/BO/advancedParameters/apiclients/create';
 export {default as boAttributesPage} from '@pages/BO/catalog/attributes';
@@ -245,6 +246,7 @@ export {default as boNewExperimentalFeaturesPage} from '@pages/BO/advancedParame
 export {default as boOrdersPage} from '@pages/BO/orders';
 export {default as boOrdersCreatePage} from '@pages/BO/orders/create';
 export {default as boOrdersViewBasePage} from '@pages/BO/orders/view/viewOrderBasePage';
+export {default as boOrdersViewBlockCustomersPage} from '@pages/BO/orders/view/blockCustomers';
 export {default as boOrdersViewBlockProductsPage} from '@pages/BO/orders/view/blockProducts';
 export {default as boOrdersViewBlockTabListPage} from '@pages/BO/orders/view/blockTabList';
 export {default as boOrderSettingsPage} from '@pages/BO/shopParameters/orderSettings';

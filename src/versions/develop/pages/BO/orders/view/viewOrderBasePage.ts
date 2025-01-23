@@ -185,8 +185,7 @@ class ViewOrderBasePage extends BOBasePage implements BOViewOrderBasePageInterfa
 
     if (status !== actualStatus) {
       await this.selectByVisibleText(page, this.orderStatusesSelect, status);
-      await page.locator(this.updateStatusButton).click();
-      await page.waitForLoadState();
+      await this.clickAndWaitForURL(page, this.updateStatusButton);
       return this.getOrderStatus(page);
     }
 
