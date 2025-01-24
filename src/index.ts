@@ -276,6 +276,7 @@ export {default as boSearchAliasPage} from '@pages/BO/shopParameters/search/alia
 export {default as boSearchAliasCreatePage} from '@pages/BO/shopParameters/search/alias/create';
 export {default as boShopParametersPage} from '@pages/BO/shopParameters/general';
 export {default as boShoppingCartsPage} from '@pages/BO/orders/shoppingCarts';
+export {default as boShoppingCartsViewPage} from '@pages/BO/orders/shoppingCarts/view';
 export {default as boSqlManagerPage} from '@pages/BO/advancedParameters/database/sqlManager';
 export {default as boSqlManagerCreatePage} from '@pages/BO/advancedParameters/database/sqlManager/create';
 export {default as boSqlManagerViewPage} from '@pages/BO/advancedParameters/database/sqlManager/view';
