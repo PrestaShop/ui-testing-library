@@ -77,6 +77,7 @@ export interface BOBasePagePageInterface extends CommonPageInterface {
   readonly translationsLink: string;
   readonly webserviceLink: string;
 
+  addCurrentPageToQuickAccess(page: Page, pageName: string): Promise<string | null>;
   chooseShop(page: Page, shopNumber: number): Promise<void>;
   clickOnMultiStoreHeader(page: Page): Promise<void>;
   clickOnNotification(page: Page, tabName: string, row?: number): Promise<void>;
@@ -118,6 +119,7 @@ export interface BOBasePagePageInterface extends CommonPageInterface {
   quickAccessToPage(page: Page, linkName: string): Promise<void>;
   quickAccessToPageNewWindow(page: Page, linkName: string): Promise<Page>;
   quickAccessToPageWithFrame(page: Page, linkName: string): Promise<void>;
+  removeLinkFromQuickAccess(page: Page): Promise<string | null>;
   resize(page: Page, mobileSize: boolean): Promise<void>;
   search(page: Page, query: string): Promise<void>;
   setSidebarCollapsed(page: Page, isCollapsed: boolean): Promise<void>;
