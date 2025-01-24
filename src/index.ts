@@ -310,8 +310,8 @@ export {default as foClassicModalBlockCartPage} from '@pages/FO/classic/modal/bl
 export {default as foClassicModalQuickViewPage} from '@pages/FO/classic/modal/quickView';
 export {default as foClassicModalWishlistPage} from '@pages/FO/classic/modal/wishlist';
 export {default as foClassicMyAccountPage} from '@pages/FO/classic/myAccount';
-export {default as foClassicMyMerchandiseReturnsPage} from '@pages/FO/hummingbird/myAccount/merchandiseReturns';
-export {default as foClassicMyOrderDetailsPage} from '@pages/FO/hummingbird/myAccount/orderDetails';
+export {default as foClassicMyMerchandiseReturnsPage} from '@pages/FO/classic/myAccount/merchandiseReturns';
+export {default as foClassicMyOrderDetailsPage} from '@pages/FO/classic/myAccount/orderDetails';
 export {default as foClassicMyOrderHistoryPage} from '@pages/FO/classic/myAccount/orderHistory';
 export {default as foClassicMyWishlistsPage} from '@pages/FO/classic/myAccount/myWishlists';
 export {default as foClassicMyWishlistsViewPage} from '@pages/FO/classic/myAccount/myWishlists/view';
