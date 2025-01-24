@@ -1,18 +1,18 @@
-import {type BOSecurityPageInterface} from '@interfaces/BO/advancedParameters/security';
+import {type BOEmployeeSessionsPageInterface} from '@interfaces/BO/advancedParameters/security/employeeSessions';
 import BOBasePage from '@pages/BO/BOBasePage';
 import {type Page} from '@playwright/test';
 
 /**
- * Security page, contains functions that can be used on security page
+ * Employee sessions page, contains functions that can be used on employee sessions page
  * @class
  * @extends BOBasePage
  */
-class BOSecurityPage extends BOBasePage implements BOSecurityPageInterface {
+class BOEmployeeSessionsPage extends BOBasePage implements BOEmployeeSessionsPageInterface {
   public readonly pageTitle: string;
 
   private readonly customerSessionsPage: string;
 
-  private readonly employeeSessionsPage: string;
+  private readonly securityPage: string;
 
   /**
    * @constructs
@@ -21,11 +21,11 @@ class BOSecurityPage extends BOBasePage implements BOSecurityPageInterface {
   constructor() {
     super();
 
-    this.pageTitle = 'Security •';
+    this.pageTitle = 'Employee sessions •';
 
     // Header links
-    this.customerSessionsPage = '#subtab-AdminSecuritySessionEmployee';
-    this.employeeSessionsPage = '#subtab-AdminSecuritySessionEmployee';
+    this.customerSessionsPage = '#subtab-AdminSecuritySessionCustomer';
+    this.securityPage = '#subtab-AdminSecurity';
   }
 
   /*
@@ -43,13 +43,13 @@ class BOSecurityPage extends BOBasePage implements BOSecurityPageInterface {
   }
 
   /**
-   * Go to Employee Sessions tab
+   * Go back to Security tab
    * @param page {Page} Browser tab
    * @returns {Promise<void>}
    */
-  async goToEmployeeSessionsPage(page: Page): Promise<void> {
-    await this.clickAndWaitForURL(page, this.employeeSessionsPage);
+  async goToSecurityPage(page: Page): Promise<void> {
+    await this.clickAndWaitForURL(page, this.securityPage);
   }
 }
 
-module.exports = new BOSecurityPage();
+module.exports = new BOEmployeeSessionsPage();
