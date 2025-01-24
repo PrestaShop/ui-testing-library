@@ -256,6 +256,7 @@ export {default as boOrdersViewBlockMessagesPage} from '@pages/BO/orders/view/bl
 export {default as boOrdersViewBlockPaymentsPage} from '@pages/BO/orders/view/blockPayments';
 export {default as boOrdersViewBlockProductsPage} from '@pages/BO/orders/view/blockProducts';
 export {default as boOrdersViewBlockTabListPage} from '@pages/BO/orders/view/blockTabList';
+export {default as boOrderMessagesPage} from '@pages/BO/customerService/orderMessages';
 export {default as boOrderSettingsPage} from '@pages/BO/shopParameters/orderSettings';
 export {default as boPaymentMethodsPage} from '@pages/BO/payment/paymentMethods';
 export {default as boPerformancePage} from '@pages/BO/advancedParameters/performance';
