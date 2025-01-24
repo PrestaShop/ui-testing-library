@@ -189,8 +189,9 @@ export {default as opsBOProducts} from '@ops/BO/catalog/product';
 export * as CommonPage from '@pages/commonPage';
 // Export Pages BO
 export * as BOBasePage from '@pages/BO/BOBasePage';
-export {default as boAdministrationPage} from '@pages/BO/advancedParameters/administration';
+export {default as boAddressesPage} from '@pages/BO/customers/addresses';
 export {default as boAddressesCreatePage} from '@pages/BO/customers/addresses/create';
+export {default as boAdministrationPage} from '@pages/BO/advancedParameters/administration';
 export {default as boApiClientsPage} from '@pages/BO/advancedParameters/apiclients';
 export {default as boApiClientsCreatePage} from '@pages/BO/advancedParameters/apiclients/create';
 export {default as boAttributesPage} from '@pages/BO/catalog/attributes';
