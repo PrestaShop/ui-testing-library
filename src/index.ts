@@ -229,6 +229,7 @@ export {default as boEmployeesCreatePage} from '@pages/BO/advancedParameters/tea
 export {default as boEmployeeSessionsPage} from '@pages/BO/advancedParameters/security/employeeSessions';
 export {default as boFeatureFlagPage} from '@pages/BO/advancedParameters/featureFlag';
 export {default as boFeaturesPage} from '@pages/BO/catalog/features';
+export {default as boFilesPage} from '@pages/BO/catalog/files';
 export {default as boInformationPage} from '@pages/BO/advancedParameters/information';
 export {default as boImportPage} from '@pages/BO/advancedParameters/import';
 export {default as boInvoicesPage} from '@pages/BO/orders/invoices';
