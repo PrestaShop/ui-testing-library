@@ -292,6 +292,7 @@ export {default as boStatisticsPage} from '@pages/BO/statistics';
 export {default as boStockPage} from '@pages/BO/catalog/stock';
 export {default as boSuppliersCreate} from '@pages/BO/catalog/suppliers/create';
 export {default as boTaxesPage} from '@pages/BO/international/taxes';
+export {default as boTaxRulesPage} from '@pages/BO/international/taxes/taxRules';
 export {default as boTaxRulesCreatePage} from '@pages/BO/international/taxes/taxRules/create';
 export {default as boThemeAdvancedConfigurationPage} from '@pages/BO/design/themeAndLogo/advancedConfiguration';
 export {default as boThemeAndLogoPage} from '@pages/BO/design/themeAndLogo';
