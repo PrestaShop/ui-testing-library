@@ -201,6 +201,7 @@ export {default as boCarriersPage} from '@pages/BO/shipping/carriers';
 export {default as boCarriersCreatePage} from '@pages/BO/shipping/carriers/create';
 export {default as boCartRulesPage} from '@pages/BO/catalog/discounts';
 export {default as boCartRulesCreatePage} from '@pages/BO/catalog/discounts/create';
+export {default as boCatalogPriceRulesCreatePage} from '@pages/BO/catalog/discounts/catalogPriceRules/create';
 export {default as boCountriesPage} from '@pages/BO/international/locations/countries';
 export {default as boCountriesCreatePage} from '@pages/BO/international/locations/countries/create';
 export {default as boCreditSlipsPage} from '@pages/BO/orders/creditSlips';
