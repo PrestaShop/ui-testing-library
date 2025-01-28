@@ -292,6 +292,7 @@ export {default as boSqlManagerCreatePage} from '@pages/BO/advancedParameters/da
 export {default as boSqlManagerViewPage} from '@pages/BO/advancedParameters/database/sqlManager/view';
 export {default as boStatisticsPage} from '@pages/BO/statistics';
 export {default as boStockPage} from '@pages/BO/catalog/stock';
+export {default as boStockMovementsPage} from '@pages/BO/catalog/stock/movements';
 export {default as boSuppliersCreate} from '@pages/BO/catalog/suppliers/create';
 export {default as boTaxesPage} from '@pages/BO/international/taxes';
 export {default as boTaxRulesPage} from '@pages/BO/international/taxes/taxRules';
