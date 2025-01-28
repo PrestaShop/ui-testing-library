@@ -255,6 +255,7 @@ export {default as boMonitoringPage} from '@pages/BO/catalog/monitoring';
 export {default as boMultistorePage} from '@pages/BO/advancedParameters/multistore';
 export {default as boMultistoreShopPage} from '@pages/BO/advancedParameters/multistore/shop';
 export {default as boMultistoreShopCreatePage} from '@pages/BO/advancedParameters/multistore/shop/create';
+export {default as boMultistoreShopUrlCreatePage} from '@pages/BO/advancedParameters/multistore/url/create';
 export {default as boMyProfilePage} from '@pages/BO/advancedParameters/team/myProfile';
 export {default as boNewExperimentalFeaturesPage} from '@pages/BO/advancedParameters/newExperimentalFeatures';
 export {default as boOrdersPage} from '@pages/BO/orders';
