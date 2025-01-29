@@ -236,6 +236,7 @@ export {default as boEmployeeSessionsPage} from '@pages/BO/advancedParameters/se
 export {default as boFeatureFlagPage} from '@pages/BO/advancedParameters/featureFlag';
 export {default as boFeaturesPage} from '@pages/BO/catalog/features';
 export {default as boFeaturesCreatePage} from '@pages/BO/catalog/features/create';
+export {default as boFeaturesValueCreatePage} from '@pages/BO/catalog/features/createValue';
 export {default as boFeaturesViewPage} from '@pages/BO/catalog/features/view';
 export {default as boFilesPage} from '@pages/BO/catalog/files';
 export {default as boInformationPage} from '@pages/BO/advancedParameters/information';
