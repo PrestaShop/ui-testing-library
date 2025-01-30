@@ -5,7 +5,7 @@ import {type Page} from '@playwright/test';
 export interface FoMyOrderHistoryPageInterface extends FOBasePagePageInterface {
   readonly messageSuccessSent: string;
   readonly pageTitle: string;
-
+ 
   clickOnBackToYourAccountLink(page: Page): Promise<void>;
   clickOnHomeLink(page: Page): Promise<void>;
   clickOnReorderLink(page: Page, orderRow?: number): Promise<void>;
