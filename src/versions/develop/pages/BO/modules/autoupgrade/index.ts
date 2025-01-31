@@ -98,10 +98,10 @@ class Autoupgrade extends ModuleConfiguration implements ModuleAutoupgradeMainPa
     this.launchBackupButton = '#ua_step_content div.page__buttons button.btn-primary';
     this.dialogConfirmBuckup = '#dialog-confirm-backup';
     this.cancelBackupButton = '#dialog-confirm-backup div.dialog__footer button.btn-link';
-    this.updateWithoutBackupButton = '#update-backup-page-skip-btn';
+    this.updateWithoutBackupButton = '#update-backup-page-update-form';
     this.dialogConfirmUpdate = '#dialog-confirm-update';
     this.startUpdateRadioButton = '#dialog-start-update-own-backup';
-    this.dialogConfirmUpdateButton = '#dialog-confirm-update div.dialog__footer button.btn-primary';
+    this.dialogConfirmUpdateButton = '.dialog__footer .btn-primary';
     // 4 : Update step
     this.updateProgressBar = '#ua_step_content div.log-progress__bar div[title*=\'100\']';
     this.updateAlertSuccessMessage = '#ua_step_content div.page__content div.alert-success p.alert__title';
