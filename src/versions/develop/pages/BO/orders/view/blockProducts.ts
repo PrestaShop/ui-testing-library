@@ -160,7 +160,7 @@ class BOProductBlockProductsPage extends ViewOrderBasePage implements BOProductB
 
     // Products table
     this.orderProductsTable = '#orderProductsTable';
-    this.orderProductsRowTable = (row: number) => `${this.orderProductsTable} tbody tr:nth-child(${row})`;
+    this.orderProductsRowTable = (row: number) => `${this.orderProductsTable} tbody tr.cellProduct:nth-child(${row})`;
     this.orderProductsTableNameColumn = (row: number) => `${this.orderProductsRowTable(row)} td.cellProductName`;
     this.orderProductsTableProductName = (row: number) => `${this.orderProductsTableNameColumn(row)} p.productName`;
     this.orderProductsTableProductReference = (row: number) => `${this.orderProductsTableNameColumn(row)} p.productReference`;
@@ -365,6 +365,8 @@ class BOProductBlockProductsPage extends ViewOrderBasePage implements BOProductB
 
     await page.locator(this.modalConfirmNewPriceSubmitButton).click();
 
+    // Wait for the edit row to be hidden, and the update to have been done asynchronously
+    await this.waitForHiddenSelector(page, this.orderProductsEditRowTable);
     if (await this.elementVisible(page, this.orderProductsLoading, 1000)) {
       await this.waitForHiddenSelector(page, this.orderProductsLoading);
     }
