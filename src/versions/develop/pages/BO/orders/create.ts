@@ -692,8 +692,10 @@ class BOOrderCreatePage extends BOBasePage implements BOOrdersCreatePageInterfac
 
     // Add to cart
     await page.locator(this.addtoCartButton).click();
+    // Wait for the ajax call to be over (no visible feedback sadly)
+    await page.waitForResponse('**/sell/orders/carts/**/products**');
 
-    await page.waitForTimeout(500);
+    // The table visible is required, but on second addition it is always visible anyway
     await this.waitForVisibleSelector(page, this.productsTable);
   }
 
