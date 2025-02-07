@@ -12,95 +12,95 @@ class BOCarriersPage extends BOBasePage implements BOCarriersPageInterface {
 
   public readonly successfulUpdateStatusMessage: string;
 
-  private readonly addNewCarrierLink: string;
+  protected addNewCarrierLink: string;
 
-  private readonly gridForm: string;
+  protected gridForm: string;
 
-  private readonly gridTableHeaderTitle: string;
+  protected gridTableHeaderTitle: string;
 
-  private readonly gridTableNumberOfTitlesSpan: string;
+  protected gridTableNumberOfTitlesSpan: string;
 
-  private readonly gridTable: string;
+  protected gridTable: string;
 
-  private readonly filterRow: string;
+  protected filterRow: string;
 
-  private readonly filterColumn: (filterBy: string) => string;
+  protected filterColumn: (filterBy: string) => string;
 
-  private readonly filterSearchButton: string;
+  protected filterSearchButton: string;
 
-  private readonly filterResetButton: string;
+  protected filterResetButton: string;
 
-  private readonly tableBody: string;
+  protected tableBody: string;
 
-  private readonly tableBodyRows: string;
+  protected tableBodyRows: string;
 
-  private readonly tableBodyRow: (row: number) => string;
+  protected tableBodyRow: (row: number) => string;
 
-  private readonly tableBodyColumn: (row: number) => string;
+  protected tableBodyColumn: (row: number) => string;
 
   private readonly tableBodyColumnNth: (column: number) => string;
 
-  private readonly tableColumnId: (row: number) => string;
+  private readonly tableColumnHandle: (row: number) => string;
 
-  private readonly tableColumnName: (row: number) => string;
+  protected tableColumnId: (row: number) => string;
 
-  private readonly tableColumnDelay: (row: number) => string;
+  protected tableColumnName: (row: number) => string;
 
-  private readonly tableColumnActive: (row: number) => string;
+  protected tableColumnDelay: (row: number) => string;
 
-  private readonly enableColumnValidIcon: (row: number) => string;
+  protected tableColumnActive: (row: number) => string;
 
-  private readonly tableColumnIsFree: (row: number) => string;
+  protected enableColumnValidIcon: (row: number) => string;
 
-  private readonly tableColumnIsFreeIcon: (row: number) => string;
+  protected tableColumnIsFree: (row: number) => string;
 
-  private readonly tableColumnPosition: (row: number) => string;
+  protected tableColumnIsFreeIcon: (row: number) => string;
 
-  private readonly tableColumnActions: (row: number) => string;
+  protected tableColumnPosition: (row: number) => string;
 
-  private readonly tableColumnActionsEditLink: (row: number) => string;
+  protected tableColumnActions: (row: number) => string;
 
-  private readonly tableColumnActionsToggleButton: (row: number) => string;
+  protected tableColumnActionsEditLink: (row: number) => string;
 
-  private readonly tableColumnActionsDropdownMenu: (row: number) => string;
+  protected tableColumnActionsToggleButton: (row: number) => string;
 
-  private readonly tableColumnActionsDeleteLink: (row: number) => string;
+  protected tableColumnActionsDropdownMenu: (row: number) => string;
 
-  private readonly tableHead: string;
+  protected tableColumnActionsDeleteLink: (row: number) => string;
 
-  private readonly sortColumnDiv: (column: number) => string;
+  protected readonly tableHead: string;
 
-  private readonly sortColumnSpanButton: (column: number) => string;
+  private readonly sortColumnDiv: (column: string) => string;
 
-  private readonly paginationActiveLabel: string;
+  private readonly sortColumnSpanButton: (column: string) => string;
 
-  private readonly paginationDiv: string;
+  private readonly paginationLimitSelect: string;
 
-  private readonly paginationDropdownButton: string;
+  protected paginationActiveLabel: string;
 
-  private readonly paginationItems: (number: number) => string;
+  protected paginationPreviousLink: string;
 
-  private readonly paginationPreviousLink: string;
+  protected paginationNextLink: string;
 
-  private readonly paginationNextLink: string;
+  protected deleteModalButtonYes: string;
 
-  private readonly deleteModalButtonYes: string;
+  protected bulkActionBlock: string;
 
-  private readonly bulkActionBlock: string;
+  protected bulkActionMenuButton: string;
 
-  private readonly bulkActionMenuButton: string;
+  protected bulkActionDropdownMenu: string;
 
-  private readonly bulkActionDropdownMenu: string;
+  protected selectAllLink: string;
 
-  private readonly selectAllLink: string;
+  protected bulkEnableLink: string;
 
-  private readonly unselectAllLink: string;
+  protected bulkDisableLink: string;
 
-  private readonly bulkEnableLink: string;
+  protected bulkDeleteLink: string;
 
-  private readonly bulkDisableLink: string;
+  private readonly bulkDeleteConfirmDeleteModal: string;
 
-  private readonly bulkDeleteLink: string;
+  private readonly bulkDeleteConfirmDeleteButton: string;
 
   /**
    * @constructs
@@ -111,26 +111,28 @@ class BOCarriersPage extends BOBasePage implements BOCarriersPageInterface {
 
     this.pageTitle = 'Carriers •';
     this.successfulUpdateStatusMessage = 'The status has been successfully updated.';
+    this.successfulMultiDeleteMessage = 'Successful deletion';
 
     // Selectors
     this.growlMessageBlock = '#growls .growl-message:last-of-type';
 
     // Header links
-    this.addNewCarrierLink = 'a[data-role=page-header-desc-carrier-link]';
+    this.addNewCarrierLink = 'a#page-header-desc-configuration-add';
 
     // Form selectors
-    this.gridForm = '#form-carrier';
-    this.gridTableHeaderTitle = `${this.gridForm} .panel-heading`;
-    this.gridTableNumberOfTitlesSpan = `${this.gridTableHeaderTitle} span.badge`;
+    this.gridForm = '#carrier_grid_panel';
+    this.gridTableHeaderTitle = '';
+    this.gridTableNumberOfTitlesSpan = `${this.gridTableHeaderTitle} h3.card-header-title`;
 
     // Table selectors
-    this.gridTable = '#table-carrier';
+    this.gridTable = '#carrier_grid_table';
 
     // Filter selectors
-    this.filterRow = `${this.gridTable} tr.filter`;
-    this.filterColumn = (filterBy: string) => `${this.filterRow} [name='carrierFilter_${filterBy}']`;
-    this.filterSearchButton = '#submitFilterButtoncarrier';
-    this.filterResetButton = 'button[name=\'submitResetcarrier\']';
+    this.filterRow = `${this.gridTable} tr.column-filters`;
+    this.filterColumn = (filterBy: string) => `${this.filterRow} td[data-column-id="${filterBy}"] input, `
+      + `${this.filterRow} td[data-column-id="${filterBy}"] select`;
+    this.filterSearchButton = 'button.grid-search-button[name="carrier[actions][search]"]';
+    this.filterResetButton = 'button.js-reset-search[name="carrier[actions][reset]"]';
 
     // Table body selectors
     this.tableBody = `${this.gridTable} tbody`;
@@ -140,47 +142,47 @@ class BOCarriersPage extends BOBasePage implements BOCarriersPageInterface {
     this.tableBodyColumnNth = (column: number) => `${this.tableBodyRows} td:nth-child(${column})`;
 
     // Columns selectors
-    this.tableColumnId = (row: number) => `${this.tableBodyColumn(row)}:nth-child(2)`;
-    this.tableColumnName = (row: number) => `${this.tableBodyColumn(row)}:nth-child(3)`;
-    this.tableColumnDelay = (row: number) => `${this.tableBodyColumn(row)}:nth-child(5)`;
-    this.tableColumnActive = (row: number) => `${this.tableBodyColumn(row)}:nth-child(6) a`;
-    this.enableColumnValidIcon = (row: number) => `${this.tableColumnActive(row)} i.icon-check`;
-    this.tableColumnIsFree = (row: number) => `${this.tableBodyColumn(row)}:nth-child(7) a`;
-    this.tableColumnIsFreeIcon = (row: number) => `${this.tableColumnIsFree(row)} i.icon-check`;
-    this.tableColumnPosition = (row: number) => `${this.tableBodyColumn(row)}:nth-child(8)`;
+    this.tableColumnHandle = (row: number) => `${this.tableBodyColumn(row)}.column-position_handle .position-drag-handle`;
+    this.tableColumnId = (row: number) => `${this.tableBodyColumn(row)}.column-id_carrier`;
+    this.tableColumnName = (row: number) => `${this.tableBodyColumn(row)}.column-name`;
+    this.tableColumnDelay = (row: number) => `${this.tableBodyColumn(row)}.column-delay`;
+    this.tableColumnActive = (row: number) => `${this.tableBodyColumn(row)}.column-active`;
+    this.enableColumnValidIcon = (row: number) => `${this.tableColumnActive(row)} .ps-switch`;
+    this.tableColumnIsFree = (row: number) => `${this.tableBodyColumn(row)}.column-is_free`;
+    this.tableColumnIsFreeIcon = (row: number) => `${this.tableColumnIsFree(row)} .ps-switch`;
+    this.tableColumnPosition = (row: number) => `${this.tableBodyColumn(row)}.column-position`;
 
     // Row actions selectors
-    this.tableColumnActions = (row: number) => `${this.tableBodyColumn(row)} .btn-group-action`;
-    this.tableColumnActionsEditLink = (row: number) => `${this.tableColumnActions(row)} a.edit`;
-    this.tableColumnActionsToggleButton = (row: number) => `${this.tableColumnActions(row)} button.dropdown-toggle`;
+    this.tableColumnActions = (row: number) => `${this.tableBodyColumn(row)}.column-actions`;
+    this.tableColumnActionsEditLink = (row: number) => `${this.tableColumnActions(row)} a.grid-edit-row-link`;
+    this.tableColumnActionsToggleButton = (row: number) => `${this.tableColumnActions(row)} a.dropdown-toggle`;
     this.tableColumnActionsDropdownMenu = (row: number) => `${this.tableColumnActions(row)} .dropdown-menu`;
-    this.tableColumnActionsDeleteLink = (row: number) => `${this.tableColumnActionsDropdownMenu(row)} a.delete`;
+    this.tableColumnActionsDeleteLink = (row: number) => `${this.tableColumnActionsDropdownMenu(row)} .grid-delete-row-link`;
 
     // Sort Selectors
     this.tableHead = `${this.gridTable} thead`;
-    this.sortColumnDiv = (column: number) => `${this.tableHead} th:nth-child(${column})`;
-    this.sortColumnSpanButton = (column: number) => `${this.sortColumnDiv(column)} span.ps-sort`;
+    this.sortColumnDiv = (column: string) => `${this.tableHead} th div[data-sort-col-name="${column}"]`;
+    this.sortColumnSpanButton = (column: string) => `${this.sortColumnDiv(column)} span.ps-sort`;
 
     // Pagination selectors
-    this.paginationActiveLabel = `${this.gridForm} ul.pagination.pull-right li.active a`;
-    this.paginationDiv = `${this.gridForm} .pagination`;
-    this.paginationDropdownButton = `${this.paginationDiv} .dropdown-toggle`;
-    this.paginationItems = (number: number) => `${this.gridForm} .dropdown-menu a[data-items='${number}']`;
-    this.paginationPreviousLink = `${this.gridForm} .icon-angle-left`;
-    this.paginationNextLink = `${this.gridForm} .icon-angle-right`;
+    this.paginationLimitSelect = '#paginator_select_page_limit';
+    this.paginationActiveLabel = 'div.pagination-block .col-form-label';
+    this.paginationNextLink = 'div.pagination-block [data-role=next-page-link]';
+    this.paginationPreviousLink = 'div.pagination-block [data-role=previous-page-link]';
 
     // Confirmation modal
-    this.deleteModalButtonYes = '#popup_ok';
+    this.deleteModalButtonYes = '#carrier-grid-confirm-modal button.btn-confirm-submit';
 
     // Bulk actions selectors
-    this.bulkActionBlock = 'div.bulk-actions';
-    this.bulkActionMenuButton = '#bulk_action_menu_carrier';
-    this.bulkActionDropdownMenu = `${this.bulkActionBlock} ul.dropdown-menu`;
-    this.selectAllLink = `${this.bulkActionDropdownMenu} li:nth-child(1)`;
-    this.unselectAllLink = `${this.bulkActionDropdownMenu} li:nth-child(2)`;
-    this.bulkEnableLink = `${this.bulkActionDropdownMenu} li:nth-child(4)`;
-    this.bulkDisableLink = `${this.bulkActionDropdownMenu} li:nth-child(5)`;
-    this.bulkDeleteLink = `${this.bulkActionDropdownMenu} li:nth-child(7)`;
+    this.bulkActionBlock = '#carrier_grid';
+    this.bulkActionMenuButton = `${this.bulkActionBlock} button.js-bulk-actions-btn`;
+    this.bulkActionDropdownMenu = `${this.bulkActionBlock} .dropdown-menu`;
+    this.selectAllLink = `${this.bulkActionBlock} tr.column-filters .grid_bulk_action_select_all`;
+    this.bulkEnableLink = `${this.bulkActionDropdownMenu} #carrier_grid_bulk_action_enable_selection`;
+    this.bulkDisableLink = `${this.bulkActionDropdownMenu} #carrier_grid_bulk_action_disable_selection`;
+    this.bulkDeleteLink = `${this.bulkActionDropdownMenu} #carrier_grid_bulk_action_delete_selection`;
+    this.bulkDeleteConfirmDeleteModal = '#carrier-grid-confirm-modal';
+    this.bulkDeleteConfirmDeleteButton = `${this.bulkDeleteConfirmDeleteModal} button.btn-confirm-submit`;
   }
 
   /*
@@ -237,8 +239,6 @@ class BOCarriersPage extends BOBasePage implements BOCarriersPageInterface {
    * @return {Promise<void>}
    */
   async filterTable(page: Page, filterType: string, filterBy: string, value: string): Promise<void> {
-    const currentUrl: string = page.url();
-
     switch (filterType) {
       case 'input':
         await this.setValue(page, this.filterColumn(filterBy), value);
@@ -246,10 +246,8 @@ class BOCarriersPage extends BOBasePage implements BOCarriersPageInterface {
         break;
 
       case 'select':
-        await Promise.all([
-          page.waitForURL((url: URL): boolean => url.toString() !== currentUrl, {waitUntil: 'networkidle'}),
-          this.selectByVisibleText(page, this.filterColumn(filterBy), value === '1' ? 'Yes' : 'No'),
-        ]);
+        await this.selectByVisibleText(page, this.filterColumn(filterBy), value === '1' ? 'Yes' : 'No');
+        await this.clickAndWaitForURL(page, this.filterSearchButton);
         break;
 
       default:
@@ -309,7 +307,11 @@ class BOCarriersPage extends BOBasePage implements BOCarriersPageInterface {
     }
 
     if ((columnName === 'active') || (columnName === 'is_free')) {
-      return this.getAttributeContent(page, columnSelector, 'title');
+      return (await this.getAttributeContent(
+        page,
+        `${columnSelector} input[checked]`,
+        'value',
+      ) === '1' ? 'Enabled' : 'Disabled');
     }
     return this.getTextContent(page, columnSelector);
   }
@@ -332,7 +334,7 @@ class BOCarriersPage extends BOBasePage implements BOCarriersPageInterface {
     await this.clickAndWaitForURL(page, this.deleteModalButtonYes);
 
     // Get successful message
-    return this.getAlertSuccessBlockContent(page);
+    return this.getAlertSuccessBlockParagraphContent(page);
   }
 
   // Sort methods
@@ -362,27 +364,38 @@ class BOCarriersPage extends BOBasePage implements BOCarriersPageInterface {
    * @return {Promise<void>}
    */
   async sortTable(page: Page, sortBy: string, sortDirection: string): Promise<void> {
-    let columnSelector;
+    let columnSelector: string;
+    let sortColumnSpanButton: string;
 
     switch (sortBy) {
       case 'id_carrier':
-        columnSelector = this.sortColumnDiv(2);
+        columnSelector = this.sortColumnDiv('id_carrier');
+        sortColumnSpanButton = this.sortColumnSpanButton(sortBy);
         break;
 
       case 'name':
-        columnSelector = this.sortColumnDiv(3);
+        columnSelector = this.sortColumnDiv('name');
+        sortColumnSpanButton = this.sortColumnSpanButton(sortBy);
         break;
 
       case 'a!position':
-        columnSelector = this.sortColumnDiv(8);
+        columnSelector = this.sortColumnDiv('position');
+        sortColumnSpanButton = this.sortColumnSpanButton('position');
         break;
 
       default:
         throw new Error(`Column ${sortBy} was not found`);
     }
 
-    const sortColumnButton = `${columnSelector} i.icon-caret-${sortDirection}`;
-    await this.clickAndWaitForURL(page, sortColumnButton);
+    const sortColumnDiv = `${columnSelector}[data-sort-direction="${sortDirection}"]`;
+
+    let i: number = 0;
+    while (await this.elementNotVisible(page, sortColumnDiv, 2000) && i < 2) {
+      await this.clickAndWaitForURL(page, sortColumnSpanButton);
+      i += 1;
+    }
+
+    await this.waitForVisibleSelector(page, sortColumnDiv, 20000);
   }
 
   /* Pagination methods */
@@ -391,8 +404,15 @@ class BOCarriersPage extends BOBasePage implements BOCarriersPageInterface {
    * @param page {Page} Browser tab
    * @return {Promise<string>}
    */
-  getPaginationLabel(page: Page): Promise<string> {
-    return this.getTextContent(page, this.paginationActiveLabel);
+  async getPaginationLabel(page: Page): Promise<string> {
+    const label: string = await this.getTextContent(page, this.paginationActiveLabel);
+    const regexMatch: RegExpMatchArray | null = label.match(/\(page\s+(\d+)\s+\//);
+
+    if (regexMatch === null) {
+      return '';
+    }
+
+    return regexMatch[1];
   }
 
   /**
@@ -402,8 +422,12 @@ class BOCarriersPage extends BOBasePage implements BOCarriersPageInterface {
    * @returns {Promise<string>}
    */
   async selectPaginationLimit(page: Page, number: number): Promise<string> {
-    await this.waitForSelectorAndClick(page, this.paginationDropdownButton);
-    await this.waitForSelectorAndClick(page, this.paginationItems(number));
+    const currentUrl: string = page.url();
+    await Promise.all([
+      this.selectByVisibleText(page, this.paginationLimitSelect, number),
+      page.waitForURL((url: URL): boolean => url.toString() !== currentUrl, {waitUntil: 'networkidle'}),
+    ]);
+
     return this.getPaginationLabel(page);
   }
 
@@ -434,22 +458,23 @@ class BOCarriersPage extends BOBasePage implements BOCarriersPageInterface {
    * @return {Promise<string>}
    */
   async bulkDeleteCarriers(page: Page): Promise<string> {
-    // To confirm bulk delete action with dialog
-    await this.dialogListener(page, true);
-
-    // Select all rows
+    // Click on Select All
     await this.bulkSetSelection(page, true);
-
-    // Perform delete
+    // Click on Button Bulk actions
     await Promise.all([
       page.locator(this.bulkActionMenuButton).click(),
-      this.waitForVisibleSelector(page, this.bulkDeleteLink),
+      this.waitForVisibleSelector(page, `${this.bulkActionMenuButton}[aria-expanded='true']`),
     ]);
 
-    await this.clickAndWaitForURL(page, this.bulkDeleteLink);
+    // Click on delete and wait for modal
+    await Promise.all([
+      page.locator(this.bulkDeleteLink).click(),
+      this.waitForVisibleSelector(page, `${this.bulkDeleteConfirmDeleteModal}.show`),
+    ]);
 
-    // Return successful message
-    return this.getAlertSuccessBlockContent(page);
+    await this.clickAndWaitForURL(page, this.bulkDeleteConfirmDeleteButton);
+
+    return this.getAlertSuccessBlockParagraphContent(page);
   }
 
   /**
@@ -459,17 +484,16 @@ class BOCarriersPage extends BOBasePage implements BOCarriersPageInterface {
    * @returns {Promise<void>}
    */
   async bulkSetSelection(page: Page, status: boolean): Promise<void> {
-    const selectorAll: string = status ? this.selectAllLink : this.unselectAllLink;
+    let i: number = 0;
 
-    await Promise.all([
-      page.locator(this.bulkActionMenuButton).click(),
-      this.waitForVisibleSelector(page, selectorAll),
-    ]);
-
-    await Promise.all([
-      page.locator(selectorAll).click(),
-      this.waitForHiddenSelector(page, selectorAll),
-    ]);
+    while (await this.elementNotVisible(
+      page,
+      `${this.bulkActionMenuButton}${status ? ':not([disabled])' : '[disabled]'}`,
+      2000,
+    ) && i < 2) {
+      await page.locator(this.selectAllLink).evaluate((el: HTMLElement) => el.click());
+      i += 1;
+    }
   }
 
   /**
@@ -503,8 +527,7 @@ class BOCarriersPage extends BOBasePage implements BOCarriersPageInterface {
       await this.clickAndWaitForURL(page, this.bulkDisableLink);
     }
 
-    // Return successful message
-    return this.getTextContent(page, this.alertSuccessBlock);
+    return this.getAlertSuccessBlockParagraphContent(page);
   }
 
   /**
@@ -513,8 +536,16 @@ class BOCarriersPage extends BOBasePage implements BOCarriersPageInterface {
    * @param row {number} Row index in the table
    * @returns {Promise<boolean>}
    */
-  async getStatus(page: Page, row: number = 1): Promise<boolean> {
-    return this.elementVisible(page, this.enableColumnValidIcon(row), 100);
+  async getStatus(page: Page, row: number): Promise<boolean> {
+    // Get value of the check input
+    const inputValue = await this.getAttributeContent(
+      page,
+      `${this.enableColumnValidIcon(row)} input:checked`,
+      'value',
+    );
+
+    // Return status=false if value='0' and true otherwise
+    return (inputValue !== '0');
   }
 
   /**
@@ -524,7 +555,15 @@ class BOCarriersPage extends BOBasePage implements BOCarriersPageInterface {
    * @returns {Promise<boolean>}
    */
   async isFreeShipping(page: Page, row: number = 1): Promise<boolean> {
-    return this.elementVisible(page, this.tableColumnIsFreeIcon(row), 100);
+    // Get value of the check input
+    const inputValue = await this.getAttributeContent(
+      page,
+      `${this.tableColumnIsFreeIcon(row)} input:checked`,
+      'value',
+    );
+
+    // Return status=false if value='0' and true otherwise
+    return (inputValue !== '0');
   }
 
   /**
@@ -553,6 +592,8 @@ class BOCarriersPage extends BOBasePage implements BOCarriersPageInterface {
    * @return {Promise<boolean>}
    */
   async setFreeShippingStatus(page: Page, row: number = 1, valueWanted: boolean = true): Promise<boolean> {
+    await this.waitForVisibleSelector(page, this.tableColumnIsFree(row), 2000);
+
     if (await this.isFreeShipping(page, row) !== valueWanted) {
       await page.locator(this.tableColumnIsFree(row)).click();
       return true;
@@ -569,14 +610,11 @@ class BOCarriersPage extends BOBasePage implements BOCarriersPageInterface {
    * @return {Promise<string>}
    */
   async changePosition(page: Page, actualPosition: number, newPosition: number): Promise<string | null> {
-    await this.dragAndDrop(
-      page,
-      this.tableColumnPosition(actualPosition),
-      this.tableColumnPosition(newPosition),
-    );
+    await this.dragAndDropSlowly(page, this.tableColumnHandle(actualPosition), this.tableBodyRow(newPosition));
 
-    return this.getGrowlMessageContent(page);
+    return this.getAlertSuccessBlockParagraphContent(page);
   }
 }
 
-module.exports = new BOCarriersPage();
+const boCarriersPage = new BOCarriersPage();
+export {boCarriersPage, BOCarriersPage};
