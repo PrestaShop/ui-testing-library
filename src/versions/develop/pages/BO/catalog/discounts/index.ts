@@ -346,7 +346,24 @@ class BOCartRulesPage extends BOBasePage implements BOCartRulesPageInterface {
 
     switch (filterType) {
       case 'input':
-        await this.setValue(page, this.filterColumn(filterBy), value);
+        if (['date_from', 'date_to'].includes(filterBy)) {
+          let filterByColumn: string = filterBy;
+          filterByColumn = filterBy === 'date_from' ? 'date_to[0]' : filterByColumn;
+          filterByColumn = filterByColumn === 'date_to' ? 'date_to[1]' : filterByColumn;
+
+          await page.evaluate((args: {inputSelector: string, inputValue: string}) => {
+            const inputElement = document.querySelector(args.inputSelector);
+
+            if (inputElement) {
+              (inputElement as HTMLInputElement).value = args.inputValue;
+            }
+          }, {
+            inputSelector: this.filterColumn(filterByColumn),
+            inputValue: value,
+          });
+        } else {
+          await this.setValue(page, this.filterColumn(filterBy), value);
+        }
         await this.clickAndWaitForURL(page, this.filterSearchButton);
         break;
 

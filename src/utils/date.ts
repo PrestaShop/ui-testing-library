@@ -41,11 +41,14 @@ export default {
     const date = this.getBaseDate(dateTime);
 
     // Get day, month and year
-    const mm = (`0${date.getMonth() + 1}`).slice(-2); // Current month
     const dd = (`0${date.getDate()}`).slice(-2); // Current day
+    const mm = (`0${date.getMonth() + 1}`).slice(-2); // Current month
     const yyyy = date.getFullYear(); // Year
 
     switch (format) {
+      case 'dd/mm/yyyy':
+        return `${dd}/${mm}/${yyyy}`;
+
       case 'mm/dd/yyyy':
         return `${mm}/${dd}/${yyyy}`;
 
