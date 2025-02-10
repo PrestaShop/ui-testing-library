@@ -12,6 +12,7 @@ export interface BODesignPositionsPageInterface extends BOBasePagePageInterface 
     getHookId(page: Page, hookRow: number): Promise<number>;
     getHookName(page: Page, hookRow: number): Promise<string>;
     getHookStatus(page: Page, hookRow: number): Promise<boolean>;
+    getHookTitle(page: Page, hookRow: number): Promise<string>;
     getModuleFilter(page: Page): Promise<string>;
     getModulesInHook(page: Page, hookName: string): Promise<string>;
     getNumberOfHooks(page: Page): Promise<number>;
