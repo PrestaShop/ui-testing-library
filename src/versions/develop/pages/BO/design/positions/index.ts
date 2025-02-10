@@ -7,7 +7,7 @@ import type {Page} from '@playwright/test';
  * @class
  * @extends BOBasePage
  */
-class PositionsPage extends BOBasePage implements BODesignPositionsPageInterface {
+class BODesignPositionsPage extends BOBasePage implements BODesignPositionsPageInterface {
   public readonly pageTitle: string;
 
   public readonly messageModuleAddedFromHook: string;
@@ -45,6 +45,8 @@ class PositionsPage extends BOBasePage implements BODesignPositionsPageInterface
   private readonly hookHeaderStatusInput: (hookRow: number) => string;
 
   private readonly hookHeaderNameSpan: (hookRow: number) => string;
+
+  private readonly hookHeaderHelpboxSpan: (hookRow: number) => string;
 
   private readonly hookHeaderDescriptionDiv: (hookRow: number) => string;
 
@@ -91,6 +93,7 @@ class PositionsPage extends BOBasePage implements BODesignPositionsPageInterface
     this.hookHeader = (hookRow: number) => `${this.hookRowNth(hookRow)} header`;
     this.hookHeaderStatusInput = (hookRow: number) => `${this.hookHeader(hookRow)} span.hook-status input.hook-switch-action`;
     this.hookHeaderNameSpan = (hookRow: number) => `${this.hookHeader(hookRow)} span.hook-name`;
+    this.hookHeaderHelpboxSpan = (hookRow: number) => `${this.hookHeader(hookRow)} span.help-box`;
     this.hookHeaderDescriptionDiv = (hookRow: number) => `${this.hookHeader(hookRow)} div.hook_description`;
     this.hookRowName = (hookName: string) => `${this.modulePositionFormHookSection} a[name=${hookName}]`;
     this.hookRowModulesList = (hookName: string) => `${this.hookRowName(hookName)} ~ section.module-list ul`;
@@ -207,6 +210,16 @@ class PositionsPage extends BOBasePage implements BODesignPositionsPageInterface
   }
 
   /**
+   * Return the hook title
+   * @param page {Page} Browser tab
+   * @param hookRow {number} Hook Row
+   * @returns {Promise<string>}
+   */
+  async getHookTitle(page: Page, hookRow: number): Promise<string> {
+    return this.getAttributeContent(page, this.hookHeaderHelpboxSpan(hookRow), 'data-content');
+  }
+
+  /**
    * Return the hook status
    * @param page {Page} Browser tab
    * @param hookRow {number} Hook Row
@@ -257,4 +270,4 @@ class PositionsPage extends BOBasePage implements BODesignPositionsPageInterface
   }
 }
 
-module.exports = new PositionsPage();
+module.exports = new BODesignPositionsPage();
