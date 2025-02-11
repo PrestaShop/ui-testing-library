@@ -6,7 +6,7 @@ export interface FoCategoryPageInterface extends FOBasePagePageInterface {
 
     addToWishList(page: Page, idxProduct: number): Promise<string>;
     clearAllFilters(page: Page): Promise<boolean>;
-    clickBlockCategory(page: Page, categoryName: string): Promise<void>;
+    clickBlockCategory(page: Page, categoryParentName: string, categoryName: string): Promise<void>;
     closeFilter(page: Page, row: number): Promise<void>;
     filterByCheckbox(page: Page, facetType: string, checkboxName: string, toEnable: boolean): Promise<void>;
     filterByPrice(page: Page, minPrice: number, maxPrice: number, filterFrom: number, filterTo: number): Promise<void>;
@@ -18,7 +18,7 @@ export interface FoCategoryPageInterface extends FOBasePagePageInterface {
     getMaximumPrice(page: Page): Promise<number>;
     getMinimumPrice(page: Page): Promise<number>;
     getNThChildFromIDProduct(page: Page, idProduct: number): Promise<number | null>;
-    getNumBlockCategories(page: Page): Promise<number>;
+    getNumBlockCategories(page: Page, level?: number): Promise<number>;
     getNumContentCategories(page: Page): Promise<number>;
     getNumberOfProducts(page: Page): Promise<number>;
     getNumberOfProductsDisplayed(page: Page): Promise<number>;

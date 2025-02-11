@@ -45,9 +45,11 @@ class CategoryPage extends FOBasePage implements FoCategoryPageInterface {
 
   protected sideBlockCategories: string;
 
-  protected sideBlockCategoriesItem: string;
+  protected sideBlockCategoriesItem: (level?: number) => string;
 
   protected sideBlockCategory: (text: string) => string;
+
+  protected sideBlockCollapseIcon: (text: string) => string;
 
   private readonly subCategoriesList: string;
 
@@ -132,8 +134,10 @@ class CategoryPage extends FOBasePage implements FoCategoryPageInterface {
 
     // Categories SideBlock
     this.sideBlockCategories = '.block-categories';
-    this.sideBlockCategoriesItem = `${this.sideBlockCategories} ul.category-sub-menu li`;
-    this.sideBlockCategory = (text: string) => `${this.sideBlockCategoriesItem} a:text("${text}")`;
+    this.sideBlockCategoriesItem = (level?: number) => `${this.sideBlockCategories} ul.category-sub-menu`
+      + ` li${level === undefined ? '' : `[data-depth="${level}"]`}`;
+    this.sideBlockCategory = (text: string) => `${this.sideBlockCategoriesItem()} a:text("${text}")`;
+    this.sideBlockCollapseIcon = (text: string) => `${this.sideBlockCategory(text)} + div`;
 
     // SubCategories List
     this.subCategoriesList = '#subcategories ul.subcategories-list';
@@ -457,17 +461,22 @@ class CategoryPage extends FOBasePage implements FoCategoryPageInterface {
    * @param page {Page} Browser tab
    * @return {Promise<number>}
    */
-  async getNumBlockCategories(page: Page): Promise<number> {
-    return page.locator(this.sideBlockCategoriesItem).count();
+  async getNumBlockCategories(page: Page, level?: number): Promise<number> {
+    return page.locator(this.sideBlockCategoriesItem(level)).count();
   }
 
   /**
    * Click on the category in side block
    * @param page {Page} Browser tab
+   * @param categoryParentName {string}
    * @param categoryName {string}
    * @return {Promise<void>}
    */
-  async clickBlockCategory(page: Page, categoryName: string): Promise<void> {
+  async clickBlockCategory(page: Page, categoryParentName: string, categoryName: string): Promise<void> {
+    await page.locator(this.sideBlockCollapseIcon(categoryParentName)).click();
+    await page.waitForSelector(this.sideBlockCategory(categoryName), {
+      state: 'visible',
+    });
     await this.clickAndWaitForURL(page, this.sideBlockCategory(categoryName));
   }
 
