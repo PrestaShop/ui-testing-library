@@ -472,11 +472,13 @@ class CategoryPage extends FOBasePage implements FoCategoryPageInterface {
    * @param categoryName {string}
    * @return {Promise<void>}
    */
-  async clickBlockCategory(page: Page, categoryParentName: string, categoryName: string): Promise<void> {
-    await page.locator(this.sideBlockCollapseIcon(categoryParentName)).click();
-    await page.waitForSelector(this.sideBlockCategory(categoryName), {
-      state: 'visible',
-    });
+  async clickBlockCategory(page: Page, categoryName: string, categoryParentName: string = ''): Promise<void> {
+    if (categoryParentName !== '') {
+      await page.locator(this.sideBlockCollapseIcon(categoryParentName)).click();
+      await page.waitForSelector(this.sideBlockCategory(categoryName), {
+        state: 'visible',
+      });
+    }
     await this.clickAndWaitForURL(page, this.sideBlockCategory(categoryName));
   }
 

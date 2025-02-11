@@ -6,7 +6,7 @@ export interface FoCategoryPageInterface extends FOBasePagePageInterface {
 
     addToWishList(page: Page, idxProduct: number): Promise<string>;
     clearAllFilters(page: Page): Promise<boolean>;
-    clickBlockCategory(page: Page, categoryParentName: string, categoryName: string): Promise<void>;
+    clickBlockCategory(page: Page, categoryName: string, categoryParentName?: string): Promise<void>;
     closeFilter(page: Page, row: number): Promise<void>;
     filterByCheckbox(page: Page, facetType: string, checkboxName: string, toEnable: boolean): Promise<void>;
     filterByPrice(page: Page, minPrice: number, maxPrice: number, filterFrom: number, filterTo: number): Promise<void>;
