@@ -76,6 +76,8 @@ class BOCartRulesPage extends BOBasePage implements BOCartRulesPageInterface {
 
   private readonly selectAllLink: string;
 
+  private readonly unselectAllLink: string;
+
   private readonly bulkEnableLink: string;
 
   private readonly bulkDisableLink: string;
@@ -159,6 +161,7 @@ class BOCartRulesPage extends BOBasePage implements BOCartRulesPageInterface {
     this.bulkActionMenuButton = '#bulk_action_menu_cart_rule';
     this.bulkActionDropdownMenu = `${this.bulkActionBlock} ul.dropdown-menu`;
     this.selectAllLink = `${this.bulkActionDropdownMenu} li:nth-child(1)`;
+    this.unselectAllLink = `${this.bulkActionDropdownMenu} li:nth-child(2)`;
     this.bulkEnableLink = `${this.bulkActionDropdownMenu} li:nth-child(4)`;
     this.bulkDisableLink = `${this.bulkActionDropdownMenu} li:nth-child(5)`;
     this.bulkDeleteLink = `${this.bulkActionDropdownMenu} li:nth-child(7)`;
@@ -386,13 +389,22 @@ class BOCartRulesPage extends BOBasePage implements BOCartRulesPageInterface {
    * @param page {Page} Browser tab
    * @return {Promise<void>}
    */
-  async bulkSelectRows(page: Page): Promise<void> {
+  async bulkSelectRows(page: Page, status: boolean = true): Promise<void> {
     await page.locator(this.bulkActionMenuButton).click();
 
     await Promise.all([
-      page.locator(this.selectAllLink).click(),
-      this.waitForHiddenSelector(page, this.selectAllLink),
+      page.locator(status ? this.selectAllLink : this.unselectAllLink).click(),
+      this.waitForHiddenSelector(page, status ? this.selectAllLink : this.unselectAllLink),
     ]);
+  }
+
+  /**
+   * Returns number of selected rows
+   * @param page {Page} Browser tab
+   * @return {Promise<number>}
+   */
+  async getSelectedRowsCount(page: Page): Promise<number> {
+    return page.locator(`${this.tableColumnSelectRowCheckbox}:checked`).count();
   }
 
   /**

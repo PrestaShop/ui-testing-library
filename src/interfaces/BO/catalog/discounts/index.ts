@@ -5,12 +5,14 @@ export interface BOCartRulesPageInterface extends BOBasePagePageInterface {
   readonly pageTitle: string;
 
   bulkDeleteCartRules(page: Page): Promise<string>;
+  bulkSelectRows(page: Page, status?: boolean): Promise<void>;
   bulkSetStatus(page: Page, wantedStatus: boolean): Promise<void>;
   deleteCartRule(page: Page, row?: number, cartRuleName?: string): Promise<string>;
   filterCartRules(page: Page, filterType: string, filterBy: string, value: string): Promise<void>;
   getAllRowsColumnContent(page: Page, columnName: string): Promise<string[]>;
   getCartRuleStatus(page: Page, row: number): Promise<boolean>;
   getNumberOfElementInGrid(page: Page): Promise<number>;
+  getSelectedRowsCount(page: Page): Promise<number>;
   getTextColumn(page: Page, row: number, columnName: string): Promise<string>;
   goToAddNewCartRulesPage(page: Page): Promise<void>;
   goToCatalogPriceRulesTab(page: Page): Promise<void>;
