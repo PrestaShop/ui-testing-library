@@ -5,11 +5,13 @@ export interface BOCatalogPriceRulesPageInterface extends BOBasePagePageInterfac
   readonly pageTitle: string;
 
   bulkDeletePriceRules(page: Page): Promise<string>;
+  bulkSelectRows(page: Page, status?: boolean): Promise<void>;
   deleteCatalogPriceRule(page: Page, ruleName: string): Promise<string>;
   filterByDate(page: Page, filterBy: string, dateFrom: string, dateTo: string): Promise<void>;
   filterPriceRules(page: Page, filterType: string, filterBy: string, value: string): Promise<void>;
   getAllRowsColumnContent(page: Page, columnName: string): Promise<string[]>;
   getNumberOfElementInGrid(page: Page): Promise<number>;
+  getSelectedRowsCount(page: Page): Promise<number>;
   getTextColumn(page: Page, row: number, columnName: string): Promise<string>;
   goToAddNewCatalogPriceRulePage(page: Page): Promise<void>;
   goToEditCatalogPriceRulePage(page: Page, ruleName: string): Promise<void>;
