@@ -36,11 +36,13 @@ class BOCatalogPriceRulesPage extends BOBasePage implements BOCatalogPriceRulesP
 
   private readonly tableBody: string;
 
-  private readonly tableRow: (row: number) => string;
+  private readonly tableRow: (row?: number) => string;
 
   private readonly tableEmptyRow: string;
 
-  private readonly tableColumn: (row: number, column: number) => string;
+  private readonly tableColumn: (row?: number, column?: number) => string;
+
+  private readonly tableColumnSelectRowCheckbox: (row?: number) => string;
 
   private readonly actionsColumn: (row: number) => string;
 
@@ -61,6 +63,8 @@ class BOCatalogPriceRulesPage extends BOBasePage implements BOCatalogPriceRulesP
   private readonly bulkActionDropdownMenu: string;
 
   private readonly selectAllLink: string;
+
+  private readonly unselectAllLink: string;
 
   private readonly bulkDeleteLink: string;
 
@@ -113,9 +117,12 @@ class BOCatalogPriceRulesPage extends BOBasePage implements BOCatalogPriceRulesP
 
     // Table rows and columns
     this.tableBody = `${this.gridTable} tbody`;
-    this.tableRow = (row: number) => `${this.tableBody} tr:nth-child(${row})`;
+    this.tableRow = (row?: number) => `${this.tableBody} tr${row === undefined ? '' : `:nth-child(${row})`}`;
     this.tableEmptyRow = `${this.tableBody} tr.empty_row`;
-    this.tableColumn = (row: number, column: number) => `${this.tableRow(row)} td:nth-child(${column})`;
+    this.tableColumn = (row?: number, column?: number) => `${this.tableRow(row)} td`
+      + `${column === undefined ? '' : `:nth-child(${column})`}`;
+    this.tableColumnSelectRowCheckbox = (row?: number) => `${this.tableColumn(undefined, row)
+    } input[name='specific_price_ruleBox[]']`;
 
     // Actions buttons in Row
     this.actionsColumn = (row: number) => `${this.tableRow(row)} td .btn-group-action`;
@@ -130,6 +137,7 @@ class BOCatalogPriceRulesPage extends BOBasePage implements BOCatalogPriceRulesP
     this.bulkActionMenuButton = '#bulk_action_menu_specific_price_rule';
     this.bulkActionDropdownMenu = `${this.bulkActionBlock} ul.dropdown-menu`;
     this.selectAllLink = `${this.bulkActionDropdownMenu} li:nth-child(1)`;
+    this.unselectAllLink = `${this.bulkActionDropdownMenu} li:nth-child(2)`;
     this.bulkDeleteLink = `${this.bulkActionDropdownMenu} li:nth-child(4)`;
 
     // Sort Selectors
@@ -327,16 +335,25 @@ class BOCatalogPriceRulesPage extends BOBasePage implements BOCatalogPriceRulesP
 
   /**
    * Select all rows
-   * @param page
+   * @param page {Page} Browser tab
    * @return {Promise<void>}
    */
-  async bulkSelectRows(page: Page): Promise<void> {
+  async bulkSelectRows(page: Page, status: boolean = true): Promise<void> {
     await page.locator(this.bulkActionMenuButton).click();
 
     await Promise.all([
-      page.locator(this.selectAllLink).click(),
-      this.waitForHiddenSelector(page, this.selectAllLink),
+      page.locator(status ? this.selectAllLink : this.unselectAllLink).click(),
+      this.waitForHiddenSelector(page, status ? this.selectAllLink : this.unselectAllLink),
     ]);
+  }
+
+  /**
+   * Returns number of selected rows
+   * @param page {Page} Browser tab
+   * @return {Promise<number>}
+   */
+  async getSelectedRowsCount(page: Page): Promise<number> {
+    return page.locator(`${this.tableColumnSelectRowCheckbox(undefined)}:checked`).count();
   }
 
   /**
