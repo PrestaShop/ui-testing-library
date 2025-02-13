@@ -33,6 +33,8 @@ class CartPage extends FOBasePage implements FoCartPageInterface {
 
   protected productRegularPrice: (number: number) => string;
 
+  protected productDiscountAmount: (number: number) => string;
+
   protected productDiscountPercentage: (number: number) => string;
 
   protected productPrice: (number: number) => string;
@@ -139,6 +141,7 @@ class CartPage extends FOBasePage implements FoCartPageInterface {
     this.productItem = (number: number) => `#main li:nth-of-type(${number})`;
     this.productName = (number: number) => `${this.productItem(number)} div.product-line-info a`;
     this.productRegularPrice = (number: number) => `${this.productItem(number)} span.regular-price`;
+    this.productDiscountAmount = (number: number) => `${this.productItem(number)} span.discount-amount`;
     this.productDiscountPercentage = (number: number) => `${this.productItem(number)} span.discount-percentage`;
     this.productPrice = (number: number) => `${this.productItem(number)} div.current-price span`;
     this.productTotalPrice = (number: number) => `${this.productItem(number)} span.product-price`;
@@ -257,9 +260,19 @@ class CartPage extends FOBasePage implements FoCartPageInterface {
   async getProductDetail(page: Page, row: number): Promise<ProductDetailsWithDiscount> {
     return {
       name: await this.getTextContent(page, this.productName(row)),
-      regularPrice: await this.getPriceFromText(page, this.productRegularPrice(row)),
+      regularPrice:
+        await page.locator(this.productRegularPrice(row)).count() > 0
+          ? await this.getPriceFromText(page, this.productRegularPrice(row))
+          : await this.getPriceFromText(page, this.productPrice(row)),
       price: await this.getPriceFromText(page, this.productPrice(row)),
-      discountPercentage: await this.getTextContent(page, this.productDiscountPercentage(row)),
+      discountAmount:
+        await page.locator(this.productDiscountAmount(row)).count() > 0
+          ? await this.getTextContent(page, this.productDiscountAmount(row))
+          : '',
+      discountPercentage:
+        await page.locator(this.productDiscountPercentage(row)).count() > 0
+          ? await this.getTextContent(page, this.productDiscountPercentage(row))
+          : '',
       image: await this.getAttributeContent(page, this.productImage(row), 'src'),
       quantity: parseFloat(await this.getAttributeContent(page, this.productQuantity(row), 'value') ?? ''),
       totalPrice: await this.getPriceFromText(page, this.productTotalPrice(row)),

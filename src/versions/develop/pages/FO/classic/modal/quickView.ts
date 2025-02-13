@@ -218,14 +218,14 @@ class QuickViewModal extends FOBasePage implements FoModalQuickViewPageInterface
   /**
      * Get product with discount details from quick view modal
      * @param page {Page} Browser tab
-     * @returns {Promise<{discountPercentage: string, thumbImage: string|null, price: number, taxShippingDeliveryLabel: string,
-     * regularPrice: number, coverImage: string|null, name: string, shortDescription: string}>}
+     * @returns {Promise<ProductDetailsWithDiscount>}
      */
   async getProductWithDiscountDetailsFromQuickViewModal(page: Page): Promise<ProductDetailsWithDiscount> {
     return {
       name: await this.getTextContent(page, this.quickViewProductName),
       regularPrice: parseFloat((await this.getTextContent(page, this.quickViewRegularPrice)).replace('€', '')),
       price: parseFloat((await this.getTextContent(page, this.quickViewProductPrice)).replace('€', '')),
+      discountAmount: '', // @todo
       discountPercentage: await this.getTextContent(page, this.quickViewDiscountPercentage),
       taxShippingDeliveryLabel: await this.getTextContent(page, this.quickViewTaxShippingDeliveryLabel),
       shortDescription: await this.getTextContent(page, this.quickViewShortDescription),

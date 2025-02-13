@@ -158,6 +158,7 @@ type ProductDetails = ProductDetailsBasic & {
 };
 
 type ProductDetailsWithDiscount = ProductDetailsBasic & {
+  discountAmount: string,
   discountPercentage: string,
   regularPrice: number,
   subtotal?: number,
