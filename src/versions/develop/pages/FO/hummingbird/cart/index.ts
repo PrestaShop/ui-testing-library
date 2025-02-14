@@ -65,10 +65,19 @@ class CartPage extends CartPageClassic implements FoCartHummingbirdPageInterface
   async getProductDetail(page: Page, row: number): Promise<ProductDetailsWithDiscount> {
     return {
       name: await this.getTextContent(page, this.productName(row)),
-      regularPrice: await this.getPriceFromText(page, this.productRegularPrice(row)),
+      regularPrice:
+        await page.locator(this.productRegularPrice(row)).count() > 0
+          ? await this.getPriceFromText(page, this.productRegularPrice(row))
+          : await this.getPriceFromText(page, this.productPrice(row)),
       price: await this.getPriceFromText(page, this.productPrice(row)),
-      discountAmount: await this.getTextContent(page, this.productDiscountAmount(row)),
-      discountPercentage: await this.getTextContent(page, this.productDiscountPercentage(row)),
+      discountAmount:
+        await page.locator(this.productDiscountAmount(row)).count() > 0
+          ? await this.getTextContent(page, this.productDiscountAmount(row))
+          : '',
+      discountPercentage:
+        await page.locator(this.productDiscountPercentage(row)).count() > 0
+          ? await this.getTextContent(page, this.productDiscountPercentage(row))
+          : '',
       image: await this.getAttributeContent(page, this.productImage(row), 'srcset'),
       quantity: parseFloat(await this.getAttributeContent(page, this.productQuantity(row), 'value') ?? ''),
       totalPrice: await this.getPriceFromText(page, this.productTotalPrice(row)),
