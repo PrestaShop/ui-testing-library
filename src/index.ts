@@ -198,6 +198,7 @@ export {default as boAttributesPage} from '@pages/BO/catalog/attributes';
 export {default as boAttributesCreatePage} from '@pages/BO/catalog/attributes/createAttribute';
 export {default as boAttributesValueCreatePage} from '@pages/BO/catalog/attributes/createValue';
 export {default as boAttributesViewPage} from '@pages/BO/catalog/attributes/view';
+export {default as boBrandAdressesCreatePage} from '@pages/BO/catalog/brands/addresses/create';
 export {default as boBrandsPage} from '@pages/BO/catalog/brands';
 export {default as boCarriersPage} from '@pages/BO/shipping/carriers';
 export {default as boCarriersCreatePage} from '@pages/BO/shipping/carriers/create';
