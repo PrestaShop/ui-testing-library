@@ -332,6 +332,7 @@ export {default as foClassicCategoryPage} from '@pages/FO/classic/category';
 export {default as foClassicCheckoutPage} from '@pages/FO/classic/checkout';
 export {default as foClassicCheckoutOrderConfirmationPage} from '@pages/FO/classic/checkout/orderConfirmation';
 export {default as foClassicContactUsPage} from '@pages/FO/classic/contactUs';
+export {default as foClassicCreateAccountPage} from '@pages/FO/classic/myAccount/create';
 export {default as foClassicEmailSubscriptionPage} from '@pages/FO/classic/emailSubscription';
 export {default as foClassicHomePage} from '@pages/FO/classic/home';
 export {default as foClassicLoginPage} from '@pages/FO/classic/login';
@@ -356,6 +357,7 @@ export {default as foHummingbirdCategoryPage} from '@pages/FO/hummingbird/catego
 export {default as foHummingbirdCheckoutPage} from '@pages/FO/hummingbird/checkout';
 export {default as foHummingbirdCheckoutOrderConfirmationPage} from '@pages/FO/hummingbird/checkout/orderConfirmation';
 export {default as foHummingbirdContactUsPage} from '@pages/FO/hummingbird/contactUs';
+export {default as foHummingbirdCreateAccountPage} from '@pages/FO/hummingbird/myAccount/create';
 export {default as foHummingbirdHomePage} from '@pages/FO/hummingbird/home';
 export {default as foHummingbirdLoginPage} from '@pages/FO/hummingbird/login';
 export {default as foHummingbirdModalBlockCartPage} from '@pages/FO/hummingbird/modal/blockCart';
