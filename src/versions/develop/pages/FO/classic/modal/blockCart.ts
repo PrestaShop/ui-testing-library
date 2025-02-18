@@ -13,7 +13,7 @@ import type {Page} from 'playwright';
  * @class
  * @extends FOBasePage
  */
-class BlockCartModal extends FOBasePage implements FoModalBlockCartPageInterface {
+class FoModalBlockCartPage extends FOBasePage implements FoModalBlockCartPageInterface {
   private readonly blockCartLabel: string;
 
   protected readonly blockCartModalDiv: string;
@@ -45,9 +45,9 @@ class BlockCartModal extends FOBasePage implements FoModalBlockCartPageInterface
   protected continueShoppingButton: string;
 
   /**
-     * @constructs
-     * Setting up texts and selectors to use on home page
-     */
+   * @constructs
+   * Setting up texts and selectors to use on home page
+   */
   constructor(theme: string = 'classic') {
     super(theme);
 
@@ -69,28 +69,28 @@ class BlockCartModal extends FOBasePage implements FoModalBlockCartPageInterface
   }
 
   /**
-     * Get block cart modal title
-     * @param page {Page} Browser tab
-     * @returns {Promise<string>}
-     */
+   * Get block cart modal title
+   * @param page {Page} Browser tab
+   * @returns {Promise<string>}
+   */
   async getBlockCartModalTitle(page: Page): Promise<string> {
     return this.getTextContent(page, this.blockCartLabel);
   }
 
   /**
-     * Is block cart modal visible
-     * @param page {Page} Browser tab
-     * @returns {Promise<boolean>}
-     */
+   * Is block cart modal visible
+   * @param page {Page} Browser tab
+   * @returns {Promise<boolean>}
+   */
   async isBlockCartModalVisible(page: Page): Promise<boolean> {
     return this.elementVisible(page, this.blockCartModalDiv, 2000);
   }
 
   /**
-     * Get product details from blockCart modal
-     * @param page {Page} Browser tab
-     * @returns {Promise<CartProductDetails>}
-     */
+   * Get product details from blockCart modal
+   * @param page {Page} Browser tab
+   * @returns {Promise<CartProductDetails>}
+   */
   async getProductDetailsFromBlockCartModal(page: Page): Promise<CartProductDetails> {
     return {
       name: await this.getTextContent(page, this.cartModalProductNameBlock),
@@ -104,10 +104,10 @@ class BlockCartModal extends FOBasePage implements FoModalBlockCartPageInterface
   }
 
   /**
-     * Get product attributes from block cart modal
-     * @param page {Page} Browser tab
-     * @returns {Promise<ProductAttribute[]>}
-     */
+   * Get product attributes from block cart modal
+   * @param page {Page} Browser tab
+   * @returns {Promise<ProductAttribute[]>}
+   */
   async getProductAttributesFromBlockCartModal(page: Page): Promise<ProductAttribute[]> {
     return [
       {
@@ -122,20 +122,20 @@ class BlockCartModal extends FOBasePage implements FoModalBlockCartPageInterface
   }
 
   /**
-     * Click on proceed to checkout after adding product to cart (in modal homePage)
-     * @param page {Page} Browser tab
-     * @return {Promise<void>}
-     */
+   * Click on proceed to checkout after adding product to cart (in modal homePage)
+   * @param page {Page} Browser tab
+   * @return {Promise<void>}
+   */
   async proceedToCheckout(page: Page): Promise<void> {
     await this.clickAndWaitForURL(page, this.cartModalCheckoutLink);
     await page.waitForLoadState('domcontentloaded');
   }
 
   /**
-     * Click on continue shopping
-     * @param page {Page} Browser tab
-     * @returns {Promise<boolean>}
-     */
+   * Click on continue shopping
+   * @param page {Page} Browser tab
+   * @returns {Promise<boolean>}
+   */
   async continueShopping(page: Page): Promise<boolean> {
     await this.waitForSelectorAndClick(page, this.continueShoppingButton);
 
@@ -143,11 +143,11 @@ class BlockCartModal extends FOBasePage implements FoModalBlockCartPageInterface
   }
 
   /**
-     * Close block cart modal
-     * @param page {Page} Browser tab
-     * @param clickOutside {boolean} True if we need to click outside to close the modal
-     * @returns {Promise<boolean>}
-     */
+   * Close block cart modal
+   * @param page {Page} Browser tab
+   * @param clickOutside {boolean} True if we need to click outside to close the modal
+   * @returns {Promise<boolean>}
+   */
   async closeBlockCartModal(page: Page, clickOutside: boolean = false): Promise<boolean> {
     if (clickOutside) {
       await page.waitForTimeout(1000);
@@ -159,5 +159,5 @@ class BlockCartModal extends FOBasePage implements FoModalBlockCartPageInterface
   }
 }
 
-const blockCartModal = new BlockCartModal();
-export {blockCartModal, BlockCartModal};
+const foModalBlockCartPage = new FoModalBlockCartPage();
+export {foModalBlockCartPage, FoModalBlockCartPage};

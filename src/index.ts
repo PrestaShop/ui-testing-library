@@ -357,6 +357,7 @@ export {default as foHummingbirdCheckoutOrderConfirmationPage} from '@pages/FO/h
 export {default as foHummingbirdContactUsPage} from '@pages/FO/hummingbird/contactUs';
 export {default as foHummingbirdHomePage} from '@pages/FO/hummingbird/home';
 export {default as foHummingbirdLoginPage} from '@pages/FO/hummingbird/login';
+export {default as foHummingbirdModalBlockCartPage} from '@pages/FO/hummingbird/modal/blockCart';
 export {default as foHummingbirdModalQuickViewPage} from '@pages/FO/hummingbird/modal/quickView';
 export {default as foHummingbirdMyAccountPage} from '@pages/FO/hummingbird/myAccount';
 export {default as foHummingbirdMyMerchandiseReturnsPage} from '@pages/FO/hummingbird/myAccount/merchandiseReturns';
