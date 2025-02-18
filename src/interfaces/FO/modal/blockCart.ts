@@ -1,9 +1,6 @@
-import {FOBasePagePageInterface} from '@interfaces/FO';
-
-// Import data
 import type {ProductAttribute} from '@data/types/product';
 import type {CartProductDetails} from '@data/types/cart';
-
+import {FOBasePagePageInterface} from '@interfaces/FO';
 import type {Page} from '@playwright/test';
 
 export interface FoModalBlockCartPageInterface extends FOBasePagePageInterface {
