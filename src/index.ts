@@ -322,6 +322,7 @@ export {default as boThemeAndLogoChooseLayoutsPage} from '@pages/BO/design/theme
 export {default as boThemeAndLogoImportPage} from '@pages/BO/design/themeAndLogo/themeAndLogo/import';
 export {default as boThemePagesConfigurationPage} from '@pages/BO/design/themeAndLogo/pagesConfiguration';
 export {default as boTranslationsPage} from '@pages/BO/international/translations';
+export {default as boZonesPages} from '@pages/BO/international/locations';
 // Export Pages FO
 export * as FOBasePage from '@pages/FO/FOBasePage';
 // Export Pages FO/Classic
