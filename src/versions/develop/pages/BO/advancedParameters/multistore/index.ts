@@ -80,7 +80,7 @@ class BOMultistorePage extends BOBasePage implements BOMultistorePageInterface {
 
   private readonly sortColumnDiv: (number: number) => string;
 
-  private readonly editGroupButton: (row: number) =>  string;
+  private readonly editGroupButton: (row: number) => string;
 
   /**
    * @constructs
@@ -223,13 +223,12 @@ class BOMultistorePage extends BOBasePage implements BOMultistorePageInterface {
    * @return {Promise<void>}
    */
   async gotoEditShopGroupPage(page: Page, row: number): Promise<void> {
-    //row = 1;
     if (await this.elementVisible(page, this.tableColumnActionsEditLink(row), 2000)) {
       await page.locator(this.tableColumnActionsEditLink(row)).click();
       return;
     }
-    row = 1;
-    await page.locator(this.editGroupButton(row)).click();
+    const myDefaultRow = 1;
+    await page.locator(this.editGroupButton(myDefaultRow)).click();
   }
 
   /**
