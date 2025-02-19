@@ -80,7 +80,7 @@ class BOMultistorePage extends BOBasePage implements BOMultistorePageInterface {
 
   private readonly sortColumnDiv: (number: number) => string;
 
-  private readonly editGroupButton: string;
+  private readonly editGroupButton: (row: number) =>  string;
 
   /**
    * @constructs
@@ -125,7 +125,7 @@ class BOMultistorePage extends BOBasePage implements BOMultistorePageInterface {
     this.tableColumnActionsToggleButton = (row: number) => `${this.tableColumnActions(row)} button.dropdown-toggle`;
     this.tableColumnActionsDropdownMenu = (row: number) => `${this.tableColumnActions(row)} .dropdown-menu`;
     this.tableColumnActionsDeleteLink = (row: number) => `${this.tableColumnActionsDropdownMenu(row)} a.delete`;
-    this.editGroupButton = `#table-shop_group tbody tr:nth-child(1) td .btn-group a.edit`;
+    this.editGroupButton = (row: number) => `${this.tableBodyColumn(row)} .btn-group a.edit`;
 
     // Confirmation modal
     this.deleteModalButtonYes = '#popup_ok';
@@ -223,11 +223,13 @@ class BOMultistorePage extends BOBasePage implements BOMultistorePageInterface {
    * @return {Promise<void>}
    */
   async gotoEditShopGroupPage(page: Page, row: number): Promise<void> {
+    //row = 1;
     if (await this.elementVisible(page, this.tableColumnActionsEditLink(row), 2000)) {
       await page.locator(this.tableColumnActionsEditLink(row)).click();
       return;
     }
-    await page.locator(this.editGroupButton).click();
+    row = 1;
+    await page.locator(this.editGroupButton(row)).click();
   }
 
   /**
