@@ -341,6 +341,7 @@ export {default as foClassicModalQuickViewPage} from '@pages/FO/classic/modal/qu
 export {default as foClassicModalWishlistPage} from '@pages/FO/classic/modal/wishlist';
 export {default as foClassicMyAccountPage} from '@pages/FO/classic/myAccount';
 export {default as foClassicMyAddressesPage} from '@pages/FO/classic/myAccount/addresses';
+export {default as foClassicMyAddressesCreatePage} from '@pages/FO/hummingbird/myAccount/addresses/create';
 export {default as foClassicMyMerchandiseReturnsPage} from '@pages/FO/classic/myAccount/merchandiseReturns';
 export {default as foClassicMyOrderDetailsPage} from '@pages/FO/classic/myAccount/orderDetails';
 export {default as foClassicMyOrderHistoryPage} from '@pages/FO/classic/myAccount/orderHistory';
@@ -365,6 +366,7 @@ export {default as foHummingbirdModalBlockCartPage} from '@pages/FO/hummingbird/
 export {default as foHummingbirdModalQuickViewPage} from '@pages/FO/hummingbird/modal/quickView';
 export {default as foHummingbirdMyAccountPage} from '@pages/FO/hummingbird/myAccount';
 export {default as foHummingbirdMyAddressesPage} from '@pages/FO/hummingbird/myAccount/addresses';
+export {default as foHummingbirdMyAddressesCreatePage} from '@pages/FO/hummingbird/myAccount/addresses/create';
 export {default as foHummingbirdMyMerchandiseReturnsPage} from '@pages/FO/hummingbird/myAccount/merchandiseReturns';
 export {default as foHummingbirdMyOrderDetailsPage} from '@pages/FO/hummingbird/myAccount/orderDetails';
 export {default as foHummingbirdMyOrderHistoryPage} from '@pages/FO/hummingbird/myAccount/orderHistory';
