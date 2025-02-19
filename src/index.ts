@@ -270,6 +270,8 @@ export {default as boMultistoreShopCreatePage} from '@pages/BO/advancedParameter
 export {default as boMultistoreShopUrlCreatePage} from '@pages/BO/advancedParameters/multistore/url/create';
 export {default as boMyProfilePage} from '@pages/BO/advancedParameters/team/myProfile';
 export {default as boNewExperimentalFeaturesPage} from '@pages/BO/advancedParameters/newExperimentalFeatures';
+export {default as boOrderMessagesPage} from '@pages/BO/customerService/orderMessages';
+export {default as boOrderMessagesCreatePage} from '@pages/BO/customerService/orderMessages/create';
 export {default as boOrdersPage} from '@pages/BO/orders';
 export {default as boOrdersCreatePage} from '@pages/BO/orders/create';
 export {default as boOrdersViewBasePage} from '@pages/BO/orders/view/viewOrderBasePage';
@@ -278,7 +280,6 @@ export {default as boOrdersViewBlockMessagesPage} from '@pages/BO/orders/view/bl
 export {default as boOrdersViewBlockPaymentsPage} from '@pages/BO/orders/view/blockPayments';
 export {default as boOrdersViewBlockProductsPage} from '@pages/BO/orders/view/blockProducts';
 export {default as boOrdersViewBlockTabListPage} from '@pages/BO/orders/view/blockTabList';
-export {default as boOrderMessagesPage} from '@pages/BO/customerService/orderMessages';
 export {default as boOrderSettingsPage} from '@pages/BO/shopParameters/orderSettings';
 export {default as boOutstandingPage} from '@pages/BO/catalog/outstanding';
 export {default as boPaymentMethodsPage} from '@pages/BO/payment/paymentMethods';
