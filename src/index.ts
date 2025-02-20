@@ -388,6 +388,7 @@ export {default as modBlockwishlistBoStatistics} from '@pages/BO/modules/blockwi
 export {default as modKeycloakConnectorDemoBoMain} from '@pages/BO/modules/keycloakConnectorDemo';
 export {default as modProductCommentsBoMain} from '@pages/BO/modules/productcomments';
 export {default as modPsCategoryProductsBoMain} from '@pages/BO/modules/ps_categoryproducts';
+export {default as modPsCheckPaymentBoMain} from '@pages/BO/modules/ps_checkpayment';
 export {default as modPsEmailAlertsBoMain} from '@pages/BO/modules/ps_emailalerts';
 export {default as modPsEmailSubscriptionBoMain} from '@pages/BO/modules/ps_emailsubscription';
 export {default as modPsFacetedsearchBoMain} from '@pages/BO/modules/ps_facetedsearch';
