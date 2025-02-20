@@ -385,6 +385,7 @@ export {default as foHummingbirdSitemapPage} from '@pages/FO/hummingbird/sitemap
 export {default as modAutoupgradeBoMain} from '@pages/BO/modules/autoupgrade';
 export {default as modBlockwishlistBoMain} from '@pages/BO/modules/blockwishlist';
 export {default as modBlockwishlistBoStatistics} from '@pages/BO/modules/blockwishlist/statistics';
+export {default as modContactFormBoMain} from '@pages/BO/modules/contactform';
 export {default as modKeycloakConnectorDemoBoMain} from '@pages/BO/modules/keycloakConnectorDemo';
 export {default as modProductCommentsBoMain} from '@pages/BO/modules/productcomments';
 export {default as modPsCategoryProductsBoMain} from '@pages/BO/modules/ps_categoryproducts';
