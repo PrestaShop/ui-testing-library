@@ -1,6 +1,6 @@
 import dataLanguages from '@data/demo/languages';
 import {type ModulePsGdprBoTabDataConsentPageInterface} from '@interfaces/BO/modules/psgdpr/tabDataConsent';
-import ModuleConfiguration from '@pages/BO/modules/moduleConfiguration';
+import {ModuleConfigurationPage} from '@versions/develop/pages/BO/modules/moduleConfiguration';
 import {type Page} from '@playwright/test';
 
 /**
@@ -8,7 +8,7 @@ import {type Page} from '@playwright/test';
  * @class
  * @extends ModuleConfiguration
  */
-class PsGdprTabDataConsentPage extends ModuleConfiguration implements ModulePsGdprBoTabDataConsentPageInterface {
+class PsGdprTabDataConsentPage extends ModuleConfigurationPage implements ModulePsGdprBoTabDataConsentPageInterface {
   public readonly saveFormMessage: string;
 
   private readonly checkboxCreationForm: (status: boolean) => string;

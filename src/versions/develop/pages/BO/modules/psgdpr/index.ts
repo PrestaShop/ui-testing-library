@@ -1,5 +1,5 @@
 import {type ModulePsGdprBoMainPageInterface} from '@interfaces/BO/modules/psgdpr';
-import ModuleConfiguration from '@pages/BO/modules/moduleConfiguration';
+import {ModuleConfigurationPage} from '@versions/develop/pages/BO/modules/moduleConfiguration';
 import {type Page} from '@playwright/test';
 
 /**
@@ -7,7 +7,7 @@ import {type Page} from '@playwright/test';
  * @class
  * @extends ModuleConfiguration
  */
-class PsGdprPage extends ModuleConfiguration implements ModulePsGdprBoMainPageInterface {
+class PsGdprPage extends ModuleConfigurationPage implements ModulePsGdprBoMainPageInterface {
   public readonly pageSubTitle: string;
 
   public readonly pageSubTitleFr: string;

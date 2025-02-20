@@ -1,5 +1,5 @@
 import {type ModulePsWirepaymentMainPageInterface} from '@interfaces/BO/modules/ps_wirepayment';
-import ModuleConfiguration from '@pages/BO/modules/moduleConfiguration';
+import {ModuleConfigurationPage} from '@versions/develop/pages/BO/modules/moduleConfiguration';
 import {type Page} from '@playwright/test';
 
 /**
@@ -7,7 +7,7 @@ import {type Page} from '@playwright/test';
  * @class
  * @extends ModuleConfiguration
  */
-class PsWirePaymentPage extends ModuleConfiguration implements ModulePsWirepaymentMainPageInterface {
+class PsWirePaymentPage extends ModuleConfigurationPage implements ModulePsWirepaymentMainPageInterface {
   public readonly pageTitle: string;
 
   private readonly accountDetailsForm: string;

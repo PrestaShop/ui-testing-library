@@ -1,5 +1,5 @@
 import {ModulePsNewProductsMainPageInterface} from '@interfaces/BO/modules/ps_newproducts';
-import ModuleConfiguration from '@pages/BO/modules/moduleConfiguration';
+import {ModuleConfigurationPage} from '@versions/develop/pages/BO/modules/moduleConfiguration';
 
 import type {Page} from 'playwright';
 
@@ -8,7 +8,7 @@ import type {Page} from 'playwright';
  * @class
  * @extends ModuleConfiguration
  */
-class PsNewProducts extends ModuleConfiguration implements ModulePsNewProductsMainPageInterface {
+class PsNewProducts extends ModuleConfigurationPage implements ModulePsNewProductsMainPageInterface {
   public readonly pageSubTitle: string;
 
   public readonly updateSettingsSuccessMessage: string;

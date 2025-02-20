@@ -1,5 +1,5 @@
 import {type ModulePsGdprBoTabCustomerActivityPageInterface} from '@interfaces/BO/modules/psgdpr/tabCustomerActivity';
-import ModuleConfiguration from '@pages/BO/modules/moduleConfiguration';
+import {ModuleConfigurationPage} from '@versions/develop/pages/BO/modules/moduleConfiguration';
 import {type Page} from '@playwright/test';
 
 /**
@@ -7,7 +7,7 @@ import {type Page} from '@playwright/test';
  * @class
  * @extends ModuleConfiguration
  */
-class PsGdprTabCustomerActivityPage extends ModuleConfiguration implements ModulePsGdprBoTabCustomerActivityPageInterface {
+class PsGdprTabCustomerActivityPage extends ModuleConfigurationPage implements ModulePsGdprBoTabCustomerActivityPageInterface {
   private tableAction: (action: string) => string;
 
   private tableCustomerLog: string;

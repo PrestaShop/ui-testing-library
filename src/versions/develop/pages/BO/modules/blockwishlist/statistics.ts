@@ -1,5 +1,5 @@
 import {ModuleBlockwishlistStatisticsPageInterface} from '@interfaces/BO/modules/blockwishlist/statistics';
-import ModuleConfiguration from '@pages/BO/modules/moduleConfiguration';
+import {ModuleConfigurationPage} from '@versions/develop/pages/BO/modules/moduleConfiguration';
 
 import type {Page} from 'playwright';
 
@@ -8,7 +8,7 @@ import type {Page} from 'playwright';
  * @class
  * @extends ModuleConfiguration
  */
-class BlockwishlistStatistics extends ModuleConfiguration implements ModuleBlockwishlistStatisticsPageInterface {
+class BlockwishlistStatistics extends ModuleConfigurationPage implements ModuleBlockwishlistStatisticsPageInterface {
   public readonly pageTitle: string;
 
   private readonly rowTopBar: string;

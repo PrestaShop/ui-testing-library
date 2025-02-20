@@ -1,5 +1,5 @@
 import {type ModulePsCategoryProductsMainPageInterface} from '@interfaces/BO/modules/ps_categoryproducts';
-import ModuleConfiguration from '@pages/BO/modules/moduleConfiguration';
+import {ModuleConfigurationPage} from '@versions/develop/pages/BO/modules/moduleConfiguration';
 import {type Page} from '@playwright/test';
 
 /**
@@ -7,7 +7,7 @@ import {type Page} from '@playwright/test';
  * @class
  * @extends ModuleConfiguration
  */
-class ModulePsCategoryProductsMain extends ModuleConfiguration implements ModulePsCategoryProductsMainPageInterface {
+class ModulePsCategoryProductsMain extends ModuleConfigurationPage implements ModulePsCategoryProductsMainPageInterface {
   public readonly pageTitle: string;
 
   private readonly displayProductsPriceCheckbox: (toEnable: boolean) => string;

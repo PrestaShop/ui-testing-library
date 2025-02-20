@@ -1,5 +1,5 @@
 import {type ModulePsEmailAlertsMainPageInterface} from '@interfaces/BO/modules/ps_emailalerts';
-import ModuleConfiguration from '@pages/BO/modules/moduleConfiguration';
+import {ModuleConfigurationPage} from '@versions/develop/pages/BO/modules/moduleConfiguration';
 import {type Page} from '@playwright/test';
 
 /**
@@ -7,7 +7,7 @@ import {type Page} from '@playwright/test';
  * @class
  * @extends ModuleConfiguration
  */
-class ModulePsEmailAlertsMainPage extends ModuleConfiguration implements ModulePsEmailAlertsMainPageInterface {
+class ModulePsEmailAlertsMainPage extends ModuleConfigurationPage implements ModulePsEmailAlertsMainPageInterface {
   public readonly pageTitle: string;
 
   private readonly productAvailabilityCheckbox: (toEnable: boolean) => string;
