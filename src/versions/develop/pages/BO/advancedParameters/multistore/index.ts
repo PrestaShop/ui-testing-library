@@ -227,8 +227,7 @@ class BOMultistorePage extends BOBasePage implements BOMultistorePageInterface {
       await page.locator(this.tableColumnActionsEditLink(row)).click();
       return;
     }
-    const myDefaultRow = 1;
-    await page.locator(this.editGroupButton(myDefaultRow)).click();
+    await page.locator(this.editGroupButton(row)).click();
   }
 
   /**
