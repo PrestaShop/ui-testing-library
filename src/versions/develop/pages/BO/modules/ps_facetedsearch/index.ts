@@ -1,5 +1,5 @@
 import {ModulePsFacetedsearchMainPageInterface} from '@interfaces/BO/modules/ps_facetedsearch';
-import ModuleConfiguration from '@pages/BO/modules/moduleConfiguration';
+import {ModuleConfigurationPage} from '@versions/develop/pages/BO/modules/moduleConfiguration';
 import modPsFacetedsearchBoFilterTemplate from '@pages/BO/modules/ps_facetedsearch/filterTemplate';
 
 import type {Page} from 'playwright';
@@ -9,7 +9,7 @@ import type {Page} from 'playwright';
  * @class
  * @extends ModuleConfiguration
  */
-class PsFacetedSearch extends ModuleConfiguration implements ModulePsFacetedsearchMainPageInterface {
+class PsFacetedSearch extends ModuleConfigurationPage implements ModulePsFacetedsearchMainPageInterface {
   public readonly pageSubTitle: string;
 
   public readonly msgSuccessfulCreation: (name: string) => string;

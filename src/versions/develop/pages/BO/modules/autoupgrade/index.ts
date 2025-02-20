@@ -1,13 +1,13 @@
 import {ModuleAutoupgradeMainPageInterface} from '@interfaces/BO/modules/autoupgrade';
-import ModuleConfiguration from '@pages/BO/modules/moduleConfiguration';
 import type {Page} from '@playwright/test';
+import {ModuleConfigurationPage} from '@versions/develop/pages/BO/modules/moduleConfiguration';
 
 /**
  * Module configuration page for module : Autoupgrade, contains selectors and functions for the page
  * @class
  * @extends ModuleConfiguration
  */
-class Autoupgrade extends ModuleConfiguration implements ModuleAutoupgradeMainPageInterface {
+class Autoupgrade extends ModuleConfigurationPage implements ModuleAutoupgradeMainPageInterface {
   public pageTitle: string;
 
   public readonly checkRequirementSuccessMessage: string;

@@ -1,5 +1,5 @@
 import {type ModulePsCheckPaymentMainPageInterface} from '@interfaces/BO/modules/ps_checkpayment';
-import ModuleConfiguration from '@pages/BO/modules/moduleConfiguration';
+import {ModuleConfigurationPage} from '@versions/develop/pages/BO/modules/moduleConfiguration';
 import {Page} from '@playwright/test';
 
 /**
@@ -7,7 +7,7 @@ import {Page} from '@playwright/test';
  * @class
  * @extends ModuleConfiguration
  */
-class ModulePsCheckPaymentMainPage extends ModuleConfiguration implements ModulePsCheckPaymentMainPageInterface {
+class ModulePsCheckPaymentMainPage extends ModuleConfigurationPage implements ModulePsCheckPaymentMainPageInterface {
   public readonly pageTitle: string;
 
   private readonly configurationForm: string;

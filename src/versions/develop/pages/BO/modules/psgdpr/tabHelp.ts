@@ -1,5 +1,5 @@
 import {type ModulePsGdprBoTabHelpPageInterface} from '@interfaces/BO/modules/psgdpr/tabHelp';
-import ModuleConfiguration from '@pages/BO/modules/moduleConfiguration';
+import {ModuleConfigurationPage} from '@versions/develop/pages/BO/modules/moduleConfiguration';
 import {type Page} from '@playwright/test';
 
 /**
@@ -7,7 +7,7 @@ import {type Page} from '@playwright/test';
  * @class
  * @extends ModuleConfiguration
  */
-class PsGdprTabHelpPage extends ModuleConfiguration implements ModulePsGdprBoTabHelpPageInterface {
+class PsGdprTabHelpPage extends ModuleConfigurationPage implements ModulePsGdprBoTabHelpPageInterface {
   private readonly tabRight: string;
 
   private readonly linkDocumentation: string;

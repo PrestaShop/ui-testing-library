@@ -258,6 +258,7 @@ export {default as boInstalledModulesPage} from '@pages/BO/modules/modulesAndSer
 export {default as boMerchandiseReturnsPage} from '@pages/BO/customerService/merchandiseReturns';
 export {default as boMerchandiseReturnsEditPage} from '@pages/BO/customerService/merchandiseReturns/edit';
 export {default as boModuleCatalogPage} from '@pages/BO/modules/moduleCatalog';
+export {default as boModuleConfigurationPage} from '@pages/BO/modules/moduleConfiguration';
 export {default as boModuleManagerAlertsPage} from '@pages/BO/modules/moduleManager/alerts';
 export {default as boModuleManagerPage} from '@pages/BO/modules/moduleManager';
 export {default as boModuleManagerUninstalledModulesPage} from '@pages/BO/modules/moduleManager/uninstalledModules';

@@ -1,5 +1,5 @@
 import {type ModulePsEmailSubscriptionMainPageInterface} from '@interfaces/BO/modules/ps_emailsubscription';
-import ModuleConfiguration from '@pages/BO/modules/moduleConfiguration';
+import {ModuleConfigurationPage} from '@versions/develop/pages/BO/modules/moduleConfiguration';
 
 import type {Page} from 'playwright';
 
@@ -8,7 +8,7 @@ import type {Page} from 'playwright';
  * @class
  * @extends ModuleConfiguration
  */
-class PsEmailSubscriptionPage extends ModuleConfiguration implements ModulePsEmailSubscriptionMainPageInterface {
+class PsEmailSubscriptionPage extends ModuleConfigurationPage implements ModulePsEmailSubscriptionMainPageInterface {
   public readonly pageTitle: string;
 
   public readonly updateSettingsSuccessMessage: string;

@@ -1,5 +1,5 @@
 import {type ModulePsGdprBoTabDataConfigPageInterface} from '@interfaces/BO/modules/psgdpr/tabDataConfig';
-import ModuleConfiguration from '@pages/BO/modules/moduleConfiguration';
+import {ModuleConfigurationPage} from '@versions/develop/pages/BO/modules/moduleConfiguration';
 import {type Page} from '@playwright/test';
 
 /**
@@ -7,7 +7,7 @@ import {type Page} from '@playwright/test';
  * @class
  * @extends ModuleConfiguration
  */
-class PsGdprTabDataConfigPage extends ModuleConfiguration implements ModulePsGdprBoTabDataConfigPageInterface {
+class PsGdprTabDataConfigPage extends ModuleConfigurationPage implements ModulePsGdprBoTabDataConfigPageInterface {
   public readonly messageCustomerDataDeleted: string;
 
   private readonly compliantModuleList: string;

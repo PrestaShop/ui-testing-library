@@ -1,5 +1,5 @@
 import {type ModuleKeycloakConnectorDemoPageInterface} from '@interfaces/BO/modules/keycloakConnectorDemo';
-import ModuleConfiguration from '@pages/BO/modules/moduleConfiguration';
+import {ModuleConfigurationPage} from '@versions/develop/pages/BO/modules/moduleConfiguration';
 import {type Page} from '@playwright/test';
 
 /**
@@ -7,7 +7,7 @@ import {type Page} from '@playwright/test';
  * @class
  * @extends ModuleConfiguration
  */
-class KeycloakConnectorDemoPage extends ModuleConfiguration implements ModuleKeycloakConnectorDemoPageInterface {
+class KeycloakConnectorDemoPage extends ModuleConfigurationPage implements ModuleKeycloakConnectorDemoPageInterface {
   public readonly pageTitle: string;
 
   private readonly formKeycloakEndpoint: string;

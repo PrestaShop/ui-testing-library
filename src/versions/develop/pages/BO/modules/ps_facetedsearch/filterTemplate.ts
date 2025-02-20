@@ -1,5 +1,5 @@
 import {ModulePsFacetedsearchFilterTemplatePageInterface} from '@interfaces/BO/modules/ps_facetedsearch/filterTemplate';
-import ModuleConfiguration from '@pages/BO/modules/moduleConfiguration';
+import {ModuleConfigurationPage} from '@versions/develop/pages/BO/modules/moduleConfiguration';
 
 import type {Page} from 'playwright';
 
@@ -8,7 +8,7 @@ import type {Page} from 'playwright';
  * @class
  * @extends ModuleConfiguration
  */
-class PsFacetedSearchFilterTemplate extends ModuleConfiguration implements ModulePsFacetedsearchFilterTemplatePageInterface {
+class PsFacetedSearchFilterTemplate extends ModuleConfigurationPage implements ModulePsFacetedsearchFilterTemplatePageInterface {
   public readonly title: string;
 
   private readonly panel: string;

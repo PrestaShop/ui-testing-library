@@ -1,6 +1,6 @@
 import dataLanguages from '@data/demo/languages';
 import {ModuleBlockwishlistMainPageInterface} from '@interfaces/BO/modules/blockwishlist';
-import ModuleConfiguration from '@pages/BO/modules/moduleConfiguration';
+import {ModuleConfigurationPage} from '@versions/develop/pages/BO/modules/moduleConfiguration';
 import type {Page} from '@playwright/test';
 
 /**
@@ -8,7 +8,7 @@ import type {Page} from '@playwright/test';
  * @class
  * @extends ModuleConfiguration
  */
-class Blockwishlist extends ModuleConfiguration implements ModuleBlockwishlistMainPageInterface {
+class Blockwishlist extends ModuleConfigurationPage implements ModuleBlockwishlistMainPageInterface {
   public readonly pageTitle: string;
 
   public readonly defaultValueWishlistDefaultTitle: string;

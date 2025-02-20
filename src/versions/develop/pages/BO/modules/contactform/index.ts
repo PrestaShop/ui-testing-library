@@ -1,5 +1,5 @@
 import {type ModuleContactFormMainPageInterface} from '@interfaces/BO/modules/contactform';
-import ModuleConfiguration from '@pages/BO/modules/moduleConfiguration';
+import {ModuleConfigurationPage} from '@versions/develop/pages/BO/modules/moduleConfiguration';
 import {Page} from '@playwright/test';
 
 /**
@@ -7,7 +7,7 @@ import {Page} from '@playwright/test';
  * @class
  * @extends ModuleConfiguration
  */
-class ModuleContactFormMainPage extends ModuleConfiguration implements ModuleContactFormMainPageInterface {
+class ModuleContactFormMainPage extends ModuleConfigurationPage implements ModuleContactFormMainPageInterface {
   public readonly pageTitle: string;
 
   private readonly sendConfirmationEmailToggle: (toggle: string) => string;

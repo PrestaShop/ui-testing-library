@@ -1,5 +1,5 @@
 import {type ModuleProductCommentsBoMainPageInterface} from '@interfaces/BO/modules/productcomments';
-import ModuleConfiguration from '@pages/BO/modules/moduleConfiguration';
+import {ModuleConfigurationPage} from '@versions/develop/pages/BO/modules/moduleConfiguration';
 import {type Page} from '@playwright/test';
 
 /**
@@ -7,7 +7,7 @@ import {type Page} from '@playwright/test';
  * @class
  * @extends ModuleConfiguration
  */
-class ModuleProductCommentsBoMainPage extends ModuleConfiguration implements ModuleProductCommentsBoMainPageInterface {
+class ModuleProductCommentsBoMainPage extends ModuleConfigurationPage implements ModuleProductCommentsBoMainPageInterface {
   public readonly pageTitle: string;
 
   private readonly reviewsTable: (table: string) => string;

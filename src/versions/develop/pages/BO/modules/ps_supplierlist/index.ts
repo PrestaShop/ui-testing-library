@@ -1,5 +1,5 @@
 import {ModulePsSupplierListMainPageInterface} from '@interfaces/BO/modules/ps_supplierlist';
-import ModuleConfiguration from '@pages/BO/modules/moduleConfiguration';
+import {ModuleConfigurationPage} from '@versions/develop/pages/BO/modules/moduleConfiguration';
 import {type Page} from '@playwright/test';
 
 /**
@@ -7,7 +7,7 @@ import {type Page} from '@playwright/test';
  * @class
  * @extends ModuleConfiguration
  */
-class PsSupplierListPage extends ModuleConfiguration implements ModulePsSupplierListMainPageInterface {
+class PsSupplierListPage extends ModuleConfigurationPage implements ModulePsSupplierListMainPageInterface {
   public readonly pageSubTitle: string;
 
   public readonly updateSettingsSuccessMessage: string;
