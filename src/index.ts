@@ -347,7 +347,7 @@ export {default as foClassicModalQuickViewPage} from '@pages/FO/classic/modal/qu
 export {default as foClassicModalWishlistPage} from '@pages/FO/classic/modal/wishlist';
 export {default as foClassicMyAccountPage} from '@pages/FO/classic/myAccount';
 export {default as foClassicMyAddressesPage} from '@pages/FO/classic/myAccount/addresses';
-export {default as foClassicMyAddressesCreatePage} from '@pages/FO/hummingbird/myAccount/addresses/create';
+export {default as foClassicMyAddressesCreatePage} from '@pages/FO/classic/myAccount/addresses/create';
 export {default as foClassicMyMerchandiseReturnsPage} from '@pages/FO/classic/myAccount/merchandiseReturns';
 export {default as foClassicMyOrderDetailsPage} from '@pages/FO/classic/myAccount/orderDetails';
 export {default as foClassicMyOrderHistoryPage} from '@pages/FO/classic/myAccount/orderHistory';
