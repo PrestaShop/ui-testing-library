@@ -248,6 +248,7 @@ export {default as boFeaturesViewPage} from '@pages/BO/catalog/features/view';
 export {default as boFilesPage} from '@pages/BO/catalog/files';
 export {default as boFilesCreatePage} from '@pages/BO/catalog/files/create';
 export {default as boInformationPage} from '@pages/BO/advancedParameters/information';
+export {default as boImageSettingsPage} from '@pages/BO/design/imageSettings';
 export {default as boImportPage} from '@pages/BO/advancedParameters/import';
 export {default as boInvoicesPage} from '@pages/BO/orders/invoices';
 export {default as boLanguagesPage} from '@pages/BO/international/languages';
