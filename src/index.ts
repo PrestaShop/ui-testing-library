@@ -214,6 +214,7 @@ export {default as boCountriesPage} from '@pages/BO/international/locations/coun
 export {default as boCountriesCreatePage} from '@pages/BO/international/locations/countries/create';
 export {default as boCMSPageCategoriesCreatePage} from '@pages/BO/design/pages/category/create';
 export {default as boCMSPagesPage} from '@pages/BO/design/pages';
+export {default as boCMSPagesCreatePage} from '@pages/BO/design/pages/create';
 export {default as boCreditSlipsPage} from '@pages/BO/orders/creditSlips';
 export {default as boCustomerGroupsPage} from '@pages/BO/shopParameters/customerSettings/groups';
 export {default as boCustomerGroupsCreatePage} from '@pages/BO/shopParameters/customerSettings/groups/create';
