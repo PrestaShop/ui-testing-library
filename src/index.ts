@@ -365,6 +365,7 @@ export {default as foClassicPasswordReminderPage} from '@pages/FO/classic/passwo
 export {default as foClassicProductPage} from '@pages/FO/classic/product';
 export {default as foClassicSearchResultsPage} from '@pages/FO/classic/searchResults';
 export {default as foClassicSitemapPage} from '@pages/FO/classic/sitemap';
+export {default as foClassicStoresPage} from '@pages/FO/classic/stores';
 // Export Pages FO/Hummingbird
 export {default as foHummingbirdAboutUsPage} from '@pages/FO/hummingbird/aboutUs';
 export {default as foHummingbirdCartPage} from '@pages/FO/hummingbird/cart';
@@ -391,6 +392,7 @@ export {default as foHummingbirdPasswordReminderPage} from '@pages/FO/hummingbir
 export {default as foHummingbirdProductPage} from '@pages/FO/hummingbird/product';
 export {default as foHummingbirdSearchResultsPage} from '@pages/FO/hummingbird/searchResults';
 export {default as foHummingbirdSitemapPage} from '@pages/FO/hummingbird/sitemap';
+export {default as foHummingbirdStoresPage} from '@pages/FO/hummingbird/stores';
 
 // Export Modules
 export {default as modAutoupgradeBoMain} from '@pages/BO/modules/autoupgrade';
