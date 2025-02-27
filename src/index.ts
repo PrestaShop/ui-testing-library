@@ -321,6 +321,7 @@ export {default as boStatisticsPage} from '@pages/BO/statistics';
 export {default as boStockPage} from '@pages/BO/catalog/stock';
 export {default as boStockMovementsPage} from '@pages/BO/catalog/stock/movements';
 export {default as boStoresPage} from '@pages/BO/shopParameters/stores';
+export {default as boStoresCreatePage} from '@pages/BO/shopParameters/stores/create';
 export {default as boSuppliersCreatePage} from '@pages/BO/catalog/suppliers/create';
 export {default as boSuppliersPage} from '@pages/BO/catalog/suppliers';
 export {default as boSuppliersViewPage} from '@pages/BO/catalog/suppliers/view';
