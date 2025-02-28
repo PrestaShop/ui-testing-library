@@ -320,6 +320,7 @@ export {default as boShoppingCartsViewPage} from '@pages/BO/orders/shoppingCarts
 export {default as boSqlManagerPage} from '@pages/BO/advancedParameters/database/sqlManager';
 export {default as boSqlManagerCreatePage} from '@pages/BO/advancedParameters/database/sqlManager/create';
 export {default as boSqlManagerViewPage} from '@pages/BO/advancedParameters/database/sqlManager/view';
+export {default as boStatesPage} from '@pages/BO/international/locations/states';
 export {default as boStatisticsPage} from '@pages/BO/statistics';
 export {default as boStockPage} from '@pages/BO/catalog/stock';
 export {default as boStockMovementsPage} from '@pages/BO/catalog/stock/movements';
