@@ -248,6 +248,7 @@ export {default as boFeaturesValueCreatePage} from '@pages/BO/catalog/features/c
 export {default as boFeaturesViewPage} from '@pages/BO/catalog/features/view';
 export {default as boFilesPage} from '@pages/BO/catalog/files';
 export {default as boFilesCreatePage} from '@pages/BO/catalog/files/create';
+export {default as boGeolocationPage} from '@pages/BO/international/localization/geolocation';
 export {default as boInformationPage} from '@pages/BO/advancedParameters/information';
 export {default as boImageSettingsPage} from '@pages/BO/design/imageSettings';
 export {default as boImageSettingsCreatePage} from '@pages/BO/design/imageSettings/create';
