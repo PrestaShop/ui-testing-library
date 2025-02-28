@@ -290,6 +290,7 @@ export {default as boOrdersViewBlockTabListPage} from '@pages/BO/orders/view/blo
 export {default as boOrderSettingsPage} from '@pages/BO/shopParameters/orderSettings';
 export {default as boOutstandingPage} from '@pages/BO/catalog/outstanding';
 export {default as boPaymentMethodsPage} from '@pages/BO/payment/paymentMethods';
+export {default as boPaymentPreferencesPage} from '@pages/BO/payment/preferences';
 export {default as boPerformancePage} from '@pages/BO/advancedParameters/performance';
 export {default as boProductsPage} from '@pages/BO/catalog/products';
 export {default as boProductsCreatePage} from '@pages/BO/catalog/products/create';
