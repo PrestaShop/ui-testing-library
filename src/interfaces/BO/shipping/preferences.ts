@@ -2,7 +2,7 @@ import type FakerCarrier from '@data/faker/carrier';
 import {BOBasePagePageInterface} from '@interfaces/BO';
 import {type Page} from '@playwright/test';
 
-export interface BOShippingPreferencesInterface extends BOBasePagePageInterface {
+export interface BOShippingPreferencesPageInterface extends BOBasePagePageInterface {
   readonly pageTitle: string;
 
   setCarrierSortOrderBy(page: Page, sortBy: string, orderBy?: string): Promise<string>;

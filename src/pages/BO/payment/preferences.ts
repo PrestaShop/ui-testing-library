@@ -1,8 +1,8 @@
-import type {BOShippingPreferencesPageInterface} from '@interfaces/BO/shipping/preferences';
+import type {BOPaymentPreferencesPageInterface} from '@interfaces/BO/payment/preferences';
 
 /* eslint-disable global-require, @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires */
-function requirePage(): BOShippingPreferencesPageInterface {
-  return require('@versions/develop/pages/BO/shipping/preferences');
+function requirePage(): BOPaymentPreferencesPageInterface {
+  return require('@versions/develop/pages/BO/payment/preferences');
 }
 /* eslint-enable global-require, @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires */
 

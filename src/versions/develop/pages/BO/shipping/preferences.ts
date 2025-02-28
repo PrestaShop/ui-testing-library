@@ -1,9 +1,9 @@
 import type FakerCarrier from '@data/faker/carrier';
-import {type BOShippingPreferencesInterface} from '@interfaces/BO/shipping/preferences';
+import {type BOShippingPreferencesPageInterface} from '@interfaces/BO/shipping/preferences';
 import BOBasePage from '@pages/BO/BOBasePage';
 import {type Page} from '@playwright/test';
 
-class BOShippingPreferences extends BOBasePage implements BOShippingPreferencesInterface {
+class BOShippingPreferences extends BOBasePage implements BOShippingPreferencesPageInterface {
   public readonly pageTitle: string;
 
   private readonly handlingForm: string;
