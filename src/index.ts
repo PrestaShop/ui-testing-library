@@ -308,6 +308,7 @@ export {default as boProductsCreateTabStocksPage} from '@pages/BO/catalog/produc
 export {default as boProductsCreateTabVirtualProductPage} from '@pages/BO/catalog/products/create/tabVirtualProduct';
 export {default as boProductSettingsPage} from '@pages/BO/shopParameters/productSettings';
 export {default as boQuickAccessPage} from '@pages/BO/quickAccess';
+export {default as boReturnStatusesCreatePage} from '@pages/BO/shopParameters/orderSettings/orderStatuses/returnStatuses/create';
 export {default as boRolesPage} from '@pages/BO/advancedParameters/team/roles';
 export {default as boRolesCreatePage} from '@pages/BO/advancedParameters/team/roles/create';
 export {default as boSearchPage} from '@pages/BO/shopParameters/search';
