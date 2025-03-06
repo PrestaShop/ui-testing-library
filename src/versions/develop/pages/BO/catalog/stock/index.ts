@@ -264,7 +264,8 @@ class BOStocksPage extends BOBasePage implements BOStockPageInterface {
    */
   async paginateTo(page: Page, pageNumber: number = 1): Promise<number> {
     await page.locator(this.paginationListItemLink(pageNumber)).click();
-    if (await this.elementVisible(page, this.productListLoading, 1000)) {
+    await page.waitForResponse(`**/api/stocks/**page_index=${pageNumber}**`);
+    if (await this.elementVisible(page, this.productListLoading, 5000)) {
       await this.waitForHiddenSelector(page, this.productListLoading);
     }
 
@@ -585,7 +586,7 @@ class BOStocksPage extends BOBasePage implements BOStockPageInterface {
    * @return {Promise<void>}
    */
   async openAdvancedFilter(page: Page): Promise<void> {
-    if (await this.elementNotVisible(page, `${this.advancedFiltersButton}[aria-expanded='true']`)) {
+    if (await this.elementNotVisible(page, `${this.advancedFiltersButton}[aria-expanded='true']`, 3000)) {
       await Promise.all([
         page.locator(this.advancedFiltersButton).click(),
         this.waitForVisibleSelector(page, `${this.advancedFiltersButton}[aria-expanded='true']`),
