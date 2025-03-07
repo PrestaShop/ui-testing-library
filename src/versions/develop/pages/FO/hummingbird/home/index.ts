@@ -74,9 +74,10 @@ class FoHomePage extends FoHomePageVersion implements FoHomeHummingbirdPageInter
    * @return {Promise<void>}
    */
   async quickViewProduct(page: Page, id: number): Promise<void> {
-    await page.locator(this.productImg(id)).hover();
-    await this.waitForVisibleSelector(page, this.productQuickViewLink(id));
-    await page.locator(this.productQuickViewLink(id)).click();
+    await page.locator(this.productArticle(id)).hover().then(async () => {
+      await this.waitForVisibleSelector(page, this.productQuickViewLink(id));
+      await page.locator(this.productQuickViewLink(id)).click();
+    });
   }
 
   /**
