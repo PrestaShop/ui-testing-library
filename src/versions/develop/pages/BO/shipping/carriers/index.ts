@@ -611,8 +611,9 @@ class BOCarriersPage extends BOBasePage implements BOCarriersPageInterface {
    */
   async changePosition(page: Page, actualPosition: number, newPosition: number): Promise<string | null> {
     await this.dragAndDropSlowly(page, this.tableColumnHandle(actualPosition), this.tableBodyRow(newPosition));
+    await page.waitForTimeout(6000);
 
-    return this.getAlertSuccessBlockParagraphContent(page);
+    return this.getAlertSuccessBlockParagraphContent(page, 3000);
   }
 }
 

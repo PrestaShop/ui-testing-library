@@ -1179,8 +1179,8 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
    * @param page {Frame|Page} Browser tab
    * @return {Promise<string>}
    */
-  async getAlertSuccessBlockParagraphContent(page: Frame | Page): Promise<string> {
-    await this.elementVisible(page, this.alertSuccessBlockParagraph, 2000);
+  async getAlertSuccessBlockParagraphContent(page: Frame | Page, timeout: number = 2000): Promise<string> {
+    await this.elementVisible(page, this.alertSuccessBlockParagraph, timeout);
     return this.getTextContent(page, this.alertSuccessBlockParagraph);
   }
 
