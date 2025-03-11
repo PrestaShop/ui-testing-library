@@ -91,7 +91,7 @@ export interface BOBasePagePageInterface extends CommonPageInterface {
   getAlertDangerBlockParagraphContent(page: Page): Promise<string>;
   getAlertInfoBlockParagraphContent(page: Page): Promise<string>;
   getAlertSuccessBlockContent(page: Frame | Page): Promise<string>;
-  getAlertSuccessBlockParagraphContent(page: Frame | Page): Promise<string>;
+  getAlertSuccessBlockParagraphContent(page: Frame | Page, timeout?: number): Promise<string>;
   getAllNotificationsNumber(page: Page): Promise<number>;
   getCurrentEmployeeAvatar(page: Page): Promise<string | null>;
   getGrowlMessageContent(page: Page, timeout?: number): Promise<string | null>;

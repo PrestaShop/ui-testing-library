@@ -574,7 +574,7 @@ export default class CommonPage implements CommonPageInterface {
     }
 
     // Wait a bit before dropping the element
-    await page.waitForTimeout(500);
+    await page.waitForTimeout(2500);
     await page.mouse.up();
   }
 
