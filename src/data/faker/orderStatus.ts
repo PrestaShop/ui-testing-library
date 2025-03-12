@@ -47,7 +47,7 @@ export default class FakerOrderStatus {
     })}`).substring(0, 32);
 
     /** @type {string} Hexadecimal value for the status color */
-    this.color = orderStatusToCreate.color || faker.internet.color();
+    this.color = orderStatusToCreate.color || faker.color.rgb();
 
     /** @type {boolean} True to consider order is valid */
     this.logableOn = orderStatusToCreate.logableOn === undefined ? true : orderStatusToCreate.logableOn;
