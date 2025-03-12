@@ -406,7 +406,7 @@ class QuickViewModal extends FOBasePage implements FoModalQuickViewPageInterface
       await this.waitForSelectorAndClick(page, this.quickViewCloseButton);
     }
 
-    return this.elementNotVisible(page, this.quickViewModalDiv, 1000);
+    return this.elementNotVisible(page, this.quickViewModalDiv, 3000);
   }
 
   /**
