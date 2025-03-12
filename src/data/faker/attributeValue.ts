@@ -54,7 +54,7 @@ export default class FakerAttributeValue {
     this.metaTitle = valueToCreate.metaTitle || faker.lorem.word();
 
     /** @type {string} if the attribute type is color, hexadecimal value of the color */
-    this.color = valueToCreate.color || faker.internet.color();
+    this.color = valueToCreate.color || faker.color.rgb();
 
     /** @type {string} if the attribute type is texture, filename of the texture */
     this.textureFileName = valueToCreate.textureFileName || faker.system.commonFileName('txt');

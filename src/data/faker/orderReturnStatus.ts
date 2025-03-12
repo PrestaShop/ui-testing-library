@@ -27,6 +27,6 @@ export default class FakerOrderReturnStatus {
     })}`).substring(0, 32);
 
     /** @type {string} Hexadecimal value for the status  */
-    this.color = orderReturnStatusToCreate.color || faker.internet.color();
+    this.color = orderReturnStatusToCreate.color || faker.color.rgb();
   }
 }
