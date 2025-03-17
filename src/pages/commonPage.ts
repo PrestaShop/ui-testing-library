@@ -206,7 +206,7 @@ export default class CommonPage implements CommonPageInterface {
    * @param page {Page} Browser tab
    * @param selector {string} String to locate the element for the click
    * @param newPageSelector {string} String to locate the element on the opened page (default to FO logo)
-   * @param state {'load'|'domcontentloaded'|'networkidle'} The event to wait after click
+   * @param state {'load'|'domcontentloaded'} The event to wait after click
    * @param waitForVisible {boolean} true if we need to wait for visible selector
    * @return {Promise<Page>} Opened tab after the click
    */
@@ -214,7 +214,7 @@ export default class CommonPage implements CommonPageInterface {
     page: Page,
     selector: string,
     newPageSelector: string = 'body .logo',
-    state: 'load' | 'domcontentloaded' | 'networkidle' = 'networkidle',
+    state: 'load' | 'domcontentloaded' = 'domcontentloaded',
     waitForVisible: boolean = true,
   ): Promise<Page> {
     const [newPage] = await Promise.all([
@@ -419,14 +419,14 @@ export default class CommonPage implements CommonPageInterface {
    * Go to Page and wait for load State
    * @param page {Frame|Page} Browser tab
    * @param selector {string} String to locate the element
-   * @param state {'load'|'domcontentloaded'|'networkidle'} The event to wait after click
+   * @param state {'load'|'domcontentloaded'} The event to wait after click
    * @param timeout {number} Time to wait for navigation
    * @return {Promise<void>}
    */
   async clickAndWaitForLoadState(
     page: Frame | Page,
     selector: string,
-    state: 'load' | 'domcontentloaded' | 'networkidle' = 'networkidle',
+    state: 'load' | 'domcontentloaded' = 'domcontentloaded',
     timeout: number = 30000,
   ): Promise<void> {
     await Promise.all([
@@ -446,7 +446,7 @@ export default class CommonPage implements CommonPageInterface {
   async clickAndWaitForURL(
     page: Frame | Page,
     selector: string,
-    waitUntil: WaitForNavigationWaitUntil = 'networkidle',
+    waitUntil: WaitForNavigationWaitUntil = 'domcontentloaded',
     timeout: number = 30000,
   ): Promise<void> {
     const currentUrl: string = page.url();
@@ -460,7 +460,7 @@ export default class CommonPage implements CommonPageInterface {
   /**
    * Navigate to the previous page in history
    * @param page {Page} Browser tab
-   * @param waitUntil {WaitForNavigationWaitUntil} The event to wait after click (load/networkidle/domcontentloaded)
+   * @param waitUntil {WaitForNavigationWaitUntil} The event to wait after click (load/domcontentloaded)
    * @return {Promise<void>}
    */
   async goToPreviousPage(page: Page, waitUntil: WaitForNavigationWaitUntil = 'load'): Promise<void> {
