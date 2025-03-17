@@ -983,7 +983,7 @@ class ProductPage extends FOBasePage implements FoProductPageInterface {
         throw new Error(`${socialSharing} was not found`);
     }
 
-    return this.openLinkWithTargetBlank(page, selector, 'body', 'networkidle', false);
+    return this.openLinkWithTargetBlank(page, selector, 'body', 'domcontentloaded', false);
   }
 
   /**

@@ -517,7 +517,7 @@ class BOProductsCreatePage extends BOBasePage implements BOProductsCreatePageInt
 
     await boProductsPage.selectProductType(page, productType);
     await boProductsPage.clickOnAddNewProduct(page);
-    await page.waitForURL((url: URL): boolean => url.toString() !== currentUrl, {waitUntil: 'networkidle'});
+    await page.waitForURL((url: URL): boolean => url.toString() !== currentUrl, {waitUntil: 'domcontentloaded'});
   }
 
   /**

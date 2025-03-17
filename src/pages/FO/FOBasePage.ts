@@ -308,7 +308,7 @@ export default class FOBasePage extends CommonPage implements FOBasePagePageInte
     const currentUrl: string = page.url();
 
     await page.locator(this.breadCrumbLink(link === '/' ? '$' : '*', link)).first().click();
-    await page.waitForURL((url: URL): boolean => url.toString() !== currentUrl, {waitUntil: 'networkidle'});
+    await page.waitForURL((url: URL): boolean => url.toString() !== currentUrl, {waitUntil: 'domcontentloaded'});
   }
 
   /**
@@ -472,7 +472,7 @@ export default class FOBasePage extends CommonPage implements FOBasePagePageInte
 
     await Promise.all([
       this.selectByVisibleText(page, this.currencySelect, currency, true),
-      page.waitForURL((url: URL): boolean => url.toString() !== currentUrl, {waitUntil: 'networkidle'}),
+      page.waitForURL((url: URL): boolean => url.toString() !== currentUrl, {waitUntil: 'domcontentloaded'}),
     ]);
   }
 
@@ -641,7 +641,7 @@ export default class FOBasePage extends CommonPage implements FOBasePagePageInte
 
     await this.setValue(page, this.theme === 'hummingbird' ? this.hSearchInput : this.searchInput, productName);
     await page.keyboard.press('Enter');
-    await page.waitForURL((url: URL): boolean => url.toString() !== currentUrl, {waitUntil: 'networkidle'});
+    await page.waitForURL((url: URL): boolean => url.toString() !== currentUrl, {waitUntil: 'domcontentloaded'});
   }
 
   /**
