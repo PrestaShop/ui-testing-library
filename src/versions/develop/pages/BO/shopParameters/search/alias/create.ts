@@ -46,7 +46,7 @@ class BOSearchAliasCreatePage extends BOBasePage implements BOAliasCreatePageInt
     await this.setValue(page, this.aliasInput, aliasData.search);
     await this.setValue(page, this.resultInput, aliasData.alias);
     await page.locator(this.saveButton).click();
-    return this.getAlertSuccessBlockParagraphContent(page);
+    return this.getAlertSuccessBlockParagraphContent(page, 10000);
   }
 }
 
