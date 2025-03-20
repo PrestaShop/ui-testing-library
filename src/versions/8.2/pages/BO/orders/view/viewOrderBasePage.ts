@@ -3,7 +3,6 @@ import {ViewOrderBasePage as ViewOrderBasePageVersion} from '@versions/develop/p
 import type {Page} from 'playwright';
 
 class ViewOrderBasePage extends ViewOrderBasePageVersion implements BOViewOrderBasePageInterface {
-
   /**
       * Modify the order status
       * @param page {Page} Browser tab
