@@ -1202,7 +1202,7 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
    * @returns {Promise<void>}
    */
   async navigateToPageWithInvalidToken(page: Page, url: string, continueToPage: boolean = true): Promise<void> {
-    await this.goTo(page, url);
+    await page.goto(url);
     if (await this.elementVisible(page, this.invalidTokenContinueLink, 10000)) {
       await this.clickAndWaitForURL(
         page,

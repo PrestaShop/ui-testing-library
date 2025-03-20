@@ -23,7 +23,7 @@ export default {
     await test.step(`Create Product${nth > 0 ? ` #${nth}` : ''}: should login in BO`, async () => {
       await utilsTest.addContextItem(test.info(), 'testIdentifier', 'loginBO', baseContext);
 
-      await boLoginPage.goTo(page, global.BO.URL);
+      await page.goto(global.BO.URL);
       await boLoginPage.successLogin(page, global.BO.EMAIL, global.BO.PASSWD);
 
       const pageTitle = await boDashboardPage.getPageTitle(page);
@@ -109,7 +109,7 @@ export default {
     await test.step(`Delete Product${nth > 0 ? ` #${nth}` : ''}: should login in BO`, async () => {
       await utilsTest.addContextItem(test.info(), 'testIdentifier', 'loginBO', baseContext);
 
-      await boLoginPage.goTo(page, global.BO.URL);
+      await page.goto(global.BO.URL);
       await boLoginPage.successLogin(page, global.BO.EMAIL, global.BO.PASSWD);
 
       const pageTitle = await boDashboardPage.getPageTitle(page);

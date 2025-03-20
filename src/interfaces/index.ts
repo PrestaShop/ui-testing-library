@@ -17,7 +17,6 @@ export interface CommonPageInterface {
   elementVisible(page: Frame | Page, selector: string, timeout?: number): Promise<boolean>;
   getAttributeContent(page: Frame | Page, selector: string, attribute: string): Promise<string>;
   getClipboardText(page: Page): Promise<string>;
-  getCurrentURL(page: Page): Promise<string>;
   getInputValue(page: Page, selector: string): Promise<string>;
   getNumberFromText(page: Page | Frame, selector: string, timeout?: number): Promise<number>;
   getPageTitle(page: Page): Promise<string>;
@@ -25,9 +24,6 @@ export interface CommonPageInterface {
     : Promise<ElementHandle<HTMLElement> | JSHandle<HTMLElement | null | undefined> | JSHandle<null>>;
   getPriceFromText(page: Frame|Page, selector: string, timeout?: number, waitForSelector?: boolean): Promise<number>;
   getTextContent(page: Page | Frame, selector: string, waitForSelector?: boolean, withTrim?: boolean): Promise<string>;
-  goTo(page: Page, url: string): Promise<Response|null>;
-  goToBO(page: Page): Promise<void>;
-  goToFo(page: Page): Promise<void>;
   goToPreviousPage(page: Page, waitUntil?: WaitForNavigationWaitUntil): Promise<void>;
   isChecked(page: Frame | Page, selector: string): Promise<boolean>;
   isDisabled(page: Page, selector: string): Promise<boolean>;
