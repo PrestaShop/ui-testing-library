@@ -1,6 +1,6 @@
 import type {PageWaitForSelectorOptionsState, WaitForNavigationWaitUntil} from '@data/types/playwright';
 import type {
-  BrowserContext, ElementHandle, Frame, JSHandle, Locator, Page, Response,
+  BrowserContext, ElementHandle, Frame, JSHandle, Locator, Page,
 } from '@playwright/test';
 
 export interface CommonPageInterface {

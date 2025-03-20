@@ -3,7 +3,7 @@ import type {PageWaitForSelectorOptionsState, WaitForNavigationWaitUntil} from '
 import {CommonPageInterface} from '@interfaces/index';
 
 import type {
-  BrowserContext, ElementHandle, JSHandle, FileChooser, Frame, Page, Locator, Response,
+  BrowserContext, ElementHandle, JSHandle, FileChooser, Frame, Page, Locator,
 } from 'playwright';
 
 /**
