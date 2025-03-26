@@ -343,6 +343,7 @@ export {default as boThemeAndLogoChooseLayoutsPage} from '@pages/BO/design/theme
 export {default as boThemeAndLogoImportPage} from '@pages/BO/design/themeAndLogo/themeAndLogo/import';
 export {default as boThemePagesConfigurationPage} from '@pages/BO/design/themeAndLogo/pagesConfiguration';
 export {default as boTitlesPage} from '@pages/BO/shopParameters/customerSettings/titles';
+export {default as boTitlesCreatePage} from '@pages/BO/shopParameters/customerSettings/titles/create';
 export {default as boTranslationsPage} from '@pages/BO/international/translations';
 export {default as boZonesPage} from '@pages/BO/international/locations';
 export {default as boZonesCreatePage} from '@pages/BO/international/locations/create';
