@@ -211,6 +211,7 @@ export {default as boCatalogPriceRulesCreatePage} from '@pages/BO/catalog/discou
 export {default as boCategoriesPage} from '@pages/BO/catalog/categories';
 export {default as boCategoriesCreatePage} from '@pages/BO/catalog/categories/create';
 export {default as boContactsPage} from '@pages/BO/shopParameters/contacts';
+export {default as boContactsCreatePage} from '@pages/BO/shopParameters/contacts/create';
 export {default as boCountriesPage} from '@pages/BO/international/locations/countries';
 export {default as boCountriesCreatePage} from '@pages/BO/international/locations/countries/create';
 export {default as boCMSPageCategoriesCreatePage} from '@pages/BO/design/pages/category/create';
