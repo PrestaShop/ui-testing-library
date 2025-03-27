@@ -317,6 +317,7 @@ export {default as boSearchPage} from '@pages/BO/shopParameters/search';
 export {default as boSearchAliasPage} from '@pages/BO/shopParameters/search/alias';
 export {default as boSearchAliasCreatePage} from '@pages/BO/shopParameters/search/alias/create';
 export {default as boSecurityPage} from '@pages/BO/advancedParameters/security';
+export {default as boSeoUrlsPage} from '@pages/BO/shopParameters/trafficAndSeo/seoAndUrls';
 export {default as boShippingPreferencesPage} from '@pages/BO/shipping/preferences';
 export {default as boShopParametersPage} from '@pages/BO/shopParameters/general';
 export {default as boShoppingCartsPage} from '@pages/BO/orders/shoppingCarts';
