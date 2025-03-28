@@ -354,6 +354,7 @@ export {default as boTitlesPage} from '@pages/BO/shopParameters/customerSettings
 export {default as boTitlesCreatePage} from '@pages/BO/shopParameters/customerSettings/titles/create';
 export {default as boTranslationsPage} from '@pages/BO/international/translations';
 export {default as boWebservicesPage} from '@pages/BO/advancedParameters/webservices';
+export {default as boWebservicesCreatePage} from '@pages/BO/advancedParameters/webservices/create';
 export {default as boZonesPage} from '@pages/BO/international/locations';
 export {default as boZonesCreatePage} from '@pages/BO/international/locations/create';
 // Export Pages FO
