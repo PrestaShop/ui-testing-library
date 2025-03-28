@@ -29,7 +29,7 @@
   "homepage": "https://github.com/PrestaShop/ui-testing-library#readme",
   "dependencies": {
     "@faker-js/faker": "^9.0.3",
-    "@playwright/test": "^1.48.1",
+    "@playwright/test": "^1.51.0",
     "@s3pweb/keycloak-admin-client-cjs": "^26.0.0",
     "@xmldom/xmldom": "^0.9.5",
     "csv-writer": "^1.6.0",

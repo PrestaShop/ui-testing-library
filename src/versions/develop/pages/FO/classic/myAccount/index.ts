@@ -164,7 +164,7 @@ class MyAccountPage extends FOBasePage implements FoMyAccountPageInterface {
    * @returns {Promise<void>}
    */
   async goToMyWishlistsPage(page: Page): Promise<void> {
-    await this.clickAndWaitForURL(page, this.myWishlistsLink, 'networkidle');
+    await this.clickAndWaitForURL(page, this.myWishlistsLink, 'domcontentloaded');
     await this.elementVisible(page, foClassicMyWishlistsPage.wishlistListItemNthTitle(1), 5000);
   }
 }
