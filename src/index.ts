@@ -339,6 +339,7 @@ export {default as boSuppliersCreatePage} from '@pages/BO/catalog/suppliers/crea
 export {default as boSuppliersPage} from '@pages/BO/catalog/suppliers';
 export {default as boSuppliersViewPage} from '@pages/BO/catalog/suppliers/view';
 export {default as boTagsPage} from '@pages/BO/shopParameters/search/tags';
+export {default as boTagsCreatePage} from '@pages/BO/shopParameters/search/tags/create';
 export {default as boTaxesPage} from '@pages/BO/international/taxes';
 export {default as boTaxesCreatePage} from '@pages/BO/international/taxes/create';
 export {default as boTaxRulesPage} from '@pages/BO/international/taxes/taxRules';
