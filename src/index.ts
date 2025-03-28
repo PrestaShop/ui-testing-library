@@ -296,6 +296,7 @@ export {default as boOutstandingPage} from '@pages/BO/catalog/outstanding';
 export {default as boPaymentMethodsPage} from '@pages/BO/payment/paymentMethods';
 export {default as boPaymentPreferencesPage} from '@pages/BO/payment/preferences';
 export {default as boPerformancePage} from '@pages/BO/advancedParameters/performance';
+export {default as boPermissionsPage} from '@pages/BO/advancedParameters/team/permissions';
 export {default as boProductsPage} from '@pages/BO/catalog/products';
 export {default as boProductsCreatePage} from '@pages/BO/catalog/products/create';
 export {default as boProductsCreateTabCombinationsPage} from '@pages/BO/catalog/products/create/tabCombinations';
