@@ -274,6 +274,7 @@ export {default as boModuleManagerUpdatesPage} from '@pages/BO/modules/moduleMan
 export {default as boModuleSelectionPage} from '@pages/BO/modules/modulesAndServices/selection';
 export {default as boMonitoringPage} from '@pages/BO/catalog/monitoring';
 export {default as boMultistorePage} from '@pages/BO/advancedParameters/multistore';
+export {default as boMultistoreGroupCreatePage} from '@pages/BO/advancedParameters/multistore/create';
 export {default as boMultistoreShopPage} from '@pages/BO/advancedParameters/multistore/shop';
 export {default as boMultistoreShopCreatePage} from '@pages/BO/advancedParameters/multistore/shop/create';
 export {default as boMultistoreShopUrlCreatePage} from '@pages/BO/advancedParameters/multistore/url/create';
