@@ -277,6 +277,7 @@ export {default as boMultistorePage} from '@pages/BO/advancedParameters/multisto
 export {default as boMultistoreGroupCreatePage} from '@pages/BO/advancedParameters/multistore/create';
 export {default as boMultistoreShopPage} from '@pages/BO/advancedParameters/multistore/shop';
 export {default as boMultistoreShopCreatePage} from '@pages/BO/advancedParameters/multistore/shop/create';
+export {default as boMultistoreShopUrlPage} from '@pages/BO/advancedParameters/multistore/url';
 export {default as boMultistoreShopUrlCreatePage} from '@pages/BO/advancedParameters/multistore/url/create';
 export {default as boMyProfilePage} from '@pages/BO/advancedParameters/team/myProfile';
 export {default as boNewExperimentalFeaturesPage} from '@pages/BO/advancedParameters/newExperimentalFeatures';
