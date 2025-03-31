@@ -318,6 +318,7 @@ export {default as boReturnStatusesCreatePage} from '@pages/BO/shopParameters/or
 export {default as boRolesPage} from '@pages/BO/advancedParameters/team/roles';
 export {default as boRolesCreatePage} from '@pages/BO/advancedParameters/team/roles/create';
 export {default as boSearchPage} from '@pages/BO/shopParameters/search';
+export {default as boSearchResultsPage} from '@pages/BO/searchResults';
 export {default as boSearchAliasPage} from '@pages/BO/shopParameters/search/alias';
 export {default as boSearchAliasCreatePage} from '@pages/BO/shopParameters/search/alias/create';
 export {default as boSearchEnginesPage} from '@pages/BO/shopParameters/trafficAndSeo/searchEngines';
