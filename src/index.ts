@@ -365,6 +365,7 @@ export {default as boZonesCreatePage} from '@pages/BO/international/locations/cr
 export * as FOBasePage from '@pages/FO/FOBasePage';
 // Export Pages FO/Classic
 export {default as foClassicAboutUsPage} from '@pages/FO/classic/aboutUs';
+export {default as foClassicBestSalesPage} from '@pages/FO/classic/bestSales';
 export {default as foClassicCartPage} from '@pages/FO/classic/cart';
 export {default as foClassicCategoryPage} from '@pages/FO/classic/category';
 export {default as foClassicCheckoutPage} from '@pages/FO/classic/checkout';
@@ -394,6 +395,7 @@ export {default as foClassicSitemapPage} from '@pages/FO/classic/sitemap';
 export {default as foClassicStoresPage} from '@pages/FO/classic/stores';
 // Export Pages FO/Hummingbird
 export {default as foHummingbirdAboutUsPage} from '@pages/FO/hummingbird/aboutUs';
+export {default as foHummingbirdBestSalesPage} from '@pages/FO/classic/bestSales';
 export {default as foHummingbirdCartPage} from '@pages/FO/hummingbird/cart';
 export {default as foHummingbirdCategoryPage} from '@pages/FO/hummingbird/category';
 export {default as foHummingbirdCheckoutPage} from '@pages/FO/hummingbird/checkout';
