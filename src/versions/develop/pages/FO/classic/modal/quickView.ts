@@ -393,20 +393,21 @@ class QuickViewModal extends FOBasePage implements FoModalQuickViewPageInterface
   }
 
   /**
-     * Close quick view modal
-     * @param page {Page} Browser tab
-     * @param clickOutside {boolean} True if we need to click outside to close the modal
-     * @returns {Promise<boolean>}
-     */
+   * Close quick view modal
+   * @param page {Page} Browser tab
+   * @param clickOutside {boolean} True if we need to click outside to close the modal
+   * @returns {Promise<boolean>}
+   */
   async closeQuickViewModal(page: Page, clickOutside: boolean = false): Promise<boolean> {
     if (clickOutside) {
       await page.waitForTimeout(1000);
       await page.mouse.click(5, 5);
     } else {
-      await this.waitForSelectorAndClick(page, this.quickViewCloseButton);
+      await page.locator(this.quickViewCloseButton).click();
     }
 
-    return this.elementNotVisible(page, this.quickViewModalDiv, 3000);
+    await page.waitForTimeout(5000);
+    return page.locator(this.quickViewModalDiv).isHidden();
   }
 
   /**
