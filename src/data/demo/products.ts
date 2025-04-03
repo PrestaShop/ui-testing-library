@@ -209,6 +209,7 @@ export default {
   }),
   demo_17: new FakerProduct({
     id: 11,
+    name: 'Hummingbird cushion',
     reference: 'demo_17',
   }),
   demo_18: new FakerProduct({
