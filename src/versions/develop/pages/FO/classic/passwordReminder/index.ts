@@ -92,7 +92,7 @@ class PasswordReminderPage extends FOBasePage implements FOPasswordReminderPageI
   async openForgotPasswordPage(page: Page, emailBody: string): Promise<void> {
     // To get reset email password from received email
     const resetPasswordURL = emailBody.split(/(.*)(http.*password-recovery\\?.*)/)[2];
-    await this.goTo(page, resetPasswordURL);
+    await page.goto(resetPasswordURL);
   }
 
   /**
