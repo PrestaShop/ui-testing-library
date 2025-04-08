@@ -264,7 +264,11 @@ class ModuleManagerPage extends BOBasePage implements ModuleManagerPageInterface
    * @return {Promise<boolean>}
    */
   async searchModule(page: Page, module: FakerModule): Promise<boolean> {
-    await this.reloadPage(page);
+    await page.reload({
+      timeout: 60000,
+      waitUntil: 'networkidle',
+    });
+    await this.elementVisible(page, this.searchModuleTagInput, 60000);
     await page.locator(this.searchModuleTagInput).fill(module.tag);
     await page.locator(this.searchModuleButton).click();
 
