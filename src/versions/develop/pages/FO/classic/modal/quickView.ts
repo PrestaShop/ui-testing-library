@@ -1,18 +1,15 @@
-// Import pages
-import type {FoModalQuickViewPageInterface} from '@interfaces/FO/modal/quickView';
-import FOBasePage from '@pages/FO/FOBasePage';
-
-// Import data
 import type {ProductAttribute, ProductDetails, ProductDetailsWithDiscount} from '@data/types/product';
-
-import type {Page} from 'playwright';
+import type {FoModalQuickViewPageInterface} from '@interfaces/FO/modal/quickView';
+import foClassicModalBlockCartPage from '@pages/FO/classic/modal/blockCart';
+import FOBasePage from '@pages/FO/FOBasePage';
+import type {Page} from '@playwright/test';
 
 /**
  * Quick view modal, contains functions that can be used on the modal
  * @class
  * @extends FOBasePage
  */
-class QuickViewModal extends FOBasePage implements FoModalQuickViewPageInterface {
+class FoModalQuickViewPage extends FOBasePage implements FoModalQuickViewPageInterface {
   public quickViewModalDiv: string;
 
   protected quickViewCloseButton: string;
@@ -51,7 +48,7 @@ class QuickViewModal extends FOBasePage implements FoModalQuickViewPageInterface
 
   private readonly quickViewPinterestSocialSharing: string;
 
-  private readonly addToCartButton: string;
+  protected readonly addToCartButton: string;
 
   protected quickViewModalProductImageCover: string;
 
@@ -145,12 +142,14 @@ class QuickViewModal extends FOBasePage implements FoModalQuickViewPageInterface
   }
 
   /**
-     * Click on add to cart button from quick view modal
-     * @param page {Page} Browser tab
-     * @returns {Promise<void>}
-     */
+   * Click on add to cart button from quick view modal
+   * @param page {Page} Browser tab
+   * @returns {Promise<void>}
+   */
   async addToCartByQuickView(page: Page): Promise<void> {
     await this.waitForSelectorAndClick(page, this.addToCartButton);
+    await this.waitForHiddenSelector(page, this.quickViewModalDiv);
+    await this.waitForVisibleSelector(page, foClassicModalBlockCartPage.blockCartModalDiv);
   }
 
   /**
@@ -440,5 +439,5 @@ class QuickViewModal extends FOBasePage implements FoModalQuickViewPageInterface
   }
 }
 
-const quickViewModal = new QuickViewModal();
-export {quickViewModal, QuickViewModal};
+const foModalQuickViewPage = new FoModalQuickViewPage();
+export {foModalQuickViewPage, FoModalQuickViewPage};

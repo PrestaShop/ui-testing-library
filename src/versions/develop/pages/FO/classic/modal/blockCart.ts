@@ -16,7 +16,7 @@ import type {Page} from 'playwright';
 class FoModalBlockCartPage extends FOBasePage implements FoModalBlockCartPageInterface {
   private readonly blockCartLabel: string;
 
-  protected readonly blockCartModalDiv: string;
+  public readonly blockCartModalDiv: string;
 
   protected blockCartModalCloseButton: string;
 
