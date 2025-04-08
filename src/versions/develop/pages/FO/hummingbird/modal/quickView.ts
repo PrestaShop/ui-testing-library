@@ -1,14 +1,15 @@
 import {type ProductAttribute, type ProductDetails} from '@data/types/product';
 import {type FoModalQuickViewPageInterface} from '@interfaces/FO/modal/quickView';
+import foHummingbirdModalBlockCartPage from '@pages/FO/hummingbird/modal/blockCart';
 import {type Page} from '@playwright/test';
-import {QuickViewModal as QuickViewModalClassic} from '@versions/develop/pages/FO/classic/modal/quickView';
+import {FoModalQuickViewPage as FoModalQuickViewPageClassic} from '@versions/develop/pages/FO/classic/modal/quickView';
 
 /**
  * Quick view modal, contains functions that can be used on the page
  * @class
- * @extends QuickViewModal
+ * @extends FoModalQuickViewPageClassic
  */
-class QuickViewModal extends QuickViewModalClassic implements FoModalQuickViewPageInterface {
+class FoModalQuickViewPage extends FoModalQuickViewPageClassic implements FoModalQuickViewPageInterface {
   /**
    * @constructs
    * Setting up texts and selectors to use on home page
@@ -30,6 +31,19 @@ class QuickViewModal extends QuickViewModalClassic implements FoModalQuickViewPa
     this.quickViewProductSize = `${this.quickViewProductVariants} select#group_1`;
     this.quickViewProductColor = `${this.quickViewProductVariants} ul#group_2`;
     this.quickViewCloseButton = `${this.quickViewModalDiv} button.btn-close`;
+  }
+
+  /**
+    * Click on add to cart button from quick view modal
+    * @param page {Page} Browser tab
+    * @returns {Promise<void>}
+    */
+  async addToCartByQuickView(page: Page, isHidden: boolean = true): Promise<void> {
+    await this.waitForSelectorAndClick(page, this.addToCartButton);
+    if (isHidden) {
+      await this.waitForHiddenSelector(page, this.quickViewModalDiv);
+      await this.waitForVisibleSelector(page, foHummingbirdModalBlockCartPage.blockCartModalDiv);
+    }
   }
 
   /**
@@ -102,4 +116,4 @@ class QuickViewModal extends QuickViewModalClassic implements FoModalQuickViewPa
   }
 }
 
-module.exports = new QuickViewModal();
+module.exports = new FoModalQuickViewPage();

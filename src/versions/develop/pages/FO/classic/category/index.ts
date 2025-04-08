@@ -1,7 +1,7 @@
 // Import pages
 import type {FoCategoryPageInterface} from '@interfaces/FO/category';
 import FOBasePage from '@pages/FO/FOBasePage';
-import quickViewModal from '@pages/FO/classic/modal/quickView';
+import foModalQuickViewPage from '@pages/FO/classic/modal/quickView';
 
 import type {Page} from 'playwright';
 
@@ -389,7 +389,7 @@ class CategoryPage extends FOBasePage implements FoCategoryPageInterface {
     }
     /* eslint-enable no-await-in-loop */
     await Promise.all([
-      this.waitForVisibleSelector(page, quickViewModal.quickViewModalDiv),
+      this.waitForVisibleSelector(page, foModalQuickViewPage.quickViewModalDiv),
       page.locator(this.productQuickViewLink(id)).evaluate((el: HTMLElement) => el.click()),
     ]);
   }
