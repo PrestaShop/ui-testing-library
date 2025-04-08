@@ -384,6 +384,7 @@ export {default as foClassicModalWishlistPage} from '@pages/FO/classic/modal/wis
 export {default as foClassicMyAccountPage} from '@pages/FO/classic/myAccount';
 export {default as foClassicMyAddressesPage} from '@pages/FO/classic/myAccount/addresses';
 export {default as foClassicMyAddressesCreatePage} from '@pages/FO/classic/myAccount/addresses/create';
+export {default as foClassicMyCreditSlipsPage} from '@pages/FO/classic/myAccount/creditSlips';
 export {default as foClassicMyMerchandiseReturnsPage} from '@pages/FO/classic/myAccount/merchandiseReturns';
 export {default as foClassicMyOrderDetailsPage} from '@pages/FO/classic/myAccount/orderDetails';
 export {default as foClassicMyOrderHistoryPage} from '@pages/FO/classic/myAccount/orderHistory';
@@ -405,6 +406,7 @@ export {default as foHummingbirdCheckoutOrderConfirmationPage} from '@pages/FO/h
 export {default as foHummingbirdCmsPage} from '@pages/FO/hummingbird/cms';
 export {default as foHummingbirdContactUsPage} from '@pages/FO/hummingbird/contactUs';
 export {default as foHummingbirdCreateAccountPage} from '@pages/FO/hummingbird/myAccount/create';
+export {default as foHummingbirdMyCreditSlipsPage} from '@pages/FO/hummingbird/myAccount/creditSlips';
 export {default as foHummingbirdDeliveryPage} from '@pages/FO/hummingbird/delivery';
 export {default as foHummingbirdHomePage} from '@pages/FO/hummingbird/home';
 export {default as foHummingbirdLegalNoticePage} from '@pages/FO/hummingbird/legalNotice';
