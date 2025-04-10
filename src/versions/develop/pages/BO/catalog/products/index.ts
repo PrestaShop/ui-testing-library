@@ -585,7 +585,7 @@ class ProductsPage extends BOBasePage implements BOProductsPageInterface {
       (action === 'enable' || action === 'disable') ? `${action}_selection` : `bulk_${action}`,
     );
     await this.waitForSelectorAndClick(page, modalBulkActionsProductsCloseButton);
-    await page.waitForLoadState('networkidle');
+    await page.waitForLoadState('domcontentloaded');
 
     return this.elementNotVisible(page, modalBulkActionsProductsProgress, 1000);
   }
@@ -766,7 +766,7 @@ class ProductsPage extends BOBasePage implements BOProductsPageInterface {
       // Do nothing
     }
     // click on search
-    await this.clickAndWaitForLoadState(page, this.filterSearchButton, 'networkidle', 10000);
+    await this.clickAndWaitForLoadState(page, this.filterSearchButton, 'domcontentloaded', 10000);
   }
 
   /**

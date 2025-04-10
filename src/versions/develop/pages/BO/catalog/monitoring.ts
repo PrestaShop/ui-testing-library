@@ -388,7 +388,7 @@ class BOMonitoringPage extends BOBasePage implements BOMonitoringPageInterface {
 
     await Promise.all([
       this.selectByVisibleText(page, this.paginationLimitSelect(tableName), number),
-      page.waitForURL((url: URL): boolean => url.toString() !== currentUrl, {waitUntil: 'networkidle'}),
+      page.waitForURL((url: URL): boolean => url.toString() !== currentUrl, {waitUntil: 'domcontentloaded'}),
     ]);
 
     return this.getPaginationLabel(page, tableName);

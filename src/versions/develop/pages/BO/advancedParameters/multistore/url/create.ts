@@ -60,7 +60,7 @@ class BOMultistoreShopUrlCreatePage extends BOBasePage implements BOMultistoreSh
   async setVirtualUrl(page: Page, url: string): Promise<string> {
     await this.setValue(page, this.virtualUrlInput, url);
 
-    await this.clickAndWaitForURL(page, this.saveButton, 'networkidle', 60000);
+    await this.clickAndWaitForURL(page, this.saveButton, 'domcontentloaded', 60000);
     return this.getTextContent(page, this.alertSuccessBlock);
   }
 

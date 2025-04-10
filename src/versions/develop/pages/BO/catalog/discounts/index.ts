@@ -372,7 +372,7 @@ class BOCartRulesPage extends BOBasePage implements BOCartRulesPageInterface {
 
       case 'select':
         await Promise.all([
-          page.waitForURL((url: URL): boolean => url.toString() !== currentUrl, {waitUntil: 'networkidle'}),
+          page.waitForURL((url: URL): boolean => url.toString() !== currentUrl, {waitUntil: 'domcontentloaded'}),
           this.selectByVisibleText(page, this.filterColumn(filterBy), value === '1' ? 'Yes' : 'No'),
         ]);
         break;

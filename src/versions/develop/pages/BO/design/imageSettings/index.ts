@@ -420,7 +420,7 @@ class BOImageSettingsPage extends BOBasePage implements BOImageSettingsPageInter
 
     await Promise.all([
       this.selectByVisibleText(page, this.paginationLimitSelect, number),
-      page.waitForURL((url: URL): boolean => url.toString() !== currentUrl, {waitUntil: 'networkidle'}),
+      page.waitForURL((url: URL): boolean => url.toString() !== currentUrl, {waitUntil: 'domcontentloaded'}),
     ]);
 
     return this.getPaginationLabel(page);
