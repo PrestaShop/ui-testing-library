@@ -220,7 +220,7 @@ class PricingTab extends BOBasePage implements BOProductsCreateTabPricingPageInt
      * @returns {Promise<void>}
      */
   async setRetailPrice(page: Page, isTaxExcluded: boolean, price: number): Promise<void> {
-    await this.setValue(
+    await this.setValueSequentially(
       page,
       isTaxExcluded ? this.retailPriceInputTaxExcl : this.retailPriceInputTaxIncl,
       price,
