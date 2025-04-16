@@ -129,7 +129,7 @@ class StocksTab extends BOBasePage implements BOProductsCreateTabStocksPageInter
   async setProductStock(page: Page, productData: FakerProduct): Promise<void> {
     await this.waitForSelectorAndClick(page, this.stocksTabLink);
     await this.setQuantityDelta(page, productData.quantity);
-    await page.locator(this.productMinimumQuantityInput).fill(productData.minimumQuantity.toString());
+    await this.setValue(page, this.productMinimumQuantityInput, productData.minimumQuantity);
     await this.setStockLocation(page, productData.stockLocation);
 
     await this.setOptionWhenOutOfStock(page, productData.behaviourOutOfStock);
@@ -145,7 +145,7 @@ class StocksTab extends BOBasePage implements BOProductsCreateTabStocksPageInter
      * @returns {Promise<void>}
      */
   async setQuantityDelta(page: Page, quantity: number): Promise<void> {
-    await page.locator(this.productQuantityInput).fill(quantity.toString());
+    await this.setValue(page, this.productQuantityInput, quantity);
   }
 
   /**
@@ -224,7 +224,7 @@ class StocksTab extends BOBasePage implements BOProductsCreateTabStocksPageInter
      * @param minimalQuantiy {number} Minimal Quantity
      */
   async setMinimalQuantity(page: Page, minimalQuantiy: number): Promise<void> {
-    await page.locator(this.productMinimumQuantityInput).fill(minimalQuantiy.toString());
+    await this.setValue(page, this.productMinimumQuantityInput, minimalQuantiy);
   }
 
   /**
@@ -233,7 +233,7 @@ class StocksTab extends BOBasePage implements BOProductsCreateTabStocksPageInter
      * @param stockLocation {number} Stock location
      */
   async setStockLocation(page: Page, stockLocation: string): Promise<void> {
-    await page.locator(this.productStockLocationInput).fill(stockLocation);
+    await this.setValue(page, this.productStockLocationInput, stockLocation);
   }
 
   /**
@@ -251,7 +251,7 @@ class StocksTab extends BOBasePage implements BOProductsCreateTabStocksPageInter
 
     // Define the threshold only if the low stock alert is enabled
     if (statusAlert) {
-      await page.locator(this.productLowStockThresholdInput).fill(thresholdValue.toString());
+      await this.setValue(page, this.productLowStockThresholdInput, thresholdValue);
     }
   }
 
@@ -266,7 +266,7 @@ class StocksTab extends BOBasePage implements BOProductsCreateTabStocksPageInter
     await page
       .locator(this.productLabelAvailableNowDropdownItem('en'))
       .evaluate((el: HTMLElement) => el.click());
-    await page.locator(this.productLabelAvailableNowInput('1')).fill(label);
+    await this.setValue(page, this.productLabelAvailableNowInput('1'), label);
   }
 
   /**
@@ -279,7 +279,7 @@ class StocksTab extends BOBasePage implements BOProductsCreateTabStocksPageInter
     await page
       .locator(this.productLabelAvailableLaterDropdownItem('en'))
       .evaluate((el: HTMLElement) => el.click());
-    await page.locator(this.productLabelAvailableLaterInput('1')).fill(label);
+    await this.setValue(page, this.productLabelAvailableLaterInput('1'), label);
   }
 
   /**
@@ -288,7 +288,7 @@ class StocksTab extends BOBasePage implements BOProductsCreateTabStocksPageInter
      * @param date {string} Label to set when availability date in the input
      */
   async setAvailabilityDate(page: Page, date: string): Promise<void> {
-    await page.locator(this.productAvailableDateInput).fill(date);
+    await this.setValue(page, this.productAvailableDateInput, date);
   }
 
   /**

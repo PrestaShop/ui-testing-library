@@ -259,6 +259,22 @@ export default class CommonPage implements CommonPageInterface {
    * @return {Promise<void>}
    */
   async setValue(page: Frame | Page, selector: string, value: string | number): Promise<void> {
+    await page.locator(selector).fill(value.toString());
+    // const inputValue = await page.locator(selector).inputValue();
+    //
+    // if (value.toString() !== inputValue) {
+    //   this.setValueSequentially(page, selector, value);
+    // }
+  }
+
+  /**
+   * Delete the existing text from input then set a value
+   * @param page {Frame|Page} Browser tab
+   * @param selector {string} String to locate the input to set its value
+   * @param value {?string|number} Value to set on the input
+   * @return {Promise<void>}
+   */
+  async setValueSequentially(page: Frame | Page, selector: string, value: string | number): Promise<void> {
     await this.clearInput(page, selector);
 
     if (value !== null) {
