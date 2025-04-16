@@ -259,7 +259,7 @@ export default class CommonPage implements CommonPageInterface {
    * @return {Promise<void>}
    */
   async setValue(page: Frame | Page, selector: string, value: string | number): Promise<void> {
-    await page.locator(selector).fill(value.toString());
+    await page.locator(selector).fill(value.toString(), {force: true});
     // const inputValue = await page.locator(selector).inputValue();
     //
     // if (value.toString() !== inputValue) {
