@@ -1,6 +1,6 @@
 // Import pages
 import type {BOProductsCreatePageInterface} from '@interfaces/BO/catalog/products/create';
-import {BOProductsCreatePage} from '@versions/8.2/pages/BO/catalog/products/create';
+import {BOProductsCreatePage} from '@versions/8.0/pages/BO/catalog/products/create';
 
 import type {Page} from 'playwright';
 
