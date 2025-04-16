@@ -233,7 +233,7 @@ class StocksTab extends BOBasePage implements BOProductsCreateTabStocksPageInter
      * @param stockLocation {number} Stock location
      */
   async setStockLocation(page: Page, stockLocation: string): Promise<void> {
-    await this.setValue(page, this.productStockLocationInput, stockLocation);
+    await page.locator(this.productStockLocationInput).fill(stockLocation);
   }
 
   /**
