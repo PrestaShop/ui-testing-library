@@ -109,7 +109,7 @@ class BOLocalizationPage extends BOLocalizationBasePage implements BOLocalizatio
     // Import the pack
     await page.locator(this.importButton).click();
 
-    return this.getAlertSuccessBlockParagraphContent(page);
+    return this.getAlertSuccessBlockParagraphContent(page, 20000);
   }
 
   /**
