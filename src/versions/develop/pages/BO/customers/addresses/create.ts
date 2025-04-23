@@ -49,7 +49,7 @@ class BOAddressesCreatePage extends BOBasePage implements BOAddressesCreatePageI
 
   private readonly customerAddressOtherInput: string;
 
-  private readonly saveAddressButton: string;
+  protected saveAddressButton: string;
 
   /**
    * @constructs
@@ -164,4 +164,6 @@ class BOAddressesCreatePage extends BOBasePage implements BOAddressesCreatePageI
   }
 }
 
-module.exports = new BOAddressesCreatePage();
+const boAddressesCreatePage = new BOAddressesCreatePage();
+export {boAddressesCreatePage, BOAddressesCreatePage};
+//module.exports = new BOAddressesCreatePage();
