@@ -6,7 +6,7 @@ import {BOAddressesCreatePage as BOAddressCreatePageVersion} from '@versions/8.0
 class BOAddressesCreatePage extends BOAddressCreatePageVersion implements BOAddressesCreatePageInterface {
     /**
      * @constructs
-     * Setting up texts and selectors to use in orders page
+     * Setting up texts and selectors to use in addresses create page
      */
     constructor() {
         super();

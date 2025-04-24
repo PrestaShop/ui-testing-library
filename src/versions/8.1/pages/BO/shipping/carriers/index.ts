@@ -1,6 +1,6 @@
 // Import pages
 import {BOCarriersPageInterface} from '@interfaces/BO/shipping/carriers';
-import {BOCarriersPage as BOCarriersPageVersion} from '@versions/1.7.8/pages/BO/shipping/carriers';
+import {BOCarriersPage as BOCarriersPageVersion} from '@versions/8.2/pages/BO/shipping/carriers';
 
 class BOCarriersPage extends BOCarriersPageVersion implements BOCarriersPageInterface {
   /**
