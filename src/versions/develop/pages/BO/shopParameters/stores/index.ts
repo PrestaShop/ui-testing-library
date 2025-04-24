@@ -400,7 +400,8 @@ class BOStoresPage extends BOBasePage implements BOStoresPageInterface {
    * @return {Promise<void>}
    */
   async gotoEditStorePage(page: Page, row: number): Promise<void> {
-    await this.clickAndWaitForURL(page, this.tableColumnActionsEditLink(row));
+    // Special case where we wait for networkidle because the list of states in the select is loaded by ajax
+    await this.clickAndWaitForURL(page, this.tableColumnActionsEditLink(row), 'networkidle');
   }
 
   /**
