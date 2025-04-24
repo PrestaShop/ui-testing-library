@@ -149,13 +149,13 @@ class BOOrderCreatePage extends BOBasePage implements BOOrdersCreatePageInterfac
 
   private readonly vouchersTableRowRemoveButton: (row: number) => string;
 
-  private readonly deliveryAddressSelect: string;
+  protected readonly deliveryAddressSelect: string;
 
   private readonly deliveryAddressDetails: string;
 
   private readonly deliveryAddressEditButton: string;
 
-  private readonly invoiceAddressSelect: string;
+  protected readonly invoiceAddressSelect: string;
 
   private readonly invoiceAddressDetails: string;
 
