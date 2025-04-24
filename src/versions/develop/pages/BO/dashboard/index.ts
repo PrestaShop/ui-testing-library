@@ -512,6 +512,9 @@ class Dashboard extends BOBasePage implements DashboardPageInterface {
    * @returns {Promise<DashboardTrafficSource[]>}
    */
   async getTrafficSources(page: Page): Promise<DashboardTrafficSource[]> {
+    // Wait for elements to be loaded before counting them
+    await this.elementVisible(page, this.dashboardTrafficSourceItem, 1000);
+
     const nbItems = await page.locator(this.dashboardTrafficSourceItem).count();
 
     const sources: DashboardTrafficSource[] = [];
