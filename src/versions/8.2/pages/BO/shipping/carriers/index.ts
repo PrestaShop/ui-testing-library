@@ -376,4 +376,5 @@ class BOCarriersPage extends BOCarriersPageVersion implements BOCarriersPageInte
   }
 }
 
-module.exports = new BOCarriersPage();
+const boCarriersPage = new BOCarriersPage();
+export {boCarriersPage, BOCarriersPage};
