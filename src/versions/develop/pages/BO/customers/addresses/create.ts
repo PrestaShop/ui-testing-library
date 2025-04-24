@@ -166,4 +166,3 @@ class BOAddressesCreatePage extends BOBasePage implements BOAddressesCreatePageI
 
 const boAddressesCreatePage = new BOAddressesCreatePage();
 export {boAddressesCreatePage, BOAddressesCreatePage};
-//module.exports = new BOAddressesCreatePage();
