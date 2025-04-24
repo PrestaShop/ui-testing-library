@@ -9,7 +9,7 @@ class BOAddressesCreatePage extends BOAddressCreatePageVersion implements BOAddr
      */
   constructor() {
     super();
-    // Title and messages
+  // Title and messages
     this.pageTitleCreate = `Addresses • ${global.INSTALL.SHOP_NAME}`;
   }
 }

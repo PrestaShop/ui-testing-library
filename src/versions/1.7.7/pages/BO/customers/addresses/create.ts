@@ -7,16 +7,15 @@ class BOAddressesCreatePage extends BOAddressCreatePageVersion implements BOAddr
      * @constructs
      * Setting up texts and selectors to use in addresses create page
      */
-    constructor() {
-        super();
+  constructor() {
+    super();
 
-        // Title and messages
-        this.pageTitleCreate = `Addresses • ${global.INSTALL.SHOP_NAME}`;
-        this.successfulCreationMessage = 'Successful creation.';
+    // Title and messages
+    this.pageTitleCreate = `Addresses • ${global.INSTALL.SHOP_NAME}`;
 
-        // Header links
-        this.saveAddressButton = '.card-footer button.btn-primary';
-    }
+    // Header links
+    this.saveAddressButton = '.card-footer button.btn-primary';
+  }
 }
 
 const boAddressesCreatePage = new BOAddressesCreatePage();
