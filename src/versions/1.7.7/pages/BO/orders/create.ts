@@ -1,9 +1,8 @@
 // Import pages
 import FakerOrder from '@data/faker/order';
 import {BOOrdersCreatePageInterface} from '@interfaces/BO/orders/create';
-import {BOOrderCreatePage as BOOrderCreatePageVersion} from '@versions/1.7.8/pages/BO/orders/create';
-// Imports from playwright
 import type {Page} from '@playwright/test';
+import {BOOrderCreatePage as BOOrderCreatePageVersion} from '@versions/1.7.8/pages/BO/orders/create';
 
 class BOOrderCreatePage extends BOOrderCreatePageVersion implements BOOrdersCreatePageInterface {
   /**
@@ -52,6 +51,19 @@ class BOOrderCreatePage extends BOOrderCreatePageVersion implements BOOrdersCrea
 
         // Create the order
         await this.clickAndWaitForURL(page, this.createOrderButton);
+    }
+
+    /**
+     * Choose addresses in form
+     * @param page {Page} Browser tab
+     * @param deliveryAddress {string} Delivery address to choose
+     * @param invoiceAddress {string} Invoice address to choose
+     * @returns {Promise<void>}
+     */
+    async chooseAddresses(page: Page, deliveryAddress: string, invoiceAddress: string): Promise<void> {
+        console.log(deliveryAddress);
+        await this.selectByVisibleText(page, this.deliveryAddressSelect, deliveryAddress);
+        await this.selectByVisibleText(page, this.invoiceAddressSelect, invoiceAddress);
     }
 
     /**
