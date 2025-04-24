@@ -116,7 +116,7 @@ class BOProductsCreatePage extends BOBasePage implements BOProductsCreatePageInt
   constructor() {
     super();
 
-    this.pageTitle = 'Products';
+    this.pageTitle = 'Product';
     this.saveAndPublishButtonName = 'Save and publish';
     this.successfulDuplicateMessage = 'Successful duplication';
     this.errorMessage = 'Unable to update settings.';
