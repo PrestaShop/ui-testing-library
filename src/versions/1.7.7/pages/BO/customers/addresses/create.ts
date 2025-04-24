@@ -11,8 +11,9 @@ class BOAddressesCreatePage extends BOAddressCreatePageVersion implements BOAddr
     constructor() {
         super();
         // Header links
-        this.saveAddressButton = '.form-horizontal button';
+        this.saveAddressButton = '.card-footer button.btn-primary';
     }
 }
 
-module.exports = new BOAddressesCreatePage();
+const boAddressesCreatePage = new BOAddressesCreatePage();
+export {boAddressesCreatePage, BOAddressesCreatePage};
