@@ -464,7 +464,6 @@ class ProductsPage extends BOBasePage implements BOProductsPageInterface {
     await page.waitForURL((url: URL): boolean => url.toString().includes('/sell/catalog/products')
         && url.toString().includes('/edit'),
     {
-      waitUntil: 'domcontentloaded',
       timeout: 30000,
     });
   }
@@ -585,7 +584,7 @@ class ProductsPage extends BOBasePage implements BOProductsPageInterface {
       (action === 'enable' || action === 'disable') ? `${action}_selection` : `bulk_${action}`,
     );
     await this.waitForSelectorAndClick(page, modalBulkActionsProductsCloseButton);
-    await page.waitForLoadState('networkidle');
+    await page.waitForLoadState();
 
     return this.elementNotVisible(page, modalBulkActionsProductsProgress, 1000);
   }
@@ -766,7 +765,7 @@ class ProductsPage extends BOBasePage implements BOProductsPageInterface {
       // Do nothing
     }
     // click on search
-    await this.clickAndWaitForLoadState(page, this.filterSearchButton, 'networkidle', 10000);
+    await this.clickAndWaitForLoadState(page, this.filterSearchButton, 'load', 10000);
   }
 
   /**

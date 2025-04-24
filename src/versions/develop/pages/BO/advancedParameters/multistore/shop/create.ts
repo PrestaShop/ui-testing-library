@@ -71,7 +71,7 @@ class BOMultistoreShopCreatePage extends BOBasePage implements BOMultistoreShopC
 
     await Promise.all([
       page.locator(this.saveButton).evaluate((el: HTMLElement) => el.click()),
-      page.waitForURL((url: URL): boolean => url.toString() !== currentUrl, {waitUntil: 'networkidle', timeout: 30000}),
+      page.waitForURL((url: URL): boolean => url.toString() !== currentUrl, {timeout: 30000}),
     ]);
 
     return this.getTextContent(page, this.alertSuccessBlock);
