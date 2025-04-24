@@ -377,7 +377,7 @@ class Dashboard extends BOBasePage implements DashboardPageInterface {
    * @returns {Promise<number>}
    */
   async getOutOfStockProducts(page: Page): Promise<number> {
-    return this.getNumberFromText(page, this.outOfStockProductsNumber);
+    return this.getNumberFromText(page, this.outOfStockProductsNumber, 1000);
   }
 
   /**
