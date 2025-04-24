@@ -92,7 +92,7 @@ class FoMyAddressesPage extends FOBasePage implements FoMyAddressesPageInterface
     const currentUrl: string = page.url();
 
     await Promise.all([
-      page.waitForURL((url: URL): boolean => url.toString() !== currentUrl, {waitUntil: 'networkidle'}),
+      page.waitForURL((url: URL): boolean => url.toString() !== currentUrl),
       editButtonsLocators.nth(positionEditButtons).click(),
     ]);
   }

@@ -229,7 +229,7 @@ class BODbBackupPage extends BOBasePage implements BODbBackupPageInterface {
     const currentUrl: string = page.url();
     await Promise.all([
       this.selectByVisibleText(page, this.paginationLimitSelect, number),
-      page.waitForURL((url: URL): boolean => url.toString() !== currentUrl, {waitUntil: 'networkidle'}),
+      page.waitForURL((url: URL): boolean => url.toString() !== currentUrl),
     ]);
 
     return this.getPaginationLabel(page);

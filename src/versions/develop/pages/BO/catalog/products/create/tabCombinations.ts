@@ -363,7 +363,7 @@ class CombinationsTab extends BOBasePage implements BOProductsCreateTabCombinati
   async clickOnLearnMoreButton(page: Page): Promise<Page> {
     await this.waitForSelectorAndClick(page, this.combinationsTabLink);
 
-    return this.openLinkWithTargetBlank(page, this.learnMoreButton, 'body', 'domcontentloaded');
+    return this.openLinkWithTargetBlank(page, this.learnMoreButton, 'body');
   }
 
   /**
