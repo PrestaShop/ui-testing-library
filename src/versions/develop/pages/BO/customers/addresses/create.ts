@@ -9,7 +9,7 @@ import {type Frame, type Page} from '@playwright/test';
  * @extends BOBasePage
  */
 class BOAddressesCreatePage extends BOBasePage implements BOAddressesCreatePageInterface {
-  public readonly pageTitleCreate: string;
+  public pageTitleCreate: string;
 
   public readonly pageTitleEdit: string;
 
