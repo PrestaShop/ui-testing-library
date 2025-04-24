@@ -1284,4 +1284,5 @@ class BOOrderCreatePage extends BOBasePage implements BOOrdersCreatePageInterfac
   }
 }
 
-module.exports = new BOOrderCreatePage();
+const boOrderCreatePage = new BOOrderCreatePage();
+export {boOrderCreatePage, BOOrderCreatePage};
