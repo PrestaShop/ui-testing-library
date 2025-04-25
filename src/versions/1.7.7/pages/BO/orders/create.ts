@@ -12,6 +12,9 @@ class BOOrderCreatePage extends BOOrderCreatePageVersion implements BOOrdersCrea
      */
     constructor() {
         super();
+
+        // Summary selectors
+        this.paymentMethodSelect = `${this.summaryBlock} #cart_summary_payment_module`;
     }
 }
 

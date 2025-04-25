@@ -177,7 +177,7 @@ class BOOrderCreatePage extends BOBasePage implements BOOrdersCreatePageInterfac
 
   private readonly giftMessageTextarea: string;
 
-  private readonly summaryBlock: string;
+  protected readonly summaryBlock: string;
 
   private readonly totalProducts: string;
 
@@ -193,7 +193,7 @@ class BOOrderCreatePage extends BOBasePage implements BOOrdersCreatePageInterfac
 
   private readonly orderMessageTextArea: string;
 
-  private readonly paymentMethodSelect: string;
+  protected paymentMethodSelect: string;
 
   private readonly paymentMethodSelectResult: string;
 
