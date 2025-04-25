@@ -24,9 +24,6 @@ class BOOrderCreatePage extends BOOrderCreatePageVersion implements BOOrdersCrea
      */
     async setPaymentMethod(page: Page, paymentMethodModuleName: string): Promise<void> {
         await page.locator(this.paymentMethodSelect).selectOption(paymentMethodModuleName);
-/*        await this.waitForSelectorAndClick(page, this.paymentMethodSelect);
-        await this.waitForVisibleSelector(page, this.paymentMethodSelectResult);
-        await page.locator(this.paymentMethodOption(paymentMethodModuleName)).click();*/
     }
 }
 
