@@ -1,8 +1,6 @@
 // Import pages
 import {BOOrdersCreatePageInterface} from '@interfaces/BO/orders/create';
 import {BOOrderCreatePage as BOOrderCreatePageVersion} from '@versions/1.7.8/pages/BO/orders/create';
-// Imports from playwright
-import type {Page} from '@playwright/test';
 
 class BOOrderCreatePage extends BOOrderCreatePageVersion implements BOOrdersCreatePageInterface {
     /**
@@ -11,19 +9,6 @@ class BOOrderCreatePage extends BOOrderCreatePageVersion implements BOOrdersCrea
      */
     constructor() {
         super();
-
-        // Summary selectors
-        this.paymentMethodSelect = `${this.summaryBlock} #cart_summary_payment_module`;
-    }
-
-    /**
-     * Set payment method
-     * @param page {Page} Browser tab
-     * @param paymentMethodModuleName {string} Payment method to choose
-     * @returns {Promise<void>}
-     */
-    async setPaymentMethod(page: Page, paymentMethodModuleName: string): Promise<void> {
-        await page.locator(this.paymentMethodSelect).selectOption(paymentMethodModuleName);
     }
 }
 
