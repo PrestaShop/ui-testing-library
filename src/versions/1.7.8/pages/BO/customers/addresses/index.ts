@@ -13,6 +13,7 @@ class BOAddressesPage extends BOAddressesPageVersion implements BOAddressesPageI
    */
   constructor() {
     super();
+    this.successfulCreationMessage = 'Successful creation.';
   }
 }
 
