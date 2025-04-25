@@ -1,4 +1,5 @@
 // Import pages
+import FakerOrder from '@data/faker/order';
 import {BOOrdersCreatePageInterface} from '@interfaces/BO/orders/create';
 import {BOOrderCreatePage as BOOrderCreatePageVersion} from '@versions/1.7.8/pages/BO/orders/create';
 // Imports from playwright
