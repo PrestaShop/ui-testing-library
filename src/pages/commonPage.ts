@@ -214,7 +214,7 @@ export default class CommonPage implements CommonPageInterface {
     page: Page,
     selector: string,
     newPageSelector: string = 'body .logo',
-    state: 'load' | 'domcontentloaded' | 'networkidle' = 'networkidle',
+    state: 'load' | 'domcontentloaded' | 'networkidle' = 'load',
     waitForVisible: boolean = true,
   ): Promise<Page> {
     const [newPage] = await Promise.all([
@@ -426,7 +426,7 @@ export default class CommonPage implements CommonPageInterface {
   async clickAndWaitForLoadState(
     page: Frame | Page,
     selector: string,
-    state: 'load' | 'domcontentloaded' | 'networkidle' = 'networkidle',
+    state: 'load' | 'domcontentloaded' | 'networkidle' = 'load',
     timeout: number = 30000,
   ): Promise<void> {
     await Promise.all([
@@ -446,7 +446,7 @@ export default class CommonPage implements CommonPageInterface {
   async clickAndWaitForURL(
     page: Frame | Page,
     selector: string,
-    waitUntil: WaitForNavigationWaitUntil = 'networkidle',
+    waitUntil: WaitForNavigationWaitUntil = 'load',
     timeout: number = 30000,
   ): Promise<void> {
     const currentUrl: string = page.url();

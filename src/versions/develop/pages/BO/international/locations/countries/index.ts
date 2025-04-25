@@ -280,7 +280,7 @@ class BOCountriesPage extends BOBasePage implements BOCountriesPageInterface {
         }
         await Promise.all([
           this.selectByVisibleText(page, this.filterColumn(filterBy), textValue),
-          page.waitForURL((url: URL): boolean => url.toString() !== currentUrl, {waitUntil: 'networkidle'}),
+          page.waitForURL((url: URL): boolean => url.toString() !== currentUrl),
         ]);
 
         break;
