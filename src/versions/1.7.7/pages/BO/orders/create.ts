@@ -1,9 +1,8 @@
 // Import pages
-import type FakerOrder from '@data/faker/order';
 import {BOOrdersCreatePageInterface} from '@interfaces/BO/orders/create';
-import type {Page} from '@playwright/test';
 import {BOOrderCreatePage as BOOrderCreatePageVersion} from '@versions/1.7.8/pages/BO/orders/create';
-import {modPsGdprBoMain} from '../../../../../index';
+// Imports from playwright
+import type {Page} from '@playwright/test';
 
 class BOOrderCreatePage extends BOOrderCreatePageVersion implements BOOrdersCreatePageInterface {
   /**
@@ -52,6 +51,19 @@ class BOOrderCreatePage extends BOOrderCreatePageVersion implements BOOrdersCrea
 
         // Create the order
         await this.clickAndWaitForURL(page, this.createOrderButton);
+    }
+
+    /**
+     * Set payment method
+     * @param page {Page} Browser tab
+     * @param paymentMethodModuleName {string} Payment method to choose
+     * @returns {Promise<void>}
+     */
+    async setPaymentMethod(page: Page, paymentMethodModuleName: string): Promise<void> {
+        await page.locator(this.paymentMethodSelect).selectOption(paymentMethodModuleName);
+/*        await this.waitForSelectorAndClick(page, this.paymentMethodSelect);
+        await this.waitForVisibleSelector(page, this.paymentMethodSelectResult);
+        await page.locator(this.paymentMethodOption(paymentMethodModuleName)).click();*/
     }
 }
 
