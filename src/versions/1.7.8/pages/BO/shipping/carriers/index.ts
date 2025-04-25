@@ -9,6 +9,8 @@ class BOCarriersPage extends BOCarriersPageVersion implements BOCarriersPageInte
    */
   constructor() {
     super();
+    // Header links
+    this.addNewCarrierLink = 'a#page-header-desc-carrier-new_carrier';
   }
 }
 
