@@ -201,7 +201,7 @@ class BOOrderCreatePage extends BOBasePage implements BOOrdersCreatePageInterfac
 
   private readonly orderStatusSelect: string;
 
-  private readonly createOrderButton: string;
+  protected readonly createOrderButton: string;
 
   private readonly moreActionsDropDownButton: string;
 
