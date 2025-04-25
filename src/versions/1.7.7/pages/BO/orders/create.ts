@@ -3,6 +3,7 @@ import type FakerOrder from '@data/faker/order';
 import {BOOrdersCreatePageInterface} from '@interfaces/BO/orders/create';
 import type {Page} from '@playwright/test';
 import {BOOrderCreatePage as BOOrderCreatePageVersion} from '@versions/1.7.8/pages/BO/orders/create';
+import {modPsGdprBoMain} from '../../../../../index';
 
 class BOOrderCreatePage extends BOOrderCreatePageVersion implements BOOrdersCreatePageInterface {
   /**
