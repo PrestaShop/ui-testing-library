@@ -19,4 +19,5 @@ class DashboardPage extends DashboardPageVersion implements DashboardPageInterfa
   }
 }
 
-module.exports = new DashboardPage();
+const boDashboardPage = new DashboardPage();
+export {boDashboardPage, DashboardPage};
