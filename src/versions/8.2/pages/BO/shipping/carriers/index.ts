@@ -89,7 +89,7 @@ class BOCarriersPage extends BOCarriersPageVersion implements BOCarriersPageInte
   /**
    * Get text from column in table
    * @param page {Page} Browser tab
-   * @param row {number} Row index.ts in the table
+   * @param row {number} Row index in the table
    * @param columnName {string} Column name in the table
    * @return {Promise<string>}
    */
@@ -130,7 +130,7 @@ class BOCarriersPage extends BOCarriersPageVersion implements BOCarriersPageInte
   /**
    * Get carrier status
    * @param page {Page} Browser tab
-   * @param row {number} Row index.ts in the table
+   * @param row {number} Row index in the table
    * @returns {Promise<boolean>}
    */
   async getStatus(page: Page, row: number = 1): Promise<boolean> {
@@ -140,7 +140,7 @@ class BOCarriersPage extends BOCarriersPageVersion implements BOCarriersPageInte
   /**
    * Set carriers status
    * @param page {Page} Browser tab
-   * @param row {number} Row index.ts in the table
+   * @param row {number} Row index in the table
    * @param valueWanted {boolean} The carrier status value
    * @return {Promise<boolean>}, true if click has been performed
    */
@@ -158,7 +158,7 @@ class BOCarriersPage extends BOCarriersPageVersion implements BOCarriersPageInte
   /**
    * Is free shipping
    * @param page {Page} Browser tab
-   * @param row {number} Row index.ts in the table
+   * @param row {number} Row index in the table
    * @returns {Promise<boolean>}
    */
   async isFreeShipping(page: Page, row: number = 1): Promise<boolean> {
@@ -168,7 +168,7 @@ class BOCarriersPage extends BOCarriersPageVersion implements BOCarriersPageInte
   /**
    * Set free shipping status
    * @param page {Page} Browser tab
-   * @param row {number} Row index.ts in the table
+   * @param row {number} Row index. in the table
    * @param valueWanted {boolean} The carrier status value
    * @return {Promise<boolean>}
    */
@@ -340,7 +340,7 @@ class BOCarriersPage extends BOCarriersPageVersion implements BOCarriersPageInte
   /**
    * Delete carrier from row
    * @param page {Page} Browser tab
-   * @param row {number} Row index.ts in the table
+   * @param row {number} Row index in the table
    * @return {Promise<string>}
    */
   async deleteCarrier(page: Page, row: number): Promise<string> {
