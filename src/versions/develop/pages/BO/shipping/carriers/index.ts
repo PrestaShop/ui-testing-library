@@ -260,7 +260,7 @@ class BOCarriersPage extends BOBasePage implements BOCarriersPageInterface {
   /**
    * Go to edit carrier page
    * @param page {Page} Browser tab
-   * @param row {number} Row index.ts in the table
+   * @param row {number} Row index in the table
    * @return {Promise<void>}
    */
   async goToEditCarrierPage(page: Page, row: number): Promise<void> {
@@ -270,7 +270,7 @@ class BOCarriersPage extends BOBasePage implements BOCarriersPageInterface {
   /**
    * Get text from column in table
    * @param page {Page} Browser tab
-   * @param row {number} Row index.ts in the table
+   * @param row {number} Row index in the table
    * @param columnName {string} Column name in the table
    * @return {Promise<string>}
    */
@@ -319,7 +319,7 @@ class BOCarriersPage extends BOBasePage implements BOCarriersPageInterface {
   /**
    * Delete carrier from row
    * @param page {Page} Browser tab
-   * @param row {number} Row index.ts in the table
+   * @param row {number} Row index in the table
    * @return {Promise<string>}
    */
   async deleteCarrier(page: Page, row: number): Promise<string> {
@@ -533,7 +533,7 @@ class BOCarriersPage extends BOBasePage implements BOCarriersPageInterface {
   /**
    * Get carrier status
    * @param page {Page} Browser tab
-   * @param row {number} Row index.ts in the table
+   * @param row {number} Row index in the table
    * @returns {Promise<boolean>}
    */
   async getStatus(page: Page, row: number): Promise<boolean> {
@@ -551,7 +551,7 @@ class BOCarriersPage extends BOBasePage implements BOCarriersPageInterface {
   /**
    * Is free shipping
    * @param page {Page} Browser tab
-   * @param row {number} Row index.ts in the table
+   * @param row {number} Row index in the table
    * @returns {Promise<boolean>}
    */
   async isFreeShipping(page: Page, row: number = 1): Promise<boolean> {
@@ -569,7 +569,7 @@ class BOCarriersPage extends BOBasePage implements BOCarriersPageInterface {
   /**
    * Set carriers status
    * @param page {Page} Browser tab
-   * @param row {number} Row index.ts in the table
+   * @param row {number} Row index in the table
    * @param valueWanted {boolean} The carrier status value
    * @return {Promise<boolean>}, true if click has been performed
    */
@@ -587,7 +587,7 @@ class BOCarriersPage extends BOBasePage implements BOCarriersPageInterface {
   /**
    * Set free shipping status
    * @param page {Page} Browser tab
-   * @param row {number} Row index.ts in the table
+   * @param row {number} Row index in the table
    * @param valueWanted {boolean} The carrier status value
    * @return {Promise<boolean>}
    */
