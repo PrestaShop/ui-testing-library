@@ -101,7 +101,7 @@ class PsGdprTabDataConfigPage extends ModuleConfigurationPage implements ModuleP
   /**
    * Click on a result card
    * @param page {Page} Browser tab
-   * @param nth {number} Index of the card (index 1-based)
+   * @param nth {number} Index of the card (index.ts 1-based)
    * @returns {Promise<boolean>}
    */
   async clickResultCard(page: Page, nth: number): Promise<void> {
@@ -112,7 +112,7 @@ class PsGdprTabDataConfigPage extends ModuleConfigurationPage implements ModuleP
   /**
    * Click on "Remove data"
    * @param page {Page} Browser tab
-   * @param nth {number} Index of the card (index 1-based)
+   * @param nth {number} Index of the card (index.ts 1-based)
    * @returns {Promise<string|null>}
    */
   async clickResultRemoveData(page: Page, nth: number, cancel: boolean = false): Promise<string|null> {
@@ -130,7 +130,7 @@ class PsGdprTabDataConfigPage extends ModuleConfigurationPage implements ModuleP
   /**
    * Click on "Remove data"
    * @param page {Page} Browser tab
-   * @param nth {number} Index of the card (index 1-based)
+   * @param nth {number} Index of the card (index.ts 1-based)
    * @returns {Promise<string|null>}
    */
   async isModalRemoveDataVisible(page: Page): Promise<boolean> {
