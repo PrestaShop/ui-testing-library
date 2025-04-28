@@ -50,7 +50,8 @@ export default {
     const version: string = process.env.PS_VERSION;
 
     return version
-      .replace(/\.x$/, '.99')
-      .replace(/^1\.7\./, '7.');
+        .replace(/\.x$/, '.99')
+        .replace(/^1\.7\./, '7.')
+        .replace(/^1\.6\./, '6.');
   },
 };
