@@ -8,22 +8,22 @@ class BOOrderCreatePage extends BOOrderCreatePageVersion implements BOOrdersCrea
      * @constructs
      * Setting up texts and selectors to use in addresses create page
      */
-    constructor() {
-        super();
+  constructor() {
+    super();
 
-        // Summary selectors
-        this.paymentMethodSelect = `${this.summaryBlock} #cart_summary_payment_module`;
-    }
+    // Summary selectors
+    this.paymentMethodSelect = `${this.summaryBlock} #cart_summary_payment_module`;
+  }
 
-    /**
+  /**
      * Set payment method
      * @param page {Page} Browser tab
      * @param paymentMethodModuleName {string} Payment method to choose
      * @returns {Promise<void>}
      */
-    async setPaymentMethod(page: Page, paymentMethodModuleName: string): Promise<void> {
-        await page.locator(this.paymentMethodSelect).selectOption(paymentMethodModuleName);
-    }
+  async setPaymentMethod(page: Page, paymentMethodModuleName: string): Promise<void> {
+    await page.locator(this.paymentMethodSelect).selectOption(paymentMethodModuleName);
+  }
 }
 
 const boOrderCreatePage = new BOOrderCreatePage();

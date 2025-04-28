@@ -8,14 +8,13 @@ import {LoginPage} from '@versions/1.7.2/pages/BO/login';
  * @extends ProductsPage
  */
 class BOLoginVersion extends LoginPage implements LoginPageInterface {
-    /**
+  /**
      * @constructs
      * Setting up texts and selectors to use on login page
      */
-    constructor() {
-        super();
-    }
+  constructor() {
+    super();
+  }
 }
 
 module.exports = new BOLoginVersion();
-
