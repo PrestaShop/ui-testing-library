@@ -693,7 +693,7 @@ class CategoryPage extends FOBasePage implements FoCategoryPageInterface {
   }
 
   /**
-   * Add a product (based on its index.ts) to the first wishlist
+   * Add a product (based on its index) to the first wishlist
    * @param page {Page}
    * @param idxProduct {number}
    * @returns Promise<string>
@@ -717,7 +717,7 @@ class CategoryPage extends FOBasePage implements FoCategoryPageInterface {
   }
 
   /**
-   * Check if a product (based on its index.ts) is added to a wishlist
+   * Check if a product (based on its index) is added to a wishlist
    * @param page {Page}
    * @param idxProduct {number}
    * @returns Promise<boolean>
