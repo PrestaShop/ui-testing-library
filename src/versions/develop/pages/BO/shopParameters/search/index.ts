@@ -182,7 +182,7 @@ class BOSearchPage extends BOBasePage implements BOSearchPageInterface {
   }
 
   /**
-   * Click "Add missing products to the index"
+   * Click "Add missing products to the index.ts"
    * @param page {Page} Browser tab
    * @returns {Promise<string>}
    */
@@ -193,7 +193,7 @@ class BOSearchPage extends BOBasePage implements BOSearchPageInterface {
   }
 
   /**
-   * Click "Re-build the entire index"
+   * Click "Re-build the entire index.ts"
    * @param page {Page} Browser tab
    * @returns {Promise<string>}
    */
@@ -204,7 +204,7 @@ class BOSearchPage extends BOBasePage implements BOSearchPageInterface {
   }
 
   /**
-   * Click on the cron jon link for "Re-build the entire index"
+   * Click on the cron jon link for "Re-build the entire index.ts"
    * @param page {Page} Browser tab
    * @returns {Promise<void>}
    */
