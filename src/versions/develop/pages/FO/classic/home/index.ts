@@ -206,7 +206,7 @@ class FoHomePage extends FOBasePage implements FoHomePageInterface {
   /**
    * Check product price
    * @param page {Page} Browser tab
-   * @param id {number} index.ts of product in list of products
+   * @param id {number} index of product in list of products
    * @return {Promise<boolean>}
    */
   async isPriceVisible(page: Page, id: number = 1): Promise<boolean> {
@@ -216,7 +216,7 @@ class FoHomePage extends FOBasePage implements FoHomePageInterface {
   /**
    * Get product price
    * @param page {Page} Browser tab
-   * @param id {number} index.ts of product in list of products
+   * @param id {number} index of product in list of products
    * @return {Promise<string>}
    */
   async getProductPrice(page:Page, id: number = 1): Promise<string> {
@@ -456,7 +456,7 @@ class FoHomePage extends FOBasePage implements FoHomePageInterface {
   }
 
   /**
-   * Add a product (based on its index.ts) to the first wishlist
+   * Add a product (based on its index) to the first wishlist
    * @param page {Page} Browser tab
    * @param idxProduct {number} Id of product
    * @returns Promise<void>
