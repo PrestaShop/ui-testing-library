@@ -155,11 +155,11 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
 
   public readonly linkWidgetLink: string;
 
-  public readonly shippingLink: string;
+  public shippingLink: string;
 
-  public readonly carriersLink: string;
+  public carriersLink: string;
 
-  public readonly shippingPreferencesLink: string;
+  public shippingPreferencesLink: string;
 
   public readonly paymentParentLink: string;
 

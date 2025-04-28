@@ -1,11 +1,12 @@
-import {DashboardPageInterface} from '@interfaces/BO/dashboard';
-import {DashboardPage as DashboardPageVersion} from '@versions/develop/pages/BO/dashboard';
+import type {DashboardPageInterface} from '@interfaces/BO/dashboard';
+import {Dashboard as DashboardPageVersion} from '@versions/develop/pages/BO/dashboard';
 
-
-// @ts-ignore
+/**
+ * Bo dashboard page, contains functions that can be used on the page
+ * @class
+ * @extends DashboardPage
+ */
 class DashboardPage extends DashboardPageVersion implements DashboardPageInterface {
-  private shippingLink: string;
-  private carriersLink: string;
   /**
    * @constructs
    * Setting up titles and selectors to use on dashboard page
