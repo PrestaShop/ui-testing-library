@@ -125,10 +125,19 @@ class BOSuppliersCreatePage extends BOBasePage implements BOSuppliersCreatePageI
     await this.setValue(page, this.secondaryAddressInput, supplierData.secondaryAddress);
     await this.setValue(page, this.postalCodeInput, supplierData.postalCode);
     await this.setValue(page, this.cityInput, supplierData.city);
+
     // Select country
-    await page.locator(this.selectCountryList).click();
-    await this.setValue(page, this.searchCountryInput, supplierData.country);
-    await this.waitForSelectorAndClick(page, this.countrySearchResult);
+    await Promise.all([
+      page.waitForResponse((response) => response.url().includes('states/country-states'), {timeout: 1000}),
+      this.selectByVisibleText(page, this.countryInput, supplierData.country),
+    ]);
+
+    // Select state
+    if (supplierData.state) {
+      await this.selectByVisibleText(page, this.stateInput, supplierData.state);
+    } else {
+      await this.elementNotVisible(page, this.stateInput);
+    }
 
     // Add logo
     await this.uploadFile(page, this.logoFileInput, supplierData.logo);

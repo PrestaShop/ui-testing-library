@@ -1,6 +1,7 @@
 import type BrandAddressCreator from '@data/types/brandAddress';
 import dataCountries from '@data/demo/countries';
 import type FakerCountry from '@data/faker/country';
+import {getRandomStateNameByCountryName} from '@data/demo/states';
 
 import {fakerFR as faker} from '@faker-js/faker';
 
@@ -28,6 +29,8 @@ export default class BrandAddressData {
   public readonly city: string;
 
   public readonly country: string;
+
+  public readonly state: string|null = null;
 
   public readonly homePhone: string;
 
@@ -66,6 +69,9 @@ export default class BrandAddressData {
 
     /** @type {string} Address country name */
     this.country = brandAddressToCreate.country || faker.helpers.arrayElement(countriesNames);
+
+    /** @type {string} Address state name */
+    this.state = brandAddressToCreate.state || getRandomStateNameByCountryName(this.country);
 
     /** @type {string} Home phone number linked to the address */
     this.homePhone = brandAddressToCreate.homePhone || faker.phone.number();

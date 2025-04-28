@@ -8,6 +8,7 @@ type BrandAddressCreator = {
     postalCode?: string;
     city?: string;
     country?: string;
+    state?: string;
     homePhone?: string;
     mobilePhone?: string;
     other?: string;

@@ -48,6 +48,7 @@ export default {
     callPrefix: '1',
     zone: 'North America',
     active: false,
+    containsStates: true,
   }),
   canada: new FakerCountry({
     id: 4,
@@ -56,5 +57,6 @@ export default {
     callPrefix: '1',
     zone: 'North America',
     active: false,
+    containsStates: true,
   }),
 };
