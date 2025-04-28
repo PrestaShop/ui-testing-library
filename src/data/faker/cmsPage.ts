@@ -59,7 +59,7 @@ export default class FakerCMSPage {
     /** @type {number} Position */
     this.position = pageToCreate.position === undefined ? 0 : pageToCreate.position;
 
-    /** @type {boolean} True to index the page */
+    /** @type {boolean} True to index.ts the page */
     this.indexation = pageToCreate.indexation === undefined ? true : pageToCreate.indexation;
   }
 }
