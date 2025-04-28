@@ -6,9 +6,6 @@ const psVersion = testContext.getPSVersion();
 
 /* eslint-disable global-require, @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires */
 function requirePage(): LoginPageInterface {
-  if (semver.lt(psVersion, '7.0.0')) {
-    return require('@versions/1.6.1/pages/BO/login').loginPage;
-  }
   if (semver.lt(psVersion, '7.3.0')) {
     return require('@versions/1.7.2/pages/BO/login').loginPage;
   }
