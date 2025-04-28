@@ -10,6 +10,7 @@ type SupplierCreator = {
   postalCode?: string
   city?: string
   country?: string
+  state?: string
   logo?: string
   metaTitle?: string
   metaTitleFr?: string
