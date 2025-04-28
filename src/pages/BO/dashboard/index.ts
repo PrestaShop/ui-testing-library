@@ -7,7 +7,7 @@ const psVersion = testContext.getPSVersion();
 /* eslint-disable global-require, @typescript-eslint/no-require-imports */
 function requirePage(): DashboardPageInterface {
   if (semver.lt(psVersion, '9.0.0')) {
-    return require('@versions/8.2/pages/BO/dashboard');
+    return require('@versions/develop/pages/BO/dashboard').dashboardPage;
   }
   return require('@versions/develop/pages/BO/dashboard');
 }
