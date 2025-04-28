@@ -194,7 +194,9 @@ class BOBrandsPage extends BOBasePage implements BOBrandsPageInterface {
    */
   async resetFilter(page: Page, tableName: string): Promise<void> {
     if (await this.elementVisible(page, this.filterResetButton(tableName), 2000)) {
-      await this.clickAndWaitForLoadState(page, this.filterResetButton(tableName));
+      // Wait for URL update instead of load state, because with two grids on the same page the load
+      // event was not stable enough
+      await this.clickAndWaitForURL(page, this.filterResetButton(tableName));
       await this.elementNotVisible(page, this.filterResetButton(tableName), 2000);
     }
   }
@@ -240,8 +242,10 @@ class BOBrandsPage extends BOBasePage implements BOBrandsPageInterface {
       default:
         throw new Error(`Filter ${filterBy} was not found`);
     }
-    // click on search
-    await this.clickAndWaitForLoadState(page, this.filterSearchButton(tableName));
+    // Click on search
+    // Wait for URL update instead of load state, because with two grids on the same page the load
+    // event was not stable enough
+    await this.clickAndWaitForURL(page, this.filterSearchButton(tableName));
   }
 
   /**
