@@ -7,8 +7,6 @@ import {Dashboard as DashboardPageVersion} from '@versions/develop/pages/BO/dash
  * @extends DashboardPage
  */
 class DashboardPage extends DashboardPageVersion implements DashboardPageInterface {
-  private shippingLink: string;
-  private carriersLink: string;
   /**
    * @constructs
    * Setting up titles and selectors to use on dashboard page
