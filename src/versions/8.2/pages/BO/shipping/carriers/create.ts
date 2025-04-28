@@ -222,4 +222,5 @@ class BOCarriersCreatePage extends BOCarriersCreatePageVersion implements BOCarr
   }
 }
 
-module.exports = new BOCarriersCreatePage();
+const boCarriersCreatePage = new BOCarriersCreatePage();
+export {boCarriersCreatePage, BOCarriersCreatePage};
