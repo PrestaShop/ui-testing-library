@@ -55,7 +55,7 @@ class BOOrderCreatePage extends BOBasePage implements BOOrdersCreatePageInterfac
 
   private readonly customerCardDetailButton: string;
 
-  private readonly checkoutHistoryBlock: string;
+  protected checkoutHistoryBlock: string;
 
   private readonly customerCartsTable: string;
 
