@@ -31,11 +31,11 @@ class BOOrderCreatePage extends BOBasePage implements BOOrdersCreatePageInterfac
 
   private readonly closeFancyBoxIframe: string;
 
-  private readonly addCustomerLink: string;
+  protected addCustomerLink: string;
 
-  private readonly customerSearchInput: string;
+  protected customerSearchInput: string;
 
-  private readonly customerSearchLoadingNoticeBlock: string;
+  protected customerSearchLoadingNoticeBlock: string;
 
   private readonly customerSearchEmptyResultBlock: string;
 

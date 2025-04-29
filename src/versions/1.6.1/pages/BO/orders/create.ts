@@ -9,6 +9,9 @@ class BOOrderCreatePage extends BOOrderCreatePageVersion implements BOOrdersCrea
      */
   constructor() {
     super();
+    // Customer selectors
+    this.addCustomerLink = 'a.fancybox_customer';
+    this.customerSearchInput = '#customer';
   }
 }
 
