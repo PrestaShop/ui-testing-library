@@ -3,6 +3,7 @@ import type FakerAddress from '@data/faker/address';
 import {BOAddressesCreatePageInterface} from '@interfaces/BO/customers/addresses/create';
 import type {Frame, Page} from '@playwright/test';
 import {BOAddressesCreatePage as BOAddressCreatePageVersion} from '@versions/1.7.7/pages/BO/customers/addresses/create';
+import semver from 'semver';
 
 class BOAddressesCreatePage extends BOAddressCreatePageVersion implements BOAddressesCreatePageInterface {
   private readonly customerAddressMobilePhoneInput: string;
