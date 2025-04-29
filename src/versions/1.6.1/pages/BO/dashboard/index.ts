@@ -13,6 +13,8 @@ class DashboardPage extends DashboardPageVersion implements DashboardPageInterfa
    */
   constructor() {
     super();
+    // Customers
+    this.customersParentLink = 'li#maintab-AdminParentCustomer';
     // Shipping
     this.shippingLink = '#maintab-AdminParentShipping';
     this.carriersLink = '#subtab-AdminCarriers';
