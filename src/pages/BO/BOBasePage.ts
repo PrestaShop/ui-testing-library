@@ -85,7 +85,7 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
 
   private readonly dashboardLink: string;
 
-  public readonly ordersParentLink: string;
+  public ordersParentLink: string;
 
   public readonly ordersLink: string;
 
