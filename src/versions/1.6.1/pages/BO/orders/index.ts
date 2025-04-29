@@ -1,6 +1,6 @@
 // Import pages
 import type {BOOrdersPageInterface} from '@interfaces/BO/orders';
-import {OrdersPage} from '@versions/1.7.7/pages/BO/orders/index';
+import {OrdersPage} from '@versions/1.7.7/pages/BO/orders';
 
 /**
  * Orders page, contains functions that can be used on the page
@@ -14,6 +14,8 @@ class OrdersPageVersion extends OrdersPage implements BOOrdersPageInterface {
    */
   constructor() {
     super();
+    // Link
+    this.createNewOrderButton = '#page-header-desc-order-new_order';
   }
 }
 
