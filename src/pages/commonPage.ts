@@ -421,6 +421,7 @@ export default class CommonPage implements CommonPageInterface {
    * @param selector {string} String to locate the element
    * @param state {'load'|'domcontentloaded'|'networkidle'} The event to wait after click
    * @param timeout {number} Time to wait for navigation
+   * @param clickOptions {any} Click options
    * @return {Promise<void>}
    */
   async clickAndWaitForLoadState(
@@ -428,10 +429,11 @@ export default class CommonPage implements CommonPageInterface {
     selector: string,
     state: 'load' | 'domcontentloaded' | 'networkidle' = 'load',
     timeout: number = 30000,
+    clickOptions: any = {},
   ): Promise<void> {
     await Promise.all([
       page.waitForLoadState(state, {timeout}),
-      page.locator(selector).click(),
+      page.locator(selector).click(clickOptions),
     ]);
   }
 
@@ -441,6 +443,7 @@ export default class CommonPage implements CommonPageInterface {
    * @param selector {string} String to locate the element
    * @param waitUntil {WaitForNavigationWaitUntil} The event to wait after click
    * @param timeout {number} Time to wait for navigation
+   * @param clickOptions {any} Click options
    * @return {Promise<void>}
    */
   async clickAndWaitForURL(
@@ -448,12 +451,13 @@ export default class CommonPage implements CommonPageInterface {
     selector: string,
     waitUntil: WaitForNavigationWaitUntil = 'load',
     timeout: number = 30000,
+    clickOptions: any = {},
   ): Promise<void> {
     const currentUrl: string = page.url();
 
     await Promise.all([
       page.waitForURL((url: URL): boolean => url.toString() !== currentUrl, {waitUntil, timeout}),
-      page.locator(selector).first().click(),
+      page.locator(selector).click(clickOptions),
     ]);
   }
 
