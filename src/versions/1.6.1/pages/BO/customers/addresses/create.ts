@@ -2,9 +2,7 @@
 import type FakerAddress from '@data/faker/address';
 import {BOAddressesCreatePageInterface} from '@interfaces/BO/customers/addresses/create';
 import type {Frame, Page} from '@playwright/test';
-import testContext from '@utils/test';
 import {BOAddressesCreatePage as BOAddressCreatePageVersion} from '@versions/1.7.7/pages/BO/customers/addresses/create';
-import semver from 'semver';
 
 class BOAddressesCreatePage extends BOAddressCreatePageVersion implements BOAddressesCreatePageInterface {
   private readonly customerAddressMobilePhoneInput: string;
@@ -31,6 +29,7 @@ class BOAddressesCreatePage extends BOAddressCreatePageVersion implements BOAddr
     this.customerAddressCountrySelect = '#id_country';
     this.customerAddressPhoneInput = '#phone';
     this.customerAddressMobilePhoneInput = '#phone_mobile';
+    this.customerAddressOtherInput = '#other';
     this.saveAddressButton = '#address_form_submit_btn';
   }
 
