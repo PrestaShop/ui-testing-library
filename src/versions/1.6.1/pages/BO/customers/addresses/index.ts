@@ -22,6 +22,7 @@ class BOAddressesPage extends BOAddressesPageVersion implements BOAddressesPageI
     this.alertTextBlock = `${this.alertBlock}`;
     this.alertBlockCloseButton = `${this.alertBlock} button[aria-label='Close']`;
     this.alertSuccessBlock = `${this.alertBlock}.alert-success`;
+    this.alertSuccessBlockParagraph = `${this.alertSuccessBlock}`;
   }
 }
 
