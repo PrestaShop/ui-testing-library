@@ -13,11 +13,12 @@ class DashboardPage extends DashboardPageVersion implements DashboardPageInterfa
    */
   constructor() {
     super();
+    // Orders
+    this.ordersParentLink = 'li#maintab-AdminParentOrders';
     // Customers
     this.customersParentLink = 'li#maintab-AdminParentCustomer';
     // Shipping
     this.shippingLink = '#maintab-AdminParentShipping';
-    this.carriersLink = '#subtab-AdminCarriers';
   }
 }
 
