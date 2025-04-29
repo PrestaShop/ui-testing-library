@@ -9,6 +9,7 @@ class BOAddressesCreatePage extends BOAddressCreatePageVersion implements BOAddr
      */
   constructor() {
     super();
+    this.pageTitleCreate = `Addresses > Add new • ${global.INSTALL.SHOP_NAME}`;
     // Header links
     this.saveAddressButton = '.card-footer button.btn-primary';
   }
