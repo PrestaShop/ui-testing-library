@@ -16,12 +16,6 @@ class BOAddressesPage extends BOAddressesPageVersion implements BOAddressesPageI
     this.pageTitle = `Addresses • ${global.INSTALL.SHOP_NAME}`;
     // Header links
     this.addNewAddressLink = '#page-header-desc-address-new_address';
-    // Alert Text
-    this.alertBlock = 'div.alert';
-    this.alertTextBlock = `${this.alertBlock}`;
-    this.alertBlockCloseButton = `${this.alertBlock} button[aria-label='Close']`;
-    this.alertSuccessBlock = `${this.alertBlock}.alert-success`;
-    this.alertSuccessBlockParagraph = `${this.alertSuccessBlock}`;
   }
 }
 
