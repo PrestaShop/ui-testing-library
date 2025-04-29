@@ -12,6 +12,14 @@ class BOOrderCreatePage extends BOOrderCreatePageVersion implements BOOrdersCrea
     // Customer selectors
     this.addCustomerLink = 'a.fancybox_customer';
     this.customerSearchInput = '#customer';
+
+    // Full results
+    this.customerSearchFullResultsBlock = '#customers';
+    this.customerResultsBlock = `${this.customerSearchFullResultsBlock}`;
+    this.customerCardBlock = (pos: number) => `${this.customerSearchFullResultsBlock} div.customerCard(${pos})`;
+    this.customerCardNameTitle = (pos: number) => `${this.customerCardBlock(pos)} div.panel-heading`;
+    this.customerCardBody = (pos: number) => `${this.customerCardBlock(pos)} panel span`;
+    this.customerCardChooseButton = (pos: number) => `${this.customerCardBlock(pos)} button.setup-customer`;
   }
 }
 
