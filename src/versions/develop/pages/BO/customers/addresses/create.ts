@@ -13,41 +13,41 @@ class BOAddressesCreatePage extends BOBasePage implements BOAddressesCreatePageI
 
   public readonly pageTitleEdit: string;
 
-  private readonly customerEmailInput: string;
+  protected customerEmailInput: string;
 
-  private readonly customerAddressdniInput: string;
+  protected customerAddressdniInput: string;
 
-  private readonly customerAddressAliasInput: string;
+  protected customerAddressAliasInput: string;
 
-  private readonly customerAddressFirstNameInput: string;
+  protected customerAddressFirstNameInput: string;
 
-  private readonly customerLastNameInput: string;
+  protected customerLastNameInput: string;
 
-  private readonly customerAddressCompanyInput: string;
+  protected customerAddressCompanyInput: string;
 
-  private readonly customerAddressVatNumberInput: string;
+  protected customerAddressVatNumberInput: string;
 
-  private readonly customerAddressInput: string;
+  protected customerAddressInput: string;
 
-  private readonly customerAddressPostCodeInput: string;
+  protected customerAddressPostCodeInput: string;
 
-  private readonly customerSecondAddressInput: string;
+  protected customerSecondAddressInput: string;
 
-  private readonly customerAddressCityInput: string;
+  protected customerAddressCityInput: string;
 
-  private readonly customerAddressCountrySelect: string;
+  protected customerAddressCountrySelect: string;
 
-  private readonly customerAddressCountryOption: string;
+  protected customerAddressCountryOption: string;
 
-  private readonly customerAddressStateSelect: string;
+  protected customerAddressStateSelect: string;
 
-  private readonly searchStateInput: string;
+  protected searchStateInput: string;
 
-  private readonly searchResultState: string;
+  protected searchResultState: string;
 
-  private readonly customerAddressPhoneInput: string;
+  protected customerAddressPhoneInput: string;
 
-  private readonly customerAddressOtherInput: string;
+  protected customerAddressOtherInput: string;
 
   protected saveAddressButton: string;
 
