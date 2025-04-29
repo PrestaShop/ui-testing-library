@@ -12,8 +12,6 @@ class BOAddressesCreatePage extends BOAddressCreatePageVersion implements BOAddr
      */
   constructor() {
     super();
-    // Successful Messages
-    this.successfulCreationMessage = 'Successful creation';
     // Title
     this.pageTitleCreate = `Addresses > Add new • ${global.INSTALL.SHOP_NAME}`;
 
