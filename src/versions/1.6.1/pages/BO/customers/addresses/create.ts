@@ -14,7 +14,12 @@ class BOAddressesCreatePage extends BOAddressCreatePageVersion implements BOAddr
     super();
     // Title
     this.pageTitleCreate = `Addresses > Add new • ${global.INSTALL.SHOP_NAME}`;
-
+    // Alert Text
+    this.alertBlock = 'div.alert';
+    this.alertTextBlock = `${this.alertBlock}`;
+    this.alertBlockCloseButton = `${this.alertBlock} button[aria-label='Close']`;
+    this.alertSuccessBlock = `${this.alertBlock}.alert-success`;
+    this.alertSuccessBlockParagraph = `${this.alertSuccessBlock}`;
     // Selectors
     this.customerEmailInput = '#email';
     this.customerAddressdniInput = '#dni';
@@ -82,6 +87,27 @@ class BOAddressesCreatePage extends BOAddressCreatePageVersion implements BOAddr
     }
 
     return null;
+  }
+
+  /**
+   * Save address
+   * @param page {Frame|Page} Browser tab
+   * @returns {Promise<string>}
+   */
+  async saveAddress(page: Frame|Page): Promise<string> {
+    await this.clickAndWaitForURL(page, this.saveAddressButton);
+    return this.getAlertSuccessBlockParagraphContent(page);
+  }
+
+  /**
+   * Get text content of alert success block paragraph
+   * @param page {Frame|Page} Browser tab
+   * @param timeout
+   * @return {Promise<string>}
+   */
+  async getAlertSuccessBlockParagraphContent(page: Frame | Page, timeout: number = 2000): Promise<string> {
+    await this.elementVisible(page, this.alertSuccessBlockParagraph, timeout);
+    return this.getTextContent(page, this.alertSuccessBlockParagraph);
   }
 }
 
