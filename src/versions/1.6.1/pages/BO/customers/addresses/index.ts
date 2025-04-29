@@ -13,6 +13,8 @@ class BOAddressesPage extends BOAddressesPageVersion implements BOAddressesPageI
    */
   constructor() {
     super();
+    // Successful Messages
+    this.successfulCreationMessage = 'Successful creation';
     this.pageTitle = `Addresses • ${global.INSTALL.SHOP_NAME}`;
     // Header links
     this.addNewAddressLink = '#page-header-desc-address-new_address';
