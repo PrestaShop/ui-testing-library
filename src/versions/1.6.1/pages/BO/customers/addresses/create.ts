@@ -10,8 +10,22 @@ class BOAddressesCreatePage extends BOAddressCreatePageVersion implements BOAddr
   constructor() {
     super();
     this.pageTitleCreate = `Addresses > Add new • ${global.INSTALL.SHOP_NAME}`;
-    // Header links
-    this.saveAddressButton = '.card-footer button.btn-primary';
+
+    // Selectors
+    this.customerEmailInput = '#email';
+    this.customerAddressdniInput = '#dni';
+    this.customerAddressAliasInput = '#alias';
+    this.customerAddressFirstNameInput = '#firstname';
+    this.customerLastNameInput = '#lastname';
+    this.customerAddressCompanyInput = '#company';
+    this.customerAddressVatNumberInput = '#vat_number';
+    this.customerAddressInput = '#address1';
+    this.customerAddressPostCodeInput = '#postcode';
+    this.customerSecondAddressInput = '#address2';
+    this.customerAddressCityInput = '#city';
+    this.customerAddressCountrySelect = '#id_country';
+    this.customerAddressPhoneInput = '#phone';
+    this.saveAddressButton = '#address_form_submit_btn';
   }
 }
 
