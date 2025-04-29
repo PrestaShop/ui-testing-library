@@ -41,17 +41,17 @@ class BOOrderCreatePage extends BOBasePage implements BOOrdersCreatePageInterfac
 
   private readonly customerSearchEmptyResultParagraphe: string;
 
-  private readonly customerSearchFullResultsBlock: string;
+  protected customerSearchFullResultsBlock: string;
 
-  private readonly customerResultsBlock: string;
+  protected customerResultsBlock: string;
 
-  private readonly customerCardBlock: (pos: number) => string;
+  protected customerCardBlock: (pos: number) => string;
 
-  private readonly customerCardNameTitle: (pos: number) => string;
+  protected customerCardNameTitle: (pos: number) => string;
 
-  private readonly customerCardBody: (pos: number) => string;
+  protected customerCardBody: (pos: number) => string;
 
-  private readonly customerCardChooseButton: (pos: number) => string;
+  protected customerCardChooseButton: (pos: number) => string;
 
   private readonly customerCardDetailButton: string;
 
