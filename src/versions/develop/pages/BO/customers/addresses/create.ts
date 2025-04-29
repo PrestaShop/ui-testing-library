@@ -2,6 +2,8 @@ import type FakerAddress from '@data/faker/address';
 import {type BOAddressesCreatePageInterface} from '@interfaces/BO/customers/addresses/create';
 import BOBasePage from '@pages/BO/BOBasePage';
 import {type Frame, type Page} from '@playwright/test';
+import testContext from '@utils/test';
+import semver from 'semver';
 
 /**
  * Add address page, contains functions that can be used on the page
@@ -101,15 +103,18 @@ class BOAddressesCreatePage extends BOBasePage implements BOAddressesCreatePageI
     save: boolean = true,
     waitForNavigation: boolean = true,
   ): Promise<string|null> {
+    const psVersion = testContext.getPSVersion();
     if (await this.elementVisible(page, this.customerEmailInput, 2000)) {
       await this.setValue(page, this.customerEmailInput, addressData.email);
-      if ('keyboard' in page) {
-        await page.keyboard.press('Tab');
-      }
-      if ('waitForResponse' in page) {
-        await page.waitForResponse('**/sell/customers/customer-information**', {
-          timeout: 2000,
-        });
+      if (semver.gt(psVersion, '7.0.0')) {
+        if ('keyboard' in page) {
+          await page.keyboard.press('Tab');
+        }
+        if ('waitForResponse' in page) {
+          await page.waitForResponse('**/sell/customers/customer-information**', {
+            timeout: 2000,
+          });
+        }
       }
     }
     await this.setValue(page, this.customerAddressdniInput, addressData.dni);
