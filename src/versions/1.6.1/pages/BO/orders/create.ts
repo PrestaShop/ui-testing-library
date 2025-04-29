@@ -16,7 +16,7 @@ class BOOrderCreatePage extends BOOrderCreatePageVersion implements BOOrdersCrea
     // Full results
     this.customerSearchFullResultsBlock = '#customers';
     this.customerResultsBlock = `${this.customerSearchFullResultsBlock}`;
-    this.customerCardBlock = (pos: number) => `${this.customerSearchFullResultsBlock} div.customerCard(${pos})`;
+    this.customerCardBlock = (pos: number) => `${this.customerSearchFullResultsBlock} div.customerCard:nth-child(${pos})`;
     this.customerCardNameTitle = (pos: number) => `${this.customerCardBlock(pos)} div.panel-heading`;
     this.customerCardBody = (pos: number) => `${this.customerCardBlock(pos)} panel span`;
     this.customerCardChooseButton = (pos: number) => `${this.customerCardBlock(pos)} button.setup-customer`;
