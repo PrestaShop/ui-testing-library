@@ -10,7 +10,7 @@ import {type Page} from '@playwright/test';
 class BOAddressesPage extends BOBasePage implements BOAddressesPageInterface {
   public pageTitle: string;
 
-  private readonly addNewAddressLink: string;
+  protected addNewAddressLink: string;
 
   private readonly addressGridPanel: string;
 
