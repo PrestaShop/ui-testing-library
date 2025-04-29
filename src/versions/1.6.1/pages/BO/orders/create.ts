@@ -20,6 +20,9 @@ class BOOrderCreatePage extends BOOrderCreatePageVersion implements BOOrdersCrea
     this.customerCardNameTitle = (pos: number) => `${this.customerCardBlock(pos)} div.panel-heading`;
     this.customerCardBody = (pos: number) => `${this.customerCardBlock(pos)} panel span`;
     this.customerCardChooseButton = (pos: number) => `${this.customerCardBlock(pos)} button.setup-customer`;
+
+    // Checkout history selectors
+    this.checkoutHistoryBlock = '#carts';
   }
 }
 
