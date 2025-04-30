@@ -1,6 +1,7 @@
 import {type BOApiClientsPageInterface} from '@interfaces/BO/advancedParameters/apiclients';
 import BOBasePage from '@pages/BO/BOBasePage';
-import {type Page} from '@playwright/test';
+import {type Page, type Response} from '@playwright/test';
+import type {Serializable} from 'playwright-core/types/structs';
 
 /**
  * API Client page, contains functions that can be used on the page
@@ -11,6 +12,10 @@ class BOApiClientsPage extends BOBasePage implements BOApiClientsPageInterface {
   public readonly pageTitle: string;
 
   private readonly newApiClientLink: string;
+
+  private readonly mainAlertBlock: string;
+
+  private readonly mainAlertBlockLink: (type: string) => string;
 
   private readonly gridPanel: string;
 
@@ -56,6 +61,10 @@ class BOApiClientsPage extends BOBasePage implements BOApiClientsPageInterface {
     // Header
     this.newApiClientLink = '#page-header-desc-configuration-addApiClient';
 
+    // Block alert
+    this.mainAlertBlock = '.content-div > .alert.alert-info';
+    this.mainAlertBlockLink = (type: string) => `${this.mainAlertBlock} ul li a:text("API Documentation (${type})")`;
+
     // Selectors grid panel
     this.gridPanel = '#api_client_grid_panel';
     this.gridHeader = `${this.gridPanel} .card-header`;
@@ -82,6 +91,35 @@ class BOApiClientsPage extends BOBasePage implements BOApiClientsPageInterface {
   /*
   Methods
    */
+  /**
+   * Go to documentation
+   * @param page {Page} Browser tab
+   * @param type {'Swagger'|'ReDoc'|'JSON'} Type of documentation
+   * @return {Promise<Response|null>}
+   */
+  async goToDocumentation(page: Page, type: 'Swagger'|'ReDoc'|'JSON'): Promise<Response|null> {
+    const locator = page.locator(this.mainAlertBlockLink(type));
+    const urlDoc = (await locator.getAttribute('href') ?? '');
+    if (urlDoc) {
+      return page.goto(`${global.FO.URL.slice(0, -1)}${urlDoc}`);
+    }
+    return null;
+  }
+
+  /**
+   * Get JSON Documentation
+   * @param page {Page} Browser tab
+   * @return {Promise<Serializable|null>}
+   */
+  async getJSONDocumentation(page: Page): Promise<Serializable|null> {
+    const response = await this.goToDocumentation(page, 'JSON');
+    if (response) {
+      return response.json();
+    }
+
+    return null;
+  }
+
   /* Header methods */
   /**
    * Go to new API Client page
