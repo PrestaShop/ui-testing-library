@@ -23,6 +23,8 @@ class BOOrderCreatePage extends BOOrderCreatePageVersion implements BOOrdersCrea
 
     // Checkout history selectors
     this.checkoutHistoryBlock = '#carts';
+    // Cart selectors
+    this.productSearchInput = '#product-search';
   }
 }
 
