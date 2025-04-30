@@ -91,7 +91,7 @@ class BOOrderCreatePage extends BOBasePage implements BOOrdersCreatePageInterfac
 
   private readonly orderUseButton: (row: number) => string;
 
-  private readonly productSearchInput: string;
+  protected productSearchInput: string;
 
   private readonly noProductFoundAlert: string;
 
