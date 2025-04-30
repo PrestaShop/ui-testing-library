@@ -100,6 +100,7 @@ class BOApiClientsPage extends BOBasePage implements BOApiClientsPageInterface {
   async goToDocumentation(page: Page, type: 'Swagger'|'ReDoc'|'JSON'): Promise<Response|null> {
     const locator = page.locator(this.mainAlertBlockLink(type));
     const urlDoc = (await locator.getAttribute('href') ?? '');
+
     if (urlDoc) {
       return page.goto(`${global.FO.URL.slice(0, -1)}${urlDoc}`);
     }
@@ -113,6 +114,7 @@ class BOApiClientsPage extends BOBasePage implements BOApiClientsPageInterface {
    */
   async getJSONDocumentation(page: Page): Promise<Serializable|null> {
     const response = await this.goToDocumentation(page, 'JSON');
+
     if (response) {
       return response.json();
     }

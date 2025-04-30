@@ -1,3 +1,4 @@
+import dataCurrencies from '@data/demo/currencies';
 import dataProducts from '@data/demo/products';
 import type FakerCustomer from '@data/faker/customer';
 import type FakerProduct from '@data/faker/product';
@@ -127,7 +128,7 @@ export default class FakerCartRule {
     /** @type {CartRuleMinimalAmount} Minimum amount parameters */
     this.minimumAmount = cartRuleToCreate.minimumAmount || {
       value: 0,
-      currency: 'EUR',
+      currency: dataCurrencies.euro,
       tax: 'Tax included',
       shipping: 'Shipping included',
     };
