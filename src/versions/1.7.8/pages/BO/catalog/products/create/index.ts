@@ -28,7 +28,7 @@ class BOProductsCreatePageVersion extends BOProductsCreatePage implements BOProd
   async saveProduct(page: Page): Promise<string> {
     await page.click(this.saveProductButton);
     const growlTextMessage = await this.getGrowlMessageContent(page, 30000);
-    await this.closeGrowlMessage(page);
+    //await this.closeGrowlMessage(page);
 
     return growlTextMessage ?? '';
   }
