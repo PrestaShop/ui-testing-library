@@ -375,6 +375,7 @@ export {default as foClassicContactUsPage} from '@pages/FO/classic/contactUs';
 export {default as foClassicCreateAccountPage} from '@pages/FO/classic/myAccount/create';
 export {default as foClassicDeliveryPage} from '@pages/FO/classic/delivery';
 export {default as foClassicEmailSubscriptionPage} from '@pages/FO/classic/emailSubscription';
+export {default as foClassicGuestOrderTrackingPage} from '@pages/FO/classic/guestOrderTracking';
 export {default as foClassicHomePage} from '@pages/FO/classic/home';
 export {default as foClassicLegalNoticePage} from '@pages/FO/classic/legalNotice';
 export {default as foClassicLoginPage} from '@pages/FO/classic/login';
@@ -409,6 +410,7 @@ export {default as foHummingbirdContactUsPage} from '@pages/FO/hummingbird/conta
 export {default as foHummingbirdCreateAccountPage} from '@pages/FO/hummingbird/myAccount/create';
 export {default as foHummingbirdMyCreditSlipsPage} from '@pages/FO/hummingbird/myAccount/creditSlips';
 export {default as foHummingbirdDeliveryPage} from '@pages/FO/hummingbird/delivery';
+export {default as foHummingbirdGuestOrderTrackingPage} from '@pages/FO/hummingbird/guestOrderTracking';
 export {default as foHummingbirdHomePage} from '@pages/FO/hummingbird/home';
 export {default as foHummingbirdLegalNoticePage} from '@pages/FO/hummingbird/legalNotice';
 export {default as foHummingbirdLoginPage} from '@pages/FO/hummingbird/login';
