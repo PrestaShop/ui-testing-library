@@ -530,7 +530,7 @@ export default class FOBasePage extends CommonPage implements FOBasePagePageInte
   async goToSubCategory(page: Page, categoryID: number, subCategoryID: number): Promise<void> {
     await Promise.all([
       page.locator(this.categoryMenu(categoryID)).first().hover(),
-      page.locator(this.categoryMenu(categoryID)).click(),
+      page.locator(this.categoryMenu(subCategoryID)).click(),
     ]);
   }
 
