@@ -390,6 +390,7 @@ export {default as foClassicMyInformationsPage} from '@pages/FO/classic/myAccoun
 export {default as foClassicMyMerchandiseReturnsPage} from '@pages/FO/classic/myAccount/merchandiseReturns';
 export {default as foClassicMyOrderDetailsPage} from '@pages/FO/classic/myAccount/orderDetails';
 export {default as foClassicMyOrderHistoryPage} from '@pages/FO/classic/myAccount/orderHistory';
+export {default as foClassicMyReturnDetailsPage} from '@pages/FO/classic/myAccount/returnDetails';
 export {default as foClassicMyVouchersPage} from '@pages/FO/classic/myAccount/vouchers';
 export {default as foClassicMyWishlistsPage} from '@pages/FO/classic/myAccount/myWishlists';
 export {default as foClassicMyWishlistsViewPage} from '@pages/FO/classic/myAccount/myWishlists/view';
@@ -427,6 +428,7 @@ export {default as foHummingbirdMyInformationsPage} from '@pages/FO/hummingbird/
 export {default as foHummingbirdMyMerchandiseReturnsPage} from '@pages/FO/hummingbird/myAccount/merchandiseReturns';
 export {default as foHummingbirdMyOrderDetailsPage} from '@pages/FO/hummingbird/myAccount/orderDetails';
 export {default as foHummingbirdMyOrderHistoryPage} from '@pages/FO/hummingbird/myAccount/orderHistory';
+export {default as foHummingbirdMyReturnDetailsPage} from '@pages/FO/hummingbird/myAccount/returnDetails';
 export {default as foHummingbirdMyVouchersPage} from '@pages/FO/hummingbird/myAccount/vouchers';
 export {default as foHummingbirdMyWishlistsPage} from '@pages/FO/hummingbird/myAccount/myWishlists';
 export {default as foHummingbirdMyWishlistsViewPage} from '@pages/FO/hummingbird/myAccount/myWishlists/view';
