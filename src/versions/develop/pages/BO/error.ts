@@ -16,6 +16,9 @@ class BOErrorPage extends BOBasePage implements BOErrorPageInterface {
   constructor() {
     super();
 
+    // Selectors
+    this.alertDangerBlockParagraph = '.alert-danger';
+
     this.notFoundTitle = 'Page not found';
   }
 }
