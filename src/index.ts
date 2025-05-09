@@ -393,6 +393,7 @@ export {default as foClassicMyOrderHistoryPage} from '@pages/FO/classic/myAccoun
 export {default as foClassicMyVouchersPage} from '@pages/FO/classic/myAccount/vouchers';
 export {default as foClassicMyWishlistsPage} from '@pages/FO/classic/myAccount/myWishlists';
 export {default as foClassicMyWishlistsViewPage} from '@pages/FO/classic/myAccount/myWishlists/view';
+export {default as foClassicNewProductsPage} from '@pages/FO/classic/newProducts';
 export {default as foClassicPasswordReminderPage} from '@pages/FO/classic/passwordReminder';
 export {default as foClassicProductPage} from '@pages/FO/classic/product';
 export {default as foClassicSearchResultsPage} from '@pages/FO/classic/searchResults';
@@ -426,6 +427,7 @@ export {default as foHummingbirdMyOrderHistoryPage} from '@pages/FO/hummingbird/
 export {default as foHummingbirdMyVouchersPage} from '@pages/FO/hummingbird/myAccount/vouchers';
 export {default as foHummingbirdMyWishlistsPage} from '@pages/FO/hummingbird/myAccount/myWishlists';
 export {default as foHummingbirdMyWishlistsViewPage} from '@pages/FO/hummingbird/myAccount/myWishlists/view';
+export {default as foHummingbirdNewProductsPage} from '@pages/FO/hummingbird/newProducts';
 export {default as foHummingbirdPasswordReminderPage} from '@pages/FO/hummingbird/passwordReminder';
 export {default as foHummingbirdProductPage} from '@pages/FO/hummingbird/product';
 export {default as foHummingbirdSearchResultsPage} from '@pages/FO/hummingbird/searchResults';
