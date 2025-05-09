@@ -467,6 +467,9 @@ export {default as modPsNewProductsBoMain} from '@pages/BO/modules/ps_newproduct
 export {default as modPsSupplierListBoMain} from '@pages/BO/modules/ps_supplierlist';
 export {default as modPsWirepaymentBoMain} from '@pages/BO/modules/ps_wirepayment';
 
+// Export install
+export {default as installPage} from '@pages/install';
+
 // Export utils
 export {default as utilsAPI} from '@utils/api';
 export {default as utilsCore} from '@utils/core';
