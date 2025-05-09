@@ -395,6 +395,7 @@ export {default as foClassicMyWishlistsPage} from '@pages/FO/classic/myAccount/m
 export {default as foClassicMyWishlistsViewPage} from '@pages/FO/classic/myAccount/myWishlists/view';
 export {default as foClassicNewProductsPage} from '@pages/FO/classic/newProducts';
 export {default as foClassicPasswordReminderPage} from '@pages/FO/classic/passwordReminder';
+export {default as foClassicPricesDropPage} from '@pages/FO/classic/pricesDrop';
 export {default as foClassicProductPage} from '@pages/FO/classic/product';
 export {default as foClassicSearchResultsPage} from '@pages/FO/classic/searchResults';
 export {default as foClassicSitemapPage} from '@pages/FO/classic/sitemap';
@@ -429,6 +430,7 @@ export {default as foHummingbirdMyWishlistsPage} from '@pages/FO/hummingbird/myA
 export {default as foHummingbirdMyWishlistsViewPage} from '@pages/FO/hummingbird/myAccount/myWishlists/view';
 export {default as foHummingbirdNewProductsPage} from '@pages/FO/hummingbird/newProducts';
 export {default as foHummingbirdPasswordReminderPage} from '@pages/FO/hummingbird/passwordReminder';
+export {default as foHummingbirdPricesDropPage} from '@pages/FO/hummingbird/pricesDrop';
 export {default as foHummingbirdProductPage} from '@pages/FO/hummingbird/product';
 export {default as foHummingbirdSearchResultsPage} from '@pages/FO/hummingbird/searchResults';
 export {default as foHummingbirdSitemapPage} from '@pages/FO/hummingbird/sitemap';
