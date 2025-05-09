@@ -242,6 +242,7 @@ export {default as boEmailPage} from '@pages/BO/advancedParameters/email';
 export {default as boEmployeesPage} from '@pages/BO/advancedParameters/team/employees';
 export {default as boEmployeesCreatePage} from '@pages/BO/advancedParameters/team/employees/create';
 export {default as boEmployeeSessionsPage} from '@pages/BO/advancedParameters/security/employeeSessions';
+export {default as boErrorPage} from '@pages/BO/error';
 export {default as boFeatureFlagPage} from '@pages/BO/advancedParameters/featureFlag';
 export {default as boFeaturesPage} from '@pages/BO/catalog/features';
 export {default as boFeaturesCreatePage} from '@pages/BO/catalog/features/create';
