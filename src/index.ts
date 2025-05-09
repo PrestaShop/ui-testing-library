@@ -386,6 +386,7 @@ export {default as foClassicMyAccountPage} from '@pages/FO/classic/myAccount';
 export {default as foClassicMyAddressesPage} from '@pages/FO/classic/myAccount/addresses';
 export {default as foClassicMyAddressesCreatePage} from '@pages/FO/classic/myAccount/addresses/create';
 export {default as foClassicMyCreditSlipsPage} from '@pages/FO/classic/myAccount/creditSlips';
+export {default as foClassicMyGDPRPersonalDataPage} from '@pages/FO/classic/myAccount/gdprPersonalData';
 export {default as foClassicMyInformationsPage} from '@pages/FO/classic/myAccount/informations';
 export {default as foClassicMyMerchandiseReturnsPage} from '@pages/FO/classic/myAccount/merchandiseReturns';
 export {default as foClassicMyOrderDetailsPage} from '@pages/FO/classic/myAccount/orderDetails';
@@ -424,6 +425,7 @@ export {default as foHummingbirdModalQuickViewPage} from '@pages/FO/hummingbird/
 export {default as foHummingbirdMyAccountPage} from '@pages/FO/hummingbird/myAccount';
 export {default as foHummingbirdMyAddressesPage} from '@pages/FO/hummingbird/myAccount/addresses';
 export {default as foHummingbirdMyAddressesCreatePage} from '@pages/FO/hummingbird/myAccount/addresses/create';
+export {default as foHummingbirdMyGDPRPersonalDataPage} from '@pages/FO/classic/myAccount/gdprPersonalData';
 export {default as foHummingbirdMyInformationsPage} from '@pages/FO/hummingbird/myAccount/informations';
 export {default as foHummingbirdMyMerchandiseReturnsPage} from '@pages/FO/hummingbird/myAccount/merchandiseReturns';
 export {default as foHummingbirdMyOrderDetailsPage} from '@pages/FO/hummingbird/myAccount/orderDetails';
