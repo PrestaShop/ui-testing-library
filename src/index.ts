@@ -401,6 +401,7 @@ export {default as foClassicSearchResultsPage} from '@pages/FO/classic/searchRes
 export {default as foClassicSecurePaymentPage} from '@pages/FO/classic/securePayment';
 export {default as foClassicSitemapPage} from '@pages/FO/classic/sitemap';
 export {default as foClassicStoresPage} from '@pages/FO/classic/stores';
+export {default as foClassicTermsAndConditionsOfUsePage} from '@pages/FO/classic/termsAndConditionsOfUse';
 // Export Pages FO/Hummingbird
 export {default as foHummingbirdAboutUsPage} from '@pages/FO/hummingbird/aboutUs';
 export {default as foHummingbirdBestSalesPage} from '@pages/FO/classic/bestSales';
@@ -437,6 +438,7 @@ export {default as foHummingbirdSearchResultsPage} from '@pages/FO/hummingbird/s
 export {default as foHummingbirdSecurePaymentPage} from '@pages/FO/hummingbird/securePayment';
 export {default as foHummingbirdSitemapPage} from '@pages/FO/hummingbird/sitemap';
 export {default as foHummingbirdStoresPage} from '@pages/FO/hummingbird/stores';
+export {default as foHummingbirdTermsAndConditionsOfUsePage} from '@pages/FO/hummingbird/termsAndConditionsOfUse';
 
 // Export Modules
 export {default as modAutoupgradeBoMain} from '@pages/BO/modules/autoupgrade';
