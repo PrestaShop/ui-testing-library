@@ -1,6 +1,6 @@
 // Import pages
 import type {BOViewOrderBasePageInterface} from '@interfaces/BO/orders/view/viewOrderBasePage';
-import {ViewOrderBasePage} from '@versions/develop/pages/BO/orders/view/viewOrderBasePage';
+import {ViewOrderBasePage} from '@versions/8.2/pages/BO/orders/view/viewOrderBasePage';
 import type {Page} from 'playwright-core';
 
 /**

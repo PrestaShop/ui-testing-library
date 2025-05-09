@@ -1,5 +1,7 @@
 /* eslint-disable vars-on-top, no-var */
 
+import {GlobalBO} from '@data/types/globals';
+
 declare global {
   var INSTALL: GlobalInstall;
   var URLHasPort: boolean;
