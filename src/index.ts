@@ -407,7 +407,7 @@ export {default as foClassicStoresPage} from '@pages/FO/classic/stores';
 export {default as foClassicTermsAndConditionsOfUsePage} from '@pages/FO/classic/termsAndConditionsOfUse';
 // Export Pages FO/Hummingbird
 export {default as foHummingbirdAboutUsPage} from '@pages/FO/hummingbird/aboutUs';
-export {default as foHummingbirdBestSalesPage} from '@pages/FO/classic/bestSales';
+export {default as foHummingbirdBestSalesPage} from '@pages/FO/hummingbird/bestSales';
 export {default as foHummingbirdCartPage} from '@pages/FO/hummingbird/cart';
 export {default as foHummingbirdCategoryPage} from '@pages/FO/hummingbird/category';
 export {default as foHummingbirdCheckoutPage} from '@pages/FO/hummingbird/checkout';
@@ -426,7 +426,7 @@ export {default as foHummingbirdModalQuickViewPage} from '@pages/FO/hummingbird/
 export {default as foHummingbirdMyAccountPage} from '@pages/FO/hummingbird/myAccount';
 export {default as foHummingbirdMyAddressesPage} from '@pages/FO/hummingbird/myAccount/addresses';
 export {default as foHummingbirdMyAddressesCreatePage} from '@pages/FO/hummingbird/myAccount/addresses/create';
-export {default as foHummingbirdMyGDPRPersonalDataPage} from '@pages/FO/classic/myAccount/gdprPersonalData';
+export {default as foHummingbirdMyGDPRPersonalDataPage} from '@pages/FO/hummingbird/myAccount/gdprPersonalData';
 export {default as foHummingbirdMyInformationsPage} from '@pages/FO/hummingbird/myAccount/informations';
 export {default as foHummingbirdMyMerchandiseReturnsPage} from '@pages/FO/hummingbird/myAccount/merchandiseReturns';
 export {default as foHummingbirdMyOrderDetailsPage} from '@pages/FO/hummingbird/myAccount/orderDetails';
