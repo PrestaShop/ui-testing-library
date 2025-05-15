@@ -37,7 +37,10 @@ export type {
 export type {default as ImportContent} from '@data/types/localization';
 export type {LinkWidgetPage} from '@data/types/linkWidget';
 export type {default as MailDevEmail} from '@data/types/maildevEmail';
-export type {ModuleInfo} from '@data/types/module';
+export type {
+  ModuleApiInfo,
+  ModuleInfo,
+} from '@data/types/module';
 export type {
   OrderCreator,
   OrderHistory,
