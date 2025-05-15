@@ -15,6 +15,10 @@ type GlobalFO = {
   URL: string
 }
 
+type GlobalAPI = {
+  URL: string
+}
+
 type GlobalBO = {
   URL: string
   EMAIL: string
@@ -70,7 +74,8 @@ type GlobalBrowserErrors = {
 
 type GlobalScreenshot = {
   FOLDER: string
-  AFTER_FAIL: any
+  AFTER_FAIL: boolean
+  EACH_STEP: boolean
 }
 
 type GlobalMaildevConfig = {
@@ -85,11 +90,13 @@ type GlobalKeycloakConfig = {
   keycloakAdminUser: string
   keycloakAdminPass: string
   keycloakClientId: string
+  keycloakClientSecret: string
 }
 
 export type {
   GlobalInstall,
   GlobalFO,
+  GlobalAPI,
   GlobalBO,
   GlobalBrowser,
   GlobalBrowserConfig,
