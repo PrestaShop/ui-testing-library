@@ -46,11 +46,11 @@ class ViewOrderBasePage extends BOBasePage implements BOViewOrderBasePageInterfa
 
   private readonly orderReference: string;
 
-  private readonly orderStatusesSelect: string;
+  protected readonly orderStatusesSelect: string;
 
   private readonly orderStatusesOptionSelect: string;
 
-  private readonly updateStatusButton: string;
+  protected readonly updateStatusButton: string;
 
   private readonly viewInvoiceButton: string;
 

@@ -1,6 +1,6 @@
 // Import pages
 import type {BOProductsCreatePageInterface} from '@interfaces/BO/catalog/products/create';
-import {BOProductsCreatePage} from '@versions/8.0/pages/BO/catalog/products/create';
+import {BOProductsCreatePage} from '@versions/1.7.8/pages/BO/catalog/products/create';
 
 /**
  * Bo create product page, contains functions that can be used on the page
