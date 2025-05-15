@@ -124,6 +124,14 @@ export {default as dataTaxRuleBehaviours} from '@data/demo/taxRuleBehaviour';
 export {default as dataTitles} from '@data/demo/titles';
 export {default as dataZones} from '@data/demo/zones';
 
+export {default as dataImportAddresses} from '@data/import/addresses';
+export {default as dataImportBrands} from '@data/import/brands';
+export {default as dataImportCategories} from '@data/import/categories';
+export {default as dataImportCombinations} from '@data/import/combinations';
+export {default as dataImportCustomers} from '@data/import/customers';
+export {default as dataImportProductsDisabled} from '@data/import/products/disabled';
+export {default as dataImportProductsWithoutQuantities} from '@data/import/products/withoutQuantities';
+
 export {default as FakerAddress} from '@data/faker/address';
 export {default as FakerAPIClient} from '@data/faker/apiClient';
 export {default as FakerAttribute} from '@data/faker/attribute';
