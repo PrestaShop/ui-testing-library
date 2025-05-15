@@ -14,6 +14,7 @@ export type {default as DashboardTrafficSource} from '@data/types/dashboard';
 export type {EmployeePermission} from '@data/types/employee';
 export type {
   GlobalInstall,
+  GlobalAPI,
   GlobalFO,
   GlobalBO,
   GlobalBrowser,
