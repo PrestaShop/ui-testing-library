@@ -1,3 +1,8 @@
+// StartUp : Load .env in global
+import utilsConf from '@utils/conf';
+
+utilsConf.loadEnv();
+
 // Export data
 export type {
   CarrierCreator,
@@ -485,6 +490,7 @@ export {default as installPage} from '@pages/install';
 // Export utils
 export {default as utilsAPI} from '@utils/api';
 export {default as utilsCore} from '@utils/core';
+export {default as utilsConf} from '@utils/conf';
 export {default as utilsDate} from '@utils/date';
 export {default as utilsFile} from '@utils/file';
 export {default as utilsKeycloak} from '@utils/keycloak';
