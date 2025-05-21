@@ -759,6 +759,9 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
       if (semver.gte(shopVersion, '7.8.0')) {
         linkActiveClass = 'link-active';
       }
+      if (semver.lte(shopVersion, '7.7.0')) {
+        linkActiveClass = '-active';
+      }
 
       if (await this.isSidebarCollapsed(page)) {
         await this.waitForHiddenSelector(page, `${linkSelector}.${linkActiveClass}`);
