@@ -56,6 +56,7 @@ class BOProductsCreatePageVersion extends BOProductsCreatePage implements BOProd
   async setProductName(page: Page, name: string, locale: string = 'en'): Promise<void> {
     await this.selectByVisibleText(page, this.productNameLanguageButton, locale);
     await this.setValue(page, this.productNameInput(locale), name);
+    await page.locator(this.productNameInput(locale)).fill(name);
   }
 
   /**

@@ -71,7 +71,7 @@ class Autoupgrade extends ModuleConfigurationPage implements ModuleAutoupgradeMa
     this.pageTitle = `Update assistant > Update assistant • ${global.INSTALL.SHOP_NAME}`;
     this.checkRequirementSuccessMessage = 'The requirements check is complete, you can update your store to this '
       + 'version of PrestaShop.';
-    this.updateSuccessMessage = 'Your store is up to date';
+    this.updateSuccessMessage = 'Your store has been updated to PrestaShop version ';
 
     // Selectors
     // First page : Welcome to PrestaShop Update Assistant

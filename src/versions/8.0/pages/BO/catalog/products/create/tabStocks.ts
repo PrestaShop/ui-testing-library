@@ -29,8 +29,8 @@ class BOProductTabStocksVersion extends StocksTab implements BOProductsCreateTab
     this.denyOrderRadioButton = '#form_step3_out_of_stock_0';
     this.allowOrderRadioButton = '#form_step3_out_of_stock_1';
     this.useDefaultBehaviourRadioButton = '#form_step3_out_of_stock_2';
-    this.labelWhenInStockInput = '#form_step3_available_now_1';
-    this.labelWhenOutOfStock = '#form_step3_available_later_1';
+    this.labelWhenInStockInput = '#form_step3_available_now_2';
+    this.labelWhenOutOfStock = '#form_step3_available_later_2';
   }
 
   /**
