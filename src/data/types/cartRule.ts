@@ -1,3 +1,4 @@
+import type FakerCurrency from '@data/faker/currency';
 import type FakerCustomer from '@data/faker/customer';
 import type FakerProduct from '@data/faker/product';
 
@@ -41,7 +42,7 @@ type CartRuleDiscountAmount = {
 }
 type CartRuleMinimalAmount = {
   value: number,
-  currency: string,
+  currency: FakerCurrency,
   tax: string,
   shipping: string,
 }

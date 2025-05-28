@@ -406,7 +406,7 @@ class BOCartRulesCreatePage extends BOBasePage implements BOCartRulesCreatePageI
 
     // Fill minimum amount values
     await this.setValue(page, this.minimumAmountInput, cartRuleData.minimumAmount.value);
-    await this.selectByVisibleText(page, this.minimumAmountCurrencySelect, cartRuleData.minimumAmount.currency);
+    await this.selectByVisibleText(page, this.minimumAmountCurrencySelect, cartRuleData.minimumAmount.currency.isoCode);
     await this.selectByVisibleText(page, this.minimumAmountTaxSelect, cartRuleData.minimumAmount.tax);
     await this.selectByVisibleText(page, this.minimumAmountShippingSelect, cartRuleData.minimumAmount.shipping);
 
