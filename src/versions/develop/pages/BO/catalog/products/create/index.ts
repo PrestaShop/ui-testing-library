@@ -427,7 +427,7 @@ class BOProductsCreatePage extends BOBasePage implements BOProductsCreatePageInt
    * @returns {Promise<string>}
    */
   async saveProduct(page: Page): Promise<string> {
-    await this.clickAndWaitForURL(page, this.saveProductButton);
+    await this.clickOnSaveProductButton(page);
 
     return this.getAlertSuccessBlockParagraphContent(page);
   }
