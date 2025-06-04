@@ -15,6 +15,7 @@ class ProductsBlockOrdersPageVersion extends BOProductBlockProductsPage implemen
   constructor() {
     super();
     this.orderProductsTable = '#orderProducts';
+    this.orderProductsRowTable = (row: number) => `${this.orderProductsTable} tbody tr.product-line-row:nth-child(${row})`;
     this.editProductButton = (row: number) => `${this.orderProductsRowTable(row)} button.edit_product_change_link`;
     this.productQuantitySpan = (row: number) => `${this.orderProductsRowTable(row)} td.productQuantity`;
     // Edit row table

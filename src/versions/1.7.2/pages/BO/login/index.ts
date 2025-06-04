@@ -15,7 +15,7 @@ class BOLoginVersion extends LoginPage implements LoginPageInterface {
   constructor() {
     super();
 
-    this.submitLoginButton = 'button[name="submitLogin"]';
+    this.submitLoginButton = 'button[name="submitLogin"]:nth-child(1)';
   }
 }
 
