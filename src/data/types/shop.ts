@@ -4,6 +4,7 @@ type ShopCreator = {
   color?: string
   categoryRoot: string
   theme?: string
+  importDataFromAnotherShop?: boolean
 };
 
 export default ShopCreator;
