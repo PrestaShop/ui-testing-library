@@ -298,7 +298,6 @@ export {default as boMultistoreShopCreatePage} from '@pages/BO/advancedParameter
 export {default as boMultistoreShopUrlPage} from '@pages/BO/advancedParameters/multistore/url';
 export {default as boMultistoreShopUrlCreatePage} from '@pages/BO/advancedParameters/multistore/url/create';
 export {default as boMyProfilePage} from '@pages/BO/advancedParameters/team/myProfile';
-export {default as boNewExperimentalFeaturesPage} from '@pages/BO/advancedParameters/newExperimentalFeatures';
 export {default as boOrderMessagesPage} from '@pages/BO/customerService/orderMessages';
 export {default as boOrderMessagesCreatePage} from '@pages/BO/customerService/orderMessages/create';
 export {default as boOrdersPage} from '@pages/BO/orders';

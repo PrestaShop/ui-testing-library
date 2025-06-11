@@ -10,9 +10,13 @@ import {type Page} from '@playwright/test';
 class BOFeatureFlag extends BOBasePage implements BOFeatureFlagInterface {
   public readonly pageTitle: string;
 
+  public readonly featureFlagProductPageV2: string;
+
   public readonly featureFlagAdminAPI: string;
 
   public readonly featureFlagAdminAPIMultistore: string;
+
+  public readonly featureFlagMultipleImageFormats: string;
 
   private readonly featureFlagSwitchButton: (status: string, feature: string, toggle: number) => string;
 
@@ -35,6 +39,8 @@ class BOFeatureFlag extends BOBasePage implements BOFeatureFlagInterface {
     this.successfulUpdateMessage = 'Update successful';
 
     // Feature Flag
+    this.featureFlagProductPageV2 = 'product_page_v2';
+    this.featureFlagMultipleImageFormats = 'multiple_image_format';
     this.featureFlagAdminAPI = 'admin_api';
     this.featureFlagAdminAPIMultistore = 'admin_api_multistore';
     // Selectors
@@ -57,6 +63,10 @@ class BOFeatureFlag extends BOBasePage implements BOFeatureFlagInterface {
     let isStable: boolean;
 
     switch (featureFlag) {
+      case this.featureFlagMultipleImageFormats:
+      case this.featureFlagProductPageV2:
+        isStable = true;
+        break;
       case this.featureFlagAdminAPI:
       case this.featureFlagAdminAPIMultistore:
         isStable = false;

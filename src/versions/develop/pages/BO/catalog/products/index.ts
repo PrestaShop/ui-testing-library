@@ -512,6 +512,7 @@ class ProductsPage extends BOBasePage implements BOProductsPageInterface {
     }
     const locator = await page.locator(this.productsListTableColumnAssociatedShops(row));
     const shopIds = (await locator.getAttribute('data-shop-ids') ?? '');
+
     return shopIds.split(',').map(Number);
   }
 
