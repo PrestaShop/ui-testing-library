@@ -14,7 +14,7 @@ type ShoppingCartDetails = {
   id_cart?: number
   id_order?: number
   status?: string
-  lastname?: string
+  customer_name?: string
   total?: string
   carrier?: string
   date?: string
