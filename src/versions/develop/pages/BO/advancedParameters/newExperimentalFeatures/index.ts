@@ -16,6 +16,8 @@ class NewExperimentalFeaturesPage extends BOBasePage implements BONewExperimenta
 
   public readonly featureFlagAdminAPI: string;
 
+  public readonly featureFlagAdminAPIMultistore: string;
+
   public readonly featureFlagMultipleImageFormats: string;
 
   private readonly featureFlagSwitchButton: (status: string, feature: string, toggle: number) => string;
@@ -42,6 +44,7 @@ class NewExperimentalFeaturesPage extends BOBasePage implements BONewExperimenta
     this.featureFlagProductPageV2 = 'product_page_v2';
     this.featureFlagMultipleImageFormats = 'multiple_image_format';
     this.featureFlagAdminAPI = 'admin_api';
+    this.featureFlagAdminAPIMultistore = 'admin_api_multistore';
     // Selectors
     this.featureFlagSwitchButton = (status: string, feature: string, toggle: number) => `#feature_flag_${
       status}_feature_flags_${feature}_enabled_${toggle}`;
@@ -66,12 +69,11 @@ class NewExperimentalFeaturesPage extends BOBasePage implements BONewExperimenta
 
     switch (featureFlag) {
       case this.featureFlagMultipleImageFormats:
-        isStable = true;
-        break;
       case this.featureFlagProductPageV2:
         isStable = true;
         break;
       case this.featureFlagAdminAPI:
+      case this.featureFlagAdminAPIMultistore:
         isStable = false;
         break;
       default:

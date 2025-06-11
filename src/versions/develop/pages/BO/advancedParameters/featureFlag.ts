@@ -12,6 +12,8 @@ class BOFeatureFlag extends BOBasePage implements BOFeatureFlagInterface {
 
   public readonly featureFlagAdminAPI: string;
 
+  public readonly featureFlagAdminAPIMultistore: string;
+
   private readonly featureFlagSwitchButton: (status: string, feature: string, toggle: number) => string;
 
   private readonly submitButton: (status: string) => string;
@@ -34,6 +36,7 @@ class BOFeatureFlag extends BOBasePage implements BOFeatureFlagInterface {
 
     // Feature Flag
     this.featureFlagAdminAPI = 'admin_api';
+    this.featureFlagAdminAPIMultistore = 'admin_api_multistore';
     // Selectors
     this.featureFlagSwitchButton = (status: string, feature: string, toggle: number) => `#feature_flag_${
       status}_feature_flags_${feature}_enabled_${toggle}`;
@@ -55,6 +58,7 @@ class BOFeatureFlag extends BOBasePage implements BOFeatureFlagInterface {
 
     switch (featureFlag) {
       case this.featureFlagAdminAPI:
+      case this.featureFlagAdminAPIMultistore:
         isStable = false;
         break;
       default:
