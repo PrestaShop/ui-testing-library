@@ -777,7 +777,7 @@ class Dashboard extends BOBasePage implements DashboardPageInterface {
       await page.locator(this.remindMeLaterSevenDaysButton).click();
     }
 
-    return this.elementNotVisible(page, this.dialogUpdateNotification, 5000)
+    return this.elementNotVisible(page, this.dialogUpdateNotification, 5000);
   }
 }
 
