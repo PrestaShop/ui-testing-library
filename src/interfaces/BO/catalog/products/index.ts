@@ -44,6 +44,7 @@ export interface BOProductsPageInterface extends BOBasePagePageInterface {
     getPaginationLabel(page: Page): Promise<string>;
     getProductDescription(page: Page): Promise<string>;
     getProductPriceFromList(page: Page, row: number, withTaxes: boolean): Promise<number>;
+    getProductShopsId(page: Page, row: number): Promise<number[]>;
     getProductStatusFromList(page: Page, row: number): Promise<boolean>;
     getTextColumn(page: Page, columnName: string, row: number): Promise<string|number|boolean>;
     getTextColumnFromTable(page: Page, row: number, column: number): Promise<string>;
