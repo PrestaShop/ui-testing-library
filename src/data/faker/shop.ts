@@ -19,6 +19,8 @@ export default class FakerShop {
 
   public readonly theme: string;
 
+  public readonly importDataFromAnotherShop: boolean;
+
   /**
    * Constructor for class ShopGroupData
    * @param shopToCreate {ShopCreator} Could be used to force the value of some members
@@ -41,6 +43,11 @@ export default class FakerShop {
 
     /** @type {string} Front Theme of the shop */
     this.theme = shopToCreate.theme || 'classic';
+
+    /** @type {boolean} Import data from another shop */
+    this.importDataFromAnotherShop = shopToCreate.importDataFromAnotherShop === undefined
+      ? true
+      : shopToCreate.importDataFromAnotherShop;
   }
 
   /**
