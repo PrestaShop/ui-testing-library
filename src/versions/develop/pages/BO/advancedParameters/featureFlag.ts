@@ -79,7 +79,7 @@ class BOFeatureFlag extends BOBasePage implements BOFeatureFlagInterface {
 
     const isChecked = await this.isChecked(page, selector);
 
-    if (isChecked) {
+    if ((isChecked && toEnable) || (!isChecked && !toEnable)) {
       // Return the successful message to simulate all went good (no need to change the value here)
       return this.successfulUpdateMessage;
     }
