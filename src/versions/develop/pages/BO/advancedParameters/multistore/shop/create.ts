@@ -72,7 +72,9 @@ class BOMultistoreShopCreatePage extends BOBasePage implements BOMultistoreShopC
     await this.selectByVisibleText(page, this.categoryRootSelect, shopData.categoryRoot);
     await page.locator(this.themeRadio(shopData.theme)).click();
 
-    await this.setChecked(page, this.useImportDataToggle(shopData.importDataFromAnotherShop ? 'on' : 'off'));
+    if ((await page.locator(this.useImportDataToggle(shopData.importDataFromAnotherShop ? 'on' : 'off')).count()) > 0) {
+      await this.setChecked(page, this.useImportDataToggle(shopData.importDataFromAnotherShop ? 'on' : 'off'));
+    }
 
     await Promise.all([
       page.locator(this.saveButton).evaluate((el: HTMLElement) => el.click()),
