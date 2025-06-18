@@ -69,6 +69,8 @@ class CartPage extends FOBasePage implements FoCartPageInterface {
 
   protected alertMessage: string;
 
+  private readonly subtotalShippingValueSpan: string;
+
   private readonly subtotalDiscountValueSpan: string;
 
   protected cartTotalATI: string;
@@ -167,6 +169,7 @@ class CartPage extends FOBasePage implements FoCartPageInterface {
 
     // Cart summary block selectors
     this.itemsNumber = '#cart-subtotal-products span.label.js-subtotal';
+    this.subtotalShippingValueSpan = '#cart-subtotal-shipping span.value';
     this.subtotalDiscountValueSpan = '#cart-subtotal-discount span.value';
     this.cartTotalATI = '.cart-summary-totals span.value';
     this.blockPromoDiv = '.block-promo';
@@ -410,6 +413,15 @@ class CartPage extends FOBasePage implements FoCartPageInterface {
    */
   async getSubtotalDiscountValue(page: Page): Promise<number> {
     return this.getPriceFromText(page, this.subtotalDiscountValueSpan, 2000);
+  }
+
+  /**
+   * Get subtotal shipping value
+   * @param page {Page} Browser tab
+   * @returns {Promise<number>}
+   */
+  async getSubtotalShippingValue(page: Page): Promise<string> {
+    return this.getTextContent(page, this.subtotalShippingValueSpan);
   }
 
   /**
