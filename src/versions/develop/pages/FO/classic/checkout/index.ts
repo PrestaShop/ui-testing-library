@@ -49,6 +49,8 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
 
   protected shippingValueSpan: string;
 
+  protected discountValueSpan: string;
+
   protected cartSummaryLine: (line: number) => string;
 
   protected cartRuleName: (line: number) => string;
@@ -374,6 +376,7 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
     this.checkoutHavePromoInputArea = `${this.promoCodeArea} input.promo-input`;
     this.checkoutPromoCodeAddButton = `${this.promoCodeArea} button.btn-primary`;
     this.shippingValueSpan = '#cart-subtotal-shipping span.value';
+    this.discountValueSpan = '#cart-subtotal-discount span.value';
     this.cartSummaryLine = (line: number) => `${this.checkoutPromoBlock} li:nth-child(${line}).cart-summary-line`;
     this.cartRuleName = (line: number) => `${this.cartSummaryLine(line)} span.label`;
     this.discountValue = (line: number) => `${this.cartSummaryLine(line)} div span`;
@@ -1021,6 +1024,17 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
   }
 
   /**
+   * Get discount value
+   * @param page {Page} Browser tab
+   * @returns {Promise<string>}
+   */
+  async getDiscountCost(page: Page): Promise<string> {
+    await page.waitForTimeout(2000);
+
+    return this.getTextContent(page, this.discountValueSpan);
+  }
+
+  /**
    * Get shipping value
    * @param page {Page} Browser tab
    * @returns {Promise<string>}
@@ -1149,6 +1163,16 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
    */
   async getCartRuleName(page: Page, line: number = 1): Promise<string> {
     return this.getTextContent(page, this.cartRuleName(line));
+  }
+
+  /**
+   * Get cart rule value
+   * @param page {Page} Browser tab
+   * @param line {number} Cart rule line
+   * @return {string}
+   */
+  async getCartRuleValue(page: Page, line: number = 1): Promise<string> {
+    return this.getTextContent(page, this.discountValue(line));
   }
 
   /**
