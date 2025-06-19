@@ -57,8 +57,8 @@ class MyAccountPage extends FOBasePage implements FoMyAccountPageInterface {
     this.orderSlipsLink = '#order-slips-link';
     this.successMessageAlert = '#notifications article.alert-success';
     this.logoutFooterLink = '#main footer a[href*="mylogout"]';
-    this.myWishlistsLink = '#wishlist-link';
-    this.psgdprLink = '#psgdpr-link';
+    this.myWishlistsLink = '#content #wishlist-link';
+    this.psgdprLink = '#content #psgdpr-link';
   }
 
   /*
@@ -164,7 +164,7 @@ class MyAccountPage extends FOBasePage implements FoMyAccountPageInterface {
    * @returns {Promise<void>}
    */
   async goToMyWishlistsPage(page: Page): Promise<void> {
-    await this.clickAndWaitForURL(page, this.myWishlistsLink, 'networkidle');
+    await this.clickAndWaitForURL(page, this.myWishlistsLink);
     await this.elementVisible(page, foClassicMyWishlistsPage.wishlistListItemNthTitle(1), 5000);
   }
 }

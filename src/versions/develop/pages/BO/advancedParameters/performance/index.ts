@@ -93,7 +93,7 @@ class PerformancePage extends BOBasePage implements BOPerformancePageInterface {
    * @returns {Promise<boolean>}
    */
   async isDebugModeToggleVisible(page: Page): Promise<boolean> {
-    return this.elementVisible(page, this.debugModeToolbar, 1000);
+    return this.elementVisible(page, this.debugModeToolbar, 3000);
   }
 
   /**

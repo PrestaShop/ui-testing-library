@@ -136,7 +136,7 @@ class BOCartRulesPage extends BOBasePage implements BOCartRulesPageInterface {
 
     // Columns selectors
     this.tableColumnSelectRowCheckbox = (row: number) => `${this.tableBodyColumn(row)} input[name='cart_ruleBox[]']`;
-    this.tableColumnId = (row: number) => `${this.tableBodyColumn(row)}:nth-child(2)`;
+    this.tableColumnId = (row: number) => `${this.tableBodyColumn(row)}.column-id_cart_rule`;
     this.tableColumnName = (row: number) => `${this.tableBodyColumn(row)}:nth-child(3)`;
     this.tableColumnPriority = (row: number) => `${this.tableBodyColumn(row)}:nth-child(4)`;
     this.tableColumnCode = (row: number) => `${this.tableBodyColumn(row)}:nth-child(5)`;
@@ -372,7 +372,7 @@ class BOCartRulesPage extends BOBasePage implements BOCartRulesPageInterface {
 
       case 'select':
         await Promise.all([
-          page.waitForURL((url: URL): boolean => url.toString() !== currentUrl, {waitUntil: 'networkidle'}),
+          page.waitForURL((url: URL): boolean => url.toString() !== currentUrl),
           this.selectByVisibleText(page, this.filterColumn(filterBy), value === '1' ? 'Yes' : 'No'),
         ]);
         break;

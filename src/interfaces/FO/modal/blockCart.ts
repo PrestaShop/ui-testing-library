@@ -4,6 +4,8 @@ import {FOBasePagePageInterface} from '@interfaces/FO';
 import type {Page} from '@playwright/test';
 
 export interface FoModalBlockCartPageInterface extends FOBasePagePageInterface {
+    readonly blockCartModalDiv: string;
+
     getBlockCartModalTitle(page: Page): Promise<string>;
     isBlockCartModalVisible(page: Page): Promise<boolean>;
     getProductDetailsFromBlockCartModal(page: Page): Promise<CartProductDetails>;

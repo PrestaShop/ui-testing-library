@@ -64,7 +64,7 @@ class PsFacetedSearch extends ModuleConfigurationPage implements ModulePsFaceted
     super();
 
     // Override
-    this.alertTextBlock = 'div.alert';
+    this.alertTextBlock = '#content > div.alert';
 
     this.pageSubTitle = 'Faceted search';
     this.msgSuccessfulCreation = (name: string) => `Your filter "${name}" was added successfully.`;
@@ -167,7 +167,7 @@ class PsFacetedSearch extends ModuleConfigurationPage implements ModulePsFaceted
    */
   async setShowProductsOnlyFromDefaultCategoryValue(page: Page, value: boolean): Promise<string> {
     await this.setChecked(page, this.showProductsOnlyFromDefaultCategoryCheckbox(value ? 'on' : 'off'), true);
-    await page.locator(this.btnConfigurationSave).click();
+    await this.clickAndWaitForLoadState(page, this.btnConfigurationSave);
 
     return this.getAlertBlockContent(page);
   }

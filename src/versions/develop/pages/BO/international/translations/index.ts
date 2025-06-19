@@ -209,7 +209,7 @@ class BOTranslationsPage extends BOBasePage implements BOTranslationsPageInterfa
     await this.waitForSelectorAndClick(page, this.searchLanguageResult);
     await page.locator(this.addUpdateLanguageButton).click();
 
-    return this.getAlertSuccessBlockParagraphContent(page);
+    return this.getAlertSuccessBlockParagraphContent(page, 20000);
   }
 
   /**

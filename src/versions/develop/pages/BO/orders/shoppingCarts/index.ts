@@ -191,7 +191,7 @@ class BOShoppingCarts extends BOBasePage implements BOShoppingCartsPageInterface
       id_cart: parseInt(await this.getTextColumn(page, row, 'id_cart'), 10),
       id_order: parseInt(await this.getTextColumn(page, row, 'id_order'), 10),
       status: await this.getTextColumn(page, row, 'status'),
-      lastname: await this.getTextColumn(page, row, 'customer_name'),
+      customer_name: await this.getTextColumn(page, row, 'customer_name'),
       total: await this.getTextColumn(page, row, 'total'),
       carrier: await this.getTextColumn(page, row, 'carrier_name'),
       date: await this.getTextColumn(page, row, 'date_add'),
@@ -210,8 +210,8 @@ class BOShoppingCarts extends BOBasePage implements BOShoppingCartsPageInterface
 
     const cartDate = utilsDate.setDateFormat('yyyy-mm-dd', cart.date ?? '')
       .replace(' ', '');
-    const lastName = cart.lastname !== '--' ? `"${cart.lastname?.replace(' ', '')}"` : '';
-    const carrier = cart.carrier !== '--' ? `"${cart.carrier?.replace(' ', '')}"` : '';
+    const lastName = cart.customer_name !== '--' && cart.customer_name !== '' ? `"${cart.customer_name?.replace(' ', '')}"` : '';
+    const carrier = cart.carrier !== '--' && cart.carrier !== '' ? `"${cart.carrier?.replace(' ', '')}"` : '';
 
     return `${cart.id_cart};`
       + `${cart.id_order};`
@@ -410,7 +410,7 @@ class BOShoppingCarts extends BOBasePage implements BOShoppingCartsPageInterface
     const currentUrl: string = page.url();
     await Promise.all([
       this.selectByVisibleText(page, this.paginationLimitSelect, number),
-      page.waitForURL((url: URL): boolean => url.toString() !== currentUrl, {waitUntil: 'networkidle'}),
+      page.waitForURL((url: URL): boolean => url.toString() !== currentUrl),
     ]);
 
     return this.getPaginationLabel(page);

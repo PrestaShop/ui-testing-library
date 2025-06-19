@@ -19,6 +19,7 @@ export interface DashboardPageInterface extends BOBasePagePageInterface {
     clickOnReturnExchangeLink(page: Page): Promise<void>;
     clickOnTotalSubscribersLink(page: Page): Promise<void>;
     clickOnVisitsLink(page: Page): Promise<void>;
+    closeDialogUpdateNotification(page: Page): Promise<boolean>;
     closeHelpCard(page: Page): Promise<boolean>;
     getFormActivityOverviewValue(page: Page, inputName: string): Promise<string>;
     getBestSellersTabTitle(page: Page): Promise<string>;

@@ -1,6 +1,8 @@
 import dataCountries from '@data/demo/countries';
 import type FakerCountry from '@data/faker/country';
 import SupplierCreator from '@data/types/supplier';
+import {getRandomStateNameByCountryName} from '@data/demo/states';
+
 import {fakerFR as faker} from '@faker-js/faker';
 
 const countriesNames: string[] = Object.values(dataCountries).map((country: FakerCountry) => country.name);
@@ -31,6 +33,8 @@ export default class FakerSupplier {
   public city: string;
 
   public country: string;
+
+  public state: string|null = null;
 
   public logo: string;
 
@@ -87,6 +91,9 @@ export default class FakerSupplier {
 
     /** @type {string} Country for the address of the supplier */
     this.country = supplierToCreate.country || faker.helpers.arrayElement(countriesNames);
+
+    /** @type {string} Address state name */
+    this.state = supplierToCreate.state || getRandomStateNameByCountryName(this.country);
 
     /** @type {string} Logo name/path of the supplier */
     this.logo = supplierToCreate.logo || `${this.name.replace(/[^\w\s]/gi, '')}.png`;

@@ -283,7 +283,7 @@ class BOStoresPage extends BOBasePage implements BOStoresPageInterface {
 
       case 'select':
         await Promise.all([
-          page.waitForURL((url: URL): boolean => url.toString() !== currentUrl, {waitUntil: 'networkidle'}),
+          page.waitForURL((url: URL): boolean => url.toString() !== currentUrl),
           this.selectByVisibleText(page, this.filterColumn(filterBy), value === '1' ? 'Yes' : 'No'),
         ]);
         break;
@@ -400,7 +400,8 @@ class BOStoresPage extends BOBasePage implements BOStoresPageInterface {
    * @return {Promise<void>}
    */
   async gotoEditStorePage(page: Page, row: number): Promise<void> {
-    await this.clickAndWaitForURL(page, this.tableColumnActionsEditLink(row));
+    // Special case where we wait for networkidle because the list of states in the select is loaded by ajax
+    await this.clickAndWaitForURL(page, this.tableColumnActionsEditLink(row), 'networkidle');
   }
 
   /**

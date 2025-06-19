@@ -42,7 +42,9 @@ export interface FoCheckoutPageInterface extends FOBasePagePageInterface {
     getCarrierErrorMessage(page: Page): Promise<string|null>;
     getCartRuleErrorMessage(page: Page): Promise<string>;
     getCartRuleName(page: Page, line?: number): Promise<string>;
+    getCartRuleValue(page: Page, line?: number): Promise<string>;
     getCustomerIdentity(page: Page): Promise<string>;
+    getDiscountCost(page: Page): Promise<string>
     getGiftPrice(page: Page): Promise<string>;
     getItemsNumber(page: Page): Promise<string>;
     getLoginError(page: Page): Promise<string>;

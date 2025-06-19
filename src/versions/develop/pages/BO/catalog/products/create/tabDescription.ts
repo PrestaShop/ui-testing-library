@@ -18,6 +18,8 @@ class DescriptionTab extends BOBasePage implements BOProductsCreateTabDescriptio
 
   private readonly productImageDropZoneDiv: string;
 
+  private readonly imageLoading: string;
+
   private readonly imagePreviewBlock: string;
 
   private readonly imageDefaultBlock: string;
@@ -114,6 +116,7 @@ class DescriptionTab extends BOBasePage implements BOProductsCreateTabDescriptio
     this.descriptionTabLink = '#product_description-tab-nav';
     // Image selectors
     this.productImageDropZoneDiv = '#product-images-dropzone';
+    this.imageLoading = `${this.productImageDropZoneDiv} div.dropzone-loading`;
     this.imagePreviewBlock = `${this.productImageDropZoneDiv} div.dz-preview.openfilemanager`;
     this.imageDefaultBlock = `${this.productImageDropZoneDiv} div.dz-default.openfilemanager`;
     this.imagePreviewCover = `${this.productImageDropZoneDiv} div.dz-preview.is-cover`;
@@ -179,6 +182,12 @@ class DescriptionTab extends BOBasePage implements BOProductsCreateTabDescriptio
    * @returns {Promise<number>}
    */
   async getNumberOfImages(page: Page): Promise<number> {
+    // Wait for the dropzone element to be initialized
+    await this.elementVisible(page, this.productImageDropZoneDiv, 3000);
+
+    // But wait for the loading to be over before counting
+    await this.elementNotVisible(page, this.imageLoading, 1000);
+
     return page.locator(this.productImage).count();
   }
 

@@ -1,3 +1,8 @@
+// StartUp : Load .env in global
+import utilsConf from '@utils/conf';
+
+utilsConf.loadEnv();
+
 // Export data
 export type {
   CarrierCreator,
@@ -14,6 +19,7 @@ export type {default as DashboardTrafficSource} from '@data/types/dashboard';
 export type {EmployeePermission} from '@data/types/employee';
 export type {
   GlobalInstall,
+  GlobalAPI,
   GlobalFO,
   GlobalBO,
   GlobalBrowser,
@@ -37,7 +43,10 @@ export type {
 export type {default as ImportContent} from '@data/types/localization';
 export type {LinkWidgetPage} from '@data/types/linkWidget';
 export type {default as MailDevEmail} from '@data/types/maildevEmail';
-export type {ModuleInfo} from '@data/types/module';
+export type {
+  ModuleApiInfo,
+  ModuleInfo,
+} from '@data/types/module';
 export type {
   OrderCreator,
   OrderHistory,
@@ -119,6 +128,14 @@ export {default as dataTaxRules} from '@data/demo/taxRule';
 export {default as dataTaxRuleBehaviours} from '@data/demo/taxRuleBehaviour';
 export {default as dataTitles} from '@data/demo/titles';
 export {default as dataZones} from '@data/demo/zones';
+
+export {default as dataImportAddresses} from '@data/import/addresses';
+export {default as dataImportBrands} from '@data/import/brands';
+export {default as dataImportCategories} from '@data/import/categories';
+export {default as dataImportCombinations} from '@data/import/combinations';
+export {default as dataImportCustomers} from '@data/import/customers';
+export {default as dataImportProductsDisabled} from '@data/import/products/disabled';
+export {default as dataImportProductsWithoutQuantities} from '@data/import/products/withoutQuantities';
 
 export {default as FakerAddress} from '@data/faker/address';
 export {default as FakerAPIClient} from '@data/faker/apiClient';
@@ -242,6 +259,7 @@ export {default as boEmailPage} from '@pages/BO/advancedParameters/email';
 export {default as boEmployeesPage} from '@pages/BO/advancedParameters/team/employees';
 export {default as boEmployeesCreatePage} from '@pages/BO/advancedParameters/team/employees/create';
 export {default as boEmployeeSessionsPage} from '@pages/BO/advancedParameters/security/employeeSessions';
+export {default as boErrorPage} from '@pages/BO/error';
 export {default as boFeatureFlagPage} from '@pages/BO/advancedParameters/featureFlag';
 export {default as boFeaturesPage} from '@pages/BO/catalog/features';
 export {default as boFeaturesCreatePage} from '@pages/BO/catalog/features/create';
@@ -280,7 +298,6 @@ export {default as boMultistoreShopCreatePage} from '@pages/BO/advancedParameter
 export {default as boMultistoreShopUrlPage} from '@pages/BO/advancedParameters/multistore/url';
 export {default as boMultistoreShopUrlCreatePage} from '@pages/BO/advancedParameters/multistore/url/create';
 export {default as boMyProfilePage} from '@pages/BO/advancedParameters/team/myProfile';
-export {default as boNewExperimentalFeaturesPage} from '@pages/BO/advancedParameters/newExperimentalFeatures';
 export {default as boOrderMessagesPage} from '@pages/BO/customerService/orderMessages';
 export {default as boOrderMessagesCreatePage} from '@pages/BO/customerService/orderMessages/create';
 export {default as boOrdersPage} from '@pages/BO/orders';
@@ -375,6 +392,7 @@ export {default as foClassicContactUsPage} from '@pages/FO/classic/contactUs';
 export {default as foClassicCreateAccountPage} from '@pages/FO/classic/myAccount/create';
 export {default as foClassicDeliveryPage} from '@pages/FO/classic/delivery';
 export {default as foClassicEmailSubscriptionPage} from '@pages/FO/classic/emailSubscription';
+export {default as foClassicGuestOrderTrackingPage} from '@pages/FO/classic/guestOrderTracking';
 export {default as foClassicHomePage} from '@pages/FO/classic/home';
 export {default as foClassicLegalNoticePage} from '@pages/FO/classic/legalNotice';
 export {default as foClassicLoginPage} from '@pages/FO/classic/login';
@@ -385,21 +403,27 @@ export {default as foClassicMyAccountPage} from '@pages/FO/classic/myAccount';
 export {default as foClassicMyAddressesPage} from '@pages/FO/classic/myAccount/addresses';
 export {default as foClassicMyAddressesCreatePage} from '@pages/FO/classic/myAccount/addresses/create';
 export {default as foClassicMyCreditSlipsPage} from '@pages/FO/classic/myAccount/creditSlips';
+export {default as foClassicMyGDPRPersonalDataPage} from '@pages/FO/classic/myAccount/gdprPersonalData';
 export {default as foClassicMyInformationsPage} from '@pages/FO/classic/myAccount/informations';
 export {default as foClassicMyMerchandiseReturnsPage} from '@pages/FO/classic/myAccount/merchandiseReturns';
 export {default as foClassicMyOrderDetailsPage} from '@pages/FO/classic/myAccount/orderDetails';
 export {default as foClassicMyOrderHistoryPage} from '@pages/FO/classic/myAccount/orderHistory';
+export {default as foClassicMyReturnDetailsPage} from '@pages/FO/classic/myAccount/returnDetails';
 export {default as foClassicMyVouchersPage} from '@pages/FO/classic/myAccount/vouchers';
 export {default as foClassicMyWishlistsPage} from '@pages/FO/classic/myAccount/myWishlists';
 export {default as foClassicMyWishlistsViewPage} from '@pages/FO/classic/myAccount/myWishlists/view';
+export {default as foClassicNewProductsPage} from '@pages/FO/classic/newProducts';
 export {default as foClassicPasswordReminderPage} from '@pages/FO/classic/passwordReminder';
+export {default as foClassicPricesDropPage} from '@pages/FO/classic/pricesDrop';
 export {default as foClassicProductPage} from '@pages/FO/classic/product';
 export {default as foClassicSearchResultsPage} from '@pages/FO/classic/searchResults';
+export {default as foClassicSecurePaymentPage} from '@pages/FO/classic/securePayment';
 export {default as foClassicSitemapPage} from '@pages/FO/classic/sitemap';
 export {default as foClassicStoresPage} from '@pages/FO/classic/stores';
+export {default as foClassicTermsAndConditionsOfUsePage} from '@pages/FO/classic/termsAndConditionsOfUse';
 // Export Pages FO/Hummingbird
 export {default as foHummingbirdAboutUsPage} from '@pages/FO/hummingbird/aboutUs';
-export {default as foHummingbirdBestSalesPage} from '@pages/FO/classic/bestSales';
+export {default as foHummingbirdBestSalesPage} from '@pages/FO/hummingbird/bestSales';
 export {default as foHummingbirdCartPage} from '@pages/FO/hummingbird/cart';
 export {default as foHummingbirdCategoryPage} from '@pages/FO/hummingbird/category';
 export {default as foHummingbirdCheckoutPage} from '@pages/FO/hummingbird/checkout';
@@ -409,6 +433,7 @@ export {default as foHummingbirdContactUsPage} from '@pages/FO/hummingbird/conta
 export {default as foHummingbirdCreateAccountPage} from '@pages/FO/hummingbird/myAccount/create';
 export {default as foHummingbirdMyCreditSlipsPage} from '@pages/FO/hummingbird/myAccount/creditSlips';
 export {default as foHummingbirdDeliveryPage} from '@pages/FO/hummingbird/delivery';
+export {default as foHummingbirdGuestOrderTrackingPage} from '@pages/FO/hummingbird/guestOrderTracking';
 export {default as foHummingbirdHomePage} from '@pages/FO/hummingbird/home';
 export {default as foHummingbirdLegalNoticePage} from '@pages/FO/hummingbird/legalNotice';
 export {default as foHummingbirdLoginPage} from '@pages/FO/hummingbird/login';
@@ -417,18 +442,24 @@ export {default as foHummingbirdModalQuickViewPage} from '@pages/FO/hummingbird/
 export {default as foHummingbirdMyAccountPage} from '@pages/FO/hummingbird/myAccount';
 export {default as foHummingbirdMyAddressesPage} from '@pages/FO/hummingbird/myAccount/addresses';
 export {default as foHummingbirdMyAddressesCreatePage} from '@pages/FO/hummingbird/myAccount/addresses/create';
+export {default as foHummingbirdMyGDPRPersonalDataPage} from '@pages/FO/hummingbird/myAccount/gdprPersonalData';
 export {default as foHummingbirdMyInformationsPage} from '@pages/FO/hummingbird/myAccount/informations';
 export {default as foHummingbirdMyMerchandiseReturnsPage} from '@pages/FO/hummingbird/myAccount/merchandiseReturns';
 export {default as foHummingbirdMyOrderDetailsPage} from '@pages/FO/hummingbird/myAccount/orderDetails';
 export {default as foHummingbirdMyOrderHistoryPage} from '@pages/FO/hummingbird/myAccount/orderHistory';
+export {default as foHummingbirdMyReturnDetailsPage} from '@pages/FO/hummingbird/myAccount/returnDetails';
 export {default as foHummingbirdMyVouchersPage} from '@pages/FO/hummingbird/myAccount/vouchers';
 export {default as foHummingbirdMyWishlistsPage} from '@pages/FO/hummingbird/myAccount/myWishlists';
 export {default as foHummingbirdMyWishlistsViewPage} from '@pages/FO/hummingbird/myAccount/myWishlists/view';
+export {default as foHummingbirdNewProductsPage} from '@pages/FO/hummingbird/newProducts';
 export {default as foHummingbirdPasswordReminderPage} from '@pages/FO/hummingbird/passwordReminder';
+export {default as foHummingbirdPricesDropPage} from '@pages/FO/hummingbird/pricesDrop';
 export {default as foHummingbirdProductPage} from '@pages/FO/hummingbird/product';
 export {default as foHummingbirdSearchResultsPage} from '@pages/FO/hummingbird/searchResults';
+export {default as foHummingbirdSecurePaymentPage} from '@pages/FO/hummingbird/securePayment';
 export {default as foHummingbirdSitemapPage} from '@pages/FO/hummingbird/sitemap';
 export {default as foHummingbirdStoresPage} from '@pages/FO/hummingbird/stores';
+export {default as foHummingbirdTermsAndConditionsOfUsePage} from '@pages/FO/hummingbird/termsAndConditionsOfUse';
 
 // Export Modules
 export {default as modAutoupgradeBoMain} from '@pages/BO/modules/autoupgrade';
@@ -452,9 +483,13 @@ export {default as modPsNewProductsBoMain} from '@pages/BO/modules/ps_newproduct
 export {default as modPsSupplierListBoMain} from '@pages/BO/modules/ps_supplierlist';
 export {default as modPsWirepaymentBoMain} from '@pages/BO/modules/ps_wirepayment';
 
+// Export install
+export {default as installPage} from '@pages/install';
+
 // Export utils
 export {default as utilsAPI} from '@utils/api';
 export {default as utilsCore} from '@utils/core';
+export {default as utilsConf} from '@utils/conf';
 export {default as utilsDate} from '@utils/date';
 export {default as utilsFile} from '@utils/file';
 export {default as utilsKeycloak} from '@utils/keycloak';

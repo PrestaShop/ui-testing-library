@@ -71,7 +71,7 @@ class Autoupgrade extends ModuleConfigurationPage implements ModuleAutoupgradeMa
     this.pageTitle = `Update assistant > Update assistant • ${global.INSTALL.SHOP_NAME}`;
     this.checkRequirementSuccessMessage = 'The requirements check is complete, you can update your store to this '
       + 'version of PrestaShop.';
-    this.updateSuccessMessage = 'Your store is up to date';
+    this.updateSuccessMessage = 'Your store has been updated to PrestaShop version';
 
     // Selectors
     // First page : Welcome to PrestaShop Update Assistant
@@ -150,7 +150,7 @@ class Autoupgrade extends ModuleConfigurationPage implements ModuleAutoupgradeMa
   async checkRequirements(page: Page): Promise<boolean> {
     await page.locator(this.checkRequirementsButton).click();
     await this.waitForVisibleSelector(page, this.radioCardLoader);
-    await this.waitForHiddenSelector(page, this.radioCardLoaderWrapper);
+    await this.waitForHiddenSelector(page, this.radioCardLoaderWrapper, 50000);
 
     return this.elementNotVisible(page, `${this.nextStepButton}[disabled='true']`, 2000);
   }

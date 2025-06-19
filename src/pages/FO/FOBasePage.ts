@@ -171,7 +171,7 @@ export default class FOBasePage extends CommonPage implements FOBasePagePageInte
     this.accountLink = `${this.userInfoLink} .user-info a[href*="my-account"]`;
     this.logoutLink = `${this.userInfoLink} .user-info a[href*="?mylogout="]`;
     this.contactLink = '#contact-link';
-    this.categoryMenu = (id) => `#category-${id} > a`;
+    this.categoryMenu = (id) => `#top-menu #category-${id} > a`;
     this.languageSelectorDiv = '#_desktop_language_selector';
     this.defaultLanguageSpan = `${this.languageSelectorDiv} button span`;
     this.languageSelectorExpandIcon = `${this.languageSelectorDiv} i.expand-more`;
@@ -308,7 +308,7 @@ export default class FOBasePage extends CommonPage implements FOBasePagePageInte
     const currentUrl: string = page.url();
 
     await page.locator(this.breadCrumbLink(link === '/' ? '$' : '*', link)).first().click();
-    await page.waitForURL((url: URL): boolean => url.toString() !== currentUrl, {waitUntil: 'networkidle'});
+    await page.waitForURL((url: URL): boolean => url.toString() !== currentUrl);
   }
 
   /**
@@ -472,7 +472,7 @@ export default class FOBasePage extends CommonPage implements FOBasePagePageInte
 
     await Promise.all([
       this.selectByVisibleText(page, this.currencySelect, currency, true),
-      page.waitForURL((url: URL): boolean => url.toString() !== currentUrl, {waitUntil: 'networkidle'}),
+      page.waitForURL((url: URL): boolean => url.toString() !== currentUrl),
     ]);
   }
 
@@ -641,7 +641,7 @@ export default class FOBasePage extends CommonPage implements FOBasePagePageInte
 
     await this.setValue(page, this.theme === 'hummingbird' ? this.hSearchInput : this.searchInput, productName);
     await page.keyboard.press('Enter');
-    await page.waitForURL((url: URL): boolean => url.toString() !== currentUrl, {waitUntil: 'networkidle'});
+    await page.waitForURL((url: URL): boolean => url.toString() !== currentUrl);
   }
 
   /**

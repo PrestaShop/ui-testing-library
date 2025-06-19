@@ -140,6 +140,8 @@ class ProductsPage extends BOBasePage implements BOProductsPageInterface {
 
   protected productsListTableColumnID: (row: number) => string;
 
+  protected productsListTableColumnAssociatedShops: (row: number) => string;
+
   protected productsListTableColumnName: (row: number) => string;
 
   protected productsListTableColumnReference: (row: number) => string;
@@ -299,6 +301,8 @@ class ProductsPage extends BOBasePage implements BOProductsPageInterface {
     this.productsListTableColumnBulkCheckbox = (row: number) => `${this.productsListTableRow(row)} div.md-checkbox`;
     this.productsListTableColumnBulkInput = (row: number) => `${this.productsListTableRow(row)} input[type="checkbox"]`;
     this.productsListTableColumnID = (row: number) => `${this.productsListTableRow(row)} td.column-id_product`;
+    this.productsListTableColumnAssociatedShops = (row: number) => `${this.productsListTableRow(row)} td.column-associated_shops `
+      + 'span.product-shop-list';
     this.productsListTableColumnName = (row: number) => `${this.productsListTableRow(row)} td.column-name a`;
     this.productsListTableColumnReference = (row: number) => `${this.productsListTableRow(row)} td.column-reference`;
     this.productsListTableColumnCategory = (row: number) => `${this.productsListTableRow(row)} td.column-category`;
@@ -464,7 +468,6 @@ class ProductsPage extends BOBasePage implements BOProductsPageInterface {
     await page.waitForURL((url: URL): boolean => url.toString().includes('/sell/catalog/products')
         && url.toString().includes('/edit'),
     {
-      waitUntil: 'domcontentloaded',
       timeout: 30000,
     });
   }
@@ -495,6 +498,22 @@ class ProductsPage extends BOBasePage implements BOProductsPageInterface {
    */
   async goToProductPage(page: Page, row: number = 1): Promise<void> {
     await this.clickAndWaitForURL(page, this.productsListTableColumnName(row));
+  }
+
+  /**
+   * Returns the associated shops
+   * @param page {Page} Browser tab
+   * @param row {number} Row in product table
+   * @returns {Promise<number[]>}
+   */
+  async getProductShopsId(page: Page, row: number): Promise<number[]> {
+    if (await this.elementNotVisible(page, this.productsListTableColumnAssociatedShops(row))) {
+      return [];
+    }
+    const locator = await page.locator(this.productsListTableColumnAssociatedShops(row));
+    const shopIds = (await locator.getAttribute('data-shop-ids') ?? '');
+
+    return shopIds.split(',').map(Number);
   }
 
   // Bulk delete products functions
@@ -585,7 +604,7 @@ class ProductsPage extends BOBasePage implements BOProductsPageInterface {
       (action === 'enable' || action === 'disable') ? `${action}_selection` : `bulk_${action}`,
     );
     await this.waitForSelectorAndClick(page, modalBulkActionsProductsCloseButton);
-    await page.waitForLoadState('networkidle');
+    await page.waitForLoadState();
 
     return this.elementNotVisible(page, modalBulkActionsProductsProgress, 1000);
   }
@@ -766,7 +785,7 @@ class ProductsPage extends BOBasePage implements BOProductsPageInterface {
       // Do nothing
     }
     // click on search
-    await this.clickAndWaitForLoadState(page, this.filterSearchButton, 'networkidle', 10000);
+    await this.clickAndWaitForLoadState(page, this.filterSearchButton, 'load', 10000);
   }
 
   /**

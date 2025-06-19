@@ -31,7 +31,7 @@ class PsNewProducts extends ModuleConfigurationPage implements ModulePsNewProduc
     super();
 
     // Override
-    this.alertTextBlock = 'div.alert';
+    this.alertTextBlock = 'div.alert[class^="module_"]';
 
     this.pageSubTitle = 'New products block';
     this.updateSettingsSuccessMessage = 'The settings have been updated.';

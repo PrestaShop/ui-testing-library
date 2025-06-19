@@ -116,7 +116,7 @@ class BOProductsCreatePage extends BOBasePage implements BOProductsCreatePageInt
   constructor() {
     super();
 
-    this.pageTitle = 'Products';
+    this.pageTitle = 'Product';
     this.saveAndPublishButtonName = 'Save and publish';
     this.successfulDuplicateMessage = 'Successful duplication';
     this.errorMessage = 'Unable to update settings.';
@@ -427,7 +427,7 @@ class BOProductsCreatePage extends BOBasePage implements BOProductsCreatePageInt
    * @returns {Promise<string>}
    */
   async saveProduct(page: Page): Promise<string> {
-    await this.clickAndWaitForURL(page, this.saveProductButton);
+    await this.clickOnSaveProductButton(page);
 
     return this.getAlertSuccessBlockParagraphContent(page);
   }
@@ -517,7 +517,7 @@ class BOProductsCreatePage extends BOBasePage implements BOProductsCreatePageInt
 
     await boProductsPage.selectProductType(page, productType);
     await boProductsPage.clickOnAddNewProduct(page);
-    await page.waitForURL((url: URL): boolean => url.toString() !== currentUrl, {waitUntil: 'networkidle'});
+    await page.waitForURL((url: URL): boolean => url.toString() !== currentUrl);
   }
 
   /**
