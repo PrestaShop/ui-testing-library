@@ -22,9 +22,17 @@ class Autoupgrade extends ModuleConfigurationPage implements ModuleAutoupgradeMa
 
   private readonly newVersionRadioButton: string;
 
-  private readonly radioCardLoader: string;
+  private readonly localArchiveRadioButton: string;
+  
+  private readonly radioCardArchive: string;
+  
+  private readonly archiveZipSelect: string;
+  
+  private readonly archiveXmlSelect: string;
 
-  private readonly radioCardLoaderWrapper: string;
+  private readonly radioCardLoader: (channel: string) => string;
+
+  private readonly radioCardLoaderWrapper: (channel: string) => string;
 
   private readonly checkRequirementBlock: string;
 
@@ -46,7 +54,7 @@ class Autoupgrade extends ModuleConfigurationPage implements ModuleAutoupgradeMa
 
   private readonly launchBackupButton: string;
 
-  private readonly dialogConfirmBuckup: string;
+  private readonly dialogConfirmBackup: string;
 
   private readonly cancelBackupButton: string;
 
@@ -82,12 +90,16 @@ class Autoupgrade extends ModuleConfigurationPage implements ModuleAutoupgradeMa
     this.stepTitle = '.page__title';
     // 1 : version choose step
     this.newVersionRadioButton = '#online';
-    this.radioCardLoader = '.radio-card__loader-title';
-    this.radioCardLoaderWrapper = '.radio-card__loader-wrapper';
+    this.localArchiveRadioButton = '#local';
+    this.radioCardArchive = '#radio_card_archive div.radio-card__local-archive div';
+    this.archiveZipSelect = '#archive_zip';
+    this.archiveXmlSelect = '#archive_xml';
+    this.radioCardLoader = (channel: string) => `#radio_card_${channel} .radio-card__loader-title`;
+    this.radioCardLoaderWrapper = (channel: string) => `#radio_card_${channel} .radio-card__loader-wrapper`;
     this.checkRequirementBlock = '.check-requirements';
     this.checkRequirementsFailedAlerts = '.check-requirements--failed';
-    this.goToMaintenancePageLink = '#radio_card_online div.radio-card__check-requirements a[href*="AdminMaintenance"]';
-    this.checkRequirementsButton = '#radio_card_online div.radio-card__check-requirements button'
+    this.goToMaintenancePageLink = 'div.radio-card__check-requirements a[href*="AdminMaintenance"]';
+    this.checkRequirementsButton = 'div.radio-card__check-requirements button'
       + '[data-action="check-requirements-again"]';
     this.alertSuccessMessage = '.alert-success p.alert__message';
     this.currentPSVersion = '#ua_step_content p.not-up-to-date__message';
@@ -96,7 +108,7 @@ class Autoupgrade extends ModuleConfigurationPage implements ModuleAutoupgradeMa
     // 2 : Update options step
     // 3 : Back up your store step
     this.launchBackupButton = '#ua_step_content div.page__buttons button.btn-primary';
-    this.dialogConfirmBuckup = '#dialog-confirm-backup';
+    this.dialogConfirmBackup = '#dialog-confirm-backup';
     this.cancelBackupButton = '#dialog-confirm-backup div.dialog__footer button.btn-link';
     this.updateWithoutBackupButton = '#update-backup-page-update-form';
     this.dialogConfirmUpdate = '#dialog-confirm-update';
@@ -127,7 +139,22 @@ class Autoupgrade extends ModuleConfigurationPage implements ModuleAutoupgradeMa
    */
   async chooseNewVersion(page: Page): Promise<boolean> {
     await page.locator(this.newVersionRadioButton).setChecked(true);
-    await this.waitForVisibleSelector(page, this.radioCardLoader);
+    await this.waitForVisibleSelector(page, this.radioCardLoader('online'));
+    await this.waitForVisibleSelector(page, this.checkRequirementBlock, 100000);
+
+    return this.elementVisible(page, this.checkRequirementsFailedAlerts, 2000);
+  }
+
+  /**
+   * Choose local archive
+   * @param page {Page} Browser tab
+   * @param psVersion {string} The ps Version to use
+   */
+  async chooseLocalArchive(page: Page, psVersion: string): Promise<boolean> {
+    await page.locator(this.localArchiveRadioButton).setChecked(true);
+    await this.waitForVisibleSelector(page, this.radioCardArchive);
+    await this.selectByVisibleText(page, this.archiveZipSelect, `prestashop_${psVersion}.zip`);
+    await this.selectByVisibleText(page, this.archiveXmlSelect, `prestashop_${psVersion}.xml`);
     await this.waitForVisibleSelector(page, this.checkRequirementBlock, 100000);
 
     return this.elementVisible(page, this.checkRequirementsFailedAlerts, 2000);
@@ -145,12 +172,13 @@ class Autoupgrade extends ModuleConfigurationPage implements ModuleAutoupgradeMa
   /**
    * Check requirements
    * @param page {Page} Browser tab
+   * @param channel {string} Channel to use
    * @return {Promise<string}
    */
-  async checkRequirements(page: Page): Promise<boolean> {
+  async checkRequirements(page: Page, channel: string = 'online'): Promise<boolean> {
     await page.locator(this.checkRequirementsButton).click();
-    await this.waitForVisibleSelector(page, this.radioCardLoader);
-    await this.waitForHiddenSelector(page, this.radioCardLoaderWrapper, 50000);
+    await this.waitForVisibleSelector(page, this.radioCardLoader(channel));
+    await this.waitForHiddenSelector(page, this.radioCardLoaderWrapper(channel), 50000);
 
     return this.elementNotVisible(page, `${this.nextStepButton}[disabled='true']`, 2000);
   }
@@ -198,8 +226,9 @@ class Autoupgrade extends ModuleConfigurationPage implements ModuleAutoupgradeMa
    * @return {Promise<boolean}
    */
   async clickOnLaunchBackup(page: Page): Promise<boolean> {
-    await page.locator(this.launchBackupButton).click();
-    return this.elementVisible(page, this.dialogConfirmBuckup, 5000);
+    await this.waitForSelectorAndClick(page, this.launchBackupButton, 2000);
+    
+    return await this.elementVisible(page, this.dialogConfirmBackup, 5000);
   }
 
   /**
@@ -209,7 +238,8 @@ class Autoupgrade extends ModuleConfigurationPage implements ModuleAutoupgradeMa
    */
   async cancelBackup(page: Page): Promise<boolean> {
     await page.locator(this.cancelBackupButton).click();
-    return this.elementNotVisible(page, this.dialogConfirmBuckup, 5000);
+    
+    return this.elementNotVisible(page, this.dialogConfirmBackup, 5000);
   }
 
   /**
