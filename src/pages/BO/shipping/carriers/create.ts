@@ -7,7 +7,7 @@ const psVersion = testContext.getPSVersion();
 /* eslint-disable global-require, @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires */
 function requirePage(): BOCarriersCreatePageInterface {
   if (semver.lt(psVersion, '9.0.0')) {
-    return require('@versions/8.2/pages/BO/shipping/carriers/create');
+    return require('@versions/8.2/pages/BO/shipping/carriers/create').boCarriersCreatePage;
   }
   return require('@versions/develop/pages/BO/shipping/carriers/create').boCarriersCreatePage;
 }
