@@ -7,8 +7,9 @@ export interface ModuleAutoupgradeMainPageInterface extends ModuleConfigurationP
   readonly updateSuccessMessage: string;
 
   cancelBackup(page:Page):Promise<boolean>;
-  checkRequirements(page: Page): Promise<boolean>;
+  checkRequirements(page: Page, channel:string): Promise<boolean>;
   checkUpdateSuccess(page:Page):Promise<string>;
+  chooseLocalArchive(page:Page, psVersion:string):Promise<boolean>;
   chooseNewVersion(page:Page):Promise<boolean>;
   clickOnLaunchBackup(page:Page):Promise<boolean>;
   clickOnUpdateWithoutBackup(page:Page):Promise<void>;
