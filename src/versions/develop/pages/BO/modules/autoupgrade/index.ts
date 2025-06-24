@@ -23,11 +23,11 @@ class Autoupgrade extends ModuleConfigurationPage implements ModuleAutoupgradeMa
   private readonly newVersionRadioButton: string;
 
   private readonly localArchiveRadioButton: string;
-  
+
   private readonly radioCardArchive: string;
-  
+
   private readonly archiveZipSelect: string;
-  
+
   private readonly archiveXmlSelect: string;
 
   private readonly radioCardLoader: (channel: string) => string;
@@ -227,8 +227,8 @@ class Autoupgrade extends ModuleConfigurationPage implements ModuleAutoupgradeMa
    */
   async clickOnLaunchBackup(page: Page): Promise<boolean> {
     await this.waitForSelectorAndClick(page, this.launchBackupButton, 2000);
-    
-    return await this.elementVisible(page, this.dialogConfirmBackup, 5000);
+
+    return this.elementVisible(page, this.dialogConfirmBackup, 5000);
   }
 
   /**
@@ -238,7 +238,7 @@ class Autoupgrade extends ModuleConfigurationPage implements ModuleAutoupgradeMa
    */
   async cancelBackup(page: Page): Promise<boolean> {
     await page.locator(this.cancelBackupButton).click();
-    
+
     return this.elementNotVisible(page, this.dialogConfirmBackup, 5000);
   }
 
