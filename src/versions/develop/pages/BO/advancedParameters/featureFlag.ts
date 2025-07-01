@@ -35,7 +35,7 @@ class BOFeatureFlag extends BOBasePage implements BOFeatureFlagInterface {
   constructor() {
     super();
 
-    this.pageTitle = `New & Experimental Features • ${global.INSTALL.SHOP_NAME}`;
+    this.pageTitle = `New & experimental features • ${global.INSTALL.SHOP_NAME}`;
     this.successfulUpdateMessage = 'Update successful';
 
     // Feature Flag
