@@ -781,4 +781,5 @@ class Dashboard extends BOBasePage implements DashboardPageInterface {
   }
 }
 
-module.exports = new Dashboard();
+const boDashboardPage = new Dashboard();
+export {boDashboardPage, Dashboard};
