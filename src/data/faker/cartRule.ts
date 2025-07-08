@@ -71,7 +71,7 @@ export default class FakerCartRule {
 
   public readonly discountType: string;
 
-  public readonly discountPercent: number | null;
+  public discountPercent: number | string | null;
 
   public readonly discountAmount: CartRuleDiscountAmount | null;
 
@@ -204,5 +204,12 @@ export default class FakerCartRule {
     if (this.freeGift) {
       this.freeGiftProduct = cartRuleToCreate.freeGiftProduct || null;
     }
+  }
+
+  setDiscountPercent(discountPercent: number|string|null): this
+  {
+    this.discountPercent = discountPercent;
+
+    return this;
   }
 }
