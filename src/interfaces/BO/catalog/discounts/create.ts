@@ -4,6 +4,8 @@ import {type Frame, type Page} from '@playwright/test';
 
 export interface BOCartRulesCreatePageInterface extends BOBasePagePageInterface {
   readonly editPageTitle: string;
+  readonly errorMessageFieldInvalid: (field: string) => string;
+  readonly errorMessageReductionPercentageBetween: string;
   readonly pageTitle: string;
 
   clickOnCancelButton(page: Page): Promise<void>;
