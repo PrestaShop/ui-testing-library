@@ -206,8 +206,7 @@ export default class FakerCartRule {
     }
   }
 
-  setDiscountPercent(discountPercent: number|string|null): this
-  {
+  setDiscountPercent(discountPercent: number|string|null): this {
     this.discountPercent = discountPercent;
 
     return this;

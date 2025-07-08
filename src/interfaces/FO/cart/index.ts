@@ -29,7 +29,7 @@ export interface FoCartPageInterface extends FOBasePagePageInterface {
     getAlertWarningForPromoCode(page: Page): Promise<string>;
     getCartRuleErrorMessage(page: Page): Promise<string>;
     getCartRuleName(page: Page, line?: number): Promise<string>;
-    getDiscountValue(page: Page, line?: number): Promise<number>;
+    getCartRuleValue(page: Page, line?: number): Promise<string>;
     getHighlightPromoCode(page: Page): Promise<string>;
     getNoItemsInYourCartMessage(page: Page): Promise<string>;
     getNotificationMessage(page: Page): Promise<string>;
