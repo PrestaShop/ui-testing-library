@@ -33,12 +33,12 @@ export default {
   },
 
   /**
-     * Calculate percentage
-     * @param num {number|float} Number to do the percentage
-     * @param percentage {number} Percentage value
-     * @returns {Promise<number|float>}
-     */
-  async percentage(num: number, percentage: number): Promise<number> {
+    * Calculate percentage
+    * @param num {number|float} Number to do the percentage
+    * @param percentage {number} Percentage value
+    * @returns {number|float}
+    */
+  percentage(num: number, percentage: number): number {
     return (num / 100) * percentage;
   },
 

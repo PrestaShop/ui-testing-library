@@ -206,6 +206,10 @@ export default class FakerCartRule {
     }
   }
 
+  getDiscountPercent(): number {
+    return parseInt(this.discountPercent!.toString(), 10);
+  }
+
   setDiscountPercent(discountPercent: number|string|null): this {
     this.discountPercent = discountPercent;
 
