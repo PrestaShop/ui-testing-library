@@ -102,7 +102,7 @@ class BOCarriersCreatePage extends BOBasePage implements BOCarriersCreatePageInt
     super();
 
     this.pageTitleCreate = `New Carrier • ${global.INSTALL.SHOP_NAME}`;
-    this.pageTitleEdit = `Carrier • ${global.INSTALL.SHOP_NAME}`;
+    this.pageTitleEdit = 'Editing carrier';
 
     this.carrierForm = 'form[name="carrier"]';
     // General settings
