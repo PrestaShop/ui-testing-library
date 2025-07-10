@@ -7,8 +7,8 @@ import {type Page} from '@playwright/test';
  * @class
  * @extends BOBasePage
  */
-class BOFeatureFlag extends BOBasePage implements BOFeatureFlagInterface {
-  public readonly pageTitle: string;
+class BOFeatureFlagPage extends BOBasePage implements BOFeatureFlagInterface {
+  public pageTitle: string;
 
   public readonly featureFlagProductPageV2: string;
 
@@ -96,4 +96,5 @@ class BOFeatureFlag extends BOBasePage implements BOFeatureFlagInterface {
   }
 }
 
-module.exports = new BOFeatureFlag();
+const boFeatureFlagPage = new BOFeatureFlagPage();
+export {boFeatureFlagPage, BOFeatureFlagPage};
