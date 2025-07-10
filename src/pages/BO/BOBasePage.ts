@@ -222,7 +222,7 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
   public readonly multistoreLink: string;
 
   public readonly menuTabLink: string;
-  
+
   public readonly updateAssistantLink: string;
 
   public readonly menuTree: { parent: string; children: string[] }[];
@@ -503,7 +503,7 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
     this.multistoreLink = '#subtab-AdminShopGroup';
     // Deprecated tab used for regression test
     this.menuTabLink = '#subtab-AdminTabs';
-    
+
     // Update assistant
     this.updateAssistantLink = '#subtab-AdminSelfUpgrade';
 
@@ -1015,13 +1015,14 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
     const args = {selector: iFrameSelector, vl: value, hasP: hasParagraph};
     // eslint-disable-next-line no-eval
     const fn: { fnSetValueOnTinymceInput: PageFunction<{ selector: string, vl: string, hasP: boolean }, void> } = eval(`({
-    async fnSetValueOnTinymceInput(args) {
-      /* eslint-env browser */
-      const iFrameElement = await document.querySelector(args.selector);
-      const iFrameHtml = iFrameElement.contentDocument.documentElement;
-      const textElement = await iFrameHtml.querySelector(args.hasP ? 'body p' : 'body');
-      textElement.textContent = args.vl;
-    }})`);
+			async fnSetValueOnTinymceInput(args) {
+				/* eslint-env browser */
+				const iFrameElement = await document.querySelector(args.selector);
+				const iFrameHtml = iFrameElement.contentDocument.documentElement;
+				const textElement = await iFrameHtml.querySelector(args.hasP ? 'body p' : 'body');
+				textElement.textContent = args.vl;
+			}
+		})`);
     await page.evaluate(fn.fnSetValueOnTinymceInput, args);
   }
 
@@ -1047,14 +1048,15 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
     const args = {selector, value, onChange};
     // eslint-disable-next-line no-eval
     const fn: { fnSetValueOnDTPickerInput: PageFunction<{ selector: string, value: string, onChange: boolean }, void> } = eval(`({
-    async fnSetValueOnDTPickerInput(args) {
-      /* eslint-env browser */
-      const textElement = await document.querySelector(args.selector);
-      textElement.value = args.value;
-      if (args.onChange) {
-        textElement.dispatchEvent(new Event('change'));
-      }
-    }})`);
+			async fnSetValueOnDTPickerInput(args) {
+				/* eslint-env browser */
+				const textElement = await document.querySelector(args.selector);
+				textElement.value = args.value;
+				if (args.onChange) {
+					textElement.dispatchEvent(new Event('change'));
+				}
+			}
+		})`);
     await page.evaluate(fn.fnSetValueOnDTPickerInput, args);
   }
 

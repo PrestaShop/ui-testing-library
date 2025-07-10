@@ -69,47 +69,47 @@ class Autoupgrade extends ModuleConfigurationPage implements ModuleAutoupgradeMa
   private readonly updateProgressBar: string;
 
   private readonly updateAlertSuccessMessage: string;
-  
+
   private readonly updateAssistantBreadCrumbLink: string;
-  
+
   private readonly restoreFromBackupRadioButton: string;
-  
+
   private readonly BackupConfirmButton: string;
-  
+
   private readonly progressBar: string;
-  
+
   private readonly backupAlertMessage: string;
-  
+
   private readonly backupOptions: string;
-  
+
   private readonly backupDeleteSelectionLink: string;
-  
+
   private readonly backupDeleteSelectionDialog: string;
-  
+
   private readonly backupCancelDeleteButton: string;
-  
+
   private readonly backupDeleteButton: string;
-  
+
   private readonly restoreButton: string;
-  
+
   private readonly restoreFromBackupDialog: string;
-  
+
   private readonly restoreErrorMessage: string;
-  
+
   private readonly restoreLogs: string;
-  
+
   private readonly restoreConfirmButton: string;
-  
+
   private readonly restoreProgressBar: string;
-  
+
   private readonly restoreSuccessAlert: string;
-  
+
   private readonly restoreSuccessAlertTitle: string;
-  
+
   private readonly restoreDeveloperDocumentation: string;
-  
+
   private readonly exitPostRestoreLink: string;
-  
+
   private readonly getNoBackupErrorMessage: string;
 
   /**
@@ -382,7 +382,7 @@ class Autoupgrade extends ModuleConfigurationPage implements ModuleAutoupgradeMa
   async backupClickDeleteSelection(page: Page): Promise<boolean> {
     await page.locator(this.backupDeleteSelectionLink).click();
 
-    return this.elementVisible(page, this.backupDeleteSelectionDialog, 5000)
+    return this.elementVisible(page, this.backupDeleteSelectionDialog, 5000);
   }
 
   /**
