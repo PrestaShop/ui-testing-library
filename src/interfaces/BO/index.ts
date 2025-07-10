@@ -76,6 +76,7 @@ export interface BOBasePagePageInterface extends CommonPageInterface {
   readonly themeAndLogoParentLink: string;
   readonly trafficAndSeoLink: string;
   readonly translationsLink: string;
+  readonly updateAssistantLink: string;
   readonly webserviceLink: string;
 
   addCurrentPageToQuickAccess(page: Page, pageName: string): Promise<string | null>;
@@ -106,6 +107,7 @@ export interface BOBasePagePageInterface extends CommonPageInterface {
   goToManageQuickAccessPage(page: Page): Promise<void>;
   goToMyProfile(page: Page): Promise<void>;
   goToSubMenu(page: Page, parentSelector: string, linkSelector: string): Promise<void>;
+  goToUpdateAssistantPage(page: Page): Promise<void>;
   hasAlertBlock(page: Page): Promise<boolean>;
   isMobileMenuVisible(page: Page): Promise<boolean>;
   isNavbarVisible(page: Page): Promise<boolean>;
