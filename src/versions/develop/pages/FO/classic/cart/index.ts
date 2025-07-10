@@ -519,22 +519,22 @@ class CartPage extends FOBasePage implements FoCartPageInterface {
   }
 
   /**
+   * Get cart rule value
+   * @param page {Page} Browser tab
+   * @param line {number} Cart rule line
+   * @return {string}
+   */
+  async getCartRuleValue(page: Page, line: number = 1): Promise<string> {
+    return this.getTextContent(page, this.discountValue(line));
+  }
+
+  /**
    * Get cart rule error text
    * @param page {Page} Browser tab
    * @returns {Promise<string>}
    */
   async getCartRuleErrorMessage(page: Page): Promise<string> {
     return this.getTextContent(page, this.cartRuleAlertMessage);
-  }
-
-  /**
-   * Get discount value
-   * @param page {Page} Browser tab
-   * @param line {number} Cart summary line
-   * @returns {Promise<number>}
-   */
-  async getDiscountValue(page: Page, line: number = 1): Promise<number> {
-    return this.getPriceFromText(page, this.discountValue(line), 2000);
   }
 
   /**

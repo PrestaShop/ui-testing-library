@@ -13,6 +13,10 @@ class BOCartRulesCreatePage extends BOBasePage implements BOCartRulesCreatePageI
 
   public readonly editPageTitle: string;
 
+  public readonly errorMessageReductionPercentageBetween: string;
+
+  public readonly errorMessageFieldInvalid: (field: string) => string;
+
   private readonly cartRuleForm: string;
 
   private readonly infomationsTabLink: string;
@@ -166,6 +170,10 @@ class BOCartRulesCreatePage extends BOBasePage implements BOCartRulesCreatePageI
 
     this.pageTitle = 'Cart Rules > Add new •';
     this.editPageTitle = 'Cart Rules > Edit';
+
+    // Messages
+    this.errorMessageReductionPercentageBetween = 'Reduction percentage must be between 0% and 100%';
+    this.errorMessageFieldInvalid = (field: string) => `The ${field} field is invalid.`;
 
     // Selectors
     this.cartRuleForm = '#cart_rule_form';
@@ -541,10 +549,10 @@ class BOCartRulesCreatePage extends BOBasePage implements BOCartRulesCreatePageI
   async saveCartRule(page: Frame | Page): Promise<string> {
     await this.clickAndWaitForURL(page, this.saveButton);
 
-    if (await this.elementVisible(page, `${this.alertSuccessBlock}[role='alert']`, 2000)) {
-      return this.getTextContent(page, `${this.alertSuccessBlock}[role='alert']`);
+    if (await this.elementVisible(page, `${this.alertBlock}[role='alert']`, 2000)) {
+      return this.getTextContent(page, `${this.alertBlock}[role='alert']`);
     }
-    return this.getTextContent(page, this.alertSuccessBlock);
+    return this.getTextContent(page, this.alertBlock);
   }
 
   /**
