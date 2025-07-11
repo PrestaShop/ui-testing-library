@@ -223,6 +223,8 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
 
   public readonly menuTabLink: string;
 
+  public readonly updateAssistantLink: string;
+
   public readonly menuTree: { parent: string; children: string[] }[];
 
   protected readonly growlDiv: string;
@@ -501,6 +503,9 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
     this.multistoreLink = '#subtab-AdminShopGroup';
     // Deprecated tab used for regression test
     this.menuTabLink = '#subtab-AdminTabs';
+
+    // Update assistant
+    this.updateAssistantLink = '#subtab-AdminSelfUpgrade';
 
     this.menuTree = [
       {
@@ -1274,11 +1279,20 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
 
   /**
    * Get store name
-   * @param page
+   * @param page {Page} Browser tab
    * @returns {Promise<string>}
    */
   async getShopName(page: Page): Promise<string> {
     return this.getTextContent(page, this.storeName);
+  }
+
+  /**
+   * Go to update assistant page
+   * @param page {Page} Browser tab
+   * @returns {Promise<void}
+   */
+  async goToUpdateAssistantPage(page: Page): Promise<void> {
+    await this.clickAndWaitForLoadState(page, this.updateAssistantLink);
   }
 }
 
