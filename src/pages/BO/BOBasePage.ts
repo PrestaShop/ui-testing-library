@@ -1054,7 +1054,7 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
       if (args.onChange) {
         textElement.dispatchEvent(new Event('change'));
       }
-		}})`);
+    }})`);
     await page.evaluate(fn.fnSetValueOnDTPickerInput, args);
   }
 
