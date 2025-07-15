@@ -13,6 +13,8 @@ class BOCartRulesCreatePage extends BOBasePage implements BOCartRulesCreatePageI
 
   public readonly editPageTitle: string;
 
+  public readonly errorMessageReductionAmountGreatherThan: string;
+
   public readonly errorMessageReductionPercentageBetween: string;
 
   public readonly errorMessageFieldInvalid: (field: string) => string;
@@ -172,6 +174,7 @@ class BOCartRulesCreatePage extends BOBasePage implements BOCartRulesCreatePageI
     this.editPageTitle = 'Cart Rules > Edit';
 
     // Messages
+    this.errorMessageReductionAmountGreatherThan = 'Reduction amount cannot be lower than zero.';
     this.errorMessageReductionPercentageBetween = 'Reduction percentage must be between 0% and 100%';
     this.errorMessageFieldInvalid = (field: string) => `The ${field} field is invalid.`;
 
@@ -450,7 +453,7 @@ class BOCartRulesCreatePage extends BOBasePage implements BOCartRulesCreatePageI
       case 'Amount':
         await this.setChecked(page, this.discountAmountRadioButton);
         if (cartRuleData.discountAmount) {
-          await this.setValue(page, this.discountAmountInput, cartRuleData.discountAmount.value);
+          await this.setValue(page, this.discountAmountInput, cartRuleData.discountAmount.value.toString());
           await this.selectByVisibleText(page, this.discountAmountCurrencySelect, cartRuleData.discountAmount.currency);
           await this.selectByVisibleText(page, this.discountAmountTaxSelect, cartRuleData.discountAmount.tax);
         }
