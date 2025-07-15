@@ -90,7 +90,7 @@ export default {
     ],
     quantity: 1500,
     status: true,
-    tax: 20
+    tax: 20,
   }),
   demo_7: new FakerProduct({
     id: 5,
