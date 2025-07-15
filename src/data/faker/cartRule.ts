@@ -215,4 +215,20 @@ export default class FakerCartRule {
 
     return this;
   }
+
+  setDiscountAmountValue(value: number|string): this {
+    if (this.discountAmount) {
+      this.discountAmount.value = value;
+    }
+
+    return this;
+  }
+
+  setDiscountAmountTax(tax: 'Tax included'|'Tax excluded'): this {
+    if (this.discountAmount) {
+      this.discountAmount.tax = tax;
+    }
+
+    return this;
+  }
 }

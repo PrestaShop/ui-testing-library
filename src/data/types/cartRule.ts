@@ -36,7 +36,7 @@ type CartRuleCreator = {
 };
 
 type CartRuleDiscountAmount = {
-  value: number,
+  value: number|string,
   currency: string,
   tax: string,
 }
