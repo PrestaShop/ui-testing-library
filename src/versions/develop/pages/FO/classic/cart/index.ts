@@ -416,6 +416,15 @@ class CartPage extends FOBasePage implements FoCartPageInterface {
   }
 
   /**
+   * Return if there is subtotal discount
+   * @param page {Page} Browser tab
+   * @returns {Promise<boolean>}
+   */
+  async hasSubtotalDiscount(page: Page): Promise<boolean> {
+    return this.elementVisible(page, this.subtotalDiscountValueSpan);
+  }
+
+  /**
    * Get subtotal shipping value
    * @param page {Page} Browser tab
    * @returns {Promise<number>}
