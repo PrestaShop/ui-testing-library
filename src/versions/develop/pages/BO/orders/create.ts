@@ -31,31 +31,31 @@ class BOOrderCreatePage extends BOBasePage implements BOOrdersCreatePageInterfac
 
   private readonly closeFancyBoxIframe: string;
 
-  private readonly addCustomerLink: string;
+  protected addCustomerLink: string;
 
-  private readonly customerSearchInput: string;
+  protected customerSearchInput: string;
 
-  private readonly customerSearchLoadingNoticeBlock: string;
+  protected customerSearchLoadingNoticeBlock: string;
 
   private readonly customerSearchEmptyResultBlock: string;
 
   private readonly customerSearchEmptyResultParagraphe: string;
 
-  private readonly customerSearchFullResultsBlock: string;
+  protected customerSearchFullResultsBlock: string;
 
-  private readonly customerResultsBlock: string;
+  protected customerResultsBlock: string;
 
-  private readonly customerCardBlock: (pos: number) => string;
+  protected customerCardBlock: (pos: number) => string;
 
-  private readonly customerCardNameTitle: (pos: number) => string;
+  protected customerCardNameTitle: (pos: number) => string;
 
-  private readonly customerCardBody: (pos: number) => string;
+  protected customerCardBody: (pos: number) => string;
 
-  private readonly customerCardChooseButton: (pos: number) => string;
+  protected customerCardChooseButton: (pos: number) => string;
 
   private readonly customerCardDetailButton: string;
 
-  private readonly checkoutHistoryBlock: string;
+  protected checkoutHistoryBlock: string;
 
   private readonly customerCartsTable: string;
 
@@ -91,7 +91,7 @@ class BOOrderCreatePage extends BOBasePage implements BOOrdersCreatePageInterfac
 
   private readonly orderUseButton: (row: number) => string;
 
-  private readonly productSearchInput: string;
+  protected productSearchInput: string;
 
   private readonly noProductFoundAlert: string;
 
@@ -149,13 +149,13 @@ class BOOrderCreatePage extends BOBasePage implements BOOrdersCreatePageInterfac
 
   private readonly vouchersTableRowRemoveButton: (row: number) => string;
 
-  private readonly deliveryAddressSelect: string;
+  protected readonly deliveryAddressSelect: string;
 
   private readonly deliveryAddressDetails: string;
 
   private readonly deliveryAddressEditButton: string;
 
-  private readonly invoiceAddressSelect: string;
+  protected readonly invoiceAddressSelect: string;
 
   private readonly invoiceAddressDetails: string;
 
@@ -177,7 +177,7 @@ class BOOrderCreatePage extends BOBasePage implements BOOrdersCreatePageInterfac
 
   private readonly giftMessageTextarea: string;
 
-  private readonly summaryBlock: string;
+  protected readonly summaryBlock: string;
 
   private readonly totalProducts: string;
 
@@ -193,7 +193,7 @@ class BOOrderCreatePage extends BOBasePage implements BOOrdersCreatePageInterfac
 
   private readonly orderMessageTextArea: string;
 
-  private readonly paymentMethodSelect: string;
+  protected paymentMethodSelect: string;
 
   private readonly paymentMethodSelectResult: string;
 
@@ -201,7 +201,7 @@ class BOOrderCreatePage extends BOBasePage implements BOOrdersCreatePageInterfac
 
   private readonly orderStatusSelect: string;
 
-  private readonly createOrderButton: string;
+  protected readonly createOrderButton: string;
 
   private readonly moreActionsDropDownButton: string;
 
@@ -1284,4 +1284,5 @@ class BOOrderCreatePage extends BOBasePage implements BOOrdersCreatePageInterfac
   }
 }
 
-module.exports = new BOOrderCreatePage();
+const boOrderCreatePage = new BOOrderCreatePage();
+export {boOrderCreatePage, BOOrderCreatePage};

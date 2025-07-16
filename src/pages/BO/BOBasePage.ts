@@ -85,7 +85,7 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
 
   private readonly dashboardLink: string;
 
-  public readonly ordersParentLink: string;
+  public ordersParentLink: string;
 
   public readonly ordersLink: string;
 
@@ -115,7 +115,7 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
 
   public readonly stocksLink: string;
 
-  public readonly customersParentLink: string;
+  public customersParentLink: string;
 
   public readonly customersLink: string;
 
@@ -155,11 +155,11 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
 
   public readonly linkWidgetLink: string;
 
-  public readonly shippingLink: string;
+  public shippingLink: string;
 
-  public readonly carriersLink: string;
+  public carriersLink: string;
 
-  public readonly shippingPreferencesLink: string;
+  public shippingPreferencesLink: string;
 
   public readonly paymentParentLink: string;
 
