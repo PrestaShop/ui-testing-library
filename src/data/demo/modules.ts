@@ -72,8 +72,8 @@ export default {
   psNewProducts: new FakerModule({
     tag: 'ps_newproducts',
     name: 'New products block',
-    versionCurrent: 'v1.0.4',
-    versionOld: 'v1.0.3',
+    versionCurrent: 'v1.0.5',
+    versionOld: 'v1.0.4',
     releaseZip: 'https://github.com/PrestaShop/ps_newproducts/releases/download/%version%/ps_newproducts.zip',
   }),
   psSupplierList: new FakerModule({
