@@ -1,5 +1,6 @@
 import fs from 'fs';
 import dataModules from '@data/demo/modules';
+import semver from 'semver';
 
 function getComposerLockVersion(moduleName: string): null|string {
   const rawData: string = fs.readFileSync('./prestashop/composer.lock', 'utf8');
@@ -20,13 +21,23 @@ for (const module of Object.values(dataModules)) {
   if (module.versionCurrent) {
     const version = getComposerLockVersion(module.tag);
 
-    if (version && version !== module.versionCurrent) {
-      console.log(`Bump module ${module.tag} to ${version}`);
+    if (version && semver.gt(version, module.versionCurrent)) {
+      console.log(`Bump module ${module.tag} to ${version} (before: ${module.versionCurrent})`);
+
       const rawData: string = fs.readFileSync('src/data/demo/modules.ts', 'utf8');
-      fs.writeFileSync('src/data/demo/modules.ts', rawData.replace(module.versionCurrent, version));
+      let newData: string = rawData.replace(
+        `versionCurrent: '${module.versionCurrent}'`,
+        `versionCurrent: '${version}'`,
+      );
+
       if (module.versionOld) {
-        fs.writeFileSync('src/data/demo/modules.ts', rawData.replace(module.versionOld, module.versionCurrent));
+        newData = newData.replace(
+          `versionOld: '${module.versionOld}'`,
+          `versionOld: '${module.versionCurrent}'`,
+        );
       }
+
+      fs.writeFileSync('src/data/demo/modules.ts', newData);
     }
   }
 }
