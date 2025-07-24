@@ -747,14 +747,16 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
     if (semver.lt(shopVersion, '7.4.0')) {
       await page.hover(parentSelector);
       //await this.clickAndWaitForURL(page, linkSelector);
-      await this.clickAndWaitForLoadState(page, linkSelector, "load");
+      await page.locator(linkSelector).click({timeout: 1500});
+      await page.waitForLoadState("load");
     } else {
       if (parentSelector !== '') {
         await this.clickSubMenu(page, parentSelector);
         await this.scrollTo(page, linkSelector);
       }
       //await this.clickAndWaitForURL(page, linkSelector);
-      await this.clickAndWaitForLoadState(page, linkSelector, "load");
+      await page.locator(linkSelector).click({timeout: 1500});
+      await page.waitForLoadState("load");
       let linkActiveClass: string = '-active';
 
       // >= 1.7.8.0
