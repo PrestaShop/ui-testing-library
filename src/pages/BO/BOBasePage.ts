@@ -752,7 +752,7 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
     if (semver.lt(shopVersion, '7.4.0')) {
       await page.hover(parentSelector);
       //await this.clickAndWaitForURL(page, linkSelector);
-      await page.locator(linkSelector).click({timeout: 1500});
+      await page.locator(linkSelector).click();
       await page.waitForLoadState("load");
     } else {
       if (parentSelector !== '') {
@@ -760,7 +760,7 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
         await this.scrollTo(page, linkSelector);
       }
       //await this.clickAndWaitForURL(page, linkSelector);
-      await page.locator(linkSelector).click({timeout: 1500});
+      await page.locator(linkSelector).click();
       await page.waitForLoadState("load");
       let linkActiveClass: string = '-active';
 
