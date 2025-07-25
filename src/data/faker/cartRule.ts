@@ -69,11 +69,11 @@ export default class FakerCartRule {
 
   public readonly freeShipping: boolean;
 
-  public readonly discountType: string;
+  public discountType: string;
 
   public discountPercent: number | string | null;
 
-  public readonly discountAmount: CartRuleDiscountAmount | null;
+  public discountAmount: CartRuleDiscountAmount | null;
 
   public readonly applyDiscountTo: string;
 
@@ -176,11 +176,8 @@ export default class FakerCartRule {
     if (this.discountType === 'Percent') {
       this.discountPercent = cartRuleToCreate.discountPercent || faker.number.int({min: 10, max: 80});
     } else if (this.discountType === 'Amount') {
-      this.discountAmount = cartRuleToCreate.discountAmount || {
-        value: 0,
-        currency: 'EUR',
-        tax: 'Tax included',
-      };
+      this.discountAmount = cartRuleToCreate.discountAmount || null;
+      this.initDiscountAmount();
     }
 
     /** @type {string} Object to apply discount on it */
@@ -206,8 +203,49 @@ export default class FakerCartRule {
     }
   }
 
+  protected initDiscountAmount(): void {
+    if (!this.discountAmount) {
+      this.discountAmount = {
+        value: 0,
+        currency: 'EUR',
+        tax: 'Tax included',
+      };
+    }
+  }
+
+  getDiscountAmount(): number {
+    return parseFloat(this.discountAmount!.value.toString());
+  }
+
   getDiscountPercent(): number {
     return parseInt(this.discountPercent!.toString(), 10);
+  }
+
+  setDiscountAmountCurrency(currency: string): this {
+    this.initDiscountAmount();
+    if (this.discountAmount) {
+      this.discountAmount.currency = currency;
+    }
+
+    return this;
+  }
+
+  setDiscountAmountTax(tax: 'Tax included'|'Tax excluded'): this {
+    this.initDiscountAmount();
+    if (this.discountAmount) {
+      this.discountAmount.tax = tax;
+    }
+
+    return this;
+  }
+
+  setDiscountAmountValue(value: number|string): this {
+    this.initDiscountAmount();
+    if (this.discountAmount) {
+      this.discountAmount.value = value;
+    }
+
+    return this;
   }
 
   setDiscountPercent(discountPercent: number|string|null): this {
@@ -216,18 +254,8 @@ export default class FakerCartRule {
     return this;
   }
 
-  setDiscountAmountValue(value: number|string): this {
-    if (this.discountAmount) {
-      this.discountAmount.value = value;
-    }
-
-    return this;
-  }
-
-  setDiscountAmountTax(tax: 'Tax included'|'Tax excluded'): this {
-    if (this.discountAmount) {
-      this.discountAmount.tax = tax;
-    }
+  setDiscountType(discountType: 'Amount' | 'Percent' | 'None'): this {
+    this.discountType = discountType;
 
     return this;
   }
