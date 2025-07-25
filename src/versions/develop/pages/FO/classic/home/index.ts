@@ -200,7 +200,9 @@ class FoHomePage extends FOBasePage implements FoHomePageInterface {
    * @returns {Promise<void>}
    */
   async goToProductPage(page: Page, id: number): Promise<void> {
-    await this.clickAndWaitForURL(page, this.productImg(id));
+    //await this.clickAndWaitForURL(page, this.productImg(id));
+    await page.locator(this.productImg(id)).click();
+    await page.waitForLoadState('load');
   }
 
   /**
