@@ -85,7 +85,7 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
 
   private readonly dashboardLink: string;
 
-  public readonly ordersParentLink: string;
+  public ordersParentLink: string;
 
   public readonly ordersLink: string;
 
@@ -115,7 +115,7 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
 
   public readonly stocksLink: string;
 
-  public readonly customersParentLink: string;
+  public customersParentLink: string;
 
   public readonly customersLink: string;
 
@@ -155,11 +155,11 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
 
   public readonly linkWidgetLink: string;
 
-  public readonly shippingLink: string;
+  public shippingLink: string;
 
-  public readonly carriersLink: string;
+  public carriersLink: string;
 
-  public readonly shippingPreferencesLink: string;
+  public shippingPreferencesLink: string;
 
   public readonly paymentParentLink: string;
 
@@ -751,13 +751,17 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
 
     if (semver.lt(shopVersion, '7.4.0')) {
       await page.hover(parentSelector);
-      await this.clickAndWaitForURL(page, linkSelector);
+      //await this.clickAndWaitForURL(page, linkSelector);
+      await page.locator(linkSelector).click();
+      await page.waitForLoadState("load");
     } else {
       if (parentSelector !== '') {
         await this.clickSubMenu(page, parentSelector);
         await this.scrollTo(page, linkSelector);
       }
-      await this.clickAndWaitForURL(page, linkSelector);
+      //await this.clickAndWaitForURL(page, linkSelector);
+      await page.locator(linkSelector).click();
+      await page.waitForLoadState("load");
       let linkActiveClass: string = '-active';
 
       // >= 1.7.8.0
