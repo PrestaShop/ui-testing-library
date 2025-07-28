@@ -139,6 +139,8 @@ class BOCartRulesCreatePage extends BOBasePage implements BOCartRulesCreatePageI
 
   private readonly discountOffRadioButton: string;
 
+  private readonly applyDiscountToCheapestProductCheckbox: string;
+
   private readonly applyDiscountToOrderCheckbox: string;
 
   private readonly applyDiscountToSpecificProductCheckbox: string;
@@ -277,6 +279,7 @@ class BOCartRulesCreatePage extends BOBasePage implements BOCartRulesCreatePageI
     this.discountOffRadioButton = this.applyDiscountRadioButton('off');
 
     // Apply discount to selectors
+    this.applyDiscountToCheapestProductCheckbox = '#apply_discount_to_cheapest';
     this.applyDiscountToOrderCheckbox = '#apply_discount_to_order';
     this.applyDiscountToSpecificProductCheckbox = '#apply_discount_to_product';
     this.productNameInput = '#reductionProductFilter';
@@ -472,6 +475,9 @@ class BOCartRulesCreatePage extends BOBasePage implements BOCartRulesCreatePageI
 
     // Set apply discount
     switch (cartRuleData.applyDiscountTo) {
+      case 'Cheapest product':
+        await this.setChecked(page, this.applyDiscountToCheapestProductCheckbox);
+        break;
       case 'Order':
         await this.setChecked(page, this.applyDiscountToOrderCheckbox);
         break;
