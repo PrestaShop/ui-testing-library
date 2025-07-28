@@ -108,7 +108,7 @@ class BOAddressesCreatePage extends BOBasePage implements BOAddressesCreatePageI
       }
       if ('waitForResponse' in page) {
         await page.waitForResponse('**/sell/customers/customer-information**', {
-          timeout: 2000,
+          timeout: 3000,
         });
       }
     }
