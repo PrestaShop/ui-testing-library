@@ -12,7 +12,7 @@ function requirePage(): BOProductsCreateTabDescriptionPageInterface {
   if (semver.lt(psVersion, '8.1.0')) {
     return require('@versions/8.0/pages/BO/catalog/products/create/tabDescription').descriptionTab;
   }
-  if (semver.lt(psVersion, '8.2.0')) {
+  if (semver.lt(psVersion, '9.0.0')) {
     return require('@versions/8.2/pages/BO/catalog/products/create/tabDescription').descriptionTab;
   }
   if (semver.lt(psVersion, '8.3.0')) {
