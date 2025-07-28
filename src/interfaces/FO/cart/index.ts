@@ -41,6 +41,7 @@ export interface FoCartPageInterface extends FOBasePagePageInterface {
     getProductQuantity(page: Page, row: number): Promise<number>;
     getProductsNumber(page: Page): Promise<number>;
     getSubtotalDiscountValue(page: Page): Promise<number>;
+    getSubtotalProductsValue(page: Page): Promise<number>;
     getSubtotalShippingValue(page: Page): Promise<string>;
     hasSubtotalDiscount(page: Page): Promise<boolean>;
     isAlertWarningForMinimumPurchaseVisible(page: Page): Promise<boolean>;
