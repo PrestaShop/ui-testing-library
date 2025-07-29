@@ -50,7 +50,7 @@ type CartRuleMinimalAmount = {
 type CartRuleProductSelection = {
   quantity: number,
   ruleType: string,
-  value: number,
+  values: FakerProduct[],
 }
 
 export type {

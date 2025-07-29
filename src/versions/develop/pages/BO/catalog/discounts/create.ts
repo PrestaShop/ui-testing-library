@@ -103,6 +103,8 @@ class BOCartRulesCreatePage extends BOBasePage implements BOCartRulesCreatePageI
 
   private readonly productSelectionGroup: (groupNumber: number) => string;
 
+  private readonly productSelectionGroupDeleteBtn: (groupNumber: number) => string;
+
   private readonly productSelectionGroupQuantity: (groupNumber: number) => string;
 
   private readonly productSelectionRuleType: (groupNumber: number) => string;
@@ -111,9 +113,13 @@ class BOCartRulesCreatePage extends BOBasePage implements BOCartRulesCreatePageI
 
   private readonly productSelectionChooseButton: (groupNumber: number) => string;
 
-  private readonly productSelectionSelectButton: (groupNumber: number) => string;
+  private readonly productSelectionUnselectedSelect: (groupNumber: number) => string;
+
+  private readonly productSelectionSelectedSelect: (groupNumber: number) => string;
 
   private readonly productRestrictionSelectAddButton: (groupNumber: number) => string;
+
+  private readonly productRestrictionSelectRemoveButton: (groupNumber: number) => string;
 
   private readonly closeFancyBoxButton: string;
 
@@ -142,6 +148,8 @@ class BOCartRulesCreatePage extends BOBasePage implements BOCartRulesCreatePageI
   private readonly applyDiscountToCheapestProductCheckbox: string;
 
   private readonly applyDiscountToOrderCheckbox: string;
+
+  private readonly applyDiscountToSelectionCheckbox: string;
 
   private readonly applyDiscountToSpecificProductCheckbox: string;
 
@@ -249,14 +257,18 @@ class BOCartRulesCreatePage extends BOBasePage implements BOCartRulesCreatePageI
     this.productSelectionButton = '#product_restriction_div a.btn-default ';
     this.productRuleGroupTable = '#product_rule_group_table';
     this.productSelectionGroup = (groupNumber: number) => `#product_rule_group_${groupNumber}_tr`;
+    this.productSelectionGroupDeleteBtn = (groupNumber: number) => `${this.productSelectionGroup(groupNumber)} > td:nth-child(1)`
+      + ' a';
     this.productSelectionGroupQuantity = (groupNumber: number) => `${this.productSelectionGroup(groupNumber)}`
       + ` input[name='product_rule_group_${groupNumber}_quantity']`;
     this.productSelectionRuleType = (groupNumber: number) => `#product_rule_type_${groupNumber}`;
     this.productSelectionAddButton = (groupNumber: number) => `${this.productSelectionGroup(groupNumber)}`
       + ' a[href*=addProductRule]';
-    this.productSelectionChooseButton = (groupNumber: number) => `#product_rule_1_${groupNumber}_choose_link`;
-    this.productSelectionSelectButton = (groupNumber: number) => `#product_rule_select_1_${groupNumber}_1`;
-    this.productRestrictionSelectAddButton = (groupNumber: number) => `#product_rule_select_1_${groupNumber}_add`;
+    this.productSelectionChooseButton = (groupNumber: number) => `#product_rule_${groupNumber}_1_choose_link`;
+    this.productSelectionUnselectedSelect = (groupNumber: number) => `#product_rule_select_${groupNumber}_1_1`;
+    this.productSelectionSelectedSelect = (groupNumber: number) => `#product_rule_select_${groupNumber}_1_2`;
+    this.productRestrictionSelectAddButton = (groupNumber: number) => `#product_rule_select_${groupNumber}_1_add`;
+    this.productRestrictionSelectRemoveButton = (groupNumber: number) => `#product_rule_select_${groupNumber}_1_remove`;
     this.closeFancyBoxButton = 'body div.fancybox-overlay.fancybox-overlay-fixed a.fancybox-close';
 
     // Actions tab
@@ -281,6 +293,7 @@ class BOCartRulesCreatePage extends BOBasePage implements BOCartRulesCreatePageI
     // Apply discount to selectors
     this.applyDiscountToCheapestProductCheckbox = '#apply_discount_to_cheapest';
     this.applyDiscountToOrderCheckbox = '#apply_discount_to_order';
+    this.applyDiscountToSelectionCheckbox = '#apply_discount_to_selection';
     this.applyDiscountToSpecificProductCheckbox = '#apply_discount_to_product';
     this.productNameInput = '#reductionProductFilter';
     this.productSearchResultBlock = 'div.ac_results';
@@ -395,10 +408,19 @@ class BOCartRulesCreatePage extends BOBasePage implements BOCartRulesCreatePageI
 
     // Set product selection
     if (cartRuleData.productSelection) {
-      await this.setChecked(page, this.productSelectionCheckboxButton);
+      await this.setChecked(page, this.productSelectionCheckboxButton, true);
 
+      // Remove if existing
+      const numDeleteBtn: number = await page.locator(this.productSelectionGroupDeleteBtn(1)).count();
+
+      for (let i: number = 0; i < numDeleteBtn; i++) {
+        await page.locator(this.productSelectionGroupDeleteBtn(1)).click();
+      }
+      await page.waitForTimeout(2000);
+
+      // Add selection
       for (let i = 0; i < cartRuleData.productSelectionNumber; i++) {
-        const selectorIndex = i + 1;
+        const selectorIndex = i + 1 + numDeleteBtn;
         await this.waitForSelectorAndClick(page, this.productSelectionButton);
         await this.setValue(page, this.productSelectionGroupQuantity(selectorIndex), cartRuleData.productRestriction[i].quantity);
         await this.selectByVisibleText(
@@ -408,12 +430,26 @@ class BOCartRulesCreatePage extends BOBasePage implements BOCartRulesCreatePageI
         );
         await this.waitForSelectorAndClick(page, this.productSelectionAddButton(selectorIndex));
         await this.waitForSelectorAndClick(page, this.productSelectionChooseButton(selectorIndex));
-        await this.selectByValue(
-          page,
-          this.productSelectionSelectButton(selectorIndex),
-          cartRuleData.productRestriction[i].value,
-        );
-        await this.waitForSelectorAndClick(page, this.productRestrictionSelectAddButton(selectorIndex));
+        // Remove if existing
+        const numSelectedProducts: number = await page
+          .locator(`${this.productSelectionSelectedSelect(selectorIndex)} option`)
+          .count();
+
+        // eslint-disable-next-line no-restricted-syntax
+        for (let i: number = 0; i < numSelectedProducts; i++) {
+          await this.waitForSelectorAndClick(page, this.productRestrictionSelectRemoveButton(selectorIndex));
+        }
+
+        // Add products
+        // eslint-disable-next-line no-restricted-syntax
+        for (const product of cartRuleData.productRestriction[i].values) {
+          await this.selectByValue(
+            page,
+            this.productSelectionUnselectedSelect(selectorIndex),
+            product.id,
+          );
+          await this.waitForSelectorAndClick(page, this.productRestrictionSelectAddButton(selectorIndex));
+        }
         await this.waitForSelectorAndClick(page, this.closeFancyBoxButton);
       }
     }
@@ -480,6 +516,9 @@ class BOCartRulesCreatePage extends BOBasePage implements BOCartRulesCreatePageI
         break;
       case 'Order':
         await this.setChecked(page, this.applyDiscountToOrderCheckbox);
+        break;
+      case 'Selected products':
+        await this.setChecked(page, this.applyDiscountToSelectionCheckbox);
         break;
       case 'Specific product':
         await this.setChecked(page, this.applyDiscountToSpecificProductCheckbox);
