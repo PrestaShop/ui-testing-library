@@ -45,7 +45,7 @@ class BOProductsCreatePage extends BOBasePage implements BOProductsCreatePageInt
 
   private readonly productNameLanguageDropdown: string;
 
-  private readonly productNameLanguageDropdownItem: (locale: string) => string;
+  protected readonly productNameLanguageDropdownItem: (locale: string) => string;
 
   private readonly productTypeLabel: string;
 
