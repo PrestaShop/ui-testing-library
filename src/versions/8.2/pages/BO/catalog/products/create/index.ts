@@ -19,6 +19,24 @@ import type {Page} from 'playwright';
  * @extends BOProductsCreatePage
  */
 class BOProductsCreatePageVersion extends BOProductsCreatePage implements BOProductsCreatePageInterface {
+
+  /**
+   * Set product name
+   * @param page {Page} Browser tab
+   * @param name {string} Name of the product
+   * @param locale {string} Locale
+   * @returns {Promise<void>}
+   */
+  async setProductName(page: Page, name: string, locale: string = 'en'): Promise<void> {
+    const isShopMultiLanguages = await page.locator(this.productNameLanguageButton).isVisible({timeout: 1200});
+    if (isShopMultiLanguages) {
+      await page.locator(this.productNameLanguageButton).click({timeout: 1000});
+      await page.locator(this.productNameLanguageDropdownItem(locale)).click({timeout: 1000});
+    }
+
+    await this.setValue(page, this.productNameInput(locale), name);
+  }
+
   /**
    * Set product
    * @param page {Page} Browser tab
