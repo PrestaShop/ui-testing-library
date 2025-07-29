@@ -119,6 +119,7 @@ export default {
     name: 'Brown bear notebook',
     reference: 'demo_9',
     category: 'Stationery',
+    finalPrice: 15.48,
     price: 15.48,
     quantity: 1200,
     status: true,
@@ -207,6 +208,7 @@ export default {
     reference: 'demo_16',
     category: 'Home Accessories',
     status: true,
+    finalPrice: 22.68,
   }),
   demo_17: new FakerProduct({
     id: 11,
