@@ -21,6 +21,8 @@ class CartPage extends FOBasePage implements FoCartPageInterface {
 
   public readonly cartRuleLimitUsageErrorText: string;
 
+  public readonly cartRuleProductsOnSaleErrorText: string;
+
   public readonly cartRuleAlertMessageText: string;
 
   public readonly alertChooseDeliveryAddressWarningText: string;
@@ -130,6 +132,7 @@ class CartPage extends FOBasePage implements FoCartPageInterface {
     this.cartRuleNotExistingErrorText = 'This voucher does not exist.';
     this.cartRuleMustEnterVoucherErrorText = 'You must enter a voucher code.';
     this.cartRuleLimitUsageErrorText = 'You cannot use this voucher anymore (usage limit reached)';
+    this.cartRuleProductsOnSaleErrorText = 'You cannot use this voucher on products on sale';
     this.cartRuleAlertMessageText = 'You cannot use this voucher';
     this.alertChooseDeliveryAddressWarningText = 'You must choose a delivery address'
       + ' before applying this voucher to your order';
