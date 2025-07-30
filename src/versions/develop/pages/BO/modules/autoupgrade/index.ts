@@ -211,13 +211,15 @@ class Autoupgrade extends ModuleConfigurationPage implements ModuleAutoupgradeMa
   /**
    * Choose local archive
    * @param page {Page} Browser tab
-   * @param psVersion {string} The ps Version to use
+   * @param row {number} The row of ps Version to use
    */
-  async chooseLocalArchive(page: Page, psVersion: string): Promise<boolean> {
+  async chooseLocalArchive(page: Page, row: number): Promise<boolean> {
     await page.locator(this.localArchiveRadioButton).setChecked(true);
     await this.waitForVisibleSelector(page, this.radioCardArchive);
-    await this.selectByVisibleText(page, this.archiveZipSelect, `prestashop_${psVersion}.zip`);
-    await this.selectByVisibleText(page, this.archiveXmlSelect, `prestashop_${psVersion}.xml`);
+    //await page.locator(this.archiveZipSelect).click();
+    await page.locator(this.archiveZipSelect).selectOption({index: row});
+    //await page.locator(this.archiveXmlSelect).click();
+    await page.locator(this.archiveXmlSelect).selectOption({index: row});
     await this.waitForVisibleSelector(page, this.checkRequirementBlock, 100000);
 
     return this.elementVisible(page, this.checkRequirementsFailedAlerts, 2000);
