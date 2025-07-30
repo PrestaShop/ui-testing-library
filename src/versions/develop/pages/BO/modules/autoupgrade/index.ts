@@ -216,9 +216,7 @@ class Autoupgrade extends ModuleConfigurationPage implements ModuleAutoupgradeMa
   async chooseLocalArchive(page: Page, row: number): Promise<boolean> {
     await page.locator(this.localArchiveRadioButton).setChecked(true);
     await this.waitForVisibleSelector(page, this.radioCardArchive);
-    //await page.locator(this.archiveZipSelect).click();
     await page.locator(this.archiveZipSelect).selectOption({index: row});
-    //await page.locator(this.archiveXmlSelect).click();
     await page.locator(this.archiveXmlSelect).selectOption({index: row});
     await this.waitForVisibleSelector(page, this.checkRequirementBlock, 100000);
 
