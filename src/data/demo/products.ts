@@ -178,7 +178,7 @@ export default {
     reference: 'demo_13',
     category: 'Home Accessories',
     price: 11.9,
-    finalPrice: 14.28, 
+    finalPrice: 14.28,
     quantity: 300,
     status: true,
   }),
