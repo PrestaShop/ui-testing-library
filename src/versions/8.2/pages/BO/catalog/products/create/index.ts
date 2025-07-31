@@ -50,7 +50,8 @@ class BOProductsCreatePageVersion extends BOProductsCreatePage implements BOProd
     // Set description
     await descriptionTab.setProductDescription(page, productData);
     // Set name
-    await this.setProductName(page, productData.nameFR, 'fr');
+
+    //await this.setProductName(page, productData.nameFR, 'fr');
     await this.setProductName(page, productData.name, 'en');
 
     // Set status
