@@ -48,6 +48,7 @@ export interface FoCartPageInterface extends FOBasePagePageInterface {
     isAlertWarningForMinimumPurchaseVisible(page: Page): Promise<boolean>;
     isCartRuleNameVisible(page: Page, line?: number): Promise<boolean>;
     isProceedToCheckoutButtonDisabled(page: Page): Promise<boolean>;
+    isProductGift(page: Page, row: number): Promise<boolean>;
     removeVoucher(page: Page, line?: number): Promise<boolean>;
     setProductQuantity(page: Page, productRow?: number, quantity?: number): Promise<number>;
 }

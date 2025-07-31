@@ -542,7 +542,8 @@ class BOCartRulesCreatePage extends BOBasePage implements BOCartRulesCreatePageI
       await this.selectByVisibleText(
         page,
         this.freeGiftProductSelect,
-        `${cartRuleData.freeGiftProduct.name} - €${cartRuleData.freeGiftProduct.price}`,
+        `${cartRuleData.freeGiftProduct.name} - €${cartRuleData.freeGiftProduct.finalPrice.toFixed(2)}`,
+        true,
       );
     }
   }
