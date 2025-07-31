@@ -251,6 +251,16 @@ class CartPage extends FOBasePage implements FoCartPageInterface {
   }
 
   /**
+   * Returns if the product is Gift
+   * @param page {Page} Browser tab
+   * @param row {number} Row number in the table
+   * @returns {Promise<boolean>}
+   */
+  async isProductGift(page: Page, row: number): Promise<boolean> {
+    return (await this.getTextContent(page, this.productTotalPrice(row))).trim() === 'Gift';
+  }
+
+  /**
    * Get product quantity
    * @param page {Page} Browser tab
    * @param row {number} Row number in the table
