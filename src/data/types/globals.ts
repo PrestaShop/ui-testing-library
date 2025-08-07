@@ -17,6 +17,8 @@ type GlobalFO = {
 
 type GlobalAPI = {
   URL: string
+  CLIENT_ID: string
+  CLIENT_SECRET: string
 }
 
 type GlobalBO = {
