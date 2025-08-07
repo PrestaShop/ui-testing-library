@@ -23,6 +23,8 @@ export default {
 
     global.API = {
       URL: process.env.URL_API || `${global.FO.URL}admin-api/`,
+      CLIENT_ID: process.env.CLIENT_ID_API || '',
+      CLIENT_SECRET: process.env.CLIENT_SECRET_API || '',
     };
 
     global.PSConfig = {
