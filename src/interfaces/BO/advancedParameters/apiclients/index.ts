@@ -6,6 +6,7 @@ export interface BOApiClientsPageInterface extends BOBasePagePageInterface {
     readonly pageTitle: string;
 
     deleteAPIClient(page: Page, row: number): Promise<string>;
+    getNthRowByClientId(page: Page, clientId: string): Promise<number|null>;
     getJSONDocumentation(page: Page): Promise<Serializable|null>;
     getNumberOfElementInGrid(page: Page): Promise<number>;
     getStatus(page: Page, row: number): Promise<boolean>;

@@ -213,6 +213,25 @@ class BOApiClientsPage extends BOBasePage implements BOApiClientsPageInterface {
 
     return this.getAlertSuccessBlockParagraphContent(page);
   }
+
+  /**
+   * Returns the row of the API Client matching with provided clientId, return null if not found
+   * @param page {Page} Browser tab
+   * @param clientId {string} Searched Client ID
+   */
+  async getNthRowByClientId(page: Page, clientId: string): Promise<number|null> {
+    const apiClientsNumber = await this.getNumberOfElementInGrid(page);
+
+    for (let row = 1; row <= apiClientsNumber; ++row) {
+      const rowClientId = await this.getTextColumn(page, 'client_id', row);
+
+      if (rowClientId.trim() === clientId.trim()) {
+        return row;
+      }
+    }
+
+    return null;
+  }
 }
 
 module.exports = new BOApiClientsPage();
