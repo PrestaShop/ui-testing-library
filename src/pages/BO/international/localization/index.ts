@@ -7,7 +7,7 @@ const psVersion = testContext.getPSVersion();
 /* eslint-disable global-require, @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires */
 function requirePage(): BOLocalizationPageInterface {
     if (semver.lt(psVersion, '7.8.0')) {
-        return require('@versions/1.7/pages/BO/international/localization').boLocalizationPage;
+        return require('@versions/1.7.7/pages/BO/international/localization').boLocalizationPage;
     }
   return require('@versions/develop/pages/BO/international/localization');
 }
