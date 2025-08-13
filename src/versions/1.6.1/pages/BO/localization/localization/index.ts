@@ -15,7 +15,7 @@ class BOLocalizationPage extends BOLocalizationPageVersion implements BOLocaliza
         super();
 
         // Import localization pack selectors
-        this.importlocalizationPackSelect = 'select#iso_localization_pack';
+        this.importlocalizationPackSelect = '#iso_localization_pack';
         this.importStatesCheckbox = '#selection[]_states';
         this.importTaxesCheckbox = '#selection[]_taxes';
         this.importCurrenciesCheckbox = '#selection[]_currencies';
