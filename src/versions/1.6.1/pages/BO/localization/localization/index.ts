@@ -17,7 +17,7 @@ class BOLocalizationPage extends BOLocalizationPageVersion implements BOLocaliza
         super();
 
         // Import localization pack selectors
-        this.downloadPackDataToggleInput = (toggle: number) => `#download_updated_pack_${toggle}`;
+        this.downloadPackDataToggleInput = (toggle: string | number) => `#download_updated_pack_${toggle}`;
         this.importButton = 'button.btn.btn-primary:has-text("Import")';
     }
 
@@ -56,7 +56,7 @@ class BOLocalizationPage extends BOLocalizationPageVersion implements BOLocaliza
         await page.locator('input[value="groups"]').setChecked(contentToImport.updatePriceDisplayForGroups as boolean);
 
         // Choose if we download pack of data
-        await this.setChecked(page, this.downloadPackDataToggleInput(downloadPackData ? 1 : 0));
+        await this.setChecked(page, this.downloadPackDataToggleInput(downloadPackData ? 'yes' : 'no'));
 
         // Import the pack
         await page.locator(this.importButton).click();
