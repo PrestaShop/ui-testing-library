@@ -29,7 +29,7 @@ class BOLocalizationPage extends BOLocalizationBasePage implements BOLocalizatio
 
   protected updatepriceDisplayForGroupsCHeckbox: string;
 
-  protected downloadPackDataToggleInput: (toggle: number) => string;
+  protected downloadPackDataToggleInput: (toggle: number | string) => string;
 
   protected importButton: string;
 
