@@ -45,7 +45,7 @@ class BOLocalizationPage extends BOLocalizationPageVersion implements BOLocaliza
     ): Promise<string> {
         // Choose which country to import
         await page.locator('#iso_localization_pack_chosen').click();
-        await page.locator('div.chosen-search input').fill(country);
+        await page.locator('#iso_localization_pack_chosen').getByRole('textbox').fill(country);
         await page.locator('ul.chosen-results li').filter({hasText: country}).click();
 
         // Set content import checkboxes
