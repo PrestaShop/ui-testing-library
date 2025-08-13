@@ -17,14 +17,6 @@ class BOLocalizationPage extends BOLocalizationPageVersion implements BOLocaliza
         super();
 
         // Import localization pack selectors
-        this.importlocalizationPackSelect = '#iso_localization_pack';
-        this.importStatesCheckbox = '#selection[]_states';
-        this.importTaxesCheckbox = '#selection[]_taxes';
-        this.importCurrenciesCheckbox = '#selection[]_currencies';
-        this.importLanguagesCheckbox = '#selection[]_languages';
-        this.importUnitsCheckbox = '#selection[]_units';
-        this.updatepriceDisplayForGroupsCHeckbox = '#selection[]_groups';
-        this.downloadPackDataToggleInput = (toggle: number) => `#download_updated_pack_${toggle}`;
         this.importButton = 'button.btn.btn-primary:has-text("Import")';
     }
 
@@ -49,16 +41,18 @@ class BOLocalizationPage extends BOLocalizationPageVersion implements BOLocaliza
         await page.locator('ul.chosen-results li').filter({hasText: country}).click();
 
         // Set content import checkboxes
-        await this.setHiddenCheckboxValue(page, this.importStatesCheckbox, contentToImport.importStates);
-        await this.setHiddenCheckboxValue(page, this.importTaxesCheckbox, contentToImport.importTaxes);
-        await this.setHiddenCheckboxValue(page, this.importCurrenciesCheckbox, contentToImport.importCurrencies);
-        await this.setHiddenCheckboxValue(page, this.importLanguagesCheckbox, contentToImport.importLanguages);
-        await this.setHiddenCheckboxValue(page, this.importUnitsCheckbox, contentToImport.importUnits);
-        await this.setHiddenCheckboxValue(
-            page,
-            this.updatepriceDisplayForGroupsCHeckbox,
-            contentToImport.updatePriceDisplayForGroups,
-        );
+        // await this.setHiddenCheckboxValue(page, this.importStatesCheckbox, contentToImport.importStates);
+        await page.locator('input[value="states"]').setChecked(contentToImport.importStates as boolean);
+        //await this.setHiddenCheckboxValue(page, this.importTaxesCheckbox, contentToImport.importTaxes);
+        await page.locator('input[value="taxes"]').setChecked(contentToImport.importTaxes as boolean);
+        //await this.setHiddenCheckboxValue(page, this.importCurrenciesCheckbox, contentToImport.importCurrencies);
+        await page.locator('input[value="currencies"]').setChecked(contentToImport.importCurrencies as boolean);
+        //await this.setHiddenCheckboxValue(page, this.importLanguagesCheckbox, contentToImport.importLanguages);
+        await page.locator('input[value="languages"]').setChecked(contentToImport.importLanguages as boolean);
+        //await this.setHiddenCheckboxValue(page, this.importUnitsCheckbox, contentToImport.importUnits);
+        await page.locator('input[value="units"]').setChecked(contentToImport.importUnits as boolean);
+        //await this.setHiddenCheckboxValue(page,this.updatepriceDisplayForGroupsCHeckbox, contentToImport.updatePriceDisplayForGroups);
+        await page.locator('input[value="groups"]').setChecked(contentToImport.updatePriceDisplayForGroups as boolean);
 
         // Choose if we download pack of data
         await this.setChecked(page, this.downloadPackDataToggleInput(downloadPackData ? 1 : 0));
