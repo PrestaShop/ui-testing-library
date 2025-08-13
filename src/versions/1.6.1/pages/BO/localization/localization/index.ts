@@ -17,6 +17,7 @@ class BOLocalizationPage extends BOLocalizationPageVersion implements BOLocaliza
         super();
 
         // Import localization pack selectors
+        this.downloadPackDataToggleInput = (toggle: number) => `#download_updated_pack_${toggle}`;
         this.importButton = 'button.btn.btn-primary:has-text("Import")';
     }
 
