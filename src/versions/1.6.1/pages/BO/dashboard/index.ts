@@ -17,6 +17,7 @@ class DashboardPage extends DashboardPageVersion implements DashboardPageInterfa
       this.customersParentLink = 'li#maintab-AdminParentCustomer';
       // Localization
       this.internationalParentLink = 'li#maintab-AdminParentLocalization';
+      this.localizationLink = 'li#subtab-AdminLocalization';
       // Orders
       this.ordersParentLink = 'li#maintab-AdminParentOrders';
       // Shipping

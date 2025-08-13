@@ -171,7 +171,7 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
 
   public readonly taxesLink: string;
 
-  public readonly localizationLink: string;
+  public localizationLink: string;
 
   public readonly locationsLink: string;
 
