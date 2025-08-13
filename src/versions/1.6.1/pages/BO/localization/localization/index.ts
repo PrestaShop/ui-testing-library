@@ -59,7 +59,7 @@ class BOLocalizationPage extends BOLocalizationPageVersion implements BOLocaliza
         await this.setChecked(page, this.downloadPackDataToggleInput(downloadPackData ? 'yes' : 'no'));
 
         // Import the pack
-        await page.locator('i.process-import-icon').click();
+        await page.locator('button[name="submitLocalizationPack"]').click();
 
         return this.getAlertSuccessBlockParagraphContent(page, 20000);
     }
