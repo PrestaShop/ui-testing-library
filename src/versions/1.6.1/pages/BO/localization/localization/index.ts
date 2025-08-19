@@ -42,17 +42,11 @@ class BOLocalizationPage extends BOLocalizationPageVersion implements BOLocaliza
         await page.locator('ul.chosen-results li').filter({hasText: country}).click();
 
         // Set content import checkboxes
-        // await this.setHiddenCheckboxValue(page, this.importStatesCheckbox, contentToImport.importStates);
         await page.locator('input[value="states"]').setChecked(contentToImport.importStates as boolean);
-        //await this.setHiddenCheckboxValue(page, this.importTaxesCheckbox, contentToImport.importTaxes);
         await page.locator('input[value="taxes"]').setChecked(contentToImport.importTaxes as boolean);
-        //await this.setHiddenCheckboxValue(page, this.importCurrenciesCheckbox, contentToImport.importCurrencies);
         await page.locator('input[value="currencies"]').setChecked(contentToImport.importCurrencies as boolean);
-        //await this.setHiddenCheckboxValue(page, this.importLanguagesCheckbox, contentToImport.importLanguages);
         await page.locator('input[value="languages"]').setChecked(contentToImport.importLanguages as boolean);
-        //await this.setHiddenCheckboxValue(page, this.importUnitsCheckbox, contentToImport.importUnits);
         await page.locator('input[value="units"]').setChecked(contentToImport.importUnits as boolean);
-        //await this.setHiddenCheckboxValue(page,this.updatepriceDisplayForGroupsCHeckbox, contentToImport.updatePriceDisplayForGroups);
         await page.locator('input[value="groups"]').setChecked(contentToImport.updatePriceDisplayForGroups as boolean);
 
         // Choose if we download pack of data
