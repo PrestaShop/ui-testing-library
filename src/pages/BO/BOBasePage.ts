@@ -97,9 +97,9 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
 
   public readonly shoppingCartsLink: string;
 
-  public readonly catalogParentLink: string;
+  public catalogParentLink: string;
 
-  public readonly productsLink: string;
+  public productsLink: string;
 
   public readonly categoriesLink: string;
 
