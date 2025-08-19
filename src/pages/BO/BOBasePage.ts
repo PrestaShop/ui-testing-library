@@ -243,15 +243,15 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
 
   protected alertSuccessBlock: string;
 
-  private readonly alertDangerBlock: string;
+  protected alertDangerBlock: string;
 
-  private readonly alertInfoBlock: string;
+  protected alertInfoBlock: string;
 
   protected alertSuccessBlockParagraph: string;
 
   protected alertDangerBlockParagraph: string;
 
-  private readonly alertInfoBlockParagraph: string;
+  protected alertInfoBlockParagraph: string;
 
   private readonly confirmationModal: string;
 
@@ -1189,8 +1189,15 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
    * @return {Promise<string>}
    */
   async getAlertSuccessBlockParagraphContent(page: Frame | Page, timeout: number = 2000): Promise<string> {
-    await this.elementVisible(page, this.alertSuccessBlockParagraph, timeout);
-    return this.getTextContent(page, this.alertSuccessBlockParagraph);
+      const shopVersion = testContext.getPSVersion();
+      if (semver.lte(shopVersion, '7.0.0')) {
+          await this.elementVisible(page, this.alertSuccessBlock, timeout);
+          return this.getTextContent(page, this.alertSuccessBlock);
+      }
+      else {
+          await this.elementVisible(page, this.alertSuccessBlockParagraph, timeout);
+          return this.getTextContent(page, this.alertSuccessBlockParagraph);
+      }
   }
 
   /**
