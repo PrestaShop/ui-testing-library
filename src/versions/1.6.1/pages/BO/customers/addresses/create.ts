@@ -6,6 +6,7 @@ import {BOAddressesCreatePage as BOAddressCreatePageVersion} from '@versions/1.7
 
 class BOAddressesCreatePage extends BOAddressCreatePageVersion implements BOAddressesCreatePageInterface {
   private readonly customerAddressMobilePhoneInput: string;
+
   /**
      * @constructs
      * Setting up texts and selectors to use in addresses create page
@@ -48,10 +49,10 @@ class BOAddressesCreatePage extends BOAddressCreatePageVersion implements BOAddr
    * @returns {Promise<?string>}
    */
   async createEditAddress(
-      page: Frame|Page,
-      addressData: FakerAddress,
-      save: boolean = true,
-      waitForNavigation: boolean = true,
+    page: Frame|Page,
+    addressData: FakerAddress,
+    save: boolean = true,
+    waitForNavigation: boolean = true,
   ): Promise<string|null> {
     if (await this.elementVisible(page, this.customerEmailInput, 2000)) {
       await this.setValue(page, this.customerEmailInput, addressData.email);

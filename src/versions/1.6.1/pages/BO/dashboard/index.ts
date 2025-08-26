@@ -13,18 +13,18 @@ class DashboardPage extends DashboardPageVersion implements DashboardPageInterfa
    */
   constructor() {
     super();
-      // Catalog
-      this.catalogParentLink = 'li#maintab-AdminCatalog';
-      this.productsLink = 'li#subtab-AdminProducts';
-      // Customers
-      this.customersParentLink = 'li#maintab-AdminParentCustomer';
-      // Localization
-      this.internationalParentLink = 'li#maintab-AdminParentLocalization';
-      this.localizationLink = 'li#subtab-AdminLocalization';
-      // Orders
-      this.ordersParentLink = 'li#maintab-AdminParentOrders';
-      // Shipping
-      this.shippingLink = '#maintab-AdminParentShipping';
+    // Catalog
+    this.catalogParentLink = 'li#maintab-AdminCatalog';
+    this.productsLink = 'li#subtab-AdminProducts';
+    // Customers
+    this.customersParentLink = 'li#maintab-AdminParentCustomer';
+    // Localization
+    this.internationalParentLink = 'li#maintab-AdminParentLocalization';
+    this.localizationLink = 'li#subtab-AdminLocalization';
+    // Orders
+    this.ordersParentLink = 'li#maintab-AdminParentOrders';
+    // Shipping
+    this.shippingLink = '#maintab-AdminParentShipping';
   }
 }
 

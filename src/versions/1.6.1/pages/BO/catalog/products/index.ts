@@ -10,15 +10,15 @@ import type {Page} from 'playwright';
  * @extends ProductsPage
  */
 class BOProductsVersion extends ProductsPage implements BOProductsPageInterface {
-    /**
+  /**
      * @constructs
      * Setting up texts and selectors to use on products page
      */
-    constructor() {
-        super();
-        // header
-        this.newProductButton = '#page-header-desc-product-new_product'
-    }
+  constructor() {
+    super();
+    // header
+    this.newProductButton = '#page-header-desc-product-new_product';
+  }
 }
 
 const productsPage = new BOProductsVersion();

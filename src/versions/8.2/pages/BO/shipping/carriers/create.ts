@@ -1,6 +1,7 @@
 import type FakerCarrier from '@data/faker/carrier';
 import type FakerGroup from '@data/faker/group';
 import {type CarrierRange} from '@data/types/carrier';
+import {tr} from '@faker-js/faker';
 import {BOCarriersCreatePageInterface} from '@interfaces/BO/shipping/carriers/create';
 import {BOCarriersCreatePage as BOCarriersCreatePageVersion} from '@versions/develop/pages/BO/shipping/carriers/create';
 import type {Page} from 'playwright';
@@ -100,9 +101,7 @@ class BOCarriersCreatePage extends BOCarriersCreatePageVersion implements BOCarr
 
     // Set shipping locations and costs
     await this.setChecked(page, this.freeShippingToggle(carrierData.freeShipping ? 'on' : 'off'));
-    if (!carrierData.freeShipping) {
-      await this.setChecked(page, this.addHandlingCostsToggle(carrierData.handlingCosts ? 'on' : 'off'));
-    }
+    await this.setChecked(page, this.addHandlingCostsToggle(carrierData.handlingCosts ? 'on' : 'off'));
 
     if (carrierData.billing === 'According to total price') {
       await page.locator(this.billingPriceRadioButton).click();
