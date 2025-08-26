@@ -202,7 +202,9 @@ class BOCarriersCreatePage extends BOCarriersCreatePageVersion implements BOCarr
     await page.locator(this.nextButton).click();
 
     // Summary
-    await this.setChecked(page, this.enableToggle(carrierData.enable ? 'on' : 'off'));
+    if (!carrierData.enable) {
+      await this.setChecked(page, this.enableToggle(carrierData.enable ? 'on' : 'off'));
+    }
     await page.locator(this.finishButton).click();
 
     // Return successful message
