@@ -10,13 +10,13 @@ import {SearchResultsPage} from '@versions/develop/pages/FO/classic/searchResult
  * @extends SearchResultsPage
  */
 class FoSearchResultsPageVersion extends SearchResultsPage implements FoSearchResultsPageInterface {
-    /**
+  /**
      * @constructs
      * Setting up texts and selectors to use on search results page
      */
-    constructor(theme: string = 'classic') {
-        super(theme);
-    }
+  constructor(theme: string = 'classic') {
+    super(theme);
+  }
 }
 
 const searchResultsPage = new FoSearchResultsPageVersion();

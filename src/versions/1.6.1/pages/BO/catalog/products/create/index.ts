@@ -19,55 +19,53 @@ import type {Page} from 'playwright';
  * @extends BOProductsCreatePage
  */
 class BOProductsCreatePageVersion extends BOProductsCreatePage implements BOProductsCreatePageInterface {
-
-    /**
+  /**
      * Set product name
      * @param page {Page} Browser tab
      * @param name {string} Name of the product
      * @param locale {string} Locale
      * @returns {Promise<void>}
      */
-    async setProductName(page: Page, name: string, locale: string = 'en'): Promise<void> {
-        const isShopMultiLanguages = await page.locator(this.productNameLanguageButton).isVisible({timeout: 1200});
-        if (isShopMultiLanguages) {
-            await page.locator(this.productNameLanguageButton).click({timeout: 1000});
-            await page.locator(this.productNameLanguageDropdownItem(locale)).click({timeout: 1000});
-        }
+  async setProductName(page: Page, name: string, locale: string = 'en'): Promise<void> {
+    const isShopMultiLanguages = await page.locator(this.productNameLanguageButton).isVisible({timeout: 1200});
 
-        await this.setValue(page, this.productNameInput(locale), name);
+    if (isShopMultiLanguages) {
+      await page.locator(this.productNameLanguageButton).click({timeout: 1000});
+      await page.locator(this.productNameLanguageDropdownItem(locale)).click({timeout: 1000});
     }
 
-    /**
+    await this.setValue(page, this.productNameInput(locale), name);
+  }
+
+  /**
      * Set product type
      * @param page {Page} Browser tab
      * @param productData {FakerProduct}
      * @returns {Promise<void>}
      */
-    async setProductType(page: Page, productData: FakerProduct): Promise<void> {
-        switch (productData.type) {
-            case 'standard':
-                await page.locator('#simple_product').setChecked(true);
-        }
+  async setProductType(page: Page, productData: FakerProduct): Promise<void> {
+    switch (productData.type) {
+      case 'standard':
+        await page.locator('#simple_product').setChecked(true);
     }
+  }
 
-    /**
+  /**
      * Set product
      * @param page {Page} Browser tab
      * @param productData {FakerProduct} Data to set in new product page
      * @returns {Promise<string>}
      */
-    async setProduct(page: Page, productData: FakerProduct): Promise<string|null> /**/{
-        // INFORMATION TAB
-        // product type
-        await this.setProductType(page, productData);
-        // product name
-        await this.setProductName(page, productData.name, 'en');
+  async setProduct(page: Page, productData: FakerProduct): Promise<string|null> /**/{
+    // INFORMATION TAB
+    // product type
+    await this.setProductType(page, productData);
+    // product name
+    await this.setProductName(page, productData.name, 'en');
 
-        // TODO BUG on 1.6.1.24 not possible to switch product creation tab
+    // TODO BUG on 1.6.1.24 not possible to switch product creation tab
 
-
-
-/*        //// Tab "Description"
+    /*        //// Tab "Description"
         // Set description
         await descriptionTab.setProductDescription(page, productData);
         // Set name
@@ -91,8 +89,8 @@ class BOProductsCreatePageVersion extends BOProductsCreatePage implements BOProd
         //// Tab "Pricing"
         await pricingTab.setProductPricing(page, productData);
 */
-        return this.saveProduct(page);
-    }
+    return this.saveProduct(page);
+  }
 }
 
 const boProductsCreatePage = new BOProductsCreatePageVersion();

@@ -7,15 +7,15 @@ import {BOLocalizationPage as BOLocalizationPageVersion} from '@versions/develop
  * @extends BOBasePage
  */
 class BOLocalizationPage extends BOLocalizationPageVersion implements BOLocalizationPageInterface {
-    /**
+  /**
      * @constructs
      * Setting up texts and selectors to use on addresses page
      */
-    constructor() {
-        super();
+  constructor() {
+    super();
 
-        this.importButton = 'button.btn.btn-primary:has-text("Import")';
-    }
+    this.importButton = 'button.btn.btn-primary:has-text("Import")';
+  }
 }
 
 const boLocalizationPage = new BOLocalizationPage();
