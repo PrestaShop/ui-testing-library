@@ -100,8 +100,13 @@ class BOCarriersCreatePage extends BOCarriersCreatePageVersion implements BOCarr
     await page.locator(this.nextButton).click();
 
     // Set shipping locations and costs
-    await this.setChecked(page, this.freeShippingToggle(carrierData.freeShipping ? 'on' : 'off'));
-    await this.setChecked(page, this.addHandlingCostsToggle(carrierData.handlingCosts ? 'on' : 'off'));
+
+    if (!carrierData.freeShipping) {
+      await this.setChecked(page, this.freeShippingToggle(carrierData.freeShipping ? 'on' : 'off'));
+    }
+    if (!carrierData.handlingCosts) {
+      await this.setChecked(page, this.addHandlingCostsToggle(carrierData.handlingCosts ? 'on' : 'off'));
+    }
 
     if (carrierData.billing === 'According to total price') {
       await page.locator(this.billingPriceRadioButton).click();
