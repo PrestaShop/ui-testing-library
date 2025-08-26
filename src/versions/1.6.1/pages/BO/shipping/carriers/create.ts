@@ -2,10 +2,9 @@ import {BOCarriersCreatePageInterface} from '@interfaces/BO/shipping/carriers/cr
 import {BOCarriersCreatePage as BOCarriersCreatePageVersion} from '@versions/8.2/pages/BO/shipping/carriers/create';
 
 class BOCarriersCreatePage extends BOCarriersCreatePageVersion implements BOCarriersCreatePageInterface {
-    constructor() {
-        super();
-
-    }
+  constructor() {
+    super();
+  }
 }
 
 const boCarriersCreatePage = new BOCarriersCreatePage();

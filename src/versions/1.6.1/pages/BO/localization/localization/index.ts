@@ -9,20 +9,20 @@ import type {Page} from 'playwright';
  * @extends BOBasePage
  */
 class BOLocalizationPage extends BOLocalizationPageVersion implements BOLocalizationPageInterface {
-    /**
+  /**
      * @constructs
      * Setting up texts and selectors to use on addresses page
      */
-    constructor() {
-        super();
+  constructor() {
+    super();
 
-        // Import localization pack selectors
-        this.downloadPackDataToggleInput = (toggle: string | number) => `#download_updated_pack_${toggle}`;
-        this.importButton = 'button.btn.btn-primary:has-text("Import")';
-    }
+    // Import localization pack selectors
+    this.downloadPackDataToggleInput = (toggle: string | number) => `#download_updated_pack_${toggle}`;
+    this.importButton = 'button.btn.btn-primary:has-text("Import")';
+  }
 
-    /* Methods */
-    /**
+  /* Methods */
+  /**
      * Import a localization pack
      * @param page {Page} Browser tab
      * @param country {string} Country to select
@@ -30,33 +30,33 @@ class BOLocalizationPage extends BOLocalizationPageVersion implements BOLocaliza
      * @param downloadPackData {boolean} True if we need to download pack data
      * @return {Promise<string>}
      */
-    async importLocalizationPack(
-        page: Page,
-        country: string,
-        contentToImport: ImportContent,
-        downloadPackData: boolean = true,
-    ): Promise<string> {
-        // Choose which country to import
-        await page.locator('#iso_localization_pack_chosen').click();
-        await page.locator('#iso_localization_pack_chosen').getByRole('textbox').fill(country);
-        await page.locator('ul.chosen-results li').filter({hasText: country}).click();
+  async importLocalizationPack(
+    page: Page,
+    country: string,
+    contentToImport: ImportContent,
+    downloadPackData: boolean = true,
+  ): Promise<string> {
+    // Choose which country to import
+    await page.locator('#iso_localization_pack_chosen').click();
+    await page.locator('#iso_localization_pack_chosen').getByRole('textbox').fill(country);
+    await page.locator('ul.chosen-results li').filter({hasText: country}).click();
 
-        // Set content import checkboxes
-        await page.locator('input[value="states"]').setChecked(contentToImport.importStates as boolean);
-        await page.locator('input[value="taxes"]').setChecked(contentToImport.importTaxes as boolean);
-        await page.locator('input[value="currencies"]').setChecked(contentToImport.importCurrencies as boolean);
-        await page.locator('input[value="languages"]').setChecked(contentToImport.importLanguages as boolean);
-        await page.locator('input[value="units"]').setChecked(contentToImport.importUnits as boolean);
-        await page.locator('input[value="groups"]').setChecked(contentToImport.updatePriceDisplayForGroups as boolean);
+    // Set content import checkboxes
+    await page.locator('input[value="states"]').setChecked(contentToImport.importStates as boolean);
+    await page.locator('input[value="taxes"]').setChecked(contentToImport.importTaxes as boolean);
+    await page.locator('input[value="currencies"]').setChecked(contentToImport.importCurrencies as boolean);
+    await page.locator('input[value="languages"]').setChecked(contentToImport.importLanguages as boolean);
+    await page.locator('input[value="units"]').setChecked(contentToImport.importUnits as boolean);
+    await page.locator('input[value="groups"]').setChecked(contentToImport.updatePriceDisplayForGroups as boolean);
 
-        // Choose if we download pack of data
-        await this.setChecked(page, this.downloadPackDataToggleInput(downloadPackData ? 'yes' : 'no'));
+    // Choose if we download pack of data
+    await this.setChecked(page, this.downloadPackDataToggleInput(downloadPackData ? 'yes' : 'no'));
 
-        // Import the pack
-        await page.locator('button[name="submitLocalizationPack"]').click();
+    // Import the pack
+    await page.locator('button[name="submitLocalizationPack"]').click();
 
-        return this.getAlertSuccessBlockParagraphContent(page, 20000);
-    }
+    return this.getAlertSuccessBlockParagraphContent(page, 20000);
+  }
 }
 
 const boLocalizationPage = new BOLocalizationPage();
