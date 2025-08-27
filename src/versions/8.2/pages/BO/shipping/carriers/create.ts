@@ -105,11 +105,11 @@ class BOCarriersCreatePage extends BOCarriersCreatePageVersion implements BOCarr
     }*/
     if (await page.locator(this.freeShippingToggle('on')).isChecked({timeout: 1500})) {
         if (!carrierData.freeShipping) {
-            await this.setChecked(page, this.freeShippingToggle('off'));
+            await this.setChecked(page, this.freeShippingToggle('off'), true, true);
     }}
     if (await page.locator(this.freeShippingToggle('off')).isChecked({timeout: 1500})) {
         if (carrierData.freeShipping) {
-            await this.setChecked(page, this.freeShippingToggle('on'));
+            await this.setChecked(page, this.freeShippingToggle('on'), true, true);
     }}
 
 
@@ -118,11 +118,11 @@ class BOCarriersCreatePage extends BOCarriersCreatePageVersion implements BOCarr
     }*/
     if (await page.locator(this.addHandlingCostsToggle('on')).isChecked({timeout: 1500})) {
        if (!carrierData.handlingCosts) {
-           await this.setChecked(page, this.addHandlingCostsToggle('off'));
+           await this.setChecked(page, this.addHandlingCostsToggle('off'), true, true);
     }}
     if (await page.locator(this.addHandlingCostsToggle('off')).isChecked({timeout: 1500})) {
        if (carrierData.handlingCosts) {
-           await this.setChecked(page, this.addHandlingCostsToggle('on'));
+           await this.setChecked(page, this.addHandlingCostsToggle('on'), true, true);
     }}
 
     if (carrierData.billing === 'According to total price') {
