@@ -18,5 +18,6 @@ export interface BOLogsPageInterface extends BOBasePagePageInterface {
   selectPaginationLimit(page: Page, number: number): Promise<string>;
   setEmail(page: Page, email: string): Promise<string>;
   setMinimumSeverityLevel(page: Page, severityLevel: string): Promise<string>;
+  setMinimumSeverityLevelForDatabase(page: Page, severityLevel: string): Promise<string>;
   sortTable(page: Page, sortBy: string, sortDirection: string): Promise<void>;
 }

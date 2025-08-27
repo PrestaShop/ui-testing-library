@@ -52,6 +52,10 @@ class BOLogsPage extends BOBasePage implements BOLogsPageInterface {
 
   private readonly saveButton: string;
 
+  private readonly severityLevelSelectForDatabase: string;
+
+  private readonly saveButtonForDatabase: string;
+
   /**
    * @constructs
    * Setting up texts and selectors to use on logs page
@@ -90,7 +94,13 @@ class BOLogsPage extends BOBasePage implements BOLogsPageInterface {
     // Logs by email selectors
     this.severityLevelSelect = '#form_logs_by_email';
     this.sendEmailToInput = '#form_logs_email_receivers';
-    this.saveButton = '#main-div div.card-footer button';
+    // For retro-compatibility we identify the email button as the one that is NOT the save-database button
+    // which will work even for versions that don't have the new button
+    this.saveButton = '#main-div div.card-footer button:not(.save-database)';
+
+    // Logs database selectors
+    this.severityLevelSelectForDatabase = '#form_database_min_logger_level';
+    this.saveButtonForDatabase = '#main-div div.card-footer button.save-database';
   }
 
   /*
@@ -323,6 +333,19 @@ class BOLogsPage extends BOBasePage implements BOLogsPageInterface {
   async setEmail(page: Page, email: string): Promise<string> {
     await this.setValue(page, this.sendEmailToInput, email);
     await this.waitForSelectorAndClick(page, this.saveButton);
+
+    return this.getAlertBlockContent(page);
+  }
+
+  /**
+   * Set minimum severity level for database
+   * @param page {Page} Browser tab
+   * @param severityLevel {string} Severity to select
+   * @returns {Promise<string>}
+   */
+  async setMinimumSeverityLevelForDatabase(page: Page, severityLevel: string): Promise<string> {
+    await this.selectByVisibleText(page, this.severityLevelSelectForDatabase, severityLevel);
+    await this.waitForSelectorAndClick(page, this.saveButtonForDatabase);
 
     return this.getAlertBlockContent(page);
   }
