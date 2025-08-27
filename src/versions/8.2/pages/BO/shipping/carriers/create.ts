@@ -224,12 +224,12 @@ class BOCarriersCreatePage extends BOCarriersCreatePageVersion implements BOCarr
     }*/
     if (await page.locator(this.enableToggle('on')).isChecked({timeout: 1500})) {
        if (!carrierData.enable) {
-          await this.setChecked(page, this.enableToggle('off'));
+          await this.setChecked(page, this.enableToggle('off'), true, true);
        }
     }
     if (await page.locator(this.enableToggle('off')).isChecked({timeout: 1500})) {
        if (carrierData.enable) {
-          await this.setChecked(page, this.enableToggle('on'));
+          await this.setChecked(page, this.enableToggle('on'), true, true);
        }
     }
 
