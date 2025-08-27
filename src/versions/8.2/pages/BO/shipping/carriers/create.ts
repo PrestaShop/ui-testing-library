@@ -105,11 +105,13 @@ class BOCarriersCreatePage extends BOCarriersCreatePageVersion implements BOCarr
     }*/
     if (await page.locator(this.freeShippingToggle('on')).isChecked({timeout: 1500})) {
         if (!carrierData.freeShipping) {
-            await this.setChecked(page, this.freeShippingToggle('off'), true);
+            //await this.setChecked(page, this.freeShippingToggle('off'), true);
+            await page.locator(this.freeShippingToggle('off')).click();
     }}
     if (await page.locator(this.freeShippingToggle('off')).isChecked({timeout: 1500})) {
         if (carrierData.freeShipping) {
-            await this.setChecked(page, this.freeShippingToggle('on'), true);
+            //await this.setChecked(page, this.freeShippingToggle('on'), true);
+            await page.locator(this.freeShippingToggle('on')).click();
     }}
 
 
@@ -118,11 +120,13 @@ class BOCarriersCreatePage extends BOCarriersCreatePageVersion implements BOCarr
     }*/
     if (await page.locator(this.addHandlingCostsToggle('on')).isChecked({timeout: 1500})) {
        if (!carrierData.handlingCosts) {
-           await this.setChecked(page, this.addHandlingCostsToggle('off'), true);
+           //await this.setChecked(page, this.addHandlingCostsToggle('off'), true);
+           await page.locator(this.addHandlingCostsToggle('off')).click();
     }}
     if (await page.locator(this.addHandlingCostsToggle('off')).isChecked({timeout: 1500})) {
        if (carrierData.handlingCosts) {
-           await this.setChecked(page, this.addHandlingCostsToggle('on'), true);
+           //await this.setChecked(page, this.addHandlingCostsToggle('on'), true);
+           await page.locator(this.addHandlingCostsToggle('on')).click();
     }}
 
     if (carrierData.billing === 'According to total price') {
@@ -224,12 +228,15 @@ class BOCarriersCreatePage extends BOCarriersCreatePageVersion implements BOCarr
     }*/
     if (await page.locator(this.enableToggle('on')).isChecked({timeout: 1500})) {
        if (!carrierData.enable) {
-          await this.setChecked(page, this.enableToggle('off'), true);
+          //await this.setChecked(page, this.enableToggle('off'), true);
+           await page.locator(this.enableToggle('off')).click();
        }
     }
     if (await page.locator(this.enableToggle('off')).isChecked({timeout: 1500})) {
        if (carrierData.enable) {
-          await this.setChecked(page, this.enableToggle('on'), true);
+          //await this.setChecked(page, this.enableToggle('on'), true);
+           await page.locator(this.enableToggle('on')).click();
+
        }
     }
 
