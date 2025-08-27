@@ -103,7 +103,7 @@ class BOCarriersCreatePage extends BOCarriersCreatePageVersion implements BOCarr
 /*    if (!carrierData.freeShipping) {
       await this.setChecked(page, this.freeShippingToggle(carrierData.freeShipping ? 'on' : 'off'));
     }*/
-      await page.locator(this.freeShippingToggle(carrierData.freeShipping ? 'on' : 'off')).click({ force: true, timeout: 1000});
+      await page.locator(this.freeShippingToggle(carrierData.freeShipping ? 'on' : 'off')).setChecked(true, {timeout: 1000});
 /*    if (await page.locator(this.freeShippingToggle('on')).isChecked({timeout: 1500})) {
         if (!carrierData.freeShipping) {
             //await this.setChecked(page, this.freeShippingToggle('off'), true);
@@ -119,7 +119,7 @@ class BOCarriersCreatePage extends BOCarriersCreatePageVersion implements BOCarr
 /*    if (!carrierData.handlingCosts) {
       await this.setChecked(page, this.addHandlingCostsToggle(carrierData.handlingCosts ? 'on' : 'off'));
     }*/
-      await page.locator(this.addHandlingCostsToggle(carrierData.handlingCosts ? 'on' : 'off')).click({ force: true, timeout: 1000});
+      await page.locator(this.addHandlingCostsToggle(carrierData.handlingCosts ? 'on' : 'off')).setChecked(true, {timeout: 1000});
 /*    if (await page.locator(this.addHandlingCostsToggle('on')).isChecked({timeout: 1500})) {
        if (!carrierData.handlingCosts) {
            //await this.setChecked(page, this.addHandlingCostsToggle('off'), true);
@@ -229,7 +229,7 @@ class BOCarriersCreatePage extends BOCarriersCreatePageVersion implements BOCarr
       await this.setChecked(page, this.enableToggle(carrierData.enable ? 'on' : 'off'));
     }*/
 
-      await page.locator(this.enableToggle(carrierData.enable ? 'on' : 'off')).click({ force: true, timeout: 1000});
+      await page.locator(this.enableToggle(carrierData.enable ? 'on' : 'off')).setChecked(true, {timeout: 1000});
 
 /*    if (await page.locator(this.enableToggle('on')).isChecked({timeout: 1500})) {
        if (!carrierData.enable) {
