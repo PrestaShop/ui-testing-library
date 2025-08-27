@@ -100,10 +100,10 @@ class BOCarriersCreatePage extends BOCarriersCreatePageVersion implements BOCarr
     await page.locator(this.nextButton).click();
 
     // Set shipping locations and costs
-      /*    if (!carrierData.freeShipping) {
+    if (!carrierData.freeShipping) {
       await this.setChecked(page, this.freeShippingToggle(carrierData.freeShipping ? 'on' : 'off'));
-    }*/
-    if (await page.locator(this.freeShippingToggle('on')).isChecked({timeout: 1500})) {
+    }
+/*    if (await page.locator(this.freeShippingToggle('on')).isChecked({timeout: 1500})) {
         if (!carrierData.freeShipping) {
             //await this.setChecked(page, this.freeShippingToggle('off'), true);
             await page.locator(this.freeShippingToggle('off')).click();
@@ -112,13 +112,13 @@ class BOCarriersCreatePage extends BOCarriersCreatePageVersion implements BOCarr
         if (carrierData.freeShipping) {
             //await this.setChecked(page, this.freeShippingToggle('on'), true);
             await page.locator(this.freeShippingToggle('on')).click();
-    }}
+    }}*/
 
 
-/*    if (!carrierData.handlingCosts) {
+    if (!carrierData.handlingCosts) {
       await this.setChecked(page, this.addHandlingCostsToggle(carrierData.handlingCosts ? 'on' : 'off'));
-    }*/
-    if (await page.locator(this.addHandlingCostsToggle('on')).isChecked({timeout: 1500})) {
+    }
+/*    if (await page.locator(this.addHandlingCostsToggle('on')).isChecked({timeout: 1500})) {
        if (!carrierData.handlingCosts) {
            //await this.setChecked(page, this.addHandlingCostsToggle('off'), true);
            await page.locator(this.addHandlingCostsToggle('off')).click();
@@ -127,7 +127,7 @@ class BOCarriersCreatePage extends BOCarriersCreatePageVersion implements BOCarr
        if (carrierData.handlingCosts) {
            //await this.setChecked(page, this.addHandlingCostsToggle('on'), true);
            await page.locator(this.addHandlingCostsToggle('on')).click();
-    }}
+    }}*/
 
     if (carrierData.billing === 'According to total price') {
       await page.locator(this.billingPriceRadioButton).click();
@@ -223,10 +223,10 @@ class BOCarriersCreatePage extends BOCarriersCreatePageVersion implements BOCarr
     await page.locator(this.nextButton).click();
 
     // Summary
-/*    if (!carrierData.enable) {
+    if (!carrierData.enable) {
       await this.setChecked(page, this.enableToggle(carrierData.enable ? 'on' : 'off'));
-    }*/
-    if (await page.locator(this.enableToggle('on')).isChecked({timeout: 1500})) {
+    }
+/*    if (await page.locator(this.enableToggle('on')).isChecked({timeout: 1500})) {
        if (!carrierData.enable) {
           //await this.setChecked(page, this.enableToggle('off'), true);
            await page.locator(this.enableToggle('off')).click();
@@ -238,7 +238,7 @@ class BOCarriersCreatePage extends BOCarriersCreatePageVersion implements BOCarr
            await page.locator(this.enableToggle('on')).click();
 
        }
-    }
+    }*/
 
     await page.locator(this.finishButton).click();
 
