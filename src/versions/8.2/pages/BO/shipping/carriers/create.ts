@@ -101,9 +101,9 @@ class BOCarriersCreatePage extends BOCarriersCreatePageVersion implements BOCarr
 
     // Set shipping locations and costs
     //await page.locator(this.freeShippingToggle(carrierData.freeShipping ? 'on' : 'off')).setChecked(true, {timeout: 2000});
-    await page.getByLabel(`shipping_handling_${carrierData.handlingCosts ? 'on' : 'off'}`).setChecked(true, {timeout: 1500});
+    await page.locator('input').getByLabel(`shipping_handling_${carrierData.handlingCosts ? 'on' : 'off'}`).setChecked(true, {timeout: 1500});
     //await page.locator(this.addHandlingCostsToggle(carrierData.handlingCosts ? 'on' : 'off')).setChecked(true, {timeout: 2000});
-    await page.getByLabel(`is_free_${carrierData.freeShipping ? 'on' : 'off'}`).setChecked(true, {timeout: 1500});
+    await page.locator('input').getByLabel(`is_free_${carrierData.freeShipping ? 'on' : 'off'}`).setChecked(true, {timeout: 1500});
 
     if (carrierData.billing === 'According to total price') {
       await page.locator(this.billingPriceRadioButton).click();
