@@ -209,14 +209,7 @@ class BOCarriersCreatePage extends BOCarriersCreatePageVersion implements BOCarr
     await page.locator(this.nextButton).click();
 
     // Summary
-    //await page.locator(this.enableToggle(carrierData.enable ? 'on' : 'off')).setChecked(true, {timeout: 1000});
-    // TODO here something is weird when enable data is true we have to click active_off !!! even if in DOM yes = active_on
-    if (carrierData.enable === true) {
-      await page.locator('input#active_off').click({force: true, timeout: 1500});
-    }
-    if (carrierData.enable === false) {
-      await page.locator('input#active_on').click({force: true, timeout: 1500});
-    }
+    await page.locator(this.enableToggle(carrierData.enable ? 'on' : 'off')).setChecked(true, {timeout: 1500});
     await page.locator(this.finishButton).click();
 
     // Return successful message
