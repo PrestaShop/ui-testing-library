@@ -210,13 +210,12 @@ class BOCarriersCreatePage extends BOCarriersCreatePageVersion implements BOCarr
 
     // Summary
     //await page.locator(this.enableToggle(carrierData.enable ? 'on' : 'off')).setChecked(true, {timeout: 1000});
-    if (carrierData.enable) {
+    if (carrierData.enable === true) {
       await page.locator('input#active_on').click({force: true, timeout: 1500});
     }
-    if (!carrierData.enable) {
+    if (carrierData.enable === false) {
       await page.locator('input#active_off').click({force: true, timeout: 1500});
     }
-
     await page.locator(this.finishButton).click();
 
     // Return successful message
