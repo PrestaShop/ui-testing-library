@@ -100,36 +100,8 @@ class BOCarriersCreatePage extends BOCarriersCreatePageVersion implements BOCarr
     await page.locator(this.nextButton).click();
 
     // Set shipping locations and costs
-/*    if (!carrierData.freeShipping) {
-      await this.setChecked(page, this.freeShippingToggle(carrierData.freeShipping ? 'on' : 'off'));
-    }*/
-      await page.locator(this.freeShippingToggle(carrierData.freeShipping ? 'on' : 'off')).setChecked(true, {timeout: 1000});
-/*    if (await page.locator(this.freeShippingToggle('on')).isChecked({timeout: 1500})) {
-        if (!carrierData.freeShipping) {
-            //await this.setChecked(page, this.freeShippingToggle('off'), true);
-            await page.locator(this.freeShippingToggle('off')).click();
-    }}
-    if (await page.locator(this.freeShippingToggle('off')).isChecked({timeout: 1500})) {
-        if (carrierData.freeShipping) {
-            //await this.setChecked(page, this.freeShippingToggle('on'), true);
-            await page.locator(this.freeShippingToggle('on')).click();
-    }}*/
-
-
-/*    if (!carrierData.handlingCosts) {
-      await this.setChecked(page, this.addHandlingCostsToggle(carrierData.handlingCosts ? 'on' : 'off'));
-    }*/
-      await page.locator(this.addHandlingCostsToggle(carrierData.handlingCosts ? 'on' : 'off')).setChecked(true, {timeout: 1000});
-/*    if (await page.locator(this.addHandlingCostsToggle('on')).isChecked({timeout: 1500})) {
-       if (!carrierData.handlingCosts) {
-           //await this.setChecked(page, this.addHandlingCostsToggle('off'), true);
-           await page.locator(this.addHandlingCostsToggle('off')).click();
-    }}
-    if (await page.locator(this.addHandlingCostsToggle('off')).isChecked({timeout: 1500})) {
-       if (carrierData.handlingCosts) {
-           //await this.setChecked(page, this.addHandlingCostsToggle('on'), true);
-           await page.locator(this.addHandlingCostsToggle('on')).click();
-    }}*/
+    await page.locator(this.freeShippingToggle(carrierData.freeShipping ? 'on' : 'off')).setChecked(true, {timeout: 2000});
+    await page.locator(this.addHandlingCostsToggle(carrierData.handlingCosts ? 'on' : 'off')).setChecked(true, {timeout: 2000});
 
     if (carrierData.billing === 'According to total price') {
       await page.locator(this.billingPriceRadioButton).click();
