@@ -102,17 +102,17 @@ class BOCarriersCreatePage extends BOCarriersCreatePageVersion implements BOCarr
     // Set shipping locations and costs
     //await page.locator(this.freeShippingToggle(carrierData.freeShipping ? 'on' : 'off')).setChecked(true, {timeout: 2000});
     if (carrierData.freeShipping) {
-      await page.locator('#is_free_on').setChecked(true, {force: true, timeout: 1500});
+      await page.locator('input#is_free_on').click({force: true, timeout: 1500});
     }
     if (!carrierData.freeShipping) {
-      await page.locator('#is_free_off').setChecked(true, {force: true, timeout: 1500});
+      await page.locator('input#is_free_off').click({force: true, timeout: 1500});
     }
     //await page.locator(this.addHandlingCostsToggle(carrierData.handlingCosts ? 'on' : 'off')).setChecked(true, {timeout: 2000});
     if (carrierData.handlingCosts) {
-      await page.locator('#shipping_handling_on').setChecked(true, {force: true, timeout: 1500});
+      await page.locator('input#shipping_handling_on').click({force: true, timeout: 1500});
     }
     if (!carrierData.handlingCosts) {
-      await page.locator('#shipping_handling_off').setChecked(true, {force: true, timeout: 1500});
+      await page.locator('input#shipping_handling_off').click({force: true, timeout: 1500});
     }
 
     if (carrierData.billing === 'According to total price') {
@@ -211,10 +211,10 @@ class BOCarriersCreatePage extends BOCarriersCreatePageVersion implements BOCarr
     // Summary
     //await page.locator(this.enableToggle(carrierData.enable ? 'on' : 'off')).setChecked(true, {timeout: 1000});
     if (carrierData.enable) {
-      await page.locator('#active_on').setChecked(true, {force: true, timeout: 1500});
+      await page.locator('input#active_on').click({force: true, timeout: 1500});
     }
     if (!carrierData.enable) {
-      await page.locator('#active_off').setChecked(true, {force: true, timeout: 1500});
+      await page.locator('input#active_off').click({force: true, timeout: 1500});
     }
 
     await page.locator(this.finishButton).click();
