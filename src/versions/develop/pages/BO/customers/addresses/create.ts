@@ -103,14 +103,15 @@ class BOAddressesCreatePage extends BOBasePage implements BOAddressesCreatePageI
   ): Promise<string|null> {
     if (await this.elementVisible(page, this.customerEmailInput, 2000)) {
       await this.setValue(page, this.customerEmailInput, addressData.email);
-      if ('keyboard' in page) {
+
+/*      if ('keyboard' in page) {
         await page.keyboard.press('Tab');
       }
       if ('waitForResponse' in page) {
-        await page.waitForResponse('**/sell/customers/customer-information**', {
+        await page.waitForResponse('**!/sell/customers/customer-information**', {
           timeout: 3000,
         });
-      }
+      }*/
     }
     await this.setValue(page, this.customerAddressdniInput, addressData.dni);
     await this.setValue(page, this.customerAddressAliasInput, addressData.alias);
