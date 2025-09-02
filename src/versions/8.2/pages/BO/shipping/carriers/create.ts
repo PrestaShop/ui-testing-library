@@ -101,9 +101,19 @@ class BOCarriersCreatePage extends BOCarriersCreatePageVersion implements BOCarr
 
     // Set shipping locations and costs
     //await page.locator(this.freeShippingToggle(carrierData.freeShipping ? 'on' : 'off')).setChecked(true, {timeout: 2000});
-    await page.getByRole('radio', {name: 'shipping_handling'}).getByLabel(`${carrierData.handlingCosts ? 'Yes' : 'No'}`).setChecked(true, {timeout: 1500});
+    if (carrierData.freeShipping) {
+      await page.locator('#is_free_on').setChecked(true, {timeout: 1500});
+    }
+    if (!carrierData.freeShipping) {
+      await page.locator('#is_free_off').setChecked(true, {timeout: 1500});
+    }
     //await page.locator(this.addHandlingCostsToggle(carrierData.handlingCosts ? 'on' : 'off')).setChecked(true, {timeout: 2000});
-    await page.getByRole('radio', {name: 'is_free'}).getByLabel(`${carrierData.freeShipping ? 'Yes' : 'No'}`).setChecked(true, {timeout: 1500});
+    if (carrierData.handlingCosts) {
+      await page.locator('#shipping_handling_on').setChecked(true, {timeout: 1500});
+    }
+    if (!carrierData.handlingCosts) {
+      await page.locator('#shipping_handling_off').setChecked(true, {timeout: 1500});
+    }
 
     if (carrierData.billing === 'According to total price') {
       await page.locator(this.billingPriceRadioButton).click();
@@ -200,7 +210,12 @@ class BOCarriersCreatePage extends BOCarriersCreatePageVersion implements BOCarr
 
     // Summary
     //await page.locator(this.enableToggle(carrierData.enable ? 'on' : 'off')).setChecked(true, {timeout: 1000});
-    await page.getByRole('radio', {name: 'active'}).getByLabel(`active_${carrierData.enable ? 'on' : 'off'}`).setChecked(true, {timeout: 1500});
+    if (carrierData.enable) {
+      await page.locator('#active_on').setChecked(true, {timeout: 1500});
+    }
+    if (!carrierData.enable) {
+      await page.locator('#active_off').setChecked(true, {timeout: 1500});
+    }
 
     await page.locator(this.finishButton).click();
 
