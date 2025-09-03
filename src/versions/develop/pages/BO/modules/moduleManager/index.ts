@@ -324,7 +324,7 @@ class ModuleManagerPage extends BOBasePage implements ModuleManagerPageInterface
 
     await this.waitForVisibleSelector(page, this.bulkActionsModal);
     await this.waitForSelectorAndClick(page, this.bulkActionsModalConfirmButton);
-    return this.getGrowlMessageContent(page);
+    return this.getGrowlMessageContent(page, 20000);
   }
 
   /**
