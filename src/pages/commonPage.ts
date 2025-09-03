@@ -317,6 +317,7 @@ export default class CommonPage implements CommonPageInterface {
    * @return {Promise<void>}
    */
   async dialogListener(page: Page, accept: boolean = true, text: string = ''): Promise<void> {
+    page.removeAllListeners?.('dialog');
     page.once('dialog', async (dialog) => {
       if (accept && text === '') {
         await dialog.accept();
