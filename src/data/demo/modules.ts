@@ -58,7 +58,7 @@ export default {
   psFacetedSearch: new FakerModule({
     tag: 'ps_facetedsearch',
     name: 'Faceted search',
-    versionCurrent: 'v4.0.0',
+    versionCurrent: 'v4.0.1',
     releaseZip: 'https://github.com/PrestaShop/ps_facetedsearch/releases/download/%version%/ps_facetedsearch.zip',
   }),
   psGdpr: new FakerModule({
