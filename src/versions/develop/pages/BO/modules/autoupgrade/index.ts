@@ -22,6 +22,8 @@ class Autoupgrade extends ModuleConfigurationPage implements ModuleAutoupgradeMa
 
   private readonly newVersionRadioButton: string;
 
+  private readonly newRecommendedVersionRadioButton: string;
+
   private readonly localArchiveRadioButton: string;
 
   private readonly radioCardArchive: string;
@@ -134,6 +136,7 @@ class Autoupgrade extends ModuleConfigurationPage implements ModuleAutoupgradeMa
     this.stepTitle = '.page__title';
     // 1 : version choose step
     this.newVersionRadioButton = '#online';
+    this.newRecommendedVersionRadioButton = '#online_recommended';
     this.localArchiveRadioButton = '#local';
     this.radioCardArchive = '#radio_card_archive div.radio-card__local-archive div';
     this.archiveZipSelect = '#archive_zip';
@@ -145,9 +148,9 @@ class Autoupgrade extends ModuleConfigurationPage implements ModuleAutoupgradeMa
     this.goToMaintenancePageLink = 'div.radio-card__check-requirements a[href*="AdminMaintenance"]';
     this.checkRequirementsButton = 'div.radio-card__check-requirements button'
       + '[data-action="check-requirements-again"]';
-    this.alertSuccessMessage = '.alert-success p.alert__message';
+    this.alertSuccessMessage = '.check-requirements--success';
     this.currentPSVersion = '#ua_step_content p.not-up-to-date__message';
-    this.newPsVersionCardTitle = '#radio_card_online p.radio-card__title';
+    this.newPsVersionCardTitle = 'p.radio-card__title';
     this.nextStepButton = '#ua_step_content div.page__buttons button';
     // 2 : Update options step
     this.updateProgressBar = '#ua_step_content div.log-progress__bar div[title*="100"]';
@@ -201,8 +204,12 @@ class Autoupgrade extends ModuleConfigurationPage implements ModuleAutoupgradeMa
    * @return {Promise<boolean}
    */
   async chooseNewVersion(page: Page): Promise<boolean> {
-    await page.locator(this.newVersionRadioButton).setChecked(true);
-    await this.waitForVisibleSelector(page, this.radioCardLoader('online'));
+    if (await this.elementVisible(page, this.newVersionRadioButton, 1000)) {
+      await page.locator(this.newVersionRadioButton).setChecked(true);
+      await this.waitForVisibleSelector(page, this.radioCardLoader('online'));
+    } else {
+      await page.locator(this.newRecommendedVersionRadioButton).setChecked(true);
+    }
     await this.waitForVisibleSelector(page, this.checkRequirementBlock, 100000);
 
     return this.elementVisible(page, this.checkRequirementsFailedAlerts, 2000);
@@ -235,13 +242,11 @@ class Autoupgrade extends ModuleConfigurationPage implements ModuleAutoupgradeMa
   /**
    * Check requirements
    * @param page {Page} Browser tab
-   * @param channel {string} Channel to use
    * @return {Promise<string}
    */
-  async checkRequirements(page: Page, channel: string = 'online'): Promise<boolean> {
+  async checkRequirements(page: Page): Promise<boolean> {
     await page.locator(this.checkRequirementsButton).click();
-    await this.waitForVisibleSelector(page, this.radioCardLoader(channel));
-    await this.waitForHiddenSelector(page, this.radioCardLoaderWrapper(channel), 50000);
+    await this.waitForVisibleSelector(page, this.alertSuccessMessage, 50000);
 
     return this.elementNotVisible(page, `${this.nextStepButton}[disabled='true']`, 2000);
   }

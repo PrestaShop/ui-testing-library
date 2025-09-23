@@ -9,7 +9,7 @@ export interface ModuleAutoupgradeMainPageInterface extends ModuleConfigurationP
   backupClickDeleteSelection(page: Page): Promise<boolean>;
   cancelBackup(page: Page): Promise<boolean>;
   cancelDeleteBackup(page: Page): Promise<boolean>
-  checkRequirements(page: Page, channel: string): Promise<boolean>;
+  checkRequirements(page: Page): Promise<boolean>;
   checkUpdateSuccess(page: Page): Promise<string>;
   chooseLocalArchive(page: Page, row: number): Promise<boolean>;
   chooseNewVersion(page: Page): Promise<boolean>;
