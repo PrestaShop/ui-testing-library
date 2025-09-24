@@ -11,7 +11,7 @@ export interface ModuleAutoupgradeMainPageInterface extends ModuleConfigurationP
   cancelDeleteBackup(page: Page): Promise<boolean>
   checkRequirements(page: Page): Promise<boolean>;
   checkUpdateSuccess(page: Page): Promise<string>;
-  chooseLocalArchive(page: Page, row: number): Promise<boolean>;
+  chooseLocalArchive(page: Page, psVersion: string): Promise<boolean>;
   chooseNewVersion(page: Page): Promise<boolean>;
   clickOnExitPostRestore(page: Page): Promise<void>;
   clickOnLaunchBackup(page: Page): Promise<boolean>;

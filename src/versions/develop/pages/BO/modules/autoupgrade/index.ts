@@ -218,13 +218,13 @@ class Autoupgrade extends ModuleConfigurationPage implements ModuleAutoupgradeMa
   /**
    * Choose local archive
    * @param page {Page} Browser tab
-   * @param row {number} The row of ps Version to use
+   * @param psVersion {string} The ps Version to use
    */
-  async chooseLocalArchive(page: Page, row: number): Promise<boolean> {
+  async chooseLocalArchive(page: Page, psVersion: string): Promise<boolean> {
     await page.locator(this.localArchiveRadioButton).setChecked(true);
     await this.waitForVisibleSelector(page, this.radioCardArchive);
-    await page.locator(this.archiveZipSelect).selectOption({index: row});
-    await page.locator(this.archiveXmlSelect).selectOption({index: row});
+    await this.selectByVisibleText(page, this.archiveZipSelect, `prestashop_${psVersion}.zip`);
+    await this.selectByVisibleText(page, this.archiveXmlSelect, `prestashop_${psVersion}.xml`);
     await this.waitForVisibleSelector(page, this.checkRequirementBlock, 100000);
 
     return this.elementVisible(page, this.checkRequirementsFailedAlerts, 2000);
@@ -246,7 +246,7 @@ class Autoupgrade extends ModuleConfigurationPage implements ModuleAutoupgradeMa
    */
   async checkRequirements(page: Page): Promise<boolean> {
     await page.locator(this.checkRequirementsButton).click();
-    await this.waitForVisibleSelector(page, this.alertSuccessMessage, 50000);
+    await this.waitForVisibleSelector(page, '.radio-card__check-requirements', 50000);
 
     return this.elementNotVisible(page, `${this.nextStepButton}[disabled='true']`, 2000);
   }
