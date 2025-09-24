@@ -757,7 +757,9 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
         await this.clickSubMenu(page, parentSelector);
         await this.scrollTo(page, linkSelector);
       }
-      await this.clickAndWaitForURL(page, linkSelector);
+      await this.clickAndWaitForURL(page, linkSelector, 'load', 120000, {
+        timeout: 120000,
+      });
       let linkActiveClass: string = '-active';
 
       // >= 1.7.8.0
@@ -782,7 +784,7 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
   async clickSubMenu(page: Page, parentSelector: string): Promise<void> {
     const openSelector = await this.isSidebarCollapsed(page) ? '.ul-open' : '.open';
 
-    if (await this.elementNotVisible(page, `${parentSelector}${openSelector}`, 1000)) {
+    if (await this.elementNotVisible(page, `${parentSelector}${openSelector}`, 5000)) {
       // open the block
       await this.scrollTo(page, parentSelector);
 
@@ -842,7 +844,7 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
 
       await this.waitForVisibleSelector(page, `${parentSelector}${openSelector}`);
     }
-    return this.elementVisible(page, linkSelector, 1000);
+    return this.elementVisible(page, linkSelector, 5000);
   }
 
   /**
