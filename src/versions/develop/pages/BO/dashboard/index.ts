@@ -151,12 +151,6 @@ class Dashboard extends BOBasePage implements DashboardPageInterface {
 
   private readonly helpCardDocumentTitle: string;
 
-  private readonly dialogUpdateNotification: string;
-
-  private readonly remindMeLaterButton: string;
-
-  private readonly remindMeLaterSevenDaysButton: string;
-
   /**
    * @constructs
    * Setting up titles and selectors to use on dashboard page
@@ -174,10 +168,6 @@ class Dashboard extends BOBasePage implements DashboardPageInterface {
     this.helpCardButton = '#toolbar-nav a.btn-help';
     this.helpCardDocument = '#help-container div.page-wrap';
     this.helpCardDocumentTitle = '#help-container section.article h1';
-    // Selectors of update dialog
-    this.dialogUpdateNotification = '#dialog-update-notification';
-    this.remindMeLaterButton = '#remin-me-later-update';
-    this.remindMeLaterSevenDaysButton = `${this.remindMeLaterButton} button[value='7_days']`;
     // Selectors of Products and sales block
     this.recentOrdersTitle = '#dash_recent_orders div.panel-heading';
     this.recentOrdersTable = '#table_recent_orders';
@@ -764,20 +754,6 @@ class Dashboard extends BOBasePage implements DashboardPageInterface {
    */
   async getHelpDocumentTitle(page: Page): Promise<string> {
     return this.getTextContent(page, this.helpCardDocumentTitle);
-  }
-
-  /**
-   * Close dialog update notification
-   * @param page {Page} Browser tab
-   * @returns {Promise<boolean>}
-   */
-  async closeDialogUpdateNotification(page: Page): Promise<boolean> {
-    if (await this.elementVisible(page, this.dialogUpdateNotification, 5000)) {
-      await page.locator(this.remindMeLaterButton).click();
-      await page.locator(this.remindMeLaterSevenDaysButton).click();
-    }
-
-    return this.elementNotVisible(page, this.dialogUpdateNotification, 5000);
   }
 }
 
