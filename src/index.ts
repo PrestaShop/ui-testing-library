@@ -463,6 +463,7 @@ export {default as foHummingbirdTermsAndConditionsOfUsePage} from '@pages/FO/hum
 
 // Export Modules
 export {default as modAutoupgradeBoMain} from '@pages/BO/modules/autoupgrade';
+export {default as modAutoupgradeBoModal} from '@pages/BO/modules/autoupgrade/modal';
 export {default as modBlockwishlistBoMain} from '@pages/BO/modules/blockwishlist';
 export {default as modBlockwishlistBoStatistics} from '@pages/BO/modules/blockwishlist/statistics';
 export {default as modContactFormBoMain} from '@pages/BO/modules/contactform';
