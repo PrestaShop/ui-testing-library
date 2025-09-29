@@ -40,7 +40,7 @@ class ThemeAndLogoPage extends BOThemeAndLogoBasePage implements BOThemeAndLogoP
 
     this.addNewThemeButton = '#page-header-desc-configuration-add';
     this.exportCurrentThemeButton = '#page-header-desc-configuration-export';
-    this.themeCardContainer = '#themes-logo-page .theme-card-container';
+    this.themeCardContainer = '#themes-logo-page .theme-card-container[data-theme-framework]';
     this.useSpecificThemeButton = (name: string) => `${this.themeCardContainer}[data-role="${name}"] `
       + 'button.js-display-use-theme-modal';
     this.removeSpecificThemeButton = (name: string) => `${this.themeCardContainer}[data-role="${name}"] `
