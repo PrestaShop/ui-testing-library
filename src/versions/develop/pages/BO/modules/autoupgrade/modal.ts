@@ -8,7 +8,6 @@ import {ModuleConfigurationPage} from '@versions/develop/pages/BO/modules/module
  * @extends ModuleConfiguration
  */
 class AutoupgradeModal extends ModuleConfigurationPage implements ModuleAutoupgradeModalPageInterface {
-
   private readonly dialogUpdateNotification: string;
 
   private readonly remindMeLaterButton: string;
@@ -81,7 +80,7 @@ class AutoupgradeModal extends ModuleConfigurationPage implements ModuleAutoupgr
    * @returns {Promise<Page}
    */
   async openUpdateLinkFromTheModal(page: Page): Promise<Page> {
-    return this.openLinkWithTargetBlank(page, this.updateLink, '.post-title')
+    return this.openLinkWithTargetBlank(page, this.updateLink, '.post-title');
   }
 
   /**
