@@ -37,7 +37,7 @@ class AutoupgradeModal extends ModuleConfigurationPage implements ModuleAutoupgr
     this.dialogNotificationSection = 'div.dialog-notification__section';
     this.updateLink = `${this.dialogNotificationSection}:nth-child(1) .dialog-notification__link`;
     this.supportLink = `${this.dialogNotificationSection}:nth-child(4) .dialog-notification__link`;
-    this.psVersionLink = `${this.dialogNotificationSection}.dialog-notification__section-content`;
+    this.psVersionLink = `${this.dialogNotificationSection}:nth-child(2) .dialog-notification__section-content`;
     this.updateButton = '.dialog-notification__button.btn-primary';
   }
 
