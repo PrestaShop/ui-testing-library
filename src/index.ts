@@ -87,6 +87,7 @@ export type {
 } from '@data/types/playwright';
 
 export {default as dataAddresses} from '@data/demo/addresses';
+export {default as dataAttributeTypes} from '@data/demo/attributeTypes';
 export {default as dataAttributes} from '@data/demo/attributes';
 export {default as dataBOPages} from '@data/demo/boPages';
 export {default as dataBrandAddresses} from '@data/demo/brandAdresses';
