@@ -1,10 +1,8 @@
 import FakerAttributeValue from '@data/faker/attributeValue';
+import dataAttributeTypes from '@data/demo/attributeTypes';
 import {type AttributeCreator} from '@data/types/attribute';
 
 import {faker} from '@faker-js/faker';
-
-const attributeTypes: string[] = ['Drop-down list', 'Radio buttons', 'Color or texture'];
-
 /**
  * Create new attribute to use on attribute form on BO
  * @class
@@ -60,7 +58,7 @@ export default class FakerAttribute {
     this.displayed = attributeToCreate.displayed === undefined ? true : attributeToCreate.displayed;
 
     /** @type {string} Type of the attribute 'Drop-down list'/'Radio buttons'/'Color or texture' */
-    this.attributeType = attributeToCreate.attributeType || faker.helpers.arrayElement(attributeTypes);
+    this.attributeType = attributeToCreate.attributeType || faker.helpers.arrayElement(Object.values(dataAttributeTypes));
 
     /** @type {FakerAttributeValue[]}  */
     this.values = attributeToCreate.values || [];
