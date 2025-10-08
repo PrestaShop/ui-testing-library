@@ -1,4 +1,6 @@
 import type FakerAttribute from '@data/faker/attribute';
+import type {BOAttributesCreatePageInterface} from '@interfaces/BO/catalog/attributes/createAttribute';
+import dataLanguages from '@data/demo/languages';
 import BOBasePage from '@pages/BO/BOBasePage';
 import {type Page} from '@playwright/test';
 
@@ -7,14 +9,14 @@ import {type Page} from '@playwright/test';
  * @class
  * @extends BOBasePage
  */
-class BOAttributesCreatePage extends BOBasePage {
+class BOAttributesCreatePage extends BOBasePage implements BOAttributesCreatePageInterface {
   public readonly createPageTitle: string;
 
   public readonly editPageTitle: (name: string) => string;
 
-  private readonly nameInput: string;
+  private readonly nameInput: (idLanguage: number) => string;
 
-  private readonly publicNameInput: string;
+  private readonly publicNameInput: (idLanguage: number) => string;
 
   private readonly urlInput: string;
 
@@ -37,8 +39,8 @@ class BOAttributesCreatePage extends BOBasePage {
     this.editPageTitle = (name: string) => `Editing attribute ${name} • ${global.INSTALL.SHOP_NAME}`;
 
     // Form selectors
-    this.nameInput = '#attribute_group_name_1';
-    this.publicNameInput = '#attribute_group_public_name_1';
+    this.nameInput = (idLanguage: number) => `#attribute_group_name_${idLanguage.toString()}`;
+    this.publicNameInput = (idLanguage: number) => `#attribute_group_public_name_${idLanguage.toString()}`;
     this.urlInput = '#attribute_group_url_name_1';
     this.metaTitleInput = '#attribute_group_meta_title_1';
     this.indexableToggle = (toggle: number) => `#attribute_group_is_indexable_${toggle}`;
@@ -57,8 +59,8 @@ class BOAttributesCreatePage extends BOBasePage {
    */
   async addEditAttribute(page: Page, attributeData: FakerAttribute): Promise<string> {
     // Set names
-    await this.setValue(page, this.nameInput, attributeData.name);
-    await this.setValue(page, this.publicNameInput, attributeData.publicName);
+    await this.setValue(page, this.nameInput(dataLanguages.english.id), attributeData.name);
+    await this.setValue(page, this.publicNameInput(dataLanguages.english.id), attributeData.publicName);
 
     // Set Url and meta title
     await this.setValue(page, this.urlInput, attributeData.url);
@@ -75,6 +77,25 @@ class BOAttributesCreatePage extends BOBasePage {
 
     // Return successful message
     return this.getAlertSuccessBlockParagraphContent(page);
+  }
+
+  /**
+   * Return input value
+   * @param page {Page}
+   * @param inputName {string}
+   * @param languageId {number | undefined}
+   */
+  async getValue(page: Page, inputName: string, languageId?: number): Promise<string> {
+    switch (inputName) {
+      case 'type':
+        return page.locator(this.attributeTypeSelect).evaluate((node: HTMLSelectElement) => node.value);
+      case 'names':
+        return page.inputValue(this.nameInput(languageId!));
+      case 'publicNames':
+        return page.inputValue(this.publicNameInput(languageId!));
+      default:
+        throw new Error(`Input ${inputName} was not found`);
+    }
   }
 }
 
