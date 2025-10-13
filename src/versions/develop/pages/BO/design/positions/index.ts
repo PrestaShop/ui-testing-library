@@ -226,6 +226,10 @@ class BODesignPositionsPage extends BOBasePage implements BODesignPositionsPageI
    * @returns {Promise<boolean>}
    */
   async getHookStatus(page: Page, hookRow: number): Promise<boolean> {
+    if (await page.locator(`${this.hookHeaderStatusInput(hookRow)}:checked`).count() === 0) {
+      return false;
+    }
+    // Get value of the check input
     const inputValue = await this.getAttributeContent(page, `${this.hookHeaderStatusInput(hookRow)}:checked`, 'value');
 
     // Return status=false if value='0' and true otherwise
