@@ -6,8 +6,9 @@ import type FakerProduct from '@data/faker/product';
 
 export interface BOProductsCreateTabShippingPageInterface extends BOBasePagePageInterface {
     clickOnEditDeliveryTimeLink(page: Page): Promise<Page>;
+    clearChoiceCarrier(page: Page): Promise<void>;
     getValue(page: Page, inputName: string, languageId?: string): Promise<string>;
-    selectAvailableCarrier(page: Page, carrier: string): Promise<void>;
+    selectAvailableCarrier(page: Page, carrierRow: number): Promise<void>;
     setAdditionalShippingCosts(page: Page, shippingCosts: number): Promise<void>;
     setDeliveryTime(page: Page, deliveryTime: string): Promise<void>;
     setDeliveryTimeInStockProducts(page: Page, numberOfDays: string): Promise<void>;

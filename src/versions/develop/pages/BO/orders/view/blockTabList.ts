@@ -9,6 +9,10 @@ import {ViewOrderBasePage} from '@versions/develop/pages/BO/orders/view/viewOrde
  * @extends ViewOrderBasePage
  */
 class BOProductBlockTabListPage extends ViewOrderBasePage implements BOProductBlockTabListPageInterface {
+  public readonly alertTextInSplitModal: string;
+
+  public readonly alertTextInMergeModal: string;
+
   private readonly successBadge: string;
 
   private readonly successBadgeNth: (id: number) => string;
@@ -16,6 +20,8 @@ class BOProductBlockTabListPage extends ViewOrderBasePage implements BOProductBl
   private readonly successBadgeGift: string;
 
   private readonly successBadgeReclyclable: string;
+
+  private readonly tabList: string;
 
   private readonly historyTabContent: string;
 
@@ -113,9 +119,65 @@ class BOProductBlockTabListPage extends ViewOrderBasePage implements BOProductBl
 
   private readonly merchandiseReturnsTableBody: string;
 
+  private readonly splitShipmentModal: string;
+
+  private readonly splitShipmentCarrierSelect: string;
+
+  private readonly splitShipmentSubmitButton: string;
+
+  private readonly splitShipmentFormContainer: string;
+
+  private readonly mergeShipmentFormContainer: string;
+
+  private readonly mergeShipmentCarrierSelect: string;
+
+  private readonly mergeShipmentSubmitButton: string;
+
+  private readonly mergeShipmentModal: string;
+
+  private readonly mergeShipmentWarningMessage: string;
+
+  private readonly splitShipmentWarningMessage: string;
+
+  private readonly mergeShipmentCloseButton: string;
+
+  private readonly splitShipmentCloseButton: string;
+
+  private readonly editShipmentModal: string;
+
+  private readonly editShipmentSubmitButton: string;
+
+  private readonly editShipmentCarrierSelect: string;
+
+  private readonly editShipmentTrackingNumberInput: string;
+
   private readonly merchandiseReturnsTableRow: (row: number) => string;
 
   private readonly merchandiseReturnsTableColumn: (row: number, column: string) => string;
+
+  private readonly shipmentsTab: string;
+
+  private readonly shipmentTableRow: (row: number) => string;
+
+  private readonly shipmentTableActionColumn: (row: number) => string;
+
+  private readonly shipmentTableDropdownLink: (row: number) => string;
+
+  private readonly shipmentMergeButton: (row: number) => string;
+
+  private readonly editShipmentLink: (row: number) => string;
+
+  private readonly shipmentSplitButton: (row: number) => string;
+
+  private readonly splitShipmentProductCheckbox: (row: number) => string;
+
+  private readonly splitShipmentQuantityInput: (row: number) => string;
+
+  private readonly shipmentTableShipmentNumber: (row: number) => string;
+
+  private readonly shipmentTableTrackingNumber: (row: number) => string;
+
+  private readonly mergeShipmentProductCheckbox: (row: number) => string;
 
   /**
    * @constructs
@@ -128,6 +190,12 @@ class BOProductBlockTabListPage extends ViewOrderBasePage implements BOProductBl
     this.successBadgeNth = (id: number) => `${this.successBadge}:nth-child(${id + 3})`;
     this.successBadgeGift = `${this.successBadge}[data-badge="gift"]`;
     this.successBadgeReclyclable = `${this.successBadge}[data-badge="recyclable"]`;
+    this.alertTextInSplitModal = 'This shipment can\'t be modified because a tracking number has already been assigned,'
+      + ' indicating that it has already been shipped.';
+    this.alertTextInMergeModal = 'This shipment can\'t be merged because a tracking number has already been assigned,'
+      + ' indicating that it has already been shipped.';
+
+    this.tabList = '.nav-tabs[role="tablist"]';
 
     // Status tab
     this.historyTabContent = '#historyTabContent';
@@ -187,11 +255,50 @@ class BOProductBlockTabListPage extends ViewOrderBasePage implements BOProductBl
     this.merchandiseReturnsTableRow = (row: number) => `${this.merchandiseReturnsTableBody} tr:nth-child(${row})`;
     this.merchandiseReturnsTableColumn = (row: number, column: string) => `${this.merchandiseReturnsTableRow(row)}`
       + ` td[data-role='merchandise-${column}']`;
+
+    // SHipments tab
+    this.shipmentsTab = '#orderShipmentsTab';
+    this.shipmentTableRow = (row: number) => `#shipment_grid_table tr:nth-child(${row})`;
+    this.shipmentTableActionColumn = (row: number) => `${this.shipmentTableRow(row)} td.column-actions`;
+    this.shipmentTableDropdownLink = (row: number) => `${this.shipmentTableActionColumn(row)} div.dropdown`;
+    this.shipmentMergeButton = (row: number) => `${this.shipmentTableActionColumn(row)} a[data-target="#mergeShipmentModal"]`;
+    this.editShipmentLink = (row: number) => `${this.shipmentTableActionColumn(row)} a.js-update-shipping-btn`;
+    this.shipmentSplitButton = (row: number) => `${this.shipmentTableActionColumn(row)} a[data-show-modal="split-shipment"]`;
+    this.splitShipmentModal = '#splitShipmentModal';
+    this.splitShipmentProductCheckbox = (row: number) => `#split_shipment_products_${row}_selected`;
+    this.splitShipmentQuantityInput = (row: number) => `#split_shipment_products_${row}_selected_quantity`;
+    this.splitShipmentCarrierSelect = '#split_shipment_carrier';
+    this.splitShipmentSubmitButton = 'button[id="submitSplitShipment"]';
+    this.splitShipmentFormContainer = '#splitShipmentFormContainer';
+    this.mergeShipmentFormContainer = '#mergeShipmentFormContainer';
+    this.shipmentTableShipmentNumber = (row: number) => `${this.shipmentTableRow(row)} td.column-shipment_number`;
+    this.shipmentTableTrackingNumber = (row: number) => `${this.shipmentTableRow(row)} td.column-tracking_number`;
+    this.mergeShipmentProductCheckbox = (row: number) => `table.shipment-form__table tr:nth-child(${row})`
+      + ' input[id*="merge_shipment_product"]';
+    this.mergeShipmentCarrierSelect = '#merge_shipment_merge_to_shipment';
+    this.mergeShipmentSubmitButton = 'button[id*="submitMergeShipment"]';
+    this.mergeShipmentModal = '#mergeShipmentModal';
+    this.mergeShipmentWarningMessage = '#merge_shipment div.alert-warning p.alert-text';
+    this.splitShipmentWarningMessage = '#split_shipment div.alert-warning p.alert-text';
+    this.mergeShipmentCloseButton = `${this.mergeShipmentModal} div.modal-header button.close`;
+    this.splitShipmentCloseButton = `${this.splitShipmentModal} div.modal-header button.close`;
+    this.editShipmentModal = '#editShipmentModal';
+    this.editShipmentSubmitButton = '#submitEditShipment';
+    this.editShipmentCarrierSelect = '#edit_shipment_carrier';
+    this.editShipmentTrackingNumberInput = '#edit_shipment_tracking_number';
   }
 
   /*
   Methods
    */
+  /**
+   * Get tab name
+   * @param page {Page} Browser tab
+   * @param tabId {number} Tab ID
+   */
+  async getTabName(page: Page, tabId: number): Promise<string> {
+    return this.getTextContent(page, `${this.tabList} li:nth-child(${tabId})`);
+  }
 
   /**
    * Get success badges
@@ -522,7 +629,6 @@ class BOProductBlockTabListPage extends ViewOrderBasePage implements BOProductBl
     return this.downloadDocument(page, 3);
   }
 
-  // Methods for carriers tab
   /**
    * Get carriers number
    * @param page {Page} Browser tab
@@ -662,6 +768,228 @@ class BOProductBlockTabListPage extends ViewOrderBasePage implements BOProductBl
       status: await this.getTextContent(page, this.merchandiseReturnsTableColumn(row, 'return-state')),
       number: await this.getTextContent(page, this.merchandiseReturnsTableColumn(row, 'return-id')),
     };
+  }
+
+  // Methods for shipments tab
+  /**
+   * Go to shipments tab
+   * @param page {Page} Browser tab
+   * @returns {Promise<boolean>}
+   */
+  async goToShipmentsTab(page: Page): Promise<boolean> {
+    await page.locator(this.shipmentsTab).click();
+    return this.elementVisible(page, `${this.shipmentsTab}.active`, 1000);
+  }
+
+  /**
+   * Click on split link
+   * @param page {Page} Browser tab
+   * @param row {number} Row in the list
+   * @returns {Promise<boolean>}
+   */
+  async clickOnSplitLink(page: Page, row: number): Promise<boolean> {
+    await this.waitForSelectorAndClick(page, this.shipmentTableDropdownLink(row));
+    await this.waitForSelectorAndClick(page, this.shipmentSplitButton(row));
+
+    return this.elementVisible(page, this.splitShipmentModal, 2000);
+  }
+
+  /**
+   * Select product and quantity in split shipment modal
+   * @param page {Page} Browser tab
+   * @param row {number} Row in the list
+   * @param quantity {number} Quantity of product
+   * @returns {Promise<void>}
+   */
+  async selectProductAndQuantityInSplitShipment(page: Page, row: number, quantity: number = 1): Promise<void> {
+    await page.locator(this.splitShipmentProductCheckbox(row - 1)).check();
+    await this.setValue(page, this.splitShipmentQuantityInput(row - 1), quantity);
+    await this.waitForVisibleSelector(page, `${this.splitShipmentModal}[data-state="loading"]`, 2000);
+    await this.waitForVisibleSelector(page, `${this.splitShipmentModal}[data-state="loaded"]`, 2000);
+  }
+
+  /**
+   * Unselect product in split shipment modal
+   * @param page {Page} Browser tab
+   * @param row {number} Row in the list
+   * @returns {Promise<void>}
+   */
+  async unselectProductInSplitShipment(page: Page, row: number): Promise<void> {
+    await this.setChecked(page, this.splitShipmentProductCheckbox(row - 1), false);
+  }
+
+  /**
+   * Select carrier in split shipment modal
+   * @param page {Page} Browser tab
+   * @param carrier {string} Carrier name to select
+   * @returns {Promise<number>}
+   */
+  async selectCarrierInSplitShipment(page: Page, carrier: string): Promise<number> {
+    await page.locator(this.splitShipmentCarrierSelect).selectOption({label: carrier});
+
+    return page.locator(`${this.splitShipmentSubmitButton}[disabled]`).count();
+  }
+
+  /**
+   * Get list of carriers in split shipment modal
+   * @param page {Page} Browser tab
+   * @returns {Promise<string>}
+   */
+  async getListOfCarriersInSplitShipment(page: Page): Promise<string> {
+    return this.getTextContent(page, this.splitShipmentCarrierSelect, false);
+  }
+
+  /**
+   * Click on split shipment button
+   * @param page {Page} Browser tab
+   * @returns {Promise<boolean>}
+   */
+  async clickOnSplitShipmentButton(page: Page): Promise<boolean> {
+    await page.locator(this.splitShipmentSubmitButton).click();
+
+    return this.elementNotVisible(page, this.splitShipmentFormContainer, 2000);
+  }
+
+  /**
+   * Click on merge link
+   * @param page {Page} Browser tab
+   * @param row {number} Row in the list
+   * @returns {Promise<boolean>}
+   */
+  async clickOnMergeLink(page: Page, row: number): Promise<boolean> {
+    await this.waitForSelectorAndClick(page, this.shipmentTableDropdownLink(row));
+    await this.waitForSelectorAndClick(page, this.shipmentMergeButton(row));
+
+    return this.elementVisible(page, this.mergeShipmentFormContainer, 2000);
+  }
+
+  /**
+   * Get shipment number
+   * @param page {Page} Browser tab
+   * @param row {number} Row in the list
+   * @returns {Promise<number>}
+   */
+  async getShipmentNumber(page: Page, row: number): Promise<number> {
+    return parseInt(await this.getTextContent(page, this.shipmentTableShipmentNumber(row)), 10);
+  }
+
+  /**
+   * Select product in merge shipment modal
+   * @param page {Page} Browser tab
+   * @param row {number} Row in the list
+   * @returns {Promise<void>}
+   */
+  async selectProductInMergeShipment(page: Page, row: number = 1): Promise<void> {
+    await page.locator(this.mergeShipmentProductCheckbox(row)).check();
+  }
+
+  /**
+   * Select carrier in merge shipment modal
+   * @param page {Page} Browser tab
+   * @param carrier {string} The carrier name to select
+   * @returns {Promise<boolean>}
+   */
+  async selectCarrierInMergeShipment(page: Page, carrier: string): Promise<boolean> {
+    await page.locator(this.mergeShipmentCarrierSelect).selectOption({label: carrier});
+
+    return this.elementNotVisible(page, `${this.mergeShipmentSubmitButton}[disabled]`);
+  }
+
+  /**
+   * Click on merge shipment button
+   * @param page {Page} Browser tab
+   * @returns {Promise<boolean>}
+   */
+  async clickOnMergeShipmentButton(page: Page): Promise<boolean> {
+    await page.locator(this.mergeShipmentSubmitButton).click();
+
+    return this.elementNotVisible(page, this.mergeShipmentModal, 2000);
+  }
+
+  /**
+   * Click on edit shipment link
+   * @param page {Page} Browser tab
+   * @param row {number} Row of shipment to edit from the table
+   * @returns {Promise<boolean>}
+   */
+  async clickOnEditShipmentLink(page: Page, row: number): Promise<boolean> {
+    await page.locator(this.editShipmentLink(row)).click();
+
+    return this.elementVisible(page, this.editShipmentModal, 2000);
+  }
+
+  /**
+   * Edit shipment
+   * @param page {Page} Browser tab
+   * @param trackingNumber {string} Tracking number to set in the input
+   * @param carrier {string} Carrier name to set in the input
+   * @returns {Promise<boolean>}
+   */
+  async editShipment(page: Page, trackingNumber: string, carrier: string): Promise<boolean> {
+    await page.locator(this.editShipmentTrackingNumberInput).fill(trackingNumber);
+    await page.locator(this.editShipmentCarrierSelect).selectOption({label: carrier});
+    await page.locator(this.editShipmentSubmitButton).click();
+
+    return this.elementNotVisible(page, this.editShipmentModal, 2000);
+  }
+
+  /**
+   * Get tracking number from the shipping table
+   * @param page {Page} Browser tab
+   * @param row {number} Row of shipment to edit from the table
+   * @returns {Promise<string>}
+   */
+  async getTrackingNumber(page: Page, row: number): Promise<string> {
+    return this.getTextContent(page, this.shipmentTableTrackingNumber(row));
+  }
+
+  /**
+   * Get alert test from split modal
+   * @param page {Page} Browser tab
+   * @returns {Promise<string>}
+   */
+  async getAlertTextFromSplitModal(page: Page): Promise<string> {
+    return this.getTextContent(page, this.splitShipmentWarningMessage);
+  }
+
+  /**
+   * Close split modal
+   * @param page {Page} Browser tab
+   * @returns {Promise<boolean>}
+   */
+  async closeSplitModal(page: Page): Promise<boolean> {
+    await page.locator(this.splitShipmentCloseButton).click();
+
+    return this.elementNotVisible(page, this.splitShipmentModal, 2000);
+  }
+
+  /**
+   * Check carrier status in merge table
+   * @param page {Page} Browser tab
+   * @returns {Promise<number>}
+   */
+  async checkCarrierStatusInMergeModal(page: Page): Promise<number> {
+    return page.locator(`${this.mergeShipmentCarrierSelect} option[disabled]`).count();
+  }
+
+  /**
+   * Close merge modal
+   * @param page {Page} Browser tab
+   * @returns {Promise<boolean>}
+   */
+  async closeMergeModal(page: Page): Promise<boolean> {
+    await page.locator(this.mergeShipmentCloseButton).click();
+
+    return this.elementNotVisible(page, this.mergeShipmentModal, 2000);
+  }
+
+  /**
+   * Get alert text from merge modal
+   * @param page {Page} Browser tab
+   * @returns {Promise<string>}
+   */
+  async getAlertTextFromMergeModal(page: Page): Promise<string> {
+    return this.getTextContent(page, this.mergeShipmentWarningMessage);
   }
 }
 
