@@ -38,14 +38,16 @@ class ShippingTab extends BOBasePage implements BOProductsCreateTabShippingPageI
 
   private readonly allCarriersSelect: string;
 
+  private readonly clearChoiceCarrierButton: string;
+
   private readonly availableCarrierCheckboxButton: (carrierID: number) => string;
 
   private readonly deliveryTimeType: (type: number) => string;
 
   /**
-     * @constructs
-     * Setting up texts and selectors to use on Shipping tab
-     */
+   * @constructs
+   * Setting up texts and selectors to use on Shipping tab
+   */
   constructor() {
     super();
 
@@ -67,19 +69,20 @@ class ShippingTab extends BOBasePage implements BOProductsCreateTabShippingPageI
     this.productAdditionalShippingCostInput = '#product_shipping_additional_shipping_cost';
     this.productDeliveryTimeInput = 'input[name="product[shipping][delivery_time_note_type]"]';
     this.allCarriersSelect = '#carrier-checkboxes-dropdown button';
+    this.clearChoiceCarrierButton = 'button.carrier-choices-clear';
     this.availableCarrierCheckboxButton = (carrierID: number) => '#carrier-checkboxes-dropdown'
-            + ` div:nth-child(${carrierID}).md-checkbox label div`;
+      + ` div:nth-child(${carrierID}).md-checkbox label div`;
   }
 
   /*
     Methods
      */
   /**
-     * Set package dimension
-     * @param page {Page} Browser tab
-     * @param productData {FakerProduct} Data to set in package dimension form
-     * @returns {Promise<void>}
-     */
+   * Set package dimension
+   * @param page {Page} Browser tab
+   * @param productData {FakerProduct} Data to set in package dimension form
+   * @returns {Promise<void>}
+   */
   async setPackageDimension(page: Page, productData: FakerProduct): Promise<void> {
     await this.waitForSelectorAndClick(page, this.shippingTabLink);
     await this.setValue(page, this.productDimensionsWidthInput, productData.packageDimensionWidth);
@@ -89,11 +92,11 @@ class ShippingTab extends BOBasePage implements BOProductsCreateTabShippingPageI
   }
 
   /**
-     * Set delivery time
-     * @param page {Page} Browser tab
-     * @param deliveryTime {string} Delivery time value to check
-     * @returns {Promise<void>}
-     */
+   * Set delivery time
+   * @param page {Page} Browser tab
+   * @param deliveryTime {string} Delivery time value to check
+   * @returns {Promise<void>}
+   */
   async setDeliveryTime(page: Page, deliveryTime: string): Promise<void> {
     switch (deliveryTime) {
       case 'None':
@@ -111,77 +114,71 @@ class ShippingTab extends BOBasePage implements BOProductsCreateTabShippingPageI
   }
 
   /**
-     * Set delivery time in stock
-     * @param page {Page} Browser tab
-     * @param numberOfDays {string} Number of days of delivery
-     * @returns {Promise<void>}
-     */
+   * Set delivery time in stock
+   * @param page {Page} Browser tab
+   * @param numberOfDays {string} Number of days of delivery
+   * @returns {Promise<void>}
+   */
   async setDeliveryTimeInStockProducts(page: Page, numberOfDays: string): Promise<void> {
     await this.setValue(page, this.deliveryTimeInStockProducts, numberOfDays);
   }
 
   /**
-     * Set delivery time out of stock
-     * @param page {Page} Browser tab
-     * @param numberOfDays {string} Number of days of delivery
-     * @returns {Promise<void>}
-     */
+   * Set delivery time out of stock
+   * @param page {Page} Browser tab
+   * @param numberOfDays {string} Number of days of delivery
+   * @returns {Promise<void>}
+   */
   async setDeliveryTimeOutOfStockProducts(page: Page, numberOfDays: string): Promise<void> {
     await this.setValue(page, this.deliveryTimeOutOfStockProducts, numberOfDays);
   }
 
   /**
-     * Click on edit delivery time link
-     * @param page {Page} Browser tab
-     * @returns {Promise<Page>}
-     */
+   * Click on edit delivery time link
+   * @param page {Page} Browser tab
+   * @returns {Promise<Page>}
+   */
   async clickOnEditDeliveryTimeLink(page: Page): Promise<Page> {
     return this.openLinkWithTargetBlank(page, this.editDeliveryTimeLink);
   }
 
   /**
-     * Set additional shipping costs
-     * @param page {Page} Browser tab
-     * @param shippingCosts {number} Shipping cost
-     * @returns {Promise<void>}
-     */
+   * Set additional shipping costs
+   * @param page {Page} Browser tab
+   * @param shippingCosts {number} Shipping cost
+   * @returns {Promise<void>}
+   */
   async setAdditionalShippingCosts(page: Page, shippingCosts: number): Promise<void> {
     await this.waitForSelectorAndClick(page, this.shippingTabLink);
     await this.setValue(page, this.productAdditionalShippingCostInput, shippingCosts);
   }
 
   /**
-     * Select available carrier
-     * @param page {Page} Browser tab
-     * @param carrier {string} Carrier to choose
-     * @returns {Promise<void>}
-     */
-  async selectAvailableCarrier(page: Page, carrier: string): Promise<void> {
-    await this.waitForSelectorAndClick(page, this.allCarriersSelect);
-    switch (carrier) {
-      case 'Click and collect':
-        await this.setChecked(page, this.availableCarrierCheckboxButton(1));
-        break;
-      case 'My cheap carrier':
-        await this.setChecked(page, this.availableCarrierCheckboxButton(2));
-        break;
-      case 'My carrier':
-        await this.setChecked(page, this.availableCarrierCheckboxButton(3));
-        break;
-      case 'My light carrier':
-        await this.setChecked(page, this.availableCarrierCheckboxButton(4));
-        break;
-      default:
-        throw new Error(`${carrier} was not found`);
-    }
+   * Select available carrier
+   * @param page {Page} Browser tab
+   * @param carrierRow {string} Carrier to choose
+   * @returns {Promise<void>}
+   */
+  async selectAvailableCarrier(page: Page, carrierRow: number): Promise<void> {
+    await page.locator(this.allCarriersSelect).click();
+    await this.setChecked(page, this.availableCarrierCheckboxButton(carrierRow));
   }
 
   /**
-     * Returns the value of a form element
-     * @param page {Page}
-     * @param inputName {string}
-     * @param languageId {string | undefined}
-     */
+   * Clear choice carrier
+   * @param page {Page} Browser tab
+   * @returns {Promise<void>}
+   */
+  async clearChoiceCarrier(page: Page): Promise<void> {
+    await page.locator(this.clearChoiceCarrierButton).click();
+  }
+
+  /**
+   * Returns the value of a form element
+   * @param page {Page}
+   * @param inputName {string}
+   * @param languageId {string | undefined}
+   */
   async getValue(page: Page, inputName: string, languageId?: string): Promise<string> {
     switch (inputName) {
       case 'additional_delivery_times':

@@ -684,7 +684,11 @@ class BOOrderCreatePage extends BOBasePage implements BOOrdersCreatePageInterfac
     await this.waitForVisibleSelector(page, this.addProductToCartForm);
 
     // Fill add product form
-    await this.selectByVisibleText(page, this.productResultsSelect, productToSelect);
+    if (productToSearch.type === 'standard') {
+      await page.locator(this.productResultsSelect).selectOption({label: `${productToSelect} - €${productToSearch.finalPrice}`});
+    } else {
+      await page.locator(this.productResultsSelect).selectOption({label: productToSelect});
+    }
     if (await this.elementVisible(page, this.productCustomInput, 1000)) {
       await this.setValue(page, this.productCustomInput, customizedValue);
     }
@@ -880,7 +884,7 @@ class BOOrderCreatePage extends BOBasePage implements BOOrdersCreatePageInterfac
    * @param row {number} Row on vouchers table
    * @returns {Promise<{name: string, description: string, value: number}>}
    */
-  async getVoucherDetailsFromTable(page: Page, row: number = 1): Promise<{name: string, description: string, value: number}> {
+  async getVoucherDetailsFromTable(page: Page, row: number = 1): Promise<{ name: string, description: string, value: number }> {
     return {
       name: await this.getTextContent(page, this.vouchersTableColumn('name', row)),
       description: await this.getTextContent(page, this.vouchersTableColumn('description', row)),
@@ -1032,6 +1036,15 @@ class BOOrderCreatePage extends BOBasePage implements BOOrdersCreatePageInterfac
   }
 
   /**
+   * Get delivery options
+   * @param page {Page} Browser tab
+   * @returns {Promise<string>}
+   */
+  async getDeliveryOptions(page: Page): Promise<string> {
+    return this.getTextContent(page, this.deliveryOptionSelect);
+  }
+
+  /**
    * Fill delivery option form
    * @param page {Page} Browser tab
    * @param deliveryOptionName {string} Delivery option name to choose
@@ -1039,7 +1052,7 @@ class BOOrderCreatePage extends BOBasePage implements BOOrdersCreatePageInterfac
    * @returns {Promise<string>}
    */
   async setDeliveryOption(page: Page, deliveryOptionName: string, isFreeShipping: boolean = false): Promise<string> {
-    await this.selectByVisibleText(page, this.deliveryOptionSelect, deliveryOptionName);
+    await page.locator(this.deliveryOptionSelect).selectOption({label: deliveryOptionName});
     await page.waitForTimeout(1000);
     await this.setFreeShipping(page, isFreeShipping);
     if (isFreeShipping) {
