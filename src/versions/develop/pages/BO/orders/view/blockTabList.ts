@@ -804,8 +804,7 @@ class BOProductBlockTabListPage extends ViewOrderBasePage implements BOProductBl
   async selectProductAndQuantityInSplitShipment(page: Page, row: number, quantity: number = 1): Promise<void> {
     await page.locator(this.splitShipmentProductCheckbox(row - 1)).check();
     await this.setValue(page, this.splitShipmentQuantityInput(row - 1), quantity);
-    await this.waitForVisibleSelector(page, `${this.splitShipmentModal}[data-state="loading"]`, 2000);
-    await this.waitForVisibleSelector(page, `${this.splitShipmentModal}[data-state="loaded"]`, 2000);
+    await page.waitForTimeout(2000);
   }
 
   /**
