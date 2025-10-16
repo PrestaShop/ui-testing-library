@@ -682,13 +682,7 @@ class BOOrderCreatePage extends BOBasePage implements BOOrdersCreatePageInterfac
     // Search product
     await this.setValue(page, this.productSearchInput, productToSearch.name);
     await this.waitForVisibleSelector(page, this.addProductToCartForm);
-
-    // Fill add product form
-    if (productToSearch.type === 'standard') {
-      await page.locator(this.productResultsSelect).selectOption({label: `${productToSelect} - €${productToSearch.finalPrice}`});
-    } else {
-      await page.locator(this.productResultsSelect).selectOption({label: productToSelect});
-    }
+    await page.locator(this.productResultsSelect).selectOption({label: productToSelect});
     if (await this.elementVisible(page, this.productCustomInput, 1000)) {
       await this.setValue(page, this.productCustomInput, customizedValue);
     }
