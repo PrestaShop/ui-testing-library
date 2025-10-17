@@ -25,7 +25,6 @@ class DashboardPage extends DashboardPageVersion implements DashboardPageInterfa
     this.ordersParentLink = 'li#maintab-AdminParentOrders';
     // Shipping
     this.shippingLink = '#maintab-AdminParentShipping';
-    this.carriersLink = '#subtab-AdminCarriers';
   }
 }
 

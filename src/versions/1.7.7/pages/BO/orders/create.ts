@@ -55,29 +55,6 @@ class BOOrderCreatePage extends BOOrderCreatePageVersion implements BOOrdersCrea
     }
 
     /**
-     * Choose addresses in form
-     * @param page {Page} Browser tab
-     * @param deliveryAddress {string} Delivery address to choose
-     * @param invoiceAddress {string} Invoice address to choose
-     * @returns {Promise<void>}
-     */
-    async chooseAddresses(page: Page, deliveryAddress: string, invoiceAddress: string): Promise<void> {
-        console.log(deliveryAddress);
-        await this.selectByVisibleText(page, this.deliveryAddressSelect, deliveryAddress);
-        await this.selectByVisibleText(page, this.invoiceAddressSelect, invoiceAddress);
-    }
-
-    /**
-     * Set payment method
-     * @param page {Page} Browser tab
-     * @param paymentMethodModuleName {string} Payment method to choose
-     * @returns {Promise<void>}
-     */
-    async setPaymentMethod(page: Page, paymentMethodModuleName: string): Promise<void> {
-        await page.locator(this.paymentMethodSelect).selectOption(paymentMethodModuleName);
-    }
-
-    /**
      * Set payment method
      * @param page {Page} Browser tab
      * @param paymentMethodModuleName {string} Payment method to choose

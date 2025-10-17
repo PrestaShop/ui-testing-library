@@ -1,3 +1,4 @@
+import ImportContent from '@data/types/localization';
 import {type BOLocalizationPageInterface} from '@interfaces/BO/international/localization';
 import {BOLocalizationPage as BOLocalizationPageVersion} from '@versions/1.7.7/pages/BO/international/localization';
 import type {Page} from 'playwright';
@@ -14,16 +15,10 @@ class BOLocalizationPage extends BOLocalizationPageVersion implements BOLocaliza
      */
   constructor() {
     super();
-        // Import localization pack selectors
-        this.importlocalizationPackSelect = '#iso_localization_pack';
-        this.importStatesCheckbox = '#selection[]_states';
-        this.importTaxesCheckbox = '#selection[]_taxes';
-        this.importCurrenciesCheckbox = '#selection[]_currencies';
-        this.importLanguagesCheckbox = '#selection[]_languages';
-        this.importUnitsCheckbox = '#selection[]_units';
-        this.updatepriceDisplayForGroupsCHeckbox = '#selection[]_groups';
-        this.downloadPackDataToggleInput = (toggle: number) => `#download_updated_pack_${toggle}`;
-        this.importButton = 'button.btn.btn-primary:has-text("Import")';
+
+    // Import localization pack selectors
+    this.downloadPackDataToggleInput = (toggle: string | number) => `#download_updated_pack_${toggle}`;
+    this.importButton = 'button.btn.btn-primary:has-text("Import")';
   }
 
   /* Methods */

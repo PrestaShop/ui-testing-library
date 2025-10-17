@@ -751,15 +751,17 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
 
     if (semver.lt(shopVersion, '7.4.0')) {
       await page.hover(parentSelector);
-      await this.clickAndWaitForURL(page, linkSelector);
+      //await this.clickAndWaitForURL(page, linkSelector);
+      await page.locator(linkSelector).click();
+      await page.waitForLoadState('load');
     } else {
       if (parentSelector !== '') {
         await this.clickSubMenu(page, parentSelector);
         await this.scrollTo(page, linkSelector);
       }
-      await this.clickAndWaitForURL(page, linkSelector, 'load', 120000, {
-        timeout: 120000,
-      });
+      //await this.clickAndWaitForURL(page, linkSelector);
+      await page.locator(linkSelector).click();
+      await page.waitForLoadState('load');
       let linkActiveClass: string = '-active';
 
       // >= 1.7.8.0
@@ -784,7 +786,7 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
   async clickSubMenu(page: Page, parentSelector: string): Promise<void> {
     const openSelector = await this.isSidebarCollapsed(page) ? '.ul-open' : '.open';
 
-    if (await this.elementNotVisible(page, `${parentSelector}${openSelector}`, 5000)) {
+    if (await this.elementNotVisible(page, `${parentSelector}${openSelector}`, 1000)) {
       // open the block
       await this.scrollTo(page, parentSelector);
 
@@ -844,7 +846,7 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
 
       await this.waitForVisibleSelector(page, `${parentSelector}${openSelector}`);
     }
-    return this.elementVisible(page, linkSelector, 5000);
+    return this.elementVisible(page, linkSelector, 1000);
   }
 
   /**
@@ -1187,15 +1189,15 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
    * @return {Promise<string>}
    */
   async getAlertSuccessBlockParagraphContent(page: Frame | Page, timeout: number = 2000): Promise<string> {
-      const shopVersion = testContext.getPSVersion();
-      if (semver.lte(shopVersion, '7.0.0')) {
-          await this.elementVisible(page, this.alertSuccessBlock, timeout);
-          return this.getTextContent(page, this.alertSuccessBlock);
-      }
-      else {
-          await this.elementVisible(page, this.alertSuccessBlockParagraph, timeout);
-          return this.getTextContent(page, this.alertSuccessBlockParagraph);
-      }
+    const shopVersion = testContext.getPSVersion();
+
+    if (semver.lte(shopVersion, '7.0.0')) {
+      await this.elementVisible(page, this.alertSuccessBlock, timeout);
+      return this.getTextContent(page, this.alertSuccessBlock);
+    }
+
+    await this.elementVisible(page, this.alertSuccessBlockParagraph, timeout);
+    return this.getTextContent(page, this.alertSuccessBlockParagraph);
   }
 
   /**
