@@ -13,7 +13,7 @@ import type {Page} from 'playwright';
 class OrdersPage extends BOBasePage implements BOOrdersPageInterface {
   public readonly pageTitle: string;
 
-  private readonly createNewOrderButton: string;
+  protected createNewOrderButton: string;
 
   protected gridPanel: string;
 

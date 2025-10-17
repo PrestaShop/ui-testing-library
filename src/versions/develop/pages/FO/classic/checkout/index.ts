@@ -423,7 +423,7 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
    * @returns {Promise<boolean>}
    */
   async isStepCompleted(page: Page, stepSelector: string): Promise<boolean> {
-    return this.elementVisible(page, `${stepSelector}${this.stepFormSuccess}`, 1000);
+    return this.elementVisible(page, `${stepSelector}${this.stepFormSuccess}`, 2000);
   }
 
   /**

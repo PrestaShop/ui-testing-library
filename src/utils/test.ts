@@ -51,6 +51,7 @@ export default {
 
     return version
       .replace(/\.x$/, '.99')
-      .replace(/^1\.7\./, '7.');
+      .replace(/^1\.7\./, '7.')
+      .replace(/^1\.6\./, '6.');
   },
 };

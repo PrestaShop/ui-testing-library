@@ -8,9 +8,9 @@ import {type Page} from '@playwright/test';
  * @extends BOBasePage
  */
 class BOAddressesPage extends BOBasePage implements BOAddressesPageInterface {
-  public readonly pageTitle: string;
+  public pageTitle: string;
 
-  private readonly addNewAddressLink: string;
+  protected addNewAddressLink: string;
 
   private readonly addressGridPanel: string;
 
@@ -371,4 +371,5 @@ class BOAddressesPage extends BOBasePage implements BOAddressesPageInterface {
   }
 }
 
-module.exports = new BOAddressesPage();
+const boAddressesPage = new BOAddressesPage();
+export {boAddressesPage, BOAddressesPage};

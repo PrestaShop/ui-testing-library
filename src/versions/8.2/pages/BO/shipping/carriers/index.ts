@@ -168,7 +168,7 @@ class BOCarriersPage extends BOCarriersPageVersion implements BOCarriersPageInte
   /**
    * Set free shipping status
    * @param page {Page} Browser tab
-   * @param row {number} Row index in the table
+   * @param row {number} Row index. in the table
    * @param valueWanted {boolean} The carrier status value
    * @return {Promise<boolean>}
    */
@@ -376,4 +376,5 @@ class BOCarriersPage extends BOCarriersPageVersion implements BOCarriersPageInte
   }
 }
 
-module.exports = new BOCarriersPage();
+const boCarriersPage = new BOCarriersPage();
+export {boCarriersPage, BOCarriersPage};
