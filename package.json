@@ -28,7 +28,7 @@
   },
   "homepage": "https://github.com/PrestaShop/ui-testing-library#readme",
   "dependencies": {
-    "@faker-js/faker": "^9.0.3",
+    "@faker-js/faker": "^10.1.0",
     "@playwright/test": "^1.48.1",
     "@s3pweb/keycloak-admin-client-cjs": "^26.0.0",
     "@xmldom/xmldom": "^0.9.5",
