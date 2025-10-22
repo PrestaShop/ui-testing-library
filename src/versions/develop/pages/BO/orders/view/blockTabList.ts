@@ -537,19 +537,19 @@ class BOProductBlockTabListPage extends ViewOrderBasePage implements BOProductBl
   /**
    * Get all documents name
    * @param page {Page} Browser tab
-   * @returns {Promise<string>}
+   * @returns {Promise<string[]>}
    */
-  async getAllDocumentsName(page: Page): Promise<string> {
+  async getAllDocumentsName(page: Page): Promise<string[]> {
     const numberOfDocuments: number = await this.getNumberOfDocuments(page);
-    let columnName: string = '';
+    let columnNames: string[] = [];
 
     for (let i = 1; i <= numberOfDocuments + 1; i++) {
       if (i !== 2) {
-        columnName = columnName.concat(await this.getTextContent(page, this.documentType(i)));
+        columnNames.push(await this.getTextContent(page, this.documentType(i)));
       }
     }
 
-    return columnName;
+    return columnNames;
   }
 
   /**

@@ -24,7 +24,7 @@ export interface BOProductBlockTabListPageInterface extends BOViewOrderBasePageI
   generateInvoice(page: Page): Promise<string>;
   getAlertTextFromMergeModal(page: Page): Promise<string>;
   getAlertTextFromSplitModal(page:Page):Promise<string>;
-  getAllDocumentsName(page: Page): Promise<string>;
+  getAllDocumentsName(page: Page): Promise<string[]>;
   getCarrierDetails(page: Page, row?: number): Promise<{
     date: string,
     carrier: string,
