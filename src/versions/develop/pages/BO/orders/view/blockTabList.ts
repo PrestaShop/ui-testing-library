@@ -535,6 +535,33 @@ class BOProductBlockTabListPage extends ViewOrderBasePage implements BOProductBl
   }
 
   /**
+   * Get all documents name
+   * @param page {Page} Browser tab
+   * @returns {Promise<string>}
+   */
+  async getAllDocumentsName(page: Page): Promise<string> {
+    const numberOfDocuments: number = await this.getNumberOfDocuments(page);
+    let columnName: string = '';
+
+    for (let i = 1; i <= numberOfDocuments + 1; i++) {
+      if (i !== 2) {
+        columnName = columnName.concat(await this.getTextContent(page, this.documentType(i)));
+      }
+    }
+
+    return columnName;
+  }
+
+  /**
+   * Get number of documents
+   * @param page {Page} Browser tab
+   * @returns {Promise<number>}
+   */
+  async getNumberOfDocuments(page: Page): Promise<number> {
+    return page.locator(`${this.documentsTableBody} tr td.documents-table-column-type`).count();
+  }
+
+  /**
    * Download a document in document tab
    * @param page {Page} Browser tab
    * @param row {number} Document row on table
