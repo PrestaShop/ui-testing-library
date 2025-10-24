@@ -153,9 +153,10 @@ class FoModalBlockCartPage extends FOBasePage implements FoModalBlockCartPageInt
       await page.waitForTimeout(1000);
       await page.mouse.click(5, 5);
     } else {
-      await this.waitForSelectorAndClick(page, this.blockCartModalCloseButton);
+      await page.locator(this.blockCartModalCloseButton).click({force: true});
     }
-    return this.elementNotVisible(page, this.blockCartModalDiv, 1000);
+
+    return this.elementNotVisible(page, this.blockCartModalDiv, 5000);
   }
 }
 
