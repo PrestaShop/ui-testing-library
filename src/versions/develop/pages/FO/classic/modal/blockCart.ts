@@ -53,7 +53,7 @@ class FoModalBlockCartPage extends FOBasePage implements FoModalBlockCartPageInt
 
     this.blockCartModalDiv = '#blockcart-modal';
     this.blockCartLabel = '#myModalLabel';
-    this.blockCartModalCloseButton = `${this.blockCartModalDiv} button.close`;
+    this.blockCartModalCloseButton = `${this.blockCartModalDiv} button.close,${this.blockCartModalDiv} button.btn-close`;
     this.cartModalProductNameBlock = `${this.blockCartModalDiv} .product-name`;
     this.cartModalProductPriceBlock = `${this.blockCartModalDiv} .product-price`;
     this.cartModalProductSizeBlock = `${this.blockCartModalDiv} .size strong`;
@@ -153,8 +153,9 @@ class FoModalBlockCartPage extends FOBasePage implements FoModalBlockCartPageInt
       await page.waitForTimeout(1000);
       await page.mouse.click(5, 5);
     } else {
-      await this.waitForSelectorAndClick(page, this.blockCartModalCloseButton);
+      await page.locator(this.blockCartModalCloseButton).click();
     }
+
     return this.elementNotVisible(page, this.blockCartModalDiv, 1000);
   }
 }
