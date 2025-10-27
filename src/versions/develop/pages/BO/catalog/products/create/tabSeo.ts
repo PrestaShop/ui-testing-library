@@ -155,6 +155,7 @@ class SeoTab extends BOBasePage implements BOProductsCreateTabSeoPageInterface {
    * @param page {Page}
    * @param inputName {string}
    * @param languageId {string | undefined}
+   * @returns {Promise<string>}
    */
   async getValue(page: Page, inputName: string, languageId?: string): Promise<string> {
     switch (inputName) {
