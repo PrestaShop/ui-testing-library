@@ -16,6 +16,8 @@ class BOCategoriesCreatePage extends BOBasePage implements BOCategoriesCreatePag
 
   private readonly categoryCoverImage: string;
 
+  private readonly categoryCoverImageImg: string;
+
   private readonly categoryThumbnailImage: string;
 
   private readonly metaTitleInput: string;
@@ -55,6 +57,7 @@ class BOCategoriesCreatePage extends BOBasePage implements BOCategoriesCreatePag
     this.displayedToggleInput = (toggle: number) => `#category_active_${toggle}`;
     this.descriptionIframe = '#category_description_1_ifr';
     this.categoryCoverImage = '#category_cover_image';
+    this.categoryCoverImageImg = 'label[for="category_cover_image"] + div.input-container figure img';
     this.categoryThumbnailImage = '#category_thumbnail_image';
     this.metaTitleInput = '#category_meta_title_1';
     this.metaDescriptionTextarea = '#category_meta_description_1';
@@ -164,6 +167,11 @@ class BOCategoriesCreatePage extends BOBasePage implements BOCategoriesCreatePag
     switch (inputName) {
       case 'friendlyUrl':
         return page.inputValue(this.linkRewriteInput);
+      case 'cover_image':
+        if (!(await this.elementNotVisible(page, this.categoryCoverImageImg, 3000))) {
+          return this.getAttributeContent(page, this.categoryCoverImageImg, 'src');
+        }
+        return '';
       default:
         throw new Error(`Input ${inputName} was not found`);
     }
