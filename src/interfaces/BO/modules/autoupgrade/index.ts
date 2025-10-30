@@ -31,7 +31,7 @@ export interface ModuleAutoupgradeMainPageInterface extends ModuleConfigurationP
   goToMaintenancePage(page: Page): Promise<Page>;
   goToNextStep(page: Page): Promise<void>;
   isMajorVersionVisible(page: Page): Promise<boolean>;
-  isRecommandedVesrionVisible(page: Page): Promise<boolean>;
+  isRecommandedVersionVisible(page: Page): Promise<boolean>;
   openDeveloperDocumentation(page: Page): Promise<Page>;
   restoreFromBackup(page: Page): Promise<boolean>;
   startBackup(page: Page): Promise<string>;
