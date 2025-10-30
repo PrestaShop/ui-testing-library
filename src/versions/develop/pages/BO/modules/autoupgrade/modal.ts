@@ -43,6 +43,15 @@ class AutoupgradeModal extends ModuleConfigurationPage implements ModuleAutoupgr
 
   // Methods of update
   /**
+   * Is modal visible
+   * @param page {Page} Browser tab
+   * @returns {Promise<boolean>}
+   */
+  async isModalVisible(page: Page): Promise<boolean> {
+    return this.elementVisible(page, this.dialogUpdateNotification, 5000);
+  }
+
+  /**
    * Close dialog update notification
    * @param page {Page} Browser tab
    * @returns {Promise<boolean>}

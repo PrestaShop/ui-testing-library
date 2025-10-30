@@ -12,7 +12,7 @@ export interface ModuleAutoupgradeMainPageInterface extends ModuleConfigurationP
   checkRequirements(page: Page): Promise<boolean>;
   checkUpdateSuccess(page: Page): Promise<string>;
   chooseLocalArchive(page: Page, psVersion: string): Promise<boolean>;
-  chooseNewVersion(page: Page): Promise<boolean>;
+  chooseNewVersion(page: Page, recommanded?: boolean): Promise<boolean>;
   clickOnExitPostRestore(page: Page): Promise<void>;
   clickOnLaunchBackup(page: Page): Promise<boolean>;
   clickOnRestoreButton(page: Page): Promise<boolean>;
@@ -30,6 +30,8 @@ export interface ModuleAutoupgradeMainPageInterface extends ModuleConfigurationP
   getStepTitle(page: Page): Promise<string>;
   goToMaintenancePage(page: Page): Promise<Page>;
   goToNextStep(page: Page): Promise<void>;
+  isMajorVersionVisible(page: Page): Promise<boolean>;
+  isRecommandedVersionVisible(page: Page): Promise<boolean>;
   openDeveloperDocumentation(page: Page): Promise<Page>;
   restoreFromBackup(page: Page): Promise<boolean>;
   startBackup(page: Page): Promise<string>;
