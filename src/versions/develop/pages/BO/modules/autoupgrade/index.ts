@@ -20,9 +20,9 @@ class Autoupgrade extends ModuleConfigurationPage implements ModuleAutoupgradeMa
 
   private readonly stepContent: string;
 
-  private readonly newVersionRadioButton: string;
+  private readonly majorVersionRadioButton: string;
 
-  private readonly newRecommendedVersionRadioButton: string;
+  private readonly recommandedVersionRadioButton: string;
 
   private readonly localArchiveRadioButton: string;
 
@@ -135,8 +135,8 @@ class Autoupgrade extends ModuleConfigurationPage implements ModuleAutoupgradeMa
     this.stepContent = '#stepper_content';
     this.stepTitle = '.page__title';
     // 1 : version choose step
-    this.newVersionRadioButton = '#online';
-    this.newRecommendedVersionRadioButton = '#online_recommended';
+    this.majorVersionRadioButton = '#online';
+    this.recommandedVersionRadioButton = '#online_recommended';
     this.localArchiveRadioButton = '#local';
     this.radioCardArchive = '#radio_card_archive div.radio-card__local-archive div';
     this.archiveZipSelect = '#archive_zip';
@@ -199,17 +199,36 @@ class Autoupgrade extends ModuleConfigurationPage implements ModuleAutoupgradeMa
   }
 
   /**
+   * Is recommanded version visible
+   * @param page {Page} Browser tab
+   * @return {Promise<boolean}
+   */
+  async isRecommandedVersionVisible(page: Page): Promise<boolean> {
+    return this.elementVisible(page, this.recommandedVersionRadioButton, 2000);
+  }
+
+  /**
+   * Is major version visible
+   * @param page {Page} Browser tab
+   * @return {Promise<boolean}
+   */
+  async isMajorVersionVisible(page: Page): Promise<boolean> {
+    return this.elementVisible(page, this.majorVersionRadioButton, 2000);
+  }
+
+  /**
    * Choose new version
    * @param page {Page} Browser tab
    * @return {Promise<boolean}
    */
-  async chooseNewVersion(page: Page): Promise<boolean> {
-    if (await this.elementVisible(page, this.newVersionRadioButton, 1000)) {
-      await page.locator(this.newVersionRadioButton).setChecked(true);
-      await this.waitForVisibleSelector(page, this.radioCardLoader('online'));
+  async chooseNewVersion(page: Page, recommanded: boolean = true): Promise<boolean> {
+    if (recommanded) {
+      await page.locator(this.recommandedVersionRadioButton).setChecked(true);
     } else {
-      await page.locator(this.newRecommendedVersionRadioButton).setChecked(true);
+      await page.locator(this.majorVersionRadioButton).setChecked(true);
     }
+
+    await this.waitForVisibleSelector(page, this.radioCardLoader('online'));
     await this.waitForVisibleSelector(page, this.checkRequirementBlock, 100000);
 
     return this.elementVisible(page, this.checkRequirementsFailedAlerts, 2000);
