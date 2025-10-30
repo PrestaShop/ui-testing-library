@@ -228,7 +228,7 @@ class Autoupgrade extends ModuleConfigurationPage implements ModuleAutoupgradeMa
       await page.locator(this.majorVersionRadioButton).setChecked(true);
     }
 
-    await this.waitForVisibleSelector(page, this.radioCardLoader('online'));
+    //await this.waitForVisibleSelector(page, this.radioCardLoader('online'));
     await this.waitForVisibleSelector(page, this.checkRequirementBlock, 100000);
 
     return this.elementVisible(page, this.checkRequirementsFailedAlerts, 2000);
@@ -328,7 +328,7 @@ class Autoupgrade extends ModuleConfigurationPage implements ModuleAutoupgradeMa
   async startBackup(page: Page): Promise<string> {
     await this.waitForSelectorAndClick(page, this.BackupConfirmButton);
     await this.waitForVisibleSelector(page, this.progressBar);
-    await this.waitForVisibleSelector(page, this.updateProgressBar, 5000000);
+    await this.waitForVisibleSelector(page, this.backupAlertMessage, 5000000);
 
     return this.getTextContent(page, this.backupAlertMessage);
   }
