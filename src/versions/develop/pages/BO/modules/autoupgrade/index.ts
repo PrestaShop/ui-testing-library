@@ -228,7 +228,6 @@ class Autoupgrade extends ModuleConfigurationPage implements ModuleAutoupgradeMa
       await page.locator(this.majorVersionRadioButton).setChecked(true);
     }
 
-    //await this.waitForVisibleSelector(page, this.radioCardLoader('online'));
     await this.waitForVisibleSelector(page, this.checkRequirementBlock, 100000);
 
     return this.elementVisible(page, this.checkRequirementsFailedAlerts, 2000);
