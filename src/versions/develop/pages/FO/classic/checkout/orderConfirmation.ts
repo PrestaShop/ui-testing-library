@@ -97,7 +97,7 @@ class OrderConfirmationPage extends FOBasePage implements FoCheckoutOrderConfirm
     this.orderConfirmationTable = 'div.order-confirmation-table';
     this.subTotalRow = `${this.orderConfirmationTable} table tr:nth-child(1) td:nth-child(2)`;
     this.shippingRow = `${this.orderConfirmationTable} table tr:nth-child(2) td:nth-child(2)`;
-    this.totalRow = `${this.orderConfirmationTable} table tr:nth-child(3) td:nth-child(2)`;
+    this.totalRow = `${this.orderConfirmationTable} table tr.total-value td:nth-child(2)`;
     this.giftWrappingRow = `${this.orderConfirmationTable} tr:nth-child(3)`;
     this.orderDetailsTable = 'div#order-details';
     this.paymentMethodRow = `${this.orderDetailsTable} li:nth-child(2)`;
