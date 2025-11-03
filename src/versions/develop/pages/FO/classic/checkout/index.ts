@@ -1183,7 +1183,9 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
    */
   async choosePaymentAndOrder(page: Page, paymentModuleName: string): Promise<void> {
     if (await this.elementVisible(page, this.paymentOptionInput(paymentModuleName), 1000)) {
-      await page.locator(this.paymentOptionInput(paymentModuleName)).click();
+      if (!(await page.locator(this.paymentOptionInput(paymentModuleName)).isChecked())) {
+        await page.locator(this.paymentOptionInput(paymentModuleName)).click();
+      }
     }
     await Promise.all([
       this.waitForVisibleSelector(page, this.paymentConfirmationButton),
