@@ -122,13 +122,13 @@ class FoMyAddressesCreatePage extends FOBasePage implements FoMyAddressesCreateP
     await this.setValue(page, this.postCodeInput, addressData.postalCode);
     await this.setValue(page, this.cityInput, addressData.city);
     await this.selectByVisibleText(page, this.countrySelect, addressData.country);
-    if (addressData.state) {
+    if (await this.elementVisible(page, this.stateSelect)) {
       await this.selectByVisibleText(page, this.stateSelect, addressData.state);
     }
 
     // Set phone if added (optional)
     if (addressData.phone) {
-      await this.setValue(page, this.phoneInput, addressData.phone);
+      await page.locator(this.phoneInput).fill(addressData.phone);
     }
 
     // Save address
