@@ -1,5 +1,5 @@
-import {ModuleAutoupgradeMainPageInterface} from '../../../../../../interfaces/BO/modules/autoupgrade';
-import {Autoupgrade} from '../../../../../1.7.3/pages/BO/modules/autoupgrade';
+import {ModuleAutoupgradeMainPageInterface} from '@interfaces/BO/modules/autoupgrade';
+import {Autoupgrade} from '@versions/1.7.3/pages/BO/modules/autoupgrade';
 
 /**
  * Module configuration page for module : Autoupgrade, contains selectors and functions for the page
