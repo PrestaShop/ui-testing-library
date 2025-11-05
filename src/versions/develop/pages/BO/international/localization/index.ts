@@ -15,7 +15,7 @@ class BOLocalizationPage extends BOLocalizationBasePage implements BOLocalizatio
 
   public readonly successfulSettingsUpdateMessage: string;
 
-  public importlocalizationPackSelect: string;
+  private readonly importlocalizationPackSelect: string;
 
   private readonly importStatesCheckbox: string;
 
