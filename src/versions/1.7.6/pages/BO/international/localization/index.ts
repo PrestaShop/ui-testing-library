@@ -31,45 +31,6 @@ class BOLocalizationPageVersion extends BOLocalizationPage implements BOLocaliza
     this.importButton = '.card-footer span';
   }
 
-/* Methods */
-  /**
-   * Import a localization pack
-   * @param page {Page} Browser tab
-   * @param country {string} Country to select
-   * @param contentToImport {ImportContent} Data of content to import to choose
-   * @param downloadPackData {boolean} True if we need to download pack data
-   * @return {Promise<string>}
-   */
-  async importLocalizationPack(
-    page: Page,
-    country: string,
-    contentToImport: ImportContent,
-    downloadPackData: boolean = true,
-  ): Promise<string> {
-    // Choose which country to import
-    await this.selectByVisibleText(page, this.importlocalizationPackSelect, country);
-
-    // Set content import checkboxes
-    await this.setHiddenCheckboxValue(page, this.importStatesCheckbox, contentToImport.importStates);
-    await this.setHiddenCheckboxValue(page, this.importTaxesCheckbox, contentToImport.importTaxes);
-    await this.setHiddenCheckboxValue(page, this.importCurrenciesCheckbox, contentToImport.importCurrencies);
-    await this.setHiddenCheckboxValue(page, this.importLanguagesCheckbox, contentToImport.importLanguages);
-    await this.setHiddenCheckboxValue(page, this.importUnitsCheckbox, contentToImport.importUnits);
-    await this.setHiddenCheckboxValue(
-      page,
-      this.updatepriceDisplayForGroupsCHeckbox,
-      contentToImport.updatePriceDisplayForGroups,
-    );
-
-    // Choose if we download pack of data
-    await this.setChecked(page, this.downloadPackDataToggleInput(downloadPackData ? 1 : 0));
-
-    // Import the pack
-    await page.locator(this.importButton).click();
-
-    return this.getAlertSuccessBlockParagraphContent(page, 20000);
-  }
-
 }
 
 const boLocalizationPage = new BOLocalizationPageVersion();
