@@ -31,7 +31,7 @@ class BOLocalizationPage extends BOLocalizationBasePage implements BOLocalizatio
 
   private readonly downloadPackDataToggleInput: (toggle: number) => string;
 
-  public importButton: string;
+  protected importButton: string;
 
   private readonly defaultLanguageSelector: string;
 
