@@ -11,7 +11,6 @@ import type {Page} from '@playwright/test';
  * @extends BOLocalizationPage
  */
 class BOLocalizationPageVersion extends BOLocalizationPage implements BOLocalizationPageInterface {
-
   /**
      * @constructs
      * Setting up texts and selectors to use on create product page
@@ -26,4 +25,4 @@ class BOLocalizationPageVersion extends BOLocalizationPage implements BOLocaliza
 }
 
 const boLocalizationPage = new BOLocalizationPageVersion();
-export {boLocalizationPage, BOLocalizationPageVersion as BOLocalizationPage};
+export {boLocalizationPage, BOLocalizationPageVersion};

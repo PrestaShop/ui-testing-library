@@ -15,21 +15,21 @@ class BOLocalizationPage extends BOLocalizationBasePage implements BOLocalizatio
 
   public readonly successfulSettingsUpdateMessage: string;
 
-  private readonly importlocalizationPackSelect: string;
+  protected importlocalizationPackSelect: string;
 
-  private readonly importStatesCheckbox: string;
+  protected importStatesCheckbox: string;
 
-  private readonly importTaxesCheckbox: string;
+  protected importTaxesCheckbox: string;
 
-  private readonly importCurrenciesCheckbox: string;
+  protected importCurrenciesCheckbox: string;
 
-  private readonly importLanguagesCheckbox: string;
+  protected importLanguagesCheckbox: string;
 
-  private readonly importUnitsCheckbox: string;
+  protected importUnitsCheckbox: string;
 
-  private readonly updatepriceDisplayForGroupsCHeckbox: string;
+  protected updatepriceDisplayForGroupsCHeckbox: string;
 
-  private readonly downloadPackDataToggleInput: (toggle: number) => string;
+  protected downloadPackDataToggleInput: (toggle: number) => string;
 
   protected importButton: string;
 
