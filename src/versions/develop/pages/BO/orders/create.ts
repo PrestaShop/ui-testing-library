@@ -1275,7 +1275,7 @@ class BOOrderCreatePage extends BOBasePage implements BOOrdersCreatePageInterfac
     }
 
     // Choose address
-    await this.chooseAddresses(page, orderToMake.deliveryAddress.name, orderToMake.invoiceAddress.name);
+    await this.chooseAddresses(page, orderToMake.deliveryAddress.alias, orderToMake.invoiceAddress.alias);
 
     // Choose delivery options
     await this.setDeliveryOption(page, orderToMake.deliveryOption.name, orderToMake.deliveryOption.freeShipping);
