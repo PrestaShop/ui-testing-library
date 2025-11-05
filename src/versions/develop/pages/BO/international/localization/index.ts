@@ -27,7 +27,7 @@ class BOLocalizationPage extends BOLocalizationBasePage implements BOLocalizatio
 
   private readonly importUnitsCheckbox: string;
 
-  public updatepriceDisplayForGroupsCHeckbox: string;
+  private readonly updatepriceDisplayForGroupsCHeckbox: string;
 
   public downloadPackDataToggleInput: (toggle: number) => string;
 
