@@ -37,6 +37,8 @@ class FoMyAddressesCreatePage extends FOBasePage implements FoMyAddressesCreateP
 
   private readonly cityInput: string;
 
+  private readonly stateSelect: string;
+
   private readonly countrySelect: string;
 
   private readonly phoneInput: string;
@@ -66,6 +68,7 @@ class FoMyAddressesCreatePage extends FOBasePage implements FoMyAddressesCreateP
     this.secondAddressInput = `${this.addressForm} input[name=address2]`;
     this.postCodeInput = `${this.addressForm} input[name=postcode]`;
     this.cityInput = `${this.addressForm} input[name=city]`;
+    this.stateSelect = `${this.addressForm} select[name=id_state]`;
     this.countrySelect = `${this.addressForm} select[name=id_country]`;
     this.phoneInput = `${this.addressForm} input[name=phone]`;
     this.saveButton = `${this.addressForm} input[name=submitAddress] + button`;
@@ -119,10 +122,13 @@ class FoMyAddressesCreatePage extends FOBasePage implements FoMyAddressesCreateP
     await this.setValue(page, this.postCodeInput, addressData.postalCode);
     await this.setValue(page, this.cityInput, addressData.city);
     await this.selectByVisibleText(page, this.countrySelect, addressData.country);
+    if (await this.elementVisible(page, this.stateSelect)) {
+      await this.selectByVisibleText(page, this.stateSelect, addressData.state);
+    }
 
     // Set phone if added (optional)
     if (addressData.phone) {
-      await this.setValue(page, this.phoneInput, addressData.phone);
+      await page.locator(this.phoneInput).fill(addressData.phone);
     }
 
     // Save address

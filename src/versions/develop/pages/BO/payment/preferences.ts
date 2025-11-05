@@ -39,8 +39,8 @@ class BOPaymentPreferencesPage extends BOBasePage implements BOPaymentPreference
     // Selectors for group restrictions
     this.paymentModuleCheckbox = (paymentModule: string, groupID: string) => `#form_group_restrictions_${paymentModule}`
       + `_${groupID}`;
-    this.countryRestrictionsCheckbox = (paymentModule: string, countryID: number) => '#form_country_restrictions_'
-      + `${paymentModule}_${countryID}`;
+    this.countryRestrictionsCheckbox = (paymentModule: string, countryID: number) => 'input[id^="form_country_restrictions_'
+      + `${paymentModule}_"][value="${countryID}"]`;
     this.groupRestrictionsSaveButton = '#form-group-restrictions-save-button';
     // Selectors fot carrier restriction
     this.carrierRestrictionsCheckbox = (paymentModule: string, carrierID: number) => '#form_carrier_restrictions_'
