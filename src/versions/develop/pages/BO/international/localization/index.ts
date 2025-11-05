@@ -15,23 +15,23 @@ class BOLocalizationPage extends BOLocalizationBasePage implements BOLocalizatio
 
   public readonly successfulSettingsUpdateMessage: string;
 
-  private readonly importlocalizationPackSelect: string;
+  public importlocalizationPackSelect: string;
 
-  private readonly importStatesCheckbox: string;
+  public importStatesCheckbox: string;
 
-  private readonly importTaxesCheckbox: string;
+  public importTaxesCheckbox: string;
 
-  private readonly importCurrenciesCheckbox: string;
+  public importCurrenciesCheckbox: string;
 
-  private readonly importLanguagesCheckbox: string;
+  public importLanguagesCheckbox: string;
 
-  private readonly importUnitsCheckbox: string;
+  public importUnitsCheckbox: string;
 
-  private readonly updatepriceDisplayForGroupsCHeckbox: string;
+  public updatepriceDisplayForGroupsCHeckbox: string;
 
-  private readonly downloadPackDataToggleInput: (toggle: number) => string;
+  public downloadPackDataToggleInput: (toggle: number) => string;
 
-  private readonly importButton: string;
+  public importButton: string;
 
   private readonly defaultLanguageSelector: string;
 
@@ -155,4 +155,5 @@ class BOLocalizationPage extends BOLocalizationBasePage implements BOLocalizatio
   }
 }
 
-module.exports = new BOLocalizationPage();
+const boLocalizationPage = new BOLocalizationPage();
+export {boLocalizationPage, BOLocalizationPage as BOLocalizationPage};
