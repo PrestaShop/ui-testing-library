@@ -3,7 +3,7 @@ import ImportContent from '@data/types/localization';
 import type {BOLocalizationPageInterface} from '@interfaces/BO/international/localization';
 import {BOLocalizationPage} from '@versions/develop/pages/BO/international/localization';
 
-import type {Page} from 'playwright';
+import type {Page} from '@playwright/test';
 
 /**
  * Bo create localization page, contains functions that can be used on the page
