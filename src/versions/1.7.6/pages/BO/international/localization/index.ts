@@ -20,14 +20,6 @@ class BOLocalizationPageVersion extends BOLocalizationPage implements BOLocaliza
     super();
 
     // Import localization pack selectors
-    this.importlocalizationPackSelect = '#import_localization_pack_iso_localization_pack';
-    this.importStatesCheckbox = '#import_localization_pack_content_to_import_0';
-    this.importTaxesCheckbox = '#import_localization_pack_content_to_import_1';
-    this.importCurrenciesCheckbox = '#import_localization_pack_content_to_import_2';
-    this.importLanguagesCheckbox = '#import_localization_pack_content_to_import_3';
-    this.importUnitsCheckbox = '#import_localization_pack_content_to_import_4';
-    this.updatepriceDisplayForGroupsCHeckbox = '#import_localization_pack_content_to_import_5';
-    this.downloadPackDataToggleInput = (toggle: number) => `#import_localization_pack_download_pack_data_${toggle}`;
     this.importButton = '.card-footer span';
   }
 
