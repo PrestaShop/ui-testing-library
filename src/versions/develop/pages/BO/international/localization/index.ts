@@ -156,4 +156,4 @@ class BOLocalizationPage extends BOLocalizationBasePage implements BOLocalizatio
 }
 
 const boLocalizationPage = new BOLocalizationPage();
-export {boLocalizationPage, BOLocalizationPage as BOLocalizationPage};
+export {boLocalizationPage, BOLocalizationPage};
