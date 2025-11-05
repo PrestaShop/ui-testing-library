@@ -17,7 +17,7 @@ class BOLocalizationPage extends BOLocalizationBasePage implements BOLocalizatio
 
   public importlocalizationPackSelect: string;
 
-  public importStatesCheckbox: string;
+  private readonly importStatesCheckbox: string;
 
   private readonly importTaxesCheckbox: string;
 
