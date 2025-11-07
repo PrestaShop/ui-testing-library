@@ -29,6 +29,8 @@ class FoModalBlockCartPage extends FOBasePage {
 
   protected cartModalProductTaxInclBlock: string;
 
+  protected cartModalCheckoutLink: string;
+
   constructor(theme: string = 'classic') {
     super(theme);
 
@@ -42,6 +44,8 @@ class FoModalBlockCartPage extends FOBasePage {
     this.cartModalShippingBlock = `${this.cartContentBlock} p:nth-of-type(2) span.value`;
     this.cartModalSubtotalBlock = `${this.cartContentBlock} p:nth-of-type(2) span.value`;
     this.cartModalProductTaxInclBlock = `${this.cartContentBlock} .product-total .value`;
+
+    this.cartModalCheckoutLink = `${this.blockCartModalDiv} div.cart-content-btn a`;
   }
 
   /**
@@ -70,6 +74,16 @@ class FoModalBlockCartPage extends FOBasePage {
       cartShipping: await this.getTextContent(page, this.cartModalShippingBlock),
       totalTaxIncl: parseFloat((await this.getTextContent(page, this.cartModalProductTaxInclBlock)).replace('€', '')),
     };
+  }
+
+    /**
+   * Click on proceed to checkout after adding product to cart (in modal homePage)
+   * @param page {Page} Browser tab
+   * @return {Promise<void>}
+   */
+  async proceedToCheckout(page: Page): Promise<void> {
+    await this.clickAndWaitForURL(page, this.cartModalCheckoutLink);
+    await page.waitForLoadState('domcontentloaded');
   }
 }
 
