@@ -45,10 +45,8 @@ class FoModalBlockCartPage extends FOBasePage {
     }
 
     async getQuantity(page: Page) {
-        const text = await page.locator(this.cartModalProductQuantityBlock).last();
-        const number = (/-?[\d.]+/g.exec(text) ?? '').toString();
-
-        return parseFloat(number);
+        const text = await page.locator(this.cartModalProductQuantityBlock).last().textContent();
+        const quantity = parseFloat(text?.match(/-?[\d.]+/)?.[0] ?? '0');
     }
 
     /**
