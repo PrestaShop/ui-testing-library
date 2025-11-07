@@ -44,6 +44,13 @@ class FoModalBlockCartPage extends FOBasePage {
         this.cartModalProductTaxInclBlock = `${this.cartContentBlock} .product-total .value`;
     }
 
+    async getQuantity(page: Page) {
+        const text = await page.locator(this.cartModalProductQuantityBlock).last();
+        const number = (/-?[\d.]+/g.exec(text) ?? '').toString();
+
+        return parseFloat(number);
+    }
+
     /**
      * Get product quantity from block cart modal
      * @param page {Page} Browser tab
@@ -61,12 +68,7 @@ class FoModalBlockCartPage extends FOBasePage {
         };
     }
 
-    async getQuantity(page: Page) {
-        const text = await page.locator(this.cartModalProductQuantityBlock).last();
-        const number = (/-?[\d.]+/g.exec(text) ?? '').toString();
 
-        return parseFloat(number);
-    }
 }
 
 const foModalBlockCartPage = new FoModalBlockCartPage();
