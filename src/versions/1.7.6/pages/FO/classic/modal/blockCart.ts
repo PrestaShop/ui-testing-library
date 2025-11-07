@@ -36,7 +36,7 @@ class FoModalBlockCartPage extends FOBasePage {
         this.blockCartModalDiv = '#blockcart-modal';
         this.cartModalProductNameBlock = `${this.blockCartModalDiv} .product-name`;
         this.cartModalProductPriceBlock = `${this.blockCartModalDiv} .product-price`;
-        this.cartModalProductQuantityBlock = `${this.blockCartModalDiv} span strong:last`;
+        this.cartModalProductQuantityBlock = `${this.blockCartModalDiv} span strong`;
         this.cartContentBlock = `${this.blockCartModalDiv} .cart-content`;
         this.cartModalProductsCountBlock = `${this.cartContentBlock} .cart-products-count`;
         this.cartModalShippingBlock = `${this.cartContentBlock} .shipping.value`;
@@ -53,12 +53,19 @@ class FoModalBlockCartPage extends FOBasePage {
         return {
             name: await this.getTextContent(page, this.cartModalProductNameBlock),
             price: parseFloat((await this.getTextContent(page, this.cartModalProductPriceBlock)).replace('€', '')),
-            quantity: await this.getNumberFromText(page, this.cartModalProductQuantityBlock),
+            quantity: await this.getQuantity(page),
             cartProductsCount: await this.getNumberFromText(page, this.cartModalProductsCountBlock),
             cartSubtotal: parseFloat((await this.getTextContent(page, this.cartModalSubtotalBlock)).replace('€', '')),
             cartShipping: await this.getTextContent(page, this.cartModalShippingBlock),
             totalTaxIncl: parseFloat((await this.getTextContent(page, this.cartModalProductTaxInclBlock)).replace('€', '')),
         };
+    }
+
+    async getQuantity(page: Page) {
+        const text = await page.locator(this.cartModalProductQuantityBlock).last();
+        const number = (/-?[\d.]+/g.exec(text) ?? '').toString();
+
+        return parseFloat(number);
     }
 }
 
