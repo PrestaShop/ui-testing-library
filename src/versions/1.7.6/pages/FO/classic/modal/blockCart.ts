@@ -39,7 +39,7 @@ class FoModalBlockCartPage extends FOBasePage {
     this.cartModalProductQuantityBlock = `${this.blockCartModalDiv} span strong`;
     this.cartContentBlock = `${this.blockCartModalDiv} .cart-content`;
     this.cartModalProductsCountBlock = `${this.cartContentBlock} .cart-products-count`;
-    this.cartModalShippingBlock = `${this.cartContentBlock} .shipping.value`;
+    this.cartModalShippingBlock = `${this.cartContentBlock} p:nth-of-type(2) span.value`;
     this.cartModalSubtotalBlock = `${this.cartContentBlock} p:nth-of-type(2) span.value`;
     this.cartModalProductTaxInclBlock = `${this.cartContentBlock} .product-total .value`;
   }
