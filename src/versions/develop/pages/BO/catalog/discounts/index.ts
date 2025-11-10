@@ -140,7 +140,7 @@ class BOCartRulesPage extends BOBasePage implements BOCartRulesPageInterface {
     this.tableColumnName = (row: number) => `${this.tableBodyColumn(row)}:nth-child(3)`;
     this.tableColumnPriority = (row: number) => `${this.tableBodyColumn(row)}:nth-child(4)`;
     this.tableColumnCode = (row: number) => `${this.tableBodyColumn(row)}:nth-child(5)`;
-    this.tableColumnQuantity = (row: number) => `${this.tableBodyColumn(row)}:nth-child(6)`;
+    this.tableColumnQuantity = (row: number) => `${this.tableBodyColumn(row)}.column-quantity`;
     this.tableColumnExpirationDate = (row: number) => `${this.tableBodyColumn(row)}:nth-child(7)`;
     this.tableColumnStatusLink = (row: number) => `${this.tableBodyColumn(row)}:nth-child(8) a`;
     this.tableColumnStatusEnableLink = (row: number) => `${this.tableColumnStatusLink(row)}.action-enabled`;
