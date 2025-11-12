@@ -306,12 +306,12 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
     this.addressStepCreateAddressForm = `${this.addressStepSection} .js-address-form`;
     this.addressStepAliasInput = '#field-alias';
     this.addressStepCompanyInput = `${this.addressStepSection} input[name="company"]`;
-    this.addressStepAddress1Input = '#field-address1';
-    this.addressStepPostCodeInput = '#field-postcode';
-    this.addressStepCityInput = '#field-city';
-    this.addressStepCountrySelect = '#field-id_country';
+    this.addressStepAddress1Input = 'input[name="address1"]';
+    this.addressStepPostCodeInput = 'input[name="postcode"]';
+    this.addressStepCityInput = 'input[name="city"]';
+    this.addressStepCountrySelect = 'input[name="id_country"]';
     this.addressStepPhoneInput = 'input[name="phone"]';
-    this.stateInput = '#field-id_state';
+    this.stateInput = 'input[name="id_state"]';
     this.addressStepUseSameAddressCheckbox = '#use_same_address';
     this.addressStepContinueButton = `${this.addressStepSection} button[name='confirm-addresses']`;
     this.addressStepSubmitButton = `${this.addressStepSection} button[type=submit]`;
