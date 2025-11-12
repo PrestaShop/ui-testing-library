@@ -305,7 +305,7 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
     this.addressStepContent = `${this.addressStepSection} div.content`;
     this.addressStepCreateAddressForm = `${this.addressStepSection} .js-address-form`;
     this.addressStepAliasInput = '#field-alias';
-    this.addressStepCompanyInput = `${this.addressStepSection} #field-company`;
+    this.addressStepCompanyInput = `${this.addressStepSection} input[name="company"]`;
     this.addressStepAddress1Input = '#field-address1';
     this.addressStepPostCodeInput = '#field-postcode';
     this.addressStepCityInput = '#field-city';
