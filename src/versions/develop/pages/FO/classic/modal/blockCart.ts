@@ -28,7 +28,7 @@ class FoModalBlockCartPage extends FOBasePage implements FoModalBlockCartPageInt
 
   private readonly cartModalProductColorBlock: string;
 
-  private readonly cartModalProductQuantityBlock: string;
+  protected readonly cartModalProductQuantityBlock: string;
 
   private readonly cartContentBlock: string;
 

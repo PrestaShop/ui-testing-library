@@ -153,8 +153,6 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
 
   private readonly addressStepCreateAddressForm: string;
 
-  private readonly addressStepAliasInput: string;
-
   private readonly addressStepCompanyInput: string;
 
   private readonly addressStepAddress1Input: string;
@@ -304,14 +302,13 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
     this.addressStepSection = '#checkout-addresses-step';
     this.addressStepContent = `${this.addressStepSection} div.content`;
     this.addressStepCreateAddressForm = `${this.addressStepSection} .js-address-form`;
-    this.addressStepAliasInput = '#field-alias';
-    this.addressStepCompanyInput = `${this.addressStepSection} #field-company`;
-    this.addressStepAddress1Input = '#field-address1';
-    this.addressStepPostCodeInput = '#field-postcode';
-    this.addressStepCityInput = '#field-city';
-    this.addressStepCountrySelect = '#field-id_country';
-    this.addressStepPhoneInput = '#field-phone';
-    this.stateInput = '#field-id_state';
+    this.addressStepCompanyInput = `${this.addressStepSection} input[name="company"]`;
+    this.addressStepAddress1Input = 'input[name="address1"]';
+    this.addressStepPostCodeInput = 'input[name="postcode"]';
+    this.addressStepCityInput = 'input[name="city"]';
+    this.addressStepCountrySelect = 'select[name="id_country"]';
+    this.addressStepPhoneInput = 'input[name="phone"]';
+    this.stateInput = 'input[name="id_state"]';
     this.addressStepUseSameAddressCheckbox = '#use_same_address';
     this.addressStepContinueButton = `${this.addressStepSection} button[name='confirm-addresses']`;
     this.addressStepSubmitButton = `${this.addressStepSection} button[type=submit]`;
@@ -775,9 +772,6 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
    * @returns {Promise<void>}
    */
   async fillAddressForm(page: Page, address: FakerAddress): Promise<void> {
-    if (await this.elementVisible(page, this.addressStepAliasInput, 500)) {
-      await this.setValue(page, this.addressStepAliasInput, address.alias);
-    }
     await this.setValue(page, this.addressStepPhoneInput, address.phone);
     await this.setValue(page, this.addressStepCompanyInput, address.company);
     // Contact
