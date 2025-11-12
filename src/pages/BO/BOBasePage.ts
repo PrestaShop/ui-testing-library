@@ -1182,6 +1182,25 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
   }
 
   /**
+   * Return if alert success block is visible
+   * @param page {Frame|Page} Browser tab
+   * @return {Promise<string>}
+   */
+  async hasAlertSuccessBlockContent(page: Frame | Page): Promise<boolean> {
+    return this.elementVisible(page, this.alertSuccessBlock, 2000);
+  }
+
+  /**
+   * Get text content of alert success block
+   * @param page {Frame|Page} Browser tab
+   * @return {Promise<string>}
+   */
+  async getAlertDangerBlockContent(page: Frame | Page): Promise<string> {
+    await this.elementVisible(page, this.alertDangerBlock, 2000);
+    return this.getTextContent(page, this.alertDangerBlock);
+  }
+
+  /**
    * Get text content of alert success block paragraph
    * @param page {Frame|Page} Browser tab
    * @return {Promise<string>}
