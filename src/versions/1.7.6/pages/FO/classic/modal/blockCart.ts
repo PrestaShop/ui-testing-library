@@ -76,7 +76,7 @@ class FoModalBlockCartPage extends FOBasePage {
     };
   }
 
-    /**
+  /**
    * Click on proceed to checkout after adding product to cart (in modal homePage)
    * @param page {Page} Browser tab
    * @return {Promise<void>}
