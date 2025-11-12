@@ -309,7 +309,7 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
     this.addressStepAddress1Input = 'input[name="address1"]';
     this.addressStepPostCodeInput = 'input[name="postcode"]';
     this.addressStepCityInput = 'input[name="city"]';
-    this.addressStepCountrySelect = 'input[name="id_country"]';
+    this.addressStepCountrySelect = 'select[name="id_country"]';
     this.addressStepPhoneInput = 'input[name="phone"]';
     this.stateInput = 'input[name="id_state"]';
     this.addressStepUseSameAddressCheckbox = '#use_same_address';
