@@ -311,7 +311,7 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
     this.addressStepCityInput = 'input[name="city"]';
     this.addressStepCountrySelect = 'select[name="id_country"]';
     this.addressStepPhoneInput = 'input[name="phone"]';
-    this.stateInput = 'input[name="id_state"]';
+    this.stateInput = 'select[name="id_state"]';
     this.addressStepUseSameAddressCheckbox = '#use_same_address';
     this.addressStepContinueButton = `${this.addressStepSection} button[name='confirm-addresses']`;
     this.addressStepSubmitButton = `${this.addressStepSection} button[type=submit]`;
