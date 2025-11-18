@@ -9,6 +9,9 @@ function requirePage(): FoCheckoutPageInterface {
   if (semver.lt(psVersion, '7.1.0')) {
     return require('@versions/1.7.0/pages/FO/classic/checkout').checkoutPage;
   }
+  if (semver.lt(psVersion, '7.8.0')) {
+    return require('@versions/1.7.7/pages/FO/classic/checkout').checkoutPage;
+  }
   if (semver.lt(psVersion, '7.7.0')) {
     return require('@versions/1.7.6/pages/FO/classic/checkout').checkoutPage;
   }
