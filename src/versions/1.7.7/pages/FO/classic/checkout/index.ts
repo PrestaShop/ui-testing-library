@@ -742,6 +742,20 @@ class CheckoutPage extends FOBasePage {
   }
 
   /**
+   * Choose shipping method and add a comment
+   * @param page {Page} Browser tab
+   * @param shippingMethodID {number} Position of the shipping method
+   * @param comment {string} Comment to add after selecting a shipping method
+   * @returns {Promise<boolean>}
+   */
+  async chooseShippingMethodAndAddComment(page: Page, shippingMethodID: number, comment: string = ''): Promise<boolean> {
+    await this.waitForSelectorAndClick(page, this.deliveryOptionLabel(shippingMethodID));
+    await this.setValue(page, this.deliveryMessage, comment);
+
+    return this.goToPaymentStep(page);
+  }
+
+  /**
    * Go to Payment Step and check that delivery step is complete
    * @param page {Page} Browser tab
    * @return {Promise<boolean>}
