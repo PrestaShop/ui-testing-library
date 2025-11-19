@@ -1219,52 +1219,6 @@ class CheckoutPage extends FOBasePage {
   }
 
   /**
-   * Order when no payment is needed
-   * @param page {Page} Browser tab
-   * @returns {Promise<void>}
-   */
-  async orderWithoutPaymentMethod(page: Page): Promise<void> {
-    // Click on terms of services checkbox if visible
-    if (await this.elementVisible(page, this.conditionToApproveLabel, 500)) {
-      await Promise.all([
-        this.waitForVisibleSelector(page, this.paymentConfirmationButton),
-        page.locator(this.conditionToApproveLabel).click(),
-      ]);
-    }
-
-    // Validate the order
-    await this.clickAndWaitForURL(page, this.paymentConfirmationButton);
-  }
-
-  /**
-   * Check payment method existence
-   * @param page {Page} Browser tab
-   * @param paymentModuleName {string} The payment module name
-   * @returns {Promise<boolean>}
-   */
-  async isPaymentMethodExist(page: Page, paymentModuleName: string): Promise<boolean> {
-    return this.elementVisible(page, this.paymentOptionInput(paymentModuleName), 2000);
-  }
-
-  /**
-   * get no payment available message
-   * @param page {Page} Browser tab
-   * @returns {Promise<string>}
-   */
-  async getNoPaymentAvailableMessage(page: Page): Promise<string> {
-    return this.getTextContent(page, this.paymentOptionAlertDanger);
-  }
-
-  /**
-   * Check if checkbox of condition to approve is visible
-   * @param page {Page} Browser tab
-   * @returns {Promise<boolean>}
-   */
-  async isConditionToApproveCheckboxVisible(page: Page): Promise<boolean> {
-    return this.elementVisible(page, this.conditionToApproveCheckbox, 1000);
-  }
-
-  /**
    * Get terms of service page title
    * @param page {Page} Browser tab
    * @returns {Promise<string>}
@@ -1273,52 +1227,6 @@ class CheckoutPage extends FOBasePage {
     await page.locator(this.termsOfServiceLink).click();
 
     return this.getTextContent(page, this.termsOfServiceModalDiv);
-  }
-
-  /**
-   * Check if gift checkbox is visible
-   * @param page {Page} Browser tab
-   * @return {Promise<boolean>}
-   */
-  async isGiftCheckboxVisible(page: Page): Promise<boolean> {
-    return this.elementVisible(page, this.giftCheckbox, 1000);
-  }
-
-  /**
-   * Set gift checkbox
-   * @param page {Page} Browser tab
-   * @returns {Promise<void>}
-   */
-  async setGiftCheckBox(page: Page): Promise<void> {
-    await this.waitForSelectorAndClick(page, this.giftCheckbox);
-  }
-
-  /**
-   * Is gift message textarea visible
-   * @param page {Page} Browser tab
-   * @returns {Promise<boolean>}
-   */
-  async isGiftMessageTextareaVisible(page: Page): Promise<boolean> {
-    return this.elementVisible(page, this.giftMessageTextarea, 2000);
-  }
-
-  /**
-   * Set gift message
-   * @param page {Page} Browser tab
-   * @param message {string} Message to set
-   * @returns {Promise<void>}
-   */
-  async setGiftMessage(page: Page, message: string): Promise<void> {
-    await this.setValue(page, this.giftMessageTextarea, message);
-  }
-
-  /**
-   * Check if recycled packaging checkbox is visible
-   * @param page {Page} Browser tab
-   * @return {Promise<boolean>}
-   */
-  async isRecycledPackagingCheckboxVisible(page: Page): Promise<boolean> {
-    return this.elementVisible(page, this.recyclableGiftCheckbox, 1000);
   }
 }
 
