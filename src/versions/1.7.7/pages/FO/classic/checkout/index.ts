@@ -7,7 +7,6 @@ import FakerCustomer from '@data/faker/customer';
 import FakerCarrier from '@data/faker/carrier';
 
 import {ProductDetailsBasic} from '@data/types/product';
-import {FoCheckoutPageInterface} from '@interfaces/FO/checkout';
 
 import type {Page} from 'playwright';
 
@@ -16,7 +15,7 @@ import type {Page} from 'playwright';
  * @class
  * @extends FOBasePage
  */
-class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
+class CheckoutPage extends FOBasePage {
   public readonly deleteAddressSuccessMessage: string;
 
   public readonly noCarriersMessage: string;
@@ -1337,16 +1336,6 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
     await this.setChecked(page, this.recyclableGiftCheckbox, toCheck);
   }
 
-  /**
-   * Get gift price from cart summary
-   * @param page {Page} Browser tab
-   * @return {Promise<string>}
-   */
-  async getGiftPrice(page: Page): Promise<string> {
-    await this.setChecked(page, this.giftCheckbox, true);
-
-    return this.getTextContent(page, this.cartSubtotalGiftWrappingValueSpan);
-  }
 }
 
 const checkoutPage = new CheckoutPage();
