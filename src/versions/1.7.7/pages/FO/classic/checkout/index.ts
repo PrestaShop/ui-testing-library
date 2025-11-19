@@ -479,15 +479,6 @@ class CheckoutPage extends FOBasePage {
     return this.openLinkWithTargetBlank(page, this.productDetailsName(productRow));
   }
 
-  /**
-   * Get items number
-   * @param page {Page} Browser tab
-   * @returns {Promise<string}
-   */
-  async getItemsNumber(page: Page): Promise<string> {
-    return this.getTextContent(page, this.itemsNumber);
-  }
-
   // Methods for personal information step
   /**
    * Click on sign in
@@ -957,20 +948,6 @@ class CheckoutPage extends FOBasePage {
    */
   async getOrderMessage(page: Page): Promise<string> {
     return this.getTextContent(page, this.deliveryMessage);
-  }
-
-  /**
-   * Choose shipping method and add a comment
-   * @param page {Page} Browser tab
-   * @param shippingMethodID {number} Position of the shipping method
-   * @param comment {string} Comment to add after selecting a shipping method
-   * @returns {Promise<boolean>}
-   */
-  async chooseShippingMethodAndAddComment(page: Page, shippingMethodID: number, comment: string = ''): Promise<boolean> {
-    await this.waitForSelectorAndClick(page, this.deliveryOptionLabel(shippingMethodID));
-    await this.setValue(page, this.deliveryMessage, comment);
-
-    return this.goToPaymentStep(page);
   }
 
   /**
