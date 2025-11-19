@@ -3,9 +3,6 @@ import FOBasePage from '@pages/FO/FOBasePage';
 
 // Import data
 import FakerAddress from '@data/faker/address';
-import FakerCustomer from '@data/faker/customer';
-
-import {ProductDetailsBasic} from '@data/types/product';
 
 import type {Page} from 'playwright';
 
@@ -66,10 +63,6 @@ class CheckoutPage extends FOBasePage {
   public personalInformationStepForm: string;
 
   protected forgetPasswordLink: string;
-
-  private readonly checkoutGuestForm: string;
-
-  private readonly checkoutGuestGenderInput: (pos: number) => string;
 
   protected signInHyperLink: string;
 
@@ -165,8 +158,6 @@ class CheckoutPage extends FOBasePage {
 
     // Personal information form
     this.personalInformationStepForm = '#checkout-personal-information-step';
-    // Order as a guest selectors
-    this.checkoutGuestForm = '#checkout-guest-form';
     // Sign in selectors
     this.signInHyperLink = `${this.personalInformationStepForm} a[href="#checkout-login-form"]`;
     this.forgetPasswordLink = '#login-form div.forgot-password a[href*=password-recovery]';
