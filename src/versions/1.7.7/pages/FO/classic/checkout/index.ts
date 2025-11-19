@@ -16,18 +16,6 @@ class CheckoutPage extends FOBasePage {
 
   protected stepFormSuccess: string;
 
-  public personalInformationStepForm: string;
-
-  protected forgetPasswordLink: string;
-
-  protected checkoutLoginForm: string;
-
-  protected personalInformationContinueButton: string;
-
-  protected personalInformationCustomerIdentity: string;
-
-  protected personalInformationEditLink: string;
-
   protected addressStepSection: string;
 
   private readonly addressStepCompanyInput: string;
@@ -70,15 +58,6 @@ class CheckoutPage extends FOBasePage {
     // Selectors
     this.checkoutPageBody = 'body#checkout';
     this.stepFormSuccess = '.-complete';
-
-    // Personal information form
-    this.personalInformationStepForm = '#checkout-personal-information-step';
-    // Sign in selectors
-    this.forgetPasswordLink = '#login-form div.forgot-password a[href*=password-recovery]';
-    this.checkoutLoginForm = `${this.personalInformationStepForm} #checkout-login-form`;
-    this.personalInformationContinueButton = `${this.checkoutLoginForm} #login-form footer button`;
-    this.personalInformationCustomerIdentity = `${this.personalInformationStepForm} p.identity`;
-    this.personalInformationEditLink = `${this.personalInformationStepForm} span.step-edit.text-muted`;
 
     // Addresses step selectors
     this.addressStepSection = '#checkout-addresses-step';
