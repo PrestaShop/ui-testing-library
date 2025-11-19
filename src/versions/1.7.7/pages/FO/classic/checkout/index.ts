@@ -185,8 +185,6 @@ class CheckoutPage extends FOBasePage {
 
   protected cartTotalATI: string;
 
-  private readonly cartSubtotalGiftWrappingDiv: string;
-
   /**
    * @constructs
    * Setting up texts and selectors to use on checkout page
