@@ -12,25 +12,13 @@ import type {Page} from 'playwright';
  * @extends FOBasePage
  */
 class CheckoutPage extends FOBasePage {
-  public readonly deleteAddressSuccessMessage: string;
-
-  public readonly noCarriersMessage: string;
-
   private readonly checkoutPageBody: string;
 
   protected stepFormSuccess: string;
 
-  public readonly messageIfYouSignOut: string;
-
-  public readonly authenticationErrorMessage: string;
-
-  public readonly noPaymentNeededText: string;
-
   public personalInformationStepForm: string;
 
   protected forgetPasswordLink: string;
-
-  protected signInHyperLink: string;
 
   protected checkoutLoginForm: string;
 
@@ -39,8 +27,6 @@ class CheckoutPage extends FOBasePage {
   protected personalInformationCustomerIdentity: string;
 
   protected personalInformationEditLink: string;
-
-  protected loginErrorMessage: string;
 
   protected addressStepSection: string;
 
@@ -64,11 +50,7 @@ class CheckoutPage extends FOBasePage {
 
   private readonly addressStepSubmitButton: string;
 
-  protected addressStepEditButton: string;
-
   protected addAddressButton: string;
-
-  protected addInvoiceAddressButton: string;
 
   protected deliveryStepSection: string;
 
@@ -84,11 +66,6 @@ class CheckoutPage extends FOBasePage {
    */
   constructor(theme: string = 'classic') {
     super(theme);
-    this.deleteAddressSuccessMessage = 'Address successfully deleted.';
-    this.noCarriersMessage = 'Unfortunately, there are no carriers available for your delivery address.';
-    this.noPaymentNeededText = 'No payment needed for this order';
-    this.messageIfYouSignOut = 'If you sign out now, your cart will be emptied.';
-    this.authenticationErrorMessage = 'Authentication failed.';
 
     // Selectors
     this.checkoutPageBody = 'body#checkout';
@@ -97,13 +74,11 @@ class CheckoutPage extends FOBasePage {
     // Personal information form
     this.personalInformationStepForm = '#checkout-personal-information-step';
     // Sign in selectors
-    this.signInHyperLink = `${this.personalInformationStepForm} a[href="#checkout-login-form"]`;
     this.forgetPasswordLink = '#login-form div.forgot-password a[href*=password-recovery]';
     this.checkoutLoginForm = `${this.personalInformationStepForm} #checkout-login-form`;
     this.personalInformationContinueButton = `${this.checkoutLoginForm} #login-form footer button`;
     this.personalInformationCustomerIdentity = `${this.personalInformationStepForm} p.identity`;
     this.personalInformationEditLink = `${this.personalInformationStepForm} span.step-edit.text-muted`;
-    this.loginErrorMessage = `${this.checkoutLoginForm} li.alert-danger`;
 
     // Addresses step selectors
     this.addressStepSection = '#checkout-addresses-step';
@@ -117,9 +92,7 @@ class CheckoutPage extends FOBasePage {
     this.addressStepUseSameAddressCheckbox = '#use_same_address';
     this.addressStepContinueButton = `${this.addressStepSection} button[name='confirm-addresses']`;
     this.addressStepSubmitButton = `${this.addressStepSection} button[type=submit]`;
-    this.addressStepEditButton = `${this.addressStepSection} span.step-edit`;
     this.addAddressButton = '#checkout-addresses-step p.add-address a';
-    this.addInvoiceAddressButton = '#checkout-addresses-step  p.add-address a[href*="invoice"]';
 
     // Shipping method selectors
     this.deliveryStepSection = '#checkout-delivery-step';
