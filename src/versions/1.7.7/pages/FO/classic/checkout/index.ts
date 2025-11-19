@@ -63,8 +63,6 @@ class CheckoutPage extends FOBasePage {
 
   public readonly noPaymentNeededText: string;
 
-  private readonly promoCodeArea: string;
-
   public personalInformationStepForm: string;
 
   protected forgetPasswordLink: string;
@@ -72,28 +70,6 @@ class CheckoutPage extends FOBasePage {
   private readonly checkoutGuestForm: string;
 
   private readonly checkoutGuestGenderInput: (pos: number) => string;
-
-  private readonly checkoutGuestFirstnameInput: string;
-
-  private readonly checkoutGuestLastnameInput: string;
-
-  private readonly checkoutGuestEmailInput: string;
-
-  private readonly createAccountCheckbox: string;
-
-  private readonly checkoutGuestPasswordInput: string;
-
-  private readonly checkoutGuestBirthdayInput: string;
-
-  private readonly checkoutGuestOptinCheckbox: string;
-
-  private readonly checkoutGuestCustomerPrivacyCheckbox: string;
-
-  private readonly checkoutGuestNewsletterCheckbox: string;
-
-  private readonly checkoutGuestGdprCheckbox: string;
-
-  private readonly checkoutGuestContinueButton: string;
 
   protected signInHyperLink: string;
 
@@ -141,19 +117,13 @@ class CheckoutPage extends FOBasePage {
 
   protected addInvoiceAddressButton: string;
 
-  private readonly invoiceAddressesBlock: string;
-
   protected deliveryStepSection: string;
 
   protected deliveryStepEditButton: string;
 
-  private readonly deliveryStepCarriersList: string;
-
   protected deliveryOptions: string;
 
   protected deliveryOptionLabel: (id: number) => string;
-
-  private readonly deliveryOptionNameSpan: (id: number) => string;
 
   protected deliveryOptionAllNamesSpan: string;
 
@@ -169,8 +139,6 @@ class CheckoutPage extends FOBasePage {
 
   protected deliveryStepCarrierPrice: (carrierID: number) => string;
 
-  private readonly deliveryAddressBlock: string;
-
   protected deliveryAddressPosition: (position: number) => string;
 
   protected invoiceAddressPosition: (position: number) => string;
@@ -178,12 +146,6 @@ class CheckoutPage extends FOBasePage {
   protected deliveryAddressEditButton: (addressID: number) => string;
 
   protected deliveryAddressDeleteButton: (addressID: number) => string;
-
-  private readonly deliveryAddressRadioButton: (addressID: number) => string;
-
-  private readonly invoiceAddressRadioButton: (addressID: number) => string;
-
-  protected cartTotalATI: string;
 
   /**
    * @constructs
@@ -205,18 +167,6 @@ class CheckoutPage extends FOBasePage {
     this.personalInformationStepForm = '#checkout-personal-information-step';
     // Order as a guest selectors
     this.checkoutGuestForm = '#checkout-guest-form';
-    this.checkoutGuestGenderInput = (pos) => `${this.checkoutGuestForm} input[name='id_gender'][value='${pos}']`;
-    this.checkoutGuestFirstnameInput = `${this.checkoutGuestForm} input[name='firstname']`;
-    this.checkoutGuestLastnameInput = `${this.checkoutGuestForm} input[name='lastname']`;
-    this.checkoutGuestEmailInput = `${this.checkoutGuestForm} input[name='email']`;
-    this.createAccountCheckbox = '#password-form__check';
-    this.checkoutGuestPasswordInput = `${this.checkoutGuestForm} input[name='password']`;
-    this.checkoutGuestBirthdayInput = `${this.checkoutGuestForm} input[name='birthday']`;
-    this.checkoutGuestOptinCheckbox = `${this.checkoutGuestForm} input[name='optin']`;
-    this.checkoutGuestCustomerPrivacyCheckbox = `${this.checkoutGuestForm} input[name='customer_privacy']`;
-    this.checkoutGuestNewsletterCheckbox = `${this.checkoutGuestForm} input[name='newsletter']`;
-    this.checkoutGuestGdprCheckbox = `${this.checkoutGuestForm} input[name='psgdpr']`;
-    this.checkoutGuestContinueButton = `${this.checkoutGuestForm} button[name='continue']`;
     // Sign in selectors
     this.signInHyperLink = `${this.personalInformationStepForm} a[href="#checkout-login-form"]`;
     this.forgetPasswordLink = '#login-form div.forgot-password a[href*=password-recovery]';
@@ -242,25 +192,19 @@ class CheckoutPage extends FOBasePage {
     this.addAddressButton = '#checkout-addresses-step p.add-address a';
     this.addInvoiceAddressButton = '#checkout-addresses-step  p.add-address a[href*="invoice"]';
     // Delivery address selectors
-    this.deliveryAddressBlock = '#delivery-addresses';
     this.deliveryAddressEditButton = (addressID: number) => `#id_address_delivery-address-${addressID} a.edit-address`;
     this.deliveryAddressDeleteButton = (addressID: number) => `#id_address_delivery-address-${addressID} a.delete-address`;
-    this.deliveryAddressRadioButton = (addressID: number) => `#id_address_delivery-address-${addressID} `
       + 'input[name="id_address_delivery"]';
     // Invoice address selectors
-    this.invoiceAddressesBlock = '#invoice-addresses';
     this.deliveryAddressPosition = (position: number) => `#delivery-addresses article:nth-child(${position})`;
     this.invoiceAddressPosition = (position: number) => `#invoice-addresses article:nth-child(${position})`;
-    this.invoiceAddressRadioButton = (addressID: number) => `#id_address_invoice-address-${addressID}`
       + ' input[name="id_address_invoice"]';
 
     // Shipping method selectors
     this.deliveryStepSection = '#checkout-delivery-step';
     this.deliveryStepEditButton = `${this.deliveryStepSection} span.step-edit`;
-    this.deliveryStepCarriersList = `${this.deliveryStepSection} .delivery-options-list`;
     this.deliveryOptions = '#js-delivery div.delivery-options';
     this.deliveryOptionLabel = (id: number) => `${this.deliveryStepSection} label[for='delivery_option_${id}']`;
-    this.deliveryOptionNameSpan = (id: number) => `${this.deliveryOptionLabel(id)} span.carrier-name`;
     this.deliveryOptionAllNamesSpan = '#js-delivery .delivery-option .carriere-name-container span.carrier-name';
     this.deliveryMessage = '#delivery_message';
     this.deliveryStepContinueButton = `${this.deliveryStepSection} button[name='confirmDeliveryOption']`;
@@ -281,8 +225,6 @@ class CheckoutPage extends FOBasePage {
     this.checkoutPromoBlock = `${this.checkoutSummary} div.block-promo`;
     this.checkoutRemoveDiscountLink = (row: number) => `li.cart-summary-line:nth-child(${row})`
       + ' a[data-link-action="remove-voucher"] i';
-    this.cartTotalATI = '.cart-summary-totals span.value';
-    this.promoCodeArea = '#promo-code';
     this.shippingValueSpan = '#cart-subtotal-shipping span.value';
     this.discountValueSpan = '#cart-subtotal-discount span.value';
     this.cartSummaryLine = (line: number) => `${this.checkoutPromoBlock} li:nth-child(${line}).cart-summary-line`;
@@ -326,166 +268,7 @@ class CheckoutPage extends FOBasePage {
     return this.elementVisible(page, `${stepSelector}${this.stepFormSuccess}`, 1000);
   }
 
-  /**
-   * Click on show details link
-   * @param page {Page} Browser tab
-   * @returns {Promise<boolean>}
-   */
-  async clickOnShowDetailsLink(page: Page): Promise<boolean> {
-    await this.waitForSelectorAndClick(page, this.showDetailsLink);
-
-    return this.elementVisible(page, `${this.showDetailsLink}[aria-expanded=true]`, 1000);
-  }
-
-  /**
-   * Get product details
-   * @param page {Page} Browser tab
-   * @param productRow {number} Product row in details block
-   * @returns {Promise<ProductDetailsBasic>}
-   */
-  async getProductDetails(page: Page, productRow: number): Promise<ProductDetailsBasic> {
-    return {
-      image: await this.getAttributeContent(page, this.productDetailsImage(productRow), 'src') ?? '',
-      name: await this.getTextContent(page, this.productDetailsName(productRow)),
-      quantity: await this.getNumberFromText(page, this.productDetailsQuantity(productRow)),
-      price: await this.getPriceFromText(page, this.productDetailsPrice(productRow)),
-    };
-  }
-
-  /**
-   * Get product details
-   * @param page {Page} Browser tab
-   * @param productRow {number} Product row in details block
-   * @returns {Promise<string}
-   */
-  async getProductAttributes(page: Page, productRow: number): Promise<string> {
-    return this.getTextContent(page, this.productDetailsAttributes(productRow));
-  }
-
-  /**
-   * Get product details
-   * @param page {Page} Browser tab
-   * @param productRow {number} Product row in details block
-   * @returns {Promise<void}
-   */
-  async clickOnProductImage(page: Page, productRow: number): Promise<void> {
-    return this.clickAndWaitForURL(page, this.productDetailsImage(productRow));
-  }
-
-  /**
-   * Get product details
-   * @param page {Page} Browser tab
-   * @param productRow {number} Product row in details block
-   * @returns {Promise<Page}
-   */
-  async clickOnProductName(page: Page, productRow: number): Promise<Page> {
-    return this.openLinkWithTargetBlank(page, this.productDetailsName(productRow));
-  }
-
-  /**
-   * Get items number
-   * @param page {Page} Browser tab
-   * @returns {Promise<string}
-   */
-  async getItemsNumber(page: Page): Promise<string> {
-    return this.getTextContent(page, this.itemsNumber);
-  }
-
-  // Methods for personal information step
-  /**
-   * Click on sign in
-   * @param page {Page} Browser tab
-   * @return {Promise<void>}
-   */
-  async clickOnSignIn(page: Page): Promise<void> {
-    await page.locator(this.signInHyperLink).click();
-  }
-
-
-  /**
-   * Fill personal information form and click on continue
-   * @param page {Page} Browser tab
-   * @param customerData {FakerCustomer} Guest Customer's information to fill on form
-   * @return {Promise<boolean>}
-   */
-  async setGuestPersonalInformation(page: Page, customerData: FakerCustomer): Promise<boolean> {
-    await this.setChecked(page, this.checkoutGuestGenderInput(customerData.socialTitle === 'Mr.' ? 1 : 2));
-
-    await this.setValue(page, this.checkoutGuestFirstnameInput, customerData.firstName);
-    await this.setValue(page, this.checkoutGuestLastnameInput, customerData.lastName);
-    await this.setValue(page, this.checkoutGuestEmailInput, customerData.email);
-    if (this.theme === 'hummingbird') {
-      await this.setChecked(page, this.createAccountCheckbox, true);
-    }
-    await this.setValue(page, this.checkoutGuestPasswordInput, customerData.password);
-
-    // Fill birthday input
-    await this.setValue(
-      page,
-      this.checkoutGuestBirthdayInput,
-      `${customerData.monthOfBirth.padStart(2, '0')}/`
-      + `${customerData.dayOfBirth.padStart(2, '0')}/`
-      + `${customerData.yearOfBirth}`,
-    );
-
-    if (customerData.partnerOffers) {
-      await this.setChecked(page, this.checkoutGuestOptinCheckbox);
-    }
-
-    if (customerData.newsletter) {
-      await this.setChecked(page, this.checkoutGuestNewsletterCheckbox);
-    }
-
-    // Check customer privacy input if visible
-    if (await this.elementVisible(page, this.checkoutGuestCustomerPrivacyCheckbox, 500)) {
-      await this.setChecked(page, this.checkoutGuestCustomerPrivacyCheckbox);
-    }
-
-    // Check gdpr input if visible
-    if (await this.elementVisible(page, this.checkoutGuestGdprCheckbox, 500)) {
-      await this.setChecked(page, this.checkoutGuestGdprCheckbox);
-    }
-
-    // Click on continue
-    await page.locator(this.checkoutGuestContinueButton).click();
-
-    return this.isStepCompleted(page, this.personalInformationStepForm);
-  }
-
   // Methods for Addresses step
-
-  /**
-   * Get address ID
-   * @param page {Page} Browser tab
-   * @param row {number} The row of the address
-   */
-  async getDeliveryAddressID(page: Page, row: number = 1): Promise<number> {
-    const addressSelectorValue = await this.getAttributeContent(page, this.deliveryAddressPosition(row), 'id');
-
-    if (addressSelectorValue === '') {
-      return 0;
-    }
-    const text: string = (/\d+/g.exec(addressSelectorValue) ?? '').toString();
-
-    return parseInt(text, 10);
-  }
-
-  /**
-   * Get invoice address ID
-   * @param page  {Page} Browser tab
-   * @param row {number} The row of the address
-   */
-  async getInvoiceAddressID(page: Page, row: number = 1): Promise<number> {
-    const addressSelectorValue = await this.getAttributeContent(page, this.invoiceAddressPosition(row), 'id');
-
-    if (addressSelectorValue === '') {
-      return 0;
-    }
-    const text: string = (/\d+/g.exec(addressSelectorValue) ?? '').toString();
-
-    return parseInt(text, 10);
-  }
-
   /**
    * Fill address form, used for delivery and invoice addresses
    * @param page {Page} Browser tab
