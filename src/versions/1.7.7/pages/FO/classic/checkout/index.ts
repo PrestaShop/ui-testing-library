@@ -1074,48 +1074,7 @@ class CheckoutPage extends FOBasePage {
     });
   }
 
-  /**
-   * Go to Payment Step and check that delivery step is complete
-   * @param page {Page} Browser tab
-   * @return {Promise<boolean>}
-   */
-  async goToPaymentStep(page: Page): Promise<boolean> {
-    await this.clickAndWaitForLoadState(page, this.deliveryStepContinueButton);
-
-    return this.isStepCompleted(page, this.deliveryStepSection);
-  }
-
-  /**
-   * Click on edit shipping method step
-   * @param page {Page} Browser tab
-   */
-  async clickOnEditShippingMethodStep(page: Page): Promise<void> {
-    if (!await this.elementVisible(page, this.deliveryStepCarriersList, 1000)) {
-      await this.waitForSelectorAndClick(page, this.deliveryStepEditButton);
-    }
-  }
-
   // Methods for payment methods step
-
-  /**
-   * Is confirm button visible and enabled
-   * @param page {Page} Browser tab
-   * @returns {Promise<boolean>}
-   */
-  async isPaymentConfirmationButtonVisibleAndEnabled(page: Page): Promise<boolean> {
-    // small side effect note, the selector is the one that checks for disabled
-    return this.elementVisible(page, this.paymentConfirmationButton, 1000);
-  }
-
-  /**
-   * Get No payment needed block content
-   * @param page {Page} Browser tab
-   * @returns {Promise<string>}
-   */
-  async getNoPaymentNeededBlockContent(page: Page): Promise<string> {
-    return this.getTextContent(page, this.noPaymentNeededElement);
-  }
-
   /**
    * Get selected shipping method name
    * @param page {Page} Browser tab
@@ -1134,40 +1093,6 @@ class CheckoutPage extends FOBasePage {
     throw new Error('No selected option was found');
   }
 
-  /**
-   * Set promo code
-   * @param page {Page} Browser tab
-   * @param code {string} The promo code
-   * @param clickOnCheckoutPromoCodeLink {boolean} True if we need to click on promo code link
-   * @returns {Promise<void>}
-   */
-  async addPromoCode(page: Page, code: string, clickOnCheckoutPromoCodeLink: boolean = true): Promise<void> {
-    if (clickOnCheckoutPromoCodeLink) {
-      await page.locator(this.checkoutHavePromoCodeButton).click();
-    }
-    await this.setValue(page, this.checkoutHavePromoInputArea, code);
-    await page.locator(this.checkoutPromoCodeAddButton).click();
-  }
-
-  /**
-   * Get cart rule name
-   * @param page {Page} Browser tab
-   * @param line {number} Cart rule line
-   * @return {string}
-   */
-  async getCartRuleName(page: Page, line: number = 1): Promise<string> {
-    return this.getTextContent(page, this.cartRuleName(line));
-  }
-
-  /**
-   * Get cart rule value
-   * @param page {Page} Browser tab
-   * @param line {number} Cart rule line
-   * @return {string}
-   */
-  async getCartRuleValue(page: Page, line: number = 1): Promise<string> {
-    return this.getTextContent(page, this.discountValue(line));
-  }
 
   /**
    * Choose payment method and validate Order
@@ -1186,36 +1111,6 @@ class CheckoutPage extends FOBasePage {
       page.locator(this.conditionToApproveLabel).click(),
     ]);
     await this.clickAndWaitForURL(page, this.paymentConfirmationButton);
-  }
-
-  /**
-   * Get All tax included price
-   * @param page {Page} Browser tab
-   * @returns {Promise<number>}
-   */
-  async getATIPrice(page: Page): Promise<number> {
-    return this.getPriceFromText(page, this.cartTotalATI, 2000);
-  }
-
-  /**
-   * Delete the discount
-   * @param page {Page} Browser tab
-   * @param row {number} Row of the delete icon
-   * @returns {Promise<boolean>}
-   */
-  async removePromoCode(page: Page, row: number = 1): Promise<boolean> {
-    await page.locator(this.checkoutRemoveDiscountLink(row)).click();
-
-    return this.elementNotVisible(page, this.checkoutRemoveDiscountLink(row), 1000);
-  }
-
-  /**
-   * Get cart rule error text
-   * @param page {Page} Browser tab
-   * @returns {Promise<string>}
-   */
-  async getCartRuleErrorMessage(page: Page): Promise<string> {
-    return this.getTextContent(page, this.cartRuleAlertMessage);
   }
 
   /**
