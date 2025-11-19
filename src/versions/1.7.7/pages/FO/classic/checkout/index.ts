@@ -479,6 +479,15 @@ class CheckoutPage extends FOBasePage {
     return this.openLinkWithTargetBlank(page, this.productDetailsName(productRow));
   }
 
+  /**
+   * Get items number
+   * @param page {Page} Browser tab
+   * @returns {Promise<string}
+   */
+  async getItemsNumber(page: Page): Promise<string> {
+    return this.getTextContent(page, this.itemsNumber);
+  }
+
   // Methods for personal information step
   /**
    * Click on sign in
@@ -663,100 +672,6 @@ class CheckoutPage extends FOBasePage {
   }
 
   /**
-   * Click on edit address
-   * @param page {Page} Browser tab
-   * @param row {number} The row of the address
-   */
-  async clickOnEditAddress(page: Page, row: number = 1): Promise<void> {
-    const addressID = await this.getDeliveryAddressID(page, row);
-    await this.waitForSelectorAndClick(page, this.deliveryAddressEditButton(addressID));
-  }
-
-  /**
-   * Delete address
-   * @param page {Page} Browser tab
-   * @param row {number} The row of the address
-   */
-  async deleteAddress(page: Page, row: number = 1): Promise<string> {
-    const addressID = await this.getDeliveryAddressID(page, row);
-    await this.waitForSelectorAndClick(page, this.deliveryAddressDeleteButton(addressID));
-
-    return this.getTextContent(page, this.successAlert);
-  }
-
-  /**
-   * Select delivery address
-   * @param page {Page} Browser tab
-   * @param row {number} The row of the address
-   */
-  async selectDeliveryAddress(page: Page, row: number = 1): Promise<void> {
-    const addressID = await this.getDeliveryAddressID(page, row);
-    await this.setChecked(page, this.deliveryAddressRadioButton(addressID), true);
-  }
-
-  /**
-   * Return if the delivery address is selected
-   * @param page {Page} Browser tab
-   * @param row {number} The row of the address
-   * @returns {Promise<boolean>}
-   */
-  async isDeliveryAddressSelected(page: Page, row: number): Promise<boolean> {
-    const addressID = await this.getDeliveryAddressID(page, row);
-
-    return this.isChecked(page, this.deliveryAddressRadioButton(addressID));
-  }
-
-  /**
-   * Select invoice address
-   * @param page {Page} Browser tab
-   * @param row {number} The row of the address
-   */
-  async selectInvoiceAddress(page: Page, row: number = 1): Promise<void> {
-    const addressID = await this.getInvoiceAddressID(page, row);
-    await this.setChecked(page, this.invoiceAddressRadioButton(addressID), true);
-  }
-
-  /**
-   * Return if the invoice address is selected
-   * @param page {Page} Browser tab
-   * @param row {number} The row of the address
-   * @returns {Promise<boolean>}
-   */
-  async isInvoiceAddressSelected(page: Page, row: number): Promise<boolean> {
-    const addressID = await this.getInvoiceAddressID(page, row);
-
-    return this.isChecked(page, this.invoiceAddressRadioButton(addressID));
-  }
-
-  /**
-   * Click on continue button from address step
-   * @param page {Page} Browser tab
-   */
-  async clickOnContinueButtonFromAddressStep(page: Page): Promise<boolean> {
-    await page.locator(this.addressStepContinueButton).click();
-
-    return this.isStepCompleted(page, this.addressStepSection);
-  }
-
-  /**
-   * Is address form visible
-   * @param page {Page} Browser tab
-   */
-  async isAddressFormVisible(page: Page): Promise<boolean> {
-    return this.elementVisible(page, this.addressStepCreateAddressForm, 2000);
-  }
-
-  /**
-   * Returns all available countries in Address form
-   * @param page {Page} Browser tab
-   * @returns {Promise<string[]>}
-   */
-  async getAvailableAddressCountries(page: Page): Promise<string[]> {
-    return (await page.locator(`${this.addressStepCountrySelect} option`).allInnerTexts())
-      .filter((e: string) => e !== 'Please choose');
-  }
-
-  /**
    * Fill address form, used for delivery and invoice addresses
    * @param page {Page} Browser tab
    * @param address {FakerAddress} Address's information to fill form with
@@ -776,23 +691,6 @@ class CheckoutPage extends FOBasePage {
     if (await this.elementVisible(page, this.stateInput, 1000)) {
       await this.selectByVisibleText(page, this.stateInput, address.state);
     }
-  }
-
-  /**
-   * Set invoice address
-   * @param page {Page} Browser tab
-   * @param invoiceAddress {FakerAddress} Address's information to fill form with
-   */
-  async setInvoiceAddress(page: Page, invoiceAddress: FakerAddress): Promise<boolean> {
-    await this.fillAddressForm(page, invoiceAddress);
-
-    if (await this.elementVisible(page, this.addressStepContinueButton, 2000)) {
-      await page.locator(this.addressStepContinueButton).click();
-    } else {
-      await page.locator(this.addressStepSubmitButton).click();
-    }
-
-    return this.isStepCompleted(page, this.addressStepSection);
   }
 
   /**
@@ -825,70 +723,12 @@ class CheckoutPage extends FOBasePage {
   }
 
   /**
-   * Get number od addresses
-   * @param page {Page} Browser tab
-   * @returns {Promise<number>}
-   */
-  async getNumberOfAddresses(page: Page): Promise<number> {
-    await this.waitForSelector(page, this.deliveryAddressBlock, 'visible');
-
-    return page.locator(this.deliveryAddressSection).count();
-  }
-
-  /**
-   * Get number od addresses
-   * @param page {Page} Browser tab
-   * @returns {Promise<number>}
-   */
-  async getNumberOfInvoiceAddresses(page: Page): Promise<number> {
-    await this.waitForSelector(page, this.invoiceAddressesBlock, 'visible');
-
-    return page.locator(this.invoiceAddressSection).count();
-  }
-
-  /**
-   * Click on edit addresses step
-   * @param page {Page} Browser tab
-   */
-  async clickOnEditAddressesStep(page: Page): Promise<void> {
-    if (!await this.elementVisible(page, this.deliveryAddressBlock, 1000)) {
-      await this.waitForSelectorAndClick(page, this.addressStepEditButton);
-    }
-  }
-
-  /**
    * Click on new address button
    * @param page {Page} Browser tab
    */
   async clickOnAddNewAddressButton(page: Page): Promise<void> {
     await this.waitForSelectorAndClick(page, this.addAddressButton);
   }
-
-  /**
-   * Click on different invoice address link
-   * @param page {Page} Browser tab
-   */
-  async clickOnDifferentInvoiceAddressLink(page: Page): Promise<void> {
-    await this.waitForSelectorAndClick(page, this.differentInvoiceAddressLink);
-  }
-
-  /**
-   * Is invoice address block visible
-   * @param page {Page} Browser tab
-   */
-  async isInvoiceAddressBlockVisible(page: Page): Promise<boolean> {
-    return this.elementVisible(page, this.invoiceAddressesBlock, 3000);
-  }
-
-  /**
-   * Click on new invoice address button
-   * @param page {Page} Browser tab
-   */
-  async clickOnAddNewInvoiceAddressButton(page: Page): Promise<void> {
-    await this.waitForSelectorAndClick(page, this.addInvoiceAddressButton);
-  }
-
-  // Methods for Shipping methods step
 
   /**
    * Go to Delivery Step and check that Address step is complete
@@ -902,203 +742,14 @@ class CheckoutPage extends FOBasePage {
   }
 
   /**
-   * Check if the Addresses Step is displayed
+   * Go to Payment Step and check that delivery step is complete
    * @param page {Page} Browser tab
-   * @returns {Promise<boolean>}
+   * @return {Promise<boolean>}
    */
-  async isAddressesStep(page: Page): Promise<boolean> {
-    await this.waitForVisibleSelector(page, this.addressStepContent);
+  async goToPaymentStep(page: Page): Promise<boolean> {
+    await this.clickAndWaitForLoadState(page, this.deliveryStepContinueButton);
 
-    return this.elementVisible(page, this.addressStepContent, 1000);
-  }
-
-  /**
-   * Choose delivery address
-   * @param page {Page} Browser tab
-   * @param position {number} Position of address to choose
-   * @returns {Promise<void>}
-   */
-  async chooseDeliveryAddress(page: Page, position: number = 1): Promise<void> {
-    await this.waitForSelectorAndClick(page, this.deliveryAddressPosition(position));
-  }
-
-  /**
-   * Go to shipping Step and check that address step is complete
-   * @param page {Page} Browser tab
-   * @return {Promise<void>}
-   */
-  async goToShippingStep(page: Page): Promise<void> {
-    await this.waitForSelectorAndClick(page, this.deliveryStepSection);
-  }
-
-  // Methods for shipping method step
-
-  /**
-   * Choose shipping method
-   * @param page {Page} Browser tab
-   * @param shippingMethodID {number} Position of the shipping method
-   */
-  async chooseShippingMethod(page: Page, shippingMethodID: number): Promise<void> {
-    await this.waitForSelectorAndClick(page, this.deliveryOptionLabel(shippingMethodID));
-  }
-
-  /**
-   * Get order message
-   * @param page {Page} Browser tab
-   */
-  async getOrderMessage(page: Page): Promise<string> {
-    return this.getTextContent(page, this.deliveryMessage);
-  }
-
-  /**
-   * Choose shipping method and add a comment
-   * @param page {Page} Browser tab
-   * @param shippingMethodID {number} Position of the shipping method
-   * @param comment {string} Comment to add after selecting a shipping method
-   * @returns {Promise<void>}
-   */
-  async chooseShippingMethodWithoutValidation(page: Page, shippingMethodID: number, comment: string = ''): Promise<void> {
-    await this.clickAndWaitForURL(page, this.deliveryOptionLabel(shippingMethodID));
-    await this.setValue(page, this.deliveryMessage, comment);
-  }
-
-  /**
-   * Is shipping method exist
-   * @param page {Page} Browser tab
-   * @param shippingMethodID {number} Position of the shipping method
-   * @returns {Promise<boolean>}
-   */
-  async isShippingMethodVisible(page: Page, shippingMethodID: number): Promise<boolean> {
-    return this.elementVisible(page, this.deliveryOptionLabel(shippingMethodID), 2000);
-  }
-
-  /**
-   * Return shipping method label
-   * @param page {Page} Browser tab
-   * @param shippingMethodID {number} Position of the shipping method
-   * @returns {Promise<string>}
-   */
-  async getShippingMethodName(page: Page, shippingMethodID: number): Promise<string> {
-    return this.getTextContent(page, this.deliveryOptionNameSpan(shippingMethodID));
-  }
-
-  /**
-   * Get all carriers prices
-   * @param page {Page} Browser tab
-   * @returns {Promise<Array<string>>}
-   */
-  async getAllCarriersPrices(page: Page): Promise<string[]> {
-    return (await page
-      .locator(this.deliveryOptionAllPricesSpan)
-      .allTextContents())
-      .filter((el: string | null): el is string => el !== null);
-  }
-
-  /**
-   * Get discount value
-   * @param page {Page} Browser tab
-   * @returns {Promise<string>}
-   */
-  async getDiscountCost(page: Page): Promise<string> {
-    await page.waitForTimeout(2000);
-
-    return this.getTextContent(page, this.discountValueSpan);
-  }
-
-  /**
-   * Get shipping value
-   * @param page {Page} Browser tab
-   * @returns {Promise<string>}
-   */
-  async getShippingCost(page: Page): Promise<string> {
-    await page.waitForTimeout(2000);
-
-    return this.getTextContent(page, this.shippingValueSpan);
-  }
-
-  /**
-   * Get errror carrier
-   * @param page {Page} Browser tab
-   * @returns {Promise<string|null>}
-   */
-  async getCarrierErrorMessage(page: Page): Promise<string|null> {
-    return page.locator(this.deliveryStepCarriersListError).textContent();
-  }
-
-  /**
-   * Get all carriers names
-   * @param page {Page} Browser tab
-   * @returns {Promise<Array<string>>}
-   */
-  async getAllCarriersNames(page: Page): Promise<(string | null)[]> {
-    return page.locator(this.deliveryOptionAllNamesSpan).allTextContents();
-  }
-
-  /**
-   * Get carrier data
-   * @param page {Page} Browser tab
-   * @param carrierID {number} The carrier row in list
-   */
-  async getCarrierData(page: Page, carrierID: number = 1): Promise<FakerCarrier> {
-    const priceText: string = await this.getTextContent(page, this.deliveryStepCarrierPrice(carrierID));
-    const price: number = await this.getNumberFromText(page, this.deliveryStepCarrierPrice(carrierID));
-
-    return new FakerCarrier({
-      name: await this.getTextContent(page, this.deliveryStepCarrierName(carrierID)),
-      transitName: await this.getTextContent(page, this.deliveryStepCarrierDelay(carrierID)),
-      price,
-      priceText,
-    });
-  }
-
-  // Methods for payment methods step
-  /**
-   * Get selected shipping method name
-   * @param page {Page} Browser tab
-   * @return {Promise<string | null>}
-   */
-  async getSelectedShippingMethod(page: Page): Promise<string | null> {
-    const selectedOptionId = parseInt(
-      await this.getAttributeContent(page, `${this.deliveryOptionsRadioButton}[checked]`, 'value') ?? '0',
-      10,
-    );
-
-    // Return text of the selected option
-    if (selectedOptionId !== 0) {
-      return this.getTextContent(page, this.deliveryOptionNameSpan(selectedOptionId));
-    }
-    throw new Error('No selected option was found');
-  }
-
-
-  /**
-   * Choose payment method and validate Order
-   * @param page {Page} Browser tab
-   * @param paymentModuleName {string} The chosen payment method
-   * @return {Promise<void>}
-   */
-  async choosePaymentAndOrder(page: Page, paymentModuleName: string): Promise<void> {
-    if (await this.elementVisible(page, this.paymentOptionInput(paymentModuleName), 1000)) {
-      if (!(await page.locator(this.paymentOptionInput(paymentModuleName)).isChecked())) {
-        await page.locator(this.paymentOptionInput(paymentModuleName)).click();
-      }
-    }
-    await Promise.all([
-      this.waitForVisibleSelector(page, this.paymentConfirmationButton),
-      page.locator(this.conditionToApproveLabel).click(),
-    ]);
-    await this.clickAndWaitForURL(page, this.paymentConfirmationButton);
-  }
-
-  /**
-   * Get terms of service page title
-   * @param page {Page} Browser tab
-   * @returns {Promise<string>}
-   */
-  async getTermsOfServicePageTitle(page: Page): Promise<string> {
-    await page.locator(this.termsOfServiceLink).click();
-
-    return this.getTextContent(page, this.termsOfServiceModalDiv);
+    return this.isStepCompleted(page, this.deliveryStepSection);
   }
 }
 
