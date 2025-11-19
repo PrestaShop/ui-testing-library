@@ -4,10 +4,8 @@ import FOBasePage from '@pages/FO/FOBasePage';
 // Import data
 import FakerAddress from '@data/faker/address';
 import FakerCustomer from '@data/faker/customer';
-import FakerCarrier from '@data/faker/carrier';
 
 import {ProductDetailsBasic} from '@data/types/product';
-import {FoCheckoutPageInterface} from '@interfaces/FO/checkout';
 
 import type {Page} from 'playwright';
 
@@ -20,8 +18,6 @@ class CheckoutPage extends FOBasePage {
   public readonly deleteAddressSuccessMessage: string;
 
   public readonly noCarriersMessage: string;
-
-  private readonly successAlert: string;
 
   private readonly checkoutPageBody: string;
 
@@ -39,14 +35,6 @@ class CheckoutPage extends FOBasePage {
 
   protected conditionToApproveLabel: string;
 
-  private readonly conditionToApproveCheckbox: string;
-
-  private readonly termsOfServiceLink: string;
-
-  private readonly termsOfServiceModalDiv: string;
-
-  private readonly paymentConfirmationButton: string;
-
   protected shippingValueSpan: string;
 
   protected discountValueSpan: string;
@@ -54,10 +42,6 @@ class CheckoutPage extends FOBasePage {
   protected cartSummaryLine: (line: number) => string;
 
   protected cartRuleName: (line: number) => string;
-
-  private readonly discountValue: (line: number) => string;
-
-  private readonly noPaymentNeededElement: string;
 
   protected itemsNumber: string;
 
@@ -81,17 +65,9 @@ class CheckoutPage extends FOBasePage {
 
   private readonly promoCodeArea: string;
 
-  private readonly checkoutHavePromoInputArea: string;
-
-  private readonly checkoutPromoCodeAddButton: string;
-
   public personalInformationStepForm: string;
 
   protected forgetPasswordLink: string;
-
-  private readonly activeLink: string;
-
-  private readonly checkoutSignInLink: string;
 
   private readonly checkoutGuestForm: string;
 
@@ -125,21 +101,11 @@ class CheckoutPage extends FOBasePage {
 
   protected checkoutPromoBlock: string;
 
-  private readonly checkoutHavePromoCodeButton: string;
-
   protected checkoutRemoveDiscountLink: (row: number) => string;
 
   protected checkoutLoginForm: string;
 
-  private readonly emailInput: string;
-
-  private readonly passwordInput: string;
-
   protected personalInformationContinueButton: string;
-
-  private readonly logoutMessage: string;
-
-  private readonly personalInformationLogoutLink: string;
 
   protected personalInformationCustomerIdentity: string;
 
@@ -148,10 +114,6 @@ class CheckoutPage extends FOBasePage {
   protected loginErrorMessage: string;
 
   protected addressStepSection: string;
-
-  private readonly addressStepContent: string;
-
-  private readonly addressStepCreateAddressForm: string;
 
   private readonly addressStepCompanyInput: string;
 
@@ -179,11 +141,7 @@ class CheckoutPage extends FOBasePage {
 
   protected addInvoiceAddressButton: string;
 
-  private readonly differentInvoiceAddressLink: string;
-
   private readonly invoiceAddressesBlock: string;
-
-  private readonly invoiceAddressSection: string;
 
   protected deliveryStepSection: string;
 
@@ -191,19 +149,13 @@ class CheckoutPage extends FOBasePage {
 
   private readonly deliveryStepCarriersList: string;
 
-  private readonly deliveryStepCarriersListError: string;
-
   protected deliveryOptions: string;
-
-  private readonly deliveryOptionsRadioButton: string;
 
   protected deliveryOptionLabel: (id: number) => string;
 
   private readonly deliveryOptionNameSpan: (id: number) => string;
 
   protected deliveryOptionAllNamesSpan: string;
-
-  private readonly deliveryOptionAllPricesSpan: string;
 
   private readonly deliveryMessage: string;
 
@@ -219,8 +171,6 @@ class CheckoutPage extends FOBasePage {
 
   private readonly deliveryAddressBlock: string;
 
-  private readonly deliveryAddressSection: string;
-
   protected deliveryAddressPosition: (position: number) => string;
 
   protected invoiceAddressPosition: (position: number) => string;
@@ -235,19 +185,7 @@ class CheckoutPage extends FOBasePage {
 
   protected cartTotalATI: string;
 
-  private readonly cartRuleAlertMessage: string;
-
-  private readonly cartRuleAlertMessageText: string;
-
-  private readonly giftCheckbox: string;
-
-  private readonly giftMessageTextarea: string;
-
-  private readonly recyclableGiftCheckbox: string;
-
   private readonly cartSubtotalGiftWrappingDiv: string;
-
-  private readonly cartSubtotalGiftWrappingValueSpan: string;
 
   /**
    * @constructs
@@ -255,7 +193,6 @@ class CheckoutPage extends FOBasePage {
    */
   constructor(theme: string = 'classic') {
     super(theme);
-    this.cartRuleAlertMessageText = 'You cannot use this voucher with this carrier';
     this.deleteAddressSuccessMessage = 'Address successfully deleted.';
     this.noCarriersMessage = 'Unfortunately, there are no carriers available for your delivery address.';
     this.noPaymentNeededText = 'No payment needed for this order';
@@ -263,15 +200,12 @@ class CheckoutPage extends FOBasePage {
     this.authenticationErrorMessage = 'Authentication failed.';
 
     // Selectors
-    this.successAlert = '#notifications article.alert-success';
     this.checkoutPageBody = 'body#checkout';
     this.stepFormSuccess = '.-complete';
 
     // Personal information form
     this.personalInformationStepForm = '#checkout-personal-information-step';
     // Order as a guest selectors
-    this.activeLink = `${this.personalInformationStepForm} .nav-link.active`;
-    this.checkoutSignInLink = `${this.personalInformationStepForm} a[href="#checkout-login-form"]`;
     this.checkoutGuestForm = '#checkout-guest-form';
     this.checkoutGuestGenderInput = (pos) => `${this.checkoutGuestForm} input[name='id_gender'][value='${pos}']`;
     this.checkoutGuestFirstnameInput = `${this.checkoutGuestForm} input[name='firstname']`;
@@ -289,19 +223,13 @@ class CheckoutPage extends FOBasePage {
     this.signInHyperLink = `${this.personalInformationStepForm} a[href="#checkout-login-form"]`;
     this.forgetPasswordLink = '#login-form div.forgot-password a[href*=password-recovery]';
     this.checkoutLoginForm = `${this.personalInformationStepForm} #checkout-login-form`;
-    this.emailInput = `${this.checkoutLoginForm} input[name='email']`;
-    this.passwordInput = `${this.checkoutLoginForm} input[name='password']`;
     this.personalInformationContinueButton = `${this.checkoutLoginForm} #login-form footer button`;
-    this.logoutMessage = `${this.personalInformationStepForm} p:nth-child(3) small`;
-    this.personalInformationLogoutLink = `${this.personalInformationStepForm} a[href*=mylogout]`;
     this.personalInformationCustomerIdentity = `${this.personalInformationStepForm} p.identity`;
     this.personalInformationEditLink = `${this.personalInformationStepForm} span.step-edit.text-muted`;
     this.loginErrorMessage = `${this.checkoutLoginForm} li.alert-danger`;
 
     // Addresses step selectors
     this.addressStepSection = '#checkout-addresses-step';
-    this.addressStepContent = `${this.addressStepSection} div.content`;
-    this.addressStepCreateAddressForm = `${this.addressStepSection} .js-address-form`;
     this.addressStepCompanyInput = `${this.addressStepSection} input[name="company"]`;
     this.addressStepAddress1Input = 'input[name="address1"]';
     this.addressStepPostCodeInput = 'input[name="postcode"]';
@@ -315,17 +243,14 @@ class CheckoutPage extends FOBasePage {
     this.addressStepEditButton = `${this.addressStepSection} span.step-edit`;
     this.addAddressButton = '#checkout-addresses-step p.add-address a';
     this.addInvoiceAddressButton = '#checkout-addresses-step  p.add-address a[href*="invoice"]';
-    this.differentInvoiceAddressLink = '#checkout-addresses-step form a[data-link-action="different-invoice-address"]';
     // Delivery address selectors
     this.deliveryAddressBlock = '#delivery-addresses';
-    this.deliveryAddressSection = `${this.deliveryAddressBlock} article.js-address-item`;
     this.deliveryAddressEditButton = (addressID: number) => `#id_address_delivery-address-${addressID} a.edit-address`;
     this.deliveryAddressDeleteButton = (addressID: number) => `#id_address_delivery-address-${addressID} a.delete-address`;
     this.deliveryAddressRadioButton = (addressID: number) => `#id_address_delivery-address-${addressID} `
       + 'input[name="id_address_delivery"]';
     // Invoice address selectors
     this.invoiceAddressesBlock = '#invoice-addresses';
-    this.invoiceAddressSection = `${this.invoiceAddressesBlock} article.js-address-item`;
     this.deliveryAddressPosition = (position: number) => `#delivery-addresses article:nth-child(${position})`;
     this.invoiceAddressPosition = (position: number) => `#invoice-addresses article:nth-child(${position})`;
     this.invoiceAddressRadioButton = (addressID: number) => `#id_address_invoice-address-${addressID}`
@@ -335,13 +260,10 @@ class CheckoutPage extends FOBasePage {
     this.deliveryStepSection = '#checkout-delivery-step';
     this.deliveryStepEditButton = `${this.deliveryStepSection} span.step-edit`;
     this.deliveryStepCarriersList = `${this.deliveryStepSection} .delivery-options-list`;
-    this.deliveryStepCarriersListError = `${this.deliveryStepCarriersList} .alert-danger`;
     this.deliveryOptions = '#js-delivery div.delivery-options';
-    this.deliveryOptionsRadioButton = 'input[id*=\'delivery_option_\']';
     this.deliveryOptionLabel = (id: number) => `${this.deliveryStepSection} label[for='delivery_option_${id}']`;
     this.deliveryOptionNameSpan = (id: number) => `${this.deliveryOptionLabel(id)} span.carrier-name`;
     this.deliveryOptionAllNamesSpan = '#js-delivery .delivery-option .carriere-name-container span.carrier-name';
-    this.deliveryOptionAllPricesSpan = '#js-delivery .delivery-option span.carrier-price';
     this.deliveryMessage = '#delivery_message';
     this.deliveryStepContinueButton = `${this.deliveryStepSection} button[name='confirmDeliveryOption']`;
     this.deliveryOption = (carrierID: number) => `${this.deliveryOptions} label[for=delivery_option_${carrierID}] span.carrier`;
@@ -355,28 +277,18 @@ class CheckoutPage extends FOBasePage {
       + `[data-module-name='${name}']`;
     this.paymentOptionAlertDanger = '.payment-options p.alert-danger';
     this.conditionToApproveLabel = `${this.paymentStepSection} #conditions-to-approve label`;
-    this.conditionToApproveCheckbox = '#conditions_to_approve\\[terms-and-conditions\\]';
-    this.termsOfServiceLink = '#cta-terms-and-conditions-0';
-    this.termsOfServiceModalDiv = '#modal div.js-modal-content';
-    this.paymentConfirmationButton = `${this.paymentStepSection} #payment-confirmation button:not([disabled])`;
-    this.noPaymentNeededElement = `${this.paymentStepSection} div.content > p.cart-payment-step-not-needed-info`;
 
     // Checkout summary selectors
     this.checkoutSummary = '#js-checkout-summary';
     this.checkoutPromoBlock = `${this.checkoutSummary} div.block-promo`;
-    this.checkoutHavePromoCodeButton = `${this.checkoutPromoBlock} p.promo-code-button a`;
     this.checkoutRemoveDiscountLink = (row: number) => `li.cart-summary-line:nth-child(${row})`
       + ' a[data-link-action="remove-voucher"] i';
     this.cartTotalATI = '.cart-summary-totals span.value';
-    this.cartRuleAlertMessage = '#promo-code div.alert-danger span.js-error-text';
     this.promoCodeArea = '#promo-code';
-    this.checkoutHavePromoInputArea = `${this.promoCodeArea} input.promo-input`;
-    this.checkoutPromoCodeAddButton = `${this.promoCodeArea} button.btn-primary`;
     this.shippingValueSpan = '#cart-subtotal-shipping span.value';
     this.discountValueSpan = '#cart-subtotal-discount span.value';
     this.cartSummaryLine = (line: number) => `${this.checkoutPromoBlock} li:nth-child(${line}).cart-summary-line`;
     this.cartRuleName = (line: number) => `${this.cartSummaryLine(line)} span.label`;
-    this.discountValue = (line: number) => `${this.cartSummaryLine(line)} div span`;
 
     // Cart details selectors
     this.itemsNumber = `${this.checkoutSummary} div.cart-summary-products.js-cart-summary-products p:nth-child(1)`;
@@ -391,13 +303,6 @@ class CheckoutPage extends FOBasePage {
       + 'span.product-price.float-xs-right';
     this.productDetailsAttributes = (productRow: number) => `${this.productRowLink(productRow)} div.media-body `
       + 'div.product-line-info';
-
-    // Gift selectors
-    this.giftCheckbox = '#input_gift';
-    this.giftMessageTextarea = '#gift_message';
-    this.recyclableGiftCheckbox = '#input_recyclable';
-    this.cartSubtotalGiftWrappingDiv = '#cart-subtotal-gift_wrapping';
-    this.cartSubtotalGiftWrappingValueSpan = `${this.cartSubtotalGiftWrappingDiv} span.value`;
   }
 
   /*
@@ -498,94 +403,6 @@ class CheckoutPage extends FOBasePage {
     await page.locator(this.signInHyperLink).click();
   }
 
-  /**
-   * Logout customer
-   * @param page {Page} Browser tab
-   * @return {Promise<boolean>}
-   */
-  async logOutCustomer(page: Page): Promise<boolean> {
-    await this.waitForSelectorAndClick(page, this.personalInformationLogoutLink);
-
-    return this.isStepCompleted(page, this.personalInformationStepForm);
-  }
-
-  /**
-   * Go to password reminder page
-   * @param page {Page} Browser tab
-   * @return {Promise<void>}
-   */
-  async goToPasswordReminderPage(page: Page): Promise<void> {
-    await this.clickAndWaitForURL(page, this.forgetPasswordLink);
-  }
-
-  /**
-   * Click on edit personal information step
-   * @param page {Page} Browser tab
-   * @return {Promise<void>}
-   */
-  async clickOnEditPersonalInformationStep(page: Page): Promise<void> {
-    await this.waitForSelectorAndClick(page, this.personalInformationEditLink);
-  }
-
-  /**
-   * Get customer identity
-   * @param page {Page} Browser tab
-   * @return {Promise<string>}
-   */
-  async getCustomerIdentity(page: Page): Promise<string> {
-    return this.getTextContent(page, this.personalInformationCustomerIdentity);
-  }
-
-  /**
-   * Get logout message
-   * @param page {Page} Browser tab
-   * @return {Promise<string>}
-   */
-  async getLogoutMessage(page: Page): Promise<string> {
-    return this.getTextContent(page, this.logoutMessage);
-  }
-
-  /**
-   * Login in FO
-   * @param page {Page} Browser tab
-   * @param customer {object} Customer's information (email and password)
-   * @return {Promise<boolean>}
-   */
-  async customerLogin(page: Page, customer: any): Promise<boolean> {
-    await this.waitForVisibleSelector(page, this.emailInput);
-    await this.setValue(page, this.emailInput, customer.email);
-    await this.setValue(page, this.passwordInput, customer.password);
-    await this.clickAndWaitForLoadState(page, this.personalInformationContinueButton);
-
-    return this.isStepCompleted(page, this.personalInformationStepForm);
-  }
-
-  /**
-   * Get login error message
-   * @param page {Page} Browser tab
-   * @return {Promise<string>}
-   */
-  async getLoginError(page: Page): Promise<string> {
-    return this.getTextContent(page, this.loginErrorMessage);
-  }
-
-  /**
-   * Get active link from personal information block
-   * @param page {Page} Browser tab
-   * @returns {Promise<string>}
-   */
-  async getActiveLinkFromPersonalInformationBlock(page: Page): Promise<string> {
-    return this.getTextContent(page, this.activeLink);
-  }
-
-  /**
-   * Is password input required
-   * @param page {Page} Browser tab
-   * @returns {Promise<boolean>}
-   */
-  async isPasswordRequired(page: Page): Promise<boolean> {
-    return this.elementVisible(page, `${this.checkoutGuestPasswordInput}:required`, 1000);
-  }
 
   /**
    * Fill personal information form and click on continue
