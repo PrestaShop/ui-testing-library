@@ -155,17 +155,17 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
 
   private readonly addressStepAliasInput: string;
 
-  private readonly addressStepCompanyInput: string;
+  protected addressStepCompanyInput: string;
 
-  private readonly addressStepAddress1Input: string;
+  protected addressStepAddress1Input: string;
 
-  private readonly addressStepPostCodeInput: string;
+  protected addressStepPostCodeInput: string;
 
-  private readonly addressStepCityInput: string;
+  protected addressStepCityInput: string;
 
   protected addressStepCountrySelect: string;
 
-  protected readonly addressStepPhoneInput: string;
+  protected addressStepPhoneInput: string;
 
   protected stateInput: string;
 
