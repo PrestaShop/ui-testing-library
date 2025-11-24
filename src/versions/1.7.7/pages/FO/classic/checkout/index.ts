@@ -1,12 +1,6 @@
 // Import pages
-import FOBasePage from '@pages/FO/FOBasePage';
 import type {FoCheckoutPageInterface} from '@interfaces/FO/checkout';
-import { CheckoutPage as CheckoutVersionPage } from '@versions/develop/pages/FO/classic/checkout';
-
-// Import data
-import FakerAddress from '@data/faker/address';
-
-// import type {Page} from 'playwright';
+import {CheckoutPage as CheckoutVersionPage} from '@versions/develop/pages/FO/classic/checkout';
 
 /**
  * Checkout page, contains functions that can be used on the page
@@ -14,7 +8,6 @@ import FakerAddress from '@data/faker/address';
  * @extends FOBasePage
  */
 class CheckoutPage extends CheckoutVersionPage implements FoCheckoutPageInterface {
-
   /**
    * @constructs
    * Setting up texts and selectors to use on checkout page
@@ -33,7 +26,6 @@ class CheckoutPage extends CheckoutVersionPage implements FoCheckoutPageInterfac
     this.addressStepPhoneInput = 'input[name="phone"]';
     this.stateInput = 'select[name="id_state"]';
   }
-
 }
 
 const checkoutPage = new CheckoutPage();
