@@ -486,6 +486,15 @@ class CategoryPage extends FOBasePage implements FoCategoryPageInterface {
   // Side Block : Filters
   /////////////////////////
   /**
+   * Return if the supplier list is present
+   * @param page {Page} Browser tab
+   * @return {Promise<boolean>}
+   */
+  async hasFiltersSuppliers(page: Page): Promise<boolean> {
+    return (await page.locator(this.searchFiltersSuppliers).count()) === 1;
+  }
+
+  /**
    * Return if the supplier list is a dropdown
    * @param page {Page} Browser tab
    * @return {Promise<boolean>}

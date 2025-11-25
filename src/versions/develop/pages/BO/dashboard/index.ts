@@ -172,7 +172,7 @@ class Dashboard extends BOBasePage implements DashboardPageInterface {
     this.recentOrdersTitle = '#dash_recent_orders div.panel-heading';
     this.recentOrdersTable = '#table_recent_orders';
     this.recentOrdersTableRow = (row: number) => `#table_recent_orders tbody tr:nth-child(${row})`;
-    this.recentOrdersTableRowDetailsIcon = (row: number) => `${this.recentOrdersTableRow(row)} #details a[href*='vieworder']`;
+    this.recentOrdersTableRowDetailsIcon = (row: number) => `${this.recentOrdersTableRow(row)} #details a[href*='view']`;
     this.bestSellersTab = '#dashproducts a[href*=\'#dash_best_sellers\']';
     this.bestSellersTabTitle = '#dash_best_sellers div.panel-heading';
     this.bestSellersTable = '#table_best_sellers';
