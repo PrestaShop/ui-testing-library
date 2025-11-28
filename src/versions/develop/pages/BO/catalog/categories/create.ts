@@ -8,6 +8,8 @@ class BOCategoriesCreatePage extends BOBasePage implements BOCategoriesCreatePag
 
   public readonly pageTitleEdit: string;
 
+  private readonly formCategory: string;
+
   private readonly nameInput: string;
 
   private readonly displayedToggleInput: (toggle: number) => string;
@@ -53,6 +55,7 @@ class BOCategoriesCreatePage extends BOBasePage implements BOCategoriesCreatePag
     this.pageTitleEdit = 'Editing category ';
 
     // Selectors
+    this.formCategory = '#main-div .content-div form';
     this.nameInput = '#category_name_1';
     this.displayedToggleInput = (toggle: number) => `#category_active_${toggle}`;
     this.descriptionIframe = '#category_description_1_ifr';
@@ -79,10 +82,18 @@ class BOCategoriesCreatePage extends BOBasePage implements BOCategoriesCreatePag
   /*
   Methods
    */
+  /**
+   * Returns the Identifier of the category
+   * @param page {Page} Browser tab
+   * @return {Promise<number>}
+   */
+  async getIDCategory(page: Page): Promise<number> {
+    return parseInt(await page.locator(this.formCategory).getAttribute('data-id') ?? '', 10);
+  }
 
   /**
    * Select all groups
-   * @param page
+   * @param page {Page} Browser tab
    * @return {Promise<void>}
    */
   async selectAllGroups(page: Page): Promise<void> {
@@ -136,7 +147,9 @@ class BOCategoriesCreatePage extends BOBasePage implements BOCategoriesCreatePag
     await this.setValue(page, this.rootCategoryNameInput, categoryData.name);
     await this.setChecked(page, this.rootCategoryDisplayedToggleInput(categoryData.displayed ? 1 : 0));
     await this.setValueOnTinymceInput(page, this.rootCategoryDescriptionIframe, categoryData.description);
-    await this.uploadFile(page, this.rootCategoryCoverImage, `${categoryData.name}.jpg`);
+    if (categoryData.coverImage) {
+      await this.uploadFile(page, this.rootCategoryCoverImage, categoryData.coverImage);
+    }
     await this.setValue(page, this.rootCategoryMetaTitleInput, categoryData.metaTitle);
     await this.setValue(page, this.rootCategoryMetaDescriptionTextarea, categoryData.metaDescription);
     await this.selectAllGroups(page);
