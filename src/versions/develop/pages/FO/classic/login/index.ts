@@ -27,7 +27,7 @@ class LoginPage extends FOBasePage implements FoLoginPageInterface {
 
   protected passwordReminderLink: string;
 
-  private readonly showPasswordButton: string;
+  protected showPasswordButton: string;
 
   protected alertDangerTextBlock: string;
 

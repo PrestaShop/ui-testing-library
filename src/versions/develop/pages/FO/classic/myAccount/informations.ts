@@ -16,11 +16,13 @@ class FOMyInformationsPage extends FOBasePage implements FOMyInformationsPageInt
 
   public readonly invalidEmailAlertMessage: string;
 
-  public readonly invalidNumberOfCharacters: string;
+  public invalidNumberOfCharacters: string;
 
   public readonly minimumScoreAlertMessage: string;
 
   public readonly noRepeatMessage: string;
+
+  public readonly addAnotherMessage: string;
 
   public readonly noCommonWordsMessage: string;
 
@@ -36,7 +38,7 @@ class FOMyInformationsPage extends FOBasePage implements FOMyInformationsPageInt
 
   public readonly top10CommonPasswordMessage: string;
 
-  private readonly createAccountForm: string;
+  protected readonly createAccountForm: string;
 
   private readonly genderRadioButton: (theme: string, id: number) => string;
 
@@ -50,11 +52,11 @@ class FOMyInformationsPage extends FOBasePage implements FOMyInformationsPageInt
 
   private readonly passwordInput: string;
 
-  private readonly invalidPasswordAlertDanger: (theme: string) => string;
+  protected invalidPasswordAlertDanger: string;
 
-  private readonly invalidNewPasswordAlertDanger: string;
+  protected invalidNewPasswordAlertDanger: string;
 
-  private readonly newPasswordInput: string;
+  protected readonly newPasswordInput: string;
 
   private readonly birthdateInput: string;
 
@@ -81,7 +83,8 @@ class FOMyInformationsPage extends FOBasePage implements FOMyInformationsPageInt
     this.invalidEmailAlertMessage = 'Invalid email/password combination';
     this.invalidNumberOfCharacters = 'Password must be between 8 and 72 characters long';
     this.minimumScoreAlertMessage = 'The minimum score must be: Strong';
-    this.noRepeatMessage = 'Repeats like "abcabcabc" are only slightly harder to guess than "abc" Add another word or two.';
+    this.noRepeatMessage = 'Repeats like "abcabcabc" are only slightly harder to guess than "abc"';
+    this.addAnotherMessage = 'Add another word or two.';
     this.noCommonWordsMessage = 'Uncommon words are better.';
     this.noRepeatedWordsMessage = 'Avoid repeated words and characters';
     this.commonUsedPasswordMessage = 'This is similar to a commonly used password';
@@ -100,8 +103,7 @@ class FOMyInformationsPage extends FOBasePage implements FOMyInformationsPageInt
     this.invalidEmailAlertDanger = (theme: string) => `${this.createAccountForm} div:nth-child(4) ${
       theme === 'hummingbird' ? 'div' : 'li'}.alert-danger`;
     this.passwordInput = `${this.createAccountForm} #field-password`;
-    this.invalidPasswordAlertDanger = (theme: string) => `${this.createAccountForm} div.field-password-policy ${
-      theme === 'hummingbird' ? 'div' : 'li'}.alert-danger`;
+    this.invalidPasswordAlertDanger = `${this.createAccountForm} div.field-password-policy li.alert-danger`;
     this.invalidNewPasswordAlertDanger = `${this.createAccountForm} div:nth-child(6) div.help-block`;
     this.newPasswordInput = `${this.createAccountForm} #field-new_password`;
     this.birthdateInput = `${this.createAccountForm} #field-birthday`;
@@ -163,7 +165,7 @@ class FOMyInformationsPage extends FOBasePage implements FOMyInformationsPageInt
    * @returns {Promise<string>}
    */
   async getInvalidPasswordAlert(page:Page):Promise<string> {
-    return this.getTextContent(page, this.invalidPasswordAlertDanger(this.theme));
+    return this.getTextContent(page, this.invalidPasswordAlertDanger);
   }
 
   /**

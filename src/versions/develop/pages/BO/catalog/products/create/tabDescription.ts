@@ -233,7 +233,10 @@ class DescriptionTab extends BOBasePage implements BOProductsCreateTabDescriptio
       );
 
       await this.waitForVisibleSelector(page, this.imagePreviewBlock);
-      await this.waitForVisibleLocator(page.locator(this.productImage).nth(numberOfImages + filteredImagePaths.length - 1));
+      await this.waitForVisibleLocator(
+        page.locator(this.productImage).nth(numberOfImages + filteredImagePaths.length - 1),
+        20000,
+      );
     }
   }
 

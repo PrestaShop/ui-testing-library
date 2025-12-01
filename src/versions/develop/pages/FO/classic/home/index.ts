@@ -11,7 +11,7 @@ import {foModalQuickViewPage as foClassicModalQuickViewPage} from '@versions/dev
 class FoHomePage extends FOBasePage implements FoHomePageInterface {
   public readonly pageTitle: string;
 
-  public readonly successAddToCartMessage: string;
+  public successAddToCartMessage: string;
 
   protected carouselSliderId: string;
 
@@ -25,7 +25,7 @@ class FoHomePage extends FOBasePage implements FoHomePageInterface {
 
   protected carouselSliderInnerListItem: (position: number) => string;
 
-  private readonly homePageSection: string;
+  protected homePageSection: string;
 
   protected productsBlockNth: (blockNth: number) => string;
 
@@ -59,7 +59,7 @@ class FoHomePage extends FOBasePage implements FoHomePageInterface {
 
   private readonly bannerImg: string;
 
-  private readonly customTextBlock: string;
+  protected customTextBlock: string;
 
   private readonly newsletterBlock: string;
 
