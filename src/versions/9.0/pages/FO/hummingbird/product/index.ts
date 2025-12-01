@@ -1,0 +1,161 @@
+import {type FoProductHummingbirdPageInterface} from '@interfaces/FO/product';
+import {type Page} from '@playwright/test';
+import {FoProductPage as FoProductPageVersion} from '@versions/develop/pages/FO/hummingbird/product';
+import {type ProductDetailsBasic, type ProductAttribute} from '@data/types/product';
+/**
+ * @class
+ * @extends FOBasePage
+ */
+class FoProductPage extends FoProductPageVersion implements FoProductHummingbirdPageInterface {
+  constructor() {
+    super();
+
+    // Selectors for product page
+    this.proceedToCheckoutButton = '#blockcart-modal div.cart-footer-actions a';
+    this.productCoverImg = '#product-images div.carousel-item.active';
+    this.scrollBoxImages = (direction: string) => `#product-images button.carousel-control-${direction}`;
+    this.productCoverImgProductModal = '#product-images-modal div.carousel-item.active picture img';
+    this.carouselControlProductModal = (direction: string) => `#product-images-modal button.carousel-control-${direction}`;
+    this.productImageRow = (row: number) => `#content-wrapper div.thumbnails__container li:nth-child(${row})`;
+    this.thumbImg = (row: number) => `${this.productImageRow(row)} picture img.js-thumb`;
+    this.zoomIcon = '#product-images div.carousel-item.active i.zoom-in';
+    this.productName = '#content-wrapper h1.product__name';
+    this.productFlags = '#product-images  ul.product-flags';
+    this.customizationBlock = 'div.product__col section.product-customization';
+    this.customizedTextarea = (row: number) => `.product-customization__item:nth-child(${row}) .product-message`;
+    this.customizationsMessage = (row: number) => `.product-customization__item:nth-child(${row}) div.card-body div:nth-child(2)`;
+    this.productMinimalQuantity = 'div.product__add-to-cart .product__minimal-quantity';
+    this.productAttributeSelect = (itemNumber: number) => `div.product__variants div.variant:nth-child(${itemNumber}) select`;
+    this.productAttributeButton = (itemNumber: number) => `div.product__variants div.variant:nth-child(${itemNumber}) input`;
+    this.facebookSocialSharing = '.social-sharing .facebook a';
+    this.twitterSocialSharing = '.social-sharing .twitter a';
+    this.pinterestSocialSharing = '.social-sharing .pinterest a';
+
+    // Product prices block
+    this.productPrice = `${this.productPricesBlock} .product__current-price`;
+    this.regularPrice = `${this.productPricesBlock} .product__price-regular`;
+
+    // Product discount table
+    this.discountTable = '.product__discounts__table';
+    this.quantityDiscountValue = `${this.discountTable} td:nth-child(1)`;
+    this.unitDiscountColumn = `${this.discountTable} th:nth-child(2)`;
+    this.unitDiscountValue = `${this.discountTable} td:nth-child(2)`;
+    this.savedValue = `${this.discountTable} td:nth-child(3)`;
+
+    // Products in pack selectors
+    this.productInPackList = (productInList: number) => `.product-pack article:nth-child(${productInList})`;
+    this.productInPackImage = (productInList: number) => `${this.productInPackList(productInList)} div.product-pack__image img`;
+    this.productInPackName = (productInList: number) => `${this.productInPackList(productInList)} p.product-pack__name`;
+    this.productInPackPrice = (productInList: number) => `${this.productInPackList(productInList)} p.product-pack__price `
+      + 'strong';
+    this.productInPackQuantity = (productInList: number) => `${this.productInPackList(productInList)}`
+      + ' p.product-pack__quantity';
+  }
+
+  /**
+   * Close product modal
+   * @param page {Page} Browser tab
+   * @returns {Promise<boolean>}
+   */
+  async closeProductModal(page: Page): Promise<boolean> {
+    await page.mouse.click(5, 5);
+
+    return this.elementNotVisible(page, this.productModal, 2000);
+  }
+
+  /**
+   * Select product attributes
+   * @param page {Page} Browser tab
+   * @param type {string} Type of block (Select or radio)
+   * @param attributes {ProductAttribute[]}  Product's attributes data to select
+   * @param itemNumber {number} The row of attribute block
+   * @returns {Promise<void>}
+   */
+  async selectAttributes(page: Page, type: string, attributes: ProductAttribute[], itemNumber: number = 1): Promise<void> {
+    if (attributes.length === 0) {
+      return;
+    }
+    for (let i: number = 0; i < attributes.length; i++) {
+      if (type === 'select') {
+        await Promise.all([
+          this.waitForAttachedSelector(page, `${this.productAttributeSelect(itemNumber)} option[selected]`),
+          this.selectByVisibleText(page, this.productAttributeSelect(itemNumber), attributes[i].value),
+        ]);
+      } else {
+        await Promise.all([
+          this.waitForVisibleSelector(page, `${this.productAttributeButton(itemNumber)}[title=${attributes[i].value}][checked]`),
+          page.locator(`${this.productAttributeButton(itemNumber)}[title=${attributes[i].value}]`).click(),
+        ]);
+      }
+    }
+  }
+
+  /**
+   * Get selected attribute
+   * @param page {Page} Browser tab
+   * @param variantItem {string} Variant row
+   * @param type {string} Type of attribute
+   * @returns {Promise<string>}
+   */
+  async getSelectedAttribute(page: Page, variantItem: number, type: string = 'select'): Promise<string> {
+    if (type === 'select') {
+      return this.getTextContent(page, `${this.productAttributeSelect(variantItem)} option[selected]`, false);
+    }
+    return this.getTextContent(page, `${this.productAttributeButton(variantItem)}[checked] +span`, false);
+  }
+
+  /**
+   * get the URL of the cover image
+   * @param page {Page} Browser tab
+   * @returns {Promise<string|null>}
+   */
+  async getCoverImageFromProductModal(page: Page): Promise<string | null> {
+    return this.getAttributeContent(page, this.productCoverImg, 'src');
+  }
+
+  /**
+   * Click on arrow next/previous in product modal
+   * @param page {Page} Browser tab
+   * @param direction {string} Direction Next/Prev
+   * @returns {Promise<string>}
+   */
+  async clickOnArrowNextPrevInProductModal(page: Page, direction: string): Promise<string> {
+    await page.locator(this.carouselControlProductModal(direction)).click();
+
+    return this.getAttributeContent(page, this.productCoverImgProductModal, 'src');
+  }
+
+  /**
+   * Get product information in pack
+   * @param page {Page} Browser tab
+   * @param productInList {number} Product in pack list
+   * @returns {Promise<ProductDetailsBasic>}
+   */
+  async getProductInPackList(page: Page, productInList: number = 1): Promise<ProductDetailsBasic> {
+    // Add +1 due to span before the article
+    const productIdentifier: number = productInList + 1;
+
+    return {
+      image: await this.getAttributeContent(page, this.productInPackImage(productIdentifier), 'src'),
+      name: await this.getTextContent(page, this.productInPackName(productIdentifier)),
+      price: await this.getNumberFromText(page, this.productInPackPrice(productIdentifier)),
+      quantity: await this.getNumberFromText(page, this.productInPackQuantity(productIdentifier)),
+    };
+  }
+
+  /**
+   * Click on product in pack
+   * @param page {Page} Browser tab
+   * @param productInList {number} Product in pack list
+   * @returns {Promise<void>}
+   */
+  async clickProductInPackList(page: Page, productInList: number = 1): Promise<void> {
+    // Add +1 due to span before the article
+    const productIdentifier: number = productInList + 1;
+
+    return this.clickAndWaitForURL(page, this.productInPackName(productIdentifier));
+  }
+}
+
+const foProductPage = new FoProductPage();
+export {foProductPage, FoProductPage};

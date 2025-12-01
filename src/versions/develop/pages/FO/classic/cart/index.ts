@@ -17,7 +17,7 @@ class CartPage extends FOBasePage implements FoCartPageInterface {
 
   public readonly cartRuleNotExistingErrorText: string;
 
-  public readonly cartRuleMustEnterVoucherErrorText: string;
+  public cartRuleMustEnterVoucherErrorText: string;
 
   public readonly cartRuleLimitUsageErrorText: string;
 
@@ -55,7 +55,7 @@ class CartPage extends FOBasePage implements FoCartPageInterface {
 
   protected productImage: (number: number) => string;
 
-  protected readonly deleteIcon: (number: number) => string;
+  protected deleteIcon: (number: number) => string;
 
   private readonly itemsNumber: string;
 
@@ -95,9 +95,9 @@ class CartPage extends FOBasePage implements FoCartPageInterface {
 
   private readonly addPromoCodeButton: string;
 
-  private readonly promoCodeRemoveIcon: (line: number) => string;
+  protected promoCodeRemoveIcon: (line: number) => string;
 
-  private readonly cartRuleAlertMessage: string;
+  protected readonly cartRuleAlertMessage: string;
 
   protected highlightPromoCodeBlock: string;
 
@@ -109,7 +109,7 @@ class CartPage extends FOBasePage implements FoCartPageInterface {
 
   public readonly minimumAmountErrorMessage: string;
 
-  public readonly errorNotificationForProductQuantity: string;
+  public readonly errorNotificationForProductQuantity: (productQty: number) => string;
 
   private readonly alertWarning: string;
 
@@ -140,8 +140,8 @@ class CartPage extends FOBasePage implements FoCartPageInterface {
     this.cartRuleChooseCarrierAlertMessageText = 'You must choose a carrier before applying this voucher to your order';
     this.cartRuleCannotUseVoucherAlertMessageText = 'You cannot use this voucher with this carrier';
     this.minimumAmountErrorMessage = 'The minimum amount to benefit from this promo code is';
-    this.errorNotificationForProductQuantity = 'You can only buy 300 "Hummingbird printed t-shirt".'
-      + ' Please adjust the quantity in your cart to continue.';
+    this.errorNotificationForProductQuantity = (productQty: number) => `You can only buy ${productQty}`
+      + ' "Hummingbird printed t-shirt". Please adjust the quantity in your cart to continue.';
 
     // Selectors for cart page
     // Shopping cart block selectors

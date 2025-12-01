@@ -16,8 +16,10 @@ class FOMyGDPRPersonalDataPage extends FOMyGDPRPersonalDataPageClassic implement
     super('hummingbird');
 
     // Selectors
+    this.headerTitle = '#wrapper h1';
     this.contactUsHyperLink = 'section.page-content a[href*=\'contact-us\']';
   }
 }
 
-module.exports = new FOMyGDPRPersonalDataPage();
+const foMyGDPRPersonalDataPage = new FOMyGDPRPersonalDataPage();
+export {foMyGDPRPersonalDataPage, FOMyGDPRPersonalDataPage};

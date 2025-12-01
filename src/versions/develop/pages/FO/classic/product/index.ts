@@ -40,7 +40,7 @@ class ProductPage extends FOBasePage implements FoProductPageInterface {
 
   protected zoomIcon: string;
 
-  private readonly productModal: string;
+  protected readonly productModal: string;
 
   protected productCoverImgProductModal: string;
 
@@ -82,7 +82,7 @@ class ProductPage extends FOBasePage implements FoProductPageInterface {
 
   private readonly productAvailabilityIcon: string;
 
-  private readonly productMinimalQuantity: string;
+  protected productMinimalQuantity: string;
 
   protected productAttributeVariantSpan: (itemNumber: number) => string;
 
@@ -102,11 +102,11 @@ class ProductPage extends FOBasePage implements FoProductPageInterface {
 
   private readonly metaLink: string;
 
-  private readonly facebookSocialSharing: string;
+  protected facebookSocialSharing: string;
 
-  private readonly twitterSocialSharing: string;
+  protected twitterSocialSharing: string;
 
-  private readonly pinterestSocialSharing: string;
+  protected pinterestSocialSharing: string;
 
   protected productPricesBlock: string;
 
@@ -190,7 +190,7 @@ class ProductPage extends FOBasePage implements FoProductPageInterface {
 
   private readonly closeReviewSentConfirmationModalButton: string;
 
-  protected readonly productInPackList: (productInList: number) => string;
+  protected productInPackList: (productInList: number) => string;
 
   protected productInPackImage: (productInList: number) => string;
 
@@ -429,7 +429,9 @@ class ProductPage extends FOBasePage implements FoProductPageInterface {
    * @returns {Promise<string>}
    */
   async getProductPrice(page: Page): Promise<string> {
-    return this.getTextContent(page, this.productPrice);
+    return (await this.getTextContent(page, this.productPrice))
+      .replace('Price:', '')
+      .trim();
   }
 
   /**
@@ -503,7 +505,9 @@ class ProductPage extends FOBasePage implements FoProductPageInterface {
    * @returns {Promise<string>}
    */
   async getRegularPrice(page: Page): Promise<string> {
-    return this.getTextContent(page, this.regularPrice);
+    return (await this.getTextContent(page, this.regularPrice))
+      .replace('Regular price:', '')
+      .trim();
   }
 
   /**
@@ -683,7 +687,7 @@ class ProductPage extends FOBasePage implements FoProductPageInterface {
    */
   async scrollBoxArrowsImages(page: Page, direction: string): Promise<void> {
     await page.locator(this.scrollBoxImages(direction)).click();
-    await page.waitForTimeout(1000);
+    await page.waitForTimeout(5000);
   }
 
   /**
@@ -693,6 +697,7 @@ class ProductPage extends FOBasePage implements FoProductPageInterface {
    */
   async zoomCoverImage(page: Page): Promise<boolean> {
     await page.locator(this.zoomIcon).click({force: true});
+    await page.waitForTimeout(4000);
 
     return this.elementVisible(page, this.productModal, 1000);
   }

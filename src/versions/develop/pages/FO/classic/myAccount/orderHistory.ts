@@ -13,21 +13,21 @@ class MyOrderHistoryPage extends FOBasePage implements FoMyOrderHistoryPageInter
 
   public readonly messageSuccessSent: string;
 
-  private readonly ordersTable: string;
+  protected ordersTable: string;
 
-  private readonly ordersTableRows: string;
+  protected ordersTableRows: string;
 
-  protected readonly ordersTableRow: (row: number) => string;
+  protected ordersTableRow: (row: number) => string;
 
-  private readonly orderTableColumn: (row: number, column: number) => string;
+  protected orderTableColumn: (row: number, column: number) => string;
 
-  private readonly orderTableColumnReference: (row: number) => string;
+  protected orderTableColumnReference: (row: number) => string;
 
   protected reorderLink: (row: number) => string;
 
   protected detailsLink: (row: number) => string;
 
-  private readonly orderTableColumnInvoice: (row: number) => string;
+  protected orderTableColumnInvoice: (row: number) => string;
 
   private readonly orderDetailsLink: (orderID: number) => string;
 

@@ -14,21 +14,21 @@ class MyAccountPage extends FOBasePage implements FoMyAccountPageInterface {
 
   public readonly resetPasswordSuccessMessage: string;
 
-  private readonly accountInformationLink: string;
+  protected accountInformationLink: string;
 
-  private readonly accountHistoryLink: string;
+  protected accountHistoryLink: string;
 
-  private readonly accountAddressesLink: string;
+  protected accountAddressesLink: string;
 
-  private readonly accountFirstAddressLink: string;
+  protected accountFirstAddressLink: string;
 
-  private readonly accountVouchersLink: string;
+  protected accountVouchersLink: string;
 
-  private readonly merchandiseReturnsLink: string;
+  protected merchandiseReturnsLink: string;
 
   protected orderSlipsLink: string;
 
-  private readonly successMessageAlert: string;
+  protected successMessageAlert: string;
 
   protected logoutFooterLink: string;
 

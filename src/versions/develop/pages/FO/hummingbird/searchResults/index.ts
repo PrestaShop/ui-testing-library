@@ -1,5 +1,5 @@
 import {FoSearchResultsPageInterface} from '@interfaces/FO/searchResults';
-import {SearchResultsPage} from '@versions/develop/pages/FO/classic/searchResults';
+import {SearchResultsPage as FoSearchResultsPageClassic} from '@versions/develop/pages/FO/classic/searchResults';
 import type {Page} from 'playwright';
 
 /**
@@ -7,7 +7,7 @@ import type {Page} from 'playwright';
  * @class
  * @extends FOBasePage
  */
-class SearchResults extends SearchResultsPage implements FoSearchResultsPageInterface {
+class FoSearchResultsPage extends FoSearchResultsPageClassic implements FoSearchResultsPageInterface {
   /**
    * @constructs
    * Setting up texts and selectors to use on my account page
@@ -15,12 +15,16 @@ class SearchResults extends SearchResultsPage implements FoSearchResultsPageInte
   constructor() {
     super('hummingbird');
 
-    this.sortDropDownMenu = '.dropdown-menu.dropdown-menu-start.show';
-    this.productPrice = '#js-product-list div.card span.product-miniature__price';
+    // Selectors for search Results page
+    this.totalProduct = `${this.productListTopDiv} .products__count span`;
+    this.productPrice = '#js-product-list article.product-miniature div.product-miniature__price';
     this.productArticle = (number: number) => `#js-product-list .products article:nth-child(${number})`;
     this.productImg = (number: number) => `${this.productArticle(number)} img`;
-    this.productQuickViewLink = (number: number) => `${this.productArticle(number)} button.product-miniature__quickview_button`;
-    this.productNoMatches = '#content.page-not-found';
+    this.productQuickViewLink = (number: number) => `${this.productArticle(number)} button.product-miniature__quickview-button`;
+    this.productNoMatches = '#content.page-content--not-found';
+    this.sortDropDownMenu = '.dropdown-menu.show';
+    // Selectors for sort button
+    this.sortButton = `${this.productListTopDiv} button#sort_dropdown_button`;
   }
 
   /**
@@ -36,4 +40,5 @@ class SearchResults extends SearchResultsPage implements FoSearchResultsPageInte
   }
 }
 
-module.exports = new SearchResults();
+const foSearchResultsPage = new FoSearchResultsPage();
+export {foSearchResultsPage, FoSearchResultsPage};

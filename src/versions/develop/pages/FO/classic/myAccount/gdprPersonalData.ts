@@ -10,7 +10,7 @@ import {type Page} from '@playwright/test';
 class FOMyGDPRPersonalDataPage extends FOBasePage implements FOMyGDPRPersonalDataPageInterface {
   public readonly pageTitle: string;
 
-  private readonly headerTitle: string;
+  protected headerTitle: string;
 
   private readonly exportDataToPDFButton: string;
 

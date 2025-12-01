@@ -12,9 +12,9 @@ import type {Page} from 'playwright';
 class SearchResultsPage extends FOBasePage implements FoSearchResultsPageInterface {
   public readonly pageTitle: string;
 
-  private readonly productListTopDiv: string;
+  protected readonly productListTopDiv: string;
 
-  private readonly totalProduct: string;
+  protected totalProduct: string;
 
   protected productArticle: (number: number) => string;
 
@@ -30,7 +30,7 @@ class SearchResultsPage extends FOBasePage implements FoSearchResultsPageInterfa
 
   protected productNoMatches: string;
 
-  private readonly sortButton: string;
+  protected sortButton: string;
 
   protected sortDropDownMenu: string;
 
@@ -56,9 +56,9 @@ class SearchResultsPage extends FOBasePage implements FoSearchResultsPageInterfa
     this.productPrice = '#js-product-list div.product-description span.price';
     this.productNoMatches = '#product-search-no-matches';
     // Selectors for sort button
-    this.sortButton = '#js-product-list-top  button.select-title';
+    this.sortButton = `${this.productListTopDiv} button.select-title`;
     this.sortDropDownMenu = 'div.dropdown-menu';
-    this.sortOption = (sortBy: string) => `#js-product-list-top a[href*='${sortBy}']`;
+    this.sortOption = (sortBy: string) => `${this.productListTopDiv} a[href*='${sortBy}']`;
   }
 
   // Methods

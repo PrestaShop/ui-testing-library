@@ -21,25 +21,25 @@ class MyOrderDetailsPage extends FOBasePage implements FoMyOrderDetailsPageInter
 
   private readonly orderReturnForm: string;
 
-  private readonly gridTable: string;
+  protected gridTable: string;
 
   private readonly returnTextarea: string;
 
   private readonly requestReturnButton: string;
 
-  private readonly tableBody: string;
+  protected tableBody: string;
 
-  private readonly tableBodyRows: string;
+  protected tableBodyRows: string;
 
-  private readonly tableBodyRow: (row: number) => string;
+  protected tableBodyRow: (row: number) => string;
 
-  private readonly tableBodyColumn: (row: number, column: number) => string;
+  protected tableBodyColumn: (row: number, column: number) => string;
 
   private readonly tableReturnProductRowCheckboxButton: (row: number) => string;
 
   private readonly tableReturnQuantityRowSelectButton: (row: number) => string;
 
-  private readonly productName: (row: number, column: number) => string;
+  protected productName: (row: number, column: number) => string;
 
   private readonly downloadLink: (row: number, column: number) => string;
 
