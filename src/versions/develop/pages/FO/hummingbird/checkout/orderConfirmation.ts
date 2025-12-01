@@ -18,8 +18,8 @@ class FoCheckoutOrderConfirmationPage extends OrderConfirmationPageClassic imple
     super('hummingbird');
 
     // Selectors
-    this.orderConfirmationCardSection = '#content-wrapper .alert';
-    this.orderConfirmationCardTitleH3 = `${this.orderConfirmationCardSection} h1.alert-heading`;
+    this.orderConfirmationCardSection = '#wrapper .alert';
+    this.orderConfirmationCardTitleH3 = `${this.orderConfirmationCardSection} h1.page-title-section`;
     this.orderDetailsTable = 'div.order-confirmation__details ul.order-details';
     this.orderReferenceValue = `${this.orderDetailsTable} li:nth-child(1)`;
     this.customerSupportLink = 'div.card .card-footer a.alert-link';
@@ -78,4 +78,5 @@ class FoCheckoutOrderConfirmationPage extends OrderConfirmationPageClassic imple
   }
 }
 
-module.exports = new FoCheckoutOrderConfirmationPage();
+const foCheckoutOrderConfirmationPage = new FoCheckoutOrderConfirmationPage();
+export {foCheckoutOrderConfirmationPage, FoCheckoutOrderConfirmationPage};

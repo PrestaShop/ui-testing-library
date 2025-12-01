@@ -13,8 +13,11 @@ class FoContactUsPage extends FoContactUsPageVersion implements FoContactUsPageI
   constructor() {
     super('hummingbird');
 
+    // Form selectors
     this.attachmentLabel = 'input[name="fileUpload"]';
+    this.sendButton = '#content button[name=\'submitMessage\']';
   }
 }
 
-module.exports = new FoContactUsPage();
+const foContactUsPage = new FoContactUsPage();
+export {foContactUsPage, FoContactUsPage};
