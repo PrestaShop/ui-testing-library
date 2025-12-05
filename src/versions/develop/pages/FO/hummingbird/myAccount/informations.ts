@@ -12,7 +12,11 @@ class FOMyInformationsPage extends FOMyInformationsPageClassic implements FOMyIn
    */
   constructor() {
     super('hummingbird');
+
+    // FOBasePage
+    this.alertSuccessBlock = '.alert-success';
   }
 }
 
-module.exports = new FOMyInformationsPage();
+const foMyInformationsPage = new FOMyInformationsPage();
+export {foMyInformationsPage, FOMyInformationsPage};

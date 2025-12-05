@@ -1,14 +1,14 @@
 import {type ProductDetailsWithDiscount} from '@data/types/product';
 import {type FoCartHummingbirdPageInterface} from '@interfaces/FO/cart';
 import {type Page} from '@playwright/test';
-import {CartPage as CartPageClassic} from '@versions/develop/pages/FO/classic/cart';
+import {CartPage as FoCartPageClassic} from '@versions/develop/pages/FO/classic/cart';
 
 /**
  * Cart page, contains functions that can be used on the page
  * @class
  * @extends CartPageClassic
  */
-class CartPage extends CartPageClassic implements FoCartHummingbirdPageInterface {
+class FoCartPage extends FoCartPageClassic implements FoCartHummingbirdPageInterface {
   private readonly productListItem: string;
 
   /**
@@ -128,4 +128,5 @@ class CartPage extends CartPageClassic implements FoCartHummingbirdPageInterface
   }
 }
 
-module.exports = new CartPage();
+const foCartPage = new FoCartPage();
+export {foCartPage, FoCartPage};

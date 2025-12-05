@@ -1,12 +1,12 @@
 import {type FoProductHummingbirdPageInterface} from '@interfaces/FO/product';
-import {ProductPage as ProductPageVersion} from '@versions/develop/pages/FO/classic/product';
+import {ProductPage as FoProductPageClassic} from '@versions/develop/pages/FO/classic/product';
 import {type Page} from '@playwright/test';
 
 /**
  * @class
  * @extends FOBasePage
  */
-class ProductPage extends ProductPageVersion implements FoProductHummingbirdPageInterface {
+class FoProductPage extends FoProductPageClassic implements FoProductHummingbirdPageInterface {
   /**
    * @constructs
    * Setting up texts and selectors to use on checkout page
@@ -20,7 +20,7 @@ class ProductPage extends ProductPageVersion implements FoProductHummingbirdPage
 
     this.warningMessage = '#js-toast-container div.bg-danger  div.toast-body';
     this.productRowQuantityUpDownButton = (direction: string) => `div.product-actions__quantity button.js-${direction}-button`;
-    this.proceedToCheckoutButton = '#blockcart-modal div.cart-footer-actions a';
+    this.proceedToCheckoutButton = '#blockcart-modal div.modal-footer a';
     this.productCoverImg = '#product-images div.carousel-item.active';
     this.scrollBoxImages = (direction: string) => `#product-images button.carousel-control-${direction}`;
     this.productCoverImgProductModal = '#product-images-modal div.carousel-item.active picture img';
@@ -30,7 +30,7 @@ class ProductPage extends ProductPageVersion implements FoProductHummingbirdPage
     this.zoomIcon = '#product-images div.carousel-item.active i.zoom-in';
     this.productName = '#content-wrapper h1.product__name';
     this.shortDescription = 'div.product__description-short';
-    this.productFlags = '#product-images  ul.product-flags';
+    this.productFlags = '.product__images ul.product-flags';
     this.customizedTextarea = (row: number) => `.product-customization__item:nth-child(${row}) .product-message`;
     this.customizationBlock = 'div.product__col section.product-customization';
     this.customizationsMessage = (row: number) => `.product-customization__item:nth-child(${row}) div.card-body div:nth-child(2)`;
@@ -109,4 +109,5 @@ class ProductPage extends ProductPageVersion implements FoProductHummingbirdPage
   }
 }
 
-module.exports = new ProductPage();
+const foProductPage = new FoProductPage();
+export {foProductPage, FoProductPage};

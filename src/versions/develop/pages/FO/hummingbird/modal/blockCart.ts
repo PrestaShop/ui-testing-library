@@ -17,8 +17,8 @@ class FoModalBlockCartPage extends FoModalBlockCartPageClassic implements FoModa
     super('hummingbird');
 
     // Block Cart Modal
-    this.cartModalCheckoutLink = `${this.blockCartModalDiv} div.cart-footer-actions a`;
-    this.continueShoppingButton = `${this.blockCartModalDiv} div.cart-footer-actions button`;
+    this.cartModalCheckoutLink = `${this.blockCartModalDiv} div.modal-footer a`;
+    this.continueShoppingButton = `${this.blockCartModalDiv} div.modal-footer button`;
     this.blockCartModalCloseButton = `${this.blockCartModalDiv} button.btn-close`;
     this.blockCartModalSummary = '.blockcart-modal__summery';
     this.cartModalProductsCountBlock = `${this.blockCartModalSummary} p`;
@@ -28,4 +28,5 @@ class FoModalBlockCartPage extends FoModalBlockCartPageClassic implements FoModa
   }
 }
 
-module.exports = new FoModalBlockCartPage();
+const foModalBlockCartPage = new FoModalBlockCartPage();
+export {foModalBlockCartPage, FoModalBlockCartPage};

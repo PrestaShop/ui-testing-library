@@ -274,9 +274,14 @@ class FoModalQuickViewPage extends FOBasePage implements FoModalQuickViewPageInt
         value: await this.getAttributeContent(page, `${this.quickViewProductColor} input[checked='checked']`, 'title'),
       });
     } else {
+      let value: string = await this.getAttributeContent(page, `${this.quickViewProductDimension} option[selected]`, 'title');
+
+      if (value === '') {
+        value = await this.getTextContent(page, `${this.quickViewProductDimension} option[selected]`, false);
+      }
       attributes.push({
         name: 'dimension',
-        value: await this.getAttributeContent(page, `${this.quickViewProductDimension} option[selected]`, 'title'),
+        value,
       });
     }
     return attributes;

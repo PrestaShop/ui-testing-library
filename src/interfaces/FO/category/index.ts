@@ -51,3 +51,7 @@ export interface FoCategoryPageInterface extends FOBasePagePageInterface {
     quickViewProduct(page: Page, id: number): Promise<void>;
     sortProductsList(page: Page, sortBy: string): Promise<void>;
 }
+
+export interface FoCategoryHummingbirdPageInterface extends FoCategoryPageInterface {
+  isAddToCartButtonVisible(page: Page, nthProduct?: number): Promise<boolean>;
+}

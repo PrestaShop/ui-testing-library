@@ -15,8 +15,9 @@ class FoMyAddressesCreatePage extends FoMyAddressesCreatePageClassic implements 
   constructor() {
     super('hummingbird');
 
-    this.pageHeaderTitle = '#content-wrapper div h1';
+    this.pageHeaderTitle = '#wrapper div h1';
   }
 }
 
-module.exports = new FoMyAddressesCreatePage();
+const foMyAddressesCreatePage = new FoMyAddressesCreatePage();
+export {foMyAddressesCreatePage, FoMyAddressesCreatePage};
