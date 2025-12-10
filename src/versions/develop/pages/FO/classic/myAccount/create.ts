@@ -101,8 +101,8 @@ class FoCreateAccountPage extends FOBasePage implements FoCreateAccountPageInter
     );
 
     await page.locator(this.customerPrivacyCheckbox).click();
-    if (await this.elementVisible(page, this.psgdprCheckbox, 500)) {
-      await page.locator(this.psgdprCheckbox).click();
+    if (await this.elementVisible(page, this.psgdprCheckbox, 1000)) {
+      await page.locator(this.psgdprCheckbox).setChecked(true);
     }
     await page.locator(this.saveButton).click();
   }
