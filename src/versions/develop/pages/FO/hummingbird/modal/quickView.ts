@@ -34,12 +34,13 @@ class FoModalQuickViewPage extends FoModalQuickViewPageClassic implements FoModa
   }
 
   /**
-    * Click on add to cart button from quick view modal
-    * @param page {Page} Browser tab
-    * @returns {Promise<void>}
-    */
+   * Click on add to cart button from quick view modal
+   * @param page {Page} Browser tab
+   * @returns {Promise<void>}
+   */
   async addToCartByQuickView(page: Page, isHidden: boolean = true): Promise<void> {
-    await this.waitForSelectorAndClick(page, this.addToCartButton);
+    await this.waitForVisibleSelector(page, this.addToCartButton);
+    await page.locator(this.addToCartButton).click();
     if (isHidden) {
       await this.waitForHiddenSelector(page, this.quickViewModalDiv);
       await this.waitForVisibleSelector(page, foHummingbirdModalBlockCartPage.blockCartModalDiv);

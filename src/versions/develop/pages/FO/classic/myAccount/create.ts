@@ -100,7 +100,7 @@ class FoCreateAccountPage extends FOBasePage implements FoCreateAccountPageInter
       `${customer.monthOfBirth}/${customer.dayOfBirth}/${customer.yearOfBirth}`,
     );
 
-    await page.locator(this.customerPrivacyCheckbox).click();
+    await page.locator(this.customerPrivacyCheckbox).setChecked(true);
     if (await this.elementVisible(page, this.psgdprCheckbox, 1000)) {
       await page.locator(this.psgdprCheckbox).setChecked(true);
     }
