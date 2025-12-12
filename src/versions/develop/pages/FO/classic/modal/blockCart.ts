@@ -14,21 +14,21 @@ import type {Page} from 'playwright';
  * @extends FOBasePage
  */
 class FoModalBlockCartPage extends FOBasePage implements FoModalBlockCartPageInterface {
-  private readonly blockCartLabel: string;
+  protected blockCartLabel: string;
 
   public readonly blockCartModalDiv: string;
 
   protected blockCartModalCloseButton: string;
 
-  private readonly cartModalProductNameBlock: string;
+  protected cartModalProductNameBlock: string;
 
-  private readonly cartModalProductPriceBlock: string;
+  protected cartModalProductPriceBlock: string;
 
-  private readonly cartModalProductSizeBlock: string;
+  protected cartModalProductSizeBlock: string;
 
-  private readonly cartModalProductColorBlock: string;
+  protected cartModalProductColorBlock: string;
 
-  protected readonly cartModalProductQuantityBlock: string;
+  protected cartModalProductQuantityBlock: string;
 
   private readonly cartContentBlock: string;
 
@@ -112,11 +112,11 @@ class FoModalBlockCartPage extends FOBasePage implements FoModalBlockCartPageInt
     return [
       {
         name: 'size',
-        value: await this.getTextContent(page, this.cartModalProductSizeBlock),
+        value: (await this.getTextContent(page, this.cartModalProductSizeBlock)).replace('Size:', '').trim(),
       },
       {
         name: 'color',
-        value: await this.getTextContent(page, this.cartModalProductColorBlock),
+        value: (await this.getTextContent(page, this.cartModalProductColorBlock)).replace('Color:', '').trim(),
       },
     ];
   }

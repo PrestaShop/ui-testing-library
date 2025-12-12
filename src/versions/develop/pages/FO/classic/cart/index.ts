@@ -17,7 +17,7 @@ class CartPage extends FOBasePage implements FoCartPageInterface {
 
   public readonly cartRuleNotExistingErrorText: string;
 
-  public readonly cartRuleMustEnterVoucherErrorText: string;
+  public cartRuleMustEnterVoucherErrorText: string;
 
   public readonly cartRuleLimitUsageErrorText: string;
 
@@ -55,7 +55,7 @@ class CartPage extends FOBasePage implements FoCartPageInterface {
 
   protected productImage: (number: number) => string;
 
-  protected readonly deleteIcon: (number: number) => string;
+  protected deleteIcon: (number: number) => string;
 
   private readonly itemsNumber: string;
 
@@ -95,9 +95,9 @@ class CartPage extends FOBasePage implements FoCartPageInterface {
 
   private readonly addPromoCodeButton: string;
 
-  private readonly promoCodeRemoveIcon: (line: number) => string;
+  protected promoCodeRemoveIcon: (line: number) => string;
 
-  private readonly cartRuleAlertMessage: string;
+  protected readonly cartRuleAlertMessage: string;
 
   protected highlightPromoCodeBlock: string;
 

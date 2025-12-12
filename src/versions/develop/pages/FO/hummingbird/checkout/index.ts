@@ -1,14 +1,14 @@
 import {type ProductDetailsBasic} from '@data/types/product';
 import {type FoCheckoutPageInterface} from '@interfaces/FO/checkout';
 import {type Page} from '@playwright/test';
-import {CheckoutPage as CheckoutPageClassic} from '@versions/develop/pages/FO/classic/checkout';
+import {CheckoutPage as FoCheckoutPageClassic} from '@versions/develop/pages/FO/classic/checkout';
 
 /**
  * Cart page, contains functions that can be used on the page
  * @class
  * @extends FOBasePage
  */
-class FoCheckoutPage extends CheckoutPageClassic implements FoCheckoutPageInterface {
+class FoCheckoutPage extends FoCheckoutPageClassic implements FoCheckoutPageInterface {
   private readonly productDetailsBody: (productRow: number) => string;
 
   /**
@@ -18,7 +18,7 @@ class FoCheckoutPage extends CheckoutPageClassic implements FoCheckoutPageInterf
     super('hummingbird');
 
     // Selectors
-    this.stepFormSuccess = '.checkout__steps--success';
+    this.stepFormSuccess = '.checkout-steps__step--success';
     this.personalInformationEditLink = '#wrapper div.checkout__steps'
       + ' button[data-bs-target="#checkout-personal-information-step"]';
 
@@ -75,10 +75,9 @@ class FoCheckoutPage extends CheckoutPageClassic implements FoCheckoutPageInterf
       + 'div.product-line-info:nth-child(2)';
     // Promo code selectors
     this.checkoutPromoBlock = '.js-cart-voucher';
-    this.cartSummaryLine = (line: number) => `${this.checkoutPromoBlock} li:nth-child(${line}).cart-voucher__item`;
+    this.cartSummaryLine = (line: number) => `${this.checkoutPromoBlock} li:nth-child(${line}).cart-summary__line`;
     this.cartRuleName = (line: number) => `${this.cartSummaryLine(line)} span.cart-voucher__name`;
-    this.checkoutRemoveDiscountLink = (row: number) => `${this.cartSummaryLine(row)} `
-      + ' a[data-link-action="remove-voucher"] i';
+    this.checkoutRemoveDiscountLink = (row: number) => `${this.cartSummaryLine(row)} a.cart-voucher__remove`;
   }
 
   /**
@@ -106,4 +105,5 @@ class FoCheckoutPage extends CheckoutPageClassic implements FoCheckoutPageInterf
   }
 }
 
-module.exports = new FoCheckoutPage();
+const foCheckoutPage = new FoCheckoutPage();
+export {foCheckoutPage, FoCheckoutPage};

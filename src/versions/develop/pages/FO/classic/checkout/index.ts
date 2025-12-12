@@ -1204,6 +1204,7 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
   }
 
   /**
+   * @todo : To Move classic/cart
    * Delete the discount
    * @param page {Page} Browser tab
    * @param row {number} Row of the delete icon
