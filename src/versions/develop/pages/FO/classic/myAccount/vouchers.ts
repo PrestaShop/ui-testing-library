@@ -10,27 +10,27 @@ import {Page} from '@playwright/test';
 class FoMyVouchersPage extends FOBasePage implements FoMyVouchersPageInterface {
   public readonly pageTitle: string;
 
-  private readonly vouchersTable: string;
+  protected vouchersTable: string;
 
-  private readonly vouchersTableBody: string;
+  protected vouchersTableBody: string;
 
-  private readonly vouchersTableRows: string;
+  protected vouchersTableRows: string;
 
-  private readonly vouchersTableRow: (row: number) => string;
+  protected vouchersTableRow: (row: number) => string;
 
-  private readonly tableColumnCode: (row: number) => string;
+  protected tableColumnCode: (row: number) => string;
 
-  private readonly tableColumnDescription: (row: number) => string;
+  protected tableColumnDescription: (row: number) => string;
 
-  private readonly tableColumnQuantity: (row: number) => string;
+  protected tableColumnQuantity: (row: number) => string;
 
-  private readonly tableColumnValue: (row: number) => string;
+  protected tableColumnValue: (row: number) => string;
 
-  private readonly tableColumnMinimum: (row: number) => string;
+  protected tableColumnMinimum: (row: number) => string;
 
-  private readonly tableColumnCumulative: (row: number) => string;
+  protected tableColumnCumulative: (row: number) => string;
 
-  private readonly tableColumnExpirationDate: (row: number) => string;
+  protected tableColumnExpirationDate: (row: number) => string;
 
   /**
    * @constructs

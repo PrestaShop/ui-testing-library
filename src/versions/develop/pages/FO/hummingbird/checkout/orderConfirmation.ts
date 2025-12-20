@@ -18,37 +18,37 @@ class FoCheckoutOrderConfirmationPage extends OrderConfirmationPageClassic imple
     super('hummingbird');
 
     // Selectors
-    this.orderConfirmationCardSection = '#content-wrapper .alert';
-    this.orderConfirmationCardTitleH3 = `${this.orderConfirmationCardSection} h1.alert-heading`;
-    this.orderDetailsTable = 'div.order-confirmation__details ul.order-details';
+    this.orderConfirmationCardSection = '#wrapper .alert';
+    this.orderConfirmationCardTitleH3 = `${this.orderConfirmationCardSection} h1.page-title-section`;
+    this.orderDetailsTable = 'ul.order-confirmation__details-list';
     this.orderReferenceValue = `${this.orderDetailsTable} li:nth-child(1)`;
-    this.customerSupportLink = 'div.card .card-footer a.alert-link';
-    this.subTotalRow = 'div.order-confirmation__subtotals div:nth-child(1) div.text-end';
-    this.shippingRow = 'div.order-confirmation__subtotals div:nth-child(2) div.text-end';
-    this.totalRow = 'div.order-confirmation__totals div:nth-child(1) div.text-end';
+    this.customerSupportLink = '#center-column div.card dIv.card-footer a[href*="contact-us"]';
+    this.subTotalRow = 'div.order-confirmation__subtotals div:nth-child(1) div.order-confirmation__line-value';
+    this.shippingRow = 'div.order-confirmation__subtotals div:nth-child(2) div.order-confirmation__line-value';
+    this.totalRow = 'div.order-confirmation__totals div:nth-child(1) div.order-confirmation__line-value';
     this.paymentMethodRow = `${this.orderDetailsTable} li:nth-child(2)`;
     this.shippingMethodRow = `${this.orderDetailsTable} li:nth-child(3)`;
-    this.paymentInformationBody = '#content-wrapper div:nth-child(2) div.card-body';
-    this.orderDetails = 'div.order-confirmation__details ul.order-details';
-    this.productRow = 'div.order-confirmation__items div.item';
-    this.customizationButton = '#content-wrapper div.order-confirmation__details div.order-confirmation__items button';
+    this.paymentInformationBody = '#center-column > .card:nth-of-type(2) .card-body';
+    this.orderDetails = 'div.order-confirmation__details ul.order-confirmation__details-list';
+    this.productRow = 'div.order-confirmation__products div.order-confirmation__product';
+    this.customizationButton = '#wrapper div.order-confirmation__details div.order-confirmation__product '
+      + 'div.product-customization-modal__content > button';
     this.customizationModal = 'div[id*="product-customization-modal"]';
     this.customizationModalBody = `${this.customizationModal} div.modal-body`;
     this.customizationModalCloseButton = `${this.customizationModal} div.modal-header button`;
     this.productRowNth = (row: number) => `${this.productRow}:nth-child(${row})`;
-    this.productRowImage = (row: number) => `${this.productRowNth(row)} div.item__image img`;
-    this.productRowDetails = (row: number) => `${this.productRowNth(row)} div.item__details`;
-    this.productRowPrices = (row: number) => `${this.productRowNth(row)} div.item__prices`;
+    this.productRowImage = (row: number) => `${this.productRowNth(row)} div.order-confirmation__product-image img`;
+    this.productRowDetails = (row: number) => `${this.productRowNth(row)} div.order-confirmation__product-details`;
+    this.productRowPrices = (row: number) => `${this.productRowNth(row)} div.order-confirmation__product-prices`;
 
     // Popular products section
-    this.productsBlock = '#content-wrapper section.featured-products';
+    this.productsBlock = '#wrapper section.ps-featuredproducts';
     this.productsBlockTitle = `${this.productsBlock} h2`;
-    this.productsBlockDiv = `${this.productsBlock} div.products div.card`;
-    this.allProductsLink = `${this.productsBlock} div.featured-products-footer a`;
-    this.productArticle = (number: number) => `${this.productsBlock} article:nth-child(${number})`;
-    this.productImg = (number: number) => `${this.productArticle(number)} img`;
-    this.productQuickViewLink = (number: number) => `${this.productArticle(number)} .product-miniature__quickview `
-      + 'button';
+    this.productsBlockDiv = `${this.productsBlock} div.module-products__list article.product-miniature`;
+    this.allProductsLink = `${this.productsBlock} div.module-products__buttons a`;
+    this.productArticle = (number: number) => `${this.productsBlockDiv}:nth-child(${number})`;
+    this.productImg = (number: number) => `${this.productArticle(number)} img.product-miniature__image`;
+    this.productQuickViewLink = (number: number) => `${this.productArticle(number)} .product-miniature__quickview-button`;
   }
 
   /**
@@ -78,4 +78,5 @@ class FoCheckoutOrderConfirmationPage extends OrderConfirmationPageClassic imple
   }
 }
 
-module.exports = new FoCheckoutOrderConfirmationPage();
+const foCheckoutOrderConfirmationPage = new FoCheckoutOrderConfirmationPage();
+export {foCheckoutOrderConfirmationPage, FoCheckoutOrderConfirmationPage};

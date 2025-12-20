@@ -22,6 +22,8 @@ class FOMyInformationsPage extends FOBasePage implements FOMyInformationsPageInt
 
   public readonly noRepeatMessage: string;
 
+  public readonly addAnotherMessage: string;
+
   public readonly noCommonWordsMessage: string;
 
   public readonly noRepeatedWordsMessage: string;
@@ -36,37 +38,37 @@ class FOMyInformationsPage extends FOBasePage implements FOMyInformationsPageInt
 
   public readonly top10CommonPasswordMessage: string;
 
-  private readonly createAccountForm: string;
+  protected readonly createAccountForm: string;
 
-  private readonly genderRadioButton: (theme: string, id: number) => string;
+  protected readonly genderRadioButton: (theme: string, id: number) => string;
 
-  private readonly firstNameInput: string;
+  protected readonly firstNameInput: string;
 
-  private readonly lastNameInput: string;
+  protected readonly lastNameInput: string;
 
-  private readonly newEmailInput: string;
+  protected readonly newEmailInput: string;
 
   private readonly invalidEmailAlertDanger: (theme: string) => string;
 
-  private readonly passwordInput: string;
+  protected readonly passwordInput: string;
 
-  private readonly invalidPasswordAlertDanger: (theme: string) => string;
+  protected invalidPasswordAlertDanger: string;
 
-  private readonly invalidNewPasswordAlertDanger: string;
+  protected invalidNewPasswordAlertDanger: string;
 
-  private readonly newPasswordInput: string;
+  protected readonly newPasswordInput: string;
 
-  private readonly birthdateInput: string;
+  protected readonly birthdateInput: string;
 
-  private readonly customerPrivacyCheckbox: string;
+  protected readonly customerPrivacyCheckbox: string;
 
   private readonly psgdprLabel: string;
 
-  private readonly psgdprCheckbox: string;
+  protected readonly psgdprCheckbox: string;
 
   private readonly newsletterCheckbox: string;
 
-  private readonly saveButton: string;
+  protected readonly saveButton: string;
 
   /**
    * @constructs
@@ -81,7 +83,8 @@ class FOMyInformationsPage extends FOBasePage implements FOMyInformationsPageInt
     this.invalidEmailAlertMessage = 'Invalid email/password combination';
     this.invalidNumberOfCharacters = 'Password must be between 8 and 72 characters long';
     this.minimumScoreAlertMessage = 'The minimum score must be: Strong';
-    this.noRepeatMessage = 'Repeats like "abcabcabc" are only slightly harder to guess than "abc" Add another word or two.';
+    this.noRepeatMessage = 'Repeats like "abcabcabc" are only slightly harder to guess than "abc"';
+    this.addAnotherMessage = 'Add another word or two.';
     this.noCommonWordsMessage = 'Uncommon words are better.';
     this.noRepeatedWordsMessage = 'Avoid repeated words and characters';
     this.commonUsedPasswordMessage = 'This is similar to a commonly used password';
@@ -100,8 +103,7 @@ class FOMyInformationsPage extends FOBasePage implements FOMyInformationsPageInt
     this.invalidEmailAlertDanger = (theme: string) => `${this.createAccountForm} div:nth-child(4) ${
       theme === 'hummingbird' ? 'div' : 'li'}.alert-danger`;
     this.passwordInput = `${this.createAccountForm} #field-password`;
-    this.invalidPasswordAlertDanger = (theme: string) => `${this.createAccountForm} div.field-password-policy ${
-      theme === 'hummingbird' ? 'div' : 'li'}.alert-danger`;
+    this.invalidPasswordAlertDanger = `${this.createAccountForm} div.field-password-policy li.alert-danger`;
     this.invalidNewPasswordAlertDanger = `${this.createAccountForm} div:nth-child(6) div.help-block`;
     this.newPasswordInput = `${this.createAccountForm} #field-new_password`;
     this.birthdateInput = `${this.createAccountForm} #field-birthday`;
@@ -163,7 +165,7 @@ class FOMyInformationsPage extends FOBasePage implements FOMyInformationsPageInt
    * @returns {Promise<string>}
    */
   async getInvalidPasswordAlert(page:Page):Promise<string> {
-    return this.getTextContent(page, this.invalidPasswordAlertDanger(this.theme));
+    return this.getTextContent(page, this.invalidPasswordAlertDanger);
   }
 
   /**

@@ -12,13 +12,13 @@ class FOMyCreditSlipsPage extends FOBasePage implements FOMyCreditSlipsPageInter
 
   public readonly noCreditSlipsInfoMessage: string;
 
-  private readonly creditSlipsTable: string;
+  protected creditSlipsTable: string;
 
-  private readonly creditSlipsTableRows: string;
+  protected creditSlipsTableRows: string;
 
-  private readonly creditSlipsTableRow: (row: number) => string;
+  protected creditSlipsTableRow: (row: number) => string;
 
-  private readonly creditSlipsTableColumn: (row: number, column: number) => string;
+  protected creditSlipsTableColumn: (row: number, column: number) => string;
 
   private readonly backToYourAccountLink: string;
 
@@ -70,7 +70,9 @@ class FOMyCreditSlipsPage extends FOBasePage implements FOMyCreditSlipsPageInter
    * @return {Promise<string>}
    */
   async getOrderReference(page: Page, creditSlipRow: number = 1): Promise<string> {
-    return this.getTextContent(page, `${this.creditSlipsTableColumn(creditSlipRow, 1)} a`);
+    return (await this.getTextContent(page, `${this.creditSlipsTableColumn(creditSlipRow, 1)} a`))
+      .replace('View order reference', '')
+      .trim();
   }
 
   /**

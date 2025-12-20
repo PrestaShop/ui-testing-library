@@ -21,7 +21,7 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
 
   public readonly noCarriersMessage: string;
 
-  private readonly successAlert: string;
+  protected successAlert: string;
 
   private readonly checkoutPageBody: string;
 
@@ -63,7 +63,7 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
 
   protected showDetailsLink: string;
 
-  private readonly productList: string;
+  protected readonly productList: string;
 
   protected productRowLink: (productRow: number) => string;
 
@@ -1187,10 +1187,8 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
         await page.locator(this.paymentOptionInput(paymentModuleName)).click();
       }
     }
-    await Promise.all([
-      this.waitForVisibleSelector(page, this.paymentConfirmationButton),
-      page.locator(this.conditionToApproveLabel).click(),
-    ]);
+    await page.locator(this.conditionToApproveLabel).click();
+    await this.waitForVisibleSelector(page, this.paymentConfirmationButton);
     await this.clickAndWaitForURL(page, this.paymentConfirmationButton);
   }
 
@@ -1204,6 +1202,7 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
   }
 
   /**
+   * @todo : To Move classic/cart
    * Delete the discount
    * @param page {Page} Browser tab
    * @param row {number} Row of the delete icon
