@@ -1,5 +1,5 @@
-// Import pages
 import type {FoHomeHummingbirdPageInterface} from '@interfaces/FO/home';
+import {type Page} from '@playwright/test';
 import {FoHomePage} from '@versions/develop/pages/FO/hummingbird/home';
 
 /**
@@ -45,6 +45,16 @@ class FoHomePageVersion extends FoHomePage implements FoHomeHummingbirdPageInter
     this.productImg = (number: number) => `${this.productArticle(number)} img`;
     this.productQuickViewLink = (number: number) => `${this.productArticle(number)} .product-miniature__quickview `
       + 'button';
+  }
+
+  /**
+   * Go to all products
+   * @param page {Page} Browser tab
+   * @param blockName {string} The block name in the page
+   * @return {Promise<void>}
+   */
+  async goToAllProductsPage(page: Page, blockName: string = 'featured-products'): Promise<void> {
+    await this.clickAndWaitForURL(page, this.allProductsBlockLink(blockName));
   }
 }
 

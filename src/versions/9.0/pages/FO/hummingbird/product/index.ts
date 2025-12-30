@@ -21,12 +21,17 @@ class FoProductPage extends FoProductPageVersion implements FoProductHummingbird
     this.zoomIcon = '#product-images div.carousel-item.active i.zoom-in';
     this.productName = '#content-wrapper h1.product__name';
     this.productFlags = '#product-images  ul.product-flags';
+    this.productDescription = '#description';
     this.customizationBlock = 'div.product__col section.product-customization';
     this.customizedTextarea = (row: number) => `.product-customization__item:nth-child(${row}) .product-message`;
     this.customizationsMessage = (row: number) => `.product-customization__item:nth-child(${row}) div.card-body div:nth-child(2)`;
     this.productMinimalQuantity = 'div.product__add-to-cart .product__minimal-quantity';
     this.productAttributeSelect = (itemNumber: number) => `div.product__variants div.variant:nth-child(${itemNumber}) select`;
     this.productAttributeButton = (itemNumber: number) => `div.product__variants div.variant:nth-child(${itemNumber}) input`;
+    this.productSizeSelect = '#group_1';
+    this.productSizeOption = (size: string) => `${this.productSizeSelect} option[title=${size}]`;
+    this.productColorUl = 'ul[id^="group_"]';
+    this.productColorInput = (color: string) => `${this.productColorUl} input[title=${color}]`;
     this.facebookSocialSharing = '.social-sharing .facebook a';
     this.twitterSocialSharing = '.social-sharing .twitter a';
     this.pinterestSocialSharing = '.social-sharing .pinterest a';
@@ -61,6 +66,16 @@ class FoProductPage extends FoProductPageVersion implements FoProductHummingbird
     await page.mouse.click(5, 5);
 
     return this.elementNotVisible(page, this.productModal, 2000);
+  }
+
+  /**
+   * Get product attributes from a Ul selector
+   * @param page {Page} Browser tab
+   * @param ulSelector {string} Selector to locate the element
+   * @returns {Promise<Array<string>>}
+   */
+  async getProductsAttributesFromUl(page: Page, ulSelector: string): Promise<Array<string | null>> {
+    return page.locator(`${ulSelector} li .attribute-name`).allTextContents();
   }
 
   /**

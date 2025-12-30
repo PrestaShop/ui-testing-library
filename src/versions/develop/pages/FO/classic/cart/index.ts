@@ -57,7 +57,7 @@ class CartPage extends FOBasePage implements FoCartPageInterface {
 
   protected deleteIcon: (number: number) => string;
 
-  private readonly itemsNumber: string;
+  protected itemsNumber: string;
 
   protected noItemsInYourCartSpan: string;
 
@@ -73,9 +73,9 @@ class CartPage extends FOBasePage implements FoCartPageInterface {
 
   private readonly subtotalProductsValueSpan: string;
 
-  private readonly subtotalShippingValueSpan: string;
+  protected subtotalShippingValueSpan: string;
 
-  private readonly subtotalDiscountValueSpan: string;
+  protected subtotalDiscountValueSpan: string;
 
   protected cartTotalATI: string;
 

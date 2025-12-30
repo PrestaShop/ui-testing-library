@@ -50,7 +50,7 @@ class ProductPage extends FOBasePage implements FoProductPageInterface {
 
   protected shortDescription: string;
 
-  private readonly productDescription: string;
+  protected productDescription: string;
 
   protected customizationBlock: string;
 
@@ -90,13 +90,13 @@ class ProductPage extends FOBasePage implements FoProductPageInterface {
 
   protected productAttributeButton: (itemNumber: number) => string;
 
-  private readonly productSizeSelect: string;
+  protected productSizeSelect: string;
 
-  private readonly productSizeOption: (size: string) => string;
+  protected productSizeOption: (size: string) => string;
 
-  private readonly productColorUl: string;
+  protected productColorUl: string;
 
-  private readonly productColorInput: (color: string) => string;
+  protected productColorInput: (color: string) => string;
 
   private readonly productColors: string;
 
