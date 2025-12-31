@@ -641,7 +641,17 @@ export default class FOBasePage extends CommonPage implements FOBasePagePageInte
    * @returns {Promise<void>}
    */
   async goToCategory(page: Page, categoryID: number): Promise<void> {
-    await this.clickAndWaitForURL(page, this.categoryMenu(categoryID));
+    if (this.theme === 'hummingbird') {
+      if (await page.locator(this.categoryMenu(categoryID)).count() === 0) {
+        // Hummingbird 2
+        await this.clickAndWaitForURL(page, this.categoryMenuHummingbird(categoryID));
+      } else {
+        // Hummingbird 1
+        await this.clickAndWaitForURL(page, this.categoryMenu(categoryID));
+      }
+    } else {
+      await this.clickAndWaitForURL(page, this.categoryMenu(categoryID));
+    }
 
     // Move the mouse to avoid the hover on the menu
     await page.mouse.move(0, 0);

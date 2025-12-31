@@ -73,7 +73,7 @@ class FoHomePage extends FoHomePageClassic implements FoHomeHummingbirdPageInter
    * @param blockName {string} The block name in the page
    * @return {Promise<void>}
    */
-  async goToAllProductsPage(page: Page, blockName: string = 'featured-products'): Promise<void> {
+  async goToAllProductsPage(page: Page, blockName: string = 'ps-featuredproducts'): Promise<void> {
     await this.clickAndWaitForURL(page, this.allProductsBlockLink(blockName));
   }
 

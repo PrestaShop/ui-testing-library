@@ -50,6 +50,9 @@ class FoCartPage extends FoCartPageClassic implements FoCartHummingbirdPageInter
     this.cartTotalATI = 'div.cart-summary__totals div.cart-summary__total span.cart-summary__value';
 
     // Cart summary block selectors
+    this.itemsNumber = '#cart-subtotal-products .cart-summary__label.js-subtotal';
+    this.subtotalShippingValueSpan = '#cart-subtotal-shipping span.cart-summary__value';
+    this.subtotalDiscountValueSpan = '#cart-subtotal-discount span.cart-summary__value';
     this.blockPromoDiv = '.cart-summary__voucher';
     this.promoCodeLink = 'div.cart-voucher button.accordion-button';
     this.promoInput = '#promo-code input[name="discount_name"]';
@@ -126,15 +129,6 @@ class FoCartPage extends FoCartPageClassic implements FoCartHummingbirdPageInter
   async deleteProduct(page: Page, productID: number): Promise<void> {
     await super.deleteProduct(page, productID);
     await this.waitForHiddenSelector(page, this.deleteIcon(productID));
-  }
-
-  /**
-   * Returns the number of differents product in the cart
-   * @param page {Page} Browser tab
-   * @returns {Promise<number>}
-   */
-  async getProductsNumber(page: Page): Promise<number> {
-    return page.locator(`${this.productListItem}`).count();
   }
 
   /**

@@ -38,6 +38,7 @@ class FoProductPage extends FoProductPageClassic implements FoProductHummingbird
     this.productName = '#wrapper .product__name';
     this.shortDescription = 'div.product__description-short';
     this.productFlags = '.product__images ul.product-flags';
+    this.productDescription = '.product__description';
     this.customizationBlock = 'section.product__customization';
     this.customizedTextarea = (row: number) => `.product-customization__item:nth-child(${row}) .product-message`;
     this.customizationsMessage = (row: number) => `.product-customization__item:nth-child(${row}) `
@@ -47,6 +48,10 @@ class FoProductPage extends FoProductPageClassic implements FoProductHummingbird
       + `:nth-child(${itemNumber}) select`;
     this.productAttributeButton = (itemNumber: number) => 'div.product__variants fieldset.product-variant'
       + `:nth-child(${itemNumber}) input`;
+    this.productSizeSelect = 'select[name="group[1]"]';
+    this.productSizeOption = (size: string) => `${this.productSizeSelect} option[title=${size}]`;
+    this.productColorUl = 'div.product-variant__colors';
+    this.productColorInput = (color: string) => `${this.productColorUl} input[title=${color}]`;
     this.deliveryInformationSpan = 'span.product__delivery__information';
     this.facebookSocialSharing = 'div.ps-sharebuttons .facebook a';
     this.twitterSocialSharing = 'div.ps-sharebuttons .twitter a';
@@ -221,6 +226,20 @@ class FoProductPage extends FoProductPageClassic implements FoProductHummingbird
       return this.getTextContent(page, `${this.productAttributeSelect(variantItem)} option[selected]`, false);
     }
     return this.getTextContent(page, `${this.productAttributeButton(variantItem)}[checked] + label span`, false);
+  }
+
+  /**
+   * Get product attributes from a Ul selector
+   * @param page {Page} Browser tab
+   * @param ulSelector {string} Selector to locate the element
+   * @returns {Promise<Array<string>>}
+   */
+  async getProductsAttributesFromUl(page: Page, ulSelector: string): Promise<Array<string | null>> {
+    return (
+      await page
+        .locator(`${ulSelector} .product-variant__color label span.visually-hidden`)
+        .allTextContents()
+    ).map((text: string|null) => (text ? text.replace('Color - ', '') : null));
   }
 }
 

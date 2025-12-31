@@ -41,6 +41,8 @@ class FoCartPage extends FoCartPageVersion implements FoCartHummingbirdPageInter
     this.cartTotalATI = 'div.cart-summary__totals span.cart-summary__value';
 
     // Cart summary block selectors
+    this.subtotalShippingValueSpan = '#cart-subtotal-shipping span.value';
+    this.subtotalDiscountValueSpan = '#cart-subtotal-discount span.value';
     this.blockPromoDiv = '.block-promo';
     this.cartSummaryLine = (line: number) => `div.cart-voucher li:nth-child(${line})`;
     this.cartRuleName = (line: number) => `${this.cartSummaryLine(line)} span.cart-voucher__name`;
@@ -53,6 +55,15 @@ class FoCartPage extends FoCartPageVersion implements FoCartHummingbirdPageInter
 
     // Notifications
     this.alertMessage = '#js-toast-container div.toast div.toast-body';
+  }
+
+  /**
+   * Returns the number of differents product in the cart
+   * @param page {Page} Browser tab
+   * @returns {Promise<number>}
+   */
+  async getProductsNumber(page: Page): Promise<number> {
+    return page.locator(`${this.productListItem}`).count();
   }
 
   /**
