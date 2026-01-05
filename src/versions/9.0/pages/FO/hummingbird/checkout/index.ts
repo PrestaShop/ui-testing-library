@@ -29,12 +29,16 @@ class FoCheckoutPage extends FoCheckoutPageVersion implements FoCheckoutPageInte
     this.forgetPasswordLink = '#login-form div.login__forgot-password a[href*=password-recovery]';
 
     // Shipping method selectors
+    this.deliveryStepCarriersList = `${this.deliveryStepSection} .delivery-options-list`;
+    this.deliveryStepCarriersListError = `${this.deliveryStepCarriersList} .alert-danger`;
     this.deliveryOptionAllNamesSpan = '#js-delivery .delivery-options__container span.carrier-name';
+    this.deliveryOptionAllPricesSpan = '#js-delivery .delivery-option span.carrier-price';
     this.deliveryAddressPosition = (position) => `#delivery-addresses div:nth-child(${position}) article`;
     this.invoiceAddressPosition = (position) => `#invoice-addresses div:nth-child(${position}) article`;
     this.deliveryAddressEditButton = (addressID: number) => `#id_address_delivery-address-${addressID} a.address__edit`;
     this.deliveryAddressDeleteButton = (addressID: number) => `#id_address_delivery-address-${addressID} a.address__delete`;
     this.deliveryOptions = '#js-delivery .delivery-options__container';
+    this.deliveryOptionLabel = (id: number) => `${this.deliveryStepSection} label[for='delivery_option_${id}']`;
     this.deliveryOption = (carrierID: number) => `${this.deliveryOptions} label[for="delivery_option_${carrierID}"]`;
     this.deliveryStepCarrierName = (carrierID: number) => `${this.deliveryOption(carrierID)} span.carrier-name`;
     this.deliveryStepCarrierDelay = (carrierID: number) => `${this.deliveryOption(carrierID)} div.row`
@@ -44,14 +48,23 @@ class FoCheckoutPage extends FoCheckoutPageVersion implements FoCheckoutPageInte
 
     // Payment methods selectors
     this.paymentOptionAlertDanger = '.payment__list p.alert-danger';
+    this.termsOfServiceModalDiv = '#modal div.js-modal-content';
+    this.noPaymentNeededElement = `${this.paymentStepSection} div.content > p.cart-payment-step-not-needed-info`;
 
     // Checkout summary selectors
+    this.checkoutSummary = '#js-checkout-summary';
+    this.checkoutPromoBlock = `${this.checkoutSummary} div.block-promo`;
+    this.checkoutHavePromoCodeButton = `${this.checkoutPromoBlock} p.promo-code-button a`;
     this.cartTotalATI = 'div.cart-summary__totals span.cart-summary__value';
+    this.promoCodeArea = '#promo-code';
+    this.checkoutHavePromoInputArea = `${this.promoCodeArea} input.promo-input`;
+    this.discountValueSpan = '#cart-subtotal-discount span.value';
     this.cartSummaryLine = (line: number) => `${this.checkoutPromoBlock} li:nth-child(${line}).cart-voucher__item`;
     this.checkoutRemoveDiscountLink = (row: number) => `${this.cartSummaryLine(row)} `
       + ' a[data-link-action="remove-voucher"] i';
     // Promo code selectors
     this.cartRuleName = (line: number) => `${this.cartSummaryLine(line)} span.cart-voucher__name`;
+    this.discountValue = (line: number) => `${this.cartSummaryLine(line)} div span`;
 
     // Cart details selectors
     this.itemsNumber = `${this.checkoutSummary} div.cart-summary__products.js-cart-summary-products p:nth-child(1)`;

@@ -22,7 +22,7 @@ class SearchResultsPage extends FOBasePage implements FoSearchResultsPageInterfa
 
   private readonly productDescriptionDiv: (number: number) => string;
 
-  private readonly productAttribute: (number: number, attribute: string) => string;
+  protected productAttribute: (number: number, attribute: string) => string;
 
   protected productQuickViewLink: (number: number) => string;
 

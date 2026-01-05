@@ -186,6 +186,8 @@ export default class FOBasePage extends CommonPage implements FOBasePagePageInte
 
   private readonly restrictedText: string;
 
+  private readonly h2RestrictedText: string;
+
   /**
    * @constructs
    * Setting up texts and selectors to use on all FO pages
@@ -309,6 +311,7 @@ export default class FOBasePage extends CommonPage implements FOBasePagePageInte
 
     // Restricted
     this.restrictedText = '#layout-error .page-restricted p';
+    this.h2RestrictedText = '#layout-error #content.page-content--restricted p';
   }
 
   // Header methods
@@ -564,6 +567,19 @@ export default class FOBasePage extends CommonPage implements FOBasePagePageInte
    * @return {Promise<boolean>}
    */
   async languageExists(page: Page, lang: string = 'en'): Promise<boolean> {
+    if (this.theme === 'hummingbird') {
+      let selLanguage: string = this.h1LanguageSelector;
+
+      if (await page.locator(selLanguage).count() === 0) {
+        selLanguage = this.h2LanguageSelector;
+      }
+      const countOptionwIsoCode = await page
+        .locator(`${selLanguage} option[data-iso-code='${lang}']`)
+        .count();
+
+      return countOptionwIsoCode > 0;
+    }
+
     await page.locator(this.languageSelectorExpandIcon).click();
     return this.elementVisible(page, this.languageSelectorMenuItemLink(lang), 1000);
   }
@@ -753,10 +769,10 @@ export default class FOBasePage extends CommonPage implements FOBasePagePageInte
   async isAutocompleteSearchResultVisible(page: Page): Promise<boolean> {
     if (this.theme === 'hummingbird') {
       if (await page.locator(this.h2SearchInput).count() > 0) {
-        return !this.elementNotVisible(page, this.h2AutocompleteSearchResult, 2000);
+        return this.elementVisible(page, this.h2AutocompleteSearchResult, 3000);
       }
     }
-    return this.elementVisible(page, this.autocompleteSearchResult, 2000);
+    return this.elementVisible(page, this.autocompleteSearchResult, 3000);
   }
 
   /**
@@ -1078,7 +1094,8 @@ export default class FOBasePage extends CommonPage implements FOBasePagePageInte
    * @returns {Promise<boolean>}
    */
   async isRestrictedPage(page: Page): Promise<boolean> {
-    return !(await this.elementNotVisible(page, this.restrictedText, 3000));
+    return !(await this.elementNotVisible(page, this.restrictedText, 3000))
+      && !(await this.elementNotVisible(page, this.h2RestrictedText, 3000));
   }
 
   /**
@@ -1087,6 +1104,9 @@ export default class FOBasePage extends CommonPage implements FOBasePagePageInte
    * @returns {Promise<string|null>}
    */
   async getRestrictedText(page: Page): Promise<string | null> {
+    if (await page.locator(this.h2RestrictedText).count() > 0) {
+      return page.locator(this.h2RestrictedText).textContent();
+    }
     return page.locator(this.restrictedText).textContent();
   }
 }

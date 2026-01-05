@@ -26,6 +26,9 @@ class FoProductPage extends FoProductPageClassic implements FoProductHummingbird
     this.warningMessage = '#js-toast-container div.bg-danger  div.toast-body';
     this.productRowQuantityUpDownButton = (direction: string) => `div.product-actions__quantity button.js-${direction}-button`;
     this.proceedToCheckoutButton = '#blockcart-modal div.modal-footer a';
+    this.productDetail = '#product_features button.accordion-button';
+    this.productFeaturesList = '#product_features div.accordion-body ul.details__list';
+    this.continueShoppingButton = `${this.blockCartModal} div.modal-footer button`;
     this.productCoverImg = '.product__images .product__thumbnails-list .product__thumbnail.active';
     this.scrollBoxImages = (direction: string) => `.product__images .product__carousel button.carousel-control-${direction}`;
     this.productCarouselImageItem = '#product-modal .product-images-modal__body div.carousel-item';
@@ -49,9 +52,10 @@ class FoProductPage extends FoProductPageClassic implements FoProductHummingbird
     this.productAttributeButton = (itemNumber: number) => 'div.product__variants fieldset.product-variant'
       + `:nth-child(${itemNumber}) input`;
     this.productSizeSelect = 'select[name="group[1]"]';
-    this.productSizeOption = (size: string) => `${this.productSizeSelect} option[title=${size}]`;
+    this.productSizeOption = (size: string) => `${this.productSizeSelect} option:has-text("${size}")`;
     this.productColorUl = 'div.product-variant__colors';
-    this.productColorInput = (color: string) => `${this.productColorUl} input[title=${color}]`;
+    this.productColorInput = (color: string, isChecked: boolean) => `${this.productColorUl} input${isChecked ? '[checked]' : ''}`
+      + `:has( + label.input-color__label  span:has-text("Color - ${color}"))`;
     this.deliveryInformationSpan = 'span.product__delivery__information';
     this.facebookSocialSharing = 'div.ps-sharebuttons .facebook a';
     this.twitterSocialSharing = 'div.ps-sharebuttons .twitter a';

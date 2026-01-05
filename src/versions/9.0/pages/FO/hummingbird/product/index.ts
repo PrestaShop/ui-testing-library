@@ -12,6 +12,9 @@ class FoProductPage extends FoProductPageVersion implements FoProductHummingbird
 
     // Selectors for product page
     this.proceedToCheckoutButton = '#blockcart-modal div.cart-footer-actions a';
+    this.continueShoppingButton = `${this.blockCartModal} div.cart-content-btn button`;
+    this.productDetail = 'div.product-information a[href=\'#product-details\']';
+    this.productFeaturesList = '#product-details section.product-features';
     this.productCoverImg = '#product-images div.carousel-item.active';
     this.scrollBoxImages = (direction: string) => `#product-images button.carousel-control-${direction}`;
     this.productCoverImgProductModal = '#product-images-modal div.carousel-item.active picture img';
@@ -31,7 +34,8 @@ class FoProductPage extends FoProductPageVersion implements FoProductHummingbird
     this.productSizeSelect = '#group_1';
     this.productSizeOption = (size: string) => `${this.productSizeSelect} option[title=${size}]`;
     this.productColorUl = 'ul[id^="group_"]';
-    this.productColorInput = (color: string) => `${this.productColorUl} input[title=${color}]`;
+    this.productColorInput = (color: string, isChecked: boolean) => `${this.productColorUl} input[title=${color}]`
+      + `${isChecked ? '[checked]' : ''}`;
     this.facebookSocialSharing = '.social-sharing .facebook a';
     this.twitterSocialSharing = '.social-sharing .twitter a';
     this.pinterestSocialSharing = '.social-sharing .pinterest a';

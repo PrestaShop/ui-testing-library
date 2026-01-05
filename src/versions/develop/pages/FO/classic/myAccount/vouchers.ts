@@ -1,6 +1,6 @@
 import {type FoMyVouchersPageInterface} from '@interfaces/FO/myAccount/vouchers';
 import FOBasePage from '@pages/FO/FOBasePage';
-import {Page} from '@playwright/test';
+import {type Page} from '@playwright/test';
 
 /**
  * Vouchers page, contains functions that can be used on the page
@@ -64,9 +64,15 @@ class FoMyVouchersPage extends FOBasePage implements FoMyVouchersPageInterface {
    * @param page {Page} Browser tab
    * @param row {number} Row number in vouchers table
    * @param columnName {string} Column name in vouchers table
+   * @param waitForSelector {boolean|undefined} True to wait for selector to be visible before getting text
    * @returns {Promise<string>}
    */
-  async getTextColumnFromTableVouchers(page: Page, row: number, columnName: string): Promise<string> {
+  async getTextColumnFromTableVouchers(
+    page: Page,
+    row: number,
+    columnName: string,
+    waitForSelector: boolean|undefined,
+  ): Promise<string> {
     let columnSelector: string;
 
     switch (columnName) {
@@ -102,7 +108,7 @@ class FoMyVouchersPage extends FOBasePage implements FoMyVouchersPageInterface {
         throw new Error(`Column ${columnName} was not found`);
     }
 
-    return this.getTextContent(page, columnSelector);
+    return this.getTextContent(page, columnSelector, typeof waitForSelector === 'undefined' ? true : waitForSelector);
   }
 
   /**

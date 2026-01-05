@@ -72,11 +72,11 @@ class ProductPage extends FOBasePage implements FoProductPageInterface {
 
   private readonly productQuantitySpan: string;
 
-  private readonly productDetail: string;
+  protected productDetail: string;
 
-  private readonly productFeaturesList: string;
+  protected productFeaturesList: string;
 
-  private readonly continueShoppingButton: string;
+  protected continueShoppingButton: string;
 
   private readonly productAvailability: string;
 
@@ -96,7 +96,7 @@ class ProductPage extends FOBasePage implements FoProductPageInterface {
 
   protected productColorUl: string;
 
-  protected productColorInput: (color: string) => string;
+  protected productColorInput: (color: string, isChecked: boolean) => string;
 
   private readonly productColors: string;
 
@@ -259,7 +259,8 @@ class ProductPage extends FOBasePage implements FoProductPageInterface {
     this.productSizeSelect = '#group_1';
     this.productSizeOption = (size: string) => `${this.productSizeSelect} option[title=${size}]`;
     this.productColorUl = 'ul[id^="group_"]';
-    this.productColorInput = (color: string) => `${this.productColorUl} input[title=${color}]`;
+    this.productColorInput = (color: string, isChecked: boolean) => `${this.productColorUl} input[title=${color}]`
+      + `${isChecked ? '[checked]' : ''}`;
     this.productColors = 'div.product-variants div:nth-child(2)';
     this.metaLink = '#main > meta';
     this.facebookSocialSharing = '.social-sharing .facebook a';
@@ -749,8 +750,8 @@ class ProductPage extends FOBasePage implements FoProductPageInterface {
       switch (attributes[i].name) {
         case 'color':
           await Promise.all([
-            this.waitForVisibleSelector(page, `${this.productColorInput(attributes[i].value)}[checked]`),
-            page.locator(this.productColorInput(attributes[i].value)).click(),
+            this.waitForVisibleSelector(page, this.productColorInput(attributes[i].value, true)),
+            page.locator(this.productColorInput(attributes[i].value, false)).click(),
           ]);
           break;
         case 'size':
@@ -1052,6 +1053,9 @@ class ProductPage extends FOBasePage implements FoProductPageInterface {
    * @returns {Promise<boolean>}
    */
   async hasProductFeaturesList(page: Page): Promise<boolean> {
+    if (!await this.elementVisible(page, this.productDetail)) {
+      return false;
+    }
     await this.waitForSelectorAndClick(page, this.productDetail);
     return this.elementVisible(page, this.productFeaturesList, 2000);
   }
@@ -1143,7 +1147,7 @@ class ProductPage extends FOBasePage implements FoProductPageInterface {
    * @returns {Promise<boolean>}
    */
   async isUnavailableProductColorDisplayed(page: Page, color: string): Promise<boolean> {
-    return this.elementVisible(page, this.productColorInput(color), 1000);
+    return this.elementVisible(page, this.productColorInput(color, false), 1000);
   }
 
   /**

@@ -43,13 +43,16 @@ class FoCheckoutPage extends FoCheckoutPageClassic implements FoCheckoutPageInte
     // Shipping method selectors
     this.deliveryStepSection = 'li[data-step="checkout-delivery-step"]';
     this.deliveryStepEditButton = `${this.deliveryStepSection} button`;
+    this.deliveryStepCarriersList = '#checkout-delivery-step .delivery-options__container';
+    this.deliveryStepCarriersListError = `${this.deliveryStepCarriersList} .alert-danger`;
     this.deliveryOptionAllNamesSpan = '#js-delivery .delivery-options__list span.delivery-option__carrier-name';
+    this.deliveryOptionAllPricesSpan = '#js-delivery .delivery-options__list div.delivery-option__price';
     this.deliveryAddressPosition = (position) => `#delivery-addresses article:nth-child(${position})`;
     this.invoiceAddressPosition = (position) => `#invoice-addresses article:nth-child(${position})`;
     this.deliveryAddressEditButton = (addressID: number) => `#id_address_delivery-address-${addressID} a.address-card__edit`;
     this.deliveryAddressDeleteButton = (addressID: number) => `#id_address_delivery-address-${addressID} a.address-card__delete`;
     this.deliveryOptions = '#js-delivery .delivery-options__list';
-    this.deliveryOptionLabel = (id: number) => `input#delivery_option_${id}`;
+    this.deliveryOptionLabel = (id: number) => `${this.deliveryOptions} input#delivery_option_${id}`;
     this.deliveryOption = (carrierID: number) => `${this.deliveryOptions} label[for="delivery_option_${carrierID}"]`;
     this.deliveryStepCarrierName = (carrierID: number) => `${this.deliveryOption(carrierID)} span.delivery-option__carrier-name`;
     this.deliveryStepCarrierDelay = (carrierID: number) => `${this.deliveryOption(carrierID)} div.delivery-option__content`;
@@ -57,14 +60,23 @@ class FoCheckoutPage extends FoCheckoutPageClassic implements FoCheckoutPageInte
 
     // Payment methods selectors
     this.paymentOptionAlertDanger = '.payment-options__list p.alert-danger';
+    this.termsOfServiceModalDiv = '#checkout-modal .modal-body';
+    this.noPaymentNeededElement = `${this.paymentStepSection} .step__content .payment-options__free`;
 
     // Checkout summary selectors
+    this.checkoutSummary = '#js-checkout-summary';
+    this.checkoutPromoBlock = `${this.checkoutSummary} div.cart-summary__voucher`;
+    this.checkoutHavePromoCodeButton = `${this.checkoutPromoBlock} button.cart-voucher__accordion-button`;
+    this.promoCodeArea = '#promo-code';
+    this.checkoutHavePromoInputArea = `${this.promoCodeArea} input.js-voucher-input`;
     this.shippingValueSpan = '#cart-subtotal-shipping span.cart-summary__value';
+    this.discountValueSpan = '#cart-subtotal-discount span.cart-summary__value';
     this.cartTotalATI = 'div.cart-summary__total span.cart-summary__value';
     // Promo code selectors
     this.checkoutPromoBlock = '.js-cart-voucher';
     this.cartSummaryLine = (line: number) => `${this.checkoutPromoBlock} li:nth-child(${line}).cart-summary__line`;
     this.cartRuleName = (line: number) => `${this.cartSummaryLine(line)} span.cart-summary__label`;
+    this.discountValue = (line: number) => `${this.cartSummaryLine(line)} div.cart-summary__value`;
     this.checkoutRemoveDiscountLink = (row: number) => `${this.cartSummaryLine(row)} a.cart-voucher__remove`;
 
     // Cart details selectors

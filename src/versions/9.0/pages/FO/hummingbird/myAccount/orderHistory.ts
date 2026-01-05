@@ -23,6 +23,12 @@ class FoMyOrderHistoryPage extends FoMyOrderHistoryPageVersion implements FoMyOr
     this.reorderLink = (row: number) => `${this.ordersTableRow(row)} a[href*='submitReorder']`;
     this.detailsLink = (row: number) => `${this.ordersTableRow(row)} a[data-link-action="view-order-details"]`;
     this.orderTableColumnInvoice = (row: number) => `${this.ordersTableRow(row)} td:nth-child(6) a`;
+    this.orderDetailsLink = (orderID: number) => `${this.ordersTableRows}`
+      + ` td a.view-order-details-link[href$='order-detail&id_order=${orderID}']`;
+
+    // Messages block
+    this.boxMessagesSection = '.box.messages';
+    this.messageRow = (row: number) => `${this.boxMessagesSection} div:nth-child(${row + 1}).message.row`;
   }
 }
 

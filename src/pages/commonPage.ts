@@ -213,7 +213,7 @@ export default class CommonPage implements CommonPageInterface {
   async openLinkWithTargetBlank(
     page: Page,
     selector: string,
-    newPageSelector: string = 'body .logo',
+    newPageSelector: string = 'body .logo, body .error__logo',
     state: 'load' | 'domcontentloaded' | 'networkidle' = 'load',
     waitForVisible: boolean = true,
   ): Promise<Page> {

@@ -50,6 +50,8 @@ class FoHomePage extends FoHomePageClassic implements FoHomeHummingbirdPageInter
     this.productArticle = (number: number) => `#wrapper section.ps-featuredproducts article:nth-child(${number})`;
     this.productImg = (number: number) => `${this.productArticle(number)} img`;
     this.productQuickViewLink = (number: number) => `${this.productArticle(number)} .product-miniature__quickview-button`;
+    this.productPrice = (row: number) => `${this.productArticle(row)} div[aria-label="Price"]`;
+    this.newFlag = (row: number) => `${this.productArticle(row)} .product-flags .badge.new`;
 
     // Products list
     this.addToCartIcon = (number: number) => `${this.productArticle(number)} button[data-button-action='add-to-cart']`;
