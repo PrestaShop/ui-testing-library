@@ -1095,7 +1095,7 @@ export default class FOBasePage extends CommonPage implements FOBasePagePageInte
    */
   async isRestrictedPage(page: Page): Promise<boolean> {
     return !(await this.elementNotVisible(page, this.restrictedText, 3000))
-      && !(await this.elementNotVisible(page, this.h2RestrictedText, 3000));
+      || !(await this.elementNotVisible(page, this.h2RestrictedText, 3000));
   }
 
   /**

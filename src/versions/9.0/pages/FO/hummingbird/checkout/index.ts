@@ -29,7 +29,8 @@ class FoCheckoutPage extends FoCheckoutPageVersion implements FoCheckoutPageInte
     this.forgetPasswordLink = '#login-form div.login__forgot-password a[href*=password-recovery]';
 
     // Shipping method selectors
-    this.deliveryStepCarriersList = `${this.deliveryStepSection} .delivery-options-list`;
+    this.deliveryStepSection = 'li[data-step="checkout-delivery-step"]';
+    this.deliveryStepCarriersList = '#checkout-delivery-step .delivery-options__container';
     this.deliveryStepCarriersListError = `${this.deliveryStepCarriersList} .alert-danger`;
     this.deliveryOptionAllNamesSpan = '#js-delivery .delivery-options__container span.carrier-name';
     this.deliveryOptionAllPricesSpan = '#js-delivery .delivery-option span.carrier-price';
@@ -38,7 +39,7 @@ class FoCheckoutPage extends FoCheckoutPageVersion implements FoCheckoutPageInte
     this.deliveryAddressEditButton = (addressID: number) => `#id_address_delivery-address-${addressID} a.address__edit`;
     this.deliveryAddressDeleteButton = (addressID: number) => `#id_address_delivery-address-${addressID} a.address__delete`;
     this.deliveryOptions = '#js-delivery .delivery-options__container';
-    this.deliveryOptionLabel = (id: number) => `${this.deliveryStepSection} label[for='delivery_option_${id}']`;
+    this.deliveryOptionLabel = (id: number) => `${this.deliveryOptions} label[for='delivery_option_${id}']`;
     this.deliveryOption = (carrierID: number) => `${this.deliveryOptions} label[for="delivery_option_${carrierID}"]`;
     this.deliveryStepCarrierName = (carrierID: number) => `${this.deliveryOption(carrierID)} span.carrier-name`;
     this.deliveryStepCarrierDelay = (carrierID: number) => `${this.deliveryOption(carrierID)} div.row`
@@ -53,7 +54,7 @@ class FoCheckoutPage extends FoCheckoutPageVersion implements FoCheckoutPageInte
 
     // Checkout summary selectors
     this.checkoutSummary = '#js-checkout-summary';
-    this.checkoutPromoBlock = `${this.checkoutSummary} div.block-promo`;
+    this.checkoutPromoBlock = '.js-cart-voucher';
     this.checkoutHavePromoCodeButton = `${this.checkoutPromoBlock} p.promo-code-button a`;
     this.cartTotalATI = 'div.cart-summary__totals span.cart-summary__value';
     this.promoCodeArea = '#promo-code';
