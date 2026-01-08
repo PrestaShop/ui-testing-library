@@ -36,13 +36,25 @@ class FoProductPage extends FoProductPageVersion implements FoProductHummingbird
     this.productColorUl = 'ul[id^="group_"]';
     this.productColorInput = (color: string, isChecked: boolean) => `${this.productColorUl} input[title=${color}]`
       + `${isChecked ? '[checked]' : ''}`;
+    this.deliveryInformationSpan = 'span.product__delivery__information';
     this.facebookSocialSharing = '.social-sharing .facebook a';
     this.twitterSocialSharing = '.social-sharing .twitter a';
     this.pinterestSocialSharing = '.social-sharing .pinterest a';
 
     // Product prices block
+    this.productUnitPrice = `${this.productPricesBlock} p.product-unit-price`;
     this.productPrice = `${this.productPricesBlock} .product__current-price`;
     this.regularPrice = `${this.productPricesBlock} .product__price-regular`;
+    this.packProductsPrice = `${this.productPricesBlock} .product-pack-price span`;
+
+    // Product information block
+    this.productInformationBlock = 'div.product-information';
+    this.productMailAlertsBlock = `${this.productInformationBlock} div.js-mailalert`;
+    this.productMailAlertsEmailInput = `${this.productMailAlertsBlock} input[type="email"]`;
+    this.productMailAlertsGDPRLabel = `${this.productMailAlertsBlock} div.gdpr_consent label.psgdpr_consent_message `
+      + 'span:nth-of-type(2)';
+    this.productMailAlertsNotifyButton = `${this.productMailAlertsBlock} button`;
+    this.productMailAlertsNotification = `${this.productMailAlertsBlock} article`;
 
     // Product information block
     this.productInformationBlock = 'div.product-information';
@@ -72,6 +84,8 @@ class FoProductPage extends FoProductPageVersion implements FoProductHummingbird
     // Review selector
     this.productReviewModalGDPRLabel = `${this.productReviewModal} div.gdpr_consent label span:nth-of-type(2)`;
     this.reviewCancelButton = `${this.reviewForm} button[data-dismiss="modal"]`;
+    this.productsBlock = (blockName: string) => `#content-wrapper section[data-type="${blockName}"]`;
+    this.productsBlockPrice = (blockName: string) => `${this.productsBlock(blockName)} .product-price-and-shipping`;
   }
 
   /**
@@ -93,6 +107,30 @@ class FoProductPage extends FoProductPageVersion implements FoProductHummingbird
    */
   async getProductsAttributesFromUl(page: Page, ulSelector: string): Promise<Array<string | null>> {
     return page.locator(`${ulSelector} li .attribute-name`).allTextContents();
+  }
+
+  /**
+   * Get product features list
+   * @param page {Page} Browser tab
+   * @returns {Promise<string>}
+   */
+  async getProductFeaturesList(page: Page): Promise<string> {
+    await this.waitForSelectorAndClick(page, this.productDetail);
+
+    return this.getTextContent(page, this.productFeaturesList);
+  }
+
+  /**
+   * Return if product features list is visible
+   * @param page {Page} Browser tab
+   * @returns {Promise<boolean>}
+   */
+  async hasProductFeaturesList(page: Page): Promise<boolean> {
+    if (!await this.elementVisible(page, this.productDetail)) {
+      return false;
+    }
+    await this.waitForSelectorAndClick(page, this.productDetail);
+    return this.elementVisible(page, this.productFeaturesList, 2000);
   }
 
   /**
@@ -118,6 +156,36 @@ class FoProductPage extends FoProductPageVersion implements FoProductHummingbird
           this.waitForVisibleSelector(page, `${this.productAttributeButton(itemNumber)}[title=${attributes[i].value}][checked]`),
           page.locator(`${this.productAttributeButton(itemNumber)}[title=${attributes[i].value}]`).click(),
         ]);
+      }
+    }
+  }
+
+  /**
+   * Select default product attributes (ISO to Classic)
+   * @param page {Page} Browser tab
+   * @param attributes {ProductAttribute[]}  Product's attributes data to select
+   * @returns {Promise<void>}
+   */
+  async selectDefaultAttributes(page: Page, attributes: ProductAttribute[]): Promise<void> {
+    if (attributes.length === 0) {
+      return;
+    }
+    for (let i: number = 0; i < attributes.length; i++) {
+      switch (attributes[i].name) {
+        case 'color':
+          await Promise.all([
+            this.waitForVisibleSelector(page, this.productColorInput(attributes[i].value, true)),
+            page.locator(this.productColorInput(attributes[i].value, false)).click(),
+          ]);
+          break;
+        case 'size':
+          await Promise.all([
+            this.waitForAttachedSelector(page, `${this.productSizeOption(attributes[i].value)}[selected]`),
+            this.selectByVisibleText(page, this.productSizeSelect, attributes[i].value),
+          ]);
+          break;
+        default:
+          throw new Error(`${attributes[i].name} is not defined`);
       }
     }
   }

@@ -18,6 +18,7 @@ class FoModalQuickViewPage extends FoModalQuickViewPageClassic implements FoModa
     super('hummingbird');
 
     // Quick view modal
+    this.quickViewModalProductImageCover = `${this.quickViewModalDiv} .product__carousel div.carousel-item picture`;
     this.productRowQuantityUpDownButton = (direction: string) => `div.product-actions__quantity button.js-${direction}-button`;
     this.quickViewProductName = `${this.quickViewModalDiv} .product__name`;
     this.quickViewRegularPrice = `${this.quickViewModalDiv} span.product__price-regular`;
@@ -76,7 +77,17 @@ class FoModalQuickViewPage extends FoModalQuickViewPageClassic implements FoModa
    * @returns {Promise<string|null>}
    */
   async getQuickViewImageMain(page: Page): Promise<string | null> {
-    return this.getAttributeContent(page, this.quickViewCoverImage, 'data-full-size-image-url');
+    const srcset = await this.getAttributeContent(page, `${this.quickViewModalProductImageCover} source`, 'srcset');
+
+    if (!srcset) {
+      return null;
+    }
+    const srcsets: string[] = srcset
+      .split(',')
+      .map((el: string) => el.replace(/\s[0-9]+w/i, ''))
+      .map((el: string) => el.trim());
+
+    return srcsets[0];
   }
 
   /**

@@ -150,6 +150,16 @@ export default class FOBasePage extends CommonPage implements FOBasePagePageInte
 
   private readonly wrapperSubmenuItemLink: (position: number) => string;
 
+  private readonly h2FooterLinksDiv: string;
+
+  private readonly h2WrapperDiv: (position: number) => string;
+
+  private readonly h2WrapperTitle: (position: number) => string;
+
+  private readonly h2WrapperSubmenu: (position: number) => string;
+
+  private readonly h2WrapperSubmenuItemLink: (position: number) => string;
+
   private readonly copyrightLink: string;
 
   protected alertSuccessBlock: string;
@@ -286,6 +296,12 @@ export default class FOBasePage extends CommonPage implements FOBasePagePageInte
     this.wrapperTitle = (position) => `${this.wrapperDiv(position)} p`;
     this.wrapperSubmenu = (position) => `${this.wrapperDiv(position)} ul[id*='footer_sub_menu']`;
     this.wrapperSubmenuItemLink = (position) => `${this.wrapperSubmenu(position)} li a`;
+
+    this.h2FooterLinksDiv = '#footer .ps-linklist';
+    this.h2WrapperDiv = (position) => `${this.h2FooterLinksDiv}:nth-child(${position})`;
+    this.h2WrapperTitle = (position) => `${this.h2WrapperDiv(position)} p`;
+    this.h2WrapperSubmenu = (position) => `${this.h2WrapperDiv(position)} ul.footer-block__list`;
+    this.h2WrapperSubmenuItemLink = (position) => `${this.h2WrapperSubmenu(position)} li a`;
 
     // Copyright
     this.copyrightLink = '#footer div.footer-container a[href*="www.prestashop-project.org"]';
@@ -913,6 +929,9 @@ export default class FOBasePage extends CommonPage implements FOBasePagePageInte
    * @returns {Promise<string>}
    */
   async getFooterLinksBlockTitle(page: Page, position: number): Promise<string> {
+    if (this.theme === 'hummingbird' && await page.locator(this.h2WrapperTitle(position)).count() > 0) {
+      return this.getTextContent(page, this.h2WrapperTitle(position));
+    }
     return this.getTextContent(page, this.wrapperTitle(position));
   }
 
@@ -923,6 +942,12 @@ export default class FOBasePage extends CommonPage implements FOBasePagePageInte
    * @return {Promise<Array<string>>}
    */
   async getFooterLinksTextContent(page: Page, position: number): Promise<Array<string>> {
+    if (this.theme === 'hummingbird' && await page.locator(this.h2WrapperSubmenuItemLink(position)).count() > 0) {
+      return (await page
+        .locator(this.h2WrapperSubmenuItemLink(position))
+        .allTextContents())
+        .map((textContent) => textContent.trim());
+    }
     return (await page
       .locator(this.wrapperSubmenuItemLink(position))
       .allTextContents())

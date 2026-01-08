@@ -25,6 +25,8 @@ class FoCartPage extends FoCartPageClassic implements FoCartHummingbirdPageInter
     this.productName = (number: number) => `${this.productItem(number)} div.product-line__content a.product-line__title`;
     this.productRegularPrice = (number: number) => `${this.productItem(number)} div.product-line__item--prices`
       + ' span.product-line__item-regular-price';
+    this.productDiscountAmount = (number: number) => `${this.productItem(number)} div.product-line__item--prices`
+      + ' span.product-line__item-discount';
     this.productDiscountPercentage = (number: number) => `${this.productItem(number)} div.product-line__item--prices`
       + ' span.product-line__item-discount';
     this.productPrice = (number: number) => `${this.productItem(number)} div.product-line__item--prices`
@@ -124,6 +126,7 @@ class FoCartPage extends FoCartPageClassic implements FoCartHummingbirdPageInter
   async editProductQuantity(page: Page, productID: number, quantity: number | string): Promise<void> {
     await this.setValue(page, this.productQuantity(productID), quantity);
     await page.locator(this.productQuantityScrollUpButton(productID)).click();
+    await page.waitForTimeout(5000);
   }
 
   /**

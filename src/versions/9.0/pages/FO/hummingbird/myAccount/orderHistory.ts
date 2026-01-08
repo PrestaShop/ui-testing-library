@@ -14,6 +14,10 @@ class FoMyOrderHistoryPage extends FoMyOrderHistoryPageVersion implements FoMyOr
   constructor() {
     super();
 
+    // @FOBasePage
+    // Alert block selectors
+    this.alertSuccessBlock = '.alert-success ul li';
+
     // Selectors
     this.ordersTable = '#content table';
     this.ordersTableRows = `${this.ordersTable} tbody tr`;
@@ -29,6 +33,12 @@ class FoMyOrderHistoryPage extends FoMyOrderHistoryPageVersion implements FoMyOr
     // Messages block
     this.boxMessagesSection = '.box.messages';
     this.messageRow = (row: number) => `${this.boxMessagesSection} div:nth-child(${row + 1}).message.row`;
+
+    // Add message block
+    this.orderMessageForm = '.order-message-form';
+    this.productSelect = `${this.orderMessageForm} select[data-role='product']`;
+    this.messageTextarea = `${this.orderMessageForm} textarea[data-role='msg-text']`;
+    this.sendMessageButton = `${this.orderMessageForm} button.form-control-submit`;
   }
 }
 

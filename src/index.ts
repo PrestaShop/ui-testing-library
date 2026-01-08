@@ -449,6 +449,7 @@ export {default as foHummingbirdLegalNoticePage} from '@pages/FO/hummingbird/leg
 export {default as foHummingbirdLoginPage} from '@pages/FO/hummingbird/login';
 export {default as foHummingbirdModalBlockCartPage} from '@pages/FO/hummingbird/modal/blockCart';
 export {default as foHummingbirdModalQuickViewPage} from '@pages/FO/hummingbird/modal/quickView';
+export {default as foHummingbirdModalWishlistPage} from '@pages/FO/hummingbird/modal/wishlist';
 export {default as foHummingbirdMyAccountPage} from '@pages/FO/hummingbird/myAccount';
 export {default as foHummingbirdMyAddressesPage} from '@pages/FO/hummingbird/myAccount/addresses';
 export {default as foHummingbirdMyAddressesCreatePage} from '@pages/FO/hummingbird/myAccount/addresses/create';

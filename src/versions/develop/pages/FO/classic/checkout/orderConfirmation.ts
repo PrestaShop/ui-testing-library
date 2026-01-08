@@ -54,7 +54,7 @@ class OrderConfirmationPage extends FOBasePage implements FoCheckoutOrderConfirm
 
   protected productRowPrices: (row: number) => string;
 
-  private readonly giftWrappingRow: string;
+  protected giftWrappingRow: string;
 
   protected orderDetailsTable: string;
 

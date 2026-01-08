@@ -76,6 +76,8 @@ class ProductPage extends FOBasePage implements FoProductPageInterface {
 
   protected productFeaturesList: string;
 
+  private readonly productCondition: string;
+
   protected continueShoppingButton: string;
 
   private readonly productAvailability: string;
@@ -116,7 +118,7 @@ class ProductPage extends FOBasePage implements FoProductPageInterface {
 
   protected regularPrice: string;
 
-  private readonly packProductsPrice: string;
+  protected packProductsPrice: string;
 
   protected productPrice: string;
 
@@ -146,7 +148,7 @@ class ProductPage extends FOBasePage implements FoProductPageInterface {
 
   protected savedValue: string;
 
-  private readonly productUnitPrice: string;
+  protected productUnitPrice: string;
 
   private readonly commentCount: string;
 
@@ -200,7 +202,9 @@ class ProductPage extends FOBasePage implements FoProductPageInterface {
 
   protected productInPackQuantity: (productInList: number) => string;
 
-  private readonly productsBlock: (blockName: string) => string;
+  protected productsBlock: (blockName: string) => string;
+
+  protected productsBlockPrice: (blockName: string) => string;
 
   private readonly btnAddToWishlist: string;
 
@@ -249,6 +253,7 @@ class ProductPage extends FOBasePage implements FoProductPageInterface {
     this.productQuantitySpan = '#product-details div.product-quantities label';
     this.productDetail = 'div.product-information a[href=\'#product-details\']';
     this.productFeaturesList = '#product-details section.product-features';
+    this.productCondition = '#product-details div.product-condition';
     this.continueShoppingButton = `${this.blockCartModal} div.cart-content-btn button`;
     this.productAvailability = '#product-availability';
     this.productAvailabilityIcon = `${this.productAvailability} i`;
@@ -326,6 +331,7 @@ class ProductPage extends FOBasePage implements FoProductPageInterface {
       + ' div.pack-product-quantity';
 
     this.productsBlock = (blockName: string) => `#content-wrapper section[data-type="${blockName}"]`;
+    this.productsBlockPrice = (blockName: string) => `${this.productsBlock(blockName)} .product-price-and-shipping`;
 
     // Wishlist
     this.btnAddToWishlist = '#add-to-cart-or-refresh button.wishlist-button-add';
@@ -750,7 +756,7 @@ class ProductPage extends FOBasePage implements FoProductPageInterface {
       switch (attributes[i].name) {
         case 'color':
           await Promise.all([
-            this.waitForVisibleSelector(page, this.productColorInput(attributes[i].value, true)),
+            this.waitForAttachedSelector(page, this.productColorInput(attributes[i].value, true)),
             page.locator(this.productColorInput(attributes[i].value, false)).click(),
           ]);
           break;
@@ -1072,17 +1078,6 @@ class ProductPage extends FOBasePage implements FoProductPageInterface {
   }
 
   /**
-   * Is features block visible
-   * @param page {Page} Browser tab
-   * @returns {Promise<boolean>}
-   */
-  async isFeaturesBlockVisible(page: Page): Promise<boolean> {
-    await this.waitForSelectorAndClick(page, this.productDetail);
-
-    return this.elementVisible(page, this.productFeaturesList);
-  }
-
-  /**
    * Get product condition
    * @param page {Page} Browser tab
    * @returns {Promise<string>}
@@ -1090,7 +1085,7 @@ class ProductPage extends FOBasePage implements FoProductPageInterface {
   async getProductCondition(page: Page): Promise<string> {
     await this.waitForSelectorAndClick(page, this.productDetail);
 
-    return this.getTextContent(page, '#product-details div.product-condition');
+    return this.getTextContent(page, this.productCondition);
   }
 
   /**
@@ -1276,22 +1271,22 @@ class ProductPage extends FOBasePage implements FoProductPageInterface {
 
   /**
    * Has products block
-   * @param blockName {'categoryproducts'} The block name in the page
+   * @param blockName {string} The block name in the page
    * @param page {Page} Browser tab
    * @return {Promise<boolean>}
    */
-  async hasProductsBlock(page: Page, blockName: 'categoryproducts'): Promise<boolean> {
+  async hasProductsBlock(page: Page, blockName: string): Promise<boolean> {
     return (await page.locator(this.productsBlock(blockName)).count()) > 0;
   }
 
   /**
    * Is the price displayed in Products block ?
-   * @param blockName {'categoryproducts'} The block name in the page
+   * @param blockName {string} The block name in the page
    * @param page {Page} Browser tab
    * @return {Promise<boolean>}
    */
-  async hasProductsBlockPrice(page: Page, blockName: 'categoryproducts'): Promise<boolean> {
-    return (await page.locator(`${this.productsBlock(blockName)} .product-price-and-shipping`).count()) > 0;
+  async hasProductsBlockPrice(page: Page, blockName: string): Promise<boolean> {
+    return (await page.locator(this.productsBlockPrice(blockName)).count()) > 0;
   }
 
   /**

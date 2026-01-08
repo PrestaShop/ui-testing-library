@@ -10,9 +10,9 @@ import {type Page} from '@playwright/test';
 class FoStoresPage extends FOBasePage implements FoStoresPageInterface {
   public readonly pageTitle: string;
 
-  public readonly storeBlock: (idStore: number) => string;
+  protected readonly storeBlock: (idStore: number) => string;
 
-  public readonly storeImage: (idStore: number) => string;
+  protected storeImage: (idStore: number) => string;
 
   /**
    * @constructs
