@@ -2,7 +2,7 @@ import {FoModalWishlistPageInterface} from '@interfaces/FO/modal/wishlist';
 import FOBasePage from '@pages/FO/FOBasePage';
 import {Page} from '@playwright/test';
 
-class WishlistModalPage extends FOBasePage implements FoModalWishlistPageInterface {
+class FoModalWishlistPage extends FOBasePage implements FoModalWishlistPageInterface {
   public readonly messageAddedToWishlist: string;
 
   public readonly messageLinkSharedWishlist: string;
@@ -15,13 +15,13 @@ class WishlistModalPage extends FOBasePage implements FoModalWishlistPageInterfa
 
   private readonly modalLoginBtnLogin: string;
 
-  private readonly modalAddTo: string;
+  protected readonly modalAddTo: string;
 
   private readonly modalAddToTitle: string;
 
   private readonly modalAddToListItem: (nth: number) => string;
 
-  private readonly modalAddToCreateNewList: string;
+  protected modalAddToCreateNewList: string;
 
   public readonly modalShare: string;
 
@@ -236,5 +236,5 @@ class WishlistModalPage extends FOBasePage implements FoModalWishlistPageInterfa
   }
 }
 
-export default new WishlistModalPage();
-module.exports = new WishlistModalPage();
+const foModalWishlistPage = new FoModalWishlistPage();
+export {foModalWishlistPage, FoModalWishlistPage};

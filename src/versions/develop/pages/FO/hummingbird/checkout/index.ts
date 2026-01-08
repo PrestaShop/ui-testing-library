@@ -91,6 +91,9 @@ class FoCheckoutPage extends FoCheckoutPageClassic implements FoCheckoutPageInte
     this.productDetailsPrice = (productRow: number) => `${this.productRowLink(productRow)} div.cart-summary-product__total`;
     this.productDetailsAttributes = (productRow: number) => `${this.productRowLink(productRow)} div`
       + '.cart-summary-product__attribute';
+
+    // Gift selectors
+    this.cartSubtotalGiftWrappingValueSpan = `${this.cartSubtotalGiftWrappingDiv} span.cart-summary__value`;
   }
 
   /**

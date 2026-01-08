@@ -67,6 +67,16 @@ class FoProductPage extends FoProductPageClassic implements FoProductHummingbird
     this.discountAmountSpan = `${this.productPricesBlock} .product__discount-amount`;
     this.discountPercentageSpan = `${this.productPricesBlock} .product__discount-percentage`;
     this.regularPrice = `${this.productPricesBlock} .product__regular-price`;
+    this.packProductsPrice = `${this.productPricesBlock} .product__pack-price`;
+
+    // Product information block
+    this.productInformationBlock = 'div.product__additional-info';
+    this.productMailAlertsBlock = `${this.productInformationBlock} div.js-mailalert`;
+    this.productMailAlertsEmailInput = `${this.productMailAlertsBlock} input[type="email"]`;
+    this.productMailAlertsGDPRLabel = `${this.productMailAlertsBlock} div.gdpr_consent label.psgdpr_consent_message `
+      + 'span:nth-of-type(2)';
+    this.productMailAlertsNotifyButton = `${this.productMailAlertsBlock} button`;
+    this.productMailAlertsNotification = `${this.productMailAlertsBlock} article`;
 
     // Product discount table
     this.discountTable = '.product__discounts';
@@ -82,6 +92,9 @@ class FoProductPage extends FoProductPageClassic implements FoProductHummingbird
     this.productInPackPrice = (productInList: number) => `${this.productInPackList(productInList)} span.product-pack__price`;
     this.productInPackQuantity = (productInList: number) => `${this.productInPackList(productInList)}`
       + ' span.product-pack__quantity';
+
+    this.productsBlock = (blockName: string) => `#wrapper section.${blockName}`;
+    this.productsBlockPrice = (blockName: string) => `${this.productsBlock(blockName)} .product-miniature__price`;
 
     this.modalImageCloseButton = '#product-modal .modal-header .btn-close';
   }

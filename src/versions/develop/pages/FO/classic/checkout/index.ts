@@ -245,9 +245,9 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
 
   private readonly recyclableGiftCheckbox: string;
 
-  private readonly cartSubtotalGiftWrappingDiv: string;
+  protected readonly cartSubtotalGiftWrappingDiv: string;
 
-  private readonly cartSubtotalGiftWrappingValueSpan: string;
+  protected cartSubtotalGiftWrappingValueSpan: string;
 
   /**
    * @constructs

@@ -116,7 +116,7 @@ class ProductPage extends FOBasePage implements FoProductPageInterface {
 
   protected regularPrice: string;
 
-  private readonly packProductsPrice: string;
+  protected packProductsPrice: string;
 
   protected productPrice: string;
 
@@ -124,17 +124,17 @@ class ProductPage extends FOBasePage implements FoProductPageInterface {
 
   protected deliveryInformationSpan: string;
 
-  private readonly productInformationBlock: string;
+  protected productInformationBlock: string;
 
-  private readonly productMailAlertsBlock: string;
+  protected productMailAlertsBlock: string;
 
-  private readonly productMailAlertsEmailInput: string;
+  protected productMailAlertsEmailInput: string;
 
-  private readonly productMailAlertsGDPRLabel: string;
+  protected productMailAlertsGDPRLabel: string;
 
-  private readonly productMailAlertsNotifyButton: string;
+  protected productMailAlertsNotifyButton: string;
 
-  private readonly productMailAlertsNotification: string;
+  protected productMailAlertsNotification: string;
 
   protected discountTable: string;
 
@@ -200,7 +200,9 @@ class ProductPage extends FOBasePage implements FoProductPageInterface {
 
   protected productInPackQuantity: (productInList: number) => string;
 
-  private readonly productsBlock: (blockName: string) => string;
+  protected productsBlock: (blockName: string) => string;
+
+  protected productsBlockPrice: (blockName: string) => string;
 
   private readonly btnAddToWishlist: string;
 
@@ -326,6 +328,7 @@ class ProductPage extends FOBasePage implements FoProductPageInterface {
       + ' div.pack-product-quantity';
 
     this.productsBlock = (blockName: string) => `#content-wrapper section[data-type="${blockName}"]`;
+    this.productsBlockPrice = (blockName: string) => `${this.productsBlock(blockName)} .product-price-and-shipping`;
 
     // Wishlist
     this.btnAddToWishlist = '#add-to-cart-or-refresh button.wishlist-button-add';
@@ -749,10 +752,10 @@ class ProductPage extends FOBasePage implements FoProductPageInterface {
     for (let i: number = 0; i < attributes.length; i++) {
       switch (attributes[i].name) {
         case 'color':
-          await Promise.all([
-            this.waitForVisibleSelector(page, this.productColorInput(attributes[i].value, true)),
-            page.locator(this.productColorInput(attributes[i].value, false)).click(),
-          ]);
+          if (!(await page.locator(this.productColorInput(attributes[i].value, false)).isChecked())) {
+            await page.locator(this.productColorInput(attributes[i].value, false)).click({force: true});
+            await this.waitForVisibleSelector(page, this.productColorInput(attributes[i].value, true));
+          }
           break;
         case 'size':
           await Promise.all([
@@ -1276,22 +1279,22 @@ class ProductPage extends FOBasePage implements FoProductPageInterface {
 
   /**
    * Has products block
-   * @param blockName {'categoryproducts'} The block name in the page
+   * @param blockName {string} The block name in the page
    * @param page {Page} Browser tab
    * @return {Promise<boolean>}
    */
-  async hasProductsBlock(page: Page, blockName: 'categoryproducts'): Promise<boolean> {
+  async hasProductsBlock(page: Page, blockName: string): Promise<boolean> {
     return (await page.locator(this.productsBlock(blockName)).count()) > 0;
   }
 
   /**
    * Is the price displayed in Products block ?
-   * @param blockName {'categoryproducts'} The block name in the page
+   * @param blockName {string} The block name in the page
    * @param page {Page} Browser tab
    * @return {Promise<boolean>}
    */
-  async hasProductsBlockPrice(page: Page, blockName: 'categoryproducts'): Promise<boolean> {
-    return (await page.locator(`${this.productsBlock(blockName)} .product-price-and-shipping`).count()) > 0;
+  async hasProductsBlockPrice(page: Page, blockName: string): Promise<boolean> {
+    return (await page.locator(this.productsBlockPrice(blockName)).count()) > 0;
   }
 
   /**
