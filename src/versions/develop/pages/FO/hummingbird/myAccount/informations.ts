@@ -20,6 +20,8 @@ class FOMyInformationsPage extends FOMyInformationsPageClassic implements FOMyIn
     // Selectors
     this.invalidPasswordAlertDanger = `${this.createAccountForm} label[for="field-password"] ~ div.help-block .alert`;
     this.invalidNewPasswordAlertDanger = `${this.createAccountForm} label[for="field-new_password"] ~ div.help-block .alert`;
+
+    this.psgdprLabel = `${this.createAccountForm} label[for="field-psgdpr"]`;
   }
 
   /**

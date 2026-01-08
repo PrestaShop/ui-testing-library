@@ -124,17 +124,17 @@ class ProductPage extends FOBasePage implements FoProductPageInterface {
 
   protected deliveryInformationSpan: string;
 
-  private readonly productInformationBlock: string;
+  protected productInformationBlock: string;
 
-  private readonly productMailAlertsBlock: string;
+  protected productMailAlertsBlock: string;
 
-  private readonly productMailAlertsEmailInput: string;
+  protected productMailAlertsEmailInput: string;
 
-  private readonly productMailAlertsGDPRLabel: string;
+  protected productMailAlertsGDPRLabel: string;
 
-  private readonly productMailAlertsNotifyButton: string;
+  protected productMailAlertsNotifyButton: string;
 
-  private readonly productMailAlertsNotification: string;
+  protected productMailAlertsNotification: string;
 
   protected discountTable: string;
 
@@ -170,11 +170,11 @@ class ProductPage extends FOBasePage implements FoProductPageInterface {
 
   private readonly notEmptyReviewAddReviewButton: string;
 
-  private readonly productReviewModal: string;
+  protected readonly productReviewModal: string;
 
-  private readonly productReviewModalGDPRLabel: string;
+  protected productReviewModalGDPRLabel: string;
 
-  private readonly reviewForm: string;
+  protected readonly reviewForm: string;
 
   private readonly reviewTitle: string;
 
@@ -184,7 +184,7 @@ class ProductPage extends FOBasePage implements FoProductPageInterface {
 
   private readonly reviewSubmitButton: string;
 
-  private readonly reviewCancelButton: string;
+  protected reviewCancelButton: string;
 
   private readonly reviewSentConfirmationModal: string;
 
