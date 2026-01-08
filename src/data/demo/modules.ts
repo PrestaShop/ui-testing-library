@@ -162,4 +162,12 @@ export default {
     tag: 'autoupgrade',
     name: '1-Click Upgrade',
   }),
+  ps_eventbus: new FakerModule({
+    tag: 'ps_eventbus',
+    name: 'PrestaShop EventBus',
+  }),
+  ps_mbo: new FakerModule({
+    tag: 'ps_mbo',
+    name: 'PrestaShop Marketplace in your Back Office',
+  }),
 };
