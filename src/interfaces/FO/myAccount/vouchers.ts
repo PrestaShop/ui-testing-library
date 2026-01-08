@@ -5,5 +5,5 @@ export interface FoMyVouchersPageInterface extends FOBasePagePageInterface {
   readonly pageTitle: string;
 
   getNumberOfVouchers(page: Page): Promise<number>;
-  getTextColumnFromTableVouchers(page: Page, row: number, columnName: string): Promise<string>;
+  getTextColumnFromTableVouchers(page: Page, row: number, columnName: string, waitForSelector?: boolean): Promise<string>;
 }

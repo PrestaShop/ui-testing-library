@@ -9,7 +9,7 @@ import FOBasePage from '@pages/FO/FOBasePage';
 class FoCmsPage extends FOBasePage implements FoCmsPageInterface {
   public readonly pageNotFound: string;
 
-  public readonly pageTitle: string;
+  public pageTitle: string;
 
   public readonly pageContent: string;
 

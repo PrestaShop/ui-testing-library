@@ -16,6 +16,7 @@ class FoSearchResultsPage extends FoSearchResultsPageVersion implements FoSearch
     // Selectors for search Results page
     this.totalProduct = `${this.productListTopDiv} .total-products`;
     this.productPrice = '#js-product-list div.card span.product-miniature__price';
+    this.productAttribute = (number: number, attribute: string) => `${this.productArticle(number)} .product-${attribute}`;
     this.productQuickViewLink = (number: number) => `${this.productArticle(number)} button.product-miniature__quickview_button`;
     this.productNoMatches = '#content.page-not-found';
     this.sortDropDownMenu = '.dropdown-menu.dropdown-menu-start.show';

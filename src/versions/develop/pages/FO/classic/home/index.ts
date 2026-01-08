@@ -53,9 +53,9 @@ class FoHomePage extends FOBasePage implements FoHomePageInterface {
 
   protected allProductsBlockLink: (blockId: number | string) => string;
 
-  private readonly productPrice: (row: number) => string;
+  protected productPrice: (row: number) => string;
 
-  private readonly newFlag: (row: number) => string;
+  protected newFlag: (row: number) => string;
 
   private readonly bannerImg: string;
 

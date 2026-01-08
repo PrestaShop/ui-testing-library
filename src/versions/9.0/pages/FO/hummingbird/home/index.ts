@@ -45,6 +45,8 @@ class FoHomePageVersion extends FoHomePage implements FoHomeHummingbirdPageInter
     this.productImg = (number: number) => `${this.productArticle(number)} img`;
     this.productQuickViewLink = (number: number) => `${this.productArticle(number)} .product-miniature__quickview `
       + 'button';
+    this.productPrice = (row: number) => `${this.productArticle(row)} span[aria-label="Price"]`;
+    this.newFlag = (row: number) => `${this.productArticle(row)} .product-flag.new`;
   }
 
   /**

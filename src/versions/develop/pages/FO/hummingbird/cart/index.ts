@@ -19,7 +19,6 @@ class FoCartPage extends FoCartPageClassic implements FoCartHummingbirdPageInter
 
     this.cartRuleMustEnterVoucherErrorText = 'Please fill in this field.';
 
-    this.proceedToCheckoutButton = '#wrapper div.cart-summary div.checkout a.btn';
     this.noItemsInYourCartSpan = '#wrapper div.cart__overview p.cart__empty';
     this.productListItem = '#wrapper div.cart__item';
     this.productItem = (number: number) => `${this.productListItem}:nth-of-type(${number})`;
@@ -30,7 +29,8 @@ class FoCartPage extends FoCartPageClassic implements FoCartHummingbirdPageInter
       + ' span.product-line__item-discount';
     this.productPrice = (number: number) => `${this.productItem(number)} div.product-line__item--prices`
       + ' span.product-line__item-price';
-    this.productTotalPrice = (number: number) => `${this.productItem(number)} div.product-line__price`;
+    this.productTotalPrice = (number: number) => `${this.productItem(number)} div.product-line__price,`
+      + ` ${this.productItem(number)} div.product-line__gift`;
     this.productQuantity = (number: number) => `${this.productItem(number)} div.input-group `
       + 'input.js-cart-line-product-quantity';
     this.productQuantityScrollUpButton = (number: number) => `${this.productItem(number)} button.js-increment-button`;
@@ -47,10 +47,11 @@ class FoCartPage extends FoCartPageClassic implements FoCartHummingbirdPageInter
     this.customizationModalCloseButton = (row: number) => `${this.customizationModal(row)} .modal-header button.btn-close`;
 
     // Summary block
-    this.cartTotalATI = 'div.cart-summary__totals div.cart-summary__total span.cart-summary__value';
+    this.cartTotalATI = 'div.cart-summary__total span.cart-summary__value';
 
     // Cart summary block selectors
     this.itemsNumber = '#cart-subtotal-products .cart-summary__label.js-subtotal';
+    this.subtotalProductsValueSpan = '#cart-subtotal-products span.cart-summary__value';
     this.subtotalShippingValueSpan = '#cart-subtotal-shipping span.cart-summary__value';
     this.subtotalDiscountValueSpan = '#cart-subtotal-discount span.cart-summary__value';
     this.blockPromoDiv = '.cart-summary__voucher';
@@ -64,6 +65,11 @@ class FoCartPage extends FoCartPageClassic implements FoCartHummingbirdPageInter
 
     // Promo code selectors
     this.promoCodeRemoveIcon = (line: number) => `${this.cartSummaryLine(line)} a.cart-voucher__remove`;
+
+    this.alertWarning = '.cart-summary__actions.checkout div.alert.alert-warning';
+
+    this.proceedToCheckoutButton = '#wrapper div.cart-summary div.checkout a.btn';
+    this.disabledProceedToCheckoutButton = '#wrapper div.cart-summary div.checkout button.disabled';
 
     // Notifications
     this.alertMessage = '#js-toast-container div.toast.show div.toast-body';
@@ -118,17 +124,6 @@ class FoCartPage extends FoCartPageClassic implements FoCartHummingbirdPageInter
   async editProductQuantity(page: Page, productID: number, quantity: number | string): Promise<void> {
     await this.setValue(page, this.productQuantity(productID), quantity);
     await page.locator(this.productQuantityScrollUpButton(productID)).click();
-  }
-
-  /**
-   * Delete product
-   * @param page {Page} Browser tab
-   * @param productID {number} ID of the product
-   * @returns {Promise<void>}
-   */
-  async deleteProduct(page: Page, productID: number): Promise<void> {
-    await super.deleteProduct(page, productID);
-    await this.waitForHiddenSelector(page, this.deleteIcon(productID));
   }
 
   /**

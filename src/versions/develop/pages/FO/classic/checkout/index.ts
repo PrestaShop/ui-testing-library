@@ -43,7 +43,7 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
 
   private readonly termsOfServiceLink: string;
 
-  private readonly termsOfServiceModalDiv: string;
+  protected termsOfServiceModalDiv: string;
 
   private readonly paymentConfirmationButton: string;
 
@@ -55,9 +55,9 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
 
   protected cartRuleName: (line: number) => string;
 
-  private readonly discountValue: (line: number) => string;
+  protected discountValue: (line: number) => string;
 
-  private readonly noPaymentNeededElement: string;
+  protected noPaymentNeededElement: string;
 
   protected itemsNumber: string;
 
@@ -79,9 +79,9 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
 
   public readonly noPaymentNeededText: string;
 
-  private readonly promoCodeArea: string;
+  protected promoCodeArea: string;
 
-  private readonly checkoutHavePromoInputArea: string;
+  protected checkoutHavePromoInputArea: string;
 
   private readonly checkoutPromoCodeAddButton: string;
 
@@ -125,7 +125,7 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
 
   protected checkoutPromoBlock: string;
 
-  private readonly checkoutHavePromoCodeButton: string;
+  protected checkoutHavePromoCodeButton: string;
 
   protected checkoutRemoveDiscountLink: (row: number) => string;
 
@@ -191,9 +191,9 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
 
   protected deliveryStepEditButton: string;
 
-  private readonly deliveryStepCarriersList: string;
+  protected deliveryStepCarriersList: string;
 
-  private readonly deliveryStepCarriersListError: string;
+  protected deliveryStepCarriersListError: string;
 
   protected deliveryOptions: string;
 
@@ -201,11 +201,9 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
 
   protected deliveryOptionLabel: (id: number) => string;
 
-  private readonly deliveryOptionNameSpan: (id: number) => string;
-
   protected deliveryOptionAllNamesSpan: string;
 
-  private readonly deliveryOptionAllPricesSpan: string;
+  protected deliveryOptionAllPricesSpan: string;
 
   private readonly deliveryMessage: string;
 
@@ -342,7 +340,6 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
     this.deliveryOptions = '#js-delivery div.delivery-options';
     this.deliveryOptionsRadioButton = 'input[id*=\'delivery_option_\']';
     this.deliveryOptionLabel = (id: number) => `${this.deliveryStepSection} label[for='delivery_option_${id}']`;
-    this.deliveryOptionNameSpan = (id: number) => `${this.deliveryOptionLabel(id)} span.carrier-name`;
     this.deliveryOptionAllNamesSpan = '#js-delivery .delivery-option .carriere-name-container span.carrier-name';
     this.deliveryOptionAllPricesSpan = '#js-delivery .delivery-option span.carrier-price';
     this.deliveryMessage = '#delivery_message';
@@ -764,7 +761,7 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
    * @returns {Promise<string[]>}
    */
   async getAvailableAddressCountries(page: Page): Promise<string[]> {
-    return (await page.locator(`${this.addressStepCountrySelect} option`).allInnerTexts())
+    return (await page.locator(`${this.addressStepCountrySelect} option:not([disabled])`).allInnerTexts())
       .filter((e: string) => e !== 'Please choose');
   }
 
@@ -1008,7 +1005,7 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
    * @returns {Promise<string>}
    */
   async getShippingMethodName(page: Page, shippingMethodID: number): Promise<string> {
-    return this.getTextContent(page, this.deliveryOptionNameSpan(shippingMethodID));
+    return this.getTextContent(page, this.deliveryStepCarrierName(shippingMethodID));
   }
 
   /**
@@ -1020,7 +1017,8 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
     return (await page
       .locator(this.deliveryOptionAllPricesSpan)
       .allTextContents())
-      .filter((el: string | null): el is string => el !== null);
+      .filter((el: string | null): el is string => el !== null)
+      .map((el: string) => el.trim());
   }
 
   /**
@@ -1135,7 +1133,7 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
 
     // Return text of the selected option
     if (selectedOptionId !== 0) {
-      return this.getTextContent(page, this.deliveryOptionNameSpan(selectedOptionId));
+      return this.getTextContent(page, this.deliveryStepCarrierName(selectedOptionId));
     }
     throw new Error('No selected option was found');
   }

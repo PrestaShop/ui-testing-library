@@ -19,6 +19,8 @@ class FoSearchResultsPage extends FoSearchResultsPageClassic implements FoSearch
     this.totalProduct = `${this.productListTopDiv} .products__count span`;
     this.productPrice = '#js-product-list article.product-miniature div.product-miniature__price';
     this.productArticle = (number: number) => `#js-product-list .products article:nth-child(${number})`;
+    this.productAttribute = (number: number, attribute: string) => `${this.productArticle(number)
+    } .product-miniature__${attribute}`;
     this.productImg = (number: number) => `${this.productArticle(number)} img`;
     this.productQuickViewLink = (number: number) => `${this.productArticle(number)} button.product-miniature__quickview-button`;
     this.productNoMatches = '#content.page-content--not-found';

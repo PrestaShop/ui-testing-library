@@ -29,15 +29,15 @@ class MyOrderHistoryPage extends FOBasePage implements FoMyOrderHistoryPageInter
 
   protected orderTableColumnInvoice: (row: number) => string;
 
-  private readonly orderDetailsLink: (orderID: number) => string;
+  protected orderDetailsLink: (orderID: number) => string;
 
   private readonly backToYourAccountLink: string;
 
   private readonly homeLink: string;
 
-  private readonly boxMessagesSection: string;
+  protected boxMessagesSection: string;
 
-  private readonly messageRow: (row: number) => string;
+  protected messageRow: (row: number) => string;
 
   private readonly orderMessageForm: string;
 
@@ -75,7 +75,7 @@ class MyOrderHistoryPage extends FOBasePage implements FoMyOrderHistoryPageInter
 
     // Messages block
     this.boxMessagesSection = '.box.messages';
-    this.messageRow = (row: number) => `${this.boxMessagesSection} div:nth-child(${row}).message.row`;
+    this.messageRow = (row: number) => `${this.boxMessagesSection} div:nth-child(${row + 1}).message.row`;
 
     // Add message block
     this.orderMessageForm = '.order-message-form';
@@ -226,7 +226,7 @@ class MyOrderHistoryPage extends FOBasePage implements FoMyOrderHistoryPageInter
    * @returns {Promise<boolean>}
    */
   async isMessageRowVisible(page: Page, row: number = 1): Promise<boolean> {
-    return this.elementVisible(page, this.messageRow(row + 1), 1000);
+    return this.elementVisible(page, this.messageRow(row), 1000);
   }
 
   /**
@@ -236,7 +236,7 @@ class MyOrderHistoryPage extends FOBasePage implements FoMyOrderHistoryPageInter
    * @returns {Promise<string>}
    */
   async getMessageRow(page: Page, row: number = 1): Promise<string> {
-    return this.getTextContent(page, this.messageRow(row + 1));
+    return this.getTextContent(page, this.messageRow(row));
   }
 
   // Methods for Add message form

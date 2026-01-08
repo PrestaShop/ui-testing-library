@@ -71,7 +71,7 @@ class CartPage extends FOBasePage implements FoCartPageInterface {
 
   protected alertMessage: string;
 
-  private readonly subtotalProductsValueSpan: string;
+  protected subtotalProductsValueSpan: string;
 
   protected subtotalShippingValueSpan: string;
 
@@ -111,11 +111,11 @@ class CartPage extends FOBasePage implements FoCartPageInterface {
 
   public readonly errorNotificationForProductQuantity: (productQty: number) => string;
 
-  private readonly alertWarning: string;
+  protected alertWarning: string;
 
   protected proceedToCheckoutButton: string;
 
-  private readonly disabledProceedToCheckoutButton: string;
+  protected disabledProceedToCheckoutButton: string;
 
   private readonly alertPromoCode: string;
 

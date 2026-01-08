@@ -41,6 +41,7 @@ class FoCartPage extends FoCartPageVersion implements FoCartHummingbirdPageInter
     this.cartTotalATI = 'div.cart-summary__totals span.cart-summary__value';
 
     // Cart summary block selectors
+    this.subtotalProductsValueSpan = '#cart-subtotal-products span.value';
     this.subtotalShippingValueSpan = '#cart-subtotal-shipping span.value';
     this.subtotalDiscountValueSpan = '#cart-subtotal-discount span.value';
     this.blockPromoDiv = '.block-promo';
@@ -52,6 +53,10 @@ class FoCartPage extends FoCartPageVersion implements FoCartHummingbirdPageInter
 
     // Promo code selectors
     this.promoCodeRemoveIcon = (line: number) => `${this.cartSummaryLine(line)} a[data-link-action='remove-voucher']`;
+
+    this.alertWarning = '.checkout.cart-detailed-actions.card-block div.alert.alert-warning';
+
+    this.disabledProceedToCheckoutButton = '#main div.checkout .disabled';
 
     // Notifications
     this.alertMessage = '#js-toast-container div.toast div.toast-body';
@@ -73,6 +78,17 @@ class FoCartPage extends FoCartPageVersion implements FoCartHummingbirdPageInter
    */
   async getCartRuleErrorMessage(page: Page): Promise<string> {
     return this.getTextContent(page, this.cartRuleAlertMessage);
+  }
+
+  /**
+   * Delete product
+   * @param page {Page} Browser tab
+   * @param productID {number} ID of the product
+   * @returns {Promise<void>}
+   */
+  async deleteProduct(page: Page, productID: number): Promise<void> {
+    await super.deleteProduct(page, productID);
+    await this.waitForHiddenSelector(page, this.deleteIcon(productID));
   }
 }
 
