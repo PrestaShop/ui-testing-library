@@ -68,6 +68,14 @@ class FoProductPage extends FoProductPageClassic implements FoProductHummingbird
     this.discountPercentageSpan = `${this.productPricesBlock} .product__discount-percentage`;
     this.regularPrice = `${this.productPricesBlock} .product__regular-price`;
 
+    // Product information block
+    this.productInformationBlock = 'div.product__right';
+    this.productMailAlertsBlock = `${this.productInformationBlock} div.js-mailalert`;
+    this.productMailAlertsEmailInput = `${this.productMailAlertsBlock} input[type="email"]`;
+    this.productMailAlertsGDPRLabel = `${this.productMailAlertsBlock} #gdpr_consent label.psgdpr_consent_message`;
+    this.productMailAlertsNotifyButton = `${this.productMailAlertsBlock} button`;
+    this.productMailAlertsNotification = `${this.productMailAlertsBlock} article`;
+
     // Product discount table
     this.discountTable = '.product__discounts';
     this.unitDiscountColumn = `${this.discountTable} th:nth-child(2)`;
@@ -84,6 +92,10 @@ class FoProductPage extends FoProductPageClassic implements FoProductHummingbird
       + ' span.product-pack__quantity';
 
     this.modalImageCloseButton = '#product-modal .modal-header .btn-close';
+
+    // Review selector
+    this.productReviewModalGDPRLabel = `${this.productReviewModal} label.psgdpr_consent_message`;
+    this.reviewCancelButton = `${this.reviewForm} .post-comment-buttons button[data-bs-dismiss="modal"]`;
   }
 
   /**

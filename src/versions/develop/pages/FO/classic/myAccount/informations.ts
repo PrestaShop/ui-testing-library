@@ -62,7 +62,7 @@ class FOMyInformationsPage extends FOBasePage implements FOMyInformationsPageInt
 
   protected readonly customerPrivacyCheckbox: string;
 
-  private readonly psgdprLabel: string;
+  protected psgdprLabel: string;
 
   protected readonly psgdprCheckbox: string;
 
