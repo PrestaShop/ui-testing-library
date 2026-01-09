@@ -14,6 +14,10 @@ class FoMyOrderHistoryPage extends MyOrderHistoryPageClassic implements FoMyOrde
   constructor() {
     super('hummingbird');
 
+    // @FOBasePage
+    // Alert block selectors
+    this.alertSuccessBlock = '#notifications .alert-success';
+
     // Selectors
     this.ordersTable = '#wrapper div.order-history[role="table"]';
     this.ordersTableRows = `${this.ordersTable} div.order-history__row`;
@@ -29,6 +33,12 @@ class FoMyOrderHistoryPage extends MyOrderHistoryPageClassic implements FoMyOrde
     // Messages block
     this.boxMessagesSection = 'section.order-messages';
     this.messageRow = (row: number) => `${this.boxMessagesSection} div.order-message__list div.order-message:nth-child(${row})`;
+
+    // Add message block
+    this.orderMessageForm = 'section.order-message-form form';
+    this.productSelect = `${this.orderMessageForm} select#product_select_message`;
+    this.messageTextarea = `${this.orderMessageForm} textarea#message_text`;
+    this.sendMessageButton = `${this.orderMessageForm} button[name="submitMessage"]`;
   }
 }
 

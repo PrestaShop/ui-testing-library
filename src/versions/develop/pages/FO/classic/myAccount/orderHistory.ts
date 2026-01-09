@@ -39,13 +39,13 @@ class MyOrderHistoryPage extends FOBasePage implements FoMyOrderHistoryPageInter
 
   protected messageRow: (row: number) => string;
 
-  private readonly orderMessageForm: string;
+  protected orderMessageForm: string;
 
-  private readonly productSelect: string;
+  protected productSelect: string;
 
-  private readonly messageTextarea: string;
+  protected messageTextarea: string;
 
-  private readonly sendMessageButton: string;
+  protected sendMessageButton: string;
 
   /**
    * @constructs
