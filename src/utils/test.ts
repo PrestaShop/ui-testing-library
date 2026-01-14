@@ -1,4 +1,5 @@
 import type {TestInfo} from '@playwright/test';
+import semver from 'semver';
 
 /**
  * @module TestContextHelper
@@ -29,6 +30,17 @@ export default {
     if (global.GENERATE_FAILED_STEPS) {
       throw Error('This error is thrown to just generate a report with failed steps');
     }
+  },
+  /**
+   * Return the Front Office theme of PrestaShop (depending the env value `PS_THEME_FO`)
+   * @returns string
+   */
+  getPSThemeFO(): string {
+    if (!process.env.PS_THEME_FO) {
+      return semver.lt(this.getPSVersion(), '9.1.0') ? 'classic' : 'hummingbird';
+    }
+
+    return process.env.PS_THEME_FO;
   },
   /**
    * Return the version of current PrestaShop (depending the env value `PS_VERSION`)
