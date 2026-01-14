@@ -15,6 +15,7 @@ class FoContactUsPage extends FoContactUsPageVersion implements FoContactUsPageI
 
     // Form selectors
     this.sendButton = '#content input[name=\'submitMessage\']';
+    this.gdprLabel = '#content .gdpr_consent label.psgdpr_consent_message span:nth-of-type(2)';
   }
 }
 
