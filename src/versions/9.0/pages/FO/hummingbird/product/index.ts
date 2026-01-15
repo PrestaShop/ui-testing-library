@@ -44,6 +44,15 @@ class FoProductPage extends FoProductPageVersion implements FoProductHummingbird
     this.productPrice = `${this.productPricesBlock} .product__current-price`;
     this.regularPrice = `${this.productPricesBlock} .product__price-regular`;
 
+    // Product information block
+    this.productInformationBlock = 'div.product-information';
+    this.productMailAlertsBlock = `${this.productInformationBlock} div.js-mailalert`;
+    this.productMailAlertsEmailInput = `${this.productMailAlertsBlock} input[type="email"]`;
+    this.productMailAlertsGDPRLabel = `${this.productMailAlertsBlock} div.gdpr_consent label.psgdpr_consent_message `
+        + 'span:nth-of-type(2)';
+    this.productMailAlertsNotifyButton = `${this.productMailAlertsBlock} button`;
+    this.productMailAlertsNotification = `${this.productMailAlertsBlock} article`;
+
     // Product discount table
     this.discountTable = '.product__discounts__table';
     this.quantityDiscountValue = `${this.discountTable} td:nth-child(1)`;
@@ -59,6 +68,10 @@ class FoProductPage extends FoProductPageVersion implements FoProductHummingbird
       + 'strong';
     this.productInPackQuantity = (productInList: number) => `${this.productInPackList(productInList)}`
       + ' p.product-pack__quantity';
+
+    // Review selector
+    this.productReviewModalGDPRLabel = `${this.productReviewModal} div.gdpr_consent label span:nth-of-type(2)`;
+    this.reviewCancelButton = `${this.reviewForm} button[data-dismiss="modal"]`;
   }
 
   /**

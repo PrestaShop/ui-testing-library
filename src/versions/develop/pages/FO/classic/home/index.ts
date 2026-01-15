@@ -61,15 +61,15 @@ class FoHomePage extends FOBasePage implements FoHomePageInterface {
 
   protected customTextBlock: string;
 
-  private readonly newsletterBlock: string;
+  protected newsletterBlock: string;
 
   protected newsletterFormField: string;
 
-  private readonly newsletterRGPDBlock: string;
+  protected newsletterRGPDBlock: string;
 
-  private readonly newsletterRGPDBlockCheckbox: string;
+  protected newsletterRGPDBlockCheckbox: string;
 
-  private readonly newsletterRGPDBlockLabel: string;
+  protected newsletterRGPDBlockLabel: string;
 
   protected newsletterSubmitButton: string;
 

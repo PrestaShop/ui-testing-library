@@ -31,7 +31,7 @@ class FoContactUsPage extends FOBasePage implements FoContactUsPageInterface {
 
   private readonly messageTextarea: string;
 
-  private readonly gdprLabel: string;
+  protected gdprLabel: string;
 
   protected sendButton: string;
 

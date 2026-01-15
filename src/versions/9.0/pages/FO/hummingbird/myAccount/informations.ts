@@ -21,6 +21,7 @@ class FOMyInformationsPage extends FOMyInformationsPageVersion implements FOMyIn
     // Selectors
     this.invalidPasswordAlertDanger = `${this.createAccountForm} div.field-password-policy div.alert-danger`;
     this.invalidNewPasswordAlertDanger = `${this.createAccountForm} div:nth-child(6) div.help-block`;
+    this.psgdprLabel = `${this.createAccountForm} label[for="field-psgdpr"] + div > span.custom-checkbox > label`;
   }
 
   /**
