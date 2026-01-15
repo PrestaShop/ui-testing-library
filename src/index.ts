@@ -381,6 +381,15 @@ export {default as boZonesPage} from '@pages/BO/international/locations';
 export {default as boZonesCreatePage} from '@pages/BO/international/locations/create';
 // Export Pages FO
 export * as FOBasePage from '@pages/FO/FOBasePage';
+// Export Pages FO/Default
+export {default as foAboutUsPage} from '@pages/FO/core/aboutUs';
+export {default as foCartPage} from '@pages/FO/core/cart';
+export {default as foCheckoutPage} from '@pages/FO/core/checkout';
+export {default as foCheckoutOrderConfirmationPage} from '@pages/FO/core/checkout/orderConfirmation';
+export {default as foHomePage} from '@pages/FO/core/home';
+export {default as foLoginPage} from '@pages/FO/core/login';
+export {default as foModalBlockCartPage} from '@pages/FO/core/modal/blockCart';
+export {default as foModalQuickViewPage} from '@pages/FO/core/modal/quickView';
 // Export Pages FO/Classic
 export {default as foClassicAboutUsPage} from '@pages/FO/classic/aboutUs';
 export {default as foClassicBestSalesPage} from '@pages/FO/classic/bestSales';
