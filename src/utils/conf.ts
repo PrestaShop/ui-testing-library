@@ -4,7 +4,9 @@ import utilsFile from '@utils/file';
 
 export default {
   loadEnv(): void {
-    config();
+    config({
+      quiet: true,
+    });
 
     global.FO = {
       URL: process.env.URL_FO || 'http://localhost/prestashop/',
