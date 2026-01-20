@@ -233,6 +233,12 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
 
   private readonly invoiceAddressRadioButton: (addressID: number) => string;
 
+  private readonly carrierInfo: (carrierRow: number) => string;
+
+  private readonly productInfo: (productRow: number) => string;
+
+  private readonly virtualProductRow: (productRow: number) => string;
+
   protected cartTotalATI: string;
 
   private readonly cartRuleAlertMessage: string;
@@ -398,6 +404,11 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
     this.recyclableGiftCheckbox = '#input_recyclable';
     this.cartSubtotalGiftWrappingDiv = '#cart-subtotal-gift_wrapping';
     this.cartSubtotalGiftWrappingValueSpan = `${this.cartSubtotalGiftWrappingDiv} span.value`;
+
+    // Carrier info selectors
+    this.carrierInfo = (carrierRow: number) => `div.order-confirmation__carrier-info:nth-child(${carrierRow})`;
+    this.productInfo = (productRow: number) => `div.order-confirmation__product:nth-child(${productRow})`;
+    this.virtualProductRow = (productRow: number) => `div.order-confirmation__virtual-info:nth-child(${productRow})`;
   }
 
   /*
@@ -1048,7 +1059,7 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
    * @param page {Page} Browser tab
    * @returns {Promise<string|null>}
    */
-  async getCarrierErrorMessage(page: Page): Promise<string|null> {
+  async getCarrierErrorMessage(page: Page): Promise<string | null> {
     return page.locator(this.deliveryStepCarriersListError).textContent();
   }
 
@@ -1343,6 +1354,36 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
     await this.setChecked(page, this.giftCheckbox, true);
 
     return this.getTextContent(page, this.cartSubtotalGiftWrappingValueSpan);
+  }
+
+  /**
+   * Get order confirmation carrier info
+   * @param page {Page} Browser tab
+   * @param carrierRow {number}
+   * @returns {Promise<string>}
+   */
+  async getOrderConfirmationCarrierInfo(page: Page, carrierRow: number): Promise<string> {
+    return this.getTextContent(page, `div.order-confirmation__carrier-info:nth-child(${carrierRow})`);
+  }
+
+  /**
+   * Get order confirmation product
+   * @param page {Page} Browser tab
+   * @param productRow {number}
+   * @returns {Promise<string>}
+   */
+  async getOrderConfirmationProduct(page: Page, productRow: number): Promise<string> {
+    return this.getTextContent(page, `div.order-confirmation__product:nth-child(${productRow})`);
+  }
+
+  /**
+   * Get order confirmation virtual info
+   * @param page {Page} Browser tab
+   * @param productRow {number}
+   * @returns {Promise<string>}
+   */
+  async getOrderConfirmationVirtualInfo(page: Page, productRow: number): Promise<string> {
+    return this.getTextContent(page, `div.order-confirmation__virtual-info:nth-child(${productRow})`);
   }
 }
 
