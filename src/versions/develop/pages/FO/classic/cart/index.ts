@@ -411,6 +411,7 @@ class CartPage extends FOBasePage implements FoCartPageInterface {
    */
   async deleteProduct(page: Page, productID: number): Promise<void> {
     await this.waitForSelectorAndClick(page, this.deleteIcon(productID));
+    await page.waitForTimeout(2000);
   }
 
   /**

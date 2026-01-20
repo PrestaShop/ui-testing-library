@@ -26,6 +26,7 @@ class FoCheckoutOrderConfirmationPage extends OrderConfirmationPageClassic imple
     this.subTotalRow = 'div.order-confirmation__subtotals div:nth-child(1) div.order-confirmation__line-value';
     this.shippingRow = 'div.order-confirmation__subtotals div:nth-child(2) div.order-confirmation__line-value';
     this.totalRow = 'div.order-confirmation__totals div:nth-child(1) div.order-confirmation__line-value';
+    this.giftWrappingRow = 'div.order-confirmation__subtotals div:nth-child(3) div.order-confirmation__line-value';
     this.paymentMethodRow = `${this.orderDetailsTable} li:nth-child(2)`;
     this.shippingMethodRow = `${this.orderDetailsTable} li:nth-child(3)`;
     this.paymentInformationBody = '#center-column > .card:nth-of-type(2) .card-body';

@@ -85,7 +85,6 @@ export interface FoProductPageInterface extends FOBasePagePageInterface {
   isCustomizationMessageVisible(page: Page, customizationRow: number): Promise<boolean>;
   isDeliveryInformationVisible(page: Page): Promise<boolean>;
   isDeliveryTimeDisplayed(page: Page): Promise<boolean>;
-  isFeaturesBlockVisible(page: Page): Promise<boolean>;
   isIframeVisibleInProductDescription(page: Page): Promise<boolean>;
   isPriceDisplayed(page: Page): Promise<boolean>;
   isProductTagVisible(page: Page): Promise<boolean>;

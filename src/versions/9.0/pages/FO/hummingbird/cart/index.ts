@@ -22,6 +22,7 @@ class FoCartPage extends FoCartPageVersion implements FoCartHummingbirdPageInter
     this.productName = (number: number) => `${this.productItem(number)} div.product-line__content a.product-line__title`;
     this.productRegularPrice = (number: number) => `${this.productItem(number)} div.product-line__basic`
       + ' span.product-line__regular';
+    this.productDiscountAmount = (number: number) => `${this.productItem(number)} span.discount-amount`;
     this.productDiscountPercentage = (number: number) => `${this.productItem(number)} span.discount.badge.discount`;
     this.productPrice = (number: number) => `${this.productItem(number)} div.product-line__current span.price`;
     this.productTotalPrice = (number: number) => `${this.productItem(number)} span.product-line__price`;

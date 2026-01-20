@@ -28,6 +28,16 @@ class FoModalQuickViewPage extends FoModalQuickViewPageVersion implements FoModa
     this.quickViewProductColor = `${this.quickViewProductVariants} ul#group_2`;
     this.quickViewCloseButton = `${this.quickViewModalDiv} button.btn-close`;
     this.quickViewThumbImagePosition = (position: number) => `${this.quickViewModalDiv} li:nth-child(${position}) img.js-thumb`;
+    this.quickViewModalProductImageCover = `${this.quickViewModalDiv} div.product-cover picture`;
+  }
+
+  /**
+   * Returns the URL of the main image in the quickview
+   * @param page {Page} Browser tab
+   * @returns {Promise<string|null>}
+   */
+  async getQuickViewImageMain(page: Page): Promise<string | null> {
+    return this.getAttributeContent(page, this.quickViewCoverImage, 'data-full-size-image-url');
   }
 
   /**

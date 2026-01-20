@@ -81,6 +81,9 @@ class FoCheckoutPage extends FoCheckoutPageVersion implements FoCheckoutPageInte
 
     // Specific versions
     this.productDetailsBody = (productRow: number) => `${this.productRowLink(productRow)} div.cart-summary__product__body`;
+
+    // Gift selectors
+    this.cartSubtotalGiftWrappingValueSpan = `${this.cartSubtotalGiftWrappingDiv} span.value`;
   }
 
   /**
