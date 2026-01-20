@@ -235,7 +235,7 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
 
   private readonly carrierInfo: (carrierRow: number) => string;
 
-  private readonly productInfo: (productRow: number) => string;
+  private readonly productRow: (productRow: number) => string;
 
   private readonly virtualProductRow: (productRow: number) => string;
 
@@ -407,7 +407,7 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
 
     // Carrier info selectors
     this.carrierInfo = (carrierRow: number) => `div.order-confirmation__carrier-info:nth-child(${carrierRow})`;
-    this.productInfo = (productRow: number) => `div.order-confirmation__product:nth-child(${productRow})`;
+    this.productRow = (productRow: number) => `div.order-confirmation__product:nth-child(${productRow})`;
     this.virtualProductRow = (productRow: number) => `div.order-confirmation__virtual-info:nth-child(${productRow})`;
   }
 
@@ -1363,7 +1363,7 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
    * @returns {Promise<string>}
    */
   async getOrderConfirmationCarrierInfo(page: Page, carrierRow: number): Promise<string> {
-    return this.getTextContent(page, `div.order-confirmation__carrier-info:nth-child(${carrierRow})`);
+    return this.getTextContent(page, this.carrierInfo(carrierRow));
   }
 
   /**
@@ -1373,7 +1373,7 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
    * @returns {Promise<string>}
    */
   async getOrderConfirmationProduct(page: Page, productRow: number): Promise<string> {
-    return this.getTextContent(page, `div.order-confirmation__product:nth-child(${productRow})`);
+    return this.getTextContent(page, this.productRow(productRow));
   }
 
   /**
@@ -1383,7 +1383,7 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
    * @returns {Promise<string>}
    */
   async getOrderConfirmationVirtualInfo(page: Page, productRow: number): Promise<string> {
-    return this.getTextContent(page, `div.order-confirmation__virtual-info:nth-child(${productRow})`);
+    return this.getTextContent(page, this.virtualProductRow(productRow));
   }
 }
 
