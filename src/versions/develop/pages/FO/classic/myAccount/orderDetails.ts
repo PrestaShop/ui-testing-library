@@ -83,10 +83,9 @@ class MyOrderDetailsPage extends FOBasePage implements FoMyOrderDetailsPageInter
     this.requestReturnButton = `${this.orderReturnForm} button[name='submitReturnMerchandise']`;
 
     // Shipment tracking details selectors
-    this.carrierGridTable = 'section.order-carriers';
-    this.carrierTableRow = (row: number) => `${this.carrierGridTable} div.grid-table__row:nth-child(${row + 1})`;
-    this.carrierTableBodyColumn = (row: number, columnName: string) => `${this.carrierTableRow(row)} span`
-      + ` [data-ps-label='${columnName}']`;
+    this.carrierGridTable = '';
+    this.carrierTableRow = (row: number) => `table.hidden-sm-down tbody tr:nth-child(${row})`;
+    this.carrierTableBodyColumn = (row: number, column: string) => `${this.carrierTableRow(row)} td:nth-child(${column})`;
 
     // Order products table body selectors
     this.tableBody = `${this.gridTable} tbody`;

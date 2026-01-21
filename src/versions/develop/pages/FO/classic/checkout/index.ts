@@ -233,11 +233,11 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
 
   private readonly invoiceAddressRadioButton: (addressID: number) => string;
 
-  private readonly carrierInfo: (carrierRow: number) => string;
+  protected carrierInfo: (carrierRow: number) => string;
 
-  private readonly productRow: (productRow: number) => string;
+  protected productRow: (productRow: number) => string;
 
-  private readonly virtualProductRow: (productRow: number) => string;
+  protected virtualProductRow: (productRow: number) => string;
 
   protected cartTotalATI: string;
 
@@ -406,9 +406,12 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
     this.cartSubtotalGiftWrappingValueSpan = `${this.cartSubtotalGiftWrappingDiv} span.value`;
 
     // Carrier info selectors
-    this.carrierInfo = (carrierRow: number) => `div.order-confirmation__carrier-info:nth-child(${carrierRow})`;
-    this.productRow = (productRow: number) => `div.order-confirmation__product:nth-child(${productRow})`;
-    this.virtualProductRow = (productRow: number) => `div.order-confirmation__virtual-info:nth-child(${productRow})`;
+    this.carrierInfo = (carrierRow: number) => `div.order-confirmation-table div:nth-child(${carrierRow})`
+      + ' div.details .carrier-name';
+    this.productRow = (productRow: number) => `div.order-confirmation-table div:nth-child(${productRow}) div.details a`
+      + `,div.order-confirmation-table div:nth-child(${productRow}) div.details span`;
+    this.virtualProductRow = (productRow: number) => `div.order-confirmation-table div:nth-child(${productRow})`
+      + ' div.details .virtual-info';
   }
 
   /*
