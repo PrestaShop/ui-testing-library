@@ -1,7 +1,7 @@
 import {type FoMyWishlistsViewPageInterface} from '@interfaces/FO/myAccount/myWishlists/view';
 import {
   FoMyWishlistsViewPage as FoMyWishlistViewPageVersion,
-} from '@versions/develop/pages/FO/classic/myAccount/myWishlists/view';
+} from '@versions/develop/pages/FO/hummingbird/myAccount/myWishlists/view';
 
 /**
  * @class
@@ -13,10 +13,10 @@ class FoMyWishlistsViewPage extends FoMyWishlistViewPageVersion implements FoMyW
    * Setting up texts and selectors to use
    */
   constructor() {
-    super('hummingbird');
+    super();
 
     // Selectors
-    this.headerTitle = '#wrapper h1';
+    this.headerTitle = '#content-wrapper h1';
   }
 }
 

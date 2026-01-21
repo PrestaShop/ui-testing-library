@@ -24,6 +24,7 @@ class MyAccountPage extends MyAccountPageVersion implements FoMyAccountPageInter
     this.orderSlipsLink = '#order-slips_link';
     this.successMessageAlert = 'div.alert';
     this.logoutFooterLink = '#footer_customeraccountlinks a.logout';
+    this.myWishlistsLink = '.account-menu__nav #wishlist_link';
     this.psgdprLink = '.account-menu__nav #psgdpr_link';
   }
 }

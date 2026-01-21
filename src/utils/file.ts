@@ -247,8 +247,13 @@ export default {
       fileText = fileText.replace(/\?time=\d+/g, '');
       text = text.replace(/\?time=\d+/g, '');
     }
+    const isTextInFile: boolean = fileText.includes(text);
 
-    return fileText.includes(text);
+    if (!isTextInFile) {
+      console.log('fileText: %s', fileText);
+      console.log('text: %s', text);
+    }
+    return isTextInFile;
   },
 
   /**

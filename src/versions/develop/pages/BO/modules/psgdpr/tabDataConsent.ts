@@ -8,7 +8,7 @@ import {type Page} from '@playwright/test';
  * @class
  * @extends ModuleConfiguration
  */
-class PsGdprTabDataConsentPage extends ModuleConfigurationPage implements ModulePsGdprBoTabDataConsentPageInterface {
+class ModulePsGdprBoTabDataConsentPage extends ModuleConfigurationPage implements ModulePsGdprBoTabDataConsentPageInterface {
   public readonly saveFormMessage: string;
 
   private readonly checkboxCreationForm: (status: boolean) => string;
@@ -29,6 +29,14 @@ class PsGdprTabDataConsentPage extends ModuleConfigurationPage implements Module
 
   private readonly saveButton: string;
 
+  protected nthModuleContactForm: number;
+
+  protected nthModuleMailAlerts: number;
+
+  protected nthModuleNewsletterSubscription: number;
+
+  protected nthModuleProductComments: number;
+
   /**
    * @constructs
    */
@@ -48,6 +56,11 @@ class PsGdprTabDataConsentPage extends ModuleConfigurationPage implements Module
     this.messageModuleForm = (nth: number, idLang: number) => `div:nth-child(${nth + 1} of [id^="registered_module_message"]) `
       + `div.translatable-field:not([style="display:none"]) iframe[id$="_${idLang}_ifr"]`;
     this.saveButton = '#submitDataConsent';
+
+    this.nthModuleContactForm = 2;
+    this.nthModuleMailAlerts = 0;
+    this.nthModuleNewsletterSubscription = 3;
+    this.nthModuleProductComments = 1;
   }
 
   /**
@@ -101,7 +114,7 @@ class PsGdprTabDataConsentPage extends ModuleConfigurationPage implements Module
    * @returns {Promise<void>}
    */
   async setNewsletterStatus(page: Page, status: boolean): Promise<void> {
-    await page.locator(this.checkboxModuleForm(status)).nth(0).setChecked(true, {
+    await page.locator(this.checkboxModuleForm(status)).nth(this.nthModuleNewsletterSubscription).setChecked(true, {
       force: true,
     });
   }
@@ -114,7 +127,7 @@ class PsGdprTabDataConsentPage extends ModuleConfigurationPage implements Module
    */
   async setNewsletterMessage(page: Page, message: string): Promise<void> {
     await this.setTinyMCEInputValue(
-      page.locator(this.messageModuleForm(0, dataLanguages.english.id)).contentFrame(),
+      page.locator(this.messageModuleForm(this.nthModuleNewsletterSubscription, dataLanguages.english.id)).contentFrame(),
       message,
     );
   }
@@ -126,7 +139,7 @@ class PsGdprTabDataConsentPage extends ModuleConfigurationPage implements Module
    * @returns {Promise<void>}
    */
   async setContactFormStatus(page: Page, status: boolean): Promise<void> {
-    await page.locator(this.checkboxModuleForm(status)).nth(2).setChecked(true, {
+    await page.locator(this.checkboxModuleForm(status)).nth(this.nthModuleContactForm).setChecked(true, {
       force: true,
     });
   }
@@ -139,7 +152,7 @@ class PsGdprTabDataConsentPage extends ModuleConfigurationPage implements Module
    */
   async setContactFormMessage(page: Page, message: string): Promise<void> {
     await this.setTinyMCEInputValue(
-      page.locator(this.messageModuleForm(2, dataLanguages.english.id)).contentFrame(),
+      page.locator(this.messageModuleForm(this.nthModuleContactForm, dataLanguages.english.id)).contentFrame(),
       message,
     );
   }
@@ -151,7 +164,7 @@ class PsGdprTabDataConsentPage extends ModuleConfigurationPage implements Module
    * @returns {Promise<void>}
    */
   async setProductCommentsStatus(page: Page, status: boolean): Promise<void> {
-    await page.locator(this.checkboxModuleForm(status)).nth(1).setChecked(true, {
+    await page.locator(this.checkboxModuleForm(status)).nth(this.nthModuleProductComments).setChecked(true, {
       force: true,
     });
   }
@@ -164,7 +177,7 @@ class PsGdprTabDataConsentPage extends ModuleConfigurationPage implements Module
    */
   async setProductCommentsMessage(page: Page, message: string): Promise<void> {
     await this.setTinyMCEInputValue(
-      page.locator(this.messageModuleForm(1, dataLanguages.english.id)).contentFrame(),
+      page.locator(this.messageModuleForm(this.nthModuleProductComments, dataLanguages.english.id)).contentFrame(),
       message,
     );
   }
@@ -176,7 +189,7 @@ class PsGdprTabDataConsentPage extends ModuleConfigurationPage implements Module
    * @returns {Promise<void>}
    */
   async setMailAlertsStatus(page: Page, status: boolean): Promise<void> {
-    await page.locator(this.checkboxModuleForm(status)).nth(3).setChecked(true, {
+    await page.locator(this.checkboxModuleForm(status)).nth(this.nthModuleMailAlerts).setChecked(true, {
       force: true,
     });
   }
@@ -189,10 +202,13 @@ class PsGdprTabDataConsentPage extends ModuleConfigurationPage implements Module
    * @returns {Promise<void>}
    */
   async setMailAlertsMessage(page: Page, message: string, idLang: number = dataLanguages.english.id): Promise<void> {
-    await page.locator(this.btnDropdownLangModuleForm).nth(3).click();
+    await page.locator(this.btnDropdownLangModuleForm).nth(this.nthModuleMailAlerts).click();
     await page.locator(this.btnDropdownItemLangModuleForm(idLang)).click();
-    await this.waitForVisibleSelector(page, this.messageModuleForm(3, idLang), 10000);
-    await this.setTinyMCEInputValue(page.locator(this.messageModuleForm(3, idLang)).contentFrame(), message);
+    await this.waitForVisibleSelector(page, this.messageModuleForm(this.nthModuleMailAlerts, idLang), 10000);
+    await this.setTinyMCEInputValue(
+      page.locator(this.messageModuleForm(this.nthModuleMailAlerts, idLang)).contentFrame(),
+      message,
+    );
   }
 
   /**
@@ -207,4 +223,5 @@ class PsGdprTabDataConsentPage extends ModuleConfigurationPage implements Module
   }
 }
 
-module.exports = new PsGdprTabDataConsentPage();
+const modulePsGdprBoTabDataConsentPage = new ModulePsGdprBoTabDataConsentPage();
+export {modulePsGdprBoTabDataConsentPage, ModulePsGdprBoTabDataConsentPage};

@@ -11,9 +11,16 @@ class FoProductPage extends FoProductPageVersion implements FoProductHummingbird
     super();
 
     // Selectors for product page
+    this.warningMessage = '#js-toast-container div.bg-danger  div.toast-body';
+    this.productFlags = '#product-images  ul.product-flags';
+    this.productFlag = (flag: string) => `#content li.product-flag${flag.length === 0 ? '' : `.${flag}`}`;
     this.proceedToCheckoutButton = '#blockcart-modal div.cart-footer-actions a';
+    this.productQuantitySpan = '#product-details div.product-quantities label';
     this.continueShoppingButton = `${this.blockCartModal} div.cart-content-btn button`;
+    this.productAvailability = '#product-availability';
+    this.productAvailabilityIcon = `${this.productAvailability} i`;
     this.productDetail = 'div.product-information a[href=\'#product-details\']';
+    this.productCondition = '#product-details div.product-condition';
     this.productFeaturesList = '#product-details section.product-features';
     this.productCoverImg = '#product-images div.carousel-item.active';
     this.scrollBoxImages = (direction: string) => `#product-images button.carousel-control-${direction}`;
@@ -23,7 +30,6 @@ class FoProductPage extends FoProductPageVersion implements FoProductHummingbird
     this.thumbImg = (row: number) => `${this.productImageRow(row)} picture img.js-thumb`;
     this.zoomIcon = '#product-images div.carousel-item.active i.zoom-in';
     this.productName = '#content-wrapper h1.product__name';
-    this.productFlags = '#product-images  ul.product-flags';
     this.productDescription = '#description';
     this.customizationBlock = 'div.product__col section.product-customization';
     this.customizedTextarea = (row: number) => `.product-customization__item:nth-child(${row}) .product-message`;
@@ -37,6 +43,7 @@ class FoProductPage extends FoProductPageVersion implements FoProductHummingbird
     this.productColorInput = (color: string, isChecked: boolean) => `${this.productColorUl} input[title=${color}]`
       + `${isChecked ? '[checked]' : ''}`;
     this.deliveryInformationSpan = 'span.product__delivery__information';
+    this.metaLink = '#main > meta';
     this.facebookSocialSharing = '.social-sharing .facebook a';
     this.twitterSocialSharing = '.social-sharing .twitter a';
     this.pinterestSocialSharing = '.social-sharing .pinterest a';
@@ -53,15 +60,6 @@ class FoProductPage extends FoProductPageVersion implements FoProductHummingbird
     this.productMailAlertsEmailInput = `${this.productMailAlertsBlock} input[type="email"]`;
     this.productMailAlertsGDPRLabel = `${this.productMailAlertsBlock} div.gdpr_consent label.psgdpr_consent_message `
       + 'span:nth-of-type(2)';
-    this.productMailAlertsNotifyButton = `${this.productMailAlertsBlock} button`;
-    this.productMailAlertsNotification = `${this.productMailAlertsBlock} article`;
-
-    // Product information block
-    this.productInformationBlock = 'div.product-information';
-    this.productMailAlertsBlock = `${this.productInformationBlock} div.js-mailalert`;
-    this.productMailAlertsEmailInput = `${this.productMailAlertsBlock} input[type="email"]`;
-    this.productMailAlertsGDPRLabel = `${this.productMailAlertsBlock} div.gdpr_consent label.psgdpr_consent_message `
-        + 'span:nth-of-type(2)';
     this.productMailAlertsNotifyButton = `${this.productMailAlertsBlock} button`;
     this.productMailAlertsNotification = `${this.productMailAlertsBlock} article`;
 
@@ -86,6 +84,10 @@ class FoProductPage extends FoProductPageVersion implements FoProductHummingbird
     this.reviewCancelButton = `${this.reviewForm} button[data-dismiss="modal"]`;
     this.productsBlock = (blockName: string) => `#content-wrapper section[data-type="${blockName}"]`;
     this.productsBlockPrice = (blockName: string) => `${this.productsBlock(blockName)} .product-price-and-shipping`;
+
+    // Notifications
+    this.notificationsContainer = '#notifications div.notifications-container';
+    this.notificationsContainerMessage = `${this.notificationsContainer} article`;
   }
 
   /**
