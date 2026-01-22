@@ -55,6 +55,12 @@ class MyOrderDetailsPage extends FOBasePage implements FoMyOrderDetailsPageInter
 
   private readonly invoiceAddressBox: string;
 
+  protected carrierGridTable: string;
+
+  protected carrierTableRow: (row: number) => string;
+
+  protected carrierTableBodyColumn: (row: number, columnName: string) => string;
+
   /**
    * @constructs
    * Setting up texts and selectors to use on order details page
@@ -75,6 +81,11 @@ class MyOrderDetailsPage extends FOBasePage implements FoMyOrderDetailsPageInter
     this.gridTable = '#order-products';
     this.returnTextarea = `${this.orderReturnForm} textarea[name='returnText']`;
     this.requestReturnButton = `${this.orderReturnForm} button[name='submitReturnMerchandise']`;
+
+    // Shipment tracking details selectors
+    this.carrierGridTable = '';
+    this.carrierTableRow = (row: number) => `table.hidden-sm-down tbody tr:nth-child(${row})`;
+    this.carrierTableBodyColumn = (row: number, column: string) => `${this.carrierTableRow(row)} td:nth-child(${column})`;
 
     // Order products table body selectors
     this.tableBody = `${this.gridTable} tbody`;
@@ -186,6 +197,17 @@ class MyOrderDetailsPage extends FOBasePage implements FoMyOrderDetailsPageInter
    */
   async getProductName(page: Page, row: number = 1, column: number = 1): Promise<string> {
     return this.getTextContent(page, this.productName(row, column));
+  }
+
+  /**
+   * Get carrier data from table
+   * @param page {Page} Browser tab
+   * @param row {number}
+   * @param column {string}
+   * @returns {Promise<string>}
+   */
+  async getCarrierDataFromTable(page: Page, row: number = 1, column: string = 'Carrier'): Promise<string> {
+    return this.getTextContent(page, this.carrierTableBodyColumn(row, column));
   }
 
   /**

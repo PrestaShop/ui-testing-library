@@ -92,6 +92,10 @@ class FoCheckoutPage extends FoCheckoutPageClassic implements FoCheckoutPageInte
     this.productDetailsAttributes = (productRow: number) => `${this.productRowLink(productRow)} div`
       + '.cart-summary-product__attribute';
 
+    this.carrierInfo = (carrierRow: number) => `div.order-confirmation__carrier-info:nth-child(${carrierRow})`;
+    this.productRow = (productRow: number) => `div.order-confirmation__product:nth-child(${productRow})`;
+    this.virtualProductRow = (productRow: number) => `div.order-confirmation__virtual-info:nth-child(${productRow})`;
+
     // Gift selectors
     this.cartSubtotalGiftWrappingValueSpan = `${this.cartSubtotalGiftWrappingDiv} span.cart-summary__value`;
   }

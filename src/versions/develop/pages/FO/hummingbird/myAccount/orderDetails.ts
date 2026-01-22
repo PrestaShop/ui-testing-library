@@ -33,6 +33,12 @@ class FoMyOrderDetailsPage extends FoMyOrderDetailsPageClassic implements FoMyOr
     this.boxMessagesBlock = 'div.order-message__content';
     this.reorderLink = '.order-infos__summary .order-infos__actions a[href*=\'order?submitReorder\']';
     this.invoiceLink = '.order-infos__summary .order-infos__actions a[href*=\'pdf-invoice\']';
+
+    // Shipment tracking details selectors
+    this.carrierGridTable = 'section.order-carriers';
+    this.carrierTableRow = (row: number) => `${this.carrierGridTable} div.grid-table__row:nth-child(${row + 1})`;
+    this.carrierTableBodyColumn = (row: number, columnName: string) => `${this.carrierTableRow(row)} `
+      + `span[data-ps-label='${columnName}']`;
   }
 }
 
