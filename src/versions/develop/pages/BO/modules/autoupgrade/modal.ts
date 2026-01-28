@@ -89,7 +89,7 @@ class AutoupgradeModal extends ModuleConfigurationPage implements ModuleAutoupgr
    * @returns {Promise<Page}
    */
   async openUpdateLinkFromTheModal(page: Page): Promise<Page> {
-    return this.openLinkWithTargetBlank(page, this.updateLink, '.post-title');
+    return this.openLinkWithTargetBlank(page, this.updateLink, '.page-title');
   }
 
   /**
