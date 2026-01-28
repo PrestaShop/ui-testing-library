@@ -27,13 +27,20 @@ class FoProductPage extends FoProductPageClassic implements FoProductHummingbird
   constructor() {
     super('hummingbird');
 
-    this.warningMessage = '#js-toast-container div.bg-danger  div.toast-body';
+    // Selectors for product page
+    this.warningMessage = 'div.alert-warning div p.alert-text';
+    this.productFlags = '.product__images ul.product-flags';
+    this.productFlag = (flag: string) => `${this.productFlags} li.badge${flag.length === 0 ? '' : `.${flag}`}`;
     this.productRowQuantityUpDownButton = (direction: string) => `div.product-actions__quantity button.js-${direction}-button`;
     this.proceedToCheckoutButton = '#blockcart-modal div.modal-footer a';
+    this.productQuantitySpan = 'ul.details__list li.details__item--quantities div.details__right span';
     this.productDetail = '#product_details button.accordion-button';
     this.productFeature = '#product_features button.accordion-button';
+    this.productCondition = 'ul.details__list li.details__item--condition div.details__right span';
     this.productFeaturesList = '#product_features div.accordion-body ul.details__list';
     this.continueShoppingButton = `${this.blockCartModal} div.modal-footer button`;
+    this.productAvailability = '#product-availability div.product__availability-messages span:not(.visually-hidden)';
+    this.productAvailabilityIcon = '#product-availability i';
     this.productCoverImg = '.product__images .product__thumbnails-list .product__thumbnail.active';
     this.scrollBoxImages = (direction: string) => `.product__images .product__carousel button.carousel-control-${direction}`;
     this.productCarouselImageItem = '#product-modal .product-images-modal__body div.carousel-item';
@@ -45,7 +52,6 @@ class FoProductPage extends FoProductPageClassic implements FoProductHummingbird
     this.zoomIcon = '.product__images .product__carousel .product__zoom';
     this.productName = '#wrapper .product__name';
     this.shortDescription = 'div.product__description-short';
-    this.productFlags = '.product__images ul.product-flags';
     this.productDescription = '.product__description';
     this.customizationBlock = 'section.product__customization';
     this.customizedTextarea = (row: number) => `.product-customization__item:nth-child(${row}) .product-message`;
@@ -64,6 +70,7 @@ class FoProductPage extends FoProductPageClassic implements FoProductHummingbird
     this.productColorInputLabel = (color: string) => `${this.productColorUl} label.input-color__label`
       + `:has(span:has-text("Color - ${color}"))`;
     this.deliveryInformationSpan = '.product__delivery-infos';
+    this.metaLink = 'head meta[content]:not([http-equiv],[name],[property])';
     this.facebookSocialSharing = 'div.ps-sharebuttons .facebook a';
     this.twitterSocialSharing = 'div.ps-sharebuttons .twitter a';
     this.pinterestSocialSharing = 'div.ps-sharebuttons .pinterest a';
@@ -79,20 +86,11 @@ class FoProductPage extends FoProductPageClassic implements FoProductHummingbird
 
     // Product information block
     this.productInformationBlock = 'div.product__additional-info';
-    this.productMailAlertsBlock = `${this.productInformationBlock} div.js-mailalert`;
+    this.productMailAlertsBlock = `${this.productInformationBlock} div.ps-emailalerts`;
     this.productMailAlertsEmailInput = `${this.productMailAlertsBlock} input[type="email"]`;
-    this.productMailAlertsGDPRLabel = `${this.productMailAlertsBlock} div.gdpr_consent label.psgdpr_consent_message `
-      + 'span:nth-of-type(2)';
-    this.productMailAlertsNotifyButton = `${this.productMailAlertsBlock} button`;
-    this.productMailAlertsNotification = `${this.productMailAlertsBlock} article`;
-
-    // Product information block
-    this.productInformationBlock = 'div.product__right';
-    this.productMailAlertsBlock = `${this.productInformationBlock} div.js-mailalert`;
-    this.productMailAlertsEmailInput = `${this.productMailAlertsBlock} input[type="email"]`;
-    this.productMailAlertsGDPRLabel = `${this.productMailAlertsBlock} #gdpr_consent label.psgdpr_consent_message`;
-    this.productMailAlertsNotifyButton = `${this.productMailAlertsBlock} button`;
-    this.productMailAlertsNotification = `${this.productMailAlertsBlock} article`;
+    this.productMailAlertsGDPRLabel = `${this.productMailAlertsBlock} div.gdpr-consent label`;
+    this.productMailAlertsNotifyButton = `${this.productMailAlertsBlock} button[data-ps-action="emailalerts-subscribe"]`;
+    this.productMailAlertsNotification = `${this.productMailAlertsBlock} div[data-ps-target="emailalerts-alerts"] div.alert-body`;
 
     // Product discount table
     this.discountTable = '.product__discounts';
@@ -100,6 +98,10 @@ class FoProductPage extends FoProductPageClassic implements FoProductHummingbird
     this.quantityDiscountValue = `${this.discountTable} td:nth-child(1)`;
     this.unitDiscountValue = `${this.discountTable} td:nth-child(2)`;
     this.savedValue = `${this.discountTable} td:nth-child(3)`;
+
+    // Review selector
+    this.productReviewModalGDPRLabel = `${this.productReviewModal} .gdpr-consent label.form-check-label`;
+    this.reviewCancelButton = `${this.reviewForm} .post-comment-buttons button[data-bs-dismiss="modal"]`;
 
     // Products in pack selectors
     this.productInPackList = (productInList: number) => `.product-pack__list article:nth-child(${productInList})`;
@@ -114,9 +116,9 @@ class FoProductPage extends FoProductPageClassic implements FoProductHummingbird
 
     this.modalImageCloseButton = '#product-modal .modal-header .btn-close';
 
-    // Review selector
-    this.productReviewModalGDPRLabel = `${this.productReviewModal} label.psgdpr_consent_message`;
-    this.reviewCancelButton = `${this.reviewForm} .post-comment-buttons button[data-bs-dismiss="modal"]`;
+    // Notifications
+    this.notificationsContainer = '#notifications div.container';
+    this.notificationsContainerMessage = `${this.notificationsContainer} div.alert`;
   }
 
   /**
@@ -290,16 +292,21 @@ class FoProductPage extends FoProductPageClassic implements FoProductHummingbird
     for (let i: number = 0; i < attributes.length; i++) {
       if (type === 'select') {
         await Promise.all([
-          this.waitForAttachedSelector(page, `${this.productAttributeSelect(itemNumber)} option[selected]`),
+          this.waitForAttachedSelector(
+            page,
+            `${this.productAttributeSelect(itemNumber)} option[selected]:has-text("${attributes[i].value}")`,
+          ),
           this.selectByVisibleText(page, this.productAttributeSelect(itemNumber), attributes[i].value),
         ]);
       } else {
         await Promise.all([
-          this.waitForVisibleSelector(
+          this.waitForAttachedSelector(
             page,
             `${this.productAttributeButton(itemNumber)}[checked]:has( + label :has-text("${attributes[i].value}"))`,
           ),
-          page.locator(`${this.productAttributeButton(itemNumber)}:has( + label :has-text("${attributes[i].value}"))`).click(),
+          page
+            .locator(`${this.productAttributeButton(itemNumber)}:has( + label :has-text("${attributes[i].value}"))`)
+            .click({force: true}),
         ]);
       }
     }

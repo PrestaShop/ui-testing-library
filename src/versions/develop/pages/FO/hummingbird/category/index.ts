@@ -51,12 +51,31 @@ class FoCategoryPage extends CategoryPageVersion implements FoCategoryPageInterf
     this.searchFilterPriceSlider = 'div.search-filters__slider';
     this.closeOneFilter = (row: number) => `#js-active-search-filters ul li:nth-child(${row + 1}) a i`;
 
+    // SubCategories List
+    this.subCategoriesList = 'div.subcategory div.subcategory__list';
+    this.subCategoriesItem = `${this.subCategoriesList} a.subcategory__link`;
+    this.subCategoriesItemLink = (title: string) => `${this.subCategoriesItem}[title="${title}"]`;
+
     // Pagination selectors
     this.pagesList = 'ul.pagination';
     this.paginationText = `${this.productListDiv} .products__pagination div.pagination__number`;
 
-    // Filter selectors
-    this.searchFiltersSlider = () => `${this.searchFilters} .search-filters__slider`;
+    this.categoryDescription = 'div.category__description';
+
+    // Filter
+    this.searchFilters = '#search_filters_wrapper';
+    this.searchFilter = (facetType: string, facetLabel: string) => `${this.searchFilters} section[data-type="${facetType}"]`
+      + `${facetLabel === '' ? '' : `[data-name="${facetLabel}"]`} ul[id^="facet"]`;
+    this.searchFiltersCheckbox = (facetType: string, facetLabel: string) => `${this.searchFilter(facetType, facetLabel)} `
+      + 'label.facet-label input[type="checkbox"]';
+    this.searchFiltersRadio = (facetType: string, facetLabel: string) => `${this.searchFilter(facetType, facetLabel)} `
+      + 'label.facet-label input[type="radio"]';
+    this.searchFiltersDropdown = (facetType: string, facetLabel: string) => `${this.searchFilter(facetType, facetLabel)
+    } .facet-dropdown`;
+    this.searchFiltersSlider = (facetType: string, facetLabel: string) => `${this.searchFilter(facetType, facetLabel)
+    }.faceted-slider .ui-slider`;
+    this.searchFilterPriceValues = (facetType: string, facetLabel: string) => `${this.searchFilter(facetType, facetLabel)} `
+      + '[id*=facet_label]';
   }
 
   /**

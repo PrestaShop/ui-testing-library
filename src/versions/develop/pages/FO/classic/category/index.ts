@@ -51,11 +51,11 @@ class CategoryPage extends FOBasePage implements FoCategoryPageInterface {
 
   protected sideBlockCollapseIcon: (text: string) => string;
 
-  private readonly subCategoriesList: string;
+  protected subCategoriesList: string;
 
-  private readonly subCategoriesItem: string;
+  protected subCategoriesItem: string;
 
-  private readonly subCategoriesItemLink: (title: string) => string;
+  protected subCategoriesItemLink: (title: string) => string;
 
   private readonly productList: string;
 
@@ -77,23 +77,23 @@ class CategoryPage extends FOBasePage implements FoCategoryPageInterface {
 
   private readonly productAddToWishlist: (number: number) => string;
 
-  private readonly categoryDescription: string;
+  protected categoryDescription: string;
 
   protected searchFilters: string;
 
-  private readonly searchFilter: (facetType: string, facetLabel: string) => string;
+  protected searchFilter: (facetType: string, facetLabel: string) => string;
 
   protected searchFiltersCheckbox: (facetType: string, facetLabel: string) => string;
 
-  private readonly searchFiltersRadio: (facetType: string, facetLabel: string) => string;
+  protected searchFiltersRadio: (facetType: string, facetLabel: string) => string;
 
-  private readonly searchFiltersDropdown: (facetType: string, facetLabel: string) => string;
+  protected searchFiltersDropdown: (facetType: string, facetLabel: string) => string;
 
   protected searchFiltersSlider: (facetType: string, facetLabel: string) => string;
 
   protected closeOneFilter: (row: number) => string;
 
-  private readonly searchFilterPriceValues: (facetType: string, facetLabel: string) => string;
+  protected searchFilterPriceValues: (facetType: string, facetLabel: string) => string;
 
   protected clearAllFiltersLink: string;
 

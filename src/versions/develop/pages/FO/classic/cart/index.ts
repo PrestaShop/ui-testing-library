@@ -210,7 +210,7 @@ class CartPage extends FOBasePage implements FoCartPageInterface {
    * @returns {Promise<string>}
    */
   async getNotificationMessage(page: Page): Promise<string> {
-    return this.getTextContent(page, this.alertMessage);
+    return this.getTextContent(page, this.alertMessage, true, true, 30000);
   }
 
   /**

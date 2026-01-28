@@ -2,7 +2,7 @@ import type {FoMyWishlistsViewPageInterface} from '@interfaces/FO/myAccount/myWi
 
 /* eslint-disable global-require, @typescript-eslint/no-require-imports */
 function requirePage(): FoMyWishlistsViewPageInterface {
-  return require('@versions/develop/pages/FO/classic/myAccount/myWishlists/view').myWishlistViewPage;
+  return require('@versions/develop/pages/FO/classic/myAccount/myWishlists/view').foMyWishlistsViewPage;
 }
 /* eslint-enable global-require, @typescript-eslint/no-require-imports */
 

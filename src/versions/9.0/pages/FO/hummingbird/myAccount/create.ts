@@ -14,7 +14,7 @@ class FoCreateAccountPage extends FoCreateAccountPageVersion implements FoCreate
   constructor() {
     super();
 
-    this.psgdprLabel = `${this.createAccountForm} label[for="field-psgdpr"]`;
+    this.psgdprLabel = `${this.createAccountForm} label[for="field-psgdpr"] + div > span.custom-checkbox > label`;
   }
 }
 

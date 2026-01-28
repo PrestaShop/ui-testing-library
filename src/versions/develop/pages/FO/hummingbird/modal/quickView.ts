@@ -18,7 +18,7 @@ class FoModalQuickViewPage extends FoModalQuickViewPageClassic implements FoModa
     super('hummingbird');
 
     // Quick view modal
-    this.quickViewModalProductImageCover = `${this.quickViewModalDiv} .product__carousel div.carousel-item picture`;
+    this.quickViewModalProductImageCover = `${this.quickViewModalDiv} .product__carousel div.carousel-item.active picture`;
     this.productRowQuantityUpDownButton = (direction: string) => `div.product-actions__quantity button.js-${direction}-button`;
     this.quickViewProductName = `${this.quickViewModalDiv} .product__name`;
     this.quickViewRegularPrice = `${this.quickViewModalDiv} span.product__price-regular`;
@@ -77,7 +77,12 @@ class FoModalQuickViewPage extends FoModalQuickViewPageClassic implements FoModa
    * @returns {Promise<string|null>}
    */
   async getQuickViewImageMain(page: Page): Promise<string | null> {
-    const srcset = await this.getAttributeContent(page, `${this.quickViewModalProductImageCover} source`, 'srcset');
+    let selector: string = `${this.quickViewModalProductImageCover} source`;
+
+    if (await page.locator(selector).count() === 0) {
+      selector = `${this.quickViewModalProductImageCover} img`;
+    }
+    const srcset = await this.getAttributeContent(page, selector, 'srcset');
 
     if (!srcset) {
       return null;

@@ -41,9 +41,9 @@ class FoHomePage extends FoHomePageClassic implements FoHomeHummingbirdPageInter
     // Newsletter form
     this.newsletterBlock = '#footer section.ps-emailsubscription';
     this.newsletterFormField = `${this.newsletterBlock} [name=email]`;
-    this.newsletterRGPDBlock = `${this.newsletterBlock} #gdpr_consent`;
+    this.newsletterRGPDBlock = `${this.newsletterBlock} .gdpr-consent`;
     this.newsletterRGPDBlockCheckbox = `${this.newsletterRGPDBlock} input[type="checkbox"]`;
-    this.newsletterRGPDBlockLabel = `${this.newsletterRGPDBlock} label.psgdpr_consent_message`;
+    this.newsletterRGPDBlockLabel = `${this.newsletterRGPDBlockCheckbox} + label`;
     this.newsletterSubmitButton = `${this.newsletterBlock} [name="submitNewsletter"][value="Subscribe"]`;
     this.subscriptionAlertMessage = `${this.newsletterBlock} div.alert`;
 

@@ -1,6 +1,6 @@
 import {FoMyAccountPageInterface} from '@interfaces/FO/myAccount';
 import FOBasePage from '@pages/FO/FOBasePage';
-import {myWishlistsPage as foClassicMyWishlistsPage} from '@versions/develop/pages/FO/classic/myAccount/myWishlists';
+import {foMyWishlistsPage as foClassicMyWishlistsPage} from '@versions/develop/pages/FO/classic/myAccount/myWishlists';
 
 import type {Page} from 'playwright';
 
@@ -32,7 +32,7 @@ class MyAccountPage extends FOBasePage implements FoMyAccountPageInterface {
 
   protected logoutFooterLink: string;
 
-  private readonly myWishlistsLink: string;
+  protected myWishlistsLink: string;
 
   protected psgdprLink: string;
 

@@ -26,7 +26,7 @@ class ProductPage extends FOBasePage implements FoProductPageInterface {
 
   protected productFlags: string;
 
-  private readonly productFlag: (flag: string) => string;
+  protected productFlag: (flag: string) => string;
 
   protected productName: string;
 
@@ -70,19 +70,19 @@ class ProductPage extends FOBasePage implements FoProductPageInterface {
 
   protected proceedToCheckoutButton: string;
 
-  private readonly productQuantitySpan: string;
+  protected productQuantitySpan: string;
 
   protected productDetail: string;
 
   protected productFeaturesList: string;
 
-  private readonly productCondition: string;
+  protected productCondition: string;
 
   protected continueShoppingButton: string;
 
-  private readonly productAvailability: string;
+  protected productAvailability: string;
 
-  private readonly productAvailabilityIcon: string;
+  protected productAvailabilityIcon: string;
 
   protected productMinimalQuantity: string;
 
@@ -102,7 +102,7 @@ class ProductPage extends FOBasePage implements FoProductPageInterface {
 
   private readonly productColors: string;
 
-  private readonly metaLink: string;
+  protected metaLink: string;
 
   protected facebookSocialSharing: string;
 
@@ -208,7 +208,9 @@ class ProductPage extends FOBasePage implements FoProductPageInterface {
 
   private readonly btnAddToWishlist: string;
 
-  private readonly notificationsContainer: string;
+  protected notificationsContainer: string;
+
+  protected notificationsContainerMessage: string;
 
   /**
    * @constructs
@@ -338,6 +340,7 @@ class ProductPage extends FOBasePage implements FoProductPageInterface {
 
     // Notifications
     this.notificationsContainer = '#notifications div.notifications-container';
+    this.notificationsContainerMessage = `${this.notificationsContainer} article`;
   }
 
   // Methods
@@ -627,6 +630,15 @@ class ProductPage extends FOBasePage implements FoProductPageInterface {
    */
   async getDiscountPercentage(page: Page): Promise<string> {
     return this.getTextContent(page, this.discountPercentageSpan);
+  }
+
+  /**
+   * Returns if the product availability label is present
+   * @param page {Page} Browser tab
+   * @returns {Promise<string>}
+   */
+  async hasProductAvailabilityLabel(page: Page): Promise<boolean> {
+    return (await page.locator(this.productAvailability).count()) > 0;
   }
 
   /**
@@ -1324,7 +1336,7 @@ class ProductPage extends FOBasePage implements FoProductPageInterface {
    * @returns {Promise<string>}
    */
   async hasNotificationMessage(page: Page): Promise<boolean> {
-    return (await page.locator(`${this.notificationsContainer} article`).count() > 0);
+    return (await page.locator(this.notificationsContainerMessage).count() > 0);
   }
 
   /**

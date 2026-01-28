@@ -24,6 +24,7 @@ class FoMyAccountPage extends MyAccountPageVersion implements FoMyAccountPageInt
     this.orderSlipsLink = '.account-menu #order-slips__link';
     this.successMessageAlert = '#notifications article.alert-success';
     this.logoutFooterLink = '#my-account .account-menu .account-menu--signout';
+    this.myWishlistsLink = '#content #wishlist-link';
     this.psgdprLink = '#content #psgdpr-link';
   }
 }
