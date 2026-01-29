@@ -384,12 +384,19 @@ export * as FOBasePage from '@pages/FO/FOBasePage';
 // Export Pages FO/Default
 export {default as foAboutUsPage} from '@pages/FO/core/aboutUs';
 export {default as foCartPage} from '@pages/FO/core/cart';
+export {default as foCategoryPage} from '@pages/FO/core/category';
 export {default as foCheckoutPage} from '@pages/FO/core/checkout';
 export {default as foCheckoutOrderConfirmationPage} from '@pages/FO/core/checkout/orderConfirmation';
 export {default as foHomePage} from '@pages/FO/core/home';
 export {default as foLoginPage} from '@pages/FO/core/login';
 export {default as foModalBlockCartPage} from '@pages/FO/core/modal/blockCart';
 export {default as foModalQuickViewPage} from '@pages/FO/core/modal/quickView';
+export {default as foModalWishlistPage} from '@pages/FO/core/modal/wishlist';
+export {default as foMyAccountPage} from '@pages/FO/core/myAccount';
+export {default as foMyWishlistsPage} from '@pages/FO/core/myAccount/myWishlists';
+export {default as foMyWishlistsViewPage} from '@pages/FO/core/myAccount/myWishlists/view';
+export {default as foProductPage} from '@pages/FO/core/product';
+export {default as foSearchResultsPage} from '@pages/FO/core/searchResults';
 // Export Pages FO/Classic
 export {default as foClassicAboutUsPage} from '@pages/FO/classic/aboutUs';
 export {default as foClassicBestSalesPage} from '@pages/FO/classic/bestSales';
