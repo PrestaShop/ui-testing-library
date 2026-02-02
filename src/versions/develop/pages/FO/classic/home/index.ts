@@ -262,7 +262,7 @@ class FoHomePage extends FOBasePage implements FoHomePageInterface {
    */
   async getProductsBlockNumber(
     page: Page,
-    blockName: 'bestsellers' | 'newproducts' | 'onsale' | 'popularproducts' | string): Promise<number> {
+    blockName: string): Promise<number> {
     return page.locator(this.productsBlockDiv(blockName)).count();
   }
 
@@ -272,7 +272,7 @@ class FoHomePage extends FOBasePage implements FoHomePageInterface {
    * @param page {Page} Browser tab
    * @return {Promise<boolean>}
    */
-  async hasProductsBlock(page: Page, blockName: 'bestsellers' | 'newproducts' | 'onsale' | 'popularproducts'): Promise<boolean> {
+  async hasProductsBlock(page: Page, blockName: string): Promise<boolean> {
     return (await page.locator(this.productsBlock(blockName)).count()) > 0;
   }
 

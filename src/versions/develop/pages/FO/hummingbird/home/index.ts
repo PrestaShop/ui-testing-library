@@ -35,6 +35,9 @@ class FoHomePage extends FoHomePageClassic implements FoHomeHummingbirdPageInter
     // selectors for home page content
     this.homePageSection = '#content.page-content--home';
 
+    // Selectors for products block
+    this.productsBlock = (blockName: string) => `#content section.${blockName}`;
+
     // Selectors for banner and custom text
     this.customTextBlock = 'section.ps-customtext';
 

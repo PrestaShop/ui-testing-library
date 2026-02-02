@@ -65,15 +65,15 @@ class FoCategoryPage extends CategoryPageVersion implements FoCategoryPageInterf
     // Filter
     this.searchFilters = '#search_filters_wrapper';
     this.searchFilter = (facetType: string, facetLabel: string) => `${this.searchFilters} section[data-type="${facetType}"]`
-      + `${facetLabel === '' ? '' : `[data-name="${facetLabel}"]`} ul[id^="facet"]`;
+      + `${facetLabel === '' ? '' : `[data-name="${facetLabel}"]`} div[id^="facet"]`;
     this.searchFiltersCheckbox = (facetType: string, facetLabel: string) => `${this.searchFilter(facetType, facetLabel)} `
-      + 'label.facet-label input[type="checkbox"]';
+      + 'input[type="checkbox"]';
     this.searchFiltersRadio = (facetType: string, facetLabel: string) => `${this.searchFilter(facetType, facetLabel)} `
-      + 'label.facet-label input[type="radio"]';
+      + 'input[type="radio"]';
     this.searchFiltersDropdown = (facetType: string, facetLabel: string) => `${this.searchFilter(facetType, facetLabel)
     } .facet-dropdown`;
     this.searchFiltersSlider = (facetType: string, facetLabel: string) => `${this.searchFilter(facetType, facetLabel)
-    }.faceted-slider .ui-slider`;
+    } .search-filters__slider`;
     this.searchFilterPriceValues = (facetType: string, facetLabel: string) => `${this.searchFilter(facetType, facetLabel)} `
       + '[id*=facet_label]';
   }
