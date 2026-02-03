@@ -126,7 +126,7 @@ class FoCartPage extends FoCartPageClassic implements FoCartHummingbirdPageInter
   async editProductQuantity(page: Page, productID: number, quantity: number | string): Promise<void> {
     await this.setValue(page, this.productQuantity(productID), quantity);
     await page.locator(this.productQuantityScrollUpButton(productID)).click();
-    await page.waitForTimeout(5000);
+    await page.waitForTimeout(2000);
   }
 
   /**
