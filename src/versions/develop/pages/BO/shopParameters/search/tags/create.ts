@@ -64,4 +64,5 @@ class BOTagsCreatePage extends BOBasePage implements BOTagsCreatePageInterface {
   }
 }
 
-module.exports = new BOTagsCreatePage();
+const boTagsCreatePage = new BOTagsCreatePage();
+export {boTagsCreatePage, BOTagsCreatePage};
