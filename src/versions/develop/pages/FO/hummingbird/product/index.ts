@@ -90,7 +90,8 @@ class FoProductPage extends FoProductPageClassic implements FoProductHummingbird
     this.productMailAlertsEmailInput = `${this.productMailAlertsBlock} input[type="email"]`;
     this.productMailAlertsGDPRLabel = `${this.productMailAlertsBlock} div.gdpr-consent label`;
     this.productMailAlertsNotifyButton = `${this.productMailAlertsBlock} button[data-ps-action="emailalerts-subscribe"]`;
-    this.productMailAlertsNotification = `${this.productMailAlertsBlock} div[data-ps-target="emailalerts-alerts"] div.alert-body`;
+    this.productMailAlertsNotification = `${this.productMailAlertsBlock} div[data-ps-target="emailalerts-alerts"] div.alert-body,`
+      + ` ${this.productMailAlertsBlock} div.alert-info`;
 
     // Product discount table
     this.discountTable = '.product__discounts';
