@@ -141,7 +141,7 @@ class CartPage extends FOBasePage implements FoCartPageInterface {
     this.cartRuleCannotUseVoucherAlertMessageText = 'You cannot use this voucher with this carrier';
     this.minimumAmountErrorMessage = 'The minimum amount to benefit from this promo code is';
     this.errorNotificationForProductQuantity = (productQty: number) => `You can only buy ${productQty}`
-      + ' "Hummingbird printed t-shirt". Please adjust the quantity in your cart to continue.';
+      + ' "Hummingbird printed t-shirt : Color - White, Size - S". Please adjust the quantity in your cart to continue.';
 
     // Selectors for cart page
     // Shopping cart block selectors
