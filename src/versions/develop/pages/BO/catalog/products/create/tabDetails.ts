@@ -396,12 +396,22 @@ class DetailsTab extends BOBasePage implements BOProductsCreateTabDetailsPageInt
      */
   async addNewCustomizations(page: Page, productData: FakerProduct): Promise<void> {
     await this.waitForSelectorAndClick(page, this.detailsTabLink);
+
+    const customizationListSelector = '.product-customizations-collection ul';
+
     for (let i: number = 0; i < productData.customizations.length; i++) {
+      const rowIndex = parseInt(
+        await page.locator(customizationListSelector).getAttribute('data-row-index') ?? '0',
+        10,
+      );
       await this.waitForSelectorAndClick(page, this.addNewCustomizationButton);
 
-      await this.setValue(page, this.customizationNameInput(i), productData.customizations[i].label);
-      await this.selectByVisibleText(page, this.customizationTypeSelect(i), productData.customizations[i].type);
-      await this.setChecked(page, this.customizationRequiredButton(i, productData.customizations[i].required ? 1 : 0));
+      await this.setValue(page, this.customizationNameInput(rowIndex), productData.customizations[i].label);
+      await this.selectByVisibleText(page, this.customizationTypeSelect(rowIndex), productData.customizations[i].type);
+      await this.setChecked(
+        page,
+        this.customizationRequiredButton(rowIndex, productData.customizations[i].required ? 1 : 0),
+      );
     }
   }
 
@@ -413,7 +423,8 @@ class DetailsTab extends BOBasePage implements BOProductsCreateTabDetailsPageInt
      */
   async deleteCustomizations(page: Page, productData: FakerProduct): Promise<void> {
     for (let i: number = 0; i < productData.customizations.length; i++) {
-      await this.waitForSelectorAndClick(page, this.deleteCustomizationIcon(i));
+      await page.locator('.product-customizations-collection .customization-field-row').first()
+        .locator('.remove-customization-btn').click();
       await this.waitForSelectorAndClick(page, this.confirmDeleteCustomizationButton);
     }
   }
