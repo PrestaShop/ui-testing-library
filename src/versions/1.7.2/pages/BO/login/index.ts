@@ -1,6 +1,6 @@
 // Import pages
 import type {LoginPageInterface} from '@interfaces/BO/login';
-import {LoginPage} from '@versions/1.7.8/pages/BO/login';
+import {LoginPage} from '@versions/8.0/pages/BO/login';
 
 /**
  * Bo login page, contains functions that can be used on the page
