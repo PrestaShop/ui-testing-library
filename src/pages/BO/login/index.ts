@@ -10,7 +10,7 @@ function requirePage(): LoginPageInterface {
     return require('@versions/1.7.2/pages/BO/login').loginPage;
   }
   if (semver.lt(psVersion, '8.1.0')) {
-    return require('@versions/8.0.0/pages/BO/login').loginPage;
+    return require('@versions/8.0/pages/BO/login').loginPage;
   }
   if (semver.lt(psVersion, '9.0.0')) {
     return require('@versions/8.1/pages/BO/login').loginPage;
