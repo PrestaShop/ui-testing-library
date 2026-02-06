@@ -1,7 +1,7 @@
 // Import pages
-import type {LoginPageInterface} from '@interfaces/BO/login';
+import type {LoginPageInterface} from '../../../../../interfaces/BO/login';
 import {Page} from '@playwright/test';
-import {LoginPage} from '@versions/8.1/pages/BO/login';
+import {LoginPage} from '../../../../8.1/pages/BO/login';
 
 /**
  * Order confirmation page, contains functions that can be used on the page
