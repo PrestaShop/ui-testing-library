@@ -10,7 +10,7 @@ import {type Page} from '@playwright/test';
 class BOTagsPage extends BOBasePage implements BOTagsPageInterface {
   public readonly pageTitle: string;
 
-  private readonly addNewTagLink: string;
+  protected addNewTagLink: string;
 
   private readonly gridForm: string;
 
@@ -95,7 +95,7 @@ class BOTagsPage extends BOBasePage implements BOTagsPageInterface {
 
     // Selectors
     // Header links
-    this.addNewTagLink = 'a[data-role=page-header-desc-tag-link]';
+    this.addNewTagLink = 'a#page-header-desc-configuration-addTag';
 
     // Form selectors
     this.gridForm = '#form-tag';
@@ -413,4 +413,5 @@ class BOTagsPage extends BOBasePage implements BOTagsPageInterface {
   }
 }
 
-module.exports = new BOTagsPage();
+const boTagsPage = new BOTagsPage();
+export {boTagsPage, BOTagsPage};
