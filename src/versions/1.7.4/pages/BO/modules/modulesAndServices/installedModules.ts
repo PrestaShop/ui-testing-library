@@ -15,15 +15,21 @@ class InstalledModulesPage extends BOBasePage implements InstalledModulesPageInt
 
   private readonly configureModuleButton: string;
 
+  protected uninstallModuleButton: string;
+
+  protected forceDeletion: string;
+
+  protected uninstallButtonInModale: string;
+
   protected searchModuleTagInput: string;
 
   private readonly searchModuleButton: string;
 
   private readonly moduleItemName: (moduleTag: string) => string;
 
-  private readonly actionsDropdownButton: (moduleTag: string) => string;
+  protected actionsDropdownButton: (moduleTag: string) => string;
 
-  private readonly actionModuleButtonInDropdownList: (action: string) => string;
+  protected actionModuleButtonInDropdownList: (action: string) => string;
 
   /**
    * @constructs
@@ -37,6 +43,9 @@ class InstalledModulesPage extends BOBasePage implements InstalledModulesPageInt
     // Selectors
     this.selectionLink = '#subtab-AdminModulesCatalog';
     this.configureModuleButton = '.dropdown-menu form[action*=\'configure\'], .module_action_menu_configure';
+    this.uninstallModuleButton = '.dropdown-menu form[action*=\'uninstall\']';
+    this.forceDeletion = '#force_deletion';
+    this.uninstallButtonInModale = '#module-modal-confirm-welcome-uninstall div.modal-footer a[href*=uninstall]';
     this.searchModuleTagInput = '#search-input-group input.pstaggerAddTagInput';
     this.searchModuleButton = '#module-search-button';
     this.moduleItemName = (moduleTag: string) => `.module-item-list[data-tech-name=${moduleTag}]`;
@@ -64,7 +73,7 @@ class InstalledModulesPage extends BOBasePage implements InstalledModulesPageInt
    * @param moduleTag {string} Technical name of the module
    * @returns {Promise<void>}
    */
-  async goToModuleConfigurationPage(page:Page, moduleTag: string):Promise<void> {
+  async goToModuleConfigurationPage(page: Page, moduleTag: string): Promise<void> {
     if (await this.elementNotVisible(page, this.configureModuleButton, 1000)) {
       await Promise.all([
         page.locator(this.actionsDropdownButton(moduleTag)).click(),
@@ -95,6 +104,25 @@ class InstalledModulesPage extends BOBasePage implements InstalledModulesPageInt
     await page.locator(this.searchModuleButton).click();
 
     return this.isModuleVisible(page, module);
+  }
+
+  /**
+   * Uninstall module
+   * @param page {Page} page
+   * @param moduleTag {string} Technical name of the module
+   * @returns {Promise<void>}
+   */
+  async uninstallModule(page: Page, moduleTag: string): Promise<string | null> {
+    if (await this.elementNotVisible(page, this.uninstallModuleButton, 1000)) {
+      await Promise.all([
+        page.locator(this.actionsDropdownButton(moduleTag)).click(),
+        this.waitForVisibleSelector(page, `${this.actionsDropdownButton(moduleTag)}[aria-expanded='true']`),
+      ]);
+    }
+    await page.locator(this.uninstallModuleButton).click();
+    await page.locator(this.uninstallButtonInModale).click();
+
+    return this.getGrowlMessageContent(page, 300000);
   }
 }
 

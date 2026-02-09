@@ -6,7 +6,8 @@ export interface InstalledModulesPageInterface extends BOBasePagePageInterface {
   readonly pageTitle: string;
 
   goToSelectionPage(page: Page): Promise<void>;
-  goToModuleConfigurationPage(page:Page, moduleTag:string):Promise<void>;
+  goToModuleConfigurationPage(page: Page, moduleTag: string): Promise<void>;
   isModuleVisible(page: Page, module: FakerModule): Promise<boolean>,
   searchModule(page: Page, module: FakerModule): Promise<boolean>;
+  uninstallModule(page: Page, moduleTag: string): Promise<string | null>
 }

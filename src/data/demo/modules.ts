@@ -162,4 +162,8 @@ export default {
     tag: 'autoupgrade',
     name: '1-Click Upgrade',
   }),
+  welcome: new FakerModule({
+    tag: 'welcome',
+    name: 'Welcome',
+  }),
 };
