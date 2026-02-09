@@ -23,9 +23,8 @@ class InstalledModulesVersion extends InstalledModulesPage implements InstalledM
       ]);
     }
     await page.locator(this.uninstallModuleButton).click();
-    await page.locator(this.uninstallButtonInModale).click();
 
-    return this.getAlertSuccessBlockContent(page);
+    return this.getTextContent(page, `${this.alertSuccessBlock} li`);
   }
 }
 

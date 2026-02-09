@@ -17,9 +17,9 @@ class InstalledModulesPage extends BOBasePage implements InstalledModulesPageInt
 
   protected uninstallModuleButton: string;
 
-  protected forceDeletion: string;
+  private readonly forceDeletion: string;
 
-  protected uninstallButtonInModale: string;
+  private readonly uninstallButtonInModal: string;
 
   protected searchModuleTagInput: string;
 
@@ -45,7 +45,7 @@ class InstalledModulesPage extends BOBasePage implements InstalledModulesPageInt
     this.configureModuleButton = '.dropdown-menu form[action*=\'configure\'], .module_action_menu_configure';
     this.uninstallModuleButton = '.dropdown-menu form[action*=\'uninstall\']';
     this.forceDeletion = '#force_deletion';
-    this.uninstallButtonInModale = '#module-modal-confirm-welcome-uninstall div.modal-footer a[href*=uninstall]';
+    this.uninstallButtonInModal = '#module-modal-confirm-welcome-uninstall div.modal-footer a[href*=uninstall]';
     this.searchModuleTagInput = '#search-input-group input.pstaggerAddTagInput';
     this.searchModuleButton = '#module-search-button';
     this.moduleItemName = (moduleTag: string) => `.module-item-list[data-tech-name=${moduleTag}]`;
@@ -120,7 +120,7 @@ class InstalledModulesPage extends BOBasePage implements InstalledModulesPageInt
       ]);
     }
     await page.locator(this.uninstallModuleButton).click();
-    await page.locator(this.uninstallButtonInModale).click();
+    await page.locator(this.uninstallButtonInModal).click();
 
     return this.getGrowlMessageContent(page, 300000);
   }
