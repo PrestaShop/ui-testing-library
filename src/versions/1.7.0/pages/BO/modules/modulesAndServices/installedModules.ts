@@ -10,14 +10,6 @@ import {Page} from '@playwright/test';
  */
 class InstalledModulesVersion extends InstalledModulesPage implements InstalledModulesPageInterface {
   /**
-   * @constructs
-   * Setting up texts and selectors to use on InstalledModules page
-   */
-  constructor() {
-    super();
-  }
-
-  /**
    * Uninstall module
    * @param page {Page} page
    * @param moduleTag {string} Technical name of the module
