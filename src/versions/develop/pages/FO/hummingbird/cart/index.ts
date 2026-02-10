@@ -32,7 +32,7 @@ class FoCartPage extends FoCartPageClassic implements FoCartHummingbirdPageInter
     this.productPrice = (number: number) => `${this.productItem(number)} div.product-line__item--prices`
       + ' span.product-line__item-price';
     this.productTotalPrice = (number: number) => `${this.productItem(number)} div.product-line__price,`
-      + ` ${this.productItem(number)} div.product-line__gift`;
+      + ` ${this.productItem(number)} .product-line__gift`;
     this.productQuantity = (number: number) => `${this.productItem(number)} div.input-group `
       + 'input.js-cart-line-product-quantity';
     this.productQuantityScrollUpButton = (number: number) => `${this.productItem(number)} button.js-increment-button`;
