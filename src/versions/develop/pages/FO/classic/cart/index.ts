@@ -257,7 +257,7 @@ class CartPage extends FOBasePage implements FoCartPageInterface {
    * @returns {Promise<boolean>}
    */
   async isProductGift(page: Page, row: number): Promise<boolean> {
-    return (await this.getTextContent(page, this.productTotalPrice(row))).trim() === 'Gift';
+    return (await this.getTextContent(page, this.productTotalPrice(row))).trim().includes('Gift');
   }
 
   /**
