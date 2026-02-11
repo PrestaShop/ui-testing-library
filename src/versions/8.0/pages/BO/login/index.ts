@@ -32,19 +32,21 @@ class BOLoginVersion extends LoginPage implements LoginPageInterface {
    * @param password {string} String of employee password
    * @returns {Promise<void>}
    */
-  async successLogin(page: Page, email: string, password: string): Promise<void> {
+  async successLogin(page: Page, email: string, password: string, closeModal: boolean = true): Promise<void> {
     await super.successLogin(page, email, password);
 
-    // closeOnboardingModal
-    if (await this.elementVisible(page, this.onboardingCloseButton, 3000)) {
-      // Close popup
-      await page.locator(this.onboardingCloseButton).click();
-      await this.waitForHiddenSelector(page, this.onboardingCloseButton);
+    if (closeModal) {
+      // closeOnboardingModal
+      if (await this.elementVisible(page, this.onboardingCloseButton, 3000)) {
+        // Close popup
+        await page.locator(this.onboardingCloseButton).click();
+        await this.waitForHiddenSelector(page, this.onboardingCloseButton);
 
-      // Close menu block
-      if (await this.elementVisible(page, this.onboardingStopButton, 3000)) {
-        await page.locator(this.onboardingStopButton).click();
-        await this.waitForHiddenSelector(page, this.onboardingStopButton);
+        // Close menu block
+        if (await this.elementVisible(page, this.onboardingStopButton, 3000)) {
+          await page.locator(this.onboardingStopButton).click();
+          await this.waitForHiddenSelector(page, this.onboardingStopButton);
+        }
       }
     }
   }
