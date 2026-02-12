@@ -190,9 +190,12 @@ class LoginPage extends BOBasePage implements LoginPageInterface {
    * @param password {string} String of employee password
    * @returns {Promise<void>}
    */
-  async successLogin(page: Page, email: string, password: string): Promise<void> {
+  async successLogin(page: Page, email: string, password: string, closeModal: boolean = false): Promise<void> {
     await this.fillForm(page, email, password);
     await this.clickOnLoginButton(page, true);
+    if (closeModal) {
+      // do nothing.
+    }
   }
 
   /**
