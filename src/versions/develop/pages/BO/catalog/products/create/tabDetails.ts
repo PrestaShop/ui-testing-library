@@ -3,7 +3,7 @@ import boProductsCreatePage from '@pages/BO/catalog/products/create';
 
 // Import data
 import type FakerProduct from '@data/faker/product';
-import type {ProductFeatures} from '@data/types/product';
+import type {ProductCustomization, ProductFeatures} from '@data/types/product';
 import type {BOProductsCreateTabDetailsPageInterface} from '@interfaces/BO/catalog/products/create/tabDetails';
 
 import type {Frame, Page} from 'playwright';
@@ -67,6 +67,8 @@ class DetailsTab extends BOBasePage implements BOProductsCreateTabDetailsPageInt
   private readonly deleteFileConfirmButton: string;
 
   private readonly noFileAttachedErrorAlert: string;
+
+  private readonly customizationRow: string;
 
   private readonly addNewCustomizationButton: string;
 
@@ -156,13 +158,16 @@ class DetailsTab extends BOBasePage implements BOProductsCreateTabDetailsPageInt
     this.displayCondition = (toEnable: number) => `#product_details_show_condition_${toEnable}`;
     this.productConditionSelect = '#product_details_condition';
     // Customization section
+    this.customizationRow = '#product_details_customizations_customization_fields .customization-field-row';
     this.addNewCustomizationButton = '#product_details_customizations_add_customization_field';
-    this.customizationNameInput = (row: number) => `#product_details_customizations_customization_fields_${row}_name_1`;
-    this.customizationTypeSelect = (row: number) => `#product_details_customizations_customization_fields_${row}_type`;
-    this.customizationRequiredButton = (row: number, toEnable: number) => '#product_details_customizations_customization'
-            + `_fields_${row}_required_${toEnable}`;
-    this.deleteCustomizationIcon = (row: number) => `#product_details_customizations_customization_fields_${row}_remove`
-            + ' i.material-icons';
+    this.customizationNameInput = (row: number) => `${this.customizationRow}:nth-child(${row}) input`
+      + '[name^="product[details][customizations][customization_fields]"][name$="[name][1]"]';
+    this.customizationTypeSelect = (row: number) => `${this.customizationRow}:nth-child(${row}) select`
+      + '[name^="product[details][customizations][customization_fields]"][name$="[type]"]';
+    this.customizationRequiredButton = (row: number, toEnable: number) => `${this.customizationRow}:nth-child(${row}) input`
+      + `[name^="product[details][customizations][customization_fields]"][name$="[required]"][value="${toEnable}"]`;
+    this.deleteCustomizationIcon = (row: number) => `${this.customizationRow}:nth-child(${row}) button`
+      + '[name^="product[details][customizations][customization_fields]"][name$="[remove]"]';
     this.deleteCustomizationModal = '#modal-confirm-delete-customization';
     this.confirmDeleteCustomizationButton = `${this.deleteCustomizationModal} div.modal-footer button.btn-confirm-submit`;
   }
@@ -394,28 +399,54 @@ class DetailsTab extends BOBasePage implements BOProductsCreateTabDetailsPageInt
      * @param productData {FakerProduct} Data to add customization
      * @returns {Promise<void>}
      */
+  async addNewCustomization(page: Page, productCustomization: ProductCustomization): Promise<void> {
+    await this.waitForSelectorAndClick(page, this.addNewCustomizationButton);
+
+    const nth = await page.locator(this.customizationRow).count();
+
+    await this.setValue(page, this.customizationNameInput(nth), productCustomization.label);
+    await this.selectByVisibleText(page, this.customizationTypeSelect(nth), productCustomization.type);
+    await this.setChecked(page, this.customizationRequiredButton(nth, productCustomization.required ? 1 : 0));
+  }
+
+  /**
+     * Add new customization
+     * @param page {Page} Browser tab
+     * @param productData {FakerProduct} Data to add customization
+     * @returns {Promise<void>}
+     */
   async addNewCustomizations(page: Page, productData: FakerProduct): Promise<void> {
     await this.waitForSelectorAndClick(page, this.detailsTabLink);
     for (let i: number = 0; i < productData.customizations.length; i++) {
-      await this.waitForSelectorAndClick(page, this.addNewCustomizationButton);
-
-      await this.setValue(page, this.customizationNameInput(i), productData.customizations[i].label);
-      await this.selectByVisibleText(page, this.customizationTypeSelect(i), productData.customizations[i].type);
-      await this.setChecked(page, this.customizationRequiredButton(i, productData.customizations[i].required ? 1 : 0));
+      await this.addNewCustomization(page, productData.customizations[i]);
     }
   }
 
   /**
-     * Delete all customizations
-     * @param page {Page} Browser tab
-     * @param productData {FakerProduct} Data to delete customizations
-     * @returns {Promise<void>}
-     */
-  async deleteCustomizations(page: Page, productData: FakerProduct): Promise<void> {
-    for (let i: number = 0; i < productData.customizations.length; i++) {
-      await this.waitForSelectorAndClick(page, this.deleteCustomizationIcon(i));
-      await this.waitForSelectorAndClick(page, this.confirmDeleteCustomizationButton);
+   * Delete all customizations
+   * @param page {Page} Browser tab
+   * @param productData {FakerProduct|null} Data to delete customizations
+   * @returns {Promise<void>}
+   */
+  async deleteCustomizations(page: Page, productData: FakerProduct|null = null): Promise<void> {
+    const numCustomizations: number = productData
+      ? productData.customizations.length
+      : await page.locator(this.customizationRow).count();
+
+    for (let i: number = 0; i < numCustomizations; i++) {
+      await this.deleteCustomizationNth(page, 1);
     }
+  }
+
+  /**
+   * Delete the nth customization
+   * @param page {Page} Browser tab
+   * @param nth {number} Nth customization to remove
+   * @returns {Promise<void>}
+   */
+  async deleteCustomizationNth(page: Page, nth: number): Promise<void> {
+    await this.waitForSelectorAndClick(page, this.deleteCustomizationIcon(nth));
+    await this.waitForSelectorAndClick(page, this.confirmDeleteCustomizationButton);
   }
 
   /**
