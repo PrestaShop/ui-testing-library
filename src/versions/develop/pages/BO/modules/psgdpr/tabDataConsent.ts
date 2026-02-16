@@ -2,6 +2,7 @@ import dataLanguages from '@data/demo/languages';
 import {type ModulePsGdprBoTabDataConsentPageInterface} from '@interfaces/BO/modules/psgdpr/tabDataConsent';
 import {ModuleConfigurationPage} from '@versions/develop/pages/BO/modules/moduleConfiguration';
 import {type Page} from '@playwright/test';
+import {createConnection, type RowDataPacket} from 'mysql2/promise';
 
 /**
  * Module configuration page for module : psgdpr, contains selectors and functions for the page
@@ -19,23 +20,23 @@ class ModulePsGdprBoTabDataConsentPage extends ModuleConfigurationPage implement
 
   private readonly messageCustomerForm: (idLang: number) => string;
 
-  private readonly btnDropdownLangModuleForm: string;
+  private readonly btnDropdownLangModuleForm: (idModule: number) => string;
 
   private readonly btnDropdownItemLangModuleForm: (idLang: number) => string;
 
-  private readonly checkboxModuleForm: (status: boolean) => string;
+  private readonly checkboxModuleForm: (idModule: number, status: boolean) => string;
 
-  private readonly messageModuleForm: (nth: number, idLang: number) => string;
+  private readonly messageModuleForm: (idModule: number, idLang: number) => string;
 
   private readonly saveButton: string;
 
-  protected nthModuleContactForm: number;
+  private idModuleContactForm: number|null;
 
-  protected nthModuleMailAlerts: number;
+  private idModuleMailAlerts: number|null;
 
-  protected nthModuleNewsletterSubscription: number;
+  private idModuleNewsletterSubscription: number|null;
 
-  protected nthModuleProductComments: number;
+  private idModuleProductComments: number|null;
 
   /**
    * @constructs
@@ -49,18 +50,75 @@ class ModulePsGdprBoTabDataConsentPage extends ModuleConfigurationPage implement
     this.messageCreationForm = (idLang: number) => `#psgdpr_creation_form_${idLang}_ifr`;
     this.checkboxCustomerForm = (status: boolean) => `#switch_account_customer_${status ? 'on' : 'off'}`;
     this.messageCustomerForm = (idLang: number) => `#psgdpr_customer_form_${idLang}_ifr`;
-    this.btnDropdownLangModuleForm = 'div[id^="registered_module_message_"] div.translatable-field:not([style])'
-      + ' button.dropdown-toggle';
+    this.btnDropdownLangModuleForm = (idModule: number) => `div#registered_module_message_${idModule} `
+      + 'div.translatable-field:not([style]) button.dropdown-toggle';
     this.btnDropdownItemLangModuleForm = (idLang: number) => `div.open ul.dropdown-menu a[data-id="${idLang}"]`;
-    this.checkboxModuleForm = (status: boolean) => `input[id^="switch_registered_module_"]${status ? '.yes' : '.no'}`;
-    this.messageModuleForm = (nth: number, idLang: number) => `div:nth-child(${nth + 1} of [id^="registered_module_message"]) `
+    this.checkboxModuleForm = (
+      idModule: number,
+      status: boolean,
+    ) => `input#switch_registered_module_${idModule}_${status ? 'on' : 'off'}`;
+    this.messageModuleForm = (idModule: number, idLang: number) => `div#registered_module_message_${idModule} `
       + `div.translatable-field:not([style="display:none"]) iframe[id$="_${idLang}_ifr"]`;
     this.saveButton = '#submitDataConsent';
 
-    this.nthModuleContactForm = 2;
-    this.nthModuleMailAlerts = 0;
-    this.nthModuleNewsletterSubscription = 3;
-    this.nthModuleProductComments = 1;
+    this.idModuleContactForm = null;
+    this.idModuleMailAlerts = null;
+    this.idModuleNewsletterSubscription = null;
+    this.idModuleProductComments = null;
+  }
+
+  private async fetchModulesSelectors() : Promise<void> {
+    if (this.idModuleContactForm) {
+      return;
+    }
+
+    interface IModule extends RowDataPacket {
+      id_module: number
+    }
+
+    const dbConnection = await createConnection({
+      user: global.INSTALL.DB_USER,
+      password: global.INSTALL.DB_PASSWD,
+      host: 'localhost',
+      port: 3306,
+      database: global.INSTALL.DB_NAME,
+      connectionLimit: 5,
+      //debug: true,
+    });
+
+    const [rowsContactForm] = await dbConnection.query<IModule[]>({
+      sql: `SELECT id_module FROM ${global.INSTALL.DB_PREFIX}module WHERE name = ?`,
+      values: [
+        'contactform',
+      ],
+    });
+    this.idModuleContactForm = rowsContactForm[0].id_module;
+
+    const [rowsProductComments] = await dbConnection.query<IModule[]>({
+      sql: `SELECT id_module FROM ${global.INSTALL.DB_PREFIX}module WHERE name = ?`,
+      values: [
+        'productcomments',
+      ],
+    });
+    this.idModuleProductComments = rowsProductComments[0].id_module;
+
+    const [rowsPSEmailAlerts] = await dbConnection.query<IModule[]>({
+      sql: `SELECT id_module FROM ${global.INSTALL.DB_PREFIX}module WHERE name = ?`,
+      values: [
+        'ps_emailalerts',
+      ],
+    });
+    this.idModuleMailAlerts = rowsPSEmailAlerts[0].id_module;
+
+    const [rowsPSEMailSubscription] = await dbConnection.query<IModule[]>({
+      sql: `SELECT id_module FROM ${global.INSTALL.DB_PREFIX}module WHERE name = ?`,
+      values: [
+        'ps_emailsubscription',
+      ],
+    });
+    this.idModuleNewsletterSubscription = rowsPSEMailSubscription[0].id_module;
+
+    await dbConnection.end();
   }
 
   /**
@@ -114,7 +172,8 @@ class ModulePsGdprBoTabDataConsentPage extends ModuleConfigurationPage implement
    * @returns {Promise<void>}
    */
   async setNewsletterStatus(page: Page, status: boolean): Promise<void> {
-    await page.locator(this.checkboxModuleForm(status)).nth(this.nthModuleNewsletterSubscription).setChecked(true, {
+    await this.fetchModulesSelectors();
+    await page.locator(this.checkboxModuleForm(this.idModuleNewsletterSubscription!, status)).setChecked(true, {
       force: true,
     });
   }
@@ -126,8 +185,9 @@ class ModulePsGdprBoTabDataConsentPage extends ModuleConfigurationPage implement
    * @returns {Promise<void>}
    */
   async setNewsletterMessage(page: Page, message: string): Promise<void> {
+    await this.fetchModulesSelectors();
     await this.setTinyMCEInputValue(
-      page.locator(this.messageModuleForm(this.nthModuleNewsletterSubscription, dataLanguages.english.id)).contentFrame(),
+      page.locator(this.messageModuleForm(this.idModuleNewsletterSubscription!, dataLanguages.english.id)).contentFrame(),
       message,
     );
   }
@@ -139,7 +199,8 @@ class ModulePsGdprBoTabDataConsentPage extends ModuleConfigurationPage implement
    * @returns {Promise<void>}
    */
   async setContactFormStatus(page: Page, status: boolean): Promise<void> {
-    await page.locator(this.checkboxModuleForm(status)).nth(this.nthModuleContactForm).setChecked(true, {
+    await this.fetchModulesSelectors();
+    await page.locator(this.checkboxModuleForm(this.idModuleContactForm!, status)).setChecked(true, {
       force: true,
     });
   }
@@ -151,8 +212,9 @@ class ModulePsGdprBoTabDataConsentPage extends ModuleConfigurationPage implement
    * @returns {Promise<void>}
    */
   async setContactFormMessage(page: Page, message: string): Promise<void> {
+    await this.fetchModulesSelectors();
     await this.setTinyMCEInputValue(
-      page.locator(this.messageModuleForm(this.nthModuleContactForm, dataLanguages.english.id)).contentFrame(),
+      page.locator(this.messageModuleForm(this.idModuleContactForm!, dataLanguages.english.id)).contentFrame(),
       message,
     );
   }
@@ -164,7 +226,8 @@ class ModulePsGdprBoTabDataConsentPage extends ModuleConfigurationPage implement
    * @returns {Promise<void>}
    */
   async setProductCommentsStatus(page: Page, status: boolean): Promise<void> {
-    await page.locator(this.checkboxModuleForm(status)).nth(this.nthModuleProductComments).setChecked(true, {
+    await this.fetchModulesSelectors();
+    await page.locator(this.checkboxModuleForm(this.idModuleProductComments!, status)).setChecked(true, {
       force: true,
     });
   }
@@ -176,8 +239,9 @@ class ModulePsGdprBoTabDataConsentPage extends ModuleConfigurationPage implement
    * @returns {Promise<void>}
    */
   async setProductCommentsMessage(page: Page, message: string): Promise<void> {
+    await this.fetchModulesSelectors();
     await this.setTinyMCEInputValue(
-      page.locator(this.messageModuleForm(this.nthModuleProductComments, dataLanguages.english.id)).contentFrame(),
+      page.locator(this.messageModuleForm(this.idModuleProductComments!, dataLanguages.english.id)).contentFrame(),
       message,
     );
   }
@@ -189,7 +253,8 @@ class ModulePsGdprBoTabDataConsentPage extends ModuleConfigurationPage implement
    * @returns {Promise<void>}
    */
   async setMailAlertsStatus(page: Page, status: boolean): Promise<void> {
-    await page.locator(this.checkboxModuleForm(status)).nth(this.nthModuleMailAlerts).setChecked(true, {
+    await this.fetchModulesSelectors();
+    await page.locator(this.checkboxModuleForm(this.idModuleMailAlerts!, status)).setChecked(true, {
       force: true,
     });
   }
@@ -202,11 +267,12 @@ class ModulePsGdprBoTabDataConsentPage extends ModuleConfigurationPage implement
    * @returns {Promise<void>}
    */
   async setMailAlertsMessage(page: Page, message: string, idLang: number = dataLanguages.english.id): Promise<void> {
-    await page.locator(this.btnDropdownLangModuleForm).nth(this.nthModuleMailAlerts).click();
+    await this.fetchModulesSelectors();
+    await page.locator(this.btnDropdownLangModuleForm(this.idModuleMailAlerts!)).click();
     await page.locator(this.btnDropdownItemLangModuleForm(idLang)).click();
-    await this.waitForVisibleSelector(page, this.messageModuleForm(this.nthModuleMailAlerts, idLang), 10000);
+    await this.waitForVisibleSelector(page, this.messageModuleForm(this.idModuleMailAlerts!, idLang), 10000);
     await this.setTinyMCEInputValue(
-      page.locator(this.messageModuleForm(this.nthModuleMailAlerts, idLang)).contentFrame(),
+      page.locator(this.messageModuleForm(this.idModuleMailAlerts!, idLang)).contentFrame(),
       message,
     );
   }
