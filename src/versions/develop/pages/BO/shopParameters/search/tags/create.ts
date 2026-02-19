@@ -9,21 +9,31 @@ import {type Page} from '@playwright/test';
  * @extends BOBasePage
  */
 class BOTagsCreatePage extends BOBasePage implements BOTagsCreatePageInterface {
-  public readonly pageTitleCreate: string;
+  public pageTitleCreate: string;
 
-  public readonly pageTitleEdit: string;
+  public pageTitleEdit: (name: string) => string;
 
-  private readonly nameInput: string;
+  protected nameInput: string;
 
-  private readonly languageInput: string;
+  protected languageInput: string;
 
-  private readonly productSelect: string;
+  protected saveButton: string;
 
-  private readonly moveToLeftButton: string;
+  private readonly productSearchInput: string;
 
-  private readonly moveToRightButton: string;
+  private readonly productSearchInputAutocomplete: string;
 
-  private readonly saveButton: string;
+  private readonly productSearchInputAutocompleteNth: (nth: number) => string;
+
+  private readonly productList: string;
+
+  private readonly productListItem: (nth: number) => string;
+
+  private readonly productListItemDelete: (nth: number) => string;
+
+  private readonly productModalRemove: string;
+
+  private readonly productModalRemoveConfirmBtn: string;
 
   /**
    * @constructs
@@ -32,16 +42,26 @@ class BOTagsCreatePage extends BOBasePage implements BOTagsCreatePageInterface {
   constructor() {
     super();
 
-    this.pageTitleCreate = 'Tags > Add new •';
-    this.pageTitleEdit = 'Tags > Edit:';
+    this.alertSuccessBlock = 'div.alert[role=alert] div.alert-text';
 
-    // selectors
-    this.nameInput = '#name';
-    this.languageInput = '#id_lang';
-    this.productSelect = '#select_left';
-    this.moveToLeftButton = '#move_to_left';
-    this.moveToRightButton = '#move_to_right';
-    this.saveButton = '#tag_form_submit_btn';
+    this.pageTitleCreate = `New tag • ${global.INSTALL.SHOP_NAME}`;
+    this.pageTitleEdit = (name: string) => `Editing tag "${name}" • ${global.INSTALL.SHOP_NAME}`;
+
+    // Selectors
+    this.nameInput = '#tag_name';
+    this.languageInput = '#tag_language';
+    this.saveButton = 'form[name="tag"] #save-button';
+
+    // Selectors (Product)
+    this.productSearchInput = '#tag_products_search_input';
+    this.productSearchInputAutocomplete = `${this.productSearchInput} ~ .tt-menu.tt-open`;
+    this.productSearchInputAutocompleteNth = (nth: number) => `${this.productSearchInputAutocomplete} div.tt-dataset `
+      + `div.search-suggestion:nth-child(${nth})`;
+    this.productList = '#tag_products_list';
+    this.productListItem = (nth: number) => `${this.productList} #tag_products_${nth}`;
+    this.productListItemDelete = (nth: number) => `${this.productListItem(nth)} i.entity-item-delete`;
+    this.productModalRemove = '#modal-confirm-remove-entity';
+    this.productModalRemoveConfirmBtn = `${this.productModalRemove} button.btn-confirm-submit`;
   }
 
   /* Methods */
@@ -55,13 +75,29 @@ class BOTagsCreatePage extends BOBasePage implements BOTagsCreatePageInterface {
     await this.setValue(page, this.nameInput, tagData.name);
     await this.selectByVisibleText(page, this.languageInput, tagData.language);
     // Choose product
-    await this.waitForSelectorAndClick(page, this.moveToLeftButton);
-    await this.selectByVisibleText(page, this.productSelect, tagData.products);
-    await this.waitForSelectorAndClick(page, this.moveToRightButton);
+    if (await page.locator(this.productListItem(0)).count() > 0) {
+      await page.locator(this.productListItemDelete(0)).click();
+      await page.waitForSelector(this.productModalRemove, {
+        state: 'visible',
+      });
+      await page.locator(this.productModalRemoveConfirmBtn).click();
+      await page.waitForSelector(this.productModalRemove, {
+        state: 'hidden',
+      });
+    }
+    await page.locator(this.productSearchInput).fill(tagData.products);
+    await page.waitForSelector(this.productSearchInputAutocomplete, {
+      state: 'visible',
+    });
+    await page.locator(this.productSearchInputAutocompleteNth(1)).click();
+    await page.waitForSelector(this.productListItem(0), {
+      state: 'visible',
+    });
 
     await this.clickAndWaitForURL(page, this.saveButton);
     return this.getAlertSuccessBlockContent(page);
   }
 }
 
-module.exports = new BOTagsCreatePage();
+const boTagsCreatePage = new BOTagsCreatePage();
+export {boTagsCreatePage, BOTagsCreatePage};
