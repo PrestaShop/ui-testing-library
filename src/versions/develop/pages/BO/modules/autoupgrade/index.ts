@@ -166,7 +166,7 @@ class Autoupgrade extends ModuleConfigurationPage implements ModuleAutoupgradeMa
     this.BackupConfirmButton = '#form-confirm-backup';
     this.progressBar = '#ua_step_content div.progress.log-progress__bar';
     this.backupAlertMessage = '.backup-page__container .alert-success .alert__message';
-    this.backupOptions = '#BACKUP_NAME option';
+    this.backupOptions = '#BACKUP_NAME option, #backup_name option';
     this.backupDeleteSelectionLink = '#backup_choice button[value="delete"]';
     this.backupDeleteSelectionDialog = '#ua_dialog div.dialog__content';
     this.backupCancelDeleteButton = '#ua_dialog div.dialog__footer button.btn-link';
