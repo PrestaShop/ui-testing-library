@@ -1,6 +1,8 @@
+import fs from 'fs';
 import {type ModulePsGdprBoMainPageInterface} from '@interfaces/BO/modules/psgdpr';
 import {ModuleConfigurationPage} from '@versions/develop/pages/BO/modules/moduleConfiguration';
 import {type Page} from '@playwright/test';
+import type GDPRExportCSV from '@data/types/gdpr';
 
 /**
  * Module configuration page for module : psgdpr, contains selectors and functions for the page
@@ -79,6 +81,63 @@ class PsGdprPage extends ModuleConfigurationPage implements ModulePsGdprBoMainPa
     }
 
     return this.elementVisible(page, selectorBlock, 3000);
+  }
+
+  async parseCSVFile(filePath: string | null, encoding: BufferEncoding): Promise<GDPRExportCSV[]> {
+    if (filePath === null) {
+      return [];
+    }
+    const text: string = fs.readFileSync(filePath, {encoding}).toString();
+    const textRows: string[][] = text
+      .split('\n')
+      .map((line: string) => line.split('\t'));
+
+    const data: GDPRExportCSV[] = [];
+    let hasHeaders: boolean = false;
+    let sectionTitle: string = '';
+    let sectionError: string = '';
+    let sectionHeaders: string[] = [];
+    let sectionRows: string[][] = [];
+
+    for (let r = 0; r < textRows.length; r++) {
+      const textRow: string[] = textRows[r].map((item: string) => item
+        .replaceAll(/\s/g, ' ')
+        .replaceAll('"', '')
+        .trim());
+
+      // No section title : Fetch the title
+      if (sectionTitle === '') {
+        [sectionTitle] = textRow;
+      } else if (textRow.length === 1 && textRow[0] === '') {
+        // Empty line : we change of section
+        data.push({
+          title: sectionTitle,
+          headers: sectionHeaders,
+          rows: sectionRows,
+          error: sectionError,
+        });
+        // Reset
+        hasHeaders = false;
+        sectionTitle = '';
+        sectionError = '';
+        sectionHeaders = [];
+        sectionRows = [];
+      } else if (!hasHeaders) {
+        // No header
+        if (textRow.length === 1) {
+          [sectionError] = textRow;
+        } else {
+          sectionHeaders = textRow;
+          hasHeaders = true;
+        }
+      } else if (textRow.length === 1) {
+        [sectionError] = textRow;
+      } else {
+        sectionRows.push(textRow);
+      }
+    }
+
+    return data;
   }
 }
 

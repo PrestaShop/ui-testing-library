@@ -30,6 +30,7 @@ export type {
   GlobalMaildevConfig,
   GlobalKeycloakConfig,
 } from '@data/types/globals';
+export type {default as GDPRExportCSV} from '@data/types/gdpr';
 export type {ImageTypeRegeneration, ImageTypeRegenerationSpecific} from '@data/types/imageType';
 export type {
   ImportAddress,
