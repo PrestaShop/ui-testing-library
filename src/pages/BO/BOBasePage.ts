@@ -993,7 +993,8 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
       await page.locator(this.userProfileIconNonMigratedPages).click();
     }
     await this.waitForVisibleSelector(page, this.userProfileLogoutLink);
-    await this.clickAndWaitForURL(page, this.userProfileLogoutLink);
+    await page.locator(this.userProfileLogoutLink).first().click();
+    await page.waitForURL('**/login');
   }
 
   /**
