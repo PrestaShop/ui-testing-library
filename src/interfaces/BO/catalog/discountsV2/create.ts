@@ -3,11 +3,11 @@ import {BOBasePagePageInterface} from '@interfaces/BO';
 import {type Page} from '@playwright/test';
 
 export interface BODiscountsCreatePageInterface extends BOBasePagePageInterface {
-  readonly pageTitle: string;
-  readonly errorMessageNameRequired: string;
+  readonly errorMessageDiscountValue: (discountValue: string) => string;
   readonly errorMessageMinPurchaseAmount: string;
   readonly errorMessageMinPurchaseAmountNotnumber: string;
-  readonly errorMessageDiscountValue: (discountValue: string) => string;
+  readonly errorMessageNameRequired: string;
+  readonly pageTitle: string;
 
   createDiscount(page: Page, discountData: FakerDiscount): Promise<string>;
 }

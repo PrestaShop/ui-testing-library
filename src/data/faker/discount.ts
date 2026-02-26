@@ -69,7 +69,7 @@ export default class FakerDiscount {
     /** @type {string} Name of the discount */
     this.name = discountToCreate.name || faker.commerce.department();
 
-    /** @type {string} Name of the discount */
+    /** @type {string} Description of the discount */
     this.description = faker.lorem.sentence();
 
     // Discount periode
@@ -80,42 +80,45 @@ export default class FakerDiscount {
     this.dateTo = discountToCreate.dateTo || null;
 
     // Customer eligibility
-    /** @type {string} All customers eligibility of the discount */
+    /** @type {string} True to enable all customers on the discount */
     this.allCustomers = discountToCreate.allCustomers || false;
 
-    /** @type {string} Customer groups eligibility of the discount */
+    /** @type {string} True to enable customer groups on the discount*/
     this.customerGroups = discountToCreate.customerGroups || false;
 
-    /** @type {string} Single customer eligibility of the discount */
+    /** @type {string} True to enable single customer on the discount */
     this.singleCustomer = discountToCreate.singleCustomer || false;
 
     // Product conditions
-    /** @type {string} Product condition of the discount */
+    /** @type {string} True to enable product condition on the discount */
     this.noProductCondition = discountToCreate.noProductCondition || false;
 
-    /** @type {string} Product condition of the discount */
+    /** @type {string} True to enable single product on the discount */
     this.singleProduct = discountToCreate.singleProduct || false;
 
-    /** @type {string} Product condition of the discount */
+    /** @type {string} True to enable product segment on the discount */
     this.productSegment = discountToCreate.productSegment || false;
 
     // Cart conditions
-    /** @type {string} Cart condition of the discount */
+    /** @type {string} True to enable cart condition on the discount */
     this.noCartCondition = discountToCreate.noCartCondition || false;
 
-    /** @type {string} The minimum purchase amount */
+    /** @type {string} True to enable minimum purchase on the discount */
     this.minimumPurchaseAmount = discountToCreate.minimumPurchaseAmount || false;
 
+    /** @type {string} Minimum amount value of the discount */
     this.minimumAmountValue = discountToCreate.minimumAmountValue || 50;
 
+    /** @type {string} Minimum amount currency of the discount */
     this.minimumAmountCurrency = discountToCreate.minimumAmountCurrency || 'Euro (EUR)';
 
+    /** @type {string} Minimum amout tax of the discount */
     this.minimumAmountTax = discountToCreate.minimumAmountTax || null;
 
-    /** @type {string} Minimum product quantity */
+    /** @type {string} True to enable minimum product quantity on the discount*/
     this.minimumProductQuantity = discountToCreate.minimumProductQuantity || false;
 
-    /** @type {string} Minimum product quantity */
+    /** @type {string} Minimum product quantity of the discount*/
     this.productQuantity = discountToCreate.productQuantity || 1;
 
     // Discount value
@@ -131,10 +134,10 @@ export default class FakerDiscount {
     /** @type {string} The TAX of the discount */
     this.discountTax = discountToCreate.discountTax || 'Tax included';
 
-    /** @type {string} The mode of the discount */
+    /** @type {string} True to enable create automatic discount */
     this.createAutomaticDiscount = discountToCreate.createAutomaticDiscount || false;
 
-    /** @type {string} The mode of the discount */
+    /** @type {string} True to enable Generate discount code of the discount */
     this.generateDiscountCode = discountToCreate.generateDiscountCode || false;
 
     /** @type {string} The code of the discount */
