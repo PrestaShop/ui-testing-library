@@ -224,6 +224,7 @@ export {default as boBrandsPage} from '@pages/BO/catalog/brands';
 export {default as boCarriersPage} from '@pages/BO/shipping/carriers';
 export {default as boCarriersCreatePage} from '@pages/BO/shipping/carriers/create';
 export {default as boCartRulesPage} from '@pages/BO/catalog/discounts';
+export {default as boDiscountsPage} from '@pages/BO/catalog/discounts/discounts';
 export {default as boCartRulesCreatePage} from '@pages/BO/catalog/discounts/create';
 export {default as boCatalogPriceRulesPage} from '@pages/BO/catalog/discounts/catalogPriceRules';
 export {default as boCatalogPriceRulesCreatePage} from '@pages/BO/catalog/discounts/catalogPriceRules/create';
