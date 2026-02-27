@@ -117,6 +117,12 @@ class BODiscountsCreatePage extends BOBasePage implements BODiscountsCreatePageI
   }
 
   /* Methods */
+  /**
+   * Create/Edit discount
+   * @param page {Page} Browser tab
+   * @param discountData {FakerDiscount} Data to create discount
+   * @return {Promise<string>}
+   */
   async createDiscount(page: Page, discountData: FakerDiscount): Promise<string> {
     await this.setValue(page, this.discountNameInput, discountData.name);
     await this.setValue(page, this.discountDescriptionTextarea, discountData.description);

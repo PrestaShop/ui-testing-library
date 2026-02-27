@@ -14,7 +14,7 @@ class BODiscountsPage extends BOBasePage implements BODiscountsPageInterface {
 
   private readonly createDiscountModal: string;
 
-  private readonly discountType: (id: number) => string;
+  private readonly discountType: (type: string) => string;
 
   private readonly createDiscountButton: string;
 
@@ -50,7 +50,8 @@ class BODiscountsPage extends BOBasePage implements BODiscountsPageInterface {
     // Selectors to add discount
     this.addNewDiscountButton = '#page-header-desc-configuration-add_discount';
     this.createDiscountModal = '#createDiscountModal';
-    this.discountType = (row: number) => `#discount_type_selector_discount_type_selector div.form-check-radio:nth-child(${row})`;
+    this.discountType = (type: string) => '#discount_type_selector_discount_type_selector div.form-check-radio:'
+      + `has(input[value='${type}'])`;
     this.createDiscountButton = '#discountTypeSubmit';
     // Selector to filter the table
     this.discountGridTable = '#discount_grid_table';
@@ -82,30 +83,26 @@ class BODiscountsPage extends BOBasePage implements BODiscountsPageInterface {
    * @param typeRow {number}
    */
   async selectDiscountType(page: Page, type: string): Promise<void> {
-    let i: number;
+    let discountType: string;
 
     switch (type) {
       case 'On cart amount':
-        // @ts-ignore
-        i = 1;
+        discountType = 'cart_level';
         break;
       case 'On catalog products':
-        // @ts-ignore
-        i = 2;
+        discountType = 'product_level';
         break;
       case 'Free gift':
-        // @ts-ignore
-        i = 3;
+        discountType = 'free_gift';
         break;
       case 'On free shipping':
-        // @ts-ignore
-        i = 4;
+        discountType = 'free_shipping';
         break;
       default:
         throw new Error(`Type ${type} was not found`);
     }
 
-    await page.locator(this.discountType(i)).click();
+    await page.locator(this.discountType(discountType)).click();
     await this.clickAndWaitForURL(page, this.createDiscountButton);
   }
 
