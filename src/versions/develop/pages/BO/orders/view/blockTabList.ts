@@ -534,6 +534,39 @@ class BOProductBlockTabListPage extends ViewOrderBasePage implements BOProductBl
     return this.getTextContent(page, this.documentType(rowChild));
   }
 
+  async countDocumentsType(page: Page): Promise<{creditSlips: number, deliverySlips: number, invoices: number}> {
+    await this.goToDocumentsTab(page);
+
+    const dataCount = {creditSlips: 0, deliverySlips: 0, invoices: 0};
+    const numberOfDocuments: number = await this.getNumberOfDocuments(page);
+
+    if (numberOfDocuments === 0) {
+      return dataCount;
+    }
+
+    for (let i = 1; i <= numberOfDocuments + 1; i++) {
+      const documentType = await this.getTextContent(page, this.documentType(i));
+
+      switch (documentType) {
+        case 'Credit slip':
+          dataCount.creditSlips += 1;
+          break;
+        case 'Delivery slip':
+          dataCount.deliverySlips += 1;
+          break;
+        case 'Invoice':
+          dataCount.invoices += 1;
+          // The next row is for the note
+          i += 1;
+          break;
+        default:
+          throw new Error(`"${documentType}" is not defined in boOrdersViewBlockTabListPage::countDocumentsType`);
+      }
+    }
+
+    return dataCount;
+  }
+
   /**
    * Get all documents name
    * @param page {Page} Browser tab
