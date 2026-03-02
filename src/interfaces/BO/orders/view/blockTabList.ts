@@ -18,6 +18,7 @@ export interface BOProductBlockTabListPageInterface extends BOViewOrderBasePageI
   closeMergeModal(page:Page):Promise<boolean>;
   closeOrderShippingModal(page: Page): Promise<boolean>;
   closeSplitModal(page:Page):Promise<boolean>;
+  countDocumentsType(page: Page): Promise<{creditSlips: number, deliverySlips: number, invoices: number}>;
   downloadDeliverySlip(page: Page): Promise<string | null>;
   downloadInvoice(page: Page, row?: number): Promise<string | null>;
   editShipment(page: Page, trackingNumber: string, carrier: string): Promise<boolean>;
