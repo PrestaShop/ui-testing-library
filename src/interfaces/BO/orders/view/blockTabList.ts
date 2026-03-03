@@ -1,4 +1,5 @@
 import type FakerOrderShipping from '@data/faker/orderShipping';
+import {type ProductDocument} from '@data/types/product';
 import {BOViewOrderBasePageInterface} from '@interfaces/BO/orders/view/viewOrderBasePage';
 import {type Frame, type Page} from '@playwright/test';
 
@@ -34,6 +35,7 @@ export interface BOProductBlockTabListPageInterface extends BOViewOrderBasePageI
     trackingNumber: string
   }>;
   getCarriersNumber(page: Page): Promise<number>;
+  getDocument(page: Page, rowChild?: number): Promise<ProductDocument>;
   getDocumentDate(page: Page, rowChild?: number): Promise<string>;
   getDocumentsNumber(page: Page): Promise<number>;
   getDocumentType(page: Page, rowChild?: number): Promise<string>;

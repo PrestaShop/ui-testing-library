@@ -1,4 +1,5 @@
 import type FakerOrderShipping from '@data/faker/orderShipping';
+import {type ProductDocument} from '@data/types/product';
 import {type BOProductBlockTabListPageInterface} from '@interfaces/BO/orders/view/blockTabList';
 import {type Frame, type Page} from '@playwright/test';
 import {ViewOrderBasePage} from '@versions/develop/pages/BO/orders/view/viewOrderBasePage';
@@ -496,6 +497,46 @@ class BOProductBlockTabListPage extends ViewOrderBasePage implements BOProductBl
     return this.getAlertSuccessBlockParagraphContent(page);
   }
 
+  async getDocument(page: Page, rowChild: number = 1): Promise<ProductDocument> {
+    const numberOfDocuments: number = await this.getNumberOfDocuments(page);
+    let varRowChild = rowChild;
+
+    if (numberOfDocuments > 0) {
+      const numRows: number = await this.getNumberOfDocumentRows(page);
+
+      for (let nthRow = 1; nthRow <= numRows; nthRow++) {
+        const documentType = await this.getTextContent(page, this.documentType(nthRow));
+
+        if (nthRow === varRowChild) {
+          return {
+            date: await this.getTextContent(page, this.documentDate(varRowChild)),
+            type: documentType,
+            number: await this.getTextContent(page, this.documentNumberLink(varRowChild)),
+          };
+        }
+
+        switch (documentType) {
+          case 'Credit slip':
+          case 'Delivery slip':
+            break;
+          case 'Invoice':
+            // The next row is for the note
+            varRowChild += 1;
+            nthRow += 1;
+            break;
+          default:
+            throw new Error(`"${documentType}" is not defined in boOrdersViewBlockTabListPage::getDocument`);
+        }
+      }
+    }
+
+    return {
+      date: '',
+      type: '',
+      number: '',
+    };
+  }
+
   /**
    * Get file name
    * @param page {Page} Browser tab
@@ -505,9 +546,9 @@ class BOProductBlockTabListPage extends ViewOrderBasePage implements BOProductBl
   async getFileName(page: Page, rowChild: number = 1): Promise<string> {
     await this.goToDocumentsTab(page);
 
-    const fileName = await this.getTextContent(page, this.documentNumberLink(rowChild));
+    const document = await this.getDocument(page, rowChild);
 
-    return fileName.replace('#', '').trim();
+    return document.number.replace('#', '').trim();
   }
 
   /**
@@ -519,7 +560,9 @@ class BOProductBlockTabListPage extends ViewOrderBasePage implements BOProductBl
   async getDocumentDate(page: Page, rowChild: number = 1): Promise<string> {
     await this.goToDocumentsTab(page);
 
-    return this.getTextContent(page, this.documentDate(rowChild));
+    const document = await this.getDocument(page, rowChild);
+
+    return document.date;
   }
 
   /**
@@ -531,7 +574,9 @@ class BOProductBlockTabListPage extends ViewOrderBasePage implements BOProductBl
   async getDocumentType(page: Page, rowChild: number = 1): Promise<string> {
     await this.goToDocumentsTab(page);
 
-    return this.getTextContent(page, this.documentType(rowChild));
+    const document = await this.getDocument(page, rowChild);
+
+    return document.type;
   }
 
   async countDocumentsType(page: Page): Promise<{creditSlips: number, deliverySlips: number, invoices: number}> {
@@ -544,10 +589,12 @@ class BOProductBlockTabListPage extends ViewOrderBasePage implements BOProductBl
       return dataCount;
     }
 
-    for (let i = 1; i <= numberOfDocuments + 1; i++) {
-      const documentType = await this.getTextContent(page, this.documentType(i));
+    const numDocuments: number = await this.getNumberOfDocuments(page);
 
-      switch (documentType) {
+    for (let i = 1; i <= numDocuments; i++) {
+      const document = await this.getDocument(page, i);
+
+      switch (document.type) {
         case 'Credit slip':
           dataCount.creditSlips += 1;
           break;
@@ -556,11 +603,9 @@ class BOProductBlockTabListPage extends ViewOrderBasePage implements BOProductBl
           break;
         case 'Invoice':
           dataCount.invoices += 1;
-          // The next row is for the note
-          i += 1;
           break;
         default:
-          throw new Error(`"${documentType}" is not defined in boOrdersViewBlockTabListPage::countDocumentsType`);
+          throw new Error(`"${document.type}" (#${i}) is not defined in boOrdersViewBlockTabListPage::countDocumentsType`);
       }
     }
 
@@ -573,16 +618,25 @@ class BOProductBlockTabListPage extends ViewOrderBasePage implements BOProductBl
    * @returns {Promise<string[]>}
    */
   async getAllDocumentsName(page: Page): Promise<string[]> {
-    const numberOfDocuments: number = await this.getNumberOfDocuments(page);
+    const numDocuments: number = await this.getNumberOfDocuments(page);
     const columnNames: string[] = [];
 
-    for (let i = 1; i <= numberOfDocuments + 1; i++) {
-      if (i !== 2) {
-        columnNames.push(await this.getTextContent(page, this.documentType(i)));
-      }
+    for (let i = 1; i <= numDocuments; i++) {
+      const document = await this.getDocument(page, i);
+
+      columnNames.push(document.type);
     }
 
     return columnNames;
+  }
+
+  /**
+   * Get number of documents
+   * @param page {Page} Browser tab
+   * @returns {Promise<number>}
+   */
+  private async getNumberOfDocumentRows(page: Page): Promise<number> {
+    return page.locator(`${this.documentsTableBody} tr`).count();
   }
 
   /**

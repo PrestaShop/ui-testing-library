@@ -78,6 +78,12 @@ type ProductCombination = {
   price: number
 };
 
+type ProductDocument = {
+  date: string
+  type: string
+  number: string
+}
+
 type ProductFeatures = {
   featureName: string,
   preDefinedValue?: string,
@@ -289,6 +295,7 @@ export type {
   ProductDetailsBasic,
   ProductDetailsWithDiscount,
   ProductDiscount,
+  ProductDocument,
   ProductFilterMinMax,
   ProductHeaderSummary,
   ProductImageUrls,
