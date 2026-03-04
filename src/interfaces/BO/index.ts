@@ -77,6 +77,7 @@ export interface BOBasePagePageInterface extends CommonPageInterface {
   readonly trafficAndSeoLink: string;
   readonly translationsLink: string;
   readonly updateAssistantLink: string;
+  readonly wallOfFameLink: string;
   readonly webserviceLink: string;
 
   addCurrentPageToQuickAccess(page: Page, pageName: string): Promise<string | null>;

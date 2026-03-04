@@ -223,6 +223,8 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
 
   public readonly menuTabLink: string;
 
+  public readonly wallOfFameLink: string;
+
   public readonly updateAssistantLink: string;
 
   public readonly menuTree: { parent: string; children: string[] }[];
@@ -503,6 +505,9 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
     this.multistoreLink = '#subtab-AdminShopGroup';
     // Deprecated tab used for regression test
     this.menuTabLink = '#subtab-AdminTabs';
+
+    // Community > Wall of Fame
+    this.wallOfFameLink = '#subtab-AdminPsdistributionapiclient';
 
     // Update assistant
     this.updateAssistantLink = '#subtab-AdminSelfUpgrade';
