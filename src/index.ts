@@ -67,6 +67,7 @@ export type {
   ProductCombinationOptions,
   ProductDetailsBasic,
   ProductDiscount,
+  ProductDocument,
   ProductFeatures,
   ProductFilterMinMax,
   ProductHeaderSummary,
