@@ -20,10 +20,12 @@ class BOProductsCreatePageVersion extends BOProductsCreatePage implements BOProd
 
   public readonly newProductInDropDow: string;
 
+  public readonly saveProductDropDownButton: string;
+
   /**
-     * @constructs
-     * Setting up texts and selectors to use on create product page
-     */
+   * @constructs
+   * Setting up texts and selectors to use on create product page
+   */
   constructor() {
     super();
 
@@ -36,7 +38,9 @@ class BOProductsCreatePageVersion extends BOProductsCreatePage implements BOProd
     this.tabLink = (tabName: string) => `#tab_step${tabName}`;
     this.productOnlineTitle = 'h2.for-switch.online-title';
     this.productActiveSwitchButtonToggleInput = '.product-footer div.switch-input';
-    this.saveProductButton = '#form div.product-footer button.btn-primary[type="submit"]';
+    // Save button from dropdown list
+    this.saveProductDropDownButton = '#form div.product-footer button.btn-primary[type="submit"]';
+    this.saveProductButton = '#submit';
     this.previewProductButton = '#product_form_preview_btn';
     this.deleteProductLink = '.product-footer a.delete';
     this.footerProductDropDown = '#dropdownMenu';
@@ -47,12 +51,12 @@ class BOProductsCreatePageVersion extends BOProductsCreatePage implements BOProd
   }
 
   /**
-     * Set product name
-     * @param page {Page} Browser tab
-     * @param name {string} Name of the product
-     * @param locale {string} Locale
-     * @returns {Promise<void>}
-     */
+   * Set product name
+   * @param page {Page} Browser tab
+   * @param name {string} Name of the product
+   * @param locale {string} Locale
+   * @returns {Promise<void>}
+   */
   async setProductName(page: Page, name: string, locale: string = 'en'): Promise<void> {
     await this.selectByVisibleText(page, this.productNameLanguageButton, locale);
     await this.setValue(page, this.productNameInput(locale), name);
@@ -84,13 +88,13 @@ class BOProductsCreatePageVersion extends BOProductsCreatePage implements BOProd
   }
 
   /**
-     * Go to a tab
-     * @param page {Page} Browser tab
-     * @param tabName {'combinations'|'description'|'details'|'options'|'pricing'|'seo'|'shipping'|'stock'} Name of the tab
-     * @returns {Promise<void>}
-     */
+   * Go to a tab
+   * @param page {Page} Browser tab
+   * @param tabName {'combinations'|'description'|'details'|'options'|'pricing'|'seo'|'shipping'|'stock'} Name of the tab
+   * @returns {Promise<void>}
+   */
   async goToTab(page: Page, tabName: string): Promise<void> {
-    let tabId :string = '1';
+    let tabId: string = '1';
 
     switch (tabName) {
       case 'basic settings':
@@ -124,7 +128,11 @@ class BOProductsCreatePageVersion extends BOProductsCreatePage implements BOProd
    * @returns {Promise<string>}
    */
   async saveProduct(page: Page): Promise<string> {
-    await page.click(this.saveProductButton);
+    if (await this.elementVisible(page, this.saveProductDropDownButton)) {
+      await page.click(this.saveProductDropDownButton);
+    } else {
+      await page.locator(this.saveProductButton).click();
+    }
     const growlTextMessage = await this.getGrowlMessageContent(page, 30000);
     await this.closeGrowlMessage(page);
 
