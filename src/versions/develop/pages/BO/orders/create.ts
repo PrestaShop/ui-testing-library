@@ -407,6 +407,17 @@ class BOOrderCreatePage extends BOBasePage implements BOOrdersCreatePageInterfac
   }
 
   /**
+   * Click on add new customer button
+   * @param page {Page} Browser tab
+   * @returns {Promise<boolean>}
+   */
+  async clickOnAddNewCustomerButton(page: Page): Promise<boolean> {
+    await page.locator(this.addCustomerLink).click();
+
+    return this.elementVisible(page, this.iframe, 5000);
+  }
+
+  /**
    * Click on add new customer and new customer iFrame
    * @param page {Page} Browser tab
    * @param customerData {FakerCustomer} Customer data fake object

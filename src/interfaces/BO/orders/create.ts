@@ -33,6 +33,7 @@ export interface BOOrdersCreatePageInterface extends BOBasePagePageInterface {
   chooseDeliveryAddress(page: Page, deliveryAddress: string): Promise<string>;
   chooseInvoiceAddress(page: Page, invoiceAddress: string): Promise<string>;
   clickOnAddNewAddressButton(page: Page): Promise<boolean>;
+  clickOnAddNewCustomerButton(page: Page): Promise<boolean>;
   clickOnAddVoucherButton(page: Page): Promise<boolean>;
   clickOnCartDetailsButton(page: Page, row?: number): Promise<boolean>;
   clickOnCartUseButton(page: Page, row?: number): Promise<boolean>;
