@@ -1,5 +1,5 @@
 import type FakerOrderShipping from '@data/faker/orderShipping';
-import {type ProductDocument} from '@data/types/product';
+import {type ProductDocumentType, type ProductDocument} from '@data/types/product';
 import {BOViewOrderBasePageInterface} from '@interfaces/BO/orders/view/viewOrderBasePage';
 import {type Frame, type Page} from '@playwright/test';
 
@@ -35,10 +35,10 @@ export interface BOProductBlockTabListPageInterface extends BOViewOrderBasePageI
     trackingNumber: string
   }>;
   getCarriersNumber(page: Page): Promise<number>;
-  getDocument(page: Page, rowChild?: number): Promise<ProductDocument>;
+  getDocument(page: Page, row?: number, filterType?: ProductDocumentType|null): Promise<ProductDocument>;
   getDocumentDate(page: Page, rowChild?: number): Promise<string>;
   getDocumentsNumber(page: Page): Promise<number>;
-  getDocumentType(page: Page, rowChild?: number): Promise<string>;
+  getDocumentType(page: Page, rowChild?: number): Promise<ProductDocumentType|null>;
   getFileName(page: Page, rowChild?: number): Promise<string>;
   getGiftMessage(page: Page): Promise<string>;
   getMerchandiseReturnsDetails(page: Page, row?: number): Promise<{

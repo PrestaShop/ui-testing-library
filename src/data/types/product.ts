@@ -80,9 +80,11 @@ type ProductCombination = {
 
 type ProductDocument = {
   date: string
-  type: string
+  type: ProductDocumentType | null
   number: string
 }
+
+type ProductDocumentType = 'Credit slip' | 'Delivery slip' | 'Invoice';
 
 type ProductFeatures = {
   featureName: string,
@@ -296,6 +298,7 @@ export type {
   ProductDetailsWithDiscount,
   ProductDiscount,
   ProductDocument,
+  ProductDocumentType,
   ProductFilterMinMax,
   ProductHeaderSummary,
   ProductImageUrls,

@@ -1,5 +1,5 @@
 import type FakerOrderShipping from '@data/faker/orderShipping';
-import {type ProductDocument} from '@data/types/product';
+import {ProductDocumentType, type ProductDocument} from '@data/types/product';
 import {type BOProductBlockTabListPageInterface} from '@interfaces/BO/orders/view/blockTabList';
 import {type Frame, type Page} from '@playwright/test';
 import {ViewOrderBasePage} from '@versions/develop/pages/BO/orders/view/viewOrderBasePage';
@@ -497,44 +497,60 @@ class BOProductBlockTabListPage extends ViewOrderBasePage implements BOProductBl
     return this.getAlertSuccessBlockParagraphContent(page);
   }
 
-  async getDocument(page: Page, rowChild: number = 1): Promise<ProductDocument> {
+  async getDocument(page: Page, nth: number = 1, filterType: ProductDocumentType|null = null): Promise<ProductDocument> {
     const numberOfDocuments: number = await this.getNumberOfDocuments(page);
-    let varRowChild = rowChild;
+    const emptyDoc: ProductDocument = {
+      date: '',
+      type: null,
+      number: '',
+    };
+    let varNth = nth;
+    let filterNth = 1;
 
-    if (numberOfDocuments > 0) {
-      const numRows: number = await this.getNumberOfDocumentRows(page);
+    if (numberOfDocuments === 0) {
+      return emptyDoc;
+    }
 
-      for (let nthRow = 1; nthRow <= numRows; nthRow++) {
-        const documentType = await this.getTextContent(page, this.documentType(nthRow));
+    const numRows: number = await this.getNumberOfDocumentRows(page);
 
-        if (nthRow === varRowChild) {
+    for (let nthRow = 1; nthRow <= numRows; nthRow++) {
+      const documentType = await this.getTextContent(page, this.documentType(nthRow));
+
+      if (filterType === null) {
+        // Filter : No filter
+
+        if (nthRow === varNth) {
           return {
-            date: await this.getTextContent(page, this.documentDate(varRowChild)),
-            type: documentType,
-            number: await this.getTextContent(page, this.documentNumberLink(varRowChild)),
+            date: await this.getTextContent(page, this.documentDate(nthRow)),
+            type: documentType as ProductDocumentType,
+            number: await this.getTextContent(page, this.documentNumberLink(nthRow)),
           };
         }
-
-        switch (documentType) {
-          case 'Credit slip':
-          case 'Delivery slip':
-            break;
-          case 'Invoice':
-            // The next row is for the note
-            varRowChild += 1;
-            nthRow += 1;
-            break;
-          default:
-            throw new Error(`"${documentType}" is not defined in boOrdersViewBlockTabListPage::getDocument`);
+        if (documentType === 'Invoice') {
+          // The next row is for the note
+          varNth += 1;
         }
+      } else if (filterType === documentType) {
+        // Filter : Equals to Parameter
+
+        if (filterNth === varNth) {
+          return {
+            date: await this.getTextContent(page, this.documentDate(nthRow)),
+            type: documentType as ProductDocumentType,
+            number: await this.getTextContent(page, this.documentNumberLink(nthRow)),
+          };
+        }
+        filterNth += 1;
+      }
+
+      // Specific case :
+      if (documentType === 'Invoice') {
+        // The next row is for the note
+        nthRow += 1;
       }
     }
 
-    return {
-      date: '',
-      type: '',
-      number: '',
-    };
+    return emptyDoc;
   }
 
   /**
@@ -569,9 +585,9 @@ class BOProductBlockTabListPage extends ViewOrderBasePage implements BOProductBl
    * Get document name
    * @param page {Page} Browser tab
    * @param rowChild {number} Document row on table
-   * @returns {Promise<string>}
+   * @returns {Promise<ProductDocumentType|null>}
    */
-  async getDocumentType(page: Page, rowChild: number = 1): Promise<string> {
+  async getDocumentType(page: Page, rowChild: number = 1): Promise<ProductDocumentType|null> {
     await this.goToDocumentsTab(page);
 
     const document = await this.getDocument(page, rowChild);
@@ -619,12 +635,12 @@ class BOProductBlockTabListPage extends ViewOrderBasePage implements BOProductBl
    */
   async getAllDocumentsName(page: Page): Promise<string[]> {
     const numDocuments: number = await this.getNumberOfDocuments(page);
-    const columnNames: string[] = [];
+    const columnNames: ProductDocumentType[] = [];
 
     for (let i = 1; i <= numDocuments; i++) {
       const document = await this.getDocument(page, i);
 
-      columnNames.push(document.type);
+      columnNames.push(document.type as ProductDocumentType);
     }
 
     return columnNames;
