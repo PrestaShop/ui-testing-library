@@ -37,7 +37,7 @@ class FoMyOrderDetailsPage extends FoMyOrderDetailsPageClassic implements FoMyOr
 
     // Shipment tracking details selectors
     this.carrierGridTable = 'section.order-carriers';
-    this.carriersTableTr =  `${this.carrierGridTable} div.grid-table__row`;
+    this.carriersTableTr = `${this.carrierGridTable} div.grid-table__row`;
     this.carrierTableRow = (row: number) => `${this.carriersTableTr}:nth-child(${row + 1})`;
     this.carrierTableBodyColumn = (row: number, columnName: string) => `${this.carrierTableRow(row)} `
       + `span[data-ps-label='${columnName}']`;
