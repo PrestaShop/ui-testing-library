@@ -162,6 +162,7 @@ class ShippingTab extends BOBasePage implements BOProductsCreateTabShippingPageI
   async selectAvailableCarrier(page: Page, carrierRow: number): Promise<void> {
     await page.locator(this.allCarriersSelect).click();
     await this.setChecked(page, this.availableCarrierCheckboxButton(carrierRow));
+    await page.locator(this.allCarriersSelect).click();
   }
 
   /**

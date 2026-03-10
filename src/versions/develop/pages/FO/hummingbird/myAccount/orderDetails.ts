@@ -27,7 +27,8 @@ class FoMyOrderDetailsPage extends FoMyOrderDetailsPageClassic implements FoMyOr
     this.tableBodyColumn = (row: number, column: number) => `${this.tableBodyRow(row)} span:nth-child(${column})`;
 
     // Order product table content
-    this.productName = (row, column) => `${this.tableBodyColumn(row, column)} a.order-product__name`;
+    this.productName = (row: number, column: number) => `${this.tableBodyColumn(row, column)} a.order-product__name`;
+    this.productQuantity = (row: number) => `${this.tableBodyRow(row)} span[data-ps-label="Quantity"]`;
 
     // Add message form selectors
     this.boxMessagesBlock = 'div.order-message__content';
@@ -36,7 +37,8 @@ class FoMyOrderDetailsPage extends FoMyOrderDetailsPageClassic implements FoMyOr
 
     // Shipment tracking details selectors
     this.carrierGridTable = 'section.order-carriers';
-    this.carrierTableRow = (row: number) => `${this.carrierGridTable} div.grid-table__row:nth-child(${row + 1})`;
+    this.carriersTableTr =  `${this.carrierGridTable} div.grid-table__row`;
+    this.carrierTableRow = (row: number) => `${this.carriersTableTr}:nth-child(${row + 1})`;
     this.carrierTableBodyColumn = (row: number, columnName: string) => `${this.carrierTableRow(row)} `
       + `span[data-ps-label='${columnName}']`;
   }
