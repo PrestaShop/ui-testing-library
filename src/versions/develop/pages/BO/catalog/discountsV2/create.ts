@@ -108,7 +108,7 @@ class BODiscountsCreatePage extends BOBasePage implements BODiscountsCreatePageI
     this.discountValueInput = '#discount_value_reduction_value_amount';
     this.discountReductionTypeSelect = '#discount_value_reduction_type';
     this.discountIncludTaxSelect = '#discount_value_reduction_include_tax';
-    // Usability cinditions
+    // Usability conditions
     this.createAutomaticDiscountRadioButton = '#discount_usability_mode_children_selector_0';
     this.generateDiscountModeRadioButton = '#discount_usability_mode_children_selector_1';
     this.discountCodeInput = '#discount_usability_mode_code';
