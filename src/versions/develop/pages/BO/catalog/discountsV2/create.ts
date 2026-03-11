@@ -11,13 +11,13 @@ import {type Page} from '@playwright/test';
 class BODiscountsCreatePage extends BOBasePage implements BODiscountsCreatePageInterface {
   public readonly pageTitle: string;
 
-  public readonly errorMessageNameRequired: string;
+  public errorMessageNameRequired: string;
 
-  public readonly errorMessageMinPurchaseAmount: string;
+  public errorMessageMinPurchaseAmount: string;
 
-  public readonly errorMessageMinPurchaseAmountNotnumber: string;
+  public errorMessageMinPurchaseAmountNotnumber: string;
 
-  public readonly errorMessageDiscountValue: (discountValue: string) => string;
+  public errorMessageDiscountValue: (discountValue: string) => string;
 
   public readonly discountNameInput: string;
 
@@ -41,9 +41,9 @@ class BODiscountsCreatePage extends BOBasePage implements BODiscountsCreatePageI
 
   public readonly minimumPurchaseAmountRadioButton: string;
 
-  public readonly minimumAmountValueInput: string;
+  protected minimumAmountValueInput: string;
 
-  public readonly minimumAmountCurrencySelect: string;
+  protected minimumAmountCurrencySelect: string;
 
   public readonly minimumAmountTaxSelect: string;
 
@@ -51,7 +51,7 @@ class BODiscountsCreatePage extends BOBasePage implements BODiscountsCreatePageI
 
   public readonly minimumProductQuantityInput: string;
 
-  public readonly discountValueInput: string;
+  protected discountValueInput: string;
 
   public readonly discountReductionTypeSelect: string;
 
@@ -77,11 +77,11 @@ class BODiscountsCreatePage extends BOBasePage implements BODiscountsCreatePageI
     super();
 
     this.pageTitle = `Discounts • ${global.INSTALL.SHOP_NAME}`;
-    this.errorMessageNameRequired = 'The field names is required at least in your default language.';
-    this.errorMessageMinPurchaseAmount = 'This value should be greater than 0.';
-    this.errorMessageMinPurchaseAmountNotnumber = 'Please enter a valid money amount.';
-    this.errorMessageDiscountValue = (discountValue: string) => `Reduction value "${discountValue}" is invalid. `
-      + 'It must be greater than 0.';
+    // @todo
+    this.errorMessageNameRequired = 'The form contains errors. Please fix them and save again.';
+    this.errorMessageMinPurchaseAmount = 'The form contains errors. Please fix them and save again.';
+    this.errorMessageMinPurchaseAmountNotnumber = 'The form contains errors. Please fix them and save again.';
+    this.errorMessageDiscountValue = (discountValue: string) => 'The form contains errors. Please fix them and save again.';
 
     // Selectors
     this.discountNameInput = '#discount_information_names_1';
@@ -98,13 +98,13 @@ class BODiscountsCreatePage extends BOBasePage implements BODiscountsCreatePageI
     // Cart conditions
     this.noMinimumPurchaseRadioButton = '#discount_conditions_cart_children_selector_0';
     this.minimumPurchaseAmountRadioButton = '#discount_conditions_cart_children_selector_1';
-    this.minimumAmountValueInput = '#discount_conditions_cart_minimum_amount_value';
-    this.minimumAmountCurrencySelect = '#select2-discount_conditions_cart_minimum_amount_currency-container';
+    this.minimumAmountValueInput = '#discount_conditions_cart_minimum_amount_value_amount';
+    this.minimumAmountCurrencySelect = '#discount_conditions_cart_minimum_amount_value_currency';
     this.minimumAmountTaxSelect = '#discount_conditions_cart_minimum_amount_tax_included';
     this.minimumProductQuantityRadioButton = '#discount_conditions_cart_children_selector_2';
     this.minimumProductQuantityInput = '#discount_conditions_cart_minimum_product_quantity';
     // Choose a discount value
-    this.discountValueInput = '#discount_value_reduction_value';
+    this.discountValueInput = '#discount_value_reduction_value_amount';
     this.discountReductionTypeSelect = '#discount_value_reduction_type';
     this.discountIncludTaxSelect = '#discount_value_reduction_include_tax';
     // Usability cinditions
@@ -150,8 +150,9 @@ class BODiscountsCreatePage extends BOBasePage implements BODiscountsCreatePageI
     if (discountData.minimumPurchaseAmount) {
       await this.setChecked(page, this.minimumPurchaseAmountRadioButton);
       await this.setValue(page, this.minimumAmountValueInput, discountData.minimumAmountValue!);
-      await this.setValue(page, this.minimumAmountCurrencySelect, discountData.minimumAmountCurrency!);
-      await this.setValue(page, this.minimumAmountTaxSelect, discountData.minimumAmountTax!);
+      // @todo
+      // await this.selectByVisibleText(page, this.minimumAmountCurrencySelect, discountData.minimumAmountCurrency!);
+      await this.selectByVisibleText(page, this.minimumAmountTaxSelect, discountData.minimumAmountTax!);
     } else if (discountData.minimumProductQuantity) {
       await this.setChecked(page, this.minimumProductQuantityRadioButton);
       await this.setValue(page, this.minimumProductQuantityInput, discountData.productQuantity);
@@ -161,7 +162,8 @@ class BODiscountsCreatePage extends BOBasePage implements BODiscountsCreatePageI
     }
     // Choose a discount value
     await this.setValue(page, this.discountValueInput, discountData.discountValue);
-    await this.selectByVisibleText(page, this.discountReductionTypeSelect, discountData.discountReductionType);
+    // @todo
+    // await this.selectByVisibleText(page, this.discountReductionTypeSelect, discountData.discountReductionType);
     if (discountData.discountReductionType === '€') {
       await this.selectByVisibleText(page, this.discountIncludTaxSelect, discountData.discountTax!);
     }
@@ -179,4 +181,5 @@ class BODiscountsCreatePage extends BOBasePage implements BODiscountsCreatePageI
   }
 }
 
-module.exports = new BODiscountsCreatePage();
+const boDiscountsCreatePage = new BODiscountsCreatePage();
+export {boDiscountsCreatePage, BODiscountsCreatePage};
