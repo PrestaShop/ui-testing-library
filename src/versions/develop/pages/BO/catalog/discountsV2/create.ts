@@ -81,8 +81,7 @@ class BODiscountsCreatePage extends BOBasePage implements BODiscountsCreatePageI
     this.errorMessageNameRequired = 'The form contains errors. Please fix them and save again.';
     this.errorMessageMinPurchaseAmount = 'The form contains errors. Please fix them and save again.';
     this.errorMessageMinPurchaseAmountNotnumber = 'The form contains errors. Please fix them and save again.';
-    // @ts-ignore
-    this.errorMessageDiscountValue = 'The form contains errors. Please fix them and save again.';
+    this.errorMessageDiscountValue = () => 'The form contains errors. Please fix them and save again.';
 
     // Selectors
     this.discountNameInput = '#discount_information_names_1';
