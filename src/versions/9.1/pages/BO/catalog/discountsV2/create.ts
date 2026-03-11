@@ -18,7 +18,7 @@ class BODiscountsCreatePage extends BODiscountsCreatePageVersion implements BODi
     this.errorMessageMinPurchaseAmountNotnumber = 'Please enter a valid money amount.';
     this.errorMessageDiscountValue = (discountValue: string) => `Reduction value "${discountValue}" is invalid. `
       + 'It must be greater than 0.';
-    
+
     // Selectors
     this.minimumAmountValueInput = '#discount_conditions_cart_minimum_amount_value';
     this.minimumAmountCurrencySelect = '#select2-discount_conditions_cart_minimum_amount_currency-container';
