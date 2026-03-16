@@ -51,6 +51,7 @@ export default {
    * * `` => `99.99.99`
    * * `develop` => `99.99.99`
    * * `nightly` => `99.99.99`
+   * * `9.1.0-4.0-rc.1` => `9.1.0`
    * @returns string
    */
   getPSVersion(): string {
@@ -59,7 +60,9 @@ export default {
       || process.env.PS_VERSION === 'nightly') {
       return '99.99.99';
     }
-    const version: string = process.env.PS_VERSION;
+    const versions: string[] = process.env.PS_VERSION.split('-');
+
+    const version: string = versions.at(0) ?? '';
 
     return version
       .replace(/\.x$/, '.99')
