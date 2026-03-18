@@ -59,6 +59,7 @@ export interface BOOrdersCreatePageInterface extends BOBasePagePageInterface {
   getDeliveryOptions(page: Page): Promise<string>;
   getEditAddressIframe(page: Page): Frame | null;
   getInvoiceAddressDetails(page: Page): Promise<string>;
+  getNewCustomerIframe(page: Page): Frame | null;
   getNoCustomerFoundError(page: Page): Promise<string>;
   getOrderIframe(page: Page, orderID: number): Frame | null;
   getOrdersNumber(page: Page): Promise<number>;

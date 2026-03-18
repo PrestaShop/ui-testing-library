@@ -17,11 +17,13 @@ const risksRating: string[] = ['None', 'Low', 'Medium', 'High'];
 export default class FakerCustomer {
   public readonly id: number;
 
+  public readonly guestAccount: boolean;
+
   public readonly socialTitle: string;
 
   public readonly firstName: string;
 
-  public readonly lastName: string;
+  public readonly lastName: string | null;
 
   public email: string;
 
@@ -57,6 +59,9 @@ export default class FakerCustomer {
     /** @type {number} ID of the customer */
     this.id = customerToCreate.id || 0;
 
+    /** @type {boolean} True to enable guest account */
+    this.guestAccount = customerToCreate.guestAccount === undefined ? false : customerToCreate.guestAccount;
+
     /** @type {string} Social title of the customer (Mr, Mrs) */
     this.socialTitle = customerToCreate.socialTitle || faker.helpers.arrayElement(genders);
 
@@ -64,13 +69,13 @@ export default class FakerCustomer {
     this.firstName = customerToCreate.firstName || faker.person.firstName();
 
     /** @type {string} Lastname of the customer */
-    this.lastName = customerToCreate.lastName || faker.person.lastName();
+    this.lastName = customerToCreate.lastName === undefined ? faker.person.lastName() : customerToCreate.lastName;
 
     /** @type {string} Email for the customer account */
     this.email = customerToCreate.email || faker.internet.email(
       {
         firstName: this.firstName,
-        lastName: this.lastName,
+        lastName: this.lastName!,
         provider: 'prestashop.com',
       },
     );
