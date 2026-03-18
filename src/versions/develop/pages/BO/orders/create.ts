@@ -418,14 +418,25 @@ class BOOrderCreatePage extends BOBasePage implements BOOrdersCreatePageInterfac
   }
 
   /**
+   * Get new customer frame
+   * @param page {Page} Browser tab
+   * @return {*}
+   */
+  getNewCustomerIframe(page: Page): Frame | null {
+    return page.frame({url: /sell\/customers\/new/gmi});
+  }
+
+  /**
    * Click on add new customer and new customer iFrame
    * @param page {Page} Browser tab
    * @param customerData {FakerCustomer} Customer data fake object
    * @returns {Promise<string>}
    */
   async addNewCustomer(page: Page, customerData: FakerCustomer): Promise<string> {
-    await page.locator(this.addCustomerLink).click();
-    await this.waitForVisibleSelector(page, this.iframe);
+    if (await this.elementNotVisible(page, this.iframe)) {
+      await page.locator(this.addCustomerLink).click();
+      await this.waitForVisibleSelector(page, this.iframe);
+    }
 
     const customerFrame = page.frame({url: /sell\/customers\/new/gmi});
 

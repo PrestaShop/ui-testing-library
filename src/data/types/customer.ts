@@ -1,8 +1,9 @@
 export type CustomerCreator = {
   id?: number
+  guestAccount?: boolean
   socialTitle?: string
   firstName?: string
-  lastName?: string
+  lastName?: string|null
   birthdate?: string
   yearOfBirth?: string
   monthOfBirth?: string
