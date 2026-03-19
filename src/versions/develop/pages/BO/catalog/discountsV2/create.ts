@@ -11,6 +11,8 @@ import {type Page} from '@playwright/test';
 class BODiscountsCreatePage extends BOBasePage implements BODiscountsCreatePageInterface {
   public readonly pageTitle: string;
 
+  public errorMessage: string;
+
   public errorMessageNameRequired: string;
 
   public errorMessageMinPurchaseAmount: string;
@@ -18,6 +20,8 @@ class BODiscountsCreatePage extends BOBasePage implements BODiscountsCreatePageI
   public errorMessageMinPurchaseAmountNotnumber: string;
 
   public errorMessageDiscountValue: (discountValue: string) => string;
+
+  public readonly discountInformationBlock: string;
 
   public readonly discountNameInput: string;
 
@@ -37,6 +41,8 @@ class BODiscountsCreatePage extends BOBasePage implements BODiscountsCreatePageI
 
   public readonly productSegmentRadioButton: string;
 
+  public readonly discountConditionCartBlock: string;
+
   public readonly noMinimumPurchaseRadioButton: string;
 
   public readonly minimumPurchaseAmountRadioButton: string;
@@ -50,6 +56,8 @@ class BODiscountsCreatePage extends BOBasePage implements BODiscountsCreatePageI
   public readonly minimumProductQuantityRadioButton: string;
 
   public readonly minimumProductQuantityInput: string;
+
+  public readonly discountValueBlock: string;
 
   protected discountValueInput: string;
 
@@ -78,12 +86,15 @@ class BODiscountsCreatePage extends BOBasePage implements BODiscountsCreatePageI
 
     this.pageTitle = `Discounts • ${global.INSTALL.SHOP_NAME}`;
     // @todo
-    this.errorMessageNameRequired = 'The form contains errors. Please fix them and save again.';
-    this.errorMessageMinPurchaseAmount = 'The form contains errors. Please fix them and save again.';
-    this.errorMessageMinPurchaseAmountNotnumber = 'The form contains errors. Please fix them and save again.';
-    this.errorMessageDiscountValue = () => 'The form contains errors. Please fix them and save again.';
+    this.errorMessage = 'The form contains errors. Please fix them and save again.';
+    this.errorMessageNameRequired = 'The field names is required at least in your default language.';
+    this.errorMessageMinPurchaseAmount = 'This value should be greater than 0.';
+    this.errorMessageMinPurchaseAmountNotnumber = 'Please enter a valid money amount.';
+    this.errorMessageDiscountValue = (discountValue: string) => `Reduction value "${discountValue}" is invalid. `
+      + 'It must be greater than 0.';
 
     // Selectors
+    this.discountInformationBlock = '#discount_information';
     this.discountNameInput = '#discount_information_names_1';
     this.discountDescriptionTextarea = '#discount_information_description';
     // Select customer eligibiliyty
@@ -96,6 +107,7 @@ class BODiscountsCreatePage extends BOBasePage implements BODiscountsCreatePageI
     this.specificProductInput = '#discount_conditions_product_specific_products_search_input';
     this.productSegmentRadioButton = '#discount_conditions_product_children_selector_2';
     // Cart conditions
+    this.discountConditionCartBlock = '#discount_conditions_cart';
     this.noMinimumPurchaseRadioButton = '#discount_conditions_cart_children_selector_0';
     this.minimumPurchaseAmountRadioButton = '#discount_conditions_cart_children_selector_1';
     this.minimumAmountValueInput = '#discount_conditions_cart_minimum_amount_value_amount';
@@ -104,6 +116,7 @@ class BODiscountsCreatePage extends BOBasePage implements BODiscountsCreatePageI
     this.minimumProductQuantityRadioButton = '#discount_conditions_cart_children_selector_2';
     this.minimumProductQuantityInput = '#discount_conditions_cart_minimum_product_quantity';
     // Choose a discount value
+    this.discountValueBlock = '#discount_value';
     this.discountValueInput = '#discount_value_reduction_value_amount';
     this.discountReductionTypeSelect = '#discount_value_reduction_type';
     this.discountIncludTaxSelect = '#discount_value_reduction_include_tax';
@@ -178,6 +191,32 @@ class BODiscountsCreatePage extends BOBasePage implements BODiscountsCreatePageI
     await page.locator(this.saveButton).click();
 
     return this.getAlertBlockContent(page);
+  }
+
+  /**
+   * Get error message invalid input
+   * @param page {Page} Browser tab
+   * @param input {string} The invalid input to get his error message
+   * @return {Promise<string>}
+   */
+  async getErrorMessageInvalidInput(page: Page, input: string): Promise<string> {
+    let selector: string = '';
+
+    switch (input) {
+      case 'name':
+        selector = this.discountInformationBlock;
+        break;
+      case 'amount':
+        selector = this.discountConditionCartBlock;
+        break;
+      case 'value':
+        selector = this.discountValueBlock;
+        break;
+      default:
+      // Do nothing
+    }
+
+    return this.getTextContent(page, `${selector} .alert-text`);
   }
 }
 
