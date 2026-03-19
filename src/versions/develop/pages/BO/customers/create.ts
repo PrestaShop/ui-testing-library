@@ -69,7 +69,7 @@ class BOCustomersCreatePage extends BOBasePage implements BOCustomersCreatePageI
     this.pageTitleCreate = `New customer • ${global.INSTALL.SHOP_NAME}`;
     this.pageTitleEdit = 'Editing customer';
     this.updateSuccessfullMessage = 'Update successful';
-    this.requiredFieldErrorMessage = 'Veuillez renseigner ce champ.';
+    this.requiredFieldErrorMessage = 'Please fill in this field.';
 
     // Selectors
     this.guestAccountToggleInput = (toggle: number) => `#customer_is_guest_${toggle}`;
