@@ -611,7 +611,7 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
     await this.setChecked(page, this.checkoutGuestGenderInput(customerData.socialTitle === 'Mr.' ? 1 : 2));
 
     await this.setValue(page, this.checkoutGuestFirstnameInput, customerData.firstName);
-    await this.setValue(page, this.checkoutGuestLastnameInput, customerData.lastName!);
+    await this.setValue(page, this.checkoutGuestLastnameInput, customerData.lastName);
     await this.setValue(page, this.checkoutGuestEmailInput, customerData.email);
     if (this.theme === 'hummingbird') {
       await this.setChecked(page, this.createAccountCheckbox, true);
