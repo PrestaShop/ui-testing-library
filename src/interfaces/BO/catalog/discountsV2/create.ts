@@ -10,4 +10,5 @@ export interface BODiscountsCreatePageInterface extends BOBasePagePageInterface 
   readonly pageTitle: string;
 
   createDiscount(page: Page, discountData: FakerDiscount): Promise<string>;
+  getErrorMessageInvalidInput(page: Page, input: string): Promise<string>;
 }
