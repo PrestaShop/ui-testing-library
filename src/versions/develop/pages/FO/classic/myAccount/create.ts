@@ -90,7 +90,7 @@ class FoCreateAccountPage extends FOBasePage implements FoCreateAccountPageInter
   async createAccount(page: Page, customer: FakerCustomer): Promise<void> {
     await this.waitForSelectorAndClick(page, this.genderRadioButton(customer.socialTitle === 'Mr.' ? 1 : 2));
     await this.setValue(page, this.firstNameInput, customer.firstName);
-    await this.setValue(page, this.lastNameInput, customer.lastName!);
+    await this.setValue(page, this.lastNameInput, customer.lastName);
     await this.setValue(page, this.newEmailInput, customer.email);
     await this.setValue(page, this.newPasswordInput, customer.password);
 

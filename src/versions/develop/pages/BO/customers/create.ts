@@ -226,7 +226,7 @@ class BOCustomersCreatePage extends BOBasePage implements BOCustomersCreatePageI
 
     // Fill form
     await this.setValue(page, this.firstNameInput, customerData.firstName);
-    await this.setValue(page, this.lastNameInput, customerData.lastName!);
+    await this.setValue(page, this.lastNameInput, customerData.lastName);
     await this.setValue(page, this.emailInput, customerData.email);
     await this.setValue(page, this.passwordInput, customerData.password);
     await this.selectByVisibleText(page, this.yearOfBirthSelect, customerData.yearOfBirth);

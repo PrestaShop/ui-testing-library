@@ -23,7 +23,7 @@ export default class FakerCustomer {
 
   public readonly firstName: string;
 
-  public readonly lastName: string | null;
+  public readonly lastName: string;
 
   public email: string;
 
