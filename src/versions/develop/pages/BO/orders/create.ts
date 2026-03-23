@@ -433,7 +433,7 @@ class BOOrderCreatePage extends BOBasePage implements BOOrdersCreatePageInterfac
    * @returns {Promise<string>}
    */
   async addNewCustomer(page: Page, customerData: FakerCustomer): Promise<string> {
-    if (await this.elementNotVisible(page, this.iframe)) {
+    if (await this.elementNotVisible(page, this.iframe, 2000)) {
       await page.locator(this.addCustomerLink).click();
       await this.waitForVisibleSelector(page, this.iframe);
     }
