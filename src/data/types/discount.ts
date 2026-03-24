@@ -1,3 +1,5 @@
+import type FakerProduct from '@data/faker/product';
+
 type DiscountCreator = {
   discountType?: string | null
   name?: string
@@ -24,7 +26,7 @@ type DiscountCreator = {
   createAutomaticDiscount?: boolean
   generateDiscountCode?: boolean
   discountCode?: string
-  freeGift?: string
+  freeGift?: FakerProduct | null
 };
 
 export default DiscountCreator;

@@ -206,8 +206,8 @@ class BODiscountsCreatePage extends BOBasePage implements BODiscountsCreatePageI
       }
     }
     // Free gift
-    if (discountData.discountType === 'Free gift' && discountData.freeGift !== '') {
-      await this.setValue(page, this.freeGiftSearchInput, discountData.freeGift);
+    if (discountData.discountType === 'Free gift' && discountData.freeGift!.name !== '') {
+      await this.setValue(page, this.freeGiftSearchInput, discountData.freeGift!.name);
       await this.waitForSelector(page, this.searchProductResult, 'visible', 2000);
       await page.waitForTimeout(2000);
       await page.keyboard.press('ArrowDown');
