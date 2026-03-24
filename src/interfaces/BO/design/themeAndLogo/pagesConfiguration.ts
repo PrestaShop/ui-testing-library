@@ -6,5 +6,6 @@ export interface BOPagesConfigurationPageInterface extends BOThemeAndLogoBasePag
   readonly pageTitle: string;
   readonly successMessage: string;
 
+  clickOnSeeAllModulesButton(page: Page): Promise<void>;
   setActionInModule(page: Page, module: FakerModule, action: string): Promise<string | null>;
 }
