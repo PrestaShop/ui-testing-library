@@ -159,7 +159,7 @@ class BODiscountsCreatePage extends BOBasePage implements BODiscountsCreatePageI
     this.searchProductResult = '.tt-menu.tt-open';
     this.freeGiftList = '#discount_free_gift_list';
     this.freeGiftErrorMessage = 'div.form-group .alert-danger';
-    this.discountFreeGiftRow = (row: number) => `#discount_free_gift_${row - 1}`;
+    this.discountFreeGiftRow = (row: number) => `#discount_free_gift_${row}`;
     this.freeGiftDeleteIcon = (row: number) => `${this.discountFreeGiftRow(row)} div.media-body.media-middle i`;
     this.modalConfirmRemove = '#modal-confirm-remove-entity';
     this.modalConfirmRemoveSubmitButton = `${this.modalConfirmRemove} button.btn-confirm-submit`;
@@ -221,7 +221,7 @@ class BODiscountsCreatePage extends BOBasePage implements BODiscountsCreatePageI
       }
     }
     // Free gift
-    if (discountData.discountType === 'Free gift' && discountData.freeGift!.name !== '') {
+    if (discountData.discountType === 'Free gift' && discountData.freeGift!.name !== ' ') {
       await this.setValue(page, this.freeGiftSearchInput, discountData.freeGift!.name);
       await this.waitForSelector(page, this.searchProductResult, 'visible', 2000);
       await page.waitForTimeout(2000);
@@ -290,11 +290,11 @@ class BODiscountsCreatePage extends BOBasePage implements BODiscountsCreatePageI
    * @return {Promise<boolean>}
    */
   async deleteFreeGift(page: Page, row: number = 1): Promise<boolean> {
-    await page.locator(this.freeGiftDeleteIcon(row)).click();
+    await page.locator(this.freeGiftDeleteIcon(row - 1)).click();
     await this.waitForVisibleSelector(page, this.modalConfirmRemove);
     await page.locator(this.modalConfirmRemoveSubmitButton).click();
 
-    return this.elementNotVisible(page, this.discountFreeGiftRow(row), 2000);
+    return this.elementNotVisible(page, this.discountFreeGiftRow(row - 1), 2000);
   }
 }
 
