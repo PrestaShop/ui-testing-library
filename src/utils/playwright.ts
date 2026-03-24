@@ -2,6 +2,7 @@ import {GlobalBrowserErrorConsole, GlobalBrowserErrorJs, GlobalBrowserErrorRespo
 import {
   APIRequestContext,
   BrowserContext,
+  BrowserContextOptions,
   Browser,
   BrowserType,
   chromium,
@@ -34,9 +35,13 @@ export default {
       // Add argument for chromium (window size for headful debug and sandbox)
       if (global.BROWSER.name === 'chromium') {
         browserConfig.args = [
-          `--window-size=${global.BROWSER.width}, ${global.BROWSER.height}`,
           `--lang=${global.BROWSER.lang}`,
         ];
+        if (global.BROWSER.width && global.BROWSER.height) {
+          browserConfig.args.push(`--window-size=${global.BROWSER.width}, ${global.BROWSER.height}`);
+        } else {
+          browserConfig.args.push('--start-maximized');
+        }
 
         browserConfig.args = (browserConfig.args).concat(global.BROWSER.sandboxArgs);
       }
@@ -72,20 +77,22 @@ export default {
    * @return {Promise<BrowserContext>}
    */
   async createBrowserContext(browser: Browser): Promise<BrowserContext> {
-    return browser.newContext(
-      {
-        acceptDownloads: global.BROWSER.acceptDownloads,
-        locale: global.BROWSER.lang,
-        viewport:
-          {
-            width: global.BROWSER.width,
-            height: global.BROWSER.height,
-          },
-        permissions: global.BROWSER.name === 'chromium' ? ['clipboard-read'] : [],
-        // @todo : Remove it when Puppeteer will accept self signed certificates
-        ignoreHTTPSErrors: global.BROWSER.name === 'firefox',
-      },
-    );
+    const browserContextOptions: BrowserContextOptions = {
+      acceptDownloads: global.BROWSER.acceptDownloads,
+      locale: global.BROWSER.lang,
+      viewport: null,
+      permissions: global.BROWSER.name === 'chromium' ? ['clipboard-read'] : [],
+      // @todo : Remove it when Puppeteer will accept self signed certificates
+      ignoreHTTPSErrors: global.BROWSER.name === 'firefox',
+    };
+
+    if (global.BROWSER.width && global.BROWSER.height) {
+      browserContextOptions.viewport = {
+        width: global.BROWSER.width,
+        height: global.BROWSER.height,
+      };
+    }
+    return browser.newContext(browserContextOptions);
   },
 
   /**

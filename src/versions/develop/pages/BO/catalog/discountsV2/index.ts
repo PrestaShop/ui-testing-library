@@ -34,6 +34,8 @@ class BODiscountsPage extends BOBasePage implements BODiscountsPageInterface {
 
   private readonly tableColumnActionsToggleButton: (row: number) => string;
 
+  private readonly tableColumnActionsEditLink: (row: number) => string;
+
   private readonly tableColumnActionsDeleteLink: (row: number) => string;
 
   private readonly deleteModalButtonYes: string;
@@ -55,13 +57,14 @@ class BODiscountsPage extends BOBasePage implements BODiscountsPageInterface {
     this.createDiscountButton = '#discountTypeSubmit';
     // Selector to filter the table
     this.discountGridTable = '#discount_grid_table';
-    this.filterColumns = `${this.discountGridTable} tr.column-filters`;
+    this.filterColumns = `${this.discountGridTable} thead tr.column-filters`;
     this.filterResetButton = `${this.filterColumns} button.grid-reset-button`;
     this.filterSearchButton = `${this.filterColumns} button.grid-search-button`;
     this.filterColumn = (filterBy: string) => `#discount_${filterBy}`;
     this.tableColumnActions = `${this.discountGridTable} td.column-actions`;
     this.tableColumnActionsRow = (row: number) => `${this.discountGridTable} tr:nth-child(${row})`;
     this.tableColumnActionsToggleButton = (row: number) => `${this.tableColumnActionsRow(row)} a.btn-link.dropdown-toggle`;
+    this.tableColumnActionsEditLink = (row: number) => `${this.tableColumnActionsRow(row)} a.grid-edit-row-link`;
     this.tableColumnActionsDeleteLink = (row: number) => `${this.tableColumnActionsRow(row)} a.grid-delete-row-link`;
     this.deleteModalButtonYes = '#discount-grid-confirm-modal button.btn-confirm-submit';
   }
@@ -158,6 +161,16 @@ class BODiscountsPage extends BOBasePage implements BODiscountsPageInterface {
 
     // Get successful message
     return this.getAlertSuccessBlockParagraphContent(page);
+  }
+
+  /**
+   * Go to Edit Discount page
+   * @param page {Page} Browser tab
+   * @param row {number} Row on table
+   * @returns {Promise<void>}
+   */
+  async goToEditDiscountPage(page: Page, row: number): Promise<void> {
+    await this.clickAndWaitForURL(page, this.tableColumnActionsEditLink(row));
   }
 }
 

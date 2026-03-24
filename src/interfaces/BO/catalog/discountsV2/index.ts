@@ -7,5 +7,6 @@ export interface BODiscountsPageInterface extends BOBasePagePageInterface {
   clickOnCreateDiscountButton(page: Page): Promise<void>;
   deleteDiscount(page: Page, row?: number): Promise<string>;
   filterDiscount(page: Page, filterType: string, filterBy: string, value: string): Promise<void>;
+  goToEditDiscountPage(page: Page, row: number): Promise<void>;
   selectDiscountType(page: Page, type: string): Promise<void>;
 }
