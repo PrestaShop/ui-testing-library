@@ -57,6 +57,8 @@ export default class FakerDiscount {
 
   public readonly discountCode: string;
 
+  public readonly freeGift: string;
+
   /**
    * Constructor for class DiscountData
    * @param discountToCreate {Object} Could be used to force the value of some members
@@ -142,5 +144,9 @@ export default class FakerDiscount {
 
     /** @type {string} The code of the discount */
     this.discountCode = discountToCreate.discountCode || '';
+
+    // Free gift
+    /** @type {string} The free gift to add on the discount */
+    this.freeGift = discountToCreate.freeGift || '';
   }
 }

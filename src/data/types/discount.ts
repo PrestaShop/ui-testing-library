@@ -24,6 +24,7 @@ type DiscountCreator = {
   createAutomaticDiscount?: boolean
   generateDiscountCode?: boolean
   discountCode?: string
+  freeGift?: string
 };
 
 export default DiscountCreator;
