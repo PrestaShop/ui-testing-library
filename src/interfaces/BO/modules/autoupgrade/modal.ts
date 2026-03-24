@@ -6,7 +6,8 @@ export interface ModuleAutoupgradeModalPageInterface extends ModuleConfiguration
   closeDialogUpdateNotification(page: Page): Promise<boolean>;
   getPSVersionFromTheModal(page: Page): Promise<string>;
   getSupportLinkFromModal(page: Page): Promise<string>;
-  getUpdateLinkFromModal(page: Page): Promise<string>;
+  getReleaseNoteLinkFromModal(page: Page): Promise<string>;
   isModalVisible(page: Page): Promise<boolean>;
-  openUpdateLinkFromTheModal(page: Page): Promise<Page>;
+  isReleaseNoteLinkVisible(page: Page): Promise<boolean>;
+  openReleaseNoteFromTheModal(page: Page): Promise<Page>;
 }
