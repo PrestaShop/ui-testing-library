@@ -1,3 +1,4 @@
+import type FakerCountry from '@data/faker/country';
 import type FakerProduct from '@data/faker/product';
 
 type DiscountCreator = {
@@ -24,6 +25,7 @@ type DiscountCreator = {
   discountCurrency?: string | null
   discountTax?: string | null
   createAutomaticDiscount?: boolean
+  deliveryConditionsCountries?: FakerCountry[]
   generateDiscountCode?: boolean
   discountCode?: string
   freeGift?: FakerProduct | null

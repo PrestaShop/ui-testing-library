@@ -685,8 +685,10 @@ export default class CommonPage implements CommonPageInterface {
   async resize(page: Page, mobileSize: boolean): Promise<void> {
     if (mobileSize) {
       await page.setViewportSize({width: 600, height: 600});
-    } else {
+    } else if (global.BROWSER.width && global.BROWSER.height) {
       await page.setViewportSize({width: global.BROWSER.width, height: global.BROWSER.height});
+    } else {
+      await page.setViewportSize({width: 1680, height: 900});
     }
   }
 }

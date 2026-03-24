@@ -10,6 +10,7 @@ export interface BODiscountsCreatePageInterface extends BOBasePagePageInterface 
   readonly errorMessageMinPurchaseAmountNotnumber: string;
   readonly errorMessageNameRequired: string;
   readonly pageTitle: string;
+  readonly pageTitleEdit: string;
 
   createDiscount(page: Page, discountData: FakerDiscount): Promise<string>;
   deleteFreeGift(page: Page, row?: number): Promise<boolean>;

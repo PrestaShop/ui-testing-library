@@ -18,6 +18,14 @@ const states = {
     zone: 'North America',
     status: true,
   }),
+  usIowa: new FakerState({
+    id: 18,
+    name: 'Iowa',
+    isoCode: 'IA',
+    country: 'United States',
+    zone: 'North America',
+    status: true,
+  }),
   bari: new FakerState({
     id: 134,
     name: 'Bari',

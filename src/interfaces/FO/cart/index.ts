@@ -8,6 +8,7 @@ export interface FoCartPageInterface extends FOBasePagePageInterface {
     readonly cartRuleAlreadyInYourCartErrorText: string;
     readonly cartRuleAlreadyUsedErrorText: string;
     readonly cartRuleCannotUseVoucherAlertMessageText: string;
+    readonly cartRuleCannotUseVoucherCountryDelivery: string;
     readonly cartRuleChooseCarrierAlertMessageText: string;
     readonly cartRuleLimitUsageErrorText: string;
     readonly cartRuleMustEnterVoucherErrorText: string;

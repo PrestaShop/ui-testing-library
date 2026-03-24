@@ -1,5 +1,6 @@
-import type DiscountCreator from '@data/types/discount';
+import type FakerCountry from '@data/faker/country';
 import type FakerProduct from '@data/faker/product';
+import type DiscountCreator from '@data/types/discount';
 
 import {faker} from '@faker-js/faker';
 
@@ -51,6 +52,8 @@ export default class FakerDiscount {
   public readonly discountCurrency: string | null;
 
   public readonly discountTax: string | null;
+
+  public readonly deliveryConditionsCountries: FakerCountry[];
 
   public readonly createAutomaticDiscount: boolean;
 
@@ -109,8 +112,10 @@ export default class FakerDiscount {
     /** @type {boolean} True to enable minimum purchase on the discount */
     this.minimumPurchaseAmount = discountToCreate.minimumPurchaseAmount || false;
 
-    /** @type {number} Minimum amount value of the discount */
-    this.minimumAmountValue = discountToCreate.minimumAmountValue || 50;
+    /** @type {string|number} Minimum amount value of the discount */
+    this.minimumAmountValue = discountToCreate.minimumAmountValue === undefined
+      ? 50
+      : discountToCreate.minimumAmountValue;
 
     /** @type {string} Minimum amount currency of the discount */
     this.minimumAmountCurrency = discountToCreate.minimumAmountCurrency || 'Euro (EUR)';
@@ -139,6 +144,9 @@ export default class FakerDiscount {
 
     /** @type {boolean} True to enable create automatic discount */
     this.createAutomaticDiscount = discountToCreate.createAutomaticDiscount || false;
+
+    /** @type {FakerCountry[]} */
+    this.deliveryConditionsCountries = discountToCreate.deliveryConditionsCountries || [];
 
     /** @type {boolean} True to enable Generate discount code of the discount */
     this.generateDiscountCode = discountToCreate.generateDiscountCode || false;

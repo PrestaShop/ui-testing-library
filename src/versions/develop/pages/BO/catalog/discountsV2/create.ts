@@ -11,6 +11,8 @@ import {type Page} from '@playwright/test';
 class BODiscountsCreatePage extends BOBasePage implements BODiscountsCreatePageInterface {
   public readonly pageTitle: string;
 
+  public readonly pageTitleEdit: string;
+
   public errorMessage: string;
 
   public errorMessageNameRequired: string;
@@ -67,6 +69,12 @@ class BODiscountsCreatePage extends BOBasePage implements BODiscountsCreatePageI
 
   public readonly discountIncludTaxSelect: string;
 
+  private readonly deliveryConditionNoneRadio: string;
+
+  private readonly deliveryConditionSpecificCountriesRadio: string;
+
+  private readonly deliveryConditionSpecificCountriesInput: string;
+
   public readonly freeGiftErrorMessage: string;
 
   public readonly discountFreeGiftRow : (row: number) => string;
@@ -103,6 +111,7 @@ class BODiscountsCreatePage extends BOBasePage implements BODiscountsCreatePageI
     super();
 
     this.pageTitle = `Discounts • ${global.INSTALL.SHOP_NAME}`;
+    this.pageTitleEdit = `Discounts • ${global.INSTALL.SHOP_NAME}`;
     // @todo
     this.errorMessage = 'The form contains errors. Please fix them and save again.';
     this.errorMessageNameRequired = 'The field names is required at least in your default language.';
@@ -139,6 +148,12 @@ class BODiscountsCreatePage extends BOBasePage implements BODiscountsCreatePageI
     this.discountValueInput = '#discount_value_reduction_value_amount';
     this.discountReductionTypeSelect = '#discount_value_reduction_type';
     this.discountIncludTaxSelect = '#discount_value_reduction_include_tax';
+    // Delivery conditions
+    this.deliveryConditionNoneRadio = 'input[name="discount[conditions][delivery][children_selector]"][value="none"]';
+    this.deliveryConditionSpecificCountriesRadio = 'input[name="discount[conditions][delivery][children_selector]"]'
+      + '[value="country"]';
+    this.deliveryConditionSpecificCountriesInput = 'div.toggle-children-choice-child[data-toggle-name="country"] input'
+      + '.select2-search__field';
     // Free gift
     this.freeGiftSearchInput = '#discount_free_gift_search_input';
     this.searchProductResult = '.tt-menu.tt-open';
@@ -213,6 +228,18 @@ class BODiscountsCreatePage extends BOBasePage implements BODiscountsCreatePageI
       await page.keyboard.press('ArrowDown');
       await page.keyboard.press('Enter');
       await this.waitForSelector(page, this.freeGiftList, 'visible', 2000);
+    }
+    // *** Delivery conditions
+    await this.setChecked(page, this.deliveryConditionNoneRadio);
+    if (discountData.deliveryConditionsCountries.length > 0) {
+      await this.setChecked(page, this.deliveryConditionSpecificCountriesRadio);
+      await this.elementVisible(page, this.deliveryConditionSpecificCountriesInput);
+      for (let inc = 0; inc < discountData.deliveryConditionsCountries.length; inc++) {
+        await page.locator(this.deliveryConditionSpecificCountriesInput).fill(
+          discountData.deliveryConditionsCountries[inc].name,
+        );
+        await page.keyboard.press('Enter');
+      }
     }
     // Usability conditions
     if (discountData.generateDiscountCode) {

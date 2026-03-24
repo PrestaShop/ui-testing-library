@@ -49,8 +49,8 @@ export default {
     global.BROWSER = {
       name: process.env.BROWSER || 'chromium',
       lang: process.env.BROWSER_LANG || 'en-GB',
-      width: process.env.BROWSER_WIDTH ? parseInt(process.env.BROWSER_WIDTH, 10) : 1680,
-      height: process.env.BROWSER_HEIGHT ? parseInt(process.env.BROWSER_HEIGHT, 10) : 900,
+      width: process.env.BROWSER_WIDTH ? parseInt(process.env.BROWSER_WIDTH, 10) : null,
+      height: process.env.BROWSER_HEIGHT ? parseInt(process.env.BROWSER_HEIGHT, 10) : null,
       sandboxArgs: ['--no-sandbox', '--disable-setuid-sandbox'],
       acceptDownloads: true,
       config: {

@@ -51,6 +51,12 @@ export default {
     finalPrice: 34.46,
     quantity: 2100,
     status: true,
+    specificPrice: {
+      attributes: null,
+      discount: 20,
+      startingAt: 0,
+      reductionType: '',
+    },
   }),
   demo_5: new FakerProduct({
     id: 4,
