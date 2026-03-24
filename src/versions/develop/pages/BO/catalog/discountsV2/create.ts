@@ -15,6 +15,8 @@ class BODiscountsCreatePage extends BOBasePage implements BODiscountsCreatePageI
 
   public errorMessageNameRequired: string;
 
+  public errorMessageFreeGiftRequired: string;
+
   public errorMessageMinPurchaseAmount: string;
 
   public errorMessageMinPurchaseAmountNotnumber: string;
@@ -65,6 +67,22 @@ class BODiscountsCreatePage extends BOBasePage implements BODiscountsCreatePageI
 
   public readonly discountIncludTaxSelect: string;
 
+  public readonly freeGiftErrorMessage: string;
+
+  public readonly discountFreeGiftRow : (row: number) => string;
+
+  public readonly freeGiftDeleteIcon : (row: number) => string;
+
+  public readonly modalConfirmRemove: string;
+
+  public readonly modalConfirmRemoveSubmitButton: string;
+
+  public readonly freeGiftSearchInput: string;
+
+  public readonly searchProductResult: string;
+
+  public readonly freeGiftList: string;
+
   public readonly createAutomaticDiscountRadioButton: string;
 
   public readonly generateDiscountModeRadioButton: string;
@@ -88,6 +106,7 @@ class BODiscountsCreatePage extends BOBasePage implements BODiscountsCreatePageI
     // @todo
     this.errorMessage = 'The form contains errors. Please fix them and save again.';
     this.errorMessageNameRequired = 'The field names is required at least in your default language.';
+    this.errorMessageFreeGiftRequired = 'This value should not be blank.';
     this.errorMessageMinPurchaseAmount = 'This value should be greater than 0.';
     this.errorMessageMinPurchaseAmountNotnumber = 'Please enter a valid money amount.';
     this.errorMessageDiscountValue = (discountValue: string) => `Reduction value "${discountValue}" is invalid. `
@@ -120,6 +139,15 @@ class BODiscountsCreatePage extends BOBasePage implements BODiscountsCreatePageI
     this.discountValueInput = '#discount_value_reduction_value_amount';
     this.discountReductionTypeSelect = '#discount_value_reduction_type';
     this.discountIncludTaxSelect = '#discount_value_reduction_include_tax';
+    // Free gift
+    this.freeGiftSearchInput = '#discount_free_gift_search_input';
+    this.searchProductResult = '.tt-menu.tt-open';
+    this.freeGiftList = '#discount_free_gift_list';
+    this.freeGiftErrorMessage = 'div.form-group .alert-danger';
+    this.discountFreeGiftRow = (row: number) => `#discount_free_gift_${row - 1}`;
+    this.freeGiftDeleteIcon = (row: number) => `${this.discountFreeGiftRow(row)} div.media-body.media-middle i`;
+    this.modalConfirmRemove = '#modal-confirm-remove-entity';
+    this.modalConfirmRemoveSubmitButton = `${this.modalConfirmRemove} button.btn-confirm-submit`;
     // Usability conditions
     this.createAutomaticDiscountRadioButton = '#discount_usability_mode_children_selector_0';
     this.generateDiscountModeRadioButton = '#discount_usability_mode_children_selector_1';
@@ -163,22 +191,28 @@ class BODiscountsCreatePage extends BOBasePage implements BODiscountsCreatePageI
     if (discountData.minimumPurchaseAmount) {
       await this.setChecked(page, this.minimumPurchaseAmountRadioButton);
       await this.setValue(page, this.minimumAmountValueInput, discountData.minimumAmountValue!);
-      // @todo
-      // await this.selectByVisibleText(page, this.minimumAmountCurrencySelect, discountData.minimumAmountCurrency!);
       await this.selectByVisibleText(page, this.minimumAmountTaxSelect, discountData.minimumAmountTax!);
     } else if (discountData.minimumProductQuantity) {
       await this.setChecked(page, this.minimumProductQuantityRadioButton);
       await this.setValue(page, this.minimumProductQuantityInput, discountData.productQuantity);
-      // @todo
     } else {
       await this.setChecked(page, this.noProductConditionRadioButton);
     }
     // Choose a discount value
-    await this.setValue(page, this.discountValueInput, discountData.discountValue);
-    // @todo
-    // await this.selectByVisibleText(page, this.discountReductionTypeSelect, discountData.discountReductionType);
-    if (discountData.discountReductionType === '€') {
-      await this.selectByVisibleText(page, this.discountIncludTaxSelect, discountData.discountTax!);
+    if (await this.elementVisible(page, this.discountValueInput, 2000)) {
+      await this.setValue(page, this.discountValueInput, discountData.discountValue);
+      if (discountData.discountReductionType === '€') {
+        await this.selectByVisibleText(page, this.discountIncludTaxSelect, discountData.discountTax!);
+      }
+    }
+    // Free gift
+    if (discountData.discountType === 'Free gift' && discountData.freeGift!.name !== '') {
+      await this.setValue(page, this.freeGiftSearchInput, discountData.freeGift!.name);
+      await this.waitForSelector(page, this.searchProductResult, 'visible', 2000);
+      await page.waitForTimeout(2000);
+      await page.keyboard.press('ArrowDown');
+      await page.keyboard.press('Enter');
+      await this.waitForSelector(page, this.freeGiftList, 'visible', 2000);
     }
     // Usability conditions
     if (discountData.generateDiscountCode) {
@@ -212,11 +246,28 @@ class BODiscountsCreatePage extends BOBasePage implements BODiscountsCreatePageI
       case 'value':
         selector = this.discountValueBlock;
         break;
+      case 'freeGift':
+        selector = this.freeGiftErrorMessage;
+        break;
       default:
       // Do nothing
     }
 
     return this.getTextContent(page, `${selector} .alert-text`);
+  }
+
+  /**
+   * Delete free gift
+   * @param page {Page} Browser tab
+   * @param row {number} The free gift to delete
+   * @return {Promise<boolean>}
+   */
+  async deleteFreeGift(page: Page, row: number = 1): Promise<boolean> {
+    await page.locator(this.freeGiftDeleteIcon(row)).click();
+    await this.waitForVisibleSelector(page, this.modalConfirmRemove);
+    await page.locator(this.modalConfirmRemoveSubmitButton).click();
+
+    return this.elementNotVisible(page, this.discountFreeGiftRow(row), 2000);
   }
 }
 

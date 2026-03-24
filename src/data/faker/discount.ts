@@ -1,4 +1,5 @@
 import type DiscountCreator from '@data/types/discount';
+import type FakerProduct from '@data/faker/product';
 
 import {faker} from '@faker-js/faker';
 
@@ -56,6 +57,8 @@ export default class FakerDiscount {
   public readonly generateDiscountCode: boolean;
 
   public readonly discountCode: string;
+
+  public readonly freeGift: FakerProduct | null;
 
   /**
    * Constructor for class DiscountData
@@ -142,5 +145,9 @@ export default class FakerDiscount {
 
     /** @type {string} The code of the discount */
     this.discountCode = discountToCreate.discountCode || '';
+
+    // Free gift
+    /** @type {FakerProduct|null} The free gift to add on the discount */
+    this.freeGift = discountToCreate.freeGift || null;
   }
 }
