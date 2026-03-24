@@ -75,7 +75,7 @@ class AutoupgradeModal extends ModuleConfigurationPage implements ModuleAutoupgr
   }
 
   /**
-   * Get update link from modal
+   * Get release note link from modal
    * @param page {Page} Browser tab
    * @returns {Promise<string>}
    */
@@ -93,7 +93,7 @@ class AutoupgradeModal extends ModuleConfigurationPage implements ModuleAutoupgr
   }
 
   /**
-   * Open update link from the modal
+   * Open release note link from the modal
    * @param page {Page} Browser tab
    * @returns {Promise<Page}
    */
