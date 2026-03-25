@@ -230,15 +230,17 @@ class BODiscountsCreatePage extends BOBasePage implements BODiscountsCreatePageI
       await this.waitForSelector(page, this.freeGiftList, 'visible', 2000);
     }
     // *** Delivery conditions
-    await this.setChecked(page, this.deliveryConditionNoneRadio);
-    if (discountData.deliveryConditionsCountries.length > 0) {
-      await this.setChecked(page, this.deliveryConditionSpecificCountriesRadio);
-      await this.elementVisible(page, this.deliveryConditionSpecificCountriesInput);
-      for (let inc = 0; inc < discountData.deliveryConditionsCountries.length; inc++) {
-        await page.locator(this.deliveryConditionSpecificCountriesInput).fill(
-          discountData.deliveryConditionsCountries[inc].name,
-        );
-        await page.keyboard.press('Enter');
+    if (['Free gift', 'On free shipping'].includes(discountData.discountType!)) {
+      await this.setChecked(page, this.deliveryConditionNoneRadio);
+      if (discountData.deliveryConditionsCountries.length > 0) {
+        await this.setChecked(page, this.deliveryConditionSpecificCountriesRadio);
+        await this.elementVisible(page, this.deliveryConditionSpecificCountriesInput);
+        for (let inc = 0; inc < discountData.deliveryConditionsCountries.length; inc++) {
+          await page.locator(this.deliveryConditionSpecificCountriesInput).fill(
+            discountData.deliveryConditionsCountries[inc].name,
+          );
+          await page.keyboard.press('Enter');
+        }
       }
     }
     // Usability conditions
