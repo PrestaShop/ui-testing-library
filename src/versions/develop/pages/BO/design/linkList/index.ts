@@ -95,6 +95,17 @@ class LinkListPage extends BOBasePage implements BODesignLinkListPageInterface {
   }
 
   /**
+   * Get link id
+   * @param page {Page} Browser tab
+   * @param hookName {string} Table name to get number of elements
+   * @param row {number} Row in the table
+   * @returns {Promise<number>}
+   */
+  async getLinkId(page: Page, hookName: string, row: number): Promise<number> {
+    return this.getNumberFromText(page, this.tableColumn(hookName, row, 'id_link_block'));
+  }
+
+  /**
    * Go to edit block
    * @param page
    * @param hookName

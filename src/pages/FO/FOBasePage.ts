@@ -152,8 +152,6 @@ export default class FOBasePage extends CommonPage implements FOBasePagePageInte
 
   private readonly h2FooterLinksDiv: string;
 
-  private readonly h2WrapperDiv: (position: number) => string;
-
   private readonly h2WrapperTitle: (position: number) => string;
 
   private readonly h2WrapperSubmenu: (position: number) => string;
@@ -298,9 +296,8 @@ export default class FOBasePage extends CommonPage implements FOBasePagePageInte
     this.wrapperSubmenuItemLink = (position) => `${this.wrapperSubmenu(position)} li a`;
 
     this.h2FooterLinksDiv = '#footer .ps-linklist';
-    this.h2WrapperDiv = (position) => `${this.h2FooterLinksDiv}:nth-child(${position})`;
-    this.h2WrapperTitle = (position) => `${this.h2WrapperDiv(position)} p`;
-    this.h2WrapperSubmenu = (position) => `${this.h2WrapperDiv(position)} ul.footer-block__list`;
+    this.h2WrapperTitle = (position) => `${this.h2FooterLinksDiv} p#footer_title_${position}`;
+    this.h2WrapperSubmenu = (position) => `${this.h2FooterLinksDiv} div#footer_linklist_${position} ul.footer-block__list`;
     this.h2WrapperSubmenuItemLink = (position) => `${this.h2WrapperSubmenu(position)} li a`;
 
     // Copyright
