@@ -98,10 +98,19 @@ class BOCarriersCreatePage extends BOCarriersCreatePageVersion implements BOCarr
     await this.setValue(page, this.trackingURLInput, carrierData.trackingURL);
     await page.locator(this.nextButton).click();
 
+    // Wait for step 2 to become interactive before touching any of its controls.
+    await this.waitForVisibleSelector(page, this.freeShippingToggle('on'));
+
     // Set shipping locations and costs
-    await this.setChecked(page, this.freeShippingToggle(carrierData.freeShipping ? 'on' : 'off'));
-    if (!carrierData.freeShipping) {
-      await this.setChecked(page, this.addHandlingCostsToggle(carrierData.handlingCosts ? 'on' : 'off'));
+    if (carrierData.freeShipping) {
+      await page.locator(this.freeShippingToggle('on')).click();
+    } else {
+      await page.locator(this.freeShippingToggle('off')).click();
+    }
+    if (carrierData.handlingCosts) {
+      await page.locator(this.addHandlingCostsToggle('on')).click();
+    } else {
+      await page.locator(this.addHandlingCostsToggle('off')).click();
     }
 
     if (carrierData.billing === 'According to total price') {
@@ -150,9 +159,14 @@ class BOCarriersCreatePage extends BOCarriersCreatePageVersion implements BOCarr
           await page.locator(this.allZonesRadioButton).setChecked(true);
           if (typeof carrierRangePrice !== 'undefined' && !carrierData.freeShipping) {
             await page.locator(this.allZonesValueInput(idxRange)).fill(carrierRangePrice.toString());
-            await page.waitForTimeout(1000);
+            // Dispatch 'change' then race against a short timeout so we never hang
+            // if PS makes no XHR for this operation.
+            const priceXhr = page.waitForResponse(
+              (r) => r.url() === page.url() && r.request().method() === 'POST',
+              {timeout: 3000},
+            ).catch(() => null);
             await page.locator(this.allZonesValueInput(idxRange)).dispatchEvent('change');
-            await page.waitForTimeout(2000);
+            await priceXhr;
           }
         } else {
           await page.locator(
@@ -176,6 +190,9 @@ class BOCarriersCreatePage extends BOCarriersCreatePageVersion implements BOCarr
     }
     await page.locator(this.nextButton).click();
 
+    // Wait for step 3 (size/weight) to become interactive.
+    await this.waitForVisibleSelector(page, this.maxWidthInput);
+
     // Set size, weight and group access
     await this.setValue(page, this.maxWidthInput, carrierData.maxWidth);
     await this.setValue(page, this.maxHeightInput, carrierData.maxHeight);
@@ -197,8 +214,11 @@ class BOCarriersCreatePage extends BOCarriersCreatePageVersion implements BOCarr
 
     await page.locator(this.nextButton).click();
 
+    // Wait for step 4 (summary) to become interactive.
+    await this.waitForVisibleSelector(page, this.finishButton);
+
     // Summary
-    await this.setChecked(page, this.enableToggle(carrierData.enable ? 'on' : 'off'));
+    await page.locator(this.enableToggle(carrierData.enable ? 'on' : 'off')).setChecked(true);
     await page.locator(this.finishButton).click();
 
     // Return successful message
@@ -222,4 +242,5 @@ class BOCarriersCreatePage extends BOCarriersCreatePageVersion implements BOCarr
   }
 }
 
-module.exports = new BOCarriersCreatePage();
+const boCarriersCreatePage = new BOCarriersCreatePage();
+export {boCarriersCreatePage, BOCarriersCreatePage};
