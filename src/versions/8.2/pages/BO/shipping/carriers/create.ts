@@ -101,15 +101,21 @@ class BOCarriersCreatePage extends BOCarriersCreatePageVersion implements BOCarr
     // Wait for step 2 to become interactive before touching any of its controls.
     await this.waitForVisibleSelector(page, this.freeShippingToggle('on'));
 
-    // Set shipping locations and costs
+    // Set shipping locations and costs — only click if not already in the desired state.
+    // These radio buttons are intercepted by sibling elements when already selected,
+    // causing a 30-second timeout per unnecessary click.
     if (carrierData.freeShipping) {
-      await page.locator(this.freeShippingToggle('on')).click();
-    } else {
+      if (!await page.locator(this.freeShippingToggle('on')).isChecked()) {
+        await page.locator(this.freeShippingToggle('on')).click();
+      }
+    } else if (!await page.locator(this.freeShippingToggle('off')).isChecked()) {
       await page.locator(this.freeShippingToggle('off')).click();
     }
     if (carrierData.handlingCosts) {
-      await page.locator(this.addHandlingCostsToggle('on')).click();
-    } else {
+      if (!await page.locator(this.addHandlingCostsToggle('on')).isChecked()) {
+        await page.locator(this.addHandlingCostsToggle('on')).click();
+      }
+    } else if (!await page.locator(this.addHandlingCostsToggle('off')).isChecked()) {
       await page.locator(this.addHandlingCostsToggle('off')).click();
     }
 
@@ -144,39 +150,69 @@ class BOCarriersCreatePage extends BOCarriersCreatePageVersion implements BOCarr
       const carrierRange: CarrierRange = carrierData.ranges[idxRange];
 
       if (!carrierData.freeShipping) {
-        if (carrierRange.weightMin) {
+        // Use !== undefined so that weightMin = 0 is filled (0 is falsy but valid).
+        if (carrierRange.weightMin !== undefined) {
           await this.setValue(page, this.rangeInfInput(idxRange), carrierRange.weightMin);
         }
-        if (carrierRange.weightMax) {
+        if (carrierRange.weightMax !== undefined) {
           await this.setValue(page, this.rangeSupInput(idxRange), carrierRange.weightMax);
         }
       }
+
+      // Phase 1: mark zone checkboxes so PS wizard can enable their price inputs.
+      for (let idxZone: number = 0; idxZone < carrierRange.zones.length; idxZone++) {
+        const carrierRangeZone = carrierRange.zones[idxZone].zone;
+        if (typeof carrierRangeZone === 'string') {
+          await page.locator(this.allZonesRadioButton).setChecked(true);
+        } else {
+          const zoneCheckbox = page.locator(this.rangeZoneIDCheckbox(carrierRangeZone.id!.toString()));
+          if (!await zoneCheckbox.isChecked()) {
+            await zoneCheckbox.setChecked(true);
+          }
+        }
+      }
+
+      // Phase 2: validate and enable this range column's price inputs via PS wizard JS.
+      // validateRange() checks range_sup/inf validity; if valid, enableRange() marks
+      // the column 'validated' (required by add_new_range) and calls enableZone() for
+      // all currently-checked zones which enables their price inputs.
+      // jQuery td:eq(idxRange + 2) corresponds to CSS td:nth-child(idxRange + 3).
+      if (!carrierData.freeShipping) {
+        const colIndex: number = idxRange + 2;
+        await page.evaluate((idx: number) => {
+          /* eslint-disable no-undef */
+          // @ts-ignore: PS carrier wizard globals
+          if (typeof validateRange === 'function' && validateRange(idx)) {
+            // @ts-ignore
+            enableRange(idx);
+          }
+          /* eslint-enable no-undef */
+        }, colIndex);
+      }
+
+      // Phase 3: fill price inputs (now enabled after Phase 2).
       for (let idxZone: number = 0; idxZone < carrierRange.zones.length; idxZone++) {
         const carrierRangeZone = carrierRange.zones[idxZone].zone;
         const carrierRangePrice = carrierRange.zones[idxZone].price;
 
+        if (typeof carrierRangePrice === 'undefined' || carrierData.freeShipping) {
+          continue;
+        }
+
         if (typeof carrierRangeZone === 'string') {
-          await page.locator(this.allZonesRadioButton).setChecked(true);
-          if (typeof carrierRangePrice !== 'undefined' && !carrierData.freeShipping) {
-            await page.locator(this.allZonesValueInput(idxRange)).fill(carrierRangePrice.toString());
-            // Dispatch 'change' then race against a short timeout so we never hang
-            // if PS makes no XHR for this operation.
-            const priceXhr = page.waitForResponse(
-              (r) => r.url() === page.url() && r.request().method() === 'POST',
-              {timeout: 3000},
-            ).catch(() => null);
-            await page.locator(this.allZonesValueInput(idxRange)).dispatchEvent('change');
-            await priceXhr;
-          }
+          await page.locator(this.allZonesValueInput(idxRange)).fill(carrierRangePrice.toString());
+          // Dispatch 'change' then race against a short timeout so we never hang
+          // if PS makes no XHR for this operation.
+          const priceXhr = page.waitForResponse(
+            (r) => r.url() === page.url() && r.request().method() === 'POST',
+            {timeout: 3000},
+          ).catch(() => null);
+          await page.locator(this.allZonesValueInput(idxRange)).dispatchEvent('change');
+          await priceXhr;
         } else {
           await page.locator(
-            this.rangeZoneIDCheckbox(carrierRangeZone.id!.toString()),
-          ).setChecked(true);
-          if (typeof carrierRangePrice !== 'undefined' && !carrierData.freeShipping) {
-            await page.locator(
-              this.rangePriceInput(idxRange, carrierRangeZone.id!.toString()),
-            ).fill(carrierRangePrice.toString());
-          }
+            this.rangePriceInput(idxRange, carrierRangeZone.id!.toString()),
+          ).fill(carrierRangePrice.toString());
         }
       }
 

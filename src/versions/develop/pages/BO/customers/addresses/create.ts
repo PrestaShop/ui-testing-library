@@ -107,9 +107,10 @@ class BOAddressesCreatePage extends BOBasePage implements BOAddressesCreatePageI
         await page.keyboard.press('Tab');
       }
       if ('waitForResponse' in page) {
+        // Race against a short timeout — in PS 8.2 this endpoint may not exist.
         await page.waitForResponse('**/sell/customers/customer-information**', {
           timeout: 2000,
-        });
+        }).catch(() => null);
       }
     }
     await this.setValue(page, this.customerAddressdniInput, addressData.dni);

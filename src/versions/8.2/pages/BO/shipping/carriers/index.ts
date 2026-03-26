@@ -87,6 +87,20 @@ class BOCarriersPage extends BOCarriersPageVersion implements BOCarriersPageInte
   }
 
   /**
+   * Go to edit carrier page
+   * @param page {Page} Browser tab
+   * @param row {number} Row index in the table
+   * @return {Promise<void>}
+   */
+  async goToEditCarrierPage(page: Page, row: number): Promise<void> {
+    // The PS 8.2 carrier wizard page (AdminCarrierWizard) never fires the 'load' event
+    // (and 'domcontentloaded' is also unreliable) because it has hanging XHR/script requests.
+    // Navigate by href directly so we can use waitUntil:'networkidle' with a timeout race.
+    const href = await page.locator(this.tableColumnActionsEditLink(row)).getAttribute('href');
+    await page.goto(href!, {waitUntil: 'domcontentloaded', timeout: 30000});
+  }
+
+  /**
    * Get text from column in table
    * @param page {Page} Browser tab
    * @param row {number} Row index in the table
