@@ -12,7 +12,7 @@ export default {
   }),
   address_2: new FakerAddress({
     id: 2,
-    alias: 'Mon adresse',
+    name: 'Mon adresse',
     firstName: 'John',
     lastName: 'DOE',
     company: 'My Company',
@@ -20,7 +20,6 @@ export default {
     secondAddress: '2nd floor',
     postalCode: '75002',
     city: 'Paris',
-    state: '',
     country: 'France',
     phone: '0102030405',
   }),

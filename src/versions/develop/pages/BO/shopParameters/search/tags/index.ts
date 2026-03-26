@@ -10,75 +10,79 @@ import {type Page} from '@playwright/test';
 class BOTagsPage extends BOBasePage implements BOTagsPageInterface {
   public readonly pageTitle: string;
 
-  protected addNewTagLink: string;
+  private readonly addNewTagLink: string;
 
-  protected gridForm: string;
+  private readonly gridForm: string;
 
-  protected gridTableHeaderTitle: string;
+  private readonly gridTableHeaderTitle: string;
 
-  protected gridTableNumberOfTitlesSpan: string;
+  private readonly gridTableNumberOfTitlesSpan: string;
 
-  protected gridTable: string;
+  private readonly gridTable: string;
 
-  protected filterRow: string;
+  private readonly filterRow: string;
 
-  protected filterColumn:(filterBy: string) => string;
+  private readonly filterColumn:(filterBy: string) => string;
 
-  protected filterSearchButton: string;
+  private readonly filterSearchButton: string;
 
-  protected filterResetButton: string;
+  private readonly filterResetButton: string;
 
-  protected tableBody: string;
+  private readonly tableBody: string;
 
-  protected tableBodyRows: string;
+  private readonly tableBodyRows: string;
 
-  protected tableBodyRow: (row: number) => string;
+  private readonly tableBodyRow: (row: number) => string;
 
-  protected tableBodyColumn: (row: number) => string;
+  private readonly tableBodyColumn: (row: number) => string;
 
-  protected tableColumnActions: (row: number) => string;
+  private readonly tableColumnActions: (row: number) => string;
 
-  protected tableColumnActionsEditLink: (row: number) => string;
+  private readonly tableColumnActionsEditLink: (row: number) => string;
 
-  protected tableColumnActionsToggleButton: (row: number) => string;
+  private readonly tableColumnActionsToggleButton: (row: number) => string;
 
-  protected tableColumnActionsDropdownMenu: (row: number) => string;
+  private readonly tableColumnActionsDropdownMenu: (row: number) => string;
 
-  protected tableColumnActionsDeleteLink: (row: number) => string;
+  private readonly tableColumnActionsDeleteLink: (row: number) => string;
 
-  protected tableHead: string;
+  private readonly tableHead: string;
 
-  protected sortColumnDiv: (column: number|string) => string;
+  private readonly sortColumnDiv: (column: number) => string;
 
-  protected deleteModalButtonYes: string;
+  private readonly sortColumnSpanButton: (column: number) => string;
 
-  protected tableColumnId: (row: number) => string;
+  private readonly deleteModalButtonYes: string;
 
-  protected tableColumnLanguage: (row: number) => string;
+  private readonly tableColumnId: (row: number) => string;
 
-  protected tableColumnName: (row: number) => string;
+  private readonly tableColumnLanguage: (row: number) => string;
 
-  protected tableColumnProducts: (row: number) => string;
+  private readonly tableColumnName: (row: number) => string;
 
-  protected paginationActiveLabel: string;
+  private readonly tableColumnProducts: (row: number) => string;
 
-  protected paginationDiv: string;
+  private readonly paginationActiveLabel: string;
 
-  protected paginationDropdownButton: string;
+  private readonly paginationDiv: string;
 
-  protected paginationPreviousLink: string;
+  private readonly paginationDropdownButton: string;
 
-  protected paginationNextLink: string;
+  private readonly paginationItems: (number: number) => string;
 
-  protected bulkActionBlock: string;
+  private readonly paginationPreviousLink: string;
 
-  protected bulkActionMenuButton: string;
+  private readonly paginationNextLink: string;
 
-  protected bulkActionDropdownMenu: string;
+  private readonly bulkActionBlock: string;
 
-  protected selectAllLink: string;
+  private readonly bulkActionMenuButton: string;
 
-  protected bulkDeleteLink: string;
+  private readonly bulkActionDropdownMenu: string;
+
+  private readonly selectAllLink: string;
+
+  private readonly bulkDeleteLink: string;
 
   /**
    * @constructs
@@ -87,28 +91,25 @@ class BOTagsPage extends BOBasePage implements BOTagsPageInterface {
   constructor() {
     super();
 
-    this.successfulMultiDeleteMessage = 'Successful deletion';
-    this.alertSuccessBlock = 'div.alert[role=alert] div.alert-text';
-
     this.pageTitle = 'Tags •';
 
     // Selectors
     // Header links
-    this.addNewTagLink = 'a#page-header-desc-configuration-addTag';
+    this.addNewTagLink = 'a[data-role=page-header-desc-tag-link]';
 
     // Form selectors
-    this.gridForm = '#tag_grid_panel';
-    this.gridTableHeaderTitle = `${this.gridForm} .card-header`;
-    this.gridTableNumberOfTitlesSpan = `${this.gridTableHeaderTitle} .card-header-title`;
+    this.gridForm = '#form-tag';
+    this.gridTableHeaderTitle = `${this.gridForm} .panel-heading`;
+    this.gridTableNumberOfTitlesSpan = `${this.gridTableHeaderTitle} span.badge`;
 
     // Table selectors
-    this.gridTable = '#tag_grid_table';
+    this.gridTable = '#table-tag';
 
     // Filter selectors
-    this.filterRow = `${this.gridTable} tr.column-filters`;
-    this.filterColumn = (filterBy: string) => `${this.filterRow} [name="tag[${filterBy}]"]`;
-    this.filterSearchButton = `${this.filterRow} button.grid-search-button`;
-    this.filterResetButton = `${this.filterRow} button.grid-reset-button`;
+    this.filterRow = `${this.gridTable} tr.filter`;
+    this.filterColumn = (filterBy: string) => `${this.filterRow} [name='tagFilter_${filterBy}']`;
+    this.filterSearchButton = '#submitFilterButtontag';
+    this.filterResetButton = 'button[name=\'submitResettag\']';
 
     // Table body selectors
     this.tableBody = `${this.gridTable} tbody`;
@@ -117,39 +118,40 @@ class BOTagsPage extends BOBasePage implements BOTagsPageInterface {
     this.tableBodyColumn = (row: number) => `${this.tableBodyRow(row)} td`;
 
     // Row actions selectors
-    this.tableColumnActions = (row: number) => `${this.tableBodyColumn(row)}.column-actions`;
-    this.tableColumnActionsEditLink = (row: number) => `${this.tableColumnActions(row)} a.grid-edit-row-link`;
-    this.tableColumnActionsToggleButton = (row: number) => `${this.tableColumnActions(row)} a.dropdown-toggle`;
+    this.tableColumnActions = (row: number) => `${this.tableBodyColumn(row)} .btn-group-action`;
+    this.tableColumnActionsEditLink = (row: number) => `${this.tableColumnActions(row)} a.edit`;
+    this.tableColumnActionsToggleButton = (row: number) => `${this.tableColumnActions(row)} button.dropdown-toggle`;
     this.tableColumnActionsDropdownMenu = (row: number) => `${this.tableColumnActions(row)} .dropdown-menu`;
-    this.tableColumnActionsDeleteLink = (row: number) => `${this.tableColumnActionsDropdownMenu(row)} a.grid-delete-row-link`;
+    this.tableColumnActionsDeleteLink = (row: number) => `${this.tableColumnActionsDropdownMenu(row)} a.delete`;
 
     // Sort Selectors
     this.tableHead = `${this.gridTable} thead`;
-    this.sortColumnDiv = (column: number|string) => `${this.tableHead} tr.column-headers th `
-      + `div.ps-sortable-column[data-sort-col-name="${column}"]`;
+    this.sortColumnDiv = (column: number) => `${this.tableHead} th:nth-child(${column})`;
+    this.sortColumnSpanButton = (column: number) => `${this.sortColumnDiv(column)} span.ps-sort`;
 
     // Confirmation modal
-    this.deleteModalButtonYes = '#tag-grid-confirm-modal div.modal-footer button.btn-confirm-submit';
+    this.deleteModalButtonYes = '#popup_ok';
 
     // Columns selectors
-    this.tableColumnId = (row: number) => `${this.tableBodyColumn(row)}.column-id_tag`;
-    this.tableColumnLanguage = (row: number) => `${this.tableBodyColumn(row)}.column-language`;
-    this.tableColumnName = (row: number) => `${this.tableBodyColumn(row)}.column-name`;
-    this.tableColumnProducts = (row: number) => `${this.tableBodyColumn(row)}.column-num_products`;
+    this.tableColumnId = (row: number) => `${this.tableBodyColumn(row)}:nth-child(2)`;
+    this.tableColumnLanguage = (row: number) => `${this.tableBodyColumn(row)}:nth-child(3)`;
+    this.tableColumnName = (row: number) => `${this.tableBodyColumn(row)}:nth-child(4)`;
+    this.tableColumnProducts = (row: number) => `${this.tableBodyColumn(row)}:nth-child(5)`;
 
     // Pagination selectors
-    this.paginationDiv = `${this.gridForm} .pagination-block`;
-    this.paginationActiveLabel = `${this.paginationDiv} ul.pagination + div .col-form-label`;
-    this.paginationDropdownButton = `${this.paginationDiv} #paginator_select_page_limit`;
-    this.paginationPreviousLink = `${this.gridForm} a[data-role="previous-page-link"]`;
-    this.paginationNextLink = `${this.gridForm} a[data-role="next-page-link"]`;
+    this.paginationActiveLabel = `${this.gridForm} ul.pagination.pull-right li.active a`;
+    this.paginationDiv = `${this.gridForm} .pagination`;
+    this.paginationDropdownButton = `${this.paginationDiv} .dropdown-toggle`;
+    this.paginationItems = (number: number) => `${this.gridForm} .dropdown-menu a[data-items='${number}']`;
+    this.paginationPreviousLink = `${this.gridForm} .icon-angle-left`;
+    this.paginationNextLink = `${this.gridForm} .icon-angle-right`;
 
     // Bulk actions selectors
-    this.bulkActionBlock = '#tag_grid .btn-group';
-    this.bulkActionMenuButton = `${this.bulkActionBlock} button.js-bulk-actions-btn`;
-    this.bulkActionDropdownMenu = `${this.bulkActionBlock} div.dropdown-menu.show`;
-    this.selectAllLink = `${this.filterRow} td[data-type="bulk_action"] #tag_grid_bulk_action_select_all`;
-    this.bulkDeleteLink = `${this.bulkActionDropdownMenu} #tag_grid_bulk_action_delete_selection`;
+    this.bulkActionBlock = 'div.bulk-actions';
+    this.bulkActionMenuButton = '#bulk_action_menu_tag';
+    this.bulkActionDropdownMenu = `${this.bulkActionBlock} ul.dropdown-menu`;
+    this.selectAllLink = `${this.bulkActionDropdownMenu} li:nth-child(1)`;
+    this.bulkDeleteLink = `${this.bulkActionDropdownMenu} li:nth-child(4)`;
   }
 
   /*
@@ -207,13 +209,7 @@ class BOTagsPage extends BOBasePage implements BOTagsPageInterface {
    * @return {Promise<void>}
    */
   async filterTable(page: Page, filterBy: string, value: string = ''): Promise<void> {
-    if (filterBy === 'id_lang') {
-      await page.locator(this.filterColumn(filterBy)).selectOption({
-        label: value,
-      });
-    } else {
-      await this.setValue(page, this.filterColumn(filterBy), value);
-    }
+    await this.setValue(page, this.filterColumn(filterBy), value);
     // click on search
     await this.clickAndWaitForURL(page, this.filterSearchButton);
   }
@@ -244,15 +240,15 @@ class BOTagsPage extends BOBasePage implements BOTagsPageInterface {
         columnSelector = this.tableColumnId(row);
         break;
 
-      case 'id_lang':
+      case 'l!name':
         columnSelector = this.tableColumnLanguage(row);
         break;
 
-      case 'name':
+      case 'a!name':
         columnSelector = this.tableColumnName(row);
         break;
 
-      case 'num_products':
+      case 'products':
         columnSelector = this.tableColumnProducts(row);
         break;
 
@@ -311,15 +307,31 @@ class BOTagsPage extends BOBasePage implements BOTagsPageInterface {
    * @return {Promise<void>}
    */
   async sortTable(page: Page, sortBy: string, sortDirection: string): Promise<void> {
-    const sortColumnDiv = `${this.sortColumnDiv(sortBy)}[data-sort-direction="${sortDirection}"]`;
+    let columnSelector;
 
-    let i: number = 0;
-    while (await this.elementNotVisible(page, sortColumnDiv, 2000) && i < 2) {
-      await this.clickAndWaitForURL(page, this.sortColumnDiv(sortBy));
-      i += 1;
+    switch (sortBy) {
+      case 'id_tag':
+        columnSelector = this.sortColumnDiv(2);
+        break;
+
+      case 'l!name':
+        columnSelector = this.sortColumnDiv(3);
+        break;
+
+      case 'a!name':
+        columnSelector = this.sortColumnDiv(4);
+        break;
+
+      case 'products':
+        columnSelector = this.sortColumnDiv(5);
+        break;
+
+      default:
+        throw new Error(`Column ${sortBy} was not found`);
     }
 
-    await this.waitForVisibleSelector(page, sortColumnDiv, 20000);
+    const sortColumnButton = `${columnSelector} i.icon-caret-${sortDirection}`;
+    await this.clickAndWaitForURL(page, sortColumnButton);
   }
 
   /* Pagination methods */
@@ -328,7 +340,7 @@ class BOTagsPage extends BOBasePage implements BOTagsPageInterface {
    * @param page {Page} Browser tab
    * @return {Promise<string>}
    */
-  async getPaginationLabel(page: Page): Promise<string> {
+  getPaginationLabel(page: Page): Promise<string> {
     return this.getTextContent(page, this.paginationActiveLabel);
   }
 
@@ -339,10 +351,8 @@ class BOTagsPage extends BOBasePage implements BOTagsPageInterface {
    * @returns {Promise<string>}
    */
   async selectPaginationLimit(page: Page, number: number): Promise<string> {
-    await page.locator(this.paginationDropdownButton).selectOption({
-      label: number.toString(),
-    });
-    await page.waitForTimeout(2000);
+    await this.waitForSelectorAndClick(page, this.paginationDropdownButton);
+    await this.clickAndWaitForURL(page, this.paginationItems(number));
 
     return this.getPaginationLabel(page);
   }
@@ -376,29 +386,31 @@ class BOTagsPage extends BOBasePage implements BOTagsPageInterface {
    * @return {Promise<string>}
    */
   async bulkDelete(page: Page): Promise<string> {
-    // Select all rows
-    await page.locator(this.selectAllLink).click();
-    // Wait for dropdown
-    await page.locator(`${this.bulkActionMenuButton}:not([disabled])`).waitFor({
-      state: 'visible',
-    });
-    // Display bulk menu
-    await page.locator(this.bulkActionMenuButton).click();
-    await page.locator(this.bulkActionDropdownMenu).waitFor({
-      state: 'visible',
-    });
-    await page.locator(this.bulkDeleteLink).click();
+    // To confirm bulk delete action with dialog
+    await this.dialogListener(page, true);
 
-    // Display modal
-    await page.locator(this.deleteModalButtonYes).waitFor({
-      state: 'visible',
-    });
-    await page.locator(this.deleteModalButtonYes).click();
+    // Select all rows
+    await Promise.all([
+      page.locator(this.bulkActionMenuButton).click(),
+      this.waitForVisibleSelector(page, this.selectAllLink),
+    ]);
+
+    await Promise.all([
+      page.locator(this.selectAllLink).click(),
+      this.waitForHiddenSelector(page, this.selectAllLink),
+    ]);
+
+    // Perform delete
+    await Promise.all([
+      page.locator(this.bulkActionMenuButton).click(),
+      this.waitForVisibleSelector(page, this.bulkDeleteLink),
+    ]);
+
+    await this.clickAndWaitForURL(page, this.bulkDeleteLink);
 
     // Return successful message
     return this.getAlertSuccessBlockContent(page);
   }
 }
 
-const boTagsPage = new BOTagsPage();
-export {boTagsPage, BOTagsPage};
+module.exports = new BOTagsPage();

@@ -15,11 +15,7 @@ class BOCustomersCreatePage extends BOBasePage implements BOCustomersCreatePageI
 
   public readonly updateSuccessfullMessage: string;
 
-  public readonly requiredFieldErrorMessage: string;
-
   private readonly socialTitleInput: (id: number) => string;
-
-  private readonly guestAccountToggleInput: (toggle: number) => string;
 
   private readonly firstNameInput: string;
 
@@ -69,10 +65,8 @@ class BOCustomersCreatePage extends BOBasePage implements BOCustomersCreatePageI
     this.pageTitleCreate = `New customer • ${global.INSTALL.SHOP_NAME}`;
     this.pageTitleEdit = 'Editing customer';
     this.updateSuccessfullMessage = 'Update successful';
-    this.requiredFieldErrorMessage = 'Please fill in this field.';
 
     // Selectors
-    this.guestAccountToggleInput = (toggle: number) => `#customer_is_guest_${toggle}`;
     this.socialTitleInput = (id: number) => `#customer_gender_id_${id}`;
     this.firstNameInput = '#customer_first_name';
     this.lastNameInput = '#customer_last_name';
@@ -103,124 +97,12 @@ class BOCustomersCreatePage extends BOBasePage implements BOCustomersCreatePageI
    */
 
   /**
-   * Enable guest account
-   * @param page {Frame|Page} Browser tab
-   * @param guestAccount {boolean} True to enable guest account
-   * @return {Promise<void>}
-   */
-  async enableGuestAccount(page: Frame | Page, guestAccount: boolean): Promise<void> {
-    await page.locator(this.guestAccountToggleInput(guestAccount ? 1 : 0)).click();
-  }
-
-  /**
-   * Get if password is enabled
-   * @param page {Frame|Page} Browser tab
-   * @return {Promise<boolean>}
-   */
-  async isPasswordEnabled(page: Frame | Page): Promise<boolean> {
-    return this.elementVisible(page, `${this.passwordInput}:not(:disabled)`, 2000);
-  }
-
-  /**
-   * Get if password is disabled
-   * @param page {Frame|Page} Browser tab
-   * @return {Promise<boolean>}
-   */
-  async isPasswordDisabled(page: Frame | Page): Promise<boolean> {
-    return this.elementVisible(page, `${this.passwordInput}[disabled]`, 2000);
-  }
-
-  /**
-   * Get if customer is enabled
-   * @param page {Frame|Page} Browser tab
-   * @return {Promise<boolean>}
-   */
-  async isCustomerEnabled(page: Frame | Page): Promise<boolean> {
-    return this.elementVisible(page, `${this.statusToggleInput(0)}:not(:disabled)`, 2000);
-  }
-
-  /**
-   * Get if customer is disabled
-   * @param page {Frame|Page} Browser tab
-   * @return {Promise<boolean>}
-   */
-  async isCustomerDisabled(page: Frame | Page): Promise<boolean> {
-    return this.elementVisible(page, `${this.statusToggleInput(0)}[disabled]`, 2000);
-  }
-
-  /**
-   * Get if group access is enabled
-   * @param page {Frame|Page} Browser tab
-   * @return {Promise<boolean>}
-   */
-  async isGroupAccessEnabled(page: Frame | Page): Promise<boolean> {
-    return this.elementVisible(page, `${this.customerCheckbox}:not(:disabled)`, 2000);
-  }
-
-  /**
-   * Get if group access is disabled
-   * @param page {Frame|Page} Browser tab
-   * @return {Promise<boolean>}
-   */
-  async isGroupAccessDisabled(page: Frame | Page): Promise<boolean> {
-    return this.elementVisible(page, `${this.customerCheckbox}[disabled]`, 2000);
-  }
-
-  /**
-   * get if default customer group is enabled
-   * @param page {Frame|Page} Browser tab
-   * @return {Promise<boolean>}
-   */
-  async isDefaultCustomerGroupEnabled(page: Frame | Page): Promise<boolean> {
-    return this.elementVisible(page, `${this.defaultCustomerGroupSelect}:not(:disabled)`, 2000);
-  }
-
-  /**
-   * Get if default customer group is disabled
-   * @param page {Frame|Page} Browser tab
-   * @return {Promise<boolean>}
-   */
-  async isDefaultCustomerGroupDisabled(page: Frame | Page): Promise<boolean> {
-    return this.elementVisible(page, `${this.defaultCustomerGroupSelect}[disabled]`, 2000);
-  }
-
-  /**
-   * Get required input error message
-   * @param page  {Frame|Page} Browser tab
-   * @param input {string} The input to get error message from
-   * @return {Promise<string>}
-   */
-  async getRequiredInputErrorMessage(page: Frame | Page, input: string): Promise<string> {
-    let selector: string = this.firstNameInput;
-
-    switch (input) {
-      case 'lastName':
-        selector = this.lastNameInput;
-        break;
-      case 'email':
-        selector = this.emailInput;
-        break;
-      case 'password':
-        selector = this.passwordInput;
-        break;
-      default:
-      // Do nothing
-    }
-
-    const validationMessage = await page.locator(selector).evaluate(
-      (element: HTMLInputElement) => element.validationMessage,
-    );
-
-    return validationMessage;
-  }
-
-  /**
    * Fill form for add/edit customer
    * @param page {Frame|Page} Browser tab
    * @param customerData {FakerCustomer} Data to set on new customer form
    * @return {Promise<void>}
    */
-  async fillCustomerForm(page: Frame | Page, customerData: FakerCustomer): Promise<void> {
+  async fillCustomerForm(page: Frame|Page, customerData: FakerCustomer): Promise<void> {
     // Click on label for social input
     await this.setHiddenCheckboxValue(page, this.socialTitleInput(customerData.socialTitle === 'Mr.' ? 0 : 1));
 
@@ -250,7 +132,7 @@ class BOCustomersCreatePage extends BOBasePage implements BOCustomersCreatePageI
 
     // Fill form
     await this.setValue(page, this.firstNameInput, customerData.firstName);
-    await this.setValue(page, this.lastNameInput, customerData.lastName!);
+    await this.setValue(page, this.lastNameInput, customerData.lastName);
     await this.setValue(page, this.emailInput, customerData.email);
     await this.setValue(page, this.passwordInput, customerData.password);
     await this.selectByVisibleText(page, this.yearOfBirthSelect, customerData.yearOfBirth);
@@ -272,7 +154,7 @@ class BOCustomersCreatePage extends BOBasePage implements BOCustomersCreatePageI
    * @param waitForNavigation {boolean} True if we need save and waitForNavigation, false if not
    * @return {Promise<string>}
    */
-  async createEditCustomer(page: Frame | Page, customerData: FakerCustomer, waitForNavigation: boolean = true): Promise<string> {
+  async createEditCustomer(page: Frame|Page, customerData: FakerCustomer, waitForNavigation: boolean = true): Promise<string> {
     // Fill form
     await this.fillCustomerForm(page, customerData);
 
@@ -306,7 +188,7 @@ class BOCustomersCreatePage extends BOBasePage implements BOCustomersCreatePageI
    * @param customerGroup {string} Value to set on customer group input
    * @return {Promise<void>}
    */
-  async setCustomerGroupAccess(page: Frame | Page, customerGroup: string): Promise<void> {
+  async setCustomerGroupAccess(page: Frame|Page, customerGroup: string): Promise<void> {
     switch (customerGroup) {
       case 'Customer':
         await this.setCheckedWithIcon(page, this.visitorCheckbox, false);

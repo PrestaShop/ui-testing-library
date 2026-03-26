@@ -4,9 +4,7 @@ import utilsFile from '@utils/file';
 
 export default {
   loadEnv(): void {
-    config({
-      quiet: true,
-    });
+    config();
 
     global.FO = {
       URL: process.env.URL_FO || 'http://localhost/prestashop/',
@@ -49,8 +47,8 @@ export default {
     global.BROWSER = {
       name: process.env.BROWSER || 'chromium',
       lang: process.env.BROWSER_LANG || 'en-GB',
-      width: process.env.BROWSER_WIDTH ? parseInt(process.env.BROWSER_WIDTH, 10) : null,
-      height: process.env.BROWSER_HEIGHT ? parseInt(process.env.BROWSER_HEIGHT, 10) : null,
+      width: process.env.BROWSER_WIDTH ? parseInt(process.env.BROWSER_WIDTH, 10) : 1680,
+      height: process.env.BROWSER_HEIGHT ? parseInt(process.env.BROWSER_HEIGHT, 10) : 900,
       sandboxArgs: ['--no-sandbox', '--disable-setuid-sandbox'],
       acceptDownloads: true,
       config: {

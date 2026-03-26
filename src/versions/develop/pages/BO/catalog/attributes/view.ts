@@ -174,12 +174,7 @@ class BOAttributesViewPage extends BOBasePage implements BOAttributesViewPageInt
    */
   async resetFilter(page: Page): Promise<void> {
     if (!(await this.elementNotVisible(page, this.filterResetButton, 2000))) {
-      await this.clickAndWaitForLoadState(page, this.filterResetButton, 'load', 30000, {
-        position: {
-          x: 2,
-          y: 2,
-        },
-      });
+      await this.clickAndWaitForLoadState(page, this.filterResetButton);
       await this.elementNotVisible(page, this.filterResetButton, 2000);
     }
   }

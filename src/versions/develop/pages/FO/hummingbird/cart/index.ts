@@ -1,15 +1,15 @@
 import {type ProductDetailsWithDiscount} from '@data/types/product';
 import {type FoCartHummingbirdPageInterface} from '@interfaces/FO/cart';
 import {type Page} from '@playwright/test';
-import {CartPage as FoCartPageClassic} from '@versions/develop/pages/FO/classic/cart';
+import {CartPage as CartPageClassic} from '@versions/develop/pages/FO/classic/cart';
 
 /**
  * Cart page, contains functions that can be used on the page
  * @class
  * @extends CartPageClassic
  */
-class FoCartPage extends FoCartPageClassic implements FoCartHummingbirdPageInterface {
-  protected productListItem: string;
+class CartPage extends CartPageClassic implements FoCartHummingbirdPageInterface {
+  private readonly productListItem: string;
 
   /**
    * @constructs
@@ -17,64 +17,43 @@ class FoCartPage extends FoCartPageClassic implements FoCartHummingbirdPageInter
   constructor() {
     super('hummingbird');
 
-    this.cartRuleMustEnterVoucherErrorText = 'Please fill in this field.';
-
-    this.noItemsInYourCartSpan = '#wrapper div.cart__overview p.cart__empty';
-    this.productListItem = '#wrapper div.cart__item';
+    this.proceedToCheckoutButton = '#wrapper div.cart-summary div.checkout a.btn';
+    this.noItemsInYourCartSpan = '#content-wrapper div.cart-overview p';
+    this.productListItem = '#content-wrapper li.cart__item';
     this.productItem = (number: number) => `${this.productListItem}:nth-of-type(${number})`;
     this.productName = (number: number) => `${this.productItem(number)} div.product-line__content a.product-line__title`;
-    this.productRegularPrice = (number: number) => `${this.productItem(number)} div.product-line__item--prices`
-      + ' span.product-line__item-regular-price';
-    this.productDiscountAmount = (number: number) => `${this.productItem(number)} div.product-line__item--prices`
-      + ' span.product-line__item-discount';
-    this.productDiscountPercentage = (number: number) => `${this.productItem(number)} div.product-line__item--prices`
-      + ' span.product-line__item-discount';
-    this.productPrice = (number: number) => `${this.productItem(number)} div.product-line__item--prices`
-      + ' span.product-line__item-price';
-    this.productTotalPrice = (number: number) => `${this.productItem(number)} div.product-line__price,`
-      + ` ${this.productItem(number)} .product-line__gift`;
+    this.productRegularPrice = (number: number) => `${this.productItem(number)} div.product-line__basic`
+      + ' span.product-line__regular';
+    this.productDiscountPercentage = (number: number) => `${this.productItem(number)} span.discount.badge.discount`;
+    this.productPrice = (number: number) => `${this.productItem(number)} div.product-line__current span.price`;
+    this.productTotalPrice = (number: number) => `${this.productItem(number)} span.product-line__price`;
     this.productQuantity = (number: number) => `${this.productItem(number)} div.input-group `
       + 'input.js-cart-line-product-quantity';
     this.productQuantityScrollUpButton = (number: number) => `${this.productItem(number)} button.js-increment-button`;
     this.productQuantityScrollDownButton = (number: number) => `${this.productItem(number)} button.js-decrement-button`;
     this.productImage = (number: number) => `${this.productItem(number)} div.product-line__image img`;
-    this.productSize = (number: number) => `${this.productItem(number)} div.product-line__item--info.size`
-      + ' span.product-line__item-value';
-    this.productColor = (number: number) => `${this.productItem(number)} div.product-line__item--info.color`
-      + ' span.product-line__item-value';
-    this.deleteIcon = (number: number) => `${this.productItem(number)} .js-remove-from-cart`;
+    this.productSize = (number: number) => `${this.productItem(number)} div.product-line__info.size span.value`;
+    this.productColor = (number: number) => `${this.productItem(number)} div.product-line__info.color span.value`;
     this.customizationLink = (row: number) => `${this.productItem(row)} div.product-customization-modal__content`
       + " button[data-bs-target*='#product-customization-modal']";
     this.customizationModal = (row: number) => `${this.productItem(row)} [id*="product-customization-modal"]`;
     this.customizationModalCloseButton = (row: number) => `${this.customizationModal(row)} .modal-header button.btn-close`;
 
     // Summary block
-    this.cartTotalATI = 'div.cart-summary__total span.cart-summary__value';
-
-    // Cart summary block selectors
-    this.itemsNumber = '#cart-subtotal-products .cart-summary__label.js-subtotal';
-    this.subtotalProductsValueSpan = '#cart-subtotal-products span.cart-summary__value';
-    this.subtotalShippingValueSpan = '#cart-subtotal-shipping span.cart-summary__value';
-    this.subtotalDiscountValueSpan = '#cart-subtotal-discount span.cart-summary__value';
-    this.blockPromoDiv = '.cart-summary__voucher';
-    this.promoCodeLink = 'div.cart-voucher button.accordion-button';
-    this.promoInput = '#promo-code input[name="discount_name"]';
-    this.cartSummaryLine = (line: number) => `${this.blockPromoDiv} li:nth-child(${line}).cart-summary__line`;
-    this.cartRuleName = (line: number) => `${this.cartSummaryLine(line)} span.cart-summary__label`;
-    this.discountValue = (line: number) => `${this.cartSummaryLine(line)} div.cart-summary__value`;
-    this.highlightPromoCodeBlock = `${this.blockPromoDiv} ul.cart-voucher__offers`;
-    this.highlightPromoCode = `${this.highlightPromoCodeBlock} button.cart-voucher__code-value`;
+    this.cartTotalATI = 'div.cart-summary__totals span.cart-summary__value';
 
     // Promo code selectors
-    this.promoCodeRemoveIcon = (line: number) => `${this.cartSummaryLine(line)} a.cart-voucher__remove`;
-
-    this.alertWarning = '.cart-summary__actions.checkout div.alert.alert-warning';
-
-    this.proceedToCheckoutButton = '#wrapper div.cart-summary div.checkout a.btn';
-    this.disabledProceedToCheckoutButton = '#wrapper div.cart-summary div.checkout button.disabled';
+    this.blockPromoDiv = 'div.cart-voucher';
+    this.promoCodeLink = 'div.cart-voucher button.accordion-button';
+    this.promoInput = '#promo-code input[name="discount_name"]';
+    this.cartSummaryLine = (line: number) => `div.cart-voucher li:nth-child(${line})`;
+    this.cartRuleName = (line: number) => `${this.cartSummaryLine(line)} span.cart-voucher__name`;
+    this.discountValue = (line: number) => `${this.cartSummaryLine(line)} div span.fw-bold`;
+    this.highlightPromoCodeBlock = `${this.blockPromoDiv} ul.cart-voucher__offers`;
+    this.highlightPromoCode = `${this.blockPromoDiv} li span.js-code`;
 
     // Notifications
-    this.alertMessage = '#js-toast-container div.toast.show div.toast-body';
+    this.alertMessage = '#js-toast-container div.toast div.toast-body';
   }
 
   /**
@@ -126,23 +105,27 @@ class FoCartPage extends FoCartPageClassic implements FoCartHummingbirdPageInter
   async editProductQuantity(page: Page, productID: number, quantity: number | string): Promise<void> {
     await this.setValue(page, this.productQuantity(productID), quantity);
     await page.locator(this.productQuantityScrollUpButton(productID)).click();
-    await page.waitForTimeout(2000);
   }
 
   /**
-   * Get cart rule error text
+   * Delete product
    * @param page {Page} Browser tab
-   * @returns {Promise<string>}
+   * @param productID {number} ID of the product
+   * @returns {Promise<void>}
    */
-  async getCartRuleErrorMessage(page: Page): Promise<string> {
-    // Fetch validation messages
-    const validationMessage = await page.locator(this.promoInput).evaluate(
-      (element: HTMLInputElement) => element.validationMessage,
-    );
+  async deleteProduct(page: Page, productID: number): Promise<void> {
+    await super.deleteProduct(page, productID);
+    await this.waitForHiddenSelector(page, this.deleteIcon(productID));
+  }
 
-    return validationMessage + await this.getTextContent(page, this.cartRuleAlertMessage);
+  /**
+   * Returns the number of differents product in the cart
+   * @param page {Page} Browser tab
+   * @returns {Promise<number>}
+   */
+  async getProductsNumber(page: Page): Promise<number> {
+    return page.locator(`${this.productListItem}`).count();
   }
 }
 
-const foCartPage = new FoCartPage();
-export {foCartPage, FoCartPage};
+module.exports = new CartPage();

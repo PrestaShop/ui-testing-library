@@ -117,7 +117,8 @@ class BOCarriersPage extends BOBasePage implements BOCarriersPageInterface {
     this.growlMessageBlock = '#growls .growl-message:last-of-type';
 
     // Header links
-    this.addNewCarrierLink = 'a#page-header-desc-configuration-add';
+    // PS 8.2 uses a different id for the "Add new carrier" button
+    this.addNewCarrierLink = 'a#page-header-desc-carrier-new_carrier, a#page-header-desc-configuration-add';
 
     // Form selectors
     this.gridForm = '#carrier_grid_panel';
@@ -155,7 +156,8 @@ class BOCarriersPage extends BOBasePage implements BOCarriersPageInterface {
     // Row actions selectors
     this.tableColumnActions = (row: number) => `${this.tableBodyColumn(row)}.column-actions`;
     this.tableColumnActionsEditLink = (row: number) => `${this.tableColumnActions(row)} a.grid-edit-row-link`;
-    this.tableColumnActionsToggleButton = (row: number) => `${this.tableColumnActions(row)} a.dropdown-toggle`;
+    // PS 8.2 uses a <button> instead of <a> for the dropdown toggle
+    this.tableColumnActionsToggleButton = (row: number) => `${this.tableColumnActions(row)} a.dropdown-toggle, ${this.tableColumnActions(row)} button.dropdown-toggle`;
     this.tableColumnActionsDropdownMenu = (row: number) => `${this.tableColumnActions(row)} .dropdown-menu`;
     this.tableColumnActionsDeleteLink = (row: number) => `${this.tableColumnActionsDropdownMenu(row)} .grid-delete-row-link`;
 
@@ -215,12 +217,7 @@ class BOCarriersPage extends BOBasePage implements BOCarriersPageInterface {
    */
   async resetFilter(page: Page): Promise<void> {
     if (!(await this.elementNotVisible(page, this.filterResetButton, 2000))) {
-      await this.clickAndWaitForURL(page, this.filterResetButton, 'load', 30000, {
-        position: {
-          x: 2,
-          y: 2,
-        },
-      });
+      await this.clickAndWaitForURL(page, this.filterResetButton);
     }
     await this.waitForVisibleSelector(page, this.filterSearchButton, 2000);
   }
@@ -269,7 +266,10 @@ class BOCarriersPage extends BOBasePage implements BOCarriersPageInterface {
    * @return {Promise<void>}
    */
   async goToEditCarrierPage(page: Page, row: number): Promise<void> {
-    await this.clickAndWaitForURL(page, this.tableColumnActionsEditLink(row));
+    // PS 8.2: the carrier wizard page may not fire a load event before the URL changes,
+    // so clickAndWaitForURL can time out. Click and wait for the wizard's first input instead.
+    await page.locator(this.tableColumnActionsEditLink(row)).click();
+    await this.waitForVisibleSelector(page, '#name', 30000);
   }
 
   /**

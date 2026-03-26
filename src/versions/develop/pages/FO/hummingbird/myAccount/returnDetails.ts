@@ -15,10 +15,9 @@ class FOMyReturnDetailsPage extends FOMyReturnDetailsPageClassic implements FOMy
 
     this.orderReturnCardBlock = 'We have logged your return request. List of items to be returned:';
 
-    this.pageTitleHeader = '#wrapper h1.page-title-section';
-    this.alertWarning = '#notifications div.alert-warning';
+    this.pageTitleHeader = '#content-wrapper h1';
+    this.alertWarning = '#notifications article.alert-warning';
   }
 }
 
-const foMyReturnDetailsPage = new FOMyReturnDetailsPage();
-export {foMyReturnDetailsPage, FOMyReturnDetailsPage};
+module.exports = new FOMyReturnDetailsPage();

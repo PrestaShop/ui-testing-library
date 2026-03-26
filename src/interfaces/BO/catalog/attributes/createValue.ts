@@ -7,5 +7,4 @@ export interface BOAttributesValueCreatePageInterface extends BOBasePagePageInte
   readonly editPageTitle: (name: string) => string;
 
   addEditValue(page: Page, valueData: FakerAttributeValue, saveAndStay?: boolean): Promise<string>;
-  getInputValue(page: Page, input: string, languageId?: number): Promise<string>;
 }

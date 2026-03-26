@@ -1,14 +1,16 @@
 import {type ProductDetailsBasic} from '@data/types/product';
 import {type FoCheckoutPageInterface} from '@interfaces/FO/checkout';
 import {type Page} from '@playwright/test';
-import {CheckoutPage as FoCheckoutPageClassic} from '@versions/develop/pages/FO/classic/checkout';
+import {CheckoutPage as CheckoutPageClassic} from '@versions/develop/pages/FO/classic/checkout';
 
 /**
  * Cart page, contains functions that can be used on the page
  * @class
  * @extends FOBasePage
  */
-class FoCheckoutPage extends FoCheckoutPageClassic implements FoCheckoutPageInterface {
+class FoCheckoutPage extends CheckoutPageClassic implements FoCheckoutPageInterface {
+  private readonly productDetailsBody: (productRow: number) => string;
+
   /**
    * @constructs
    */
@@ -16,9 +18,8 @@ class FoCheckoutPage extends FoCheckoutPageClassic implements FoCheckoutPageInte
     super('hummingbird');
 
     // Selectors
-    this.successAlert = '#notifications div.alert-success';
-    this.stepFormSuccess = '.checkout-steps__step--success';
-    this.personalInformationEditLink = '#wrapper ul.checkout-steps__list'
+    this.stepFormSuccess = '.checkout__steps--success';
+    this.personalInformationEditLink = '#wrapper div.checkout__steps'
       + ' button[data-bs-target="#checkout-personal-information-step"]';
 
     // Personal information form
@@ -27,8 +28,8 @@ class FoCheckoutPage extends FoCheckoutPageClassic implements FoCheckoutPageInte
 
     // Sign in selectors
     this.signInHyperLink = '#checkout-personal-information-step div.step__content '
-      + '#personal-information-tabs button[data-bs-target="#checkout-login-form"]';
-    this.forgetPasswordLink = '#login-form a[href*=password-recovery]';
+      + '#contact-tab[data-bs-target="#checkout-login-form"]';
+    this.forgetPasswordLink = '#login-form div.login__forgot-password a[href*=password-recovery]';
     this.personalInformationContinueButton = '#login-form button[data-link-action="sign-in"]';
     this.loginErrorMessage = `${this.checkoutLoginForm} div.alert-danger`;
 
@@ -43,61 +44,41 @@ class FoCheckoutPage extends FoCheckoutPageClassic implements FoCheckoutPageInte
     // Shipping method selectors
     this.deliveryStepSection = 'li[data-step="checkout-delivery-step"]';
     this.deliveryStepEditButton = `${this.deliveryStepSection} button`;
-    this.deliveryStepCarriersList = '#checkout-delivery-step .delivery-options__container';
-    this.deliveryStepCarriersListError = `${this.deliveryStepCarriersList} .alert-danger`;
-    this.deliveryOptionAllNamesSpan = '#js-delivery .delivery-options__list span.delivery-option__carrier-name';
-    this.deliveryOptionAllPricesSpan = '#js-delivery .delivery-options__list div.delivery-option__price';
-    this.deliveryAddressPosition = (position) => `#delivery-addresses article:nth-child(${position})`;
-    this.invoiceAddressPosition = (position) => `#invoice-addresses article:nth-child(${position})`;
-    this.deliveryAddressEditButton = (addressID: number) => `#id_address_delivery-address-${addressID} a.address-card__edit`;
-    this.deliveryAddressDeleteButton = (addressID: number) => `#id_address_delivery-address-${addressID} a.address-card__delete`;
-    this.deliveryOptions = '#js-delivery .delivery-options__list';
-    this.deliveryOptionLabel = (id: number) => `${this.deliveryOptions} input#delivery_option_${id}`;
+    this.deliveryOptionAllNamesSpan = '#js-delivery .delivery-options__container span.carrier-name';
+    this.deliveryAddressPosition = (position) => `#delivery-addresses div:nth-child(${position}) article`;
+    this.invoiceAddressPosition = (position) => `#invoice-addresses div:nth-child(${position}) article`;
+    this.deliveryAddressEditButton = (addressID: number) => `#id_address_delivery-address-${addressID} a.address__edit`;
+    this.deliveryAddressDeleteButton = (addressID: number) => `#id_address_delivery-address-${addressID} a.address__delete`;
+    this.deliveryOptions = '#js-delivery .delivery-options__container';
+    this.deliveryOptionLabel = (id: number) => `input#delivery_option_${id}`;
     this.deliveryOption = (carrierID: number) => `${this.deliveryOptions} label[for="delivery_option_${carrierID}"]`;
-    this.deliveryStepCarrierName = (carrierID: number) => `${this.deliveryOption(carrierID)} span.delivery-option__carrier-name`;
-    this.deliveryStepCarrierDelay = (carrierID: number) => `${this.deliveryOption(carrierID)} div.delivery-option__content`;
-    this.deliveryStepCarrierPrice = (carrierID: number) => `${this.deliveryOption(carrierID)} div.delivery-option__price`;
+    this.deliveryStepCarrierName = (carrierID: number) => `${this.deliveryOption(carrierID)} span.carrier-name`;
+    this.deliveryStepCarrierDelay = (carrierID: number) => `${this.deliveryOption(carrierID)} div.row`
+      + ' > span.delivery-option__center';
+    this.deliveryStepCarrierPrice = (carrierID: number) => `${this.deliveryOption(carrierID)} div.row`
+      + ' > span.delivery-option__right';
 
     // Payment methods selectors
-    this.paymentOptionAlertDanger = '.payment-options__list p.alert-danger';
-    this.termsOfServiceModalDiv = '#checkout-modal .modal-body';
-    this.noPaymentNeededElement = `${this.paymentStepSection} .step__content .payment-options__free`;
+    this.paymentOptionAlertDanger = '.payment__list p.alert-danger';
 
     // Checkout summary selectors
-    this.checkoutSummary = '#js-checkout-summary';
-    this.checkoutPromoBlock = `${this.checkoutSummary} div.cart-summary__voucher`;
-    this.checkoutHavePromoCodeButton = `${this.checkoutPromoBlock} button.cart-voucher__accordion-button`;
-    this.promoCodeArea = '#promo-code';
-    this.checkoutHavePromoInputArea = `${this.promoCodeArea} input.js-voucher-input`;
     this.shippingValueSpan = '#cart-subtotal-shipping span.cart-summary__value';
-    this.discountValueSpan = '#cart-subtotal-discount span.cart-summary__value';
-    this.cartTotalATI = 'div.cart-summary__total span.cart-summary__value';
+    this.itemsNumber = `${this.checkoutSummary} div.cart-summary__products.js-cart-summary-products p:nth-child(1)`;
+    this.showDetailsLink = `${this.checkoutSummary} a.cart-summary__show.js-show-details`;
+    this.cartTotalATI = 'div.cart-summary__totals span.cart-summary__value';
+    this.productDetailsBody = (productRow: number) => `${this.productRowLink(productRow)} div.cart-summary__product__body`;
+    this.productDetailsImage = (productRow: number) => `${this.productRowLink(productRow)} div.cart-summary__product__image`
+      + ' a img';
+    this.productDetailsPrice = (productRow: number) => `${this.productRowLink(productRow)} div.cart-summary__product__current `
+      + 'span.price';
+    this.productDetailsAttributes = (productRow: number) => `${this.productRowLink(productRow)} div.cart-summary__product__body `
+      + 'div.product-line-info:nth-child(2)';
     // Promo code selectors
     this.checkoutPromoBlock = '.js-cart-voucher';
-    this.cartSummaryLine = (line: number) => `${this.checkoutPromoBlock} li:nth-child(${line}).cart-summary__line`;
-    this.cartRuleName = (line: number) => `${this.cartSummaryLine(line)} span.cart-summary__label`;
-    this.discountValue = (line: number) => `${this.cartSummaryLine(line)} div.cart-summary__value`;
-    this.checkoutRemoveDiscountLink = (row: number) => `${this.cartSummaryLine(row)} a.cart-voucher__remove`;
-
-    // Cart details selectors
-    this.itemsNumber = `${this.checkoutSummary} div.cart-summary__products .cart-summary__products-number`;
-    this.showDetailsLink = `${this.checkoutSummary} div.cart-summary__products-accordion button.accordion-button`;
-    this.productRowLink = (productRow: number) => `${this.productList} div.cart-summary__products-list > `
-      + `div:nth-child(${productRow})`;
-    this.productDetailsImage = (productRow: number) => `${this.productRowLink(productRow)} div.cart-summary-product__image a img`;
-    this.productDetailsName = (productRow: number) => `${this.productRowLink(productRow)} a.cart-summary-product__link`;
-    this.productDetailsQuantity = (productRow: number) => `${this.productRowLink(productRow)} `
-      + 'div.cart-summary-product__quantity span.value';
-    this.productDetailsPrice = (productRow: number) => `${this.productRowLink(productRow)} div.cart-summary-product__total`;
-    this.productDetailsAttributes = (productRow: number) => `${this.productRowLink(productRow)} div`
-      + '.cart-summary-product__attribute';
-
-    this.carrierInfo = (carrierRow: number) => `div.order-confirmation__carrier-info:nth-child(${carrierRow})`;
-    this.productRow = (productRow: number) => `div.order-confirmation__product:nth-child(${productRow})`;
-    this.virtualProductRow = (productRow: number) => `div.order-confirmation__virtual-info:nth-child(${productRow})`;
-
-    // Gift selectors
-    this.cartSubtotalGiftWrappingValueSpan = `${this.cartSubtotalGiftWrappingDiv} span.cart-summary__value`;
+    this.cartSummaryLine = (line: number) => `${this.checkoutPromoBlock} li:nth-child(${line}).cart-voucher__item`;
+    this.cartRuleName = (line: number) => `${this.cartSummaryLine(line)} span.cart-voucher__name`;
+    this.checkoutRemoveDiscountLink = (row: number) => `${this.cartSummaryLine(row)} `
+      + ' a[data-link-action="remove-voucher"] i';
   }
 
   /**
@@ -110,7 +91,7 @@ class FoCheckoutPage extends FoCheckoutPageClassic implements FoCheckoutPageInte
     return {
       image: await this.getAttributeContent(page, this.productDetailsImage(productRow), 'srcset') ?? '',
       name: await this.getTextContent(page, this.productDetailsName(productRow)),
-      quantity: parseInt((await this.getTextContent(page, this.productDetailsQuantity(productRow))).replace('x', ''), 10),
+      quantity: parseInt((await this.getTextContent(page, this.productDetailsBody(productRow))).split('Quantity x')[1], 10),
       price: await this.getPriceFromText(page, this.productDetailsPrice(productRow)),
     };
   }
@@ -121,9 +102,8 @@ class FoCheckoutPage extends FoCheckoutPageClassic implements FoCheckoutPageInte
    * @returns {Promise<boolean>}
    */
   async isAddressesStep(page: Page): Promise<boolean> {
-    return this.elementVisible(page, `${this.addressStepSection}.checkout-steps__step--current`, 1000);
+    return this.elementVisible(page, `${this.addressStepSection}.checkout__steps--current`, 1000);
   }
 }
 
-const foCheckoutPage = new FoCheckoutPage();
-export {foCheckoutPage, FoCheckoutPage};
+module.exports = new FoCheckoutPage();

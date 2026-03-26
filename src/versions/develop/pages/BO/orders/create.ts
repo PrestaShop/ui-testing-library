@@ -31,31 +31,31 @@ class BOOrderCreatePage extends BOBasePage implements BOOrdersCreatePageInterfac
 
   private readonly closeFancyBoxIframe: string;
 
-  private readonly addCustomerLink: string;
+  protected addCustomerLink: string;
 
-  private readonly customerSearchInput: string;
+  protected customerSearchInput: string;
 
-  private readonly customerSearchLoadingNoticeBlock: string;
+  protected customerSearchLoadingNoticeBlock: string;
 
   private readonly customerSearchEmptyResultBlock: string;
 
   private readonly customerSearchEmptyResultParagraphe: string;
 
-  private readonly customerSearchFullResultsBlock: string;
+  protected customerSearchFullResultsBlock: string;
 
-  private readonly customerResultsBlock: string;
+  protected customerResultsBlock: string;
 
-  private readonly customerCardBlock: (pos: number) => string;
+  protected customerCardBlock: (pos: number) => string;
 
-  private readonly customerCardNameTitle: (pos: number) => string;
+  protected customerCardNameTitle: (pos: number) => string;
 
-  private readonly customerCardBody: (pos: number) => string;
+  protected customerCardBody: (pos: number) => string;
 
-  private readonly customerCardChooseButton: (pos: number) => string;
+  protected customerCardChooseButton: (pos: number) => string;
 
   private readonly customerCardDetailButton: string;
 
-  private readonly checkoutHistoryBlock: string;
+  protected checkoutHistoryBlock: string;
 
   private readonly customerCartsTable: string;
 
@@ -91,7 +91,7 @@ class BOOrderCreatePage extends BOBasePage implements BOOrdersCreatePageInterfac
 
   private readonly orderUseButton: (row: number) => string;
 
-  private readonly productSearchInput: string;
+  protected productSearchInput: string;
 
   private readonly noProductFoundAlert: string;
 
@@ -149,13 +149,13 @@ class BOOrderCreatePage extends BOBasePage implements BOOrdersCreatePageInterfac
 
   private readonly vouchersTableRowRemoveButton: (row: number) => string;
 
-  private readonly deliveryAddressSelect: string;
+  protected readonly deliveryAddressSelect: string;
 
   private readonly deliveryAddressDetails: string;
 
   private readonly deliveryAddressEditButton: string;
 
-  private readonly invoiceAddressSelect: string;
+  protected readonly invoiceAddressSelect: string;
 
   private readonly invoiceAddressDetails: string;
 
@@ -177,7 +177,7 @@ class BOOrderCreatePage extends BOBasePage implements BOOrdersCreatePageInterfac
 
   private readonly giftMessageTextarea: string;
 
-  private readonly summaryBlock: string;
+  protected readonly summaryBlock: string;
 
   private readonly totalProducts: string;
 
@@ -193,7 +193,7 @@ class BOOrderCreatePage extends BOBasePage implements BOOrdersCreatePageInterfac
 
   private readonly orderMessageTextArea: string;
 
-  private readonly paymentMethodSelect: string;
+  protected paymentMethodSelect: string;
 
   private readonly paymentMethodSelectResult: string;
 
@@ -201,7 +201,7 @@ class BOOrderCreatePage extends BOBasePage implements BOOrdersCreatePageInterfac
 
   private readonly orderStatusSelect: string;
 
-  private readonly createOrderButton: string;
+  protected readonly createOrderButton: string;
 
   private readonly moreActionsDropDownButton: string;
 
@@ -407,36 +407,14 @@ class BOOrderCreatePage extends BOBasePage implements BOOrdersCreatePageInterfac
   }
 
   /**
-   * Click on add new customer button
-   * @param page {Page} Browser tab
-   * @returns {Promise<boolean>}
-   */
-  async clickOnAddNewCustomerButton(page: Page): Promise<boolean> {
-    await page.locator(this.addCustomerLink).click();
-
-    return this.elementVisible(page, this.iframe, 5000);
-  }
-
-  /**
-   * Get new customer frame
-   * @param page {Page} Browser tab
-   * @return {*}
-   */
-  getNewCustomerIframe(page: Page): Frame | null {
-    return page.frame({url: /sell\/customers\/new/gmi});
-  }
-
-  /**
    * Click on add new customer and new customer iFrame
    * @param page {Page} Browser tab
    * @param customerData {FakerCustomer} Customer data fake object
    * @returns {Promise<string>}
    */
   async addNewCustomer(page: Page, customerData: FakerCustomer): Promise<string> {
-    if (await this.elementNotVisible(page, this.iframe, 2000)) {
-      await page.locator(this.addCustomerLink).click();
-      await this.waitForVisibleSelector(page, this.iframe);
-    }
+    await page.locator(this.addCustomerLink).click();
+    await this.waitForVisibleSelector(page, this.iframe);
 
     const customerFrame = page.frame({url: /sell\/customers\/new/gmi});
 
@@ -712,7 +690,7 @@ class BOOrderCreatePage extends BOBasePage implements BOOrdersCreatePageInterfac
 
     // Add to cart
     await page.locator(this.addtoCartButton).click();
-    // Wait for the ajax call to be over (no visible feedback sadly)
+    // Wait for the AJAX response confirming the product was added to the cart.
     await page.waitForResponse('**/sell/orders/carts/**/products**');
 
     // The table visible is required, but on second addition it is always visible anyway
@@ -1297,7 +1275,7 @@ class BOOrderCreatePage extends BOBasePage implements BOOrdersCreatePageInterfac
     }
 
     // Choose address
-    await this.chooseAddresses(page, orderToMake.deliveryAddress.alias, orderToMake.invoiceAddress.alias);
+    await this.chooseAddresses(page, orderToMake.deliveryAddress.name, orderToMake.invoiceAddress.name);
 
     // Choose delivery options
     await this.setDeliveryOption(page, orderToMake.deliveryOption.name, orderToMake.deliveryOption.freeShipping);
@@ -1313,4 +1291,5 @@ class BOOrderCreatePage extends BOBasePage implements BOOrdersCreatePageInterfac
   }
 }
 
-module.exports = new BOOrderCreatePage();
+const boOrderCreatePage = new BOOrderCreatePage();
+export {boOrderCreatePage, BOOrderCreatePage};

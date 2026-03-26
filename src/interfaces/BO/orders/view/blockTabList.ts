@@ -1,5 +1,4 @@
 import type FakerOrderShipping from '@data/faker/orderShipping';
-import {type ProductDocumentType, type ProductDocument} from '@data/types/product';
 import {BOViewOrderBasePageInterface} from '@interfaces/BO/orders/view/viewOrderBasePage';
 import {type Frame, type Page} from '@playwright/test';
 
@@ -19,14 +18,12 @@ export interface BOProductBlockTabListPageInterface extends BOViewOrderBasePageI
   closeMergeModal(page:Page):Promise<boolean>;
   closeOrderShippingModal(page: Page): Promise<boolean>;
   closeSplitModal(page:Page):Promise<boolean>;
-  countDocumentsType(page: Page): Promise<{creditSlips: number, deliverySlips: number, invoices: number}>;
   downloadDeliverySlip(page: Page): Promise<string | null>;
   downloadInvoice(page: Page, row?: number): Promise<string | null>;
   editShipment(page: Page, trackingNumber: string, carrier: string): Promise<boolean>;
   generateInvoice(page: Page): Promise<string>;
   getAlertTextFromMergeModal(page: Page): Promise<string>;
   getAlertTextFromSplitModal(page:Page):Promise<string>;
-  getAllDocumentsName(page: Page): Promise<string[]>;
   getCarrierDetails(page: Page, row?: number): Promise<{
     date: string,
     carrier: string,
@@ -35,10 +32,9 @@ export interface BOProductBlockTabListPageInterface extends BOViewOrderBasePageI
     trackingNumber: string
   }>;
   getCarriersNumber(page: Page): Promise<number>;
-  getDocument(page: Page, row?: number, filterType?: ProductDocumentType|null): Promise<ProductDocument>;
   getDocumentDate(page: Page, rowChild?: number): Promise<string>;
   getDocumentsNumber(page: Page): Promise<number>;
-  getDocumentType(page: Page, rowChild?: number): Promise<ProductDocumentType|null>;
+  getDocumentType(page: Page, rowChild?: number): Promise<string>;
   getFileName(page: Page, rowChild?: number): Promise<string>;
   getGiftMessage(page: Page): Promise<string>;
   getMerchandiseReturnsDetails(page: Page, row?: number): Promise<{
@@ -49,7 +45,6 @@ export interface BOProductBlockTabListPageInterface extends BOViewOrderBasePageI
   }>;
   getListOfCarriersInSplitShipment(page:Page):Promise<string>;
   getMerchandiseReturnsNumber(page: Page): Promise<number>;
-  getNumberOfDocuments(page: Page): Promise<number>;
   getOrderNoteContent(page: Page): Promise<string>;
   getShipmentNumber(page:Page, row:number):Promise<number>;
   getShippingCarrierID(page: Page): Promise<number>;

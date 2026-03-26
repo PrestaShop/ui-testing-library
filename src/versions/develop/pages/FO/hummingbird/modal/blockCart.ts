@@ -7,7 +7,7 @@ import {FoModalBlockCartPage as FoModalBlockCartPageClassic} from '@versions/dev
  * @extends BlockCartModal
  */
 class FoModalBlockCartPage extends FoModalBlockCartPageClassic implements FoModalBlockCartPageInterface {
-  protected blockCartModalSummary: string;
+  private readonly blockCartModalSummary: string;
 
   /**
    * @constructs
@@ -17,22 +17,15 @@ class FoModalBlockCartPage extends FoModalBlockCartPageClassic implements FoModa
     super('hummingbird');
 
     // Block Cart Modal
-    this.blockCartLabel = '#blockcart-modal-title';
+    this.cartModalCheckoutLink = `${this.blockCartModalDiv} div.cart-footer-actions a`;
+    this.continueShoppingButton = `${this.blockCartModalDiv} div.cart-footer-actions button`;
     this.blockCartModalCloseButton = `${this.blockCartModalDiv} button.btn-close`;
-    this.cartModalProductNameBlock = `${this.blockCartModalDiv} .blockcart-modal__name`;
-    this.cartModalProductPriceBlock = `${this.blockCartModalDiv} .blockcart-modal__price`;
-    this.cartModalProductSizeBlock = `${this.blockCartModalDiv} .blockcart-modal__property.size`;
-    this.cartModalProductColorBlock = `${this.blockCartModalDiv} .blockcart-modal__property.color`;
-    this.cartModalProductQuantityBlock = `${this.blockCartModalDiv} .blockcart-modal__quantity`;
-    this.blockCartModalSummary = '.blockcart-modal__summary';
-    this.cartModalProductsCountBlock = `${this.blockCartModalSummary} .blockcart-modal__nb-products`;
-    this.cartModalSubtotalBlock = `${this.blockCartModalSummary} .blockcart-modal__total .subtotals.value`;
-    this.cartModalShippingBlock = `${this.blockCartModalSummary} .blockcart-modal__total .shipping.value`;
-    this.cartModalProductTaxInclBlock = `${this.blockCartModalSummary} .blockcart-modal__total--bold .value`;
-    this.cartModalCheckoutLink = `${this.blockCartModalDiv} div.modal-footer a`;
-    this.continueShoppingButton = `${this.blockCartModalDiv} div.modal-footer button`;
+    this.blockCartModalSummary = '.blockcart-modal__summery';
+    this.cartModalProductsCountBlock = `${this.blockCartModalSummary} p`;
+    this.cartModalSubtotalBlock = `${this.blockCartModalSummary} .product-subtotal .subtotals.value`;
+    this.cartModalShippingBlock = `${this.blockCartModalSummary} .product-shipping .shipping.value`;
+    this.cartModalProductTaxInclBlock = `${this.blockCartModalSummary} .product-total .value`;
   }
 }
 
-const foModalBlockCartPage = new FoModalBlockCartPage();
-export {foModalBlockCartPage, FoModalBlockCartPage};
+module.exports = new FoModalBlockCartPage();

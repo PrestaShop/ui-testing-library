@@ -15,12 +15,8 @@ class FoMyAddressesCreatePage extends FoMyAddressesCreatePageClassic implements 
   constructor() {
     super('hummingbird');
 
-    // Override FOBasePage
-    this.alertSuccessBlock = '#notifications .container .alert-success';
-
-    this.pageHeaderTitle = '#wrapper div h1';
+    this.pageHeaderTitle = '#content-wrapper div h1';
   }
 }
 
-const foMyAddressesCreatePage = new FoMyAddressesCreatePage();
-export {foMyAddressesCreatePage, FoMyAddressesCreatePage};
+module.exports = new FoMyAddressesCreatePage();

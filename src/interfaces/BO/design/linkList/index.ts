@@ -7,7 +7,6 @@ export interface BODesignLinkListPageInterface extends BOBasePagePageInterface {
 
   deleteLinkWidget(page: Page, hookName: string, row: number): Promise<string>;
   getAllRowsColumnContent(page: Page, columnName: string, sortColumnName: string, hookName: string): Promise<string[]>;
-  getLinkId(page: Page, hookName: string, row: number): Promise<number>;
   getNumberOfElementInGrid(page: Page, hookName: string): Promise<number>;
   getTextColumn(page: Page, row: number, columnName: string, sortColumnName: string, hookName: string): Promise<string>;
   goToEditBlock(page: Page, hookName: string, row: number): Promise<void>;

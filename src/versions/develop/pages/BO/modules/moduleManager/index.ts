@@ -115,8 +115,6 @@ class ModuleManagerPage extends BOBasePage implements ModuleManagerPageInterface
 
   private readonly categoriesSelectDiv: string;
 
-  private readonly categoriesSelectDivLabel: string;
-
   private readonly categoriesDropdownDiv: string;
 
   private readonly categoryDropdownItem: (cat: string) => string;
@@ -165,7 +163,6 @@ class ModuleManagerPage extends BOBasePage implements ModuleManagerPageInterface
 
     // Filter by categories dropdown selectors
     this.categoriesSelectDiv = '#categories';
-    this.categoriesSelectDivLabel = `${this.categoriesSelectDiv} .js-selected-item`;
     this.categoriesDropdownDiv = 'div.ps-dropdown-menu.dropdown-menu.module-category-selector';
     this.categoryDropdownItem = (cat: string) => `${this.categoriesDropdownDiv} a[data-category-display-name='${cat}']`;
 
@@ -560,15 +557,6 @@ class ModuleManagerPage extends BOBasePage implements ModuleManagerPageInterface
       page.locator(this.categoryDropdownItem(category)).click(),
       this.waitForVisibleSelector(page, `${this.categoriesSelectDiv}[aria-expanded='false']`),
     ]);
-  }
-
-  /**
-   * Get the currently selected category filter
-   * @param page {Page} Browser tab
-   * @return {Promise<string>}
-   */
-  async getSelectedCategoryFilter(page: Page): Promise<string> {
-    return this.getTextContent(page, this.categoriesSelectDivLabel);
   }
 
   /**

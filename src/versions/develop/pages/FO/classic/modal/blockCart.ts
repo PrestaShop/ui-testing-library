@@ -14,21 +14,21 @@ import type {Page} from 'playwright';
  * @extends FOBasePage
  */
 class FoModalBlockCartPage extends FOBasePage implements FoModalBlockCartPageInterface {
-  protected blockCartLabel: string;
+  private readonly blockCartLabel: string;
 
   public readonly blockCartModalDiv: string;
 
   protected blockCartModalCloseButton: string;
 
-  protected cartModalProductNameBlock: string;
+  private readonly cartModalProductNameBlock: string;
 
-  protected cartModalProductPriceBlock: string;
+  private readonly cartModalProductPriceBlock: string;
 
-  protected cartModalProductSizeBlock: string;
+  private readonly cartModalProductSizeBlock: string;
 
-  protected cartModalProductColorBlock: string;
+  private readonly cartModalProductColorBlock: string;
 
-  protected cartModalProductQuantityBlock: string;
+  private readonly cartModalProductQuantityBlock: string;
 
   private readonly cartContentBlock: string;
 
@@ -53,7 +53,7 @@ class FoModalBlockCartPage extends FOBasePage implements FoModalBlockCartPageInt
 
     this.blockCartModalDiv = '#blockcart-modal';
     this.blockCartLabel = '#myModalLabel';
-    this.blockCartModalCloseButton = `${this.blockCartModalDiv} button.close,${this.blockCartModalDiv} button.btn-close`;
+    this.blockCartModalCloseButton = `${this.blockCartModalDiv} button.close`;
     this.cartModalProductNameBlock = `${this.blockCartModalDiv} .product-name`;
     this.cartModalProductPriceBlock = `${this.blockCartModalDiv} .product-price`;
     this.cartModalProductSizeBlock = `${this.blockCartModalDiv} .size strong`;
@@ -112,11 +112,11 @@ class FoModalBlockCartPage extends FOBasePage implements FoModalBlockCartPageInt
     return [
       {
         name: 'size',
-        value: (await this.getTextContent(page, this.cartModalProductSizeBlock)).replace('Size:', '').trim(),
+        value: await this.getTextContent(page, this.cartModalProductSizeBlock),
       },
       {
         name: 'color',
-        value: (await this.getTextContent(page, this.cartModalProductColorBlock)).replace('Color:', '').trim(),
+        value: await this.getTextContent(page, this.cartModalProductColorBlock),
       },
     ];
   }
@@ -153,9 +153,8 @@ class FoModalBlockCartPage extends FOBasePage implements FoModalBlockCartPageInt
       await page.waitForTimeout(1000);
       await page.mouse.click(5, 5);
     } else {
-      await page.locator(this.blockCartModalCloseButton).click();
+      await this.waitForSelectorAndClick(page, this.blockCartModalCloseButton);
     }
-
     return this.elementNotVisible(page, this.blockCartModalDiv, 1000);
   }
 }

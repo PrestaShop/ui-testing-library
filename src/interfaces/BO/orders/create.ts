@@ -33,7 +33,6 @@ export interface BOOrdersCreatePageInterface extends BOBasePagePageInterface {
   chooseDeliveryAddress(page: Page, deliveryAddress: string): Promise<string>;
   chooseInvoiceAddress(page: Page, invoiceAddress: string): Promise<string>;
   clickOnAddNewAddressButton(page: Page): Promise<boolean>;
-  clickOnAddNewCustomerButton(page: Page): Promise<boolean>;
   clickOnAddVoucherButton(page: Page): Promise<boolean>;
   clickOnCartDetailsButton(page: Page, row?: number): Promise<boolean>;
   clickOnCartUseButton(page: Page, row?: number): Promise<boolean>;
@@ -59,7 +58,6 @@ export interface BOOrdersCreatePageInterface extends BOBasePagePageInterface {
   getDeliveryOptions(page: Page): Promise<string>;
   getEditAddressIframe(page: Page): Frame | null;
   getInvoiceAddressDetails(page: Page): Promise<string>;
-  getNewCustomerIframe(page: Page): Frame | null;
   getNoCustomerFoundError(page: Page): Promise<string>;
   getOrderIframe(page: Page, orderID: number): Frame | null;
   getOrdersNumber(page: Page): Promise<number>;

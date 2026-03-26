@@ -18,7 +18,6 @@ export interface ModuleManagerPageInterface extends BOBasePagePageInterface {
     bulkActions(page: Page, action: string): Promise<string | null>;
     closeUploadModuleModal(page: Page): Promise<boolean>;
     filterByCategory(page: Page, category: string): Promise<void>;
-    getSelectedCategoryFilter(page: Page): Promise<string>;
     filterByStatus(page: Page, status: string): Promise<void>;
     getAllModulesStatus(page: Page, statusToFilterBy: string): Promise<{ name: string, status: boolean }[]>;
     getBlockModuleTitle(page: Page, position: number): Promise<string | null>;

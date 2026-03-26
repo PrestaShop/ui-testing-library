@@ -15,9 +15,7 @@ class FoCreateAccountPage extends FoCreateAccountPageVersion implements FoCreate
     super('hummingbird');
 
     this.pageHeaderTitle = '#wrapper .page-header h1';
-    this.psgdprLabel = `${this.createAccountForm} label[for="field-psgdpr"]`;
   }
 }
 
-const foCreateAccountPage = new FoCreateAccountPage();
-export {foCreateAccountPage, FoCreateAccountPage};
+module.exports = new FoCreateAccountPage();

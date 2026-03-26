@@ -1,6 +1,6 @@
 import {FoMyAccountPageInterface} from '@interfaces/FO/myAccount';
 import FOBasePage from '@pages/FO/FOBasePage';
-import {foMyWishlistsPage as foClassicMyWishlistsPage} from '@versions/develop/pages/FO/classic/myAccount/myWishlists';
+import {myWishlistsPage as foClassicMyWishlistsPage} from '@versions/develop/pages/FO/classic/myAccount/myWishlists';
 
 import type {Page} from 'playwright';
 
@@ -14,25 +14,25 @@ class MyAccountPage extends FOBasePage implements FoMyAccountPageInterface {
 
   public readonly resetPasswordSuccessMessage: string;
 
-  protected accountInformationLink: string;
+  private readonly accountInformationLink: string;
 
-  protected accountHistoryLink: string;
+  private readonly accountHistoryLink: string;
 
-  protected accountAddressesLink: string;
+  private readonly accountAddressesLink: string;
 
-  protected accountFirstAddressLink: string;
+  private readonly accountFirstAddressLink: string;
 
-  protected accountVouchersLink: string;
+  private readonly accountVouchersLink: string;
 
-  protected merchandiseReturnsLink: string;
+  private readonly merchandiseReturnsLink: string;
 
   protected orderSlipsLink: string;
 
-  protected successMessageAlert: string;
+  private readonly successMessageAlert: string;
 
   protected logoutFooterLink: string;
 
-  protected myWishlistsLink: string;
+  private readonly myWishlistsLink: string;
 
   protected psgdprLink: string;
 

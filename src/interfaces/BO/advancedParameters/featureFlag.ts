@@ -4,7 +4,6 @@ import {type Page} from '@playwright/test';
 export interface BOFeatureFlagInterface extends BOBasePagePageInterface {
   readonly featureFlagAdminAPI: string;
   readonly featureFlagAdminAPIMultistore: string;
-  readonly featureFlagDiscount: string;
   readonly featureFlagImprovedShipment: string;
   readonly featureFlagProductPageV2: string;
   readonly pageTitle: string;

@@ -92,9 +92,7 @@ class DescriptionTab extends BOBasePage implements BOProductsCreateTabDescriptio
 
   private readonly defaultCategoryList: (categoryRow: number) => string;
 
-  private readonly deleteCategoryIconByNth: (categoryNth: number) => string;
-
-  private readonly deleteCategoryIconByName: (categoryName: string) => string;
+  private readonly deleteCategoryIcon: (categoryRow: number) => string;
 
   private readonly productManufacturer: string;
 
@@ -163,10 +161,8 @@ class DescriptionTab extends BOBasePage implements BOProductsCreateTabDescriptio
     this.defaultCategorySelectButton = '#select2-product_description_categories_default_category_id-container';
     this.defaultCategoryList = (categoryRow: number) => '#select2-product_description_categories_default_category_id-results'
       + ` li:nth-child(${categoryRow})`;
-    this.deleteCategoryIconByNth = (categoryNth: number) => `#product_description_categories_product_categories_${categoryNth}`
-      + '_name + a.pstaggerClosingCross:not(.d-none)';
-    this.deleteCategoryIconByName = (categoryName: string) => 'input[name^="product[description][categories]'
-      + `[product_categories]"][value="${categoryName}"] + a.pstaggerClosingCross:not(.d-none)`;
+    this.deleteCategoryIcon = (categoryRow: number) => `#product_description_categories_product_categories_${categoryRow}_name`
+      + ' + a.pstaggerClosingCross:not(.d-none)';
     // Brand selectors
     this.productManufacturer = '#product_description_manufacturer';
     this.productManufacturerSelectButton = '#select2-product_description_manufacturer-container';
@@ -233,10 +229,7 @@ class DescriptionTab extends BOBasePage implements BOProductsCreateTabDescriptio
       );
 
       await this.waitForVisibleSelector(page, this.imagePreviewBlock);
-      await this.waitForVisibleLocator(
-        page.locator(this.productImage).nth(numberOfImages + filteredImagePaths.length - 1),
-        20000,
-      );
+      await this.waitForVisibleLocator(page.locator(this.productImage).nth(numberOfImages + filteredImagePaths.length - 1));
     }
   }
 
@@ -503,26 +496,6 @@ class DescriptionTab extends BOBasePage implements BOProductsCreateTabDescriptio
   }
 
   /**
-   * Is delete category icon visible
-   * @param page {Page} Browser tab
-   * @param categoryRow {number} Category row
-   * @returns {Promise<number>}
-   */
-  async isDeleteCategoryIconVisible(page: Page, categoryRow: number): Promise<boolean> {
-    return (await page.locator(this.deleteCategoryIconByNth(categoryRow)).count()) !== 0;
-  }
-
-  /**
-   * Delete category
-   * @param page {Page} Browser tab
-   * @param categoryName {string} Category name
-   * @returns {Promise<number>}
-   */
-  async deleteCategory(page: Page, categoryName: string): Promise<void> {
-    await page.locator(this.deleteCategoryIconByName(categoryName)).click();
-  }
-
-  /**
    * Get selected categories
    * @param page {Page} Browser tab
    * @param categoryName {string} Category Name
@@ -532,6 +505,16 @@ class DescriptionTab extends BOBasePage implements BOProductsCreateTabDescriptio
     await page.locator(this.productDefaultCategory).selectOption({
       label: categoryName,
     });
+  }
+
+  /**
+   * Is delete category icon visible
+   * @param page {Page} Browser tab
+   * @param categoryRow {number} Category row
+   * @returns {Promise<number>}
+   */
+  async isDeleteCategoryIconVisible(page: Page, categoryRow: number): Promise<boolean> {
+    return (await page.locator(this.deleteCategoryIcon(categoryRow)).count()) !== 0;
   }
 
   /**

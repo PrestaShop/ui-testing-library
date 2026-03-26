@@ -215,7 +215,6 @@ export default {
       }
     });
   },
-
   /**
    * Check text in file
    * @param filePath {string|null} Filepath to check
@@ -223,7 +222,6 @@ export default {
    * @param ignoreSpaces {boolean} True to delete all spaces before the check
    * @param ignoreTimeZone {boolean} True to delete timezone string added to some image url
    * @param encoding {string} Encoding for the file
-   * @param checkEndsWith {boolean} True to check if the text to check ends the file to check
    * @return {Promise<boolean>}
    */
   async isTextInFile(
@@ -232,7 +230,6 @@ export default {
     ignoreSpaces: boolean = false,
     ignoreTimeZone: boolean = false,
     encoding: BufferEncoding = 'utf8',
-    checkEndsWith: boolean = false,
   ): Promise<boolean> {
     if (filePath === null) {
       return false;
@@ -250,18 +247,8 @@ export default {
       fileText = fileText.replace(/\?time=\d+/g, '');
       text = text.replace(/\?time=\d+/g, '');
     }
-    let isTextInFile: boolean = fileText.includes(text);
 
-    if (isTextInFile && checkEndsWith) {
-      isTextInFile = fileText.endsWith(text);
-    }
-
-    if (!isTextInFile) {
-      console.log('Option `checkEndsWith`: %d', checkEndsWith);
-      console.log('FileText: %s', fileText);
-      console.log('Text: %s', text);
-    }
-    return isTextInFile;
+    return fileText.includes(text);
   },
 
   /**

@@ -1,6 +1,6 @@
 import {type FoMyVouchersPageInterface} from '@interfaces/FO/myAccount/vouchers';
 import FOBasePage from '@pages/FO/FOBasePage';
-import {type Page} from '@playwright/test';
+import {Page} from '@playwright/test';
 
 /**
  * Vouchers page, contains functions that can be used on the page
@@ -10,27 +10,27 @@ import {type Page} from '@playwright/test';
 class FoMyVouchersPage extends FOBasePage implements FoMyVouchersPageInterface {
   public readonly pageTitle: string;
 
-  protected vouchersTable: string;
+  private readonly vouchersTable: string;
 
-  protected vouchersTableBody: string;
+  private readonly vouchersTableBody: string;
 
-  protected vouchersTableRows: string;
+  private readonly vouchersTableRows: string;
 
-  protected vouchersTableRow: (row: number) => string;
+  private readonly vouchersTableRow: (row: number) => string;
 
-  protected tableColumnCode: (row: number) => string;
+  private readonly tableColumnCode: (row: number) => string;
 
-  protected tableColumnDescription: (row: number) => string;
+  private readonly tableColumnDescription: (row: number) => string;
 
-  protected tableColumnQuantity: (row: number) => string;
+  private readonly tableColumnQuantity: (row: number) => string;
 
-  protected tableColumnValue: (row: number) => string;
+  private readonly tableColumnValue: (row: number) => string;
 
-  protected tableColumnMinimum: (row: number) => string;
+  private readonly tableColumnMinimum: (row: number) => string;
 
-  protected tableColumnCumulative: (row: number) => string;
+  private readonly tableColumnCumulative: (row: number) => string;
 
-  protected tableColumnExpirationDate: (row: number) => string;
+  private readonly tableColumnExpirationDate: (row: number) => string;
 
   /**
    * @constructs
@@ -64,15 +64,9 @@ class FoMyVouchersPage extends FOBasePage implements FoMyVouchersPageInterface {
    * @param page {Page} Browser tab
    * @param row {number} Row number in vouchers table
    * @param columnName {string} Column name in vouchers table
-   * @param waitForSelector {boolean|undefined} True to wait for selector to be visible before getting text
    * @returns {Promise<string>}
    */
-  async getTextColumnFromTableVouchers(
-    page: Page,
-    row: number,
-    columnName: string,
-    waitForSelector: boolean|undefined,
-  ): Promise<string> {
+  async getTextColumnFromTableVouchers(page: Page, row: number, columnName: string): Promise<string> {
     let columnSelector: string;
 
     switch (columnName) {
@@ -108,7 +102,7 @@ class FoMyVouchersPage extends FOBasePage implements FoMyVouchersPageInterface {
         throw new Error(`Column ${columnName} was not found`);
     }
 
-    return this.getTextContent(page, columnSelector, typeof waitForSelector === 'undefined' ? true : waitForSelector);
+    return this.getTextContent(page, columnSelector);
   }
 
   /**

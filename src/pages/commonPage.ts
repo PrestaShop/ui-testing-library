@@ -213,7 +213,7 @@ export default class CommonPage implements CommonPageInterface {
   async openLinkWithTargetBlank(
     page: Page,
     selector: string,
-    newPageSelector: string = 'body .logo, body .error__logo',
+    newPageSelector: string = 'body .logo',
     state: 'load' | 'domcontentloaded' | 'networkidle' = 'load',
     waitForVisible: boolean = true,
   ): Promise<Page> {
@@ -317,13 +317,14 @@ export default class CommonPage implements CommonPageInterface {
    * @return {Promise<void>}
    */
   async dialogListener(page: Page, accept: boolean = true, text: string = ''): Promise<void> {
-    page.once('dialog', (dialog) => {
+    page.removeAllListeners?.('dialog');
+    page.once('dialog', async (dialog) => {
       if (accept && text === '') {
-        dialog.accept();
+        await dialog.accept();
       } else if (text !== '') {
-        dialog.accept(text);
+        await dialog.accept(text);
       } else {
-        dialog.dismiss();
+        await dialog.dismiss();
       }
     });
   }
@@ -685,10 +686,8 @@ export default class CommonPage implements CommonPageInterface {
   async resize(page: Page, mobileSize: boolean): Promise<void> {
     if (mobileSize) {
       await page.setViewportSize({width: 600, height: 600});
-    } else if (global.BROWSER.width && global.BROWSER.height) {
-      await page.setViewportSize({width: global.BROWSER.width, height: global.BROWSER.height});
     } else {
-      await page.setViewportSize({width: 1680, height: 900});
+      await page.setViewportSize({width: global.BROWSER.width, height: global.BROWSER.height});
     }
   }
 }

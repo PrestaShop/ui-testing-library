@@ -8,10 +8,10 @@ import {type Page} from '@playwright/test';
  * @class
  * @extends FOBasePage
  */
-class FoMyWishlistsPage extends FOBasePage implements FoMyWishlistsPageInterface {
+class MyWishlistsPage extends FOBasePage implements FoMyWishlistsPageInterface {
   public readonly pageTitle: string;
 
-  protected headerTitle: string;
+  private readonly headerTitle: string;
 
   private readonly wishlistCreateButton: string;
 
@@ -133,5 +133,5 @@ class FoMyWishlistsPage extends FOBasePage implements FoMyWishlistsPageInterface
   }
 }
 
-const foMyWishlistsPage = new FoMyWishlistsPage();
-export {foMyWishlistsPage, FoMyWishlistsPage};
+const myWishlistsPage = new MyWishlistsPage();
+export {myWishlistsPage, MyWishlistsPage};

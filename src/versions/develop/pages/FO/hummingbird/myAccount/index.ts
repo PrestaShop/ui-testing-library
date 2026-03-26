@@ -14,20 +14,10 @@ class MyAccountPage extends MyAccountPageVersion implements FoMyAccountPageInter
   constructor() {
     super('hummingbird');
 
-    // Selectors
-    this.accountInformationLink = '#identity_link';
-    this.accountHistoryLink = '#history_link';
-    this.accountAddressesLink = '#addresses_link';
-    this.accountFirstAddressLink = '#address_link';
-    this.accountVouchersLink = '#discounts_link';
-    this.merchandiseReturnsLink = '#returns_link';
-    this.orderSlipsLink = '#order-slips_link';
-    this.successMessageAlert = 'div.alert';
-    this.logoutFooterLink = '#footer_customeraccountlinks a.logout';
-    this.myWishlistsLink = '.account-menu__nav #wishlist_link';
-    this.psgdprLink = '.account-menu__nav #psgdpr_link';
+    this.orderSlipsLink = '.account-menu #order-slips__link';
+    this.logoutFooterLink = '#my-account .account-menu .account-menu--signout';
+    this.psgdprLink = '.customer-link #psgdpr-link';
   }
 }
 
-const myAccountPage = new MyAccountPage();
-export {myAccountPage, MyAccountPage};
+module.exports = new MyAccountPage();

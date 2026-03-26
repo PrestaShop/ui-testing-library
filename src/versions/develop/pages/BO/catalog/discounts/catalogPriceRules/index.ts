@@ -10,8 +10,6 @@ import {type Page} from '@playwright/test';
 class BOCatalogPriceRulesPage extends BOBasePage implements BOCatalogPriceRulesPageInterface {
   public readonly pageTitle: string;
 
-  public readonly messageMustSelectAtLeastOneElementToDelete: string;
-
   private readonly addNewCatalogPriceRuleButton: string;
 
   private readonly gridForm: string;
@@ -96,7 +94,6 @@ class BOCatalogPriceRulesPage extends BOBasePage implements BOCatalogPriceRulesP
     super();
 
     this.pageTitle = 'Catalog Price Rules •';
-    this.messageMustSelectAtLeastOneElementToDelete = 'You must select at least one element to delete.';
 
     // Selectors header
     this.addNewCatalogPriceRuleButton = 'a[data-role=page-header-desc-specific_price_rule-link]';
@@ -364,24 +361,19 @@ class BOCatalogPriceRulesPage extends BOBasePage implements BOCatalogPriceRulesP
    * @param page {Page} Browser tab
    * @return {Promise<string>}
    */
-  async bulkDeletePriceRules(page: Page, selectAll: boolean = true): Promise<string> {
+  async bulkDeletePriceRules(page: Page): Promise<string> {
     // To confirm bulk delete action with dialog
     await this.dialogListener(page, true);
 
-    if (selectAll) {
-      // Select all rows
-      await this.bulkSelectRows(page);
-    }
+    // Select all rows
+    await this.bulkSelectRows(page);
 
     // Perform delete
     await page.locator(this.bulkActionMenuButton).click();
     await this.clickAndWaitForURL(page, this.bulkDeleteLink);
 
     // Return successful message
-    if (await this.hasAlertSuccessBlockContent(page)) {
-      return this.getAlertSuccessBlockContent(page);
-    }
-    return this.getAlertDangerBlockContent(page);
+    return this.getAlertSuccessBlockContent(page);
   }
 
   // Sort methods

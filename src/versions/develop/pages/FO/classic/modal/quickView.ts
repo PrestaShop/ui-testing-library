@@ -274,14 +274,9 @@ class FoModalQuickViewPage extends FOBasePage implements FoModalQuickViewPageInt
         value: await this.getAttributeContent(page, `${this.quickViewProductColor} input[checked='checked']`, 'title'),
       });
     } else {
-      let value: string = await this.getAttributeContent(page, `${this.quickViewProductDimension} option[selected]`, 'title');
-
-      if (value === '') {
-        value = await this.getTextContent(page, `${this.quickViewProductDimension} option[selected]`, false);
-      }
       attributes.push({
         name: 'dimension',
-        value,
+        value: await this.getAttributeContent(page, `${this.quickViewProductDimension} option[selected]`, 'title'),
       });
     }
     return attributes;
@@ -293,16 +288,10 @@ class FoModalQuickViewPage extends FOBasePage implements FoModalQuickViewPageInt
      * @returns {Promise<ProductAttribute[]>}
      */
   async getSelectedAttributes(page: Page): Promise<ProductAttribute[]> {
-    let valueSize: string = await this.getAttributeContent(page, `${this.quickViewProductSize} option[selected]`, 'title');
-
-    if (valueSize === '') {
-      valueSize = await this.getTextContent(page, `${this.quickViewProductSize} option[selected]`, false);
-    }
-
     return [
       {
         name: 'size',
-        value: valueSize,
+        value: await this.getAttributeContent(page, `${this.quickViewProductSize} option[selected]`, 'title'),
       },
       {
         name: 'color',

@@ -29,8 +29,6 @@ class PagesConfigurationPage extends BOThemeAndLogoBasePage implements BOPagesCo
 
   private readonly modalConfirmAction: string;
 
-  private readonly seeAllModulesButton: string;
-
   /**
    * @constructs
    * Setting up texts and selectors to use on advanced customization page
@@ -59,9 +57,6 @@ class PagesConfigurationPage extends BOThemeAndLogoBasePage implements BOPagesCo
     // Modal confirmation selectors
     this.modalConfirmAction = '#moduleActionModal';
     this.modalConfirmButton = (action: string) => `${this.modalConfirmAction} span.${action}.action_available`;
-
-    // See all modules button
-    this.seeAllModulesButton = `${this.homePageModal} a[href*="#theme_modules"]`;
   }
 
   /* Methods */
@@ -88,15 +83,6 @@ class PagesConfigurationPage extends BOThemeAndLogoBasePage implements BOPagesCo
     }
 
     return this.getGrowlMessageContent(page);
-  }
-
-  /**
-   * Click on 'See all theme's modules' button
-   * @param page {Page} Browser tab
-   * @return {Promise<void>}
-   */
-  async clickOnSeeAllModulesButton(page: Page): Promise<void> {
-    await this.waitForSelectorAndClick(page, this.seeAllModulesButton);
   }
 }
 

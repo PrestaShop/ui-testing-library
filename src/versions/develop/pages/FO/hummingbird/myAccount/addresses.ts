@@ -16,10 +16,9 @@ class FoMyAddressesPage extends FoMyAddressesPageClassic implements FoMyAddresse
   constructor() {
     super('hummingbird');
 
-    this.createNewAddressLink = '#content a.address-card--add-address';
-    this.addressBodyTitle = 'article.address-card span.address-card__alias';
+    this.createNewAddressLink = '#content a.addresses__new-address';
+    this.addressBodyTitle = 'article.address .card-body p';
   }
 }
 
-const foMyAddressesPage = new FoMyAddressesPage();
-export {foMyAddressesPage, FoMyAddressesPage};
+module.exports = new FoMyAddressesPage();

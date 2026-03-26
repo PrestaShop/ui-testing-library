@@ -8,12 +8,12 @@ import type {Page} from 'playwright';
  * @class
  * @extends FOBasePage
  */
-class FoCategoryPage extends CategoryPageVersion implements FoCategoryPageInterface {
-  protected searchFilterPriceSlider: string;
+class CategoryPage extends CategoryPageVersion implements FoCategoryPageInterface {
+  private readonly searchFilterPriceSlider: string;
 
   private readonly searchFiltersLabel: string;
 
-  protected filterTypeButton: (facetType: string) => string;
+  private readonly filterTypeButton: (facetType: string) => string;
 
   /**
    * @constructs
@@ -22,60 +22,32 @@ class FoCategoryPage extends CategoryPageVersion implements FoCategoryPageInterf
     super('hummingbird');
 
     this.headerNamePage = '#js-product-list-header h1';
-    this.totalProducts = '#js-product-list-top .products__count > span';
-    this.productItemListDiv = '#js-product-list article.product-miniature';
-    this.sortByDiv = `${this.productsSection} div.products__sort-dropdown`;
-    this.sortByButton = `${this.sortByDiv} button#sort_dropdown_button`;
-    this.valueToSortBy = (sortBy: string) => `${this.sortByDiv} .dropdown-menu a[href*='${sortBy}']`;
-
-    // Products list
     this.paginationText = 'div.pagination-number';
-    this.paginationNext = `${this.productListDiv} nav ul.pagination button.next`;
-    this.paginationPrevious = `${this.productListDiv} nav ul.pagination button.previous`;
+    this.productItemListDiv = 'div.products div.card';
+    this.paginationNext = `${this.productListDiv} nav div.pagination-list-container a.next`;
     this.productArticle = (number: number) => `${this.productListDiv} article:nth-child(${number})`;
     this.productImg = (number: number) => `${this.productArticle(number)} img`;
-    this.productPrice = (number: number) => `${this.productArticle(number)} div.product-miniature__price`;
-    this.productQuickViewLink = (number: number) => `${this.productArticle(number)} button`
-      + '.product-miniature__quickview-button';
+    this.productPrice = (number: number) => `${this.productArticle(number)} span.product-miniature__price`;
+    this.productQuickViewLink = (number: number) => `${this.productArticle(number)} .product-miniature__quickview `
+      + 'button';
 
     // Categories SideBlock
     this.sideBlockCategories = '.category-tree';
     this.sideBlockCategoriesItem = (level?: number) => `${this.sideBlockCategories} ul.category-tree__list`
       + `${level === undefined ? '' : `[data-depth="${level}"]`} > li.category-tree__item`;
     this.sideBlockCategory = (text: string) => `${this.sideBlockCategoriesItem()} a:text("${text}")`;
-    this.sideBlockCollapseIcon = (text: string) => `${this.sideBlockCategory(text)} + button`;
     this.searchFilters = '#search-filters';
-    this.filterTypeButton = (facetType: string) => `section.accordion-item button:text("${facetType}")`;
+    this.filterTypeButton = (facetType: string) => `.facet.accordion-item button:text("${facetType}")`;
     this.searchFiltersLabel = `${this.searchFilters} label.form-check-label`;
     this.clearAllFiltersLink = `${this.searchFilters} button.js-search-filters-clear-all`;
-    this.searchFilterPriceSlider = 'div.search-filters__slider';
+    this.searchFilterPriceSlider = 'div.faceted-slider';
     this.closeOneFilter = (row: number) => `#js-active-search-filters ul li:nth-child(${row + 1}) a i`;
-
-    // SubCategories List
-    this.subCategoriesList = 'div.subcategory div.subcategory__list';
-    this.subCategoriesItem = `${this.subCategoriesList} a.subcategory__link`;
-    this.subCategoriesItemLink = (title: string) => `${this.subCategoriesItem}[title="${title}"]`;
 
     // Pagination selectors
     this.pagesList = 'ul.pagination';
-    this.paginationText = `${this.productListDiv} .products__pagination div.pagination__number`;
 
-    this.categoryDescription = 'div.category__description';
-
-    // Filter
-    this.searchFilters = '#search_filters_wrapper';
-    this.searchFilter = (facetType: string, facetLabel: string) => `${this.searchFilters} section[data-type="${facetType}"]`
-      + `${facetLabel === '' ? '' : `[data-name="${facetLabel}"]`} div[id^="facet"]`;
-    this.searchFiltersCheckbox = (facetType: string, facetLabel: string) => `${this.searchFilter(facetType, facetLabel)} `
-      + 'input[type="checkbox"]';
-    this.searchFiltersRadio = (facetType: string, facetLabel: string) => `${this.searchFilter(facetType, facetLabel)} `
-      + 'input[type="radio"]';
-    this.searchFiltersDropdown = (facetType: string, facetLabel: string) => `${this.searchFilter(facetType, facetLabel)
-    } .facet-dropdown`;
-    this.searchFiltersSlider = (facetType: string, facetLabel: string) => `${this.searchFilter(facetType, facetLabel)
-    } .search-filters__slider`;
-    this.searchFilterPriceValues = (facetType: string, facetLabel: string) => `${this.searchFilter(facetType, facetLabel)} `
-      + '[id*=facet_label]';
+    // Filter selectors
+    this.searchFiltersSlider = () => `${this.searchFilters} .faceted-slider`;
   }
 
   /**
@@ -145,7 +117,7 @@ class FoCategoryPage extends CategoryPageVersion implements FoCategoryPageInterf
    * @return {Promise<string>}
    */
   async getProductHref(page: Page, productRow: number): Promise<string> {
-    return this.getAttributeContent(page, `${this.productArticle(productRow)} a.product-miniature__title`, 'href');
+    return this.getAttributeContent(page, `${this.productArticle(productRow)} div.card a.product-miniature__link`, 'href');
   }
 
   /**
@@ -169,5 +141,4 @@ class FoCategoryPage extends CategoryPageVersion implements FoCategoryPageInterf
   }
 }
 
-const foCategoryPage = new FoCategoryPage();
-export {foCategoryPage, FoCategoryPage};
+module.exports = new CategoryPage();

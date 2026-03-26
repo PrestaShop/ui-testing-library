@@ -21,27 +21,25 @@ class MyOrderDetailsPage extends FOBasePage implements FoMyOrderDetailsPageInter
 
   private readonly orderReturnForm: string;
 
-  protected gridTable: string;
+  private readonly gridTable: string;
 
   private readonly returnTextarea: string;
 
   private readonly requestReturnButton: string;
 
-  protected tableBody: string;
+  private readonly tableBody: string;
 
-  protected tableBodyRows: string;
+  private readonly tableBodyRows: string;
 
-  protected tableBodyRow: (row: number) => string;
+  private readonly tableBodyRow: (row: number) => string;
 
-  protected tableBodyColumn: (row: number, column: number) => string;
+  private readonly tableBodyColumn: (row: number, column: number) => string;
 
   private readonly tableReturnProductRowCheckboxButton: (row: number) => string;
 
   private readonly tableReturnQuantityRowSelectButton: (row: number) => string;
 
-  protected productName: (row: number, column: number) => string;
-
-  protected productQuantity: (row: number) => string;
+  private readonly productName: (row: number, column: number) => string;
 
   private readonly downloadLink: (row: number, column: number) => string;
 
@@ -56,14 +54,6 @@ class MyOrderDetailsPage extends FOBasePage implements FoMyOrderDetailsPageInter
   private readonly deliveryAddressBox: string;
 
   private readonly invoiceAddressBox: string;
-
-  protected carrierGridTable: string;
-
-  protected carriersTableTr: string;
-
-  protected carrierTableRow: (row: number) => string;
-
-  protected carrierTableBodyColumn: (row: number, columnName: string) => string;
 
   /**
    * @constructs
@@ -86,12 +76,6 @@ class MyOrderDetailsPage extends FOBasePage implements FoMyOrderDetailsPageInter
     this.returnTextarea = `${this.orderReturnForm} textarea[name='returnText']`;
     this.requestReturnButton = `${this.orderReturnForm} button[name='submitReturnMerchandise']`;
 
-    // Shipment tracking details selectors
-    this.carrierGridTable = '';
-    this.carriersTableTr = 'table.hidden-sm-down tbody tr';
-    this.carrierTableRow = (row: number) => `${this.carriersTableTr}:nth-child(${row})`;
-    this.carrierTableBodyColumn = (row: number, column: string) => `${this.carrierTableRow(row)} td:nth-child(${column})`;
-
     // Order products table body selectors
     this.tableBody = `${this.gridTable} tbody`;
     this.tableBodyRows = `${this.tableBody} tr`;
@@ -101,8 +85,7 @@ class MyOrderDetailsPage extends FOBasePage implements FoMyOrderDetailsPageInter
     this.tableReturnQuantityRowSelectButton = (row: number) => `${this.tableBodyColumn(row, 3)} select`;
 
     // Order product table content
-    this.productName = (row: number, column: number) => `${this.tableBodyColumn(row, column)} a`;
-    this.productQuantity = (row: number) => this.tableBodyColumn(row, 3);
+    this.productName = (row, column) => `${this.tableBodyColumn(row, column)} a`;
     this.downloadLink = (row, column) => `${this.tableBodyColumn(row, column)} > a[href]`;
 
     // Add message form selectors
@@ -195,17 +178,6 @@ class MyOrderDetailsPage extends FOBasePage implements FoMyOrderDetailsPageInter
   }
 
   /**
-   * Get number of rows from product details table
-   * @param page {Page} Browser tab
-   * @returns {Promise<number>}
-   */
-  async getNumberOfRowsFromProductDetailsTable(page: Page): Promise<number> {
-    const numberOfRows = await page.locator(this.tableBodyRows).count();
-
-    return numberOfRows - 3;
-  }
-
-  /**
    * Retrieve and return product name from order detail page
    * @param page {Page} Browser tab
    * @param row {Number} row in orders details table
@@ -214,46 +186,6 @@ class MyOrderDetailsPage extends FOBasePage implements FoMyOrderDetailsPageInter
    */
   async getProductName(page: Page, row: number = 1, column: number = 1): Promise<string> {
     return this.getTextContent(page, this.productName(row, column));
-  }
-
-  /**
-   * Get order product column : Name-Reference-Carrier
-   * @param page {Page} Browser tab
-   * @param row {Number} row in orders details table
-   * @returns {Promise<string>}
-   */
-  async getOrderProductColumn(page: Page, row: number = 1): Promise<string> {
-    return this.getTextContent(page, this.tableBodyColumn(row, 2));
-  }
-
-  /**
-   * Retrieve and return product quantity from order detail page
-   * @param page {Page} Browser tab
-   * @param row {Number} row in orders details table
-   * @returns {Promise<number>}
-   */
-  async getProductQuantity(page: Page, row: number = 1): Promise<number> {
-    return this.getNumberFromText(page, this.productQuantity(row));
-  }
-
-  /**
-   * Get number of carriers from shipment details table
-   * @param page {Page} Browser tab
-   * @returns {Promise<number>}
-   */
-  async getNumberOfCarriersFromShipmentDetailsTable(page: Page): Promise<number> {
-    return page.locator(this.carriersTableTr).count();
-  }
-
-  /**
-   * Get carrier data from table
-   * @param page {Page} Browser tab
-   * @param row {number}
-   * @param column {string}
-   * @returns {Promise<string>}
-   */
-  async getCarrierDataFromTable(page: Page, row: number = 1, column: string = 'Carrier'): Promise<string> {
-    return this.getTextContent(page, this.carrierTableBodyColumn(row, column));
   }
 
   /**

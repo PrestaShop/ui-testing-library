@@ -170,12 +170,7 @@ class BOZonesPage extends BOBasePage implements BOZonesPageInterface {
    */
   async resetFilter(page: Page): Promise<void> {
     if (await this.elementVisible(page, this.resetFilterButton, 2000)) {
-      await page.locator(this.resetFilterButton).click({
-        position: {
-          x: 2,
-          y: 2,
-        },
-      });
+      await page.locator(this.resetFilterButton).click();
       await this.elementNotVisible(page, this.resetFilterButton, 2000);
     }
     await this.waitForVisibleSelector(page, this.searchFilterButton, 2000);

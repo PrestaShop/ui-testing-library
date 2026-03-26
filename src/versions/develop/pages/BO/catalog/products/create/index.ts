@@ -29,8 +29,6 @@ class BOProductsCreatePage extends BOBasePage implements BOProductsCreatePageInt
 
   public readonly errorMessageWhenSummaryTooLong: (number: number) => string;
 
-  public readonly errorMessageEmbeddedHtml: string;
-
   private readonly selectStoresLink: string;
 
   private readonly submitStoreButton: string;
@@ -47,7 +45,7 @@ class BOProductsCreatePage extends BOBasePage implements BOProductsCreatePageInt
 
   private readonly productNameLanguageDropdown: string;
 
-  private readonly productNameLanguageDropdownItem: (locale: string) => string;
+  protected readonly productNameLanguageDropdownItem: (locale: string) => string;
 
   private readonly productTypeLabel: string;
 
@@ -123,9 +121,6 @@ class BOProductsCreatePage extends BOBasePage implements BOProductsCreatePageInt
     this.successfulDuplicateMessage = 'Successful duplication';
     this.errorMessage = 'Unable to update settings.';
     this.errorMessageWhenSummaryTooLong = (number: number) => `This field cannot be longer than ${number} characters.`;
-    this.errorMessageEmbeddedHtml = 'Product description contains embedded HTML elements (iframe, frame, form, input,'
-      + ' embed, object) which are not allowed. To allow them, enable "Allow iframes on HTML fields" in'
-      + ' Shop Parameters > General settings.';
 
     // Multistore selectors
     this.selectStoresLink = '#header-multishop a.product-shops-action';

@@ -19,11 +19,11 @@ class CategoryPage extends FOBasePage implements FoCategoryPageInterface {
 
   protected headerNamePage: string;
 
-  protected totalProducts: string;
+  private readonly totalProducts: string;
 
-  protected readonly productsSection: string;
+  private readonly productsSection: string;
 
-  protected readonly productListTop: string;
+  private readonly productListTop: string;
 
   protected productListDiv: string;
 
@@ -35,13 +35,13 @@ class CategoryPage extends FOBasePage implements FoCategoryPageInterface {
 
   protected paginationNext: string;
 
-  protected paginationPrevious: string;
+  private readonly paginationPrevious: string;
 
-  protected sortByDiv: string;
+  private readonly sortByDiv: string;
 
-  protected sortByButton: string;
+  private readonly sortByButton: string;
 
-  protected valueToSortBy: (sortBy: string) => string;
+  private readonly valueToSortBy: (sortBy: string) => string;
 
   protected sideBlockCategories: string;
 
@@ -51,11 +51,11 @@ class CategoryPage extends FOBasePage implements FoCategoryPageInterface {
 
   protected sideBlockCollapseIcon: (text: string) => string;
 
-  protected subCategoriesList: string;
+  private readonly subCategoriesList: string;
 
-  protected subCategoriesItem: string;
+  private readonly subCategoriesItem: string;
 
-  protected subCategoriesItemLink: (title: string) => string;
+  private readonly subCategoriesItemLink: (title: string) => string;
 
   private readonly productList: string;
 
@@ -77,23 +77,23 @@ class CategoryPage extends FOBasePage implements FoCategoryPageInterface {
 
   private readonly productAddToWishlist: (number: number) => string;
 
-  protected categoryDescription: string;
+  private readonly categoryDescription: string;
 
   protected searchFilters: string;
 
-  protected searchFilter: (facetType: string, facetLabel: string) => string;
+  private readonly searchFilter: (facetType: string, facetLabel: string) => string;
 
   protected searchFiltersCheckbox: (facetType: string, facetLabel: string) => string;
 
-  protected searchFiltersRadio: (facetType: string, facetLabel: string) => string;
+  private readonly searchFiltersRadio: (facetType: string, facetLabel: string) => string;
 
-  protected searchFiltersDropdown: (facetType: string, facetLabel: string) => string;
+  private readonly searchFiltersDropdown: (facetType: string, facetLabel: string) => string;
 
   protected searchFiltersSlider: (facetType: string, facetLabel: string) => string;
 
   protected closeOneFilter: (row: number) => string;
 
-  protected searchFilterPriceValues: (facetType: string, facetLabel: string) => string;
+  private readonly searchFilterPriceValues: (facetType: string, facetLabel: string) => string;
 
   protected clearAllFiltersLink: string;
 
@@ -108,8 +108,6 @@ class CategoryPage extends FOBasePage implements FoCategoryPageInterface {
   private readonly wishlistModalListItem: string;
 
   private readonly wishlistToast: string;
-
-  private readonly addToCartIcon: (number: number) => string;
 
   /**
    * @constructs
@@ -193,9 +191,6 @@ class CategoryPage extends FOBasePage implements FoCategoryPageInterface {
     this.wishlistModal = '.wishlist-add-to .wishlist-modal.show';
     this.wishlistModalListItem = `${this.wishlistModal} ul.wishlist-list li.wishlist-list-item:nth-child(1)`;
     this.wishlistToast = '.wishlist-toast .wishlist-toast-text';
-
-    // Products list
-    this.addToCartIcon = (number: number) => `${this.productArticle(number)} button[data-button-action='add-to-cart']`;
   }
 
   /* Methods */
@@ -449,16 +444,6 @@ class CategoryPage extends FOBasePage implements FoCategoryPageInterface {
     return null;
   }
 
-  /**
-   * Is add to cart button visible
-   * @param page {Page} Browser tab
-   * @param nthProduct {number} nth of product
-   * @returns Promise<boolean>
-   */
-  async isAddToCartButtonVisible(page: Page, nthProduct: number = 1): Promise<boolean> {
-    return this.elementVisible(page, this.addToCartIcon(nthProduct), 1000);
-  }
-
   ////////////////////////////
   // Side Block : Categories
   ////////////////////////////
@@ -500,15 +485,6 @@ class CategoryPage extends FOBasePage implements FoCategoryPageInterface {
   /////////////////////////
   // Side Block : Filters
   /////////////////////////
-  /**
-   * Return if the supplier list is present
-   * @param page {Page} Browser tab
-   * @return {Promise<boolean>}
-   */
-  async hasFiltersSuppliers(page: Page): Promise<boolean> {
-    return (await page.locator(this.searchFiltersSuppliers).count()) === 1;
-  }
-
   /**
    * Return if the supplier list is a dropdown
    * @param page {Page} Browser tab

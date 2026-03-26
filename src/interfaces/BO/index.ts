@@ -77,7 +77,6 @@ export interface BOBasePagePageInterface extends CommonPageInterface {
   readonly trafficAndSeoLink: string;
   readonly translationsLink: string;
   readonly updateAssistantLink: string;
-  readonly wallOfFameLink: string;
   readonly webserviceLink: string;
 
   addCurrentPageToQuickAccess(page: Page, pageName: string): Promise<string | null>;
@@ -91,7 +90,6 @@ export interface BOBasePagePageInterface extends CommonPageInterface {
   closeHelpSideBar(page: Page): Promise<boolean>;
   closeSfToolBar(page: Frame | Page): Promise<void>;
   getAlertBlockContent(page: Page): Promise<string>;
-  getAlertDangerBlockContent(page: Frame | Page): Promise<string>;
   getAlertDangerBlockParagraphContent(page: Page): Promise<string>;
   getAlertInfoBlockParagraphContent(page: Page): Promise<string>;
   getAlertSuccessBlockContent(page: Frame | Page): Promise<string>;
@@ -111,7 +109,6 @@ export interface BOBasePagePageInterface extends CommonPageInterface {
   goToSubMenu(page: Page, parentSelector: string, linkSelector: string): Promise<void>;
   goToUpdateAssistantPage(page: Page): Promise<void>;
   hasAlertBlock(page: Page): Promise<boolean>;
-  hasAlertSuccessBlockContent(page: Frame | Page): Promise<boolean>;
   isMobileMenuVisible(page: Page): Promise<boolean>;
   isNavbarVisible(page: Page): Promise<boolean>;
   isNotificationsLinkVisible(page: Page): Promise<boolean>;

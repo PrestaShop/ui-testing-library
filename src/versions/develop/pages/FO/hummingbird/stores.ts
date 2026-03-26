@@ -11,10 +11,7 @@ class FoStoresPage extends FoStoresPageClassic implements FoStoresPageInterface 
    */
   constructor() {
     super('hummingbird');
-
-    this.storeImage = (idStore:number) => `${this.storeBlock(idStore)} div.store__image`;
   }
 }
 
-const foStoresPage = new FoStoresPage();
-export {foStoresPage, FoStoresPage};
+module.exports = new FoStoresPage();

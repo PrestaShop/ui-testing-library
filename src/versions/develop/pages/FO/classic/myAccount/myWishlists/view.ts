@@ -7,12 +7,12 @@ import {type Page} from '@playwright/test';
  * @class
  * @extends FOBasePage
  */
-class FoMyWishlistsViewPage extends FOBasePage implements FoMyWishlistsViewPageInterface {
+class MyWishlistViewPage extends FOBasePage implements FoMyWishlistsViewPageInterface {
   public readonly messageSuccessfullyRemoved: string;
 
-  protected headerTitle: string;
+  private readonly headerTitle: string;
 
-  public productListEmpty: string;
+  public readonly productListEmpty: string;
 
   public readonly productList: string;
 
@@ -197,5 +197,5 @@ class FoMyWishlistsViewPage extends FOBasePage implements FoMyWishlistsViewPageI
   }
 }
 
-const foMyWishlistsViewPage = new FoMyWishlistsViewPage();
-export {foMyWishlistsViewPage, FoMyWishlistsViewPage};
+const myWishlistViewPage = new MyWishlistViewPage();
+export {myWishlistViewPage, MyWishlistViewPage};

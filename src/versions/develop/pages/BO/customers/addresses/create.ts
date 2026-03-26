@@ -9,47 +9,47 @@ import {type Frame, type Page} from '@playwright/test';
  * @extends BOBasePage
  */
 class BOAddressesCreatePage extends BOBasePage implements BOAddressesCreatePageInterface {
-  public readonly pageTitleCreate: string;
+  public pageTitleCreate: string;
 
   public readonly pageTitleEdit: string;
 
-  private readonly customerEmailInput: string;
+  protected customerEmailInput: string;
 
-  private readonly customerAddressdniInput: string;
+  protected customerAddressdniInput: string;
 
-  private readonly customerAddressAliasInput: string;
+  protected customerAddressAliasInput: string;
 
-  private readonly customerAddressFirstNameInput: string;
+  protected customerAddressFirstNameInput: string;
 
-  private readonly customerLastNameInput: string;
+  protected customerLastNameInput: string;
 
-  private readonly customerAddressCompanyInput: string;
+  protected customerAddressCompanyInput: string;
 
-  private readonly customerAddressVatNumberInput: string;
+  protected customerAddressVatNumberInput: string;
 
-  private readonly customerAddressInput: string;
+  protected customerAddressInput: string;
 
-  private readonly customerAddressPostCodeInput: string;
+  protected customerAddressPostCodeInput: string;
 
-  private readonly customerSecondAddressInput: string;
+  protected customerSecondAddressInput: string;
 
-  private readonly customerAddressCityInput: string;
+  protected customerAddressCityInput: string;
 
-  private readonly customerAddressCountrySelect: string;
+  protected customerAddressCountrySelect: string;
 
-  private readonly customerAddressCountryOption: string;
+  protected customerAddressCountryOption: string;
 
-  private readonly customerAddressStateSelect: string;
+  protected customerAddressStateSelect: string;
 
-  private readonly searchStateInput: string;
+  protected searchStateInput: string;
 
-  private readonly searchResultState: string;
+  protected searchResultState: string;
 
-  private readonly customerAddressPhoneInput: string;
+  protected customerAddressPhoneInput: string;
 
-  private readonly customerAddressOtherInput: string;
+  protected customerAddressOtherInput: string;
 
-  private readonly saveAddressButton: string;
+  protected saveAddressButton: string;
 
   /**
    * @constructs
@@ -103,14 +103,15 @@ class BOAddressesCreatePage extends BOBasePage implements BOAddressesCreatePageI
   ): Promise<string|null> {
     if (await this.elementVisible(page, this.customerEmailInput, 2000)) {
       await this.setValue(page, this.customerEmailInput, addressData.email);
-      if ('keyboard' in page) {
+
+/*      if ('keyboard' in page) {
         await page.keyboard.press('Tab');
       }
       if ('waitForResponse' in page) {
-        await page.waitForResponse('**/sell/customers/customer-information**', {
-          timeout: 2000,
+        await page.waitForResponse('**!/sell/customers/customer-information**', {
+          timeout: 3000,
         });
-      }
+      }*/
     }
     await this.setValue(page, this.customerAddressdniInput, addressData.dni);
     await this.setValue(page, this.customerAddressAliasInput, addressData.alias);
@@ -164,4 +165,5 @@ class BOAddressesCreatePage extends BOBasePage implements BOAddressesCreatePageI
   }
 }
 
-module.exports = new BOAddressesCreatePage();
+const boAddressesCreatePage = new BOAddressesCreatePage();
+export {boAddressesCreatePage, BOAddressesCreatePage};

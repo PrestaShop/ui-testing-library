@@ -14,7 +14,6 @@ export interface FoContactUsPageInterface extends FOBasePagePageInterface {
   getEmailFieldValue(page: Page): Promise<string>;
   getEmailUsLink(page: Page): Promise<string>;
   getGDPRLabel(page: Page): Promise<string>;
-  getSendButtonLabel(page: Page): Promise<string>;
   hasGDPRLabel(page: Page): Promise<boolean>;
   isAttachmentInputVisible(page: Page): Promise<boolean>;
   sendMessage(page: Page, contactUsData: FakerContactMessage, file?: string|null): Promise<void>;

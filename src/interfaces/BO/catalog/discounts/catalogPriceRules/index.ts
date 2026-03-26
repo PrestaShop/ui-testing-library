@@ -2,10 +2,9 @@ import {BOBasePagePageInterface} from '@interfaces/BO';
 import {type Page} from '@playwright/test';
 
 export interface BOCatalogPriceRulesPageInterface extends BOBasePagePageInterface {
-  readonly messageMustSelectAtLeastOneElementToDelete: string;
   readonly pageTitle: string;
 
-  bulkDeletePriceRules(page: Page, selectAll?: boolean): Promise<string>;
+  bulkDeletePriceRules(page: Page): Promise<string>;
   bulkSelectRows(page: Page, status?: boolean): Promise<void>;
   deleteCatalogPriceRule(page: Page, ruleName: string): Promise<string>;
   filterByDate(page: Page, filterBy: string, dateFrom: string, dateTo: string): Promise<void>;

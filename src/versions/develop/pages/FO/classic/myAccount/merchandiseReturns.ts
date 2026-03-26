@@ -15,15 +15,15 @@ class MyMerchandiseReturnsPage extends FOBasePage implements FoMyMerchandiseRetu
 
   private readonly alertInfoDiv: string;
 
-  protected gridTable: string;
+  private readonly gridTable: string;
 
-  protected tableBody: string;
+  private readonly tableBody: string;
 
-  protected tableBodyRows: string;
+  private readonly tableBodyRows: string;
 
-  protected tableBodyRow: (row: number) => string;
+  private readonly tableBodyRow: (row: number) => string;
 
-  protected tableColumn: (row: number, column: number) => string;
+  private readonly tableColumn: (row: number, column: number) => string;
 
   /**
    * @constructs

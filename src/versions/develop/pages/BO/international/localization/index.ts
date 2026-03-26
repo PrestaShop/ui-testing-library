@@ -29,7 +29,7 @@ class BOLocalizationPage extends BOLocalizationBasePage implements BOLocalizatio
 
   protected updatepriceDisplayForGroupsCHeckbox: string;
 
-  protected downloadPackDataToggleInput: (toggle: number) => string;
+  protected downloadPackDataToggleInput: (toggle: number | string) => string;
 
   protected importButton: string;
 
@@ -62,7 +62,7 @@ class BOLocalizationPage extends BOLocalizationBasePage implements BOLocalizatio
     this.importLanguagesCheckbox = '#import_localization_pack_content_to_import_3';
     this.importUnitsCheckbox = '#import_localization_pack_content_to_import_4';
     this.updatepriceDisplayForGroupsCHeckbox = '#import_localization_pack_content_to_import_5';
-    this.downloadPackDataToggleInput = (toggle: number) => `#import_localization_pack_download_pack_data_${toggle}`;
+    this.downloadPackDataToggleInput = (toggle: string | number) => `#import_localization_pack_download_pack_data_${toggle}`;
     this.importButton = '#form-import-localization-save-button';
 
     // Configuration form selectors
@@ -154,6 +154,5 @@ class BOLocalizationPage extends BOLocalizationBasePage implements BOLocalizatio
     return this.getAlertSuccessBlockParagraphContent(page);
   }
 }
-
 const boLocalizationPage = new BOLocalizationPage();
 export {boLocalizationPage, BOLocalizationPage};
