@@ -78,6 +78,7 @@ class BOFeatureFlag extends BOBasePage implements BOFeatureFlagInterface {
         isStable = false;
         break;
       case this.featureFlagImprovedShipment:
+      case this.featureFlagDiscount:
         isStable = false;
         break;
       case this.featureFlagDiscount:
