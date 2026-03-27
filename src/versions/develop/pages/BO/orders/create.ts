@@ -710,10 +710,11 @@ class BOOrderCreatePage extends BOBasePage implements BOOrdersCreatePageInterfac
     }
     await this.setValue(page, this.productQuantityInput, quantity);
 
-    // Add to cart
+    // Add to cart — set up waitForResponse BEFORE click to avoid race condition where
+    // the XHR completes before waitForResponse starts listening.
+    const addToCartResponse = page.waitForResponse('**/sell/orders/carts/**/products**');
     await page.locator(this.addtoCartButton).click();
-    // Wait for the ajax call to be over (no visible feedback sadly)
-    await page.waitForResponse('**/sell/orders/carts/**/products**');
+    await addToCartResponse;
 
     // The table visible is required, but on second addition it is always visible anyway
     await this.waitForVisibleSelector(page, this.productsTable);

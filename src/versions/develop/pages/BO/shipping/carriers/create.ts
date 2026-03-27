@@ -210,12 +210,13 @@ class BOCarriersCreatePage extends BOBasePage implements BOCarriersCreatePageInt
         if (typeof carrierRangeZone === 'string') {
           // eslint-disable-next-line no-restricted-syntax
           for (const zone of Object.values(dataZones)) {
-            await this.setValue(page, this.zonesSelect2Input, zone.name);
-            await page.keyboard.press('Enter');
+            await this.selectZoneInSelect2(page, zone.name!);
+            // Re-open dropdown for the next zone
+            await page.locator(this.zonesSelect2).click();
+            await this.waitForVisibleSelector(page, `${this.zonesSelect2}[aria-expanded='true']`);
           }
         } else {
-          await this.setValue(page, this.zonesSelect2Input, carrierRangeZone.name!);
-          await page.keyboard.press('Enter');
+          await this.selectZoneInSelect2(page, carrierRangeZone.name!);
         }
       }
     }
@@ -299,6 +300,24 @@ class BOCarriersCreatePage extends BOBasePage implements BOCarriersCreatePageInt
 
     // Return successful message
     return this.getAlertSuccessBlockParagraphContent(page);
+  }
+
+  /**
+   * Select a zone in the select2 multi-select by typing its name character-by-character
+   * (pressSequentially) to trigger select2's filter, then clicking the exact match.
+   * Using fill() does not dispatch the key events select2 needs to filter the dropdown.
+   * @param page {Page} Browser tab
+   * @param zoneName {string} Exact zone name to select
+   */
+  private async selectZoneInSelect2(page: Page, zoneName: string): Promise<void> {
+    // Clear existing text in the search field
+    await page.locator(this.zonesSelect2Input).fill('');
+    // Type character-by-character so select2 filters the dropdown on each keystroke
+    await page.locator(this.zonesSelect2Input).pressSequentially(zoneName, {delay: 50});
+    await page.waitForTimeout(300);
+    // Escape special regex chars and click the exact-match option
+    const escaped = zoneName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    await page.locator('.select2-results__option').filter({hasText: new RegExp(`^${escaped}$`)}).first().click();
   }
 
   /**

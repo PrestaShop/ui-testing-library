@@ -107,9 +107,10 @@ class BOAddressesCreatePage extends BOBasePage implements BOAddressesCreatePageI
         await page.keyboard.press('Tab');
       }
       if ('waitForResponse' in page) {
+        // Wait for the customer-information AJAX response (optional — not all PS versions trigger it).
         await page.waitForResponse('**/sell/customers/customer-information**', {
           timeout: 2000,
-        });
+        }).catch(() => { /* endpoint may not be called in this PS version */ });
       }
     }
     await this.setValue(page, this.customerAddressdniInput, addressData.dni);
