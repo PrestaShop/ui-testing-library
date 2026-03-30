@@ -6,6 +6,7 @@ export interface BOFeatureFlagInterface extends BOBasePagePageInterface {
   readonly featureFlagAdminAPIMultistore: string;
   readonly featureFlagDiscount: string;
   readonly featureFlagImprovedShipment: string;
+  readonly featureFlagDiscount: string;
   readonly featureFlagProductPageV2: string;
   readonly pageTitle: string;
 
