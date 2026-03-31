@@ -19,6 +19,8 @@ export default class FakerDiscount {
 
   public readonly dateTo: string | null;
 
+  public readonly neverExpires: boolean;
+
   public readonly allCustomers: boolean;
 
   public readonly customerGroups: boolean;
@@ -28,6 +30,8 @@ export default class FakerDiscount {
   public readonly noProductCondition: boolean;
 
   public readonly singleProduct: boolean;
+
+  public readonly specificProduct: FakerProduct | null;
 
   public readonly productSegment: boolean;
 
@@ -85,6 +89,9 @@ export default class FakerDiscount {
     /** @type {string|null} Ending date for the discount or null to disable it */
     this.dateTo = discountToCreate.dateTo || null;
 
+    /** @type {boolean} True if the discount never expires */
+    this.neverExpires = discountToCreate.neverExpires || false;
+
     // Customer eligibility
     /** @type {boolean} True to enable all customers on the discount */
     this.allCustomers = discountToCreate.allCustomers || false;
@@ -101,6 +108,9 @@ export default class FakerDiscount {
 
     /** @type {boolean} True to enable single product on the discount */
     this.singleProduct = discountToCreate.singleProduct || false;
+
+    /**  /** @type {FakerProduct|null} The specific product to add on the discount */
+    this.specificProduct = discountToCreate.specificProduct || null;
 
     /** @type {boolean} True to enable product segment on the discount */
     this.productSegment = discountToCreate.productSegment || false;

@@ -12,11 +12,23 @@ class BODiscountsPage extends BOBasePage implements BODiscountsPageInterface {
 
   private readonly addNewDiscountButton: string;
 
+  private readonly filterLinkGroup: string;
+
+  private readonly activeTab: string;
+
+  private readonly allLink: string;
+
+  private readonly discountTab: (linkGroup: string) => string;
+
   private readonly createDiscountModal: string;
 
   private readonly discountType: (type: string) => string;
 
   private readonly createDiscountButton: string;
+
+  private readonly gridForm: string;
+
+  private readonly gridTableHeaderTitle: string;
 
   private readonly filterColumns: string;
 
@@ -49,12 +61,23 @@ class BODiscountsPage extends BOBasePage implements BODiscountsPageInterface {
 
     this.pageTitle = `Discounts • ${global.INSTALL.SHOP_NAME}`;
 
+    // Discounts tab
+    this.filterLinkGroup = '.filter-link-group';
+    this.activeTab = `${this.filterLinkGroup} a[aria-pressed="true"]`;
+    this.allLink = `${this.filterLinkGroup} a:nth-child(1)`;
+    this.discountTab = (linkGroup: string) => `${this.filterLinkGroup} a[data-filter-value='${linkGroup}']`;
+
     // Selectors to add discount
     this.addNewDiscountButton = '#page-header-desc-configuration-add_discount';
     this.createDiscountModal = '#createDiscountModal';
     this.discountType = (type: string) => '#discount_type_selector_discount_type_selector div.form-check-radio:'
       + `has(input[value='${type}'])`;
     this.createDiscountButton = '#discountTypeSubmit';
+
+    // Form selectors
+    this.gridForm = '#discount_grid_panel';
+    this.gridTableHeaderTitle = `${this.gridForm} .card-header-title`;
+
     // Selector to filter the table
     this.discountGridTable = '#discount_grid_table';
     this.filterColumns = `${this.discountGridTable} thead tr.column-filters`;
@@ -84,6 +107,7 @@ class BODiscountsPage extends BOBasePage implements BODiscountsPageInterface {
    * @param page {Page} Browser tab
    * @param type {string} The type to select
    * @param typeRow {number}
+   * @return {Promise<void>}
    */
   async selectDiscountType(page: Page, type: string): Promise<void> {
     let discountType: string;
@@ -107,6 +131,38 @@ class BODiscountsPage extends BOBasePage implements BODiscountsPageInterface {
 
     await page.locator(this.discountType(discountType)).click();
     await this.clickAndWaitForURL(page, this.createDiscountButton);
+  }
+
+  /**
+   * Get active tab
+   * @param page {Page} Browser tab
+   * @return {Promise<string>}
+   */
+  async getActiveTab(page: Page): Promise<string> {
+    return this.getTextContent(page, this.activeTab);
+  }
+
+  /**
+   * Go to tab All/Active/Scheduled/Expired
+   * @param page {Page} Browser tab
+   * @param linkGroup {string} Can be All/Active/Scheduled/Expired
+   * @return {Promise<void>}
+   */
+  async goToTab(page: Page, linkGroup: string): Promise<void> {
+    if (linkGroup === 'All') {
+      await this.clickAndWaitForLoadState(page, this.allLink);
+    } else {
+      await this.clickAndWaitForLoadState(page, this.discountTab(linkGroup));
+    }
+  }
+
+  /**
+   * Get number of cart rules
+   * @param page {Page} Browser tab
+   * @return {Promise<number>}
+   */
+  async getNumberOfElementInGrid(page: Page): Promise<number> {
+    return this.getNumberFromText(page, this.gridTableHeaderTitle);
   }
 
   /**

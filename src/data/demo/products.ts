@@ -208,6 +208,8 @@ export default {
     name: 'Mountain fox cushion',
     reference: 'demo_15',
     status: true,
+    price: 22.68,
+    priceTaxExcluded: 18.90,
   }),
   demo_16: new FakerProduct({
     id: 10,

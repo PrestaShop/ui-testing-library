@@ -23,6 +23,8 @@ class BODiscountsCreatePage extends BOBasePage implements BODiscountsCreatePageI
 
   public errorMessageMinPurchaseAmountNotnumber: string;
 
+  public errorMessageExpirationDateBeforeStart: string;
+
   public errorMessageDiscountValue: (discountValue: string) => string;
 
   public readonly discountInformationBlock: string;
@@ -31,17 +33,27 @@ class BODiscountsCreatePage extends BOBasePage implements BODiscountsCreatePageI
 
   public readonly discountDescriptionTextarea: string;
 
+  public readonly discountPeriodBlock: string;
+
+  public readonly startDateInput: string;
+
+  public readonly endDateInput: string;
+
+  public readonly neverExpiresCheckbox: string;
+
   public readonly allCustomersRadioButton: string;
 
   public readonly customerGroupsRadioButton: string;
 
   public readonly singleCustomerRadioButton: string;
 
-  public readonly singleProductRadioButton: string;
+  public readonly specificProductRadioButton: string;
 
   public readonly noProductConditionRadioButton: string;
 
   public readonly specificProductInput: string;
+
+  public readonly specificProductList: string;
 
   public readonly productSegmentRadioButton: string;
 
@@ -77,9 +89,9 @@ class BODiscountsCreatePage extends BOBasePage implements BODiscountsCreatePageI
 
   public readonly freeGiftErrorMessage: string;
 
-  public readonly discountFreeGiftRow : (row: number) => string;
+  public readonly discountFreeGiftRow: (row: number) => string;
 
-  public readonly freeGiftDeleteIcon : (row: number) => string;
+  public readonly freeGiftDeleteIcon: (row: number) => string;
 
   public readonly modalConfirmRemove: string;
 
@@ -120,19 +132,26 @@ class BODiscountsCreatePage extends BOBasePage implements BODiscountsCreatePageI
     this.errorMessageMinPurchaseAmountNotnumber = 'Please enter a valid money amount.';
     this.errorMessageDiscountValue = (discountValue: string) => `Reduction value "${discountValue}" is invalid. `
       + 'It must be greater than 0.';
+    this.errorMessageExpirationDateBeforeStart = 'The expiration date must be after start date';
 
     // Selectors
     this.discountInformationBlock = '#discount_information';
     this.discountNameInput = '#discount_information_names_1';
     this.discountDescriptionTextarea = '#discount_information_description';
-    // Select customer eligibiliyty
+    // Select period
+    this.discountPeriodBlock = '#discount_period';
+    this.startDateInput = '#discount_period_valid_date_range_from';
+    this.endDateInput = '#discount_period_valid_date_range_to';
+    this.neverExpiresCheckbox = '#discount_period div.form-checkbox label';
+    // Select customer eligibility
     this.allCustomersRadioButton = '#discount_customer_eligibility_eligibility_children_selector_0';
     this.customerGroupsRadioButton = '#discount_customer_eligibility_eligibility_children_selector_1';
     this.singleCustomerRadioButton = '#discount_customer_eligibility_eligibility_children_selector_2';
     // Product conditions
     this.noProductConditionRadioButton = '#discount_conditions_product_children_selector_0';
-    this.singleProductRadioButton = '#discount_conditions_product_children_selector_1';
+    this.specificProductRadioButton = '#discount_conditions_product_children_selector_1';
     this.specificProductInput = '#discount_conditions_product_specific_products_search_input';
+    this.specificProductList = '#discount_conditions_product_specific_products_0';
     this.productSegmentRadioButton = '#discount_conditions_product_children_selector_2';
     // Cart conditions
     this.discountConditionCartBlock = '#discount_conditions_cart';
@@ -173,6 +192,24 @@ class BODiscountsCreatePage extends BOBasePage implements BODiscountsCreatePageI
   }
 
   /* Methods */
+
+  /**
+   * Get discount date start and end
+   * @param page {Page} Browser tab
+   * @param period {string} Start or end
+   * @return {Promise<string>}
+   */
+  async getDiscountDate(page: Page, period: string): Promise<string> {
+    switch (period) {
+      case 'start':
+        return this.getAttributeContent(page, this.startDateInput, 'value');
+      case 'end':
+        return this.getAttributeContent(page, this.endDateInput, 'value');
+      default:
+        throw new Error(`Field ${period} was not found`);
+    }
+  }
+
   /**
    * Create/Edit discount
    * @param page {Page} Browser tab
@@ -182,6 +219,10 @@ class BODiscountsCreatePage extends BOBasePage implements BODiscountsCreatePageI
   async createDiscount(page: Page, discountData: FakerDiscount): Promise<string> {
     await this.setValue(page, this.discountNameInput, discountData.name);
     await this.setValue(page, this.discountDescriptionTextarea, discountData.description);
+    await this.setValue(page, this.startDateInput, discountData.dateFrom!);
+    await this.setValue(page, this.endDateInput, discountData.dateTo!);
+    await page.keyboard.press('Enter');
+    await this.setChecked(page, this.neverExpiresCheckbox, discountData.neverExpires);
     // Select customer eligibility form
     if (discountData.customerGroups) {
       await this.setChecked(page, this.customerGroupsRadioButton);
@@ -193,13 +234,19 @@ class BODiscountsCreatePage extends BOBasePage implements BODiscountsCreatePageI
     }
     // Select discount conditions
     // *** Product conditions
-    if (discountData.singleProduct) {
-      await this.setChecked(page, this.singleProductRadioButton);
-      // @todo
+    if (discountData.singleProduct && discountData.specificProduct!.name !== ' ') {
+      await this.setChecked(page, this.specificProductRadioButton);
+      await page.locator(this.specificProductInput).focus();
+      await this.setValue(page, this.specificProductInput, discountData.specificProduct!.name);
+      await this.waitForVisibleSelector(page, this.searchProductResult, 2000);
+      await page.waitForTimeout(2000);
+      await page.keyboard.press('ArrowDown');
+      await page.keyboard.press('Enter');
+      await this.waitForVisibleSelector(page, this.specificProductList, 2000);
     } else if (discountData.productSegment) {
       await this.setChecked(page, this.productSegmentRadioButton);
       // @todo
-    } else {
+    } else if (discountData.noProductCondition) {
       await this.setChecked(page, this.noProductConditionRadioButton);
     }
     // *** Cart condition
@@ -211,7 +258,7 @@ class BODiscountsCreatePage extends BOBasePage implements BODiscountsCreatePageI
       await this.setChecked(page, this.minimumProductQuantityRadioButton);
       await this.setValue(page, this.minimumProductQuantityInput, discountData.productQuantity);
     } else {
-      await this.setChecked(page, this.noProductConditionRadioButton);
+      await this.setChecked(page, this.noMinimumPurchaseRadioButton);
     }
     // Choose a discount value
     if (await this.elementVisible(page, this.discountValueInput, 2000)) {
@@ -276,6 +323,9 @@ class BODiscountsCreatePage extends BOBasePage implements BODiscountsCreatePageI
         selector = this.discountValueBlock;
         break;
       case 'freeGift':
+        selector = this.freeGiftErrorMessage;
+        break;
+      case 'date':
         selector = this.freeGiftErrorMessage;
         break;
       default:
