@@ -19,7 +19,7 @@ class BODiscountsCreatePage extends BOBasePage implements BODiscountsCreatePageI
 
   public errorMessageFreeGiftRequired: string;
 
-  public errorMessageMinPurchaseAmount: string;
+  public errorMessageValueLowerThanZero: string;
 
   public errorMessageMinPurchaseAmountNotnumber: string;
 
@@ -128,7 +128,7 @@ class BODiscountsCreatePage extends BOBasePage implements BODiscountsCreatePageI
     this.errorMessage = 'The form contains errors. Please fix them and save again.';
     this.errorMessageNameRequired = 'The field names is required at least in your default language.';
     this.errorMessageFreeGiftRequired = 'This value should not be blank.';
-    this.errorMessageMinPurchaseAmount = 'This value should be greater than 0.';
+    this.errorMessageValueLowerThanZero = 'This value should be greater than 0.';
     this.errorMessageMinPurchaseAmountNotnumber = 'Please enter a valid money amount.';
     this.errorMessageDiscountValue = (discountValue: string) => `Reduction value "${discountValue}" is invalid. `
       + 'It must be greater than 0.';
@@ -219,8 +219,12 @@ class BODiscountsCreatePage extends BOBasePage implements BODiscountsCreatePageI
   async createDiscount(page: Page, discountData: FakerDiscount): Promise<string> {
     await this.setValue(page, this.discountNameInput, discountData.name);
     await this.setValue(page, this.discountDescriptionTextarea, discountData.description);
-    await this.setValue(page, this.startDateInput, discountData.dateFrom!);
-    await this.setValue(page, this.endDateInput, discountData.dateTo!);
+    if (discountData.dateFrom) {
+      await this.setValue(page, this.startDateInput, discountData.dateFrom!);
+    }
+    if (discountData.dateTo) {
+      await this.setValue(page, this.endDateInput, discountData.dateTo!);
+    }
     await page.keyboard.press('Enter');
     await this.setChecked(page, this.neverExpiresCheckbox, discountData.neverExpires);
     // Select customer eligibility form
@@ -317,6 +321,9 @@ class BODiscountsCreatePage extends BOBasePage implements BODiscountsCreatePageI
         selector = this.discountInformationBlock;
         break;
       case 'amount':
+        selector = this.discountConditionCartBlock;
+        break;
+      case 'product quantity':
         selector = this.discountConditionCartBlock;
         break;
       case 'value':
