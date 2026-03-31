@@ -111,6 +111,12 @@ class CartPage extends FOBasePage implements FoCartPageInterface {
 
   public readonly minimumAmountErrorMessage: string;
 
+  public readonly notValidDiscountErrorMessage: string;
+
+  public readonly expiredDiscountErrorMessage: string;
+
+  public readonly VoucherNotWithTheseProductsErrorMessage: string;
+
   public readonly errorNotificationForProductQuantity: (productQty: number) => string;
 
   protected alertWarning: string;
@@ -143,6 +149,9 @@ class CartPage extends FOBasePage implements FoCartPageInterface {
     this.cartRuleCannotUseVoucherAlertMessageText = 'You cannot use this voucher with this carrier';
     this.cartRuleCannotUseVoucherCountryDelivery = 'You cannot use this voucher in your country of delivery';
     this.minimumAmountErrorMessage = 'The minimum amount to benefit from this promo code is';
+    this.notValidDiscountErrorMessage = 'This voucher is not valid yet';
+    this.VoucherNotWithTheseProductsErrorMessage = 'You cannot use this voucher with these products';
+    this.expiredDiscountErrorMessage = 'This voucher has expired';
     this.errorNotificationForProductQuantity = (productQty: number) => `You can only buy ${productQty}`
       + ' "Hummingbird printed t-shirt : Color - White, Size - S". Please adjust the quantity in your cart to continue.';
 

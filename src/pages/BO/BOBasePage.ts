@@ -83,6 +83,10 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
 
   private readonly navbarCollapsed: (isCollapsed: boolean) => string;
 
+  private readonly breadCrumb: string;
+
+  private readonly breadCrumbLink: (link: string) => string;
+
   private readonly dashboardLink: string;
 
   public readonly ordersParentLink: string;
@@ -360,6 +364,10 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
     this.viewMyStoreButton = `${this.multistoreHeader} div.header-multishop-right a.header-multishop-view-action`;
     this.multistoreTopBar = `${this.multistoreHeader} div.header-multishop-top-bar`;
     this.storeName = `${this.multistoreTopBar} div h2`;
+
+    // Breadcrumb link
+    this.breadCrumb = '.header-toolbar .breadcrumb';
+    this.breadCrumbLink = (link: string) => `${this.breadCrumb} a[href*="${link}"]`;
 
     // Dashboard (works if link is first level or sub tab)
     this.dashboardLink = '[id$=tab-AdminDashboard]';
@@ -742,6 +750,19 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
   async goToManageQuickAccessPage(page: Page): Promise<void> {
     await this.waitForSelectorAndClick(page, this.quickAccessDropdownToggle);
     await this.clickAndWaitForURL(page, this.manageYourQuickAccessLink);
+  }
+
+  /**
+   * Click on bread crumb link
+   * @param page {Page} Browser tab
+   * @param link {string} Link to click on
+   * @returns {Promise<void>}
+   */
+  async clickOnBreadCrumbLink(page: Page, link: string): Promise<void> {
+    const currentUrl: string = page.url();
+
+    await page.locator(this.breadCrumbLink(link)).click();
+    await page.waitForURL((url: URL): boolean => url.toString() !== currentUrl);
   }
 
   /**

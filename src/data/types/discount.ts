@@ -7,11 +7,13 @@ type DiscountCreator = {
   description?: string
   dateFrom?: string | null
   dateTo?: string | null
+  neverExpires?: boolean
   allCustomers?: boolean
   customerGroups?: boolean
   singleCustomer?: boolean
   noProductCondition?: boolean
   singleProduct?: boolean
+  specificProduct?: FakerProduct | null
   productSegment?: boolean
   noCartCondition?: boolean
   minimumPurchaseAmount?: boolean

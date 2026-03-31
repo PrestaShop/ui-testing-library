@@ -5,6 +5,7 @@ import {type Page} from '@playwright/test';
 export interface BODiscountsCreatePageInterface extends BOBasePagePageInterface {
   readonly errorMessage: string;
   readonly errorMessageDiscountValue: (discountValue: string) => string;
+  readonly errorMessageExpirationDateBeforeStart: string;
   readonly errorMessageFreeGiftRequired: string;
   readonly errorMessageMinPurchaseAmount: string;
   readonly errorMessageMinPurchaseAmountNotnumber: string;
@@ -14,5 +15,6 @@ export interface BODiscountsCreatePageInterface extends BOBasePagePageInterface 
 
   createDiscount(page: Page, discountData: FakerDiscount): Promise<string>;
   deleteFreeGift(page: Page, row?: number): Promise<boolean>;
+  getDiscountDate(page: Page, period: string): Promise<string>;
   getErrorMessageInvalidInput(page: Page, input: string): Promise<string>;
 }

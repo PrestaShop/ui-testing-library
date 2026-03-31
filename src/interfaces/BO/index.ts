@@ -82,6 +82,7 @@ export interface BOBasePagePageInterface extends CommonPageInterface {
 
   addCurrentPageToQuickAccess(page: Page, pageName: string): Promise<string | null>;
   chooseShop(page: Page, shopNumber: number): Promise<void>;
+  clickOnBreadCrumbLink(page: Page, link: string): Promise<void>;
   clickOnMultiStoreHeader(page: Page): Promise<void>;
   clickOnNotification(page: Page, tabName: string, row?: number): Promise<void>;
   clickOnNotificationsLink(page: Page): Promise<boolean>;
