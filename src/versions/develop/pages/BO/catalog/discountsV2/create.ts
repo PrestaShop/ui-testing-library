@@ -222,11 +222,11 @@ class BODiscountsCreatePage extends BOBasePage implements BODiscountsCreatePageI
     if (discountData.dateFrom) {
       await this.setValue(page, this.startDateInput, discountData.dateFrom!);
     }
+    await page.keyboard.press('Enter');
+    await this.setChecked(page, this.neverExpiresCheckbox, discountData.neverExpires);
     if (discountData.dateTo) {
       await this.setValue(page, this.endDateInput, discountData.dateTo!);
     }
-    await page.keyboard.press('Enter');
-    await this.setChecked(page, this.neverExpiresCheckbox, discountData.neverExpires);
     // Select customer eligibility form
     if (discountData.customerGroups) {
       await this.setChecked(page, this.customerGroupsRadioButton);
