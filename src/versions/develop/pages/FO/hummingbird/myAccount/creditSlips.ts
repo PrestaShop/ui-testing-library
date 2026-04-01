@@ -13,8 +13,16 @@ class FOMyCreditSlipsPage extends FOMyCreditSlipsPageClassic implements FOMyCred
   constructor() {
     super('hummingbird');
 
+    // Selectors
+    this.creditSlipsTable = '#content div.grid-table';
+    this.creditSlipsTableRows = `${this.creditSlipsTable} div.grid-table__row`;
+    // Why "+1" ? Because there is a row before this one (div.grid-table__header)
+    this.creditSlipsTableRow = (row: number) => `${this.creditSlipsTableRows}:nth-child(${row + 1})`;
+    this.creditSlipsTableColumn = (row: number, column: number) => `${this.creditSlipsTableRow(row)} span.grid-table__cell`
+      + `:nth-child(${column})`;
     this.homeLink = 'nav.breadcrumb__wrapper li.breadcrumb-item:nth-child(1) a';
   }
 }
 
-module.exports = new FOMyCreditSlipsPage();
+const foMyCreditSlipsPage = new FOMyCreditSlipsPage();
+export {foMyCreditSlipsPage, FOMyCreditSlipsPage};

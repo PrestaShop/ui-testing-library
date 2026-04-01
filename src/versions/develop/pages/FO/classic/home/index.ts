@@ -11,7 +11,7 @@ import {foModalQuickViewPage as foClassicModalQuickViewPage} from '@versions/dev
 class FoHomePage extends FOBasePage implements FoHomePageInterface {
   public readonly pageTitle: string;
 
-  public readonly successAddToCartMessage: string;
+  public successAddToCartMessage: string;
 
   protected carouselSliderId: string;
 
@@ -25,7 +25,7 @@ class FoHomePage extends FOBasePage implements FoHomePageInterface {
 
   protected carouselSliderInnerListItem: (position: number) => string;
 
-  private readonly homePageSection: string;
+  protected homePageSection: string;
 
   protected productsBlockNth: (blockNth: number) => string;
 
@@ -53,23 +53,23 @@ class FoHomePage extends FOBasePage implements FoHomePageInterface {
 
   protected allProductsBlockLink: (blockId: number | string) => string;
 
-  private readonly productPrice: (row: number) => string;
+  protected productPrice: (row: number) => string;
 
-  private readonly newFlag: (row: number) => string;
+  protected newFlag: (row: number) => string;
 
   private readonly bannerImg: string;
 
-  private readonly customTextBlock: string;
+  protected customTextBlock: string;
 
-  private readonly newsletterBlock: string;
+  protected newsletterBlock: string;
 
   protected newsletterFormField: string;
 
-  private readonly newsletterRGPDBlock: string;
+  protected newsletterRGPDBlock: string;
 
-  private readonly newsletterRGPDBlockCheckbox: string;
+  protected newsletterRGPDBlockCheckbox: string;
 
-  private readonly newsletterRGPDBlockLabel: string;
+  protected newsletterRGPDBlockLabel: string;
 
   protected newsletterSubmitButton: string;
 
@@ -264,7 +264,7 @@ class FoHomePage extends FOBasePage implements FoHomePageInterface {
    */
   async getProductsBlockNumber(
     page: Page,
-    blockName: 'bestsellers' | 'newproducts' | 'onsale' | 'popularproducts' | string): Promise<number> {
+    blockName: string): Promise<number> {
     return page.locator(this.productsBlockDiv(blockName)).count();
   }
 
@@ -274,7 +274,7 @@ class FoHomePage extends FOBasePage implements FoHomePageInterface {
    * @param page {Page} Browser tab
    * @return {Promise<boolean>}
    */
-  async hasProductsBlock(page: Page, blockName: 'bestsellers' | 'newproducts' | 'onsale' | 'popularproducts'): Promise<boolean> {
+  async hasProductsBlock(page: Page, blockName: string): Promise<boolean> {
     return (await page.locator(this.productsBlock(blockName)).count()) > 0;
   }
 

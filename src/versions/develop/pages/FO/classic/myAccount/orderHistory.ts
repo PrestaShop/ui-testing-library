@@ -13,39 +13,39 @@ class MyOrderHistoryPage extends FOBasePage implements FoMyOrderHistoryPageInter
 
   public readonly messageSuccessSent: string;
 
-  private readonly ordersTable: string;
+  protected ordersTable: string;
 
-  private readonly ordersTableRows: string;
+  protected ordersTableRows: string;
 
-  protected readonly ordersTableRow: (row: number) => string;
+  protected ordersTableRow: (row: number) => string;
 
-  private readonly orderTableColumn: (row: number, column: number) => string;
+  protected orderTableColumn: (row: number, column: number) => string;
 
-  private readonly orderTableColumnReference: (row: number) => string;
+  protected orderTableColumnReference: (row: number) => string;
 
   protected reorderLink: (row: number) => string;
 
   protected detailsLink: (row: number) => string;
 
-  private readonly orderTableColumnInvoice: (row: number) => string;
+  protected orderTableColumnInvoice: (row: number) => string;
 
-  private readonly orderDetailsLink: (orderID: number) => string;
+  protected orderDetailsLink: (orderID: number) => string;
 
   private readonly backToYourAccountLink: string;
 
   private readonly homeLink: string;
 
-  private readonly boxMessagesSection: string;
+  protected boxMessagesSection: string;
 
-  private readonly messageRow: (row: number) => string;
+  protected messageRow: (row: number) => string;
 
-  private readonly orderMessageForm: string;
+  protected orderMessageForm: string;
 
-  private readonly productSelect: string;
+  protected productSelect: string;
 
-  private readonly messageTextarea: string;
+  protected messageTextarea: string;
 
-  private readonly sendMessageButton: string;
+  protected sendMessageButton: string;
 
   /**
    * @constructs
@@ -75,7 +75,7 @@ class MyOrderHistoryPage extends FOBasePage implements FoMyOrderHistoryPageInter
 
     // Messages block
     this.boxMessagesSection = '.box.messages';
-    this.messageRow = (row: number) => `${this.boxMessagesSection} div:nth-child(${row}).message.row`;
+    this.messageRow = (row: number) => `${this.boxMessagesSection} div:nth-child(${row + 1}).message.row`;
 
     // Add message block
     this.orderMessageForm = '.order-message-form';
@@ -226,7 +226,7 @@ class MyOrderHistoryPage extends FOBasePage implements FoMyOrderHistoryPageInter
    * @returns {Promise<boolean>}
    */
   async isMessageRowVisible(page: Page, row: number = 1): Promise<boolean> {
-    return this.elementVisible(page, this.messageRow(row + 1), 1000);
+    return this.elementVisible(page, this.messageRow(row), 1000);
   }
 
   /**
@@ -236,7 +236,7 @@ class MyOrderHistoryPage extends FOBasePage implements FoMyOrderHistoryPageInter
    * @returns {Promise<string>}
    */
   async getMessageRow(page: Page, row: number = 1): Promise<string> {
-    return this.getTextContent(page, this.messageRow(row + 1));
+    return this.getTextContent(page, this.messageRow(row));
   }
 
   // Methods for Add message form

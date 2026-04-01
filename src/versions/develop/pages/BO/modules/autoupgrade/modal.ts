@@ -16,7 +16,7 @@ class AutoupgradeModal extends ModuleConfigurationPage implements ModuleAutoupgr
 
   private readonly dialogNotificationSection: string;
 
-  private readonly updateLink: string;
+  private readonly releaseNoteLink: string;
 
   private readonly supportLink: string;
 
@@ -35,13 +35,22 @@ class AutoupgradeModal extends ModuleConfigurationPage implements ModuleAutoupgr
     this.remindMeLaterButton = '#remin-me-later-update';
     this.remindMeLaterSevenDaysButton = `${this.remindMeLaterButton} button[value='7_days']`;
     this.dialogNotificationSection = 'div.dialog-notification__section';
-    this.updateLink = `${this.dialogNotificationSection}:nth-child(1) .dialog-notification__link`;
+    this.releaseNoteLink = `${this.dialogNotificationSection}:nth-child(1) .dialog-notification__link`;
     this.supportLink = `${this.dialogNotificationSection}:nth-child(4) .dialog-notification__link`;
     this.psVersionLink = `${this.dialogNotificationSection}:nth-child(2) .dialog-notification__section-content`;
     this.updateButton = '.dialog-notification__button.btn-primary';
   }
 
   // Methods of update
+  /**
+   * Is modal visible
+   * @param page {Page} Browser tab
+   * @returns {Promise<boolean>}
+   */
+  async isModalVisible(page: Page): Promise<boolean> {
+    return this.elementVisible(page, this.dialogUpdateNotification, 5000);
+  }
+
   /**
    * Close dialog update notification
    * @param page {Page} Browser tab
@@ -57,12 +66,21 @@ class AutoupgradeModal extends ModuleConfigurationPage implements ModuleAutoupgr
   }
 
   /**
-   * Get update link from modal
+   * Is release note visible
+   * @param page {Page} Browser tab
+   * @returns {Promise<boolean>}
+   */
+  async isReleaseNoteLinkVisible(page: Page): Promise<boolean> {
+    return this.elementVisible(page, this.releaseNoteLink);
+  }
+
+  /**
+   * Get release note link from modal
    * @param page {Page} Browser tab
    * @returns {Promise<string>}
    */
-  async getUpdateLinkFromModal(page: Page): Promise<string> {
-    return this.getAttributeContent(page, this.updateLink, 'href');
+  async getReleaseNoteLinkFromModal(page: Page): Promise<string> {
+    return this.getAttributeContent(page, this.releaseNoteLink, 'href');
   }
 
   /**
@@ -75,12 +93,12 @@ class AutoupgradeModal extends ModuleConfigurationPage implements ModuleAutoupgr
   }
 
   /**
-   * Open update link from the modal
+   * Open release note link from the modal
    * @param page {Page} Browser tab
    * @returns {Promise<Page}
    */
-  async openUpdateLinkFromTheModal(page: Page): Promise<Page> {
-    return this.openLinkWithTargetBlank(page, this.updateLink, '.post-title');
+  async openReleaseNoteFromTheModal(page: Page): Promise<Page> {
+    return this.openLinkWithTargetBlank(page, this.releaseNoteLink, '.page-title', 'load', false);
   }
 
   /**

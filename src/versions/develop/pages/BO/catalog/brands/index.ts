@@ -196,7 +196,12 @@ class BOBrandsPage extends BOBasePage implements BOBrandsPageInterface {
     if (await this.elementVisible(page, this.filterResetButton(tableName), 2000)) {
       // Wait for URL update instead of load state, because with two grids on the same page the load
       // event was not stable enough
-      await this.clickAndWaitForURL(page, this.filterResetButton(tableName));
+      await this.clickAndWaitForURL(page, this.filterResetButton(tableName), 'load', 30000, {
+        position: {
+          x: 2,
+          y: 2,
+        },
+      });
       await this.elementNotVisible(page, this.filterResetButton(tableName), 2000);
     }
   }

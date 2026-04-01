@@ -26,7 +26,7 @@ class ProductPage extends FOBasePage implements FoProductPageInterface {
 
   protected productFlags: string;
 
-  private readonly productFlag: (flag: string) => string;
+  protected productFlag: (flag: string) => string;
 
   protected productName: string;
 
@@ -40,7 +40,7 @@ class ProductPage extends FOBasePage implements FoProductPageInterface {
 
   protected zoomIcon: string;
 
-  private readonly productModal: string;
+  protected readonly productModal: string;
 
   protected productCoverImgProductModal: string;
 
@@ -50,7 +50,7 @@ class ProductPage extends FOBasePage implements FoProductPageInterface {
 
   protected shortDescription: string;
 
-  private readonly productDescription: string;
+  protected productDescription: string;
 
   protected customizationBlock: string;
 
@@ -70,19 +70,21 @@ class ProductPage extends FOBasePage implements FoProductPageInterface {
 
   protected proceedToCheckoutButton: string;
 
-  private readonly productQuantitySpan: string;
+  protected productQuantitySpan: string;
 
-  private readonly productDetail: string;
+  protected productDetail: string;
 
-  private readonly productFeaturesList: string;
+  protected productFeaturesList: string;
 
-  private readonly continueShoppingButton: string;
+  protected productCondition: string;
 
-  private readonly productAvailability: string;
+  protected continueShoppingButton: string;
 
-  private readonly productAvailabilityIcon: string;
+  protected productAvailability: string;
 
-  private readonly productMinimalQuantity: string;
+  protected productAvailabilityIcon: string;
+
+  protected productMinimalQuantity: string;
 
   protected productAttributeVariantSpan: (itemNumber: number) => string;
 
@@ -90,23 +92,23 @@ class ProductPage extends FOBasePage implements FoProductPageInterface {
 
   protected productAttributeButton: (itemNumber: number) => string;
 
-  private readonly productSizeSelect: string;
+  protected productSizeSelect: string;
 
-  private readonly productSizeOption: (size: string) => string;
+  protected productSizeOption: (size: string) => string;
 
-  private readonly productColorUl: string;
+  protected productColorUl: string;
 
-  private readonly productColorInput: (color: string) => string;
+  protected productColorInput: (color: string, isChecked: boolean) => string;
 
   private readonly productColors: string;
 
-  private readonly metaLink: string;
+  protected metaLink: string;
 
-  private readonly facebookSocialSharing: string;
+  protected facebookSocialSharing: string;
 
-  private readonly twitterSocialSharing: string;
+  protected twitterSocialSharing: string;
 
-  private readonly pinterestSocialSharing: string;
+  protected pinterestSocialSharing: string;
 
   protected productPricesBlock: string;
 
@@ -116,7 +118,7 @@ class ProductPage extends FOBasePage implements FoProductPageInterface {
 
   protected regularPrice: string;
 
-  private readonly packProductsPrice: string;
+  protected packProductsPrice: string;
 
   protected productPrice: string;
 
@@ -124,17 +126,17 @@ class ProductPage extends FOBasePage implements FoProductPageInterface {
 
   protected deliveryInformationSpan: string;
 
-  private readonly productInformationBlock: string;
+  protected productInformationBlock: string;
 
-  private readonly productMailAlertsBlock: string;
+  protected productMailAlertsBlock: string;
 
-  private readonly productMailAlertsEmailInput: string;
+  protected productMailAlertsEmailInput: string;
 
-  private readonly productMailAlertsGDPRLabel: string;
+  protected productMailAlertsGDPRLabel: string;
 
-  private readonly productMailAlertsNotifyButton: string;
+  protected productMailAlertsNotifyButton: string;
 
-  private readonly productMailAlertsNotification: string;
+  protected productMailAlertsNotification: string;
 
   protected discountTable: string;
 
@@ -146,7 +148,7 @@ class ProductPage extends FOBasePage implements FoProductPageInterface {
 
   protected savedValue: string;
 
-  private readonly productUnitPrice: string;
+  protected productUnitPrice: string;
 
   private readonly commentCount: string;
 
@@ -170,11 +172,11 @@ class ProductPage extends FOBasePage implements FoProductPageInterface {
 
   private readonly notEmptyReviewAddReviewButton: string;
 
-  private readonly productReviewModal: string;
+  protected readonly productReviewModal: string;
 
-  private readonly productReviewModalGDPRLabel: string;
+  protected productReviewModalGDPRLabel: string;
 
-  private readonly reviewForm: string;
+  protected readonly reviewForm: string;
 
   private readonly reviewTitle: string;
 
@@ -184,13 +186,13 @@ class ProductPage extends FOBasePage implements FoProductPageInterface {
 
   private readonly reviewSubmitButton: string;
 
-  private readonly reviewCancelButton: string;
+  protected reviewCancelButton: string;
 
   private readonly reviewSentConfirmationModal: string;
 
   private readonly closeReviewSentConfirmationModalButton: string;
 
-  protected readonly productInPackList: (productInList: number) => string;
+  protected productInPackList: (productInList: number) => string;
 
   protected productInPackImage: (productInList: number) => string;
 
@@ -200,11 +202,15 @@ class ProductPage extends FOBasePage implements FoProductPageInterface {
 
   protected productInPackQuantity: (productInList: number) => string;
 
-  private readonly productsBlock: (blockName: string) => string;
+  protected productsBlock: (blockName: string) => string;
+
+  protected productsBlockPrice: (blockName: string) => string;
 
   private readonly btnAddToWishlist: string;
 
-  private readonly notificationsContainer: string;
+  protected notificationsContainer: string;
+
+  protected notificationsContainerMessage: string;
 
   /**
    * @constructs
@@ -249,6 +255,7 @@ class ProductPage extends FOBasePage implements FoProductPageInterface {
     this.productQuantitySpan = '#product-details div.product-quantities label';
     this.productDetail = 'div.product-information a[href=\'#product-details\']';
     this.productFeaturesList = '#product-details section.product-features';
+    this.productCondition = '#product-details div.product-condition';
     this.continueShoppingButton = `${this.blockCartModal} div.cart-content-btn button`;
     this.productAvailability = '#product-availability';
     this.productAvailabilityIcon = `${this.productAvailability} i`;
@@ -259,7 +266,8 @@ class ProductPage extends FOBasePage implements FoProductPageInterface {
     this.productSizeSelect = '#group_1';
     this.productSizeOption = (size: string) => `${this.productSizeSelect} option[title=${size}]`;
     this.productColorUl = 'ul[id^="group_"]';
-    this.productColorInput = (color: string) => `${this.productColorUl} input[title=${color}]`;
+    this.productColorInput = (color: string, isChecked: boolean) => `${this.productColorUl} input[title=${color}]`
+      + `${isChecked ? '[checked]' : ''}`;
     this.productColors = 'div.product-variants div:nth-child(2)';
     this.metaLink = '#main > meta';
     this.facebookSocialSharing = '.social-sharing .facebook a';
@@ -325,12 +333,14 @@ class ProductPage extends FOBasePage implements FoProductPageInterface {
       + ' div.pack-product-quantity';
 
     this.productsBlock = (blockName: string) => `#content-wrapper section[data-type="${blockName}"]`;
+    this.productsBlockPrice = (blockName: string) => `${this.productsBlock(blockName)} .product-price-and-shipping`;
 
     // Wishlist
     this.btnAddToWishlist = '#add-to-cart-or-refresh button.wishlist-button-add';
 
     // Notifications
     this.notificationsContainer = '#notifications div.notifications-container';
+    this.notificationsContainerMessage = `${this.notificationsContainer} article`;
   }
 
   // Methods
@@ -429,7 +439,9 @@ class ProductPage extends FOBasePage implements FoProductPageInterface {
    * @returns {Promise<string>}
    */
   async getProductPrice(page: Page): Promise<string> {
-    return this.getTextContent(page, this.productPrice);
+    return (await this.getTextContent(page, this.productPrice))
+      .replace('Price:', '')
+      .trim();
   }
 
   /**
@@ -503,7 +515,9 @@ class ProductPage extends FOBasePage implements FoProductPageInterface {
    * @returns {Promise<string>}
    */
   async getRegularPrice(page: Page): Promise<string> {
-    return this.getTextContent(page, this.regularPrice);
+    return (await this.getTextContent(page, this.regularPrice))
+      .replace('Regular price:', '')
+      .trim();
   }
 
   /**
@@ -619,6 +633,15 @@ class ProductPage extends FOBasePage implements FoProductPageInterface {
   }
 
   /**
+   * Returns if the product availability label is present
+   * @param page {Page} Browser tab
+   * @returns {Promise<string>}
+   */
+  async hasProductAvailabilityLabel(page: Page): Promise<boolean> {
+    return (await page.locator(this.productAvailability).count()) > 0;
+  }
+
+  /**
    * Get product availability label
    * @param page {Page} Browser tab
    * @return {promise<string>}
@@ -683,7 +706,7 @@ class ProductPage extends FOBasePage implements FoProductPageInterface {
    */
   async scrollBoxArrowsImages(page: Page, direction: string): Promise<void> {
     await page.locator(this.scrollBoxImages(direction)).click();
-    await page.waitForTimeout(1000);
+    await page.waitForTimeout(5000);
   }
 
   /**
@@ -693,6 +716,7 @@ class ProductPage extends FOBasePage implements FoProductPageInterface {
    */
   async zoomCoverImage(page: Page): Promise<boolean> {
     await page.locator(this.zoomIcon).click({force: true});
+    await page.waitForTimeout(4000);
 
     return this.elementVisible(page, this.productModal, 1000);
   }
@@ -744,8 +768,8 @@ class ProductPage extends FOBasePage implements FoProductPageInterface {
       switch (attributes[i].name) {
         case 'color':
           await Promise.all([
-            this.waitForVisibleSelector(page, `${this.productColorInput(attributes[i].value)}[checked]`),
-            page.locator(this.productColorInput(attributes[i].value)).click(),
+            this.waitForAttachedSelector(page, this.productColorInput(attributes[i].value, true)),
+            page.locator(this.productColorInput(attributes[i].value, false)).click(),
           ]);
           break;
         case 'size':
@@ -1047,6 +1071,9 @@ class ProductPage extends FOBasePage implements FoProductPageInterface {
    * @returns {Promise<boolean>}
    */
   async hasProductFeaturesList(page: Page): Promise<boolean> {
+    if (!await this.elementVisible(page, this.productDetail)) {
+      return false;
+    }
     await this.waitForSelectorAndClick(page, this.productDetail);
     return this.elementVisible(page, this.productFeaturesList, 2000);
   }
@@ -1063,17 +1090,6 @@ class ProductPage extends FOBasePage implements FoProductPageInterface {
   }
 
   /**
-   * Is features block visible
-   * @param page {Page} Browser tab
-   * @returns {Promise<boolean>}
-   */
-  async isFeaturesBlockVisible(page: Page): Promise<boolean> {
-    await this.waitForSelectorAndClick(page, this.productDetail);
-
-    return this.elementVisible(page, this.productFeaturesList);
-  }
-
-  /**
    * Get product condition
    * @param page {Page} Browser tab
    * @returns {Promise<string>}
@@ -1081,7 +1097,7 @@ class ProductPage extends FOBasePage implements FoProductPageInterface {
   async getProductCondition(page: Page): Promise<string> {
     await this.waitForSelectorAndClick(page, this.productDetail);
 
-    return this.getTextContent(page, '#product-details div.product-condition');
+    return this.getTextContent(page, this.productCondition);
   }
 
   /**
@@ -1138,7 +1154,7 @@ class ProductPage extends FOBasePage implements FoProductPageInterface {
    * @returns {Promise<boolean>}
    */
   async isUnavailableProductColorDisplayed(page: Page, color: string): Promise<boolean> {
-    return this.elementVisible(page, this.productColorInput(color), 1000);
+    return this.elementVisible(page, this.productColorInput(color, false), 1000);
   }
 
   /**
@@ -1267,22 +1283,22 @@ class ProductPage extends FOBasePage implements FoProductPageInterface {
 
   /**
    * Has products block
-   * @param blockName {'categoryproducts'} The block name in the page
+   * @param blockName {string} The block name in the page
    * @param page {Page} Browser tab
    * @return {Promise<boolean>}
    */
-  async hasProductsBlock(page: Page, blockName: 'categoryproducts'): Promise<boolean> {
+  async hasProductsBlock(page: Page, blockName: string): Promise<boolean> {
     return (await page.locator(this.productsBlock(blockName)).count()) > 0;
   }
 
   /**
    * Is the price displayed in Products block ?
-   * @param blockName {'categoryproducts'} The block name in the page
+   * @param blockName {string} The block name in the page
    * @param page {Page} Browser tab
    * @return {Promise<boolean>}
    */
-  async hasProductsBlockPrice(page: Page, blockName: 'categoryproducts'): Promise<boolean> {
-    return (await page.locator(`${this.productsBlock(blockName)} .product-price-and-shipping`).count()) > 0;
+  async hasProductsBlockPrice(page: Page, blockName: string): Promise<boolean> {
+    return (await page.locator(this.productsBlockPrice(blockName)).count()) > 0;
   }
 
   /**
@@ -1320,7 +1336,7 @@ class ProductPage extends FOBasePage implements FoProductPageInterface {
    * @returns {Promise<string>}
    */
   async hasNotificationMessage(page: Page): Promise<boolean> {
-    return (await page.locator(`${this.notificationsContainer} article`).count() > 0);
+    return (await page.locator(this.notificationsContainerMessage).count() > 0);
   }
 
   /**

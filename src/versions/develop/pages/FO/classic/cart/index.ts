@@ -17,7 +17,7 @@ class CartPage extends FOBasePage implements FoCartPageInterface {
 
   public readonly cartRuleNotExistingErrorText: string;
 
-  public readonly cartRuleMustEnterVoucherErrorText: string;
+  public cartRuleMustEnterVoucherErrorText: string;
 
   public readonly cartRuleLimitUsageErrorText: string;
 
@@ -55,9 +55,9 @@ class CartPage extends FOBasePage implements FoCartPageInterface {
 
   protected productImage: (number: number) => string;
 
-  protected readonly deleteIcon: (number: number) => string;
+  protected deleteIcon: (number: number) => string;
 
-  private readonly itemsNumber: string;
+  protected itemsNumber: string;
 
   protected noItemsInYourCartSpan: string;
 
@@ -71,11 +71,11 @@ class CartPage extends FOBasePage implements FoCartPageInterface {
 
   protected alertMessage: string;
 
-  private readonly subtotalProductsValueSpan: string;
+  protected subtotalProductsValueSpan: string;
 
-  private readonly subtotalShippingValueSpan: string;
+  protected subtotalShippingValueSpan: string;
 
-  private readonly subtotalDiscountValueSpan: string;
+  protected subtotalDiscountValueSpan: string;
 
   protected cartTotalATI: string;
 
@@ -95,9 +95,9 @@ class CartPage extends FOBasePage implements FoCartPageInterface {
 
   private readonly addPromoCodeButton: string;
 
-  private readonly promoCodeRemoveIcon: (line: number) => string;
+  protected promoCodeRemoveIcon: (line: number) => string;
 
-  private readonly cartRuleAlertMessage: string;
+  protected readonly cartRuleAlertMessage: string;
 
   protected highlightPromoCodeBlock: string;
 
@@ -107,15 +107,23 @@ class CartPage extends FOBasePage implements FoCartPageInterface {
 
   public readonly cartRuleCannotUseVoucherAlertMessageText: string;
 
+  public readonly cartRuleCannotUseVoucherCountryDelivery: string;
+
   public readonly minimumAmountErrorMessage: string;
 
-  public readonly errorNotificationForProductQuantity: string;
+  public readonly notValidDiscountErrorMessage: string;
 
-  private readonly alertWarning: string;
+  public readonly expiredDiscountErrorMessage: string;
+
+  public readonly VoucherNotWithTheseProductsErrorMessage: string;
+
+  public readonly errorNotificationForProductQuantity: (productQty: number) => string;
+
+  protected alertWarning: string;
 
   protected proceedToCheckoutButton: string;
 
-  private readonly disabledProceedToCheckoutButton: string;
+  protected disabledProceedToCheckoutButton: string;
 
   private readonly alertPromoCode: string;
 
@@ -139,9 +147,13 @@ class CartPage extends FOBasePage implements FoCartPageInterface {
     this.noItemsInYourCartMessage = 'There are no more items in your cart';
     this.cartRuleChooseCarrierAlertMessageText = 'You must choose a carrier before applying this voucher to your order';
     this.cartRuleCannotUseVoucherAlertMessageText = 'You cannot use this voucher with this carrier';
+    this.cartRuleCannotUseVoucherCountryDelivery = 'You cannot use this voucher in your country of delivery';
     this.minimumAmountErrorMessage = 'The minimum amount to benefit from this promo code is';
-    this.errorNotificationForProductQuantity = 'You can only buy 300 "Hummingbird printed t-shirt".'
-      + ' Please adjust the quantity in your cart to continue.';
+    this.notValidDiscountErrorMessage = 'This voucher is not valid yet';
+    this.VoucherNotWithTheseProductsErrorMessage = 'You cannot use this voucher with these products';
+    this.expiredDiscountErrorMessage = 'This voucher has expired';
+    this.errorNotificationForProductQuantity = (productQty: number) => `You can only buy ${productQty}`
+      + ' "Hummingbird printed t-shirt : Color - White, Size - S". Please adjust the quantity in your cart to continue.';
 
     // Selectors for cart page
     // Shopping cart block selectors
@@ -210,7 +222,7 @@ class CartPage extends FOBasePage implements FoCartPageInterface {
    * @returns {Promise<string>}
    */
   async getNotificationMessage(page: Page): Promise<string> {
-    return this.getTextContent(page, this.alertMessage);
+    return this.getTextContent(page, this.alertMessage, true, true, 30000);
   }
 
   /**
@@ -257,7 +269,7 @@ class CartPage extends FOBasePage implements FoCartPageInterface {
    * @returns {Promise<boolean>}
    */
   async isProductGift(page: Page, row: number): Promise<boolean> {
-    return (await this.getTextContent(page, this.productTotalPrice(row))).trim() === 'Gift';
+    return (await this.getTextContent(page, this.productTotalPrice(row))).trim().includes('Gift');
   }
 
   /**
@@ -411,6 +423,7 @@ class CartPage extends FOBasePage implements FoCartPageInterface {
    */
   async deleteProduct(page: Page, productID: number): Promise<void> {
     await this.waitForSelectorAndClick(page, this.deleteIcon(productID));
+    await page.waitForTimeout(2000);
   }
 
   /**

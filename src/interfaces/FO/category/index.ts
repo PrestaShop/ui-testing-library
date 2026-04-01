@@ -36,6 +36,7 @@ export interface FoCategoryPageInterface extends FOBasePagePageInterface {
     hasBlockCategories(page: Page): Promise<boolean>;
     hasSearchFilters(page: Page): Promise<boolean>;
     hasSearchFilterType(page: Page, facetType: string, facetLabel?: string): Promise<boolean>;
+    hasFiltersSuppliers(page: Page): Promise<boolean>
     isActiveFilterNotVisible(page: Page): Promise<boolean>;
     isAddedToWishlist(page: Page, idxProduct: number): Promise<boolean>;
     isAddedToWishlist(page: Page, idxProduct: number): Promise<boolean>;
@@ -49,4 +50,8 @@ export interface FoCategoryPageInterface extends FOBasePagePageInterface {
     isSupplierListDropdown(page: Page): Promise<boolean>;
     quickViewProduct(page: Page, id: number): Promise<void>;
     sortProductsList(page: Page, sortBy: string): Promise<void>;
+}
+
+export interface FoCategoryHummingbirdPageInterface extends FoCategoryPageInterface {
+  isAddToCartButtonVisible(page: Page, nthProduct?: number): Promise<boolean>;
 }

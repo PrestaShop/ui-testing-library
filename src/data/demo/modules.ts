@@ -58,7 +58,7 @@ export default {
   psFacetedSearch: new FakerModule({
     tag: 'ps_facetedsearch',
     name: 'Faceted search',
-    versionCurrent: 'v4.0.1',
+    versionCurrent: 'v4.0.3',
     releaseZip: 'https://github.com/PrestaShop/ps_facetedsearch/releases/download/%version%/ps_facetedsearch.zip',
   }),
   psGdpr: new FakerModule({
@@ -161,5 +161,9 @@ export default {
   autoupgrade: new FakerModule({
     tag: 'autoupgrade',
     name: '1-Click Upgrade',
+  }),
+  welcome: new FakerModule({
+    tag: 'welcome',
+    name: 'Welcome',
   }),
 };

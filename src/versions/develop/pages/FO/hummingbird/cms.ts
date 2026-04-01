@@ -11,7 +11,11 @@ class FoCmsPage extends FoCmsPageClassic implements FoCmsPageInterface {
    */
   constructor() {
     super('hummingbird');
+
+    // Selectors
+    this.pageTitle = '#wrapper .page-header h1, #wrapper #content.page-content--not-found h1';
   }
 }
 
-module.exports = new FoCmsPage();
+const foCmsPage = new FoCmsPage();
+export {foCmsPage, FoCmsPage};

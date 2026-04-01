@@ -15,7 +15,7 @@ class FoCreateAccountPage extends FOBasePage implements FoCreateAccountPageInter
 
   protected pageHeaderTitle: string;
 
-  private readonly createAccountForm: string;
+  protected readonly createAccountForm: string;
 
   private readonly genderRadioButton: (id: number) => string;
 
@@ -31,7 +31,7 @@ class FoCreateAccountPage extends FOBasePage implements FoCreateAccountPageInter
 
   private readonly customerPrivacyCheckbox: string;
 
-  private readonly psgdprLabel: string;
+  protected psgdprLabel: string;
 
   private readonly psgdprCheckbox: string;
 
@@ -100,9 +100,9 @@ class FoCreateAccountPage extends FOBasePage implements FoCreateAccountPageInter
       `${customer.monthOfBirth}/${customer.dayOfBirth}/${customer.yearOfBirth}`,
     );
 
-    await page.locator(this.customerPrivacyCheckbox).click();
-    if (await this.elementVisible(page, this.psgdprCheckbox, 500)) {
-      await page.locator(this.psgdprCheckbox).click();
+    await page.locator(this.customerPrivacyCheckbox).setChecked(true);
+    if (await this.elementVisible(page, this.psgdprCheckbox, 1000)) {
+      await page.locator(this.psgdprCheckbox).setChecked(true);
     }
     await page.locator(this.saveButton).click();
   }

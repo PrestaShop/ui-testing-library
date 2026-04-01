@@ -8,6 +8,8 @@ class BOCategoriesCreatePage extends BOBasePage implements BOCategoriesCreatePag
 
   public readonly pageTitleEdit: string;
 
+  private readonly formCategory: string;
+
   private readonly nameInput: string;
 
   private readonly displayedToggleInput: (toggle: number) => string;
@@ -15,6 +17,8 @@ class BOCategoriesCreatePage extends BOBasePage implements BOCategoriesCreatePag
   private readonly descriptionIframe: string;
 
   private readonly categoryCoverImage: string;
+
+  private readonly categoryCoverImageImg: string;
 
   private readonly categoryThumbnailImage: string;
 
@@ -51,10 +55,12 @@ class BOCategoriesCreatePage extends BOBasePage implements BOCategoriesCreatePag
     this.pageTitleEdit = 'Editing category ';
 
     // Selectors
+    this.formCategory = '#main-div .content-div form';
     this.nameInput = '#category_name_1';
     this.displayedToggleInput = (toggle: number) => `#category_active_${toggle}`;
     this.descriptionIframe = '#category_description_1_ifr';
     this.categoryCoverImage = '#category_cover_image';
+    this.categoryCoverImageImg = 'label[for="category_cover_image"] + div.input-container figure img';
     this.categoryThumbnailImage = '#category_thumbnail_image';
     this.metaTitleInput = '#category_meta_title_1';
     this.metaDescriptionTextarea = '#category_meta_description_1';
@@ -76,10 +82,18 @@ class BOCategoriesCreatePage extends BOBasePage implements BOCategoriesCreatePag
   /*
   Methods
    */
+  /**
+   * Returns the Identifier of the category
+   * @param page {Page} Browser tab
+   * @return {Promise<number>}
+   */
+  async getIDCategory(page: Page): Promise<number> {
+    return parseInt(await page.locator(this.formCategory).getAttribute('data-id') ?? '', 10);
+  }
 
   /**
    * Select all groups
-   * @param page
+   * @param page {Page} Browser tab
    * @return {Promise<void>}
    */
   async selectAllGroups(page: Page): Promise<void> {
@@ -133,7 +147,9 @@ class BOCategoriesCreatePage extends BOBasePage implements BOCategoriesCreatePag
     await this.setValue(page, this.rootCategoryNameInput, categoryData.name);
     await this.setChecked(page, this.rootCategoryDisplayedToggleInput(categoryData.displayed ? 1 : 0));
     await this.setValueOnTinymceInput(page, this.rootCategoryDescriptionIframe, categoryData.description);
-    await this.uploadFile(page, this.rootCategoryCoverImage, `${categoryData.name}.jpg`);
+    if (categoryData.coverImage) {
+      await this.uploadFile(page, this.rootCategoryCoverImage, categoryData.coverImage);
+    }
     await this.setValue(page, this.rootCategoryMetaTitleInput, categoryData.metaTitle);
     await this.setValue(page, this.rootCategoryMetaDescriptionTextarea, categoryData.metaDescription);
     await this.selectAllGroups(page);
@@ -164,6 +180,11 @@ class BOCategoriesCreatePage extends BOBasePage implements BOCategoriesCreatePag
     switch (inputName) {
       case 'friendlyUrl':
         return page.inputValue(this.linkRewriteInput);
+      case 'cover_image':
+        if (!(await this.elementNotVisible(page, this.categoryCoverImageImg, 3000))) {
+          return this.getAttributeContent(page, this.categoryCoverImageImg, 'src');
+        }
+        return '';
       default:
         throw new Error(`Input ${inputName} was not found`);
     }

@@ -1,14 +1,17 @@
 import ImportContent from '@data/types/localization';
-import {type BOLocalizationPageInterface} from '@interfaces/BO/international/localization';
+import { type BOLocalizationPageInterface } from '@interfaces/BO/international/localization';
 import BOLocalizationBasePage from '@pages/BO/international/localization/base';
-import type {Page} from 'playwright';
+import type { Page } from 'playwright';
 
 /**
  * Localization page, contains selectors and functions for the page
  * @class
  * @extends BOBasePage
  */
-class BOLocalizationPage extends BOLocalizationBasePage implements BOLocalizationPageInterface {
+class BOLocalizationPage
+  extends BOLocalizationBasePage
+  implements BOLocalizationPageInterface
+{
   public readonly pageTitle: string;
 
   public readonly importLocalizationPackSuccessfulMessage: string;
@@ -51,23 +54,30 @@ class BOLocalizationPage extends BOLocalizationBasePage implements BOLocalizatio
     super();
 
     this.pageTitle = `Localization • ${global.INSTALL.SHOP_NAME}`;
-    this.importLocalizationPackSuccessfulMessage = 'Localization pack imported successfully.';
+    this.importLocalizationPackSuccessfulMessage =
+      'Localization pack imported successfully.';
     this.successfulSettingsUpdateMessage = 'Update successful';
 
     // Import localization pack selectors
-    this.importlocalizationPackSelect = '#import_localization_pack_iso_localization_pack';
+    this.importlocalizationPackSelect =
+      '#import_localization_pack_iso_localization_pack';
     this.importStatesCheckbox = '#import_localization_pack_content_to_import_0';
     this.importTaxesCheckbox = '#import_localization_pack_content_to_import_1';
-    this.importCurrenciesCheckbox = '#import_localization_pack_content_to_import_2';
-    this.importLanguagesCheckbox = '#import_localization_pack_content_to_import_3';
+    this.importCurrenciesCheckbox =
+      '#import_localization_pack_content_to_import_2';
+    this.importLanguagesCheckbox =
+      '#import_localization_pack_content_to_import_3';
     this.importUnitsCheckbox = '#import_localization_pack_content_to_import_4';
-    this.updatepriceDisplayForGroupsCHeckbox = '#import_localization_pack_content_to_import_5';
-    this.downloadPackDataToggleInput = (toggle: string | number) => `#import_localization_pack_download_pack_data_${toggle}`;
+    this.updatepriceDisplayForGroupsCHeckbox =
+      '#import_localization_pack_content_to_import_5';
+    this.downloadPackDataToggleInput = (toggle: string | number) =>
+      `#import_localization_pack_download_pack_data_${toggle}`;
     this.importButton = '#form-import-localization-save-button';
 
     // Configuration form selectors
     this.defaultLanguageSelector = '#form_default_language';
-    this.languageFromBrowserToggleInput = (toggle: number) => `#form_detect_language_from_browser_${toggle}`;
+    this.languageFromBrowserToggleInput = (toggle: number) =>
+      `#form_detect_language_from_browser_${toggle}`;
     this.defaultCurrencySelect = '#form_default_currency';
     this.defaultCountrySelect = '#form_default_country';
     this.saveConfigurationFormButton = '#form-configuration-save-button';
@@ -89,14 +99,38 @@ class BOLocalizationPage extends BOLocalizationBasePage implements BOLocalizatio
     downloadPackData: boolean = true,
   ): Promise<string> {
     // Choose which country to import
-    await this.selectByVisibleText(page, this.importlocalizationPackSelect, country);
+    await this.selectByVisibleText(
+      page,
+      this.importlocalizationPackSelect,
+      country,
+    );
 
     // Set content import checkboxes
-    await this.setHiddenCheckboxValue(page, this.importStatesCheckbox, contentToImport.importStates);
-    await this.setHiddenCheckboxValue(page, this.importTaxesCheckbox, contentToImport.importTaxes);
-    await this.setHiddenCheckboxValue(page, this.importCurrenciesCheckbox, contentToImport.importCurrencies);
-    await this.setHiddenCheckboxValue(page, this.importLanguagesCheckbox, contentToImport.importLanguages);
-    await this.setHiddenCheckboxValue(page, this.importUnitsCheckbox, contentToImport.importUnits);
+    await this.setHiddenCheckboxValue(
+      page,
+      this.importStatesCheckbox,
+      contentToImport.importStates,
+    );
+    await this.setHiddenCheckboxValue(
+      page,
+      this.importTaxesCheckbox,
+      contentToImport.importTaxes,
+    );
+    await this.setHiddenCheckboxValue(
+      page,
+      this.importCurrenciesCheckbox,
+      contentToImport.importCurrencies,
+    );
+    await this.setHiddenCheckboxValue(
+      page,
+      this.importLanguagesCheckbox,
+      contentToImport.importLanguages,
+    );
+    await this.setHiddenCheckboxValue(
+      page,
+      this.importUnitsCheckbox,
+      contentToImport.importUnits,
+    );
     await this.setHiddenCheckboxValue(
       page,
       this.updatepriceDisplayForGroupsCHeckbox,
@@ -104,7 +138,10 @@ class BOLocalizationPage extends BOLocalizationBasePage implements BOLocalizatio
     );
 
     // Choose if we download pack of data
-    await this.setChecked(page, this.downloadPackDataToggleInput(downloadPackData ? 1 : 0));
+    await this.setChecked(
+      page,
+      this.downloadPackDataToggleInput(downloadPackData ? 1 : 0),
+    );
 
     // Import the pack
     await page.locator(this.importButton).click();
@@ -119,9 +156,20 @@ class BOLocalizationPage extends BOLocalizationBasePage implements BOLocalizatio
    * @param languageFromBrowser {boolean} True if we need to use language from browser
    * @returns {Promise<string>}
    */
-  async setDefaultLanguage(page: Page, language: string, languageFromBrowser: boolean = true): Promise<string> {
-    await this.selectByVisibleText(page, this.defaultLanguageSelector, language);
-    await this.setChecked(page, this.languageFromBrowserToggleInput(languageFromBrowser ? 1 : 0));
+  async setDefaultLanguage(
+    page: Page,
+    language: string,
+    languageFromBrowser: boolean = true,
+  ): Promise<string> {
+    await this.selectByVisibleText(
+      page,
+      this.defaultLanguageSelector,
+      language,
+    );
+    await this.setChecked(
+      page,
+      this.languageFromBrowserToggleInput(languageFromBrowser ? 1 : 0),
+    );
     await page.locator(this.saveConfigurationFormButton).click();
 
     return this.getAlertSuccessBlockParagraphContent(page);
@@ -154,5 +202,6 @@ class BOLocalizationPage extends BOLocalizationBasePage implements BOLocalizatio
     return this.getAlertSuccessBlockParagraphContent(page);
   }
 }
+
 const boLocalizationPage = new BOLocalizationPage();
-export {boLocalizationPage, BOLocalizationPage};
+export { boLocalizationPage, BOLocalizationPage };

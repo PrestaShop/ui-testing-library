@@ -31,9 +31,9 @@ class FoContactUsPage extends FOBasePage implements FoContactUsPageInterface {
 
   private readonly messageTextarea: string;
 
-  private readonly gdprLabel: string;
+  protected gdprLabel: string;
 
-  private readonly sendButton: string;
+  protected sendButton: string;
 
   private readonly alertSuccessDiv: string;
 
@@ -154,6 +154,15 @@ class FoContactUsPage extends FOBasePage implements FoContactUsPageInterface {
    */
   async getGDPRLabel(page: Page): Promise<string> {
     return this.getTextContent(page, this.gdprLabel);
+  }
+
+  /**
+   * Return the label for the Send Button
+   * @param page {Page} Browser tab
+   * @returns {Promise<string>}
+   */
+  async getSendButtonLabel(page: Page): Promise<string> {
+    return (await page.locator(this.sendButton).textContent() ?? '').trim();
   }
 }
 

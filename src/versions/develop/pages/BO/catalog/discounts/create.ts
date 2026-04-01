@@ -13,9 +13,15 @@ class BOCartRulesCreatePage extends BOBasePage implements BOCartRulesCreatePageI
 
   public readonly editPageTitle: string;
 
+  public readonly errorMessageInvalidDateFrom: string;
+
+  public readonly errorMessageInvalidDateTo: string;
+
   public readonly errorMessageReductionAmountGreatherThan: string;
 
   public readonly errorMessageReductionPercentageBetween: string;
+
+  public readonly errorMessageVoucherCannotEndBeforeBegin: string;
 
   public readonly errorMessageFieldInvalid: (field: string) => string;
 
@@ -171,6 +177,8 @@ class BOCartRulesCreatePage extends BOBasePage implements BOCartRulesCreatePageI
 
   private readonly saveButton: string;
 
+  private readonly saveAndStayButton: string;
+
   private readonly cancelButton: string;
 
   /**
@@ -184,8 +192,11 @@ class BOCartRulesCreatePage extends BOBasePage implements BOCartRulesCreatePageI
     this.editPageTitle = 'Cart Rules > Edit';
 
     // Messages
+    this.errorMessageInvalidDateFrom = 'The date_from field is invalid.';
+    this.errorMessageInvalidDateTo = 'The date_to field is invalid.';
     this.errorMessageReductionAmountGreatherThan = 'Reduction amount cannot be lower than zero.';
     this.errorMessageReductionPercentageBetween = 'Reduction percentage must be between 0% and 100%';
+    this.errorMessageVoucherCannotEndBeforeBegin = 'The voucher cannot end before it begins.';
     this.errorMessageFieldInvalid = (field: string) => `The ${field} field is invalid.`;
 
     // Selectors
@@ -308,6 +319,7 @@ class BOCartRulesCreatePage extends BOBasePage implements BOCartRulesCreatePageI
     // Form footer selectors
     this.desktopButtonsBlock = '.desktop-buttons';
     this.saveButton = `${this.desktopButtonsBlock} #desc-cart_rule-save`;
+    this.saveAndStayButton = `${this.desktopButtonsBlock} #desc-cart_rule-save-and-stay`;
     this.cancelButton = '#desc-cart_rule-cancel';
   }
 
@@ -570,6 +582,7 @@ class BOCartRulesCreatePage extends BOBasePage implements BOCartRulesCreatePageI
     page: Frame | Page,
     cartRuleData: FakerCartRule,
     waitForNavigation: boolean = true,
+    saveAndStay: boolean = false,
   ): Promise<string | null> {
     // Fill information form
     await this.fillInformationForm(page, cartRuleData);
@@ -582,11 +595,11 @@ class BOCartRulesCreatePage extends BOBasePage implements BOCartRulesCreatePageI
 
     if (waitForNavigation) {
       // Save and return successful message
-      return this.saveCartRule(page);
+      return this.saveCartRule(page, saveAndStay);
     }
 
     // Save
-    await this.waitForSelectorAndClick(page, this.saveButton);
+    await this.waitForSelectorAndClick(page, saveAndStay ? this.saveAndStayButton : this.saveButton);
     return null;
   }
 
@@ -595,8 +608,8 @@ class BOCartRulesCreatePage extends BOBasePage implements BOCartRulesCreatePageI
    * @param page {Frame|Page} Browser tab
    * @returns {Promise<string>}
    */
-  async saveCartRule(page: Frame | Page): Promise<string> {
-    await this.clickAndWaitForURL(page, this.saveButton);
+  async saveCartRule(page: Frame | Page, saveAndStay: boolean = false): Promise<string> {
+    await this.clickAndWaitForURL(page, saveAndStay ? this.saveAndStayButton : this.saveButton);
 
     if (await this.elementVisible(page, `${this.alertBlock}[role='alert']`, 2000)) {
       return this.getTextContent(page, `${this.alertBlock}[role='alert']`);

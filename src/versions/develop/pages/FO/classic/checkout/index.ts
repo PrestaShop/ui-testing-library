@@ -21,7 +21,7 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
 
   public readonly noCarriersMessage: string;
 
-  private readonly successAlert: string;
+  protected successAlert: string;
 
   private readonly checkoutPageBody: string;
 
@@ -43,7 +43,7 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
 
   private readonly termsOfServiceLink: string;
 
-  private readonly termsOfServiceModalDiv: string;
+  protected termsOfServiceModalDiv: string;
 
   private readonly paymentConfirmationButton: string;
 
@@ -55,15 +55,15 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
 
   protected cartRuleName: (line: number) => string;
 
-  private readonly discountValue: (line: number) => string;
+  protected discountValue: (line: number) => string;
 
-  private readonly noPaymentNeededElement: string;
+  protected noPaymentNeededElement: string;
 
   protected itemsNumber: string;
 
   protected showDetailsLink: string;
 
-  private readonly productList: string;
+  protected readonly productList: string;
 
   protected productRowLink: (productRow: number) => string;
 
@@ -79,9 +79,9 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
 
   public readonly noPaymentNeededText: string;
 
-  private readonly promoCodeArea: string;
+  protected promoCodeArea: string;
 
-  private readonly checkoutHavePromoInputArea: string;
+  protected checkoutHavePromoInputArea: string;
 
   private readonly checkoutPromoCodeAddButton: string;
 
@@ -125,7 +125,7 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
 
   protected checkoutPromoBlock: string;
 
-  private readonly checkoutHavePromoCodeButton: string;
+  protected checkoutHavePromoCodeButton: string;
 
   protected checkoutRemoveDiscountLink: (row: number) => string;
 
@@ -155,17 +155,17 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
 
   private readonly addressStepAliasInput: string;
 
-  private readonly addressStepCompanyInput: string;
+  protected addressStepCompanyInput: string;
 
-  private readonly addressStepAddress1Input: string;
+  protected addressStepAddress1Input: string;
 
-  private readonly addressStepPostCodeInput: string;
+  protected addressStepPostCodeInput: string;
 
-  private readonly addressStepCityInput: string;
+  protected addressStepCityInput: string;
 
   protected addressStepCountrySelect: string;
 
-  private readonly addressStepPhoneInput: string;
+  protected addressStepPhoneInput: string;
 
   protected stateInput: string;
 
@@ -191,9 +191,9 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
 
   protected deliveryStepEditButton: string;
 
-  private readonly deliveryStepCarriersList: string;
+  protected deliveryStepCarriersList: string;
 
-  private readonly deliveryStepCarriersListError: string;
+  protected deliveryStepCarriersListError: string;
 
   protected deliveryOptions: string;
 
@@ -201,11 +201,9 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
 
   protected deliveryOptionLabel: (id: number) => string;
 
-  private readonly deliveryOptionNameSpan: (id: number) => string;
-
   protected deliveryOptionAllNamesSpan: string;
 
-  private readonly deliveryOptionAllPricesSpan: string;
+  protected deliveryOptionAllPricesSpan: string;
 
   private readonly deliveryMessage: string;
 
@@ -235,6 +233,12 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
 
   private readonly invoiceAddressRadioButton: (addressID: number) => string;
 
+  protected carrierInfo: (carrierRow: number) => string;
+
+  protected productRow: (productRow: number) => string;
+
+  protected virtualProductRow: (productRow: number) => string;
+
   protected cartTotalATI: string;
 
   private readonly cartRuleAlertMessage: string;
@@ -247,9 +251,9 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
 
   private readonly recyclableGiftCheckbox: string;
 
-  private readonly cartSubtotalGiftWrappingDiv: string;
+  protected readonly cartSubtotalGiftWrappingDiv: string;
 
-  private readonly cartSubtotalGiftWrappingValueSpan: string;
+  protected cartSubtotalGiftWrappingValueSpan: string;
 
   /**
    * @constructs
@@ -342,7 +346,6 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
     this.deliveryOptions = '#js-delivery div.delivery-options';
     this.deliveryOptionsRadioButton = 'input[id*=\'delivery_option_\']';
     this.deliveryOptionLabel = (id: number) => `${this.deliveryStepSection} label[for='delivery_option_${id}']`;
-    this.deliveryOptionNameSpan = (id: number) => `${this.deliveryOptionLabel(id)} span.carrier-name`;
     this.deliveryOptionAllNamesSpan = '#js-delivery .delivery-option .carriere-name-container span.carrier-name';
     this.deliveryOptionAllPricesSpan = '#js-delivery .delivery-option span.carrier-price';
     this.deliveryMessage = '#delivery_message';
@@ -401,6 +404,14 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
     this.recyclableGiftCheckbox = '#input_recyclable';
     this.cartSubtotalGiftWrappingDiv = '#cart-subtotal-gift_wrapping';
     this.cartSubtotalGiftWrappingValueSpan = `${this.cartSubtotalGiftWrappingDiv} span.value`;
+
+    // Carrier info selectors
+    this.carrierInfo = (carrierRow: number) => `div.order-confirmation-table div:nth-child(${carrierRow})`
+      + ' div.details .carrier-name';
+    this.productRow = (productRow: number) => `div.order-confirmation-table div:nth-child(${productRow}) div.details a`
+      + `,div.order-confirmation-table div:nth-child(${productRow}) div.details span`;
+    this.virtualProductRow = (productRow: number) => `div.order-confirmation-table div:nth-child(${productRow})`
+      + ' div.details .virtual-info';
   }
 
   /*
@@ -764,7 +775,7 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
    * @returns {Promise<string[]>}
    */
   async getAvailableAddressCountries(page: Page): Promise<string[]> {
-    return (await page.locator(`${this.addressStepCountrySelect} option`).allInnerTexts())
+    return (await page.locator(`${this.addressStepCountrySelect} option:not([disabled])`).allInnerTexts())
       .filter((e: string) => e !== 'Please choose');
   }
 
@@ -1008,7 +1019,7 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
    * @returns {Promise<string>}
    */
   async getShippingMethodName(page: Page, shippingMethodID: number): Promise<string> {
-    return this.getTextContent(page, this.deliveryOptionNameSpan(shippingMethodID));
+    return this.getTextContent(page, this.deliveryStepCarrierName(shippingMethodID));
   }
 
   /**
@@ -1020,7 +1031,8 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
     return (await page
       .locator(this.deliveryOptionAllPricesSpan)
       .allTextContents())
-      .filter((el: string | null): el is string => el !== null);
+      .filter((el: string | null): el is string => el !== null)
+      .map((el: string) => el.trim());
   }
 
   /**
@@ -1050,7 +1062,7 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
    * @param page {Page} Browser tab
    * @returns {Promise<string|null>}
    */
-  async getCarrierErrorMessage(page: Page): Promise<string|null> {
+  async getCarrierErrorMessage(page: Page): Promise<string | null> {
     return page.locator(this.deliveryStepCarriersListError).textContent();
   }
 
@@ -1135,7 +1147,7 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
 
     // Return text of the selected option
     if (selectedOptionId !== 0) {
-      return this.getTextContent(page, this.deliveryOptionNameSpan(selectedOptionId));
+      return this.getTextContent(page, this.deliveryStepCarrierName(selectedOptionId));
     }
     throw new Error('No selected option was found');
   }
@@ -1183,12 +1195,12 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
    */
   async choosePaymentAndOrder(page: Page, paymentModuleName: string): Promise<void> {
     if (await this.elementVisible(page, this.paymentOptionInput(paymentModuleName), 1000)) {
-      await page.locator(this.paymentOptionInput(paymentModuleName)).click();
+      if (!(await page.locator(this.paymentOptionInput(paymentModuleName)).isChecked())) {
+        await page.locator(this.paymentOptionInput(paymentModuleName)).click();
+      }
     }
-    await Promise.all([
-      this.waitForVisibleSelector(page, this.paymentConfirmationButton),
-      page.locator(this.conditionToApproveLabel).click(),
-    ]);
+    await page.locator(this.conditionToApproveLabel).click();
+    await this.waitForVisibleSelector(page, this.paymentConfirmationButton);
     await this.clickAndWaitForURL(page, this.paymentConfirmationButton);
   }
 
@@ -1202,6 +1214,7 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
   }
 
   /**
+   * @todo : To Move classic/cart
    * Delete the discount
    * @param page {Page} Browser tab
    * @param row {number} Row of the delete icon
@@ -1344,6 +1357,36 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
     await this.setChecked(page, this.giftCheckbox, true);
 
     return this.getTextContent(page, this.cartSubtotalGiftWrappingValueSpan);
+  }
+
+  /**
+   * Get order confirmation carrier info
+   * @param page {Page} Browser tab
+   * @param carrierRow {number}
+   * @returns {Promise<string>}
+   */
+  async getOrderConfirmationCarrierInfo(page: Page, carrierRow: number): Promise<string> {
+    return this.getTextContent(page, this.carrierInfo(carrierRow));
+  }
+
+  /**
+   * Get order confirmation product
+   * @param page {Page} Browser tab
+   * @param productRow {number}
+   * @returns {Promise<string>}
+   */
+  async getOrderConfirmationProduct(page: Page, productRow: number): Promise<string> {
+    return this.getTextContent(page, this.productRow(productRow));
+  }
+
+  /**
+   * Get order confirmation virtual info
+   * @param page {Page} Browser tab
+   * @param productRow {number}
+   * @returns {Promise<string>}
+   */
+  async getOrderConfirmationVirtualInfo(page: Page, productRow: number): Promise<string> {
+    return this.getTextContent(page, this.virtualProductRow(productRow));
   }
 }
 

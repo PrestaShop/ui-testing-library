@@ -1,18 +1,21 @@
 import {type FoMyWishlistsPageInterface} from '@interfaces/FO/myAccount/myWishlists';
-import {MyWishlistsPage as MyWishlistsPageVersion} from '@versions/develop/pages/FO/classic/myAccount/myWishlists';
+import {FoMyWishlistsPage as FoMyWishlistPageVersion} from '@versions/develop/pages/FO/classic/myAccount/myWishlists';
 
 /**
  * @class
  * @extends FOBasePage
  */
-class MyWishlistsPage extends MyWishlistsPageVersion implements FoMyWishlistsPageInterface {
+class FoMyWishlistsPage extends FoMyWishlistPageVersion implements FoMyWishlistsPageInterface {
   /**
    * @constructs
    * Setting up texts and selectors to use
    */
   constructor() {
     super('hummingbird');
+
+    this.headerTitle = '#wrapper h1';
   }
 }
 
-module.exports = new MyWishlistsPage();
+const foMyWishlistsPage = new FoMyWishlistsPage();
+export {foMyWishlistsPage, FoMyWishlistsPage};

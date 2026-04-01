@@ -11,9 +11,14 @@ export interface FoMyOrderDetailsPageInterface extends FOBasePagePageInterface {
   clickOnReorderLink(page: Page): Promise<void>;
   downloadInvoice(page: Page): Promise<string | null>;
   getBoxMessages(page: Page): Promise<string>;
+  getCarrierDataFromTable(page: Page, row?: number, column?: string): Promise<string>;
   getDeliveryAddress(page: Page): Promise<string>;
   getInvoiceAddress(page: Page): Promise<string>;
+  getNumberOfCarriersFromShipmentDetailsTable(page: Page): Promise<number>;
+  getNumberOfRowsFromProductDetailsTable(page: Page): Promise<number>;
+  getOrderProductColumn(page: Page, row: number): Promise<string>;
   getProductName(page: Page, row?: number, column?: number): Promise<string>;
+  getProductQuantity(page: Page, row?: number): Promise<number>;
   isInvoiceVisible(page: Page): Promise<boolean>;
   isOrderReturnFormVisible(page: Page): Promise<boolean>;
   requestMerchandiseReturn(

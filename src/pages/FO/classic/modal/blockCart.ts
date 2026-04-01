@@ -9,6 +9,9 @@ function requirePage(): FoModalBlockCartPageInterface {
   if (semver.lt(psVersion, '7.1.0')) {
     return require('@versions/1.7.0/pages/FO/classic/modal/blockCart').foModalBlockCartPage;
   }
+  if (semver.lt(psVersion, '7.7.0')) {
+    return require('@versions/1.7.6/pages/FO/classic/modal/blockCart').foModalBlockCartPage;
+  }
   return require('@versions/develop/pages/FO/classic/modal/blockCart').foModalBlockCartPage;
 }
 /* eslint-enable global-require, @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires */

@@ -18,28 +18,33 @@ class FoModalQuickViewPage extends FoModalQuickViewPageClassic implements FoModa
     super('hummingbird');
 
     // Quick view modal
+    this.quickViewModalProductImageCover = `${this.quickViewModalDiv} .product__carousel div.carousel-item.active picture`;
     this.productRowQuantityUpDownButton = (direction: string) => `div.product-actions__quantity button.js-${direction}-button`;
-    this.quickViewProductName = `${this.quickViewModalDiv} .h3`;
+    this.quickViewProductName = `${this.quickViewModalDiv} .product__name`;
     this.quickViewRegularPrice = `${this.quickViewModalDiv} span.product__price-regular`;
-    this.quickViewProductPrice = `${this.quickViewModalDiv} div.product__current-price`;
+    this.quickViewProductPrice = `${this.quickViewModalDiv} div.product__price`;
     this.quickViewDiscountPercentage = `${this.quickViewModalDiv} div.product__discount-percentage`;
-    this.quickViewTaxShippingDeliveryLabel = `${this.quickViewModalDiv} div.product__tax-label`;
-    this.quickViewCoverImage = `${this.quickViewModalDiv} #product-images div.carousel-item.active img.img-fluid`;
-    this.quickViewThumbImage = `${this.quickViewModalDiv} div.thumbnails__container img.img-fluid`;
+    this.quickViewTaxShippingDeliveryLabel = `${this.quickViewModalDiv} span.product__tax-label`;
+    this.quickViewShortDescription = `${this.quickViewModalDiv} div.product__description-short`;
+    this.quickViewCoverImage = `${this.quickViewModalDiv} .product__images div.carousel-item.active img.img-fluid`;
+    this.quickViewThumbImage = `${this.quickViewModalDiv} div.product__thumbnails img.img-fluid`;
     this.quickViewProductVariants = `${this.quickViewModalDiv} div.js-product-variants`;
-    this.quickViewProductDimension = `${this.quickViewProductVariants} select#group_3`;
-    this.quickViewProductSize = `${this.quickViewProductVariants} select#group_1`;
-    this.quickViewProductColor = `${this.quickViewProductVariants} ul#group_2`;
-    this.quickViewCloseButton = `${this.quickViewModalDiv} button.btn-close`;
+    this.quickViewProductDimension = `${this.quickViewProductVariants} select[data-product-attribute="3"]`;
+    this.quickViewProductSize = `${this.quickViewProductVariants} select[data-product-attribute="1"]`;
+    this.quickViewProductColor = `${this.quickViewProductVariants} div[id^="group_2"]`;
+    this.quickViewCloseButton = `${this.quickViewModalDiv} .quickview__header button.btn-close`;
+    this.quickViewThumbImagePosition = (position: number) => `${this.quickViewModalDiv} ul.product__thumbnails-list `
+      + `button:nth-child(${position}) img`;
   }
 
   /**
-    * Click on add to cart button from quick view modal
-    * @param page {Page} Browser tab
-    * @returns {Promise<void>}
-    */
+   * Click on add to cart button from quick view modal
+   * @param page {Page} Browser tab
+   * @returns {Promise<void>}
+   */
   async addToCartByQuickView(page: Page, isHidden: boolean = true): Promise<void> {
-    await this.waitForSelectorAndClick(page, this.addToCartButton);
+    await this.waitForVisibleSelector(page, this.addToCartButton);
+    await page.locator(this.addToCartButton).click();
     if (isHidden) {
       await this.waitForHiddenSelector(page, this.quickViewModalDiv);
       await this.waitForVisibleSelector(page, foHummingbirdModalBlockCartPage.blockCartModalDiv);
@@ -54,7 +59,11 @@ class FoModalQuickViewPage extends FoModalQuickViewPageClassic implements FoModa
   async getProductDetailsFromQuickViewModal(page: Page): Promise<ProductDetails> {
     return {
       name: await this.getTextContent(page, this.quickViewProductName),
-      price: parseFloat((await this.getTextContent(page, this.quickViewProductPrice)).replace('€', '')),
+      price: parseFloat((await this.getTextContent(page, this.quickViewProductPrice))
+        .replace('Price:', '')
+        .replace('€', '')
+        .trim(),
+      ),
       taxShippingDeliveryLabel: await this.getTextContent(page, this.quickViewTaxShippingDeliveryLabel),
       shortDescription: await this.getTextContent(page, this.quickViewShortDescription),
       coverImage: await this.getAttributeContent(page, this.quickViewCoverImage, 'src'),
@@ -68,7 +77,22 @@ class FoModalQuickViewPage extends FoModalQuickViewPageClassic implements FoModa
    * @returns {Promise<string|null>}
    */
   async getQuickViewImageMain(page: Page): Promise<string | null> {
-    return this.getAttributeContent(page, this.quickViewCoverImage, 'data-full-size-image-url');
+    let selector: string = `${this.quickViewModalProductImageCover} source`;
+
+    if (await page.locator(selector).count() === 0) {
+      selector = `${this.quickViewModalProductImageCover} img`;
+    }
+    const srcset = await this.getAttributeContent(page, selector, 'srcset');
+
+    if (!srcset) {
+      return null;
+    }
+    const srcsets: string[] = srcset
+      .split(',')
+      .map((el: string) => el.replace(/\s[0-9]+w/i, ''))
+      .map((el: string) => el.trim());
+
+    return srcsets[0];
   }
 
   /**
@@ -94,7 +118,10 @@ class FoModalQuickViewPage extends FoModalQuickViewPageClassic implements FoModa
     switch (attributes.name) {
       case 'color':
         await Promise.all([
-          await this.waitForSelectorAndClick(page, `${this.quickViewProductColor} input[title='${attributes.value}'] + span`),
+          await this.waitForSelectorAndClick(
+            page,
+            `${this.quickViewProductColor} span.color:has(span:has-text('Color - ${attributes.value}'))`,
+          ),
           await page.waitForResponse((response) => response.url().includes('product&token=')),
         ]);
         break;
@@ -116,4 +143,5 @@ class FoModalQuickViewPage extends FoModalQuickViewPageClassic implements FoModa
   }
 }
 
-module.exports = new FoModalQuickViewPage();
+const foModalQuickViewPage = new FoModalQuickViewPage();
+export {foModalQuickViewPage, FoModalQuickViewPage};

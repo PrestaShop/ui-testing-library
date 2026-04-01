@@ -9,6 +9,9 @@ function requirePage(): InstalledModulesPageInterface {
   if (semver.gte(psVersion, '7.5.0')) {
     return require('@versions/mock/pages/BO/modules/modulesAndServices/installedModules');
   }
+  if (semver.lt(psVersion, '7.1.0')) {
+    return require('@versions/1.7.0/pages/BO/modules/modulesAndServices/installedModules').installedModulesPage;
+  }
   if (semver.lt(psVersion, '7.2.0')) {
     return require('@versions/1.7.1/pages/BO/modules/modulesAndServices/installedModules').installedModulesPage;
   }

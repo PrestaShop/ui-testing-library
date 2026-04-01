@@ -407,14 +407,36 @@ class BOOrderCreatePage extends BOBasePage implements BOOrdersCreatePageInterfac
   }
 
   /**
+   * Click on add new customer button
+   * @param page {Page} Browser tab
+   * @returns {Promise<boolean>}
+   */
+  async clickOnAddNewCustomerButton(page: Page): Promise<boolean> {
+    await page.locator(this.addCustomerLink).click();
+
+    return this.elementVisible(page, this.iframe, 5000);
+  }
+
+  /**
+   * Get new customer frame
+   * @param page {Page} Browser tab
+   * @return {*}
+   */
+  getNewCustomerIframe(page: Page): Frame | null {
+    return page.frame({url: /sell\/customers\/new/gmi});
+  }
+
+  /**
    * Click on add new customer and new customer iFrame
    * @param page {Page} Browser tab
    * @param customerData {FakerCustomer} Customer data fake object
    * @returns {Promise<string>}
    */
   async addNewCustomer(page: Page, customerData: FakerCustomer): Promise<string> {
-    await page.locator(this.addCustomerLink).click();
-    await this.waitForVisibleSelector(page, this.iframe);
+    if (await this.elementNotVisible(page, this.iframe, 2000)) {
+      await page.locator(this.addCustomerLink).click();
+      await this.waitForVisibleSelector(page, this.iframe);
+    }
 
     const customerFrame = page.frame({url: /sell\/customers\/new/gmi});
 
@@ -1276,7 +1298,7 @@ class BOOrderCreatePage extends BOBasePage implements BOOrdersCreatePageInterfac
     }
 
     // Choose address
-    await this.chooseAddresses(page, orderToMake.deliveryAddress.name, orderToMake.invoiceAddress.name);
+    await this.chooseAddresses(page, orderToMake.deliveryAddress.alias, orderToMake.invoiceAddress.alias);
 
     // Choose delivery options
     await this.setDeliveryOption(page, orderToMake.deliveryOption.name, orderToMake.deliveryOption.freeShipping);

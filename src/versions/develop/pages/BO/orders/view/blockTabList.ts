@@ -1,4 +1,5 @@
 import type FakerOrderShipping from '@data/faker/orderShipping';
+import {ProductDocumentType, type ProductDocument} from '@data/types/product';
 import {type BOProductBlockTabListPageInterface} from '@interfaces/BO/orders/view/blockTabList';
 import {type Frame, type Page} from '@playwright/test';
 import {ViewOrderBasePage} from '@versions/develop/pages/BO/orders/view/viewOrderBasePage';
@@ -496,6 +497,62 @@ class BOProductBlockTabListPage extends ViewOrderBasePage implements BOProductBl
     return this.getAlertSuccessBlockParagraphContent(page);
   }
 
+  async getDocument(page: Page, nth: number = 1, filterType: ProductDocumentType|null = null): Promise<ProductDocument> {
+    const numberOfDocuments: number = await this.getNumberOfDocuments(page);
+    const emptyDoc: ProductDocument = {
+      date: '',
+      type: null,
+      number: '',
+    };
+    let varNth = nth;
+    let filterNth = 1;
+
+    if (numberOfDocuments === 0) {
+      return emptyDoc;
+    }
+
+    const numRows: number = await this.getNumberOfDocumentRows(page);
+
+    for (let nthRow = 1; nthRow <= numRows; nthRow++) {
+      const documentType = await this.getTextContent(page, this.documentType(nthRow));
+
+      if (filterType === null) {
+        // Filter : No filter
+
+        if (nthRow === varNth) {
+          return {
+            date: await this.getTextContent(page, this.documentDate(nthRow)),
+            type: documentType as ProductDocumentType,
+            number: await this.getTextContent(page, this.documentNumberLink(nthRow)),
+          };
+        }
+        if (documentType === 'Invoice') {
+          // The next row is for the note
+          varNth += 1;
+        }
+      } else if (filterType === documentType) {
+        // Filter : Equals to Parameter
+
+        if (filterNth === varNth) {
+          return {
+            date: await this.getTextContent(page, this.documentDate(nthRow)),
+            type: documentType as ProductDocumentType,
+            number: await this.getTextContent(page, this.documentNumberLink(nthRow)),
+          };
+        }
+        filterNth += 1;
+      }
+
+      // Specific case :
+      if (documentType === 'Invoice') {
+        // The next row is for the note
+        nthRow += 1;
+      }
+    }
+
+    return emptyDoc;
+  }
+
   /**
    * Get file name
    * @param page {Page} Browser tab
@@ -505,9 +562,9 @@ class BOProductBlockTabListPage extends ViewOrderBasePage implements BOProductBl
   async getFileName(page: Page, rowChild: number = 1): Promise<string> {
     await this.goToDocumentsTab(page);
 
-    const fileName = await this.getTextContent(page, this.documentNumberLink(rowChild));
+    const document = await this.getDocument(page, rowChild);
 
-    return fileName.replace('#', '').trim();
+    return document.number.replace('#', '').trim();
   }
 
   /**
@@ -519,19 +576,92 @@ class BOProductBlockTabListPage extends ViewOrderBasePage implements BOProductBl
   async getDocumentDate(page: Page, rowChild: number = 1): Promise<string> {
     await this.goToDocumentsTab(page);
 
-    return this.getTextContent(page, this.documentDate(rowChild));
+    const document = await this.getDocument(page, rowChild);
+
+    return document.date;
   }
 
   /**
    * Get document name
    * @param page {Page} Browser tab
    * @param rowChild {number} Document row on table
-   * @returns {Promise<string>}
+   * @returns {Promise<ProductDocumentType|null>}
    */
-  async getDocumentType(page: Page, rowChild: number = 1): Promise<string> {
+  async getDocumentType(page: Page, rowChild: number = 1): Promise<ProductDocumentType|null> {
     await this.goToDocumentsTab(page);
 
-    return this.getTextContent(page, this.documentType(rowChild));
+    const document = await this.getDocument(page, rowChild);
+
+    return document.type;
+  }
+
+  async countDocumentsType(page: Page): Promise<{creditSlips: number, deliverySlips: number, invoices: number}> {
+    await this.goToDocumentsTab(page);
+
+    const dataCount = {creditSlips: 0, deliverySlips: 0, invoices: 0};
+    const numberOfDocuments: number = await this.getNumberOfDocuments(page);
+
+    if (numberOfDocuments === 0) {
+      return dataCount;
+    }
+
+    const numDocuments: number = await this.getNumberOfDocuments(page);
+
+    for (let i = 1; i <= numDocuments; i++) {
+      const document = await this.getDocument(page, i);
+
+      switch (document.type) {
+        case 'Credit slip':
+          dataCount.creditSlips += 1;
+          break;
+        case 'Delivery slip':
+          dataCount.deliverySlips += 1;
+          break;
+        case 'Invoice':
+          dataCount.invoices += 1;
+          break;
+        default:
+          throw new Error(`"${document.type}" (#${i}) is not defined in boOrdersViewBlockTabListPage::countDocumentsType`);
+      }
+    }
+
+    return dataCount;
+  }
+
+  /**
+   * Get all documents name
+   * @param page {Page} Browser tab
+   * @returns {Promise<string[]>}
+   */
+  async getAllDocumentsName(page: Page): Promise<string[]> {
+    const numDocuments: number = await this.getNumberOfDocuments(page);
+    const columnNames: ProductDocumentType[] = [];
+
+    for (let i = 1; i <= numDocuments; i++) {
+      const document = await this.getDocument(page, i);
+
+      columnNames.push(document.type as ProductDocumentType);
+    }
+
+    return columnNames;
+  }
+
+  /**
+   * Get number of documents
+   * @param page {Page} Browser tab
+   * @returns {Promise<number>}
+   */
+  private async getNumberOfDocumentRows(page: Page): Promise<number> {
+    return page.locator(`${this.documentsTableBody} tr`).count();
+  }
+
+  /**
+   * Get number of documents
+   * @param page {Page} Browser tab
+   * @returns {Promise<number>}
+   */
+  async getNumberOfDocuments(page: Page): Promise<number> {
+    return page.locator(`${this.documentsTableBody} tr td.documents-table-column-type`).count();
   }
 
   /**

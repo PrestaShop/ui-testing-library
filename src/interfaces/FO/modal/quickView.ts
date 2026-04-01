@@ -8,7 +8,7 @@ import type {Page} from '@playwright/test';
 export interface FoModalQuickViewPageInterface extends FOBasePagePageInterface {
     quickViewModalDiv: string;
 
-    addToCartByQuickView(page: Page): Promise<void>;
+    addToCartByQuickView(page: Page, isHidden?: boolean): Promise<void>;
     closeQuickViewModal(page: Page, clickOutside?: boolean): Promise<boolean>;
     getProductAttributesFromQuickViewModal(page: Page): Promise<ProductAttribute[]>;
     getProductAvailabilityText(page: Page): Promise<string>;

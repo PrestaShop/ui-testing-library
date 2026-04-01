@@ -2,6 +2,7 @@ import {FOBasePagePageInterface} from '@interfaces/FO';
 import {type Page} from '@playwright/test';
 
 export interface FOMyInformationsPageInterface extends FOBasePagePageInterface {
+  readonly addAnotherMessage: string;
   readonly changeCommonPasswordMessage: string;
   readonly commonUsedPasswordMessage: string;
   readonly errorUpdateMessage: string;

@@ -71,7 +71,8 @@ export interface FoProductPageInterface extends FOBasePagePageInterface {
   hasBlockMailAlert(page: Page): Promise<boolean>;
   hasBlockMailAlertGDPRLabel(page: Page): Promise<boolean>;
   hasNotificationMessage(page: Page): Promise<boolean>;
-  hasProductFeaturesList(page: Page): Promise<boolean>
+  hasProductAvailabilityLabel(page: Page): Promise<boolean>;
+  hasProductFeaturesList(page: Page): Promise<boolean>;
   hasProductFlag(page: Page, name: string): Promise<boolean>;
   hasProductReviewGDPRLabel(page: Page): Promise<boolean>;
   hasProductsBlock(page: Page, blockName:string): Promise<boolean>;
@@ -85,7 +86,6 @@ export interface FoProductPageInterface extends FOBasePagePageInterface {
   isCustomizationMessageVisible(page: Page, customizationRow: number): Promise<boolean>;
   isDeliveryInformationVisible(page: Page): Promise<boolean>;
   isDeliveryTimeDisplayed(page: Page): Promise<boolean>;
-  isFeaturesBlockVisible(page: Page): Promise<boolean>;
   isIframeVisibleInProductDescription(page: Page): Promise<boolean>;
   isPriceDisplayed(page: Page): Promise<boolean>;
   isProductTagVisible(page: Page): Promise<boolean>;

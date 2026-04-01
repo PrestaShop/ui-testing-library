@@ -1,4 +1,5 @@
 import type FakerAttributeValue from '@data/faker/attributeValue';
+import dataLanguages from '@data/demo/languages';
 import {type BOAttributesValueCreatePageInterface} from '@interfaces/BO/catalog/attributes/createValue';
 import BOBasePage from '@pages/BO/BOBasePage';
 import {type Page} from '@playwright/test';
@@ -15,11 +16,11 @@ class BOAttributesValueCreatePage extends BOBasePage implements BOAttributesValu
 
   private readonly attributeGroupSelect: string;
 
-  private readonly valueInput: string;
+  private readonly valueInput:(idLanguage: number) => string;
 
-  private readonly urlInput: string;
+  private readonly urlInput: (idLanguage: number) => string;
 
-  private readonly metaTitleInput: string;
+  private readonly metaTitleInput: (idLanguage: number) => string;
 
   private readonly colorInput: string;
 
@@ -39,10 +40,10 @@ class BOAttributesValueCreatePage extends BOBasePage implements BOAttributesValu
 
     // Form selectors
     this.attributeGroupSelect = '#attribute_attribute_group';
-    this.valueInput = '#attribute_name_1';
-    this.urlInput = '#attribute_url_name_1';
-    this.metaTitleInput = '#attribute_meta_title_1';
-    this.colorInput = '#color_0';
+    this.valueInput = (idLanguage: number) => `#attribute_name_${idLanguage}`;
+    this.urlInput = (idLanguage: number) => `#attribute_url_name_${idLanguage}`;
+    this.metaTitleInput = (idLanguage: number) => `#attribute_meta_title_${idLanguage}`;
+    this.colorInput = 'input[name="attribute[color]"]';
     this.saveButton = 'form[name="attribute"] div.card-footer button#save-button';
     this.saveAndStayButton = 'form[name="attribute"] div.card-footer button[name="save-and-add-new"]';
   }
@@ -61,11 +62,11 @@ class BOAttributesValueCreatePage extends BOBasePage implements BOAttributesValu
   async addEditValue(page: Page, valueData: FakerAttributeValue, saveAndStay: boolean = false): Promise<string> {
     // Set group and value
     await this.selectByVisibleText(page, this.attributeGroupSelect, `${valueData.attributeName} (#${valueData.attributeID})`);
-    await this.setValue(page, this.valueInput, valueData.value);
+    await this.setValue(page, this.valueInput(dataLanguages.english.id), valueData.value);
 
     // Set Url and meta title
-    await this.setValue(page, this.urlInput, valueData.url);
-    await this.setValue(page, this.metaTitleInput, valueData.metaTitle);
+    await this.setValue(page, this.urlInput(dataLanguages.english.id), valueData.url);
+    await this.setValue(page, this.metaTitleInput(dataLanguages.english.id), valueData.metaTitle);
 
     // Set color and texture inputs
     if (await this.elementVisible(page, this.colorInput, 1000)) {
@@ -81,6 +82,24 @@ class BOAttributesValueCreatePage extends BOBasePage implements BOAttributesValu
 
     // Return successful message
     return this.getAlertSuccessBlockParagraphContent(page);
+  }
+
+  /**
+   * Get the value of an input
+   * @param page {Page} Browser tab
+   * @param input {string} ID of the input
+   * @param languageId {number | undefined}
+   * @returns {Promise<string>}
+   */
+  async getInputValue(page: Page, input: string, languageId?: number): Promise<string> {
+    switch (input) {
+      case 'color':
+        return this.getAttributeContent(page, this.colorInput, 'value');
+      case 'name':
+        return this.getAttributeContent(page, this.valueInput(languageId!), 'value');
+      default:
+        throw new Error(`Field ${input} was not found`);
+    }
   }
 }
 

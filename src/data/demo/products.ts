@@ -51,6 +51,12 @@ export default {
     finalPrice: 34.46,
     quantity: 2100,
     status: true,
+    specificPrice: {
+      attributes: null,
+      discount: 20,
+      startingAt: 0,
+      reductionType: '',
+    },
   }),
   demo_5: new FakerProduct({
     id: 4,
@@ -202,6 +208,8 @@ export default {
     name: 'Mountain fox cushion',
     reference: 'demo_15',
     status: true,
+    price: 22.68,
+    priceTaxExcluded: 18.90,
   }),
   demo_16: new FakerProduct({
     id: 10,

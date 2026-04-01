@@ -1,4 +1,5 @@
 import type {TestInfo} from '@playwright/test';
+import semver from 'semver';
 
 /**
  * @module TestContextHelper
@@ -31,6 +32,17 @@ export default {
     }
   },
   /**
+   * Return the Front Office theme of PrestaShop (depending the env value `PS_THEME_FO`)
+   * @returns string
+   */
+  getPSThemeFO(): string {
+    if (!process.env.PS_THEME_FO) {
+      return semver.lt(this.getPSVersion(), '9.1.0') ? 'classic' : 'hummingbird';
+    }
+
+    return process.env.PS_THEME_FO;
+  },
+  /**
    * Return the version of current PrestaShop (depending the env value `PS_VERSION`)
    * * `1.7.8.11` => `7.8.11`
    * * `1.7.8.x` => `7.8.99`
@@ -39,6 +51,7 @@ export default {
    * * `` => `99.99.99`
    * * `develop` => `99.99.99`
    * * `nightly` => `99.99.99`
+   * * `9.1.0-4.0-rc.1` => `9.1.0`
    * @returns string
    */
   getPSVersion(): string {
@@ -47,7 +60,9 @@ export default {
       || process.env.PS_VERSION === 'nightly') {
       return '99.99.99';
     }
-    const version: string = process.env.PS_VERSION;
+    const versions: string[] = process.env.PS_VERSION.split('-');
+
+    const version: string = versions.at(0) ?? '';
 
     return version
       .replace(/\.x$/, '.99')

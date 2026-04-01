@@ -30,6 +30,7 @@ export type {
   GlobalMaildevConfig,
   GlobalKeycloakConfig,
 } from '@data/types/globals';
+export type {default as GDPRExportCSV} from '@data/types/gdpr';
 export type {ImageTypeRegeneration, ImageTypeRegenerationSpecific} from '@data/types/imageType';
 export type {
   ImportAddress,
@@ -66,6 +67,8 @@ export type {
   ProductCombinationOptions,
   ProductDetailsBasic,
   ProductDiscount,
+  ProductDocument,
+  ProductDocumentType,
   ProductFeatures,
   ProductFilterMinMax,
   ProductHeaderSummary,
@@ -156,6 +159,7 @@ export {default as FakerCountry} from '@data/faker/country';
 export {default as FakerCurrency} from '@data/faker/currency';
 export {default as FakerCustomer} from '@data/faker/customer';
 export {default as FakerCustomerServiceOptions} from '@data/faker/customerServiceOptions';
+export {default as FakerDiscount} from '@data/faker/discount';
 export {default as FakerEmployee} from '@data/faker/employee';
 export {default as FakerEmployeeRole} from '@data/faker/employeeRole';
 export {default as FakerFeature} from '@data/faker/feature';
@@ -256,6 +260,8 @@ export {default as boDesignLinkListPage} from '@pages/BO/design/linkList';
 export {default as boDesignLinkListCreatePage} from '@pages/BO/design/linkList/create';
 export {default as boDesignPositionsPage} from '@pages/BO/design/positions';
 export {default as boDesignPositionsHookModulePage} from '@pages/BO/design/positions/hookModule';
+export {default as boDiscountsPage} from '@pages/BO/catalog/discountsV2';
+export {default as boDiscountsCreatePage} from '@pages/BO/catalog/discountsV2/create';
 export {default as boEmailPage} from '@pages/BO/advancedParameters/email';
 export {default as boEmployeesPage} from '@pages/BO/advancedParameters/team/employees';
 export {default as boEmployeesCreatePage} from '@pages/BO/advancedParameters/team/employees/create';
@@ -375,12 +381,29 @@ export {default as boThemePagesConfigurationPage} from '@pages/BO/design/themeAn
 export {default as boTitlesPage} from '@pages/BO/shopParameters/customerSettings/titles';
 export {default as boTitlesCreatePage} from '@pages/BO/shopParameters/customerSettings/titles/create';
 export {default as boTranslationsPage} from '@pages/BO/international/translations';
+export {default as boWallOfFamePage} from '@pages/BO/community/wallOfFame';
 export {default as boWebservicesPage} from '@pages/BO/advancedParameters/webservices';
 export {default as boWebservicesCreatePage} from '@pages/BO/advancedParameters/webservices/create';
 export {default as boZonesPage} from '@pages/BO/international/locations';
 export {default as boZonesCreatePage} from '@pages/BO/international/locations/create';
 // Export Pages FO
 export * as FOBasePage from '@pages/FO/FOBasePage';
+// Export Pages FO/Default
+export {default as foAboutUsPage} from '@pages/FO/core/aboutUs';
+export {default as foCartPage} from '@pages/FO/core/cart';
+export {default as foCategoryPage} from '@pages/FO/core/category';
+export {default as foCheckoutPage} from '@pages/FO/core/checkout';
+export {default as foCheckoutOrderConfirmationPage} from '@pages/FO/core/checkout/orderConfirmation';
+export {default as foHomePage} from '@pages/FO/core/home';
+export {default as foLoginPage} from '@pages/FO/core/login';
+export {default as foModalBlockCartPage} from '@pages/FO/core/modal/blockCart';
+export {default as foModalQuickViewPage} from '@pages/FO/core/modal/quickView';
+export {default as foModalWishlistPage} from '@pages/FO/core/modal/wishlist';
+export {default as foMyAccountPage} from '@pages/FO/core/myAccount';
+export {default as foMyWishlistsPage} from '@pages/FO/core/myAccount/myWishlists';
+export {default as foMyWishlistsViewPage} from '@pages/FO/core/myAccount/myWishlists/view';
+export {default as foProductPage} from '@pages/FO/core/product';
+export {default as foSearchResultsPage} from '@pages/FO/core/searchResults';
 // Export Pages FO/Classic
 export {default as foClassicAboutUsPage} from '@pages/FO/classic/aboutUs';
 export {default as foClassicBestSalesPage} from '@pages/FO/classic/bestSales';
@@ -440,6 +463,7 @@ export {default as foHummingbirdLegalNoticePage} from '@pages/FO/hummingbird/leg
 export {default as foHummingbirdLoginPage} from '@pages/FO/hummingbird/login';
 export {default as foHummingbirdModalBlockCartPage} from '@pages/FO/hummingbird/modal/blockCart';
 export {default as foHummingbirdModalQuickViewPage} from '@pages/FO/hummingbird/modal/quickView';
+export {default as foHummingbirdModalWishlistPage} from '@pages/FO/hummingbird/modal/wishlist';
 export {default as foHummingbirdMyAccountPage} from '@pages/FO/hummingbird/myAccount';
 export {default as foHummingbirdMyAddressesPage} from '@pages/FO/hummingbird/myAccount/addresses';
 export {default as foHummingbirdMyAddressesCreatePage} from '@pages/FO/hummingbird/myAccount/addresses/create';

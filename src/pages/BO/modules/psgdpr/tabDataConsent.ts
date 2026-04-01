@@ -2,7 +2,7 @@ import {type ModulePsGdprBoTabDataConsentPageInterface} from '@interfaces/BO/mod
 
 /* eslint-disable global-require, @typescript-eslint/no-require-imports */
 function requirePage(): ModulePsGdprBoTabDataConsentPageInterface {
-  return require('@versions/develop/pages/BO/modules/psgdpr/tabDataConsent');
+  return require('@versions/develop/pages/BO/modules/psgdpr/tabDataConsent').modulePsGdprBoTabDataConsentPage;
 }
 /* eslint-enable global-require, @typescript-eslint/no-require-imports */
 

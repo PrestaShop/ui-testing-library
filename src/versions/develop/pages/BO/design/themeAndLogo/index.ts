@@ -18,6 +18,8 @@ class ThemeAndLogoPage extends BOThemeAndLogoBasePage implements BOThemeAndLogoP
 
   private readonly themeCardContainer: string;
 
+  private readonly iconCurrentTheme: (name: string) => string;
+
   private readonly useSpecificThemeButton: (name: string) => string;
 
   private readonly removeSpecificThemeButton: (name: string) => string;
@@ -41,6 +43,8 @@ class ThemeAndLogoPage extends BOThemeAndLogoBasePage implements BOThemeAndLogoP
     this.addNewThemeButton = '#page-header-desc-configuration-add';
     this.exportCurrentThemeButton = '#page-header-desc-configuration-export';
     this.themeCardContainer = '#themes-logo-page .theme-card-container[data-theme-framework]';
+    this.iconCurrentTheme = (name: string) => `${this.themeCardContainer}[data-role="${name}"] `
+      + 'div.actions-container.active button i.icon-current-theme';
     this.useSpecificThemeButton = (name: string) => `${this.themeCardContainer}[data-role="${name}"] `
       + 'button.js-display-use-theme-modal';
     this.removeSpecificThemeButton = (name: string) => `${this.themeCardContainer}[data-role="${name}"] `
@@ -112,6 +116,27 @@ class ThemeAndLogoPage extends BOThemeAndLogoBasePage implements BOThemeAndLogoP
    */
   async goToChooseLayoutsPage(page: Page): Promise<void> {
     await page.locator(this.chooseLayoutsButton).click();
+  }
+
+  /**
+   * Get the active theme
+   * @param page {Page} Browser tab
+   * @returns {Promise<String>}
+   */
+  async getActiveTheme(page: Page): Promise<string> {
+    const themeLocators = page.locator(this.themeCardContainer);
+
+    for (let i = 0; i < (await themeLocators.count()); i++) {
+      const themeName = await themeLocators.nth(i).getAttribute('data-role');
+
+      if (themeName) {
+        if (await page.locator(this.iconCurrentTheme(themeName)).count() === 1) {
+          return themeName;
+        }
+      }
+    }
+
+    return '';
   }
 }
 

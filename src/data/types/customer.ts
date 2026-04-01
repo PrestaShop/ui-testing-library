@@ -1,5 +1,6 @@
 export type CustomerCreator = {
   id?: number
+  guestAccount?: boolean
   socialTitle?: string
   firstName?: string
   lastName?: string

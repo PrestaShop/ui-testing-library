@@ -3,17 +3,19 @@ import {BOBasePagePageInterface} from '@interfaces/BO';
 import type {Page} from '@playwright/test';
 
 import type FakerProduct from '@data/faker/product';
-import type {ProductFeatures} from '@data/types/product';
+import type {ProductCustomizations, ProductFeatures} from '@data/types/product';
 
 export interface BOProductsCreateTabDetailsPageInterface extends BOBasePagePageInterface {
     readonly featureCustomValueNotDefaultLanguageMessage: string;
 
+    addNewCustomization(page: Page, productCustomization: ProductCustomizations): Promise<void>;
     addNewCustomizations(page: Page, productData: FakerProduct): Promise<void>;
     addNewFile(page: Page, productData: FakerProduct): Promise<void>;
     clickOnManageAllFiles(page: Page): Promise<Page>;
     clickonManageFeatures(page: Page): Promise<Page>;
     countFeatures(page: Page): Promise<number>;
-    deleteCustomizations(page: Page, productData: FakerProduct): Promise<void>;
+    deleteCustomizationNth(page: Page, nth: number): Promise<void>;
+    deleteCustomizations(page: Page, productData?: FakerProduct|null): Promise<void>;
     deleteFeatures(page: Page, numFeatures: number): Promise<void>;
     deleteFiles(page: Page, productData: FakerProduct): Promise<void>;
     getErrorMessageInReferencesForm(page: Page, inputNumber: number): Promise<string>;

@@ -53,6 +53,9 @@ export interface FoCheckoutPageInterface extends FOBasePagePageInterface {
     getNoPaymentNeededBlockContent(page: Page): Promise<string>;
     getNumberOfAddresses(page: Page): Promise<number>;
     getNumberOfInvoiceAddresses(page: Page): Promise<number>;
+    getOrderConfirmationCarrierInfo(page:Page, carrierRow: number):Promise<string>;
+    getOrderConfirmationProduct(page:Page, productRow:number):Promise<string>;
+    getOrderConfirmationVirtualInfo(page:Page, productRow:number):Promise<string>;
     getOrderMessage(page: Page): Promise<string>;
     getProductAttributes(page: Page, productRow: number): Promise<string>;
     getProductDetails(page: Page, productRow: number): Promise<ProductDetailsBasic>;

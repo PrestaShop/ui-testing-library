@@ -53,6 +53,14 @@ class InstalledModulesPage extends BOBasePage implements InstalledModulesPageInt
   async searchModule(): Promise<boolean> {
     return true;
   }
+
+  /**
+   * Uninstall module
+   * @returns {Promise<string|null>}
+   */
+  async uninstallModule(): Promise<string|null> {
+    return '';
+  }
 }
 
 module.exports = new InstalledModulesPage();

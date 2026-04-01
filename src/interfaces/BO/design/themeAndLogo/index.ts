@@ -7,6 +7,7 @@ export interface BOThemeAndLogoPageInterface extends BOThemeAndLogoBasePageInter
 
   enableTheme(page: Page, themeName: string): Promise<string>;
   exportCurrentTheme(page: Page): Promise<string>;
+  getActiveTheme(page: Page): Promise<string>;
   getNumberOfThemes(page: Page): Promise<number>;
   goToChooseLayoutsPage(page: Page): Promise<void>;
   goToNewThemePage(page: Page): Promise<void>;

@@ -10,18 +10,15 @@ export interface FoHomePageInterface extends FOBasePagePageInterface {
 
   clickAddWishListProduct(page: Page, idxProduct: number): Promise<void>;
   clickOnLeftOrRightArrow(page: Page, direction: string): Promise<void>;
-  getBlockTitle(page: Page, blockName: 'bestsellers' | 'newproducts' | 'onsale' | 'popularproducts' | string): Promise<string>;
-  getProductsBlockNumber(
-    page: Page,
-    blockName: 'bestsellers' | 'newproducts' | 'onsale' | 'popularproducts' | string,
-  ): Promise<number>;
+  getBlockTitle(page: Page, blockName: string): Promise<string>;
+  getProductsBlockNumber(page: Page, blockName: string): Promise<number>;
   getProductPrice(page: Page, id: number): Promise<string>;
   getSliderURL(page: Page): Promise<string>;
   getSubscribeNewsletterRGPDLabel(page: Page): Promise<string>;
   goToAllProductsBlockPage(page: Page, blockID?: number): Promise<void>;
   goToAllProductsPage(page: Page, blockName?: string): Promise<void>;
   goToProductPage(page: Page, id: number): Promise<void>;
-  hasProductsBlock(page: Page, blockName: 'bestsellers' | 'newproducts' | 'onsale' | 'popularproducts'): Promise<boolean>;
+  hasProductsBlock(page: Page, blockName: string): Promise<boolean>;
   hasSubscribeNewsletterRGPD(page: Page): Promise<boolean>;
   isBannerVisible(page: Page): Promise<boolean>;
   isColoredBoxesVisible(page: Page, row: number): Promise<boolean>;
