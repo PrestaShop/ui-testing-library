@@ -7,7 +7,7 @@ export interface BODiscountsCreatePageInterface extends BOBasePagePageInterface 
   readonly errorMessageDiscountValue: (discountValue: string) => string;
   readonly errorMessageExpirationDateBeforeStart: string;
   readonly errorMessageFreeGiftRequired: string;
-  readonly errorMessageMinPurchaseAmount: string;
+  readonly errorMessageValueLowerThanZero: string;
   readonly errorMessageMinPurchaseAmountNotnumber: string;
   readonly errorMessageNameRequired: string;
   readonly pageTitle: string;
