@@ -1,6 +1,6 @@
 import type FakerCountry from '@data/faker/country';
 import type FakerProduct from '@data/faker/product';
-import type DiscountCreator from '@data/types/discount';
+import type {DiscountCreator, DiscountType} from '@data/types/discount';
 
 import {faker} from '@faker-js/faker';
 
@@ -9,7 +9,7 @@ import {faker} from '@faker-js/faker';
  * @class
  */
 export default class FakerDiscount {
-  public readonly discountType: string | null;
+  public readonly discountType: DiscountType | null;
 
   public readonly name: string;
 
@@ -61,9 +61,11 @@ export default class FakerDiscount {
 
   public readonly createAutomaticDiscount: boolean;
 
-  public readonly generateDiscountCode: boolean;
-
   public readonly discountCode: string;
+
+  public readonly discountCompatibilityTypes: number[];
+
+  public readonly priority: number;
 
   public readonly freeGift: FakerProduct | null;
 
@@ -72,7 +74,7 @@ export default class FakerDiscount {
    * @param discountToCreate {Object} Could be used to force the value of some members
    */
   constructor(discountToCreate: DiscountCreator = {}) {
-    /** @type {string|null} Type of the discount */
+    /** @type {DiscountType|null} Type of the discount */
     this.discountType = discountToCreate.discountType || null;
 
     // Discount information
@@ -158,11 +160,14 @@ export default class FakerDiscount {
     /** @type {FakerCountry[]} */
     this.deliveryConditionsCountries = discountToCreate.deliveryConditionsCountries || [];
 
-    /** @type {boolean} True to enable Generate discount code of the discount */
-    this.generateDiscountCode = discountToCreate.generateDiscountCode || false;
-
     /** @type {string} The code of the discount */
     this.discountCode = discountToCreate.discountCode || '';
+
+    /** @type {number[]} Compatible with discounts */
+    this.discountCompatibilityTypes = discountToCreate.discountCompatibilityTypes || [];
+
+    /** @type {number} Priority */
+    this.priority = discountToCreate.priority || 1;
 
     // Free gift
     /** @type {FakerProduct|null} The free gift to add on the discount */

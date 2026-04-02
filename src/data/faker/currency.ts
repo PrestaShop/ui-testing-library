@@ -7,6 +7,8 @@ import {faker} from '@faker-js/faker';
  * @class
  */
 export default class FakerCurrency {
+  public readonly id: number|null;
+
   public readonly name: string;
 
   public readonly frName: string;
@@ -26,6 +28,9 @@ export default class FakerCurrency {
    * @param currencyToCreate {CurrencyCreator} Could be used to force the value of some members
    */
   constructor(currencyToCreate: CurrencyCreator = {}) {
+    /** @type {number|null} Identifier of the currency */
+    this.id = currencyToCreate.id || null;
+
     /** @type {string} Name of the currency */
     this.name = currencyToCreate.name || faker.finance.currencyName();
 

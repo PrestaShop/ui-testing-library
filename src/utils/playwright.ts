@@ -205,6 +205,7 @@ export default {
         {
           url: page.url(),
           error: e.toString(),
+          full: e,
         },
       );
     });

@@ -1,8 +1,9 @@
 import type FakerCountry from '@data/faker/country';
 import type FakerProduct from '@data/faker/product';
 
+type DiscountType = 'cart_level'|'free_gift'|'free_shipping'|'product_level';
 type DiscountCreator = {
-  discountType?: string | null
+  discountType?: DiscountType | null
   name?: string
   description?: string
   dateFrom?: string | null
@@ -28,9 +29,13 @@ type DiscountCreator = {
   discountTax?: string | null
   createAutomaticDiscount?: boolean
   deliveryConditionsCountries?: FakerCountry[]
-  generateDiscountCode?: boolean
   discountCode?: string
+  discountCompatibilityTypes?: number[]
+  priority?: number
   freeGift?: FakerProduct | null
 };
 
-export default DiscountCreator;
+export type {
+  DiscountCreator,
+  DiscountType,
+};

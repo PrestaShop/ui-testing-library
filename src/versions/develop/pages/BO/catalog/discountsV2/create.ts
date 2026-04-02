@@ -1,3 +1,4 @@
+import dataLanguages from '@data/demo/languages';
 import type FakerDiscount from '@data/faker/discount';
 import {type BODiscountsCreatePageInterface} from '@interfaces/BO/catalog/discountsV2/create';
 import BOBasePage from '@pages/BO/BOBasePage';
@@ -29,23 +30,19 @@ class BODiscountsCreatePage extends BOBasePage implements BODiscountsCreatePageI
 
   public readonly discountInformationBlock: string;
 
-  public readonly discountNameInput: string;
+  private readonly discountTypeInput: string;
+
+  public readonly discountNameInput: (languageId: number) => string;
 
   public readonly discountDescriptionTextarea: string;
 
-  public readonly discountPeriodBlock: string;
+  private readonly discountPeriodValidRangeFrom: string;
 
-  public readonly startDateInput: string;
+  private readonly discountPeriodValidRangeTo: string;
 
-  public readonly endDateInput: string;
+  private readonly discountPeriodValidNeverExpiresCheckbox: string;
 
-  public readonly neverExpiresCheckbox: string;
-
-  public readonly allCustomersRadioButton: string;
-
-  public readonly customerGroupsRadioButton: string;
-
-  public readonly singleCustomerRadioButton: string;
+  private readonly customerEligibilityRadio: string;
 
   public readonly specificProductRadioButton: string;
 
@@ -59,9 +56,7 @@ class BODiscountsCreatePage extends BOBasePage implements BODiscountsCreatePageI
 
   public readonly discountConditionCartBlock: string;
 
-  public readonly noMinimumPurchaseRadioButton: string;
-
-  public readonly minimumPurchaseAmountRadioButton: string;
+  public readonly cartConditionRadio: string;
 
   protected minimumAmountValueInput: string;
 
@@ -69,17 +64,17 @@ class BODiscountsCreatePage extends BOBasePage implements BODiscountsCreatePageI
 
   public readonly minimumAmountTaxSelect: string;
 
-  public readonly minimumProductQuantityRadioButton: string;
-
   public readonly minimumProductQuantityInput: string;
 
   public readonly discountValueBlock: string;
 
   protected discountValueInput: string;
 
+  private readonly discountValueCurrencySelect: string;
+
   public readonly discountReductionTypeSelect: string;
 
-  public readonly discountIncludTaxSelect: string;
+  public readonly discountReductionIncludeTaxSelect: string;
 
   private readonly deliveryConditionNoneRadio: string;
 
@@ -109,7 +104,11 @@ class BODiscountsCreatePage extends BOBasePage implements BODiscountsCreatePageI
 
   public readonly discountCodeInput: string;
 
-  public readonly discountContabilityCheckboxButton: (row: number) => string;
+  public readonly discountCompatibilityCheckboxButton: string;
+
+  private readonly quantityTotalInput: string;
+
+  private readonly quantityPerCustomerInput: string;
 
   public readonly priorityInput: string;
 
@@ -136,17 +135,15 @@ class BODiscountsCreatePage extends BOBasePage implements BODiscountsCreatePageI
 
     // Selectors
     this.discountInformationBlock = '#discount_information';
-    this.discountNameInput = '#discount_information_names_1';
+    this.discountTypeInput = '#discount_information_discount_type';
+    this.discountNameInput = (languageId: number) => `#discount_information_names_${languageId}`;
     this.discountDescriptionTextarea = '#discount_information_description';
     // Select period
-    this.discountPeriodBlock = '#discount_period';
-    this.startDateInput = '#discount_period_valid_date_range_from';
-    this.endDateInput = '#discount_period_valid_date_range_to';
-    this.neverExpiresCheckbox = '#discount_period div.form-checkbox label';
+    this.discountPeriodValidRangeFrom = '#discount_period_valid_date_range_from';
+    this.discountPeriodValidRangeTo = '#discount_period_valid_date_range_to';
+    this.discountPeriodValidNeverExpiresCheckbox = '#discount_period div.form-checkbox label';
     // Select customer eligibility
-    this.allCustomersRadioButton = '#discount_customer_eligibility_eligibility_children_selector_0';
-    this.customerGroupsRadioButton = '#discount_customer_eligibility_eligibility_children_selector_1';
-    this.singleCustomerRadioButton = '#discount_customer_eligibility_eligibility_children_selector_2';
+    this.customerEligibilityRadio = 'input[name="discount[customer_eligibility][eligibility][children_selector]"]';
     // Product conditions
     this.noProductConditionRadioButton = '#discount_conditions_product_children_selector_0';
     this.specificProductRadioButton = '#discount_conditions_product_children_selector_1';
@@ -155,18 +152,17 @@ class BODiscountsCreatePage extends BOBasePage implements BODiscountsCreatePageI
     this.productSegmentRadioButton = '#discount_conditions_product_children_selector_2';
     // Cart conditions
     this.discountConditionCartBlock = '#discount_conditions_cart';
-    this.noMinimumPurchaseRadioButton = '#discount_conditions_cart_children_selector_0';
-    this.minimumPurchaseAmountRadioButton = '#discount_conditions_cart_children_selector_1';
+    this.cartConditionRadio = 'input[name="discount[conditions][cart][children_selector]"]';
     this.minimumAmountValueInput = '#discount_conditions_cart_minimum_amount_value_amount';
     this.minimumAmountCurrencySelect = '#discount_conditions_cart_minimum_amount_value_currency';
     this.minimumAmountTaxSelect = '#discount_conditions_cart_minimum_amount_tax_included';
-    this.minimumProductQuantityRadioButton = '#discount_conditions_cart_children_selector_2';
     this.minimumProductQuantityInput = '#discount_conditions_cart_minimum_product_quantity';
     // Choose a discount value
     this.discountValueBlock = '#discount_value';
     this.discountValueInput = '#discount_value_reduction_value_amount';
+    this.discountValueCurrencySelect = '#discount_value_reduction_value_currency';
     this.discountReductionTypeSelect = '#discount_value_reduction_type';
-    this.discountIncludTaxSelect = '#discount_value_reduction_include_tax';
+    this.discountReductionIncludeTaxSelect = '#discount_value_reduction_include_tax';
     // Delivery conditions
     this.deliveryConditionNoneRadio = 'input[name="discount[conditions][delivery][children_selector]"][value="none"]';
     this.deliveryConditionSpecificCountriesRadio = 'input[name="discount[conditions][delivery][children_selector]"]'
@@ -186,29 +182,14 @@ class BODiscountsCreatePage extends BOBasePage implements BODiscountsCreatePageI
     this.createAutomaticDiscountRadioButton = '#discount_usability_mode_children_selector_0';
     this.generateDiscountModeRadioButton = '#discount_usability_mode_children_selector_1';
     this.discountCodeInput = '#discount_usability_mode_code';
-    this.discountContabilityCheckboxButton = (row: number) => `#discount_usability_compatibility_${row}`;
+    this.quantityTotalInput = '#discount_usability_quantity_total';
+    this.quantityPerCustomerInput = '#discount_usability_quantity_per_customer';
+    this.discountCompatibilityCheckboxButton = 'input[name="discount[usability][compatibility][]"]';
     this.priorityInput = '#discount_usability_priority';
     this.saveButton = '#main-div button[type="submit"]';
   }
 
   /* Methods */
-
-  /**
-   * Get discount date start and end
-   * @param page {Page} Browser tab
-   * @param period {string} Start or end
-   * @return {Promise<string>}
-   */
-  async getDiscountDate(page: Page, period: string): Promise<string> {
-    switch (period) {
-      case 'start':
-        return this.getAttributeContent(page, this.startDateInput, 'value');
-      case 'end':
-        return this.getAttributeContent(page, this.endDateInput, 'value');
-      default:
-        throw new Error(`Field ${period} was not found`);
-    }
-  }
 
   /**
    * Create/Edit discount
@@ -217,23 +198,24 @@ class BODiscountsCreatePage extends BOBasePage implements BODiscountsCreatePageI
    * @return {Promise<string>}
    */
   async createDiscount(page: Page, discountData: FakerDiscount): Promise<string> {
-    await this.setValue(page, this.discountNameInput, discountData.name);
+    await this.setValue(page, this.discountNameInput(dataLanguages.english.id), discountData.name);
     await this.setValue(page, this.discountDescriptionTextarea, discountData.description);
     if (discountData.dateFrom) {
-      await this.setValue(page, this.startDateInput, discountData.dateFrom!);
+      await this.setValue(page, this.discountPeriodValidRangeFrom, discountData.dateFrom!);
     }
     await page.keyboard.press('Enter');
-    await this.setChecked(page, this.neverExpiresCheckbox, discountData.neverExpires);
+    await this.setChecked(page, this.discountPeriodValidNeverExpiresCheckbox, discountData.neverExpires);
     if (discountData.dateTo) {
-      await this.setValue(page, this.endDateInput, discountData.dateTo!);
+      await this.setValue(page, this.discountPeriodValidRangeTo, discountData.dateTo!);
     }
     // Select customer eligibility form
+    await page.locator(`${this.customerEligibilityRadio}[value="all_customers"]`).setChecked(true);
     if (discountData.customerGroups) {
-      await this.setChecked(page, this.customerGroupsRadioButton);
+      await page.locator(`${this.customerEligibilityRadio}[value="customer_groups"]`).setChecked(true);
       // @todo
     }
     if (discountData.singleCustomer) {
-      await this.setChecked(page, this.singleCustomerRadioButton);
+      await page.locator(`${this.customerEligibilityRadio}[value="single_customer"]`).setChecked(true);
       // @todo
     }
     // Select discount conditions
@@ -255,24 +237,24 @@ class BODiscountsCreatePage extends BOBasePage implements BODiscountsCreatePageI
     }
     // *** Cart condition
     if (discountData.minimumPurchaseAmount) {
-      await this.setChecked(page, this.minimumPurchaseAmountRadioButton);
+      await page.locator(`${this.cartConditionRadio}[value="minimum_amount"]`).setChecked(true);
       await this.setValue(page, this.minimumAmountValueInput, discountData.minimumAmountValue!);
       await this.selectByVisibleText(page, this.minimumAmountTaxSelect, discountData.minimumAmountTax!);
     } else if (discountData.minimumProductQuantity) {
-      await this.setChecked(page, this.minimumProductQuantityRadioButton);
+      await page.locator(`${this.cartConditionRadio}[value="minimum_product_quantity"]`).setChecked(true);
       await this.setValue(page, this.minimumProductQuantityInput, discountData.productQuantity);
     } else {
-      await this.setChecked(page, this.noMinimumPurchaseRadioButton);
+      await page.locator(`${this.cartConditionRadio}[value="none"]`).setChecked(true);
     }
     // Choose a discount value
     if (await this.elementVisible(page, this.discountValueInput, 2000)) {
       await this.setValue(page, this.discountValueInput, discountData.discountValue);
       if (discountData.discountReductionType === '€') {
-        await this.selectByVisibleText(page, this.discountIncludTaxSelect, discountData.discountTax!);
+        await this.selectByVisibleText(page, this.discountReductionIncludeTaxSelect, discountData.discountTax!);
       }
     }
     // Free gift
-    if (discountData.discountType === 'Free gift' && discountData.freeGift!.name !== ' ') {
+    if (discountData.discountType === 'free_gift' && discountData.freeGift!.name !== ' ') {
       await this.setValue(page, this.freeGiftSearchInput, discountData.freeGift!.name);
       await this.waitForSelector(page, this.searchProductResult, 'visible', 2000);
       await page.waitForTimeout(2000);
@@ -281,7 +263,7 @@ class BODiscountsCreatePage extends BOBasePage implements BODiscountsCreatePageI
       await this.waitForSelector(page, this.freeGiftList, 'visible', 2000);
     }
     // *** Delivery conditions
-    if (['Free gift', 'On free shipping'].includes(discountData.discountType!)) {
+    if (['free_gift', 'free_shipping'].includes(discountData.discountType!)) {
       await this.setChecked(page, this.deliveryConditionNoneRadio);
       if (discountData.deliveryConditionsCountries.length > 0) {
         await this.setChecked(page, this.deliveryConditionSpecificCountriesRadio);
@@ -295,16 +277,40 @@ class BODiscountsCreatePage extends BOBasePage implements BODiscountsCreatePageI
       }
     }
     // Usability conditions
-    if (discountData.generateDiscountCode) {
+    if (discountData.discountCode.length > 0) {
       await this.setChecked(page, this.generateDiscountModeRadioButton);
       await this.setValue(page, this.discountCodeInput, discountData.discountCode!);
     } else {
       await this.setChecked(page, this.createAutomaticDiscountRadioButton);
     }
+    // Compatible with discounts
+    for (let i: number = 0; i < discountData.discountCompatibilityTypes.length; i++) {
+      await page
+        .locator(`${this.discountCompatibilityCheckboxButton}[value="${discountData.discountCompatibilityTypes[i]}"]`)
+        .setChecked(true);
+    }
+
+    // Priorty
+    await page.locator(this.priorityInput).fill(discountData.priority.toString());
+
     // Save
     await page.locator(this.saveButton).click();
 
     return this.getAlertBlockContent(page);
+  }
+
+  /**
+   * Delete free gift
+   * @param page {Page} Browser tab
+   * @param row {number} The free gift to delete
+   * @return {Promise<boolean>}
+   */
+  async deleteFreeGift(page: Page, row: number = 1): Promise<boolean> {
+    await page.locator(this.freeGiftDeleteIcon(row - 1)).click();
+    await this.waitForVisibleSelector(page, this.modalConfirmRemove);
+    await page.locator(this.modalConfirmRemoveSubmitButton).click();
+
+    return this.elementNotVisible(page, this.discountFreeGiftRow(row - 1), 2000);
   }
 
   /**
@@ -343,17 +349,73 @@ class BODiscountsCreatePage extends BOBasePage implements BODiscountsCreatePageI
   }
 
   /**
-   * Delete free gift
-   * @param page {Page} Browser tab
-   * @param row {number} The free gift to delete
-   * @return {Promise<boolean>}
+   * Returns the value of a form element
+   * @param page {Page}
+   * @param inputName {string}
+   * @param languageId {number | undefined}
    */
-  async deleteFreeGift(page: Page, row: number = 1): Promise<boolean> {
-    await page.locator(this.freeGiftDeleteIcon(row - 1)).click();
-    await this.waitForVisibleSelector(page, this.modalConfirmRemove);
-    await page.locator(this.modalConfirmRemoveSubmitButton).click();
+  async getValue(page: Page, inputName: string, languageId?: number): Promise<string> {
+    switch (inputName) {
+      case 'cartConditionType':
+        return page.locator(`${this.cartConditionRadio}[checked]`).inputValue();
+      case 'code':
+        return page.locator(this.discountCodeInput).inputValue();
+      case 'customerEligibilityType':
+        return page.locator(`${this.customerEligibilityRadio}[checked]`).inputValue();
+      case 'description':
+        return page.locator(this.discountDescriptionTextarea).inputValue();
+      case 'minimalAmount':
+        return page.locator(this.minimumAmountValueInput).inputValue();
+      case 'minimalAmountCurrency':
+        return page.locator(this.minimumAmountCurrencySelect).evaluate((select: HTMLSelectElement) => select.value);
+      case 'minimalAmountIncludeTax':
+        return page.locator(this.minimumAmountTaxSelect).evaluate((select: HTMLSelectElement) => select.value);
+      case 'minimalProductQuantity':
+        return page.locator(this.minimumProductQuantityInput).inputValue();
+      case 'names':
+        return page.locator(this.discountNameInput(languageId!)).inputValue();
+      case 'priority':
+        return page.locator(this.priorityInput).inputValue();
+      case 'quantityPerUser':
+        return page.locator(this.quantityPerCustomerInput).inputValue();
+      case 'reductionAmount':
+        return page.locator(this.discountValueInput).inputValue();
+      case 'reductionCurrency':
+        return page.locator(this.discountValueCurrencySelect).evaluate((select: HTMLSelectElement) => select.value);
+      case 'reductionIncludeTax':
+        return page.locator(this.discountReductionIncludeTaxSelect).evaluate((select: HTMLSelectElement) => select.value);
+      case 'reductionType':
+        return page.locator(this.discountReductionTypeSelect).evaluate((select: HTMLSelectElement) => select.value);
+      case 'totalQuantity':
+        return page.locator(this.quantityTotalInput).inputValue();
+      case 'type':
+        return page.locator(this.discountTypeInput).inputValue();
+      case 'validFrom':
+        return page.locator(this.discountPeriodValidRangeFrom).inputValue();
+      case 'validTo':
+        return page.locator(this.discountPeriodValidRangeTo).inputValue();
+      default:
+        throw new Error(`Input ${inputName} was not found`);
+    }
+  }
 
-    return this.elementNotVisible(page, this.discountFreeGiftRow(row - 1), 2000);
+  /**
+   * Returns the values (if multiple) of a form element
+   * @param page {Page}
+   * @param inputName {string}
+   * @param languageId {number | undefined}
+   */
+  async getValues(page: Page, inputName: string): Promise<string[]> {
+    switch (inputName) {
+      case 'compatibleDiscountTypeIds':
+        return page
+          .locator(`${this.discountCompatibilityCheckboxButton}[checked]`)
+          .evaluateAll(
+            (all: HTMLInputElement[]) => all.map((el: HTMLInputElement) => el.value),
+          );
+      default:
+        throw new Error(`Input ${inputName} was not found`);
+    }
   }
 }
 

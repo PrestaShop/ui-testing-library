@@ -2,6 +2,7 @@ import FakerCurrency from '@data/faker/currency';
 
 export default {
   euro: new FakerCurrency({
+    id: 1,
     name: 'Euro',
     frName: 'euro',
     symbol: '€',
