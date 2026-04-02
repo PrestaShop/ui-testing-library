@@ -283,7 +283,7 @@ class BODiscountsCreatePage extends BOBasePage implements BODiscountsCreatePageI
     // Usability conditions
     if (discountData.discountCode.length > 0) {
       await this.setChecked(page, this.generateDiscountModeRadioButton);
-      if (discountData.createRandomCode) {
+      if (discountData.generateRandomCode) {
         await page.locator(this.generateCodeButton).click();
       } else {
         await this.setValue(page, this.discountCodeInput, discountData.discountCode!);
