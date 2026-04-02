@@ -21,7 +21,7 @@ type DiscountCreator = {
   minimumAmountCurrency?: string | null
   minimumAmountTax?: string | null
   minimumProductQuantity?: boolean
-  productQuantity?: number
+  productQuantity?: number | string
   discountValue?: number | string
   discountReductionType?: string
   discountCurrency?: string | null

@@ -47,7 +47,7 @@ export default class FakerDiscount {
 
   public readonly minimumProductQuantity: boolean;
 
-  public readonly productQuantity: number;
+  public readonly productQuantity: number | string;
 
   public readonly discountValue: number | string;
 
@@ -136,7 +136,7 @@ export default class FakerDiscount {
     /** @type {boolean} True to enable minimum product quantity on the discount*/
     this.minimumProductQuantity = discountToCreate.minimumProductQuantity || false;
 
-    /** @type {number} Minimum product quantity of the discount*/
+    /** @type {number|string} Minimum product quantity of the discount*/
     this.productQuantity = discountToCreate.productQuantity || 1;
 
     // Discount value
