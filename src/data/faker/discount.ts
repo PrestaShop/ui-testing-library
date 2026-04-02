@@ -61,6 +61,10 @@ export default class FakerDiscount {
 
   public readonly createAutomaticDiscount: boolean;
 
+  public readonly generateDiscountCode: boolean;
+
+  public readonly createRandomCode: boolean;
+
   public readonly discountCode: string;
 
   public readonly discountCompatibilityTypes: number[];
@@ -162,6 +166,9 @@ export default class FakerDiscount {
 
     /** @type {string} The code of the discount */
     this.discountCode = discountToCreate.discountCode || '';
+
+    /** @type {boolean} True to enable to generate random discount code */
+    this.createRandomCode = discountToCreate.createRandomCode || false;
 
     /** @type {number[]} Compatible with discounts */
     this.discountCompatibilityTypes = discountToCreate.discountCompatibilityTypes || [];

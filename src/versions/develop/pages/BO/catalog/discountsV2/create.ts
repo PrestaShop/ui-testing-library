@@ -1,4 +1,3 @@
-import dataLanguages from '@data/demo/languages';
 import type FakerDiscount from '@data/faker/discount';
 import {type BODiscountsCreatePageInterface} from '@interfaces/BO/catalog/discountsV2/create';
 import BOBasePage from '@pages/BO/BOBasePage';
@@ -109,6 +108,9 @@ class BODiscountsCreatePage extends BOBasePage implements BODiscountsCreatePageI
   private readonly quantityTotalInput: string;
 
   private readonly quantityPerCustomerInput: string;
+  public readonly generateCodeButton: string;
+
+  public readonly discountContabilityCheckboxButton: (row: number) => string;
 
   public readonly priorityInput: string;
 
@@ -185,6 +187,8 @@ class BODiscountsCreatePage extends BOBasePage implements BODiscountsCreatePageI
     this.quantityTotalInput = '#discount_usability_quantity_total';
     this.quantityPerCustomerInput = '#discount_usability_quantity_per_customer';
     this.discountCompatibilityCheckboxButton = 'input[name="discount[usability][compatibility][]"]';
+    this.generateCodeButton = '#discount_usability_mode button.js-generator-btn';
+    this.discountContabilityCheckboxButton = (row: number) => `#discount_usability_compatibility_${row}`;
     this.priorityInput = '#discount_usability_priority';
     this.saveButton = '#main-div button[type="submit"]';
   }
@@ -279,7 +283,11 @@ class BODiscountsCreatePage extends BOBasePage implements BODiscountsCreatePageI
     // Usability conditions
     if (discountData.discountCode.length > 0) {
       await this.setChecked(page, this.generateDiscountModeRadioButton);
-      await this.setValue(page, this.discountCodeInput, discountData.discountCode!);
+      if (discountData.createRandomCode) {
+        await page.locator(this.generateCodeButton).click();
+      } else {
+        await this.setValue(page, this.discountCodeInput, discountData.discountCode!);
+      }
     } else {
       await this.setChecked(page, this.createAutomaticDiscountRadioButton);
     }
@@ -416,6 +424,15 @@ class BODiscountsCreatePage extends BOBasePage implements BODiscountsCreatePageI
       default:
         throw new Error(`Input ${inputName} was not found`);
     }
+  }
+
+  /**
+   * Get discount value
+   * @param page {Page} Browser tab
+   * @return {Promise<string>}
+   */
+  async getDiscountCode(page: Page): Promise<string> {
+    return this.getAttributeContent(page, this.discountCodeInput, 'value');
   }
 }
 
