@@ -15,6 +15,7 @@ export interface BODiscountsCreatePageInterface extends BOBasePagePageInterface 
 
   createDiscount(page: Page, discountData: FakerDiscount): Promise<string>;
   deleteFreeGift(page: Page, row?: number): Promise<boolean>;
+  getDiscountCode(page: Page): Promise<string>;
   getErrorMessageInvalidInput(page: Page, input: string): Promise<string>;
   getValue(page: Page, inputName: string, languageId?: number): Promise<string>;
   getValues(page: Page, inputName: string): Promise<string[]>;
