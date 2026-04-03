@@ -1,3 +1,4 @@
+import dataLanguages from '@data/demo/languages';
 import type FakerDiscount from '@data/faker/discount';
 import {type BODiscountsCreatePageInterface} from '@interfaces/BO/catalog/discountsV2/create';
 import BOBasePage from '@pages/BO/BOBasePage';
@@ -108,9 +109,8 @@ class BODiscountsCreatePage extends BOBasePage implements BODiscountsCreatePageI
   private readonly quantityTotalInput: string;
 
   private readonly quantityPerCustomerInput: string;
-  public readonly generateCodeButton: string;
 
-  public readonly discountContabilityCheckboxButton: (row: number) => string;
+  public readonly generateCodeButton: string;
 
   public readonly priorityInput: string;
 
@@ -188,7 +188,6 @@ class BODiscountsCreatePage extends BOBasePage implements BODiscountsCreatePageI
     this.quantityPerCustomerInput = '#discount_usability_quantity_per_customer';
     this.discountCompatibilityCheckboxButton = 'input[name="discount[usability][compatibility][]"]';
     this.generateCodeButton = '#discount_usability_mode button.js-generator-btn';
-    this.discountContabilityCheckboxButton = (row: number) => `#discount_usability_compatibility_${row}`;
     this.priorityInput = '#discount_usability_priority';
     this.saveButton = '#main-div button[type="submit"]';
   }
@@ -298,7 +297,7 @@ class BODiscountsCreatePage extends BOBasePage implements BODiscountsCreatePageI
         .setChecked(true);
     }
 
-    // Priorty
+    // Priority
     await page.locator(this.priorityInput).fill(discountData.priority.toString());
 
     // Save
