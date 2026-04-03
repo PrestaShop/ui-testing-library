@@ -1,4 +1,5 @@
 type CurrencyCreator = {
+  id?: number
   name?: string
   frName?: string
   symbol?: string
