@@ -61,8 +61,6 @@ export default class FakerDiscount {
 
   public readonly createAutomaticDiscount: boolean;
 
-  public readonly generateDiscountCode: boolean;
-
   public readonly generateRandomCode: boolean;
 
   public readonly discountCode: string;

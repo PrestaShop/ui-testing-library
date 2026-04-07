@@ -29,7 +29,6 @@ type DiscountCreator = {
   discountTax?: string | null
   createAutomaticDiscount?: boolean
   deliveryConditionsCountries?: FakerCountry[]
-  generateDiscountCode?: boolean
   generateRandomCode?: boolean
   discountCode?: string
   discountCompatibilityTypes?: number[]

@@ -280,7 +280,7 @@ class BODiscountsCreatePage extends BOBasePage implements BODiscountsCreatePageI
       }
     }
     // Usability conditions
-    if (discountData.discountCode.length > 0) {
+    if (discountData.discountCode.length > 0 || discountData.generateRandomCode) {
       await this.setChecked(page, this.generateDiscountModeRadioButton);
       if (discountData.generateRandomCode) {
         await page.locator(this.generateCodeButton).click();
@@ -423,15 +423,6 @@ class BODiscountsCreatePage extends BOBasePage implements BODiscountsCreatePageI
       default:
         throw new Error(`Input ${inputName} was not found`);
     }
-  }
-
-  /**
-   * Get discount value
-   * @param page {Page} Browser tab
-   * @return {Promise<string>}
-   */
-  async getDiscountCode(page: Page): Promise<string> {
-    return this.getAttributeContent(page, this.discountCodeInput, 'value');
   }
 }
 
