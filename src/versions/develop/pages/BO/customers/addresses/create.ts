@@ -104,7 +104,7 @@ class BOAddressesCreatePage extends BOBasePage implements BOAddressesCreatePageI
     if (await this.elementVisible(page, this.customerEmailInput, 2000)) {
       await this.setValue(page, this.customerEmailInput, addressData.email);
 
-/*      if ('keyboard' in page) {
+      /*      if ('keyboard' in page) {
         await page.keyboard.press('Tab');
       }
       if ('waitForResponse' in page) {

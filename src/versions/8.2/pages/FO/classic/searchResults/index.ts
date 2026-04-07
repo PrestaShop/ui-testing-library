@@ -1,7 +1,6 @@
 // Import pages
 
 import {FoSearchResultsPageInterface} from '@interfaces/FO/searchResults';
-import {type Page} from '@playwright/test';
 import {SearchResultsPage} from '@versions/develop/pages/FO/classic/searchResults';
 
 /**

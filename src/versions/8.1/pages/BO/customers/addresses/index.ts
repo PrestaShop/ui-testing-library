@@ -7,13 +7,6 @@ import {BOAddressesPage as BOAddressesPageVersion} from '@versions/8.2/pages/BO/
  * @extends BOBasePage
  */
 class BOAddressesPage extends BOAddressesPageVersion implements BOAddressesPageInterface {
-  /**
-   * @constructs
-   * Setting up texts and selectors to use on addresses page
-   */
-  constructor() {
-    super();
-  }
 }
 
 const boAddressesPage = new BOAddressesPage();

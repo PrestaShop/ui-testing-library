@@ -1,7 +1,6 @@
 import type FakerCarrier from '@data/faker/carrier';
 import type FakerGroup from '@data/faker/group';
 import {type CarrierRange} from '@data/types/carrier';
-import {tr} from '@faker-js/faker';
 import {BOCarriersCreatePageInterface} from '@interfaces/BO/shipping/carriers/create';
 import {BOCarriersCreatePage as BOCarriersCreatePageVersion} from '@versions/develop/pages/BO/shipping/carriers/create';
 import type {Page} from 'playwright';

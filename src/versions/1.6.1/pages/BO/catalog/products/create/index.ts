@@ -1,16 +1,7 @@
 // Import pages
 import type {BOProductsCreatePageInterface} from '@interfaces/BO/catalog/products/create';
 import {BOProductsCreatePage} from '@versions/develop/pages/BO/catalog/products/create';
-
-import descriptionTab from '@pages/BO/catalog/products/create/tabDescription';
-import pricingTab from '@pages/BO/catalog/products/create/tabPricing';
-import detailsTab from '@pages/BO/catalog/products/create/tabDetails';
-import virtualProductTab from '@pages/BO/catalog/products/create/tabVirtualProduct';
-import stocksTab from '@pages/BO/catalog/products/create/tabStocks';
-import packTab from '@pages/BO/catalog/products/create/tabPack';
-
 import type FakerProduct from '@data/faker/product';
-
 import type {Page} from 'playwright';
 
 /**
@@ -20,12 +11,12 @@ import type {Page} from 'playwright';
  */
 class BOProductsCreatePageVersion extends BOProductsCreatePage implements BOProductsCreatePageInterface {
   /**
-     * Set product name
-     * @param page {Page} Browser tab
-     * @param name {string} Name of the product
-     * @param locale {string} Locale
-     * @returns {Promise<void>}
-     */
+   * Set product name
+   * @param page {Page} Browser tab
+   * @param name {string} Name of the product
+   * @param locale {string} Locale
+   * @returns {Promise<void>}
+   */
   async setProductName(page: Page, name: string, locale: string = 'en'): Promise<void> {
     const isShopMultiLanguages = await page.locator(this.productNameLanguageButton).isVisible({timeout: 1200});
 
@@ -38,25 +29,24 @@ class BOProductsCreatePageVersion extends BOProductsCreatePage implements BOProd
   }
 
   /**
-     * Set product type
-     * @param page {Page} Browser tab
-     * @param productData {FakerProduct}
-     * @returns {Promise<void>}
-     */
+   * Set product type
+   * @param page {Page} Browser tab
+   * @param productData {FakerProduct}
+   * @returns {Promise<void>}
+   */
   async setProductType(page: Page, productData: FakerProduct): Promise<void> {
-    switch (productData.type) {
-      case 'standard':
-        await page.locator('#simple_product').setChecked(true);
+    if (productData.type === 'standard') {
+      await page.locator('#simple_product').setChecked(true);
     }
   }
 
   /**
-     * Set product
-     * @param page {Page} Browser tab
-     * @param productData {FakerProduct} Data to set in new product page
-     * @returns {Promise<string>}
-     */
-  async setProduct(page: Page, productData: FakerProduct): Promise<string|null> /**/{
+   * Set product
+   * @param page {Page} Browser tab
+   * @param productData {FakerProduct} Data to set in new product page
+   * @returns {Promise<string>}
+   */
+  async setProduct(page: Page, productData: FakerProduct): Promise<string | null> /**/ {
     // INFORMATION TAB
     // product type
     await this.setProductType(page, productData);

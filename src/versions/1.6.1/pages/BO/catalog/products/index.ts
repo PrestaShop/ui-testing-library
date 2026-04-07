@@ -2,8 +2,6 @@
 import type {BOProductsPageInterface} from '@interfaces/BO/catalog/products';
 import {ProductsPage} from '@versions/1.7.7/pages/BO/catalog/products';
 
-import type {Page} from 'playwright';
-
 /**
  * Bo products page, contains functions that can be used on the page
  * @class

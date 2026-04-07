@@ -1,4 +1,4 @@
-import { type BOLocalizationPageInterface } from '@interfaces/BO/international/localization';
+import {type BOLocalizationPageInterface} from '@interfaces/BO/international/localization';
 import testContext from '@utils/test';
 import semver from 'semver';
 
