@@ -110,6 +110,8 @@ class BODiscountsCreatePage extends BOBasePage implements BODiscountsCreatePageI
 
   private readonly quantityPerCustomerInput: string;
 
+  public readonly generateCodeButton: string;
+
   public readonly priorityInput: string;
 
   public readonly saveButton: string;
@@ -185,6 +187,7 @@ class BODiscountsCreatePage extends BOBasePage implements BODiscountsCreatePageI
     this.quantityTotalInput = '#discount_usability_quantity_total';
     this.quantityPerCustomerInput = '#discount_usability_quantity_per_customer';
     this.discountCompatibilityCheckboxButton = 'input[name="discount[usability][compatibility][]"]';
+    this.generateCodeButton = '#discount_usability_mode button.js-generator-btn';
     this.priorityInput = '#discount_usability_priority';
     this.saveButton = '#main-div button[type="submit"]';
   }
@@ -277,9 +280,13 @@ class BODiscountsCreatePage extends BOBasePage implements BODiscountsCreatePageI
       }
     }
     // Usability conditions
-    if (discountData.discountCode.length > 0) {
+    if (discountData.discountCode.length > 0 || discountData.generateRandomCode) {
       await this.setChecked(page, this.generateDiscountModeRadioButton);
-      await this.setValue(page, this.discountCodeInput, discountData.discountCode!);
+      if (discountData.generateRandomCode) {
+        await page.locator(this.generateCodeButton).click();
+      } else {
+        await this.setValue(page, this.discountCodeInput, discountData.discountCode!);
+      }
     } else {
       await this.setChecked(page, this.createAutomaticDiscountRadioButton);
     }
@@ -290,7 +297,7 @@ class BODiscountsCreatePage extends BOBasePage implements BODiscountsCreatePageI
         .setChecked(true);
     }
 
-    // Priorty
+    // Priority
     await page.locator(this.priorityInput).fill(discountData.priority.toString());
 
     // Save
