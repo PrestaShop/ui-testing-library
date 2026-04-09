@@ -186,6 +186,7 @@ class DescriptionTab extends BOBasePage implements BOProductsCreateTabDescriptio
    * @returns {Promise<number>}
    */
   async getNumberOfImages(page: Page): Promise<number> {
+    await page.waitForTimeout(5000);
     // Wait for the dropzone element to be initialized
     await this.elementVisible(page, this.productImageDropZoneDiv, 3000);
 
