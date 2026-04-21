@@ -28,6 +28,10 @@ export default class FakerCatalogPriceRule {
 
   public readonly fromQuantity: number;
 
+  public readonly price: number;
+
+  public readonly leaveInitialPrice: boolean;
+
   public readonly fromDate: string;
 
   public readonly toDate: string;
@@ -59,6 +63,12 @@ export default class FakerCatalogPriceRule {
     this.fromQuantity = priceRuleToCreate.fromQuantity === undefined
       ? faker.number.int({min: 1, max: 9})
       : priceRuleToCreate.fromQuantity;
+
+    /** @type {number} Price tax exc of the price rule */
+    this.price = priceRuleToCreate.price || faker.number.int({min: 20, max: 30});
+
+    /** @type {boolean} True to enable Leave initial price */
+    this.leaveInitialPrice = priceRuleToCreate.leaveInitialPrice || false;
 
     /** @type {string} Starting date to apply the price rule  */
     this.fromDate = priceRuleToCreate.fromDate || '';
