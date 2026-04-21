@@ -96,6 +96,7 @@ class BOCarriersCreatePage extends BOCarriersCreatePageVersion implements BOCarr
     await this.setValue(page, this.speedGradeInput, carrierData.speedGrade);
     await this.uploadFile(page, this.logoInput, `${carrierData.name}.jpg`);
     await this.setValue(page, this.trackingURLInput, carrierData.trackingURL);
+    await page.locator(this.nextButton).scrollIntoViewIfNeeded();
     await page.locator(this.nextButton).click();
 
     // Set shipping locations and costs
@@ -184,6 +185,7 @@ class BOCarriersCreatePage extends BOCarriersCreatePageVersion implements BOCarr
         }
       }
     }
+    await page.locator(this.nextButton).scrollIntoViewIfNeeded();
     await page.locator(this.nextButton).click();
 
     // Set size, weight and group access
@@ -205,6 +207,7 @@ class BOCarriersCreatePage extends BOCarriersCreatePageVersion implements BOCarr
       }
     }
 
+    await page.locator(this.nextButton).scrollIntoViewIfNeeded();
     await page.locator(this.nextButton).click();
 
     // Summary
@@ -222,6 +225,7 @@ class BOCarriersCreatePage extends BOCarriersCreatePageVersion implements BOCarr
    * @returns {Promise<string>}
    */
   async setHandlingCosts(page: Page, toEnable: boolean = true): Promise<string> {
+    await page.locator(this.nextButton).scrollIntoViewIfNeeded();
     await page.locator(this.nextButton).click();
     await this.setChecked(page, this.addHandlingCostsToggle(toEnable ? 'on' : 'off'));
 
