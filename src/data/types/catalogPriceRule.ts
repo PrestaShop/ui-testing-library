@@ -4,6 +4,8 @@ type CatalogPriceRuleCreator = {
   country?: string
   group?: string
   fromQuantity?: number
+  price?: number
+  leaveInitialPrice?: boolean
   fromDate?: string
   toDate?: string
   reductionType?: string

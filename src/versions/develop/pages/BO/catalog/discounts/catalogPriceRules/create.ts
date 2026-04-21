@@ -25,6 +25,10 @@ class BOCatalogPriceRulesCreatePage extends BOBasePage implements BOCatalogPrice
 
   private readonly fromQuantityInput: string;
 
+  private readonly priceInput: string;
+
+  private readonly leaveInitialPriceCheckbox: string;
+
   private readonly fromDateInput: string;
 
   private readonly toDateInput: string;
@@ -54,6 +58,8 @@ class BOCatalogPriceRulesCreatePage extends BOBasePage implements BOCatalogPrice
     this.countrySelect = '#id_country';
     this.groupSelect = '#id_group';
     this.fromQuantityInput = '#from_quantity';
+    this.priceInput = '#price';
+    this.leaveInitialPriceCheckbox = '#leave_bprice_on';
     this.fromDateInput = '#from';
     this.toDateInput = '#to';
     this.reductionTypeSelect = '#reduction_type';
@@ -75,6 +81,15 @@ class BOCatalogPriceRulesCreatePage extends BOBasePage implements BOCatalogPrice
     await this.selectByVisibleText(page, this.countrySelect, priceRuleData.country);
     await this.selectByVisibleText(page, this.groupSelect, priceRuleData.group);
     await this.setValue(page, this.fromQuantityInput, priceRuleData.fromQuantity);
+    if (priceRuleData.leaveInitialPrice) {
+      await page.locator(this.leaveInitialPriceCheckbox).click();
+    } else {
+      await page.locator(this.leaveInitialPriceCheckbox).click();
+    }
+    if (!priceRuleData.leaveInitialPrice) {
+      await this.setValue(page, this.priceInput, priceRuleData.price);
+    }
+
     if (priceRuleData.fromDate !== '') {
       await page.locator(this.fromDateInput).fill(priceRuleData.fromDate);
     }
