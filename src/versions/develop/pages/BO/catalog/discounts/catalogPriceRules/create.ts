@@ -81,9 +81,10 @@ class BOCatalogPriceRulesCreatePage extends BOBasePage implements BOCatalogPrice
     await this.selectByVisibleText(page, this.countrySelect, priceRuleData.country);
     await this.selectByVisibleText(page, this.groupSelect, priceRuleData.group);
     await this.setValue(page, this.fromQuantityInput, priceRuleData.fromQuantity);
-    if (priceRuleData.leaveInitialPrice) {
+    const isLeaveInitialPriceChecked = await page.locator(this.leaveInitialPriceCheckbox).isChecked();
+    if (priceRuleData.leaveInitialPrice && !isLeaveInitialPriceChecked) {
       await page.locator(this.leaveInitialPriceCheckbox).click();
-    } else {
+    } else if (!priceRuleData.leaveInitialPrice && isLeaveInitialPriceChecked) {
       await page.locator(this.leaveInitialPriceCheckbox).click();
     }
     if (!priceRuleData.leaveInitialPrice) {
