@@ -83,9 +83,7 @@ class BOCatalogPriceRulesCreatePage extends BOBasePage implements BOCatalogPrice
     await this.setValue(page, this.fromQuantityInput, priceRuleData.fromQuantity);
     const isLeaveInitialPriceChecked = await page.locator(this.leaveInitialPriceCheckbox).isChecked();
 
-    if (priceRuleData.leaveInitialPrice && !isLeaveInitialPriceChecked) {
-      await page.locator(this.leaveInitialPriceCheckbox).click();
-    } else if (!priceRuleData.leaveInitialPrice && isLeaveInitialPriceChecked) {
+    if (priceRuleData.leaveInitialPrice !== isLeaveInitialPriceChecked) {
       await page.locator(this.leaveInitialPriceCheckbox).click();
     }
     if (!priceRuleData.leaveInitialPrice) {

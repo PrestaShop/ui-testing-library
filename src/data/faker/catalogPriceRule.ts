@@ -68,7 +68,7 @@ export default class FakerCatalogPriceRule {
     this.price = priceRuleToCreate.price || faker.number.int({min: 20, max: 30});
 
     /** @type {boolean} True to enable Leave initial price */
-    this.leaveInitialPrice = priceRuleToCreate.leaveInitialPrice || true;
+    this.leaveInitialPrice = priceRuleToCreate.leaveInitialPrice === undefined ? true : priceRuleToCreate.leaveInitialPrice;
 
     /** @type {string} Starting date to apply the price rule  */
     this.fromDate = priceRuleToCreate.fromDate || '';
