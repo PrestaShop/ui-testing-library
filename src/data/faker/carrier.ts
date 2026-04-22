@@ -18,9 +18,9 @@ export default class FakerCarrier {
 
   public readonly position: number;
 
-  public readonly name: string;
+  public name: string;
 
-  public readonly transitName: string;
+  public transitName: string;
 
   public readonly speedGrade: number;
 

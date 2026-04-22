@@ -8,7 +8,9 @@ import type {Page} from 'playwright';
  * @class
  * @extends BOBasePage
  */
-class BOLocalizationPage extends BOLocalizationBasePage implements BOLocalizationPageInterface {
+class BOLocalizationPage
+  extends BOLocalizationBasePage
+  implements BOLocalizationPageInterface {
   public readonly pageTitle: string;
 
   public readonly importLocalizationPackSuccessfulMessage: string;
@@ -29,7 +31,7 @@ class BOLocalizationPage extends BOLocalizationBasePage implements BOLocalizatio
 
   protected updatepriceDisplayForGroupsCHeckbox: string;
 
-  protected downloadPackDataToggleInput: (toggle: number) => string;
+  protected downloadPackDataToggleInput: (toggle: number | string) => string;
 
   protected importButton: string;
 
@@ -62,7 +64,7 @@ class BOLocalizationPage extends BOLocalizationBasePage implements BOLocalizatio
     this.importLanguagesCheckbox = '#import_localization_pack_content_to_import_3';
     this.importUnitsCheckbox = '#import_localization_pack_content_to_import_4';
     this.updatepriceDisplayForGroupsCHeckbox = '#import_localization_pack_content_to_import_5';
-    this.downloadPackDataToggleInput = (toggle: number) => `#import_localization_pack_download_pack_data_${toggle}`;
+    this.downloadPackDataToggleInput = (toggle: string | number) => `#import_localization_pack_download_pack_data_${toggle}`;
     this.importButton = '#form-import-localization-save-button';
 
     // Configuration form selectors
@@ -89,14 +91,38 @@ class BOLocalizationPage extends BOLocalizationBasePage implements BOLocalizatio
     downloadPackData: boolean = true,
   ): Promise<string> {
     // Choose which country to import
-    await this.selectByVisibleText(page, this.importlocalizationPackSelect, country);
+    await this.selectByVisibleText(
+      page,
+      this.importlocalizationPackSelect,
+      country,
+    );
 
     // Set content import checkboxes
-    await this.setHiddenCheckboxValue(page, this.importStatesCheckbox, contentToImport.importStates);
-    await this.setHiddenCheckboxValue(page, this.importTaxesCheckbox, contentToImport.importTaxes);
-    await this.setHiddenCheckboxValue(page, this.importCurrenciesCheckbox, contentToImport.importCurrencies);
-    await this.setHiddenCheckboxValue(page, this.importLanguagesCheckbox, contentToImport.importLanguages);
-    await this.setHiddenCheckboxValue(page, this.importUnitsCheckbox, contentToImport.importUnits);
+    await this.setHiddenCheckboxValue(
+      page,
+      this.importStatesCheckbox,
+      contentToImport.importStates,
+    );
+    await this.setHiddenCheckboxValue(
+      page,
+      this.importTaxesCheckbox,
+      contentToImport.importTaxes,
+    );
+    await this.setHiddenCheckboxValue(
+      page,
+      this.importCurrenciesCheckbox,
+      contentToImport.importCurrencies,
+    );
+    await this.setHiddenCheckboxValue(
+      page,
+      this.importLanguagesCheckbox,
+      contentToImport.importLanguages,
+    );
+    await this.setHiddenCheckboxValue(
+      page,
+      this.importUnitsCheckbox,
+      contentToImport.importUnits,
+    );
     await this.setHiddenCheckboxValue(
       page,
       this.updatepriceDisplayForGroupsCHeckbox,
@@ -104,7 +130,10 @@ class BOLocalizationPage extends BOLocalizationBasePage implements BOLocalizatio
     );
 
     // Choose if we download pack of data
-    await this.setChecked(page, this.downloadPackDataToggleInput(downloadPackData ? 1 : 0));
+    await this.setChecked(
+      page,
+      this.downloadPackDataToggleInput(downloadPackData ? 1 : 0),
+    );
 
     // Import the pack
     await page.locator(this.importButton).click();
@@ -119,9 +148,20 @@ class BOLocalizationPage extends BOLocalizationBasePage implements BOLocalizatio
    * @param languageFromBrowser {boolean} True if we need to use language from browser
    * @returns {Promise<string>}
    */
-  async setDefaultLanguage(page: Page, language: string, languageFromBrowser: boolean = true): Promise<string> {
-    await this.selectByVisibleText(page, this.defaultLanguageSelector, language);
-    await this.setChecked(page, this.languageFromBrowserToggleInput(languageFromBrowser ? 1 : 0));
+  async setDefaultLanguage(
+    page: Page,
+    language: string,
+    languageFromBrowser: boolean = true,
+  ): Promise<string> {
+    await this.selectByVisibleText(
+      page,
+      this.defaultLanguageSelector,
+      language,
+    );
+    await this.setChecked(
+      page,
+      this.languageFromBrowserToggleInput(languageFromBrowser ? 1 : 0),
+    );
     await page.locator(this.saveConfigurationFormButton).click();
 
     return this.getAlertSuccessBlockParagraphContent(page);
