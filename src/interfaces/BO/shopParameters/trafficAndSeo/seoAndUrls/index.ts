@@ -20,6 +20,7 @@ export interface BOSeoUrlsPageInterface extends BOBasePagePageInterface {
   paginationPrevious(page: Page): Promise<string>;
   resetAndGetNumberOfLines(page: Page): Promise<number>;
   selectPaginationLimit(page: Page, number: number): Promise<string>;
+  generateRobotsTextFile(page: Page): Promise<string>;
   setStatusAttributesInProductMetaTitle(page: Page, toEnable?: boolean): Promise<string>;
   sortTable(page: Page, sortBy: string, sortDirection: string): Promise<void>;
 }
