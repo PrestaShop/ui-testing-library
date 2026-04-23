@@ -1002,6 +1002,18 @@ class BOProductBlockTabListPage extends ViewOrderBasePage implements BOProductBl
   }
 
   /**
+   * Is merge link visible
+   * @param page {Page} Browser tab
+   * @param row {number} Row in the list
+   * @returns {Promise<boolean>}
+   */
+  async isMergeLinkVisible(page: Page, row: number = 1): Promise<boolean> {
+    await this.waitForSelectorAndClick(page, this.shipmentTableDropdownLink(row));
+
+    return this.elementVisible(page, this.shipmentMergeButton(row), 2000);
+  }
+
+  /**
    * Get shipment number
    * @param page {Page} Browser tab
    * @param row {number} Row in the list

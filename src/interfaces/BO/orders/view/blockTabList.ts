@@ -74,6 +74,7 @@ export interface BOProductBlockTabListPageInterface extends BOViewOrderBasePageI
   isEditIconVisible(page: Page, row?: number): Promise<boolean>;
   isEnterPaymentButtonVisible(page: Page, row?: number): Promise<boolean>;
   isGenerateInvoiceButtonVisible(page: Page): Promise<boolean>;
+  isMergeLinkVisible(page: Page, row?: number): Promise<boolean>;
   isOrderNoteOpened(page: Page): Promise<boolean>;
   openOrderNoteTextarea(page: Page): Promise<boolean>;
   resendEmail(page: Page, row?: number): Promise<string>;
