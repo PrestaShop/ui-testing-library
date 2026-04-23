@@ -7,10 +7,12 @@ export interface BOProductBlockTabListPageInterface extends BOViewOrderBasePageI
   readonly alertTextInSplitModal: string;
   readonly alertTextInMergeModal: string;
 
+  addTrackingNumber(page: Page, trackingNumber: string): Promise<boolean>;
   checkCarrierStatusInMergeModal(page:Page):Promise<number>;
   clickOnEditLink(page: Page): Promise<boolean>;
   clickOnEditShipmentLink(page:Page, row:number):Promise<boolean>;
   clickOnEnterPaymentButton(page: Page, row?: number): Promise<void>;
+  clickOnFulfillLink(page: Page, row?: number): Promise<boolean>;
   clickOnMergeLink(page: Page, row: number): Promise<boolean>;
   clickOnMergeShipmentButton(page:Page):Promise<boolean>;
   clickOnSplitLink(page: Page, row: number): Promise<boolean>;
@@ -22,7 +24,7 @@ export interface BOProductBlockTabListPageInterface extends BOViewOrderBasePageI
   countDocumentsType(page: Page): Promise<{creditSlips: number, deliverySlips: number, invoices: number}>;
   downloadDeliverySlip(page: Page): Promise<string | null>;
   downloadInvoice(page: Page, row?: number): Promise<string | null>;
-  editShipment(page: Page, trackingNumber: string, carrier: string): Promise<boolean>;
+  editShipment(page: Page, carrier: string): Promise<boolean>;
   generateInvoice(page: Page): Promise<string>;
   getAlertTextFromMergeModal(page: Page): Promise<string>;
   getAlertTextFromSplitModal(page:Page):Promise<string>;
@@ -67,7 +69,9 @@ export interface BOProductBlockTabListPageInterface extends BOViewOrderBasePageI
   hasBadgeGift(page: Page): Promise<boolean>;
   hasBadgeRecyclable(page: Page): Promise<boolean>;
   isAddDocumentNoteButtonVisible(page: Page, row?: number): Promise<boolean>;
+  isDropdownActionsButtonVisible(page: Page, row?: number): Promise<boolean>;
   isEditDocumentNoteButtonVisible(page: Page, row?: number): Promise<boolean>;
+  isEditIconVisible(page: Page, row?: number): Promise<boolean>;
   isEnterPaymentButtonVisible(page: Page, row?: number): Promise<boolean>;
   isGenerateInvoiceButtonVisible(page: Page): Promise<boolean>;
   isOrderNoteOpened(page: Page): Promise<boolean>;
