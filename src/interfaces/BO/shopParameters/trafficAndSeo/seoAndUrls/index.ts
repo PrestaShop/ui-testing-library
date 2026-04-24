@@ -10,6 +10,7 @@ export interface BOSeoUrlsPageInterface extends BOBasePagePageInterface {
   enableDisableAccentedURL(page: Page, toEnable?: boolean): Promise<string>;
   enableDisableFriendlyURL(page: Page, toEnable?: boolean): Promise<string>;
   filterTable(page: Page, filterBy: string, value?: string): Promise<void>;
+  generateRobotsTextFile(page: Page): Promise<string>;
   getAllRowsColumnContent(page: Page, column: string): Promise<string[]>;
   getNumberOfElementInGrid(page: Page): Promise<number>;
   getTextColumnFromTable(page: Page, row: number, column: string): Promise<string>;

@@ -80,6 +80,8 @@ class BOSeoUrlsPage extends BOBasePage implements BOSeoUrlsPageInterface {
 
   private readonly saveSeoOptionsFormButton: string;
 
+  private readonly generateRobotsFileButton: string;
+
   /**
    * @constructs
    * Setting up titles and selectors to use on seo and urls page
@@ -148,6 +150,9 @@ class BOSeoUrlsPage extends BOBasePage implements BOSeoUrlsPageInterface {
     this.displayAttributesToggleInput = (toggle: number) => '#meta_settings_seo_options_form_product_attributes_in_title_'
       + `${toggle}`;
     this.saveSeoOptionsFormButton = '#meta_settings_seo_options_form_save_button';
+
+    // Robots file generation form
+    this.generateRobotsFileButton = 'form[action*="generate/robots"] button.btn-primary';
   }
 
   /* header methods */
@@ -409,6 +414,17 @@ class BOSeoUrlsPage extends BOBasePage implements BOSeoUrlsPageInterface {
     await this.setChecked(page, this.accentedUrlToggleInput(toEnable ? 1 : 0));
     await this.clickAndWaitForLoadState(page, this.saveSeoAndUrlFormButton);
     await this.elementNotVisible(page, this.accentedUrlToggleInput(!toEnable ? 1 : 0), 2000);
+
+    return this.getAlertSuccessBlockParagraphContent(page);
+  }
+
+  /**
+   * Generate robots.txt file
+   * @param page {Page} Browser tab
+   * @return {Promise<string>}
+   */
+  async generateRobotsTextFile(page: Page): Promise<string> {
+    await this.clickAndWaitForURL(page, this.generateRobotsFileButton);
 
     return this.getAlertSuccessBlockParagraphContent(page);
   }
