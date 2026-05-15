@@ -1,8 +1,21 @@
 import {type BOAddressesCreatePageInterface} from '@interfaces/BO/customers/addresses/create';
+import testContext from '@utils/test';
+import semver from 'semver';
+
+const psVersion = testContext.getPSVersion();
 
 /* eslint-disable global-require, @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires */
 function requirePage(): BOAddressesCreatePageInterface {
-  return require('@versions/develop/pages/BO/customers/addresses/create');
+  if (semver.lt(psVersion, '7.0.0')) {
+    return require('@versions/1.6.1/pages/BO/customers/addresses/create').boAddressesCreatePage;
+  }
+  if (semver.lt(psVersion, '7.8.0')) {
+    return require('@versions/1.7.7/pages/BO/customers/addresses/create').boAddressesCreatePage;
+  }
+  if (semver.lt(psVersion, '9.0.0')) {
+    return require('@versions/8.2/pages/BO/customers/addresses/create').boAddressesCreatePage;
+  }
+  return require('@versions/develop/pages/BO/customers/addresses/create').boAddressesCreatePage;
 }
 /* eslint-enable global-require, @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires */
 

@@ -1,6 +1,6 @@
 // Import pages
 import type {FoHomePageInterface} from '@interfaces/FO/home';
-import {FoHomePage} from '@versions/develop/pages/FO/classic/home/index';
+import {FoHomePage} from '@versions/develop/pages/FO/classic/home';
 
 /**
  * Order confirmation page, contains functions that can be used on the page
