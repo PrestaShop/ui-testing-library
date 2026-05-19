@@ -9,9 +9,6 @@ function requirePage(): BOCarriersPageInterface {
   if (semver.lt(psVersion, '7.0.0')) {
     return require('@versions/1.6.1/pages/BO/shipping/carriers').boCarriersPage;
   }
-  if (semver.lt(psVersion, '7.8.0')) {
-    return require('@versions/1.7.7/pages/BO/shipping/carriers').boCarriersPage;
-  }
   if (semver.lt(psVersion, '8.0.0')) {
     return require('@versions/1.7.8/pages/BO/shipping/carriers').boCarriersPage;
   }

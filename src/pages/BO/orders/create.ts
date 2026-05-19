@@ -15,10 +15,7 @@ function requirePage(): BOOrdersCreatePageInterface {
   if (semver.lt(psVersion, '8.0.0')) {
     return require('@versions/1.7.8/pages/BO/orders/create').boOrderCreatePage;
   }
-  if (semver.lt(psVersion, '9.0.0')) {
-    return require('@versions/8.2/pages/BO/orders/create').boOrderCreatePage;
-  }
-  return require('@versions/develop/pages/BO/orders/create');
+  return require('@versions/develop/pages/BO/orders/create').boOrderCreatePage;
 }
 
 /* eslint-enable global-require, @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires */

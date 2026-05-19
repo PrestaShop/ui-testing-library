@@ -15,9 +15,6 @@ function requirePage(): BOAddressesPageInterface {
   if (semver.lt(psVersion, '8.0.0')) {
     return require('@versions/1.7.8/pages/BO/customers/addresses').boAddressesPage;
   }
-  if (semver.lt(psVersion, '9.0.0')) {
-    return require('@versions/8.2/pages/BO/customers/addresses').boAddressesPage;
-  }
   return require('@versions/develop/pages/BO/customers/addresses').boAddressesPage;
 }
 /* eslint-enable global-require, @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires */

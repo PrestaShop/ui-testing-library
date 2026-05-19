@@ -18,5 +18,5 @@ class FoSearchResultsPageVersion extends SearchResultsPage implements FoSearchRe
   }
 }
 
-const searchResultsPage = new FoSearchResultsPageVersion();
-export {searchResultsPage, FoSearchResultsPageVersion as SearchResultsPage};
+const foSearchResultsPage = new FoSearchResultsPageVersion();
+export {foSearchResultsPage, FoSearchResultsPageVersion as FOSearchResultsPage};

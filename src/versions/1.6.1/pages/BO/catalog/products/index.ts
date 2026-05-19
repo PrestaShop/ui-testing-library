@@ -1,6 +1,6 @@
 // Import pages
 import type {BOProductsPageInterface} from '@interfaces/BO/catalog/products';
-import {ProductsPage} from '@versions/1.7.7/pages/BO/catalog/products';
+import {ProductsPage} from '@versions/1.7.2/pages/BO/catalog/products';
 
 /**
  * Bo products page, contains functions that can be used on the page

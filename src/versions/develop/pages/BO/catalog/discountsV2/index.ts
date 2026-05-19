@@ -230,4 +230,5 @@ class BODiscountsPage extends BOBasePage implements BODiscountsPageInterface {
   }
 }
 
-module.exports = new BODiscountsPage();
+const boDiscountsPage = new BODiscountsPage();
+export {boDiscountsPage, BODiscountsPage};

@@ -12,7 +12,7 @@ function requirePage(): DashboardPageInterface {
   if (semver.lt(psVersion, '9.0.0')) {
     return require('@versions/develop/pages/BO/dashboard').boDashboardPage;
   }
-  return require('@versions/develop/pages/BO/dashboard');
+  return require('@versions/develop/pages/BO/dashboard').boDashboardPage;
 }
 /* eslint-enable global-require, @typescript-eslint/no-require-imports */
 

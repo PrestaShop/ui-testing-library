@@ -101,17 +101,16 @@ class BOCarriersCreatePage extends BOCarriersCreatePageVersion implements BOCarr
     // Set shipping locations and costs
     //await page.locator(this.freeShippingToggle(carrierData.freeShipping ? 'on' : 'off')).setChecked(true, {timeout: 2000});
     if (carrierData.freeShipping) {
-      await page.locator('input#is_free_on').click({force: true, timeout: 1500});
+      await page.locator(this.freeShippingToggle('on')).click({force: true, timeout: 1500});
     }
     if (!carrierData.freeShipping) {
-      await page.locator('input#is_free_off').click({force: true, timeout: 1500});
+      await page.locator(this.freeShippingToggle('off')).click({force: true, timeout: 1500});
     }
-    //await page.locator(this.addHandlingCostsToggle(carrierData.handlingCosts ? 'on' : 'off')).setChecked(true, {timeout: 2000});
     if (carrierData.handlingCosts) {
-      await page.locator('input#shipping_handling_on').click({force: true, timeout: 1500});
+      await page.locator(this.addHandlingCostsToggle('on')).click({force: true, timeout: 1500});
     }
     if (!carrierData.handlingCosts) {
-      await page.locator('input#shipping_handling_off').click({force: true, timeout: 1500});
+      await page.locator(this.addHandlingCostsToggle('off')).click({force: true, timeout: 1500});
     }
 
     if (carrierData.billing === 'According to total price') {

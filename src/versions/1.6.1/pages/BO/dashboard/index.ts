@@ -6,7 +6,7 @@ import {Dashboard as DashboardPageVersion} from '@versions/develop/pages/BO/dash
  * @class
  * @extends DashboardPage
  */
-class DashboardPage extends DashboardPageVersion implements DashboardPageInterface {
+class BODashboardPage extends DashboardPageVersion implements DashboardPageInterface {
   /**
    * @constructs
    * Setting up titles and selectors to use on dashboard page
@@ -28,5 +28,5 @@ class DashboardPage extends DashboardPageVersion implements DashboardPageInterfa
   }
 }
 
-const boDashboardPage = new DashboardPage();
-export {boDashboardPage, DashboardPage};
+const boDashboardPage = new BODashboardPage();
+export {boDashboardPage, BODashboardPage};

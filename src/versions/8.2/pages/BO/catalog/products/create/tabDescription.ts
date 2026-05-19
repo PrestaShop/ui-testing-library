@@ -12,11 +12,11 @@ import type {Page} from 'playwright';
  * @extends DescriptionTab
  */
 class BOProductTabDescriptionVersion extends DescriptionTab implements BOProductsCreateTabDescriptionPageInterface {
-  private readonly productShortDescriptionIframe: string;
+  protected productShortDescriptionIframe: string;
 
-  private readonly productDescriptionIframe: string;
+  protected productDescriptionIframe: string;
 
-  private productWithCombinationsInput: string;
+  protected productWithCombinationsInput: string;
 
   /**
      * @constructs

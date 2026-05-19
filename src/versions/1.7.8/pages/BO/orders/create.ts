@@ -1,7 +1,7 @@
 // Import pages
 import {BOOrdersCreatePageInterface} from '@interfaces/BO/orders/create';
 import type {Page} from '@playwright/test';
-import {BOOrderCreatePage as BOOrderCreatePageVersion} from '@versions/8.0/pages/BO/orders/create';
+import {BOOrderCreatePage as BOOrderCreatePageVersion} from '@versions/develop/pages/BO/orders/create';
 
 class BOOrderCreatePage extends BOOrderCreatePageVersion implements BOOrdersCreatePageInterface {
   /**
