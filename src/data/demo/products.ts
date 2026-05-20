@@ -81,11 +81,13 @@ export default {
     combinations: [
       {
         name: 'Dimension - 40x60cm',
-        price: 34.8,
+        priceTE: 29,
+        priceTI: 34.8,
       },
       {
         name: 'Dimension - 60x90cm',
-        price: 58.8,
+        priceTE: 49,
+        priceTI: 58.8,
       },
     ],
     features: [
