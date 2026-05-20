@@ -75,7 +75,8 @@ type ProductCreator = {
 
 type ProductCombination = {
   name: string
-  price: number
+  priceTI: number
+  priceTE: number
 };
 
 type ProductDocument = {
