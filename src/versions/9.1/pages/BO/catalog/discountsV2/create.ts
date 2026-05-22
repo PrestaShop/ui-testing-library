@@ -17,6 +17,10 @@ class BODiscountsCreatePage extends BODiscountsCreatePageVersion implements BODi
     this.minimumAmountValueInput = '#discount_conditions_cart_minimum_amount_value';
     this.minimumAmountCurrencySelect = '#select2-discount_conditions_cart_minimum_amount_currency-container';
     this.discountValueInput = '#discount_value_reduction_value';
+    // Free gift
+    this.freeGiftSearchInput = '#discount_free_gift_search_input';
+    this.freeGiftList = '#discount_free_gift_list';
+    this.discountFreeGiftRow = (row: number) => `#discount_free_gift_${row}`;
   }
 }
 
