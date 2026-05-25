@@ -50,6 +50,12 @@ class BODiscountsPage extends BOBasePage implements BODiscountsPageInterface {
 
   private readonly gridTableColumn: (row: number, column: string) => string;
 
+  private readonly gridTableColumnStatusLink: (row: number) => string;
+
+  private readonly gridTableColumnStatusEnableLink: (row: number) => string;
+
+  private readonly gridTableColumnStatusDisableLink: (row: number) => string;
+
   private readonly tableColumnActionsToggleButton: (row: number) => string;
 
   private readonly tableColumnActionsEditLink: (row: number) => string;
@@ -95,6 +101,9 @@ class BODiscountsPage extends BOBasePage implements BODiscountsPageInterface {
     this.tableColumnActions = `${this.discountGridTable} td.column-actions`;
     this.gridTableRow = (row: number) => `${this.discountGridTable} tbody tr:nth-child(${row})`;
     this.gridTableColumn = (row: number, column: string) => `${this.gridTableRow(row)} td.column-${column}`;
+    this.gridTableColumnStatusLink = (row: number) => `${this.gridTableColumn(row, 'active')} input[type="radio"]`;
+    this.gridTableColumnStatusEnableLink = (row: number) => `${this.gridTableColumnStatusLink(row)}[value="1"]`;
+    this.gridTableColumnStatusDisableLink = (row: number) => `${this.gridTableColumnStatusLink(row)}[value="0"]`;
     this.tableColumnActionsToggleButton = (row: number) => `${this.gridTableRow(row)} a.btn-link.dropdown-toggle`;
     this.tableColumnActionsEditLink = (row: number) => `${this.gridTableRow(row)} a.grid-edit-row-link`;
     this.tableColumnActionsDeleteLink = (row: number) => `${this.gridTableRow(row)} a.grid-delete-row-link`;
@@ -204,6 +213,16 @@ class BODiscountsPage extends BOBasePage implements BODiscountsPageInterface {
   }
 
   /**
+   * Get discount status
+   * @param page {Page} Browser tab
+   * @param row {number} Row on table
+   * @return {Promise<boolean>}
+   */
+  async getDiscountStatus(page: Page, row: number): Promise<boolean> {
+    return this.isChecked(page, this.gridTableColumnStatusEnableLink(row));
+  }
+
+  /**
    * Get number of element in grid
    * @param page {Page} Browser tab
    * @returns {Promise<number>}
@@ -241,6 +260,23 @@ class BODiscountsPage extends BOBasePage implements BODiscountsPageInterface {
   async resetAndGetNumberOfLines(page: Page): Promise<number> {
     await this.resetFilter(page);
     return this.getNumberOfElementInGrid(page);
+  }
+
+  /**
+   * Set discount status
+   * @param page {Page} Browser tab
+   * @param row {number} Row on table
+   * @param wantedStatus {boolean} True if we need to enable status, false if not
+   * @return {Promise<void>}
+   */
+  async setDiscountStatus(page: Page, row: number, wantedStatus: boolean): Promise<void> {
+    if (wantedStatus !== await this.getDiscountStatus(page, row)) {
+      if (wantedStatus) {
+        await page.locator(this.gridTableColumnStatusEnableLink(row)).setChecked(true);
+      } else {
+        await page.locator(this.gridTableColumnStatusDisableLink(row)).setChecked(true);
+      }
+    }
   }
 }
 
