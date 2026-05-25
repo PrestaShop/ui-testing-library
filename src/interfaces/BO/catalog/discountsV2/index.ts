@@ -8,6 +8,7 @@ export interface BODiscountsPageInterface extends BOBasePagePageInterface {
   deleteDiscount(page: Page, row?: number): Promise<string>;
   filterDiscount(page: Page, filterType: string, filterBy: string, value: string): Promise<void>;
   getActiveTab(page: Page): Promise<string>;
+  getDiscountStatus(page: Page, row: number): Promise<boolean>;
   getNumberOfElementInGrid(page: Page): Promise<number>;
   getTextColumn(page: Page, columnName: string, row?: number): Promise<string>
   goToEditDiscountPage(page: Page, row: number): Promise<void>;
@@ -15,4 +16,5 @@ export interface BODiscountsPageInterface extends BOBasePagePageInterface {
   resetAndGetNumberOfLines(page: Page): Promise<number>;
   resetFilter(page: Page): Promise<void>;
   selectDiscountType(page: Page, type: string): Promise<void>;
+  setDiscountStatus(page: Page, row: number, wantedStatus: boolean): Promise<void>;
 }
