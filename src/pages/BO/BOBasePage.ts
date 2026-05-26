@@ -275,6 +275,12 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
 
   private readonly helpDocumentURL: string;
 
+  private readonly legacyHelpButton: string;
+
+  private readonly legacyHelpContainer: string;
+
+  private readonly legacyMainContainer: string;
+
   private readonly invalidTokenContinueLink: string;
 
   private readonly invalidTokenCancelLink: string;
@@ -338,6 +344,7 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
 
     // Header links
     this.helpButton = '#product_form_open_help';
+    this.legacyHelpButton = '.toolbarBox a.btn-help';
     this.menuMobileButton = '.js-mobile-menu';
     this.notificationsLink = '#notification,#notif';
     this.notificationsDropDownMenu = '#notification div.dropdown-menu-right.notifs_dropdown,#notif div.dropdown-menu';
@@ -642,10 +649,14 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
     this.sfToolbarMainContentDiv = "div[id*='sfToolbarMainContent']";
     this.sfCloseToolbarLink = "[id*='sfToolbarHideButton'], a.hide-button";
 
-    // Sidebar
+    // Sidebar (Symfony)
     this.rightSidebar = '#right-sidebar';
     this.rightCloseButton = `${this.rightSidebar} #ps-quicknav-sidebar .quicknav-header [data-target=".sidebar"]`;
     this.helpDocumentURL = `${this.rightSidebar} div.quicknav-scroller._fullspace object`;
+
+    // Sidebar (Legacy)
+    this.legacyHelpContainer = '#help-container';
+    this.legacyMainContainer = '#main';
 
     // Invalid token block
     this.invalidTokenContinueLink = '#security-compromised-page #csrf-white-container div a:nth-child(1)';
@@ -1126,8 +1137,14 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
    * @returns {Promise<boolean>}
    */
   async openHelpSideBar(page: Page): Promise<boolean> {
-    await this.waitForSelectorAndClick(page, this.helpButton);
-    return this.elementVisible(page, `${this.rightSidebar}.sidebar-open`, 2000);
+    // Symfony sidebar: button with #product_form_open_help
+    if (await this.elementVisible(page, this.helpButton, 1000)) {
+      await this.waitForSelectorAndClick(page, this.helpButton);
+      return this.elementVisible(page, `${this.rightSidebar}.sidebar-open`, 2000);
+    }
+    // Legacy sidebar: button with .toolbarBox a.btn-help
+    await this.waitForSelectorAndClick(page, this.legacyHelpButton);
+    return this.elementVisible(page, `${this.legacyMainContainer}.helpOpen`, 2000);
   }
 
   /**
@@ -1136,8 +1153,14 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
    * @returns {Promise<boolean>}
    */
   async closeHelpSideBar(page: Page): Promise<boolean> {
-    await this.waitForSelectorAndClick(page, this.rightCloseButton);
-    return this.elementVisible(page, `${this.rightSidebar}:not(.sidebar-open)`, 2000);
+    // Symfony sidebar
+    if (await this.elementVisible(page, this.rightCloseButton, 1000)) {
+      await this.waitForSelectorAndClick(page, this.rightCloseButton);
+      return this.elementVisible(page, `${this.rightSidebar}:not(.sidebar-open)`, 2000);
+    }
+    // Legacy sidebar: click the button again to toggle it off
+    await this.waitForSelectorAndClick(page, this.legacyHelpButton);
+    return this.elementNotVisible(page, `${this.legacyMainContainer}.helpOpen`, 2000);
   }
 
   /**
@@ -1146,7 +1169,12 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
    * @returns {Promise<string>}
    */
   async getHelpDocumentURL(page: Page): Promise<string> {
-    return this.getAttributeContent(page, this.helpDocumentURL, 'data');
+    // Symfony sidebar: URL is in the <object data="..."> inside the sidebar
+    if (await this.elementVisible(page, this.helpDocumentURL, 1000)) {
+      return this.getAttributeContent(page, this.helpDocumentURL, 'data');
+    }
+    // Legacy sidebar: URL is in the href attribute of the help button (contains country=en)
+    return this.getAttributeContent(page, this.legacyHelpButton, 'href');
   }
 
   /**
