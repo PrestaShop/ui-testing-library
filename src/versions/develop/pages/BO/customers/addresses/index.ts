@@ -254,7 +254,7 @@ class BOAddressesPage extends BOBasePage implements BOAddressesPageInterface {
       page.locator(this.addressesListTableDeleteLink(row)).click(),
       this.waitForVisibleSelector(page, this.deleteAddressModal),
     ]);
-    await page.locator(this.deleteAddressModalDeleteButton).click();
+    await this.clickAndWaitForURL(page, this.deleteAddressModalDeleteButton);
     return this.getAlertSuccessBlockParagraphContent(page);
   }
 
