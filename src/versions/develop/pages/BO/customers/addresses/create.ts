@@ -162,6 +162,35 @@ class BOAddressesCreatePage extends BOBasePage implements BOAddressesCreatePageI
   async getSelectedCountry(page: Page): Promise<string> {
     return this.getTextContent(page, `${this.customerAddressCountryOption}[selected]`, false);
   }
+
+  /**
+   * Get value of an input or select in the address form
+   * @param page {Page} Browser tab
+   * @param field {string} Field name
+   * @returns {Promise<string>}
+   */
+  async getValue(page: Page, field: string): Promise<string> {
+    switch (field) {
+      case 'firstName':
+        return this.getInputValue(page, this.customerAddressFirstNameInput);
+      case 'lastName':
+        return this.getInputValue(page, this.customerLastNameInput);
+      case 'address':
+        return this.getInputValue(page, this.customerAddressInput);
+      case 'city':
+        return this.getInputValue(page, this.customerAddressCityInput);
+      case 'phone':
+        return this.getAttributeContent(page, this.customerAddressPhoneInput, 'value');
+      case 'postCode':
+        return this.getInputValue(page, this.customerAddressPostCodeInput);
+      case 'company':
+        return this.getInputValue(page, this.customerAddressCompanyInput);
+      case 'vatNumber':
+        return this.getInputValue(page, this.customerAddressVatNumberInput);
+      default:
+        throw new Error(`Field ${field} was not found`);
+    }
+  }
 }
 
 module.exports = new BOAddressesCreatePage();

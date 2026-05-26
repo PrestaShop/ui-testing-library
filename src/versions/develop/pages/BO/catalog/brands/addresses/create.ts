@@ -11,6 +11,8 @@ import {type Page} from '@playwright/test';
 class BOBrandAdressesCreatePage extends BOBasePage implements BOBrandAdressesCreatePageInterface {
   public readonly pageTitle: string;
 
+  public readonly pageTitleEdit: string;
+
   private readonly brandSelect: string;
 
   private readonly lastnameInput: string;
@@ -45,6 +47,7 @@ class BOBrandAdressesCreatePage extends BOBasePage implements BOBrandAdressesCre
     super();
 
     this.pageTitle = `New brand address • ${global.INSTALL.SHOP_NAME}`;
+    this.pageTitleEdit = `Editing brand address • ${global.INSTALL.SHOP_NAME}`;
 
     // Selectors
     this.brandSelect = 'select#manufacturer_address_id_manufacturer';
@@ -101,6 +104,39 @@ class BOBrandAdressesCreatePage extends BOBasePage implements BOBrandAdressesCre
     // Click on Save button and successful message (the delay makes it more stable when state selector is switched)
     await this.clickAndWaitForURL(page, this.saveButton, 'load', 30000, {delay: 500});
     return this.getAlertSuccessBlockParagraphContent(page);
+  }
+
+  /**
+   * Get value of an input or select in the manufacturer address form
+   * @param page {Page} Browser tab
+   * @param field {string} Field name
+   * @returns {Promise<string>}
+   */
+  async getValue(page: Page, field: string): Promise<string> {
+    switch (field) {
+      case 'manufacturerId':
+        return this.getTextContent(page, `${this.brandSelect} option[selected]`);
+      case 'firstName':
+        return this.getInputValue(page, this.firstnameInput);
+      case 'lastName':
+        return this.getInputValue(page, this.lastnameInput);
+      case 'address':
+        return this.getInputValue(page, this.addressInput);
+      case 'city':
+        return this.getInputValue(page, this.cityInput);
+      case 'postCode':
+        return this.getInputValue(page, this.postalCodeInput);
+      case 'countryId':
+        return this.getTextContent(page, `${this.countrySelect} option[selected]`);
+      case 'phone':
+        return this.getInputValue(page, this.homePhoneInput);
+      case 'mobilePhone':
+        return this.getInputValue(page, this.mobilePhoneInput);
+      case 'other':
+        return this.getInputValue(page, this.otherInput);
+      default:
+        throw new Error(`Field ${field} was not found`);
+    }
   }
 }
 

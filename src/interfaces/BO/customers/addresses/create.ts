@@ -13,4 +13,5 @@ export interface BOAddressesCreatePageInterface extends BOBasePagePageInterface 
     waitForNavigation?: boolean,
   ): Promise<string|null>;
   getSelectedCountry(page: Page): Promise<string>;
+  getValue(page: Page, field: string): Promise<string>;
 }
