@@ -172,11 +172,11 @@ class BODiscountsCreatePage extends BOBasePage implements BODiscountsCreatePageI
     this.deliveryConditionSpecificCountriesInput = 'div.toggle-children-choice-child[data-toggle-name="country"] input'
       + '.select2-search__field';
     // Free gift
-    this.freeGiftSearchInput = '#discount_free_gift_product_search_input';
+    this.freeGiftSearchInput = '#discount_free_gift_search_input';
     this.searchProductResult = '.tt-menu.tt-open';
-    this.freeGiftList = '#discount_free_gift_product_list';
+    this.freeGiftList = '#discount_free_gift_list';
     this.freeGiftErrorMessage = 'div.form-group .alert-danger';
-    this.discountFreeGiftRow = (row: number) => `#discount_free_gift_product_${row}`;
+    this.discountFreeGiftRow = (row: number) => `#discount_free_gift_${row}`;
     this.freeGiftDeleteIcon = (row: number) => `${this.discountFreeGiftRow(row)} div.media-body.media-middle i`;
     this.modalConfirmRemove = '#modal-confirm-remove-entity';
     this.modalConfirmRemoveSubmitButton = `${this.modalConfirmRemove} button.btn-confirm-submit`;
