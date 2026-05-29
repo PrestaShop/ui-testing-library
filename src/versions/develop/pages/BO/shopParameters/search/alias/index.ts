@@ -104,7 +104,7 @@ class BOSearchAliasPage extends BOBasePage implements BOSearchAliasPageInterface
     this.successfulUpdateStatusMessage = 'The status has been successfully updated.';
     this.updateSuccessMessage = 'Successful update';
     this.settingsUpdateMessage = 'The settings have been successfully updated.';
-    this.errorFillFieldMessage = 'Please fill in this field.';
+    this.errorFillFieldMessage = 'Please fill out this field.';
     this.errorMaxWordLengthInvalidMessage = 'The Maximum word length (in characters) field is invalid.';
 
     // Selectors

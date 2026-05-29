@@ -17,7 +17,7 @@ class FoCartPage extends FoCartPageClassic implements FoCartHummingbirdPageInter
   constructor() {
     super('hummingbird');
 
-    this.cartRuleMustEnterVoucherErrorText = 'Please fill in this field.';
+    this.cartRuleMustEnterVoucherErrorText = 'Please fill out this field.';
 
     this.noItemsInYourCartSpan = '#wrapper div.cart__overview p.cart__empty';
     this.productListItem = '#wrapper div.cart__item';
