@@ -9,6 +9,9 @@ function requirePage(): FoMyAccountPageInterface {
   if (semver.lt(psVersion, '9.1.0')) {
     return require('@versions/9.0/pages/FO/hummingbird/myAccount').foMyAccountPage;
   }
+  if (semver.lt(psVersion, '9.2.0')) {
+    return require('@versions/9.1/pages/FO/hummingbird/myAccount').foMyAccountPage;
+  }
   return require('@versions/develop/pages/FO/hummingbird/myAccount').myAccountPage;
 }
 /* eslint-enable global-require, @typescript-eslint/no-require-imports */
