@@ -47,7 +47,7 @@ class BOPaymentPreferencesPage extends BOBasePage implements BOPaymentPreference
       + `${paymentModule}_"][value="${countryID}"]`;
     this.groupRestrictionsSaveButton = '#form-group-restrictions-save-button';
     // One row per customer group in the group restrictions table, the group name being the first cell.
-    this.groupRestrictionsTableRows = 'div.card:has(#form-group-restrictions-save-button) table tbody tr';
+    this.groupRestrictionsTableRows = `div.card:has(${this.groupRestrictionsSaveButton}) table tbody tr`;
     this.groupRestrictionsTableRow = (row: number) => `${this.groupRestrictionsTableRows}:nth-child(${row})`;
     // Selectors fot carrier restriction
     this.carrierRestrictionsCheckbox = (paymentModule: string, carrierID: number) => '#form_carrier_restrictions_'
