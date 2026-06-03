@@ -744,12 +744,21 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
    * @returns {Promise<string|null>}
    */
   async addCurrentPageToQuickAccess(page: Page, pageName: string): Promise<string | null> {
+    // Register dialog handler for legacy window.prompt() behavior (≤ 9.1.x)
+    await this.dialogListener(page, true, pageName);
     await this.waitForSelectorAndClick(page, this.quickAccessDropdownToggle);
     await this.waitForSelectorAndClick(page, this.quickAddCurrentLink);
 
-    await page.locator(this.quickAccessAddModal).waitFor({state: 'visible'});
-    await page.locator(this.quickAccessAddModalNameInput).fill(pageName);
-    await this.waitForSelectorAndClick(page, this.quickAccessAddModalSaveButton);
+    // If the modal is present (develop+), interact with it; otherwise the dialogListener handled the prompt
+    const isModalVisible = await page.locator(this.quickAccessAddModal)
+      .waitFor({state: 'visible', timeout: 2000})
+      .then(() => true)
+      .catch(() => false);
+
+    if (isModalVisible) {
+      await page.locator(this.quickAccessAddModalNameInput).fill(pageName);
+      await this.waitForSelectorAndClick(page, this.quickAccessAddModalSaveButton);
+    }
 
     return page.locator(this.growlDiv).textContent();
   }
