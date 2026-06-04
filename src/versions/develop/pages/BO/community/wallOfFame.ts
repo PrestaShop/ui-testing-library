@@ -90,6 +90,7 @@ class BOWallOfFamePage extends BOBasePage implements BOWallOfFamePageInterface {
   async getTopCompaniesTableColumnHeaders(page: Page): Promise<string[]> {
     await this.waitForVisibleSelector(page, this.topCompaniesTableHeaders, 15000);
     const rawTexts = await page.locator(this.topCompaniesTableHeaders).allTextContents();
+
     return rawTexts.map((t: string) => t.replace(/\s+/g, ' ').trim()).filter((t: string) => t.length > 0);
   }
 
