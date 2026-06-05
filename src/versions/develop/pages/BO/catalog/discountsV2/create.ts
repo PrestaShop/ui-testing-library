@@ -36,6 +36,8 @@ class BODiscountsCreatePage extends BOBasePage implements BODiscountsCreatePageI
 
   public readonly discountDescriptionTextarea: string;
 
+  private readonly discountEnabledInput: (value: number) => string;
+
   private readonly discountPeriodValidRangeFrom: string;
 
   private readonly discountPeriodValidRangeTo: string;
@@ -140,6 +142,7 @@ class BODiscountsCreatePage extends BOBasePage implements BODiscountsCreatePageI
     this.discountTypeInput = '#discount_information_discount_type';
     this.discountNameInput = (languageId: number) => `#discount_information_names_${languageId}`;
     this.discountDescriptionTextarea = '#discount_information_description';
+    this.discountEnabledInput = (value: number) => `input[name="discount[information][active]"][value="${value.toString()}"]`;
     // Select period
     this.discountPeriodValidRangeFrom = '#discount_period_valid_date_range_from';
     this.discountPeriodValidRangeTo = '#discount_period_valid_date_range_to';
@@ -371,6 +374,8 @@ class BODiscountsCreatePage extends BOBasePage implements BODiscountsCreatePageI
         return page.locator(`${this.customerEligibilityRadio}[checked]`).inputValue();
       case 'description':
         return page.locator(this.discountDescriptionTextarea).inputValue();
+      case 'enabled':
+        return (await page.locator(this.discountEnabledInput(1)).isChecked()) ? '1' : '0';
       case 'minimalAmount':
         return page.locator(this.minimumAmountValueInput).inputValue();
       case 'minimalAmountCurrency':
