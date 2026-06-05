@@ -9,15 +9,15 @@ import {type Page} from '@playwright/test';
  * @extends BOBasePage
  */
 class BOQuickAccessCreatePage extends BOBasePage implements BOQuickAccessCreatePageInterface {
-  public readonly pageTitle: string;
+  public pageTitle: string;
 
-  private readonly nameInput: string;
+  protected nameInput: string;
 
-  private readonly urlInput: string;
+  protected urlInput: string;
 
-  private readonly newWindowToggle: (toggle: string) => string;
+  protected newWindowToggle: (toggle: string) => string;
 
-  private readonly saveButton: string;
+  protected saveButton: string;
 
   /**
    * @constructs
@@ -26,13 +26,14 @@ class BOQuickAccessCreatePage extends BOBasePage implements BOQuickAccessCreateP
   constructor() {
     super();
 
-    this.pageTitle = 'Quick Access > Add new •';
+    this.pageTitle = `New quick access • ${global.INSTALL.SHOP_NAME}`;
 
     // Selectors
-    this.nameInput = '#name_1';
-    this.urlInput = '#link';
-    this.newWindowToggle = (toggle: string) => `#new_window_${toggle}`;
-    this.saveButton = '#quick_access_form_submit_btn';
+    this.nameInput = 'form[name="quick_access"] input[name="quick_access[name][1]"]';
+    this.urlInput = 'form[name="quick_access"] input[name="quick_access[link]"]';
+    this.newWindowToggle = (toggle: string) => 'form[name="quick_access"] '
+      + `input[name="quick_access[new_window]"][value="${toggle}"]`;
+    this.saveButton = 'form[name="quick_access"] #save-button';
   }
 
   /*
@@ -47,12 +48,13 @@ class BOQuickAccessCreatePage extends BOBasePage implements BOQuickAccessCreateP
   async setQuickAccessLink(page: Page, quickAccessLinkData: FakerQuickAccess): Promise<string> {
     await this.setValue(page, this.nameInput, quickAccessLinkData.name);
     await this.setValue(page, this.urlInput, quickAccessLinkData.url);
-    await this.setChecked(page, this.newWindowToggle(quickAccessLinkData.openNewWindow ? 'on' : 'off'));
+    await page.locator(this.newWindowToggle(quickAccessLinkData.openNewWindow ? '1' : '0')).setChecked(true);
     await this.clickAndWaitForURL(page, this.saveButton);
 
     // Return successful message
-    return this.getAlertSuccessBlockContent(page);
+    return this.getAlertSuccessBlockParagraphContent(page);
   }
 }
 
-module.exports = new BOQuickAccessCreatePage();
+const boQuickAccessCreatePage = new BOQuickAccessCreatePage();
+export {boQuickAccessCreatePage, BOQuickAccessCreatePage};
