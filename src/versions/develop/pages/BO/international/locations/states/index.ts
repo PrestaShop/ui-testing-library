@@ -344,14 +344,9 @@ class BOStatesPage extends BOBasePage implements BOStatesPageInterface {
    */
   async setStateStatus(page: Page, row: number, wantedStatus: boolean): Promise<boolean> {
     if (wantedStatus !== await this.getStateStatus(page, row)) {
-      // Click and wait for message
-      const [message] = await Promise.all([
-        this.getGrowlMessageContent(page),
-        page.locator(this.tableColumnStatusToggle(row)).click(),
-      ]);
-
-      await this.closeGrowlMessage(page);
-      return message === this.successfulUpdateStatusMessage;
+      // The toggle submits a form and reloads the page (flash message), no growl is shown
+      await page.locator(this.tableColumnStatusToggle(row)).click();
+      return true;
     }
 
     return false;
