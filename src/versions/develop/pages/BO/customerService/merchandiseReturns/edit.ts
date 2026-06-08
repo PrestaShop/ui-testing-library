@@ -3,30 +3,34 @@ import BOBasePage from '@pages/BO/BOBasePage';
 import {type Page} from '@playwright/test';
 
 /**
- * Edit merchandise returns page, contains selectors and functions for the page
+ * Edit merchandise returns page (Symfony migrated controller), contains selectors and functions for the page
  * @class
  * @extends BOBasePage
  */
 class BOMerchandiseReturnsEditPage extends BOBasePage implements BOMerchandiseReturnsEditPageInterface {
-  public readonly pageTitle: string;
+  public pageTitle: string;
 
-  private readonly status: string;
+  protected form: string;
 
-  private readonly productsTableRow: (row: number) => string;
+  protected statusSelect: string;
 
-  private readonly productsTableDeleteColumn: (row: number) => string;
+  protected saveButton: string;
 
-  private readonly continueButton: string;
+  protected saveAndStayButton: string;
 
-  private readonly cancelButton: string;
+  protected cancelButton: string;
 
-  private readonly orderReturnSaveButton: string;
+  protected downloadPdfButton: string;
 
-  private readonly orderReturnCancelButton: string;
+  protected productsTable: string;
 
-  private readonly saveAndStayButton: string;
+  protected productsTableRow: (row: number) => string;
 
-  private readonly fileName: string;
+  protected productDeleteButton: (row: number) => string;
+
+  protected deleteProductModal: string;
+
+  protected deleteProductModalConfirmButton: string;
 
   /**
    * @constructs
@@ -35,24 +39,30 @@ class BOMerchandiseReturnsEditPage extends BOBasePage implements BOMerchandiseRe
   constructor() {
     super();
 
-    this.pageTitle = 'Merchandise Returns > Edit •';
+    this.pageTitle = 'Return merchandise authorization (RMA)';
+    this.successfulUpdateMessage = 'Update successful';
 
-    // Selectors
-    this.status = '#state';
-    this.productsTableRow = (row: number) => `table tbody tr:nth-child(${row})`;
-    this.productsTableDeleteColumn = (row: number) => `${this.productsTableRow(row)} td a.btn-default`;
-    this.orderReturnSaveButton = '#order_return_form_submit_btn';
-    this.orderReturnCancelButton = '#order_return_form_cancel_btn';
-    this.saveAndStayButton = 'button[name=submitAddorder_returnAndStay]';
-    this.fileName = '#fieldset_0 div.form-wrapper div:nth-child(8) div p:nth-child(1)';
-    // Selectors in security page
-    this.continueButton = 'body div.container div.action-container a.btn-continue';
-    this.cancelButton = 'body div.container div.action-container a.btn-cancel';
+    // Selectors. The form element carries name="order_return" (its inner widget wrapper uses
+    // id="order_return", but the footer buttons and products table live outside that wrapper).
+    this.form = 'form[name=\'order_return\']';
+    this.statusSelect = '#order_return_order_return_state';
+    this.saveButton = `${this.form} .card-footer button.btn-primary`;
+    this.saveAndStayButton = `${this.form} button[name='submitAddorder_returnAndStay']`;
+    this.cancelButton = `${this.form} .card-footer a.btn-outline-secondary:not([data-role])`;
+    this.downloadPdfButton = `${this.form} a[data-role='order-return-download-pdf']`;
+
+    // Returned products table (deferred deletion — Issue #27628)
+    this.productsTable = `${this.form} table[data-role='order-return-products']`;
+    this.productsTableRow = (row: number) => `${this.productsTable} tbody tr:nth-child(${row})`;
+    this.productDeleteButton = (row: number) => `${this.productsTableRow(row)} [data-role='order-return-delete-product']`;
+    this.deleteProductModal = '#orderReturnDeleteProductModal';
+    this.deleteProductModalConfirmButton = `${this.deleteProductModal} [data-role='order-return-confirm-delete-product']`;
   }
 
   /*
     Methods
   */
+
   /**
    * Set merchandise return status
    * @param page {Page} Browser tab
@@ -61,22 +71,28 @@ class BOMerchandiseReturnsEditPage extends BOBasePage implements BOMerchandiseRe
    * @returns {Promise<string>}
    */
   async setStatus(page: Page, status: string, saveAndStay: boolean = false): Promise<string> {
-    await this.selectByVisibleText(page, this.status, status);
+    // The option labels are prefixed ("{id} - {name}"), so match by the status name then select by value
+    const value = await page.locator(`${this.statusSelect} option`).filter({hasText: status}).first().getAttribute('value');
+    await this.selectByValue(page, this.statusSelect, value ?? '');
     if (saveAndStay) {
-      await this.clickAndWaitForURL(page, this.saveAndStayButton);
+      await this.clickAndWaitForLoadState(page, this.saveAndStayButton, 'networkidle');
     } else {
-      await this.clickAndWaitForURL(page, this.orderReturnSaveButton);
+      await this.clickAndWaitForLoadState(page, this.saveButton, 'networkidle');
     }
-    return this.getAlertSuccessBlockContent(page);
+    return this.getAlertSuccessBlockParagraphContent(page);
   }
 
   /**
-   * Get file name
+   * Get file name. In the migrated page the merchant-facing PDF is exposed as a footer button that
+   * is only rendered when the return is "Waiting for package"; we map that to the legacy semantics
+   * ("Print out" when the PDF is available, "--" otherwise).
    * @param page {Page} Browser tab
    * @returns {Promise<string>}
    */
   async getFileName(page: Page): Promise<string> {
-    return this.getTextContent(page, this.fileName);
+    const isVisible = await this.elementVisible(page, this.downloadPdfButton, 2000);
+
+    return isVisible ? 'Print out' : '--';
   }
 
   /**
@@ -85,7 +101,7 @@ class BOMerchandiseReturnsEditPage extends BOBasePage implements BOMerchandiseRe
    * @returns {Promise<string | null>}
    */
   async downloadPDF(page: Page): Promise<string | null> {
-    return this.clickAndWaitForDownload(page, `${this.fileName} a`);
+    return this.clickAndWaitForDownload(page, this.downloadPdfButton);
   }
 
   /**
@@ -94,33 +110,61 @@ class BOMerchandiseReturnsEditPage extends BOBasePage implements BOMerchandiseRe
    * @returns {Promise<void>}
    */
   async clickOnCancelButton(page: Page): Promise<void> {
-    await this.waitForSelectorAndClick(page, this.orderReturnCancelButton);
-    await this.clickAndWaitForURL(page, this.orderReturnCancelButton);
+    await this.clickAndWaitForURL(page, this.cancelButton);
   }
 
   /**
-   * Click on delete last product button
+   * Stage a returned product for deletion through the confirmation modal (no server call yet)
+   * @param page {Page} Browser tab
+   * @param row {number} Row in products table
+   * @returns {Promise<void>}
+   */
+  private async stageProductDeletion(page: Page, row: number): Promise<void> {
+    await this.waitForVisibleSelector(page, this.productDeleteButton(row));
+    // The deferred-deletion handler is bound on DOM-ready; right after a "Save and stay" reload the
+    // first click can fire before it is bound and the modal never opens, so retry the trigger.
+    for (let attempt = 0; attempt < 3; attempt++) {
+      await this.waitForSelectorAndClick(page, this.productDeleteButton(row));
+      try {
+        await this.waitForVisibleSelector(page, this.deleteProductModalConfirmButton, 3000);
+        break;
+      } catch (error) {
+        if (attempt === 2) {
+          throw error;
+        }
+      }
+    }
+    await this.waitForSelectorAndClick(page, this.deleteProductModalConfirmButton);
+    await this.waitForHiddenSelector(page, this.deleteProductModal);
+  }
+
+  /**
+   * Try to delete the last returned product and return the resulting error message. Staging then
+   * saving a return with no products left triggers the "at least one product" guard server-side.
    * @param page {Page} Browser tab
    * @param row {number} Row in products table
    * @returns {Promise<string>}
    */
   async clickOnDeleteLastProductButton(page: Page, row: number = 1): Promise<string> {
-    await this.clickAndWaitForURL(page, this.productsTableDeleteColumn(row));
+    await this.stageProductDeletion(page, row);
+    await this.clickAndWaitForLoadState(page, this.saveAndStayButton, 'networkidle');
 
-    return this.getTextContent(page, this.alertBlock);
+    return this.getAlertDangerBlockParagraphContent(page);
   }
 
   /**
-   * Delete product
+   * Delete a returned product (stage it then persist via "Save and stay" so we remain on the edit page)
    * @param page {Page} Browser tab
    * @param row {number} Row in products table
    * @returns {Promise<string>}
    */
   async deleteProduct(page: Page, row: number = 1): Promise<string> {
-    await this.clickAndWaitForURL(page, this.productsTableDeleteColumn(row));
+    await this.stageProductDeletion(page, row);
+    await this.clickAndWaitForLoadState(page, this.saveAndStayButton, 'networkidle');
 
-    return this.getTextContent(page, this.alertBlock);
+    return this.getAlertSuccessBlockParagraphContent(page);
   }
 }
 
-module.exports = new BOMerchandiseReturnsEditPage();
+const boMerchandiseReturnsEditPage = new BOMerchandiseReturnsEditPage();
+export {boMerchandiseReturnsEditPage, BOMerchandiseReturnsEditPage};
