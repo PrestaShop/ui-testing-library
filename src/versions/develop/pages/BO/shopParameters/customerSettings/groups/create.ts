@@ -101,6 +101,31 @@ class BOCustomerGroupsCreatePage extends BOBasePage implements BOCustomerGroupsC
   }
 
   /**
+   * Fill the group form with an invalid discount (banned symbols) and save to get the error message
+   * @param page {Page} Browser tab
+   * @param groupData {FakerGroup} Data to set on create/edit form (name, price display method...)
+   * @param discount {string} Invalid discount value containing banned symbols
+   * @returns {Promise<string>}
+   */
+  async setInvalidDiscount(page: Page, groupData: FakerGroup, discount: string): Promise<string> {
+    await this.changeLanguage(page, 1);
+    await this.setValue(page, this.nameInput(1), groupData.name);
+
+    await this.changeLanguage(page, 2);
+    await this.setValue(page, this.nameInput(2), groupData.frName);
+
+    await this.setValue(page, this.discountInput, discount);
+
+    await this.selectByVisibleText(page, this.priceDisplayMethodSelect, groupData.priceDisplayMethod);
+
+    await this.setChecked(page, this.showPricesToggle(groupData.shownPrices ? 'on' : 'off'));
+
+    await this.clickAndWaitForURL(page, this.saveButton);
+
+    return this.getAlertDangerBlockParagraphContent(page);
+  }
+
+  /**
    * Set discount and save the form
    * @param page {Page} Browser tab
    * @param discount {number}
