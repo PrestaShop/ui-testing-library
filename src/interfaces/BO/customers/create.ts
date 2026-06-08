@@ -9,6 +9,7 @@ export interface BOCustomersCreatePageInterface extends BOBasePagePageInterface 
 
   createEditB2BCustomer(page: Page, customerData: FakerCustomer): Promise<string>;
   createEditCustomer(page: Frame | Page, customerData: FakerCustomer, waitForNavigation?: boolean): Promise<string>;
+  getDefaultCustomerGroupOptions(page: Frame | Page): Promise<string[]>;
   getRequiredInputErrorMessage(page: Frame | Page, input:string): Promise<string>;
   enableGuestAccount(page: Frame | Page, guestAccount: boolean): Promise<void>;
   isDefaultCustomerGroupDisabled(page: Frame | Page): Promise<boolean>;
