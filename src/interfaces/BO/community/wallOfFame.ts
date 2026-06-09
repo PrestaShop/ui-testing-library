@@ -21,4 +21,15 @@ export interface BOWallOfFamePageInterface extends BOBasePagePageInterface {
   isContributorModalAvatarVisible(page: Page): Promise<boolean>;
   closeContributorModal(page: Page): Promise<void>;
   clickViewAllContributorsButton(page: Page): Promise<Page>;
+
+  // New Contributors
+  getNewContributorsSectionTitle(page: Page): Promise<string>;
+  getNewContributorsSectionDescription(page: Page): Promise<string>;
+  getVisibleNewContributorsCount(page: Page): Promise<number>;
+  getVisibleNewContributorNames(page: Page): Promise<string[]>;
+  isFirstNewContributorAvatarVisible(page: Page): Promise<boolean>;
+  clickNextNewContributorButton(page: Page): Promise<void>;
+  clickPreviousNewContributorButton(page: Page): Promise<void>;
+  isNextNewContributorButtonDisabled(page: Page): Promise<boolean>;
+  isPreviousNewContributorButtonDisabled(page: Page): Promise<boolean>;
 }
