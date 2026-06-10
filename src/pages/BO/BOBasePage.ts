@@ -65,6 +65,8 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
 
   private readonly quickAccessAddModalSaveButton: string;
 
+  private readonly quickAccessAddModalNameError: string;
+
   private readonly navbarSearchInput: string;
 
   protected readonly helpButton: string;
@@ -349,6 +351,7 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
     this.quickAccessAddModal = '#quick-access-add-modal';
     this.quickAccessAddModalNameInput = `${this.quickAccessAddModal} #quick-access-name`;
     this.quickAccessAddModalSaveButton = `${this.quickAccessAddModal} #quick-access-save-btn`;
+    this.quickAccessAddModalNameError = `${this.quickAccessAddModal} #quick-access-name-error .js-error-text`;
     this.navbarSearchInput = '#bo_query';
 
     // Header links
@@ -772,6 +775,35 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
     }
 
     return page.locator(this.growlDiv).textContent();
+  }
+
+  /**
+   * Try to add the current page to quick access with an empty name and return the inline validation error.
+   * On PrestaShop ≤ 9.1.x the action still triggers the native window.prompt() (no modal): the prompt is
+   * dismissed and null is returned, since inline validation does not apply to the legacy flow.
+   * @param page {Page} Browser tab
+   * @returns {Promise<string|null>} The inline error text, or null when the modal is not available
+   */
+  async addCurrentPageToQuickAccessWithEmptyName(page: Page): Promise<string | null> {
+    // Dismiss the legacy window.prompt() (≤ 9.1.x) so the call never blocks
+    await this.dialogListener(page, false);
+    await this.waitForSelectorAndClick(page, this.quickAccessDropdownToggle);
+    await this.waitForSelectorAndClick(page, this.quickAddCurrentLink);
+
+    const isModalVisible = await page.locator(this.quickAccessAddModal)
+      .waitFor({state: 'visible', timeout: 2000})
+      .then(() => true)
+      .catch(() => false);
+
+    // No modal => legacy window.prompt() flow (≤ 9.1.x), inline validation does not apply
+    if (!isModalVisible) {
+      return null;
+    }
+
+    // Submit without a name: the modal must stay open and show an inline error
+    await this.waitForSelectorAndClick(page, this.quickAccessAddModalSaveButton);
+
+    return this.getTextContent(page, this.quickAccessAddModalNameError);
   }
 
   /**
