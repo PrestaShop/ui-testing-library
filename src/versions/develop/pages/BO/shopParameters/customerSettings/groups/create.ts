@@ -1,3 +1,4 @@
+import dataLanguages from '@data/demo/languages';
 import type FakerGroup from '@data/faker/group';
 import {type BOCustomerGroupsCreatePageInterface} from '@interfaces/BO/shopParameters/customerSettings/groups/create';
 import BOBasePage from '@pages/BO/BOBasePage';
@@ -108,11 +109,11 @@ class BOCustomerGroupsCreatePage extends BOBasePage implements BOCustomerGroupsC
    * @returns {Promise<string>}
    */
   async setInvalidDiscount(page: Page, groupData: FakerGroup, discount: string): Promise<string> {
-    await this.changeLanguage(page, 1);
-    await this.setValue(page, this.nameInput(1), groupData.name);
+    await this.changeLanguage(page, dataLanguages.english.id);
+    await this.setValue(page, this.nameInput(dataLanguages.english.id), groupData.name);
 
-    await this.changeLanguage(page, 2);
-    await this.setValue(page, this.nameInput(2), groupData.frName);
+    await this.changeLanguage(page, dataLanguages.french.id);
+    await this.setValue(page, this.nameInput(dataLanguages.french.id), groupData.frName);
 
     await this.setValue(page, this.discountInput, discount);
 
