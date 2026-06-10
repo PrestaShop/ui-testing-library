@@ -198,7 +198,7 @@ class BOWallOfFamePage extends BOBasePage implements BOWallOfFamePageInterface {
    */
   async clickContributorActionButton(page: Page, contributorName: string): Promise<void> {
     await page.locator(`${this.topContributorsCard} tr:has-text("${contributorName}") button`).click();
-    await this.waitForVisibleSelector(page, this.contributorModal);
+    await this.waitForVisibleSelector(page, this.contributorModalCloseButton);
   }
 
   /**
