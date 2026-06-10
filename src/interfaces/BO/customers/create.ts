@@ -7,9 +7,12 @@ export interface BOCustomersCreatePageInterface extends BOBasePagePageInterface 
   readonly pageTitleEdit: string;
   readonly requiredFieldErrorMessage: string;
 
+  clickOnSaveButton(page: Frame | Page): Promise<void>;
   createEditB2BCustomer(page: Page, customerData: FakerCustomer): Promise<string>;
   createEditCustomer(page: Frame | Page, customerData: FakerCustomer, waitForNavigation?: boolean): Promise<string>;
+  getGroupAccessErrorMessage(page: Frame | Page): Promise<string>;
   getRequiredInputErrorMessage(page: Frame | Page, input:string): Promise<string>;
+  uncheckAllGroupAccess(page: Frame | Page): Promise<void>;
   enableGuestAccount(page: Frame | Page, guestAccount: boolean): Promise<void>;
   isDefaultCustomerGroupDisabled(page: Frame | Page): Promise<boolean>;
   isDefaultCustomerGroupEnabled(page: Frame | Page): Promise<boolean>;
