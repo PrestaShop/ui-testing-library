@@ -10,6 +10,10 @@ import {type Page} from '@playwright/test';
 class BOWallOfFamePage extends BOBasePage implements BOWallOfFamePageInterface {
   public readonly pageTitle: string;
 
+  public readonly contributePageTitle: string;
+
+  public readonly joinSlackPageTitle: string;
+
   private readonly kpisItem: string;
 
   private readonly kpisValue: string;
@@ -23,6 +27,12 @@ class BOWallOfFamePage extends BOBasePage implements BOWallOfFamePageInterface {
   private readonly topCompaniesCardTitle: string;
 
   private readonly topCompaniesDescription: string;
+
+  private readonly howToContributeTable: string;
+
+  private readonly contributeLink: string;
+
+  private readonly joinSlackLink: string;
 
   private readonly topCompaniesTableHeaders: string;
 
@@ -71,8 +81,9 @@ class BOWallOfFamePage extends BOBasePage implements BOWallOfFamePageInterface {
   constructor() {
     super();
 
+    this.contributePageTitle = 'How to contribute code changes';
+    this.joinSlackPageTitle = 'PrestaShop Project\'s Slack Chat';
     this.pageTitle = `Wall of Fame • ${global.INSTALL.SHOP_NAME}`;
-
     // KPIs selectors
     this.kpisItem = '.wof-header-section__kpis-item';
     this.kpisValue = '.wof-header-section__kpis-value';
@@ -108,6 +119,12 @@ class BOWallOfFamePage extends BOBasePage implements BOWallOfFamePageInterface {
     this.contributorModalGitHubUsername = `${this.contributorModal} .wof-contributor-modal__username`;
     this.contributorModalAvatar = `${this.contributorModal} img.wof-contributor-modal__avatar`;
     this.contributorModalCloseButton = `${this.contributorModal} .wof-top-modal__close-btn`;
+    this.contributorModalCloseButton = `${this.contributorModal} .puik-modal__close`;
+
+    // "How to contribute" section
+    this.contributeLink = '.puik-button--primary';
+    this.howToContributeTable = '.wof-contribute-section__tite';
+    this.joinSlackLink = '.puik-button--secondary:nth-child(1)';
   }
 
   /**
@@ -130,6 +147,32 @@ class BOWallOfFamePage extends BOBasePage implements BOWallOfFamePageInterface {
 
     return parseFloat((valueText ?? '0').replace('%', '').trim());
   }
+  
+  /**
+   * Open Contribute link from the "How to contribute" section in a new tab and return the new page
+   * @param page {Page} Browser tab
+   * @returns {Promise<Page}
+   */
+  async clickContributeLink(page: Page): Promise<Page> {
+    return this.openLinkWithTargetBlank(page, this.contributeLink, '.page-title', 'networkidle', false);
+  }
+
+  /**
+   * Open Join Slack link from the "How to contribute" section in a new tab and return the new page
+   * @param page {Page} Browser tab
+   * @returns {Promise<Page}
+   */
+  async clickJoinSlackLink(page: Page): Promise<Page> {
+    return this.openLinkWithTargetBlank(page, this.joinSlackLink, '.page-title', 'networkidle', false);
+  }
+  
+  /**
+   * Check if the "How to contribute" section is visible
+   */
+  async isHowToContributeVisible(page: Page): Promise<boolean> {
+    return this.elementVisible(page, this.howToContributeTable);
+  }
+
 
   /**
    * Get the Top Companies card title text
