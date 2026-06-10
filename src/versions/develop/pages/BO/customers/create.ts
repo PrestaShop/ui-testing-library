@@ -185,6 +185,15 @@ class BOCustomersCreatePage extends BOBasePage implements BOCustomersCreatePageI
   }
 
   /**
+   * Get the list of options available in the default customer group dropdown
+   * @param page {Frame|Page} Browser tab
+   * @return {Promise<string[]>}
+   */
+  async getDefaultCustomerGroupOptions(page: Frame | Page): Promise<string[]> {
+    return page.locator(`${this.defaultCustomerGroupSelect} option`).allTextContents();
+  }
+
+  /**
    * Get required input error message
    * @param page  {Frame|Page} Browser tab
    * @param input {string} The input to get error message from
