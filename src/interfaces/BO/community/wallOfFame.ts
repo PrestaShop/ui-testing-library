@@ -4,7 +4,9 @@ import {type Page} from '@playwright/test';
 export interface BOWallOfFamePageInterface extends BOBasePagePageInterface {
   readonly pageTitle: string;
   clickCompanyActionButton(page: Page, companyName: string): Promise<Page>;
+  clickContributeLink(page: Page): Promise<Page>;
   clickContributorActionButton(page: Page, contributorName: string): Promise<void>;
+  clickJoinSlackLink(page: Page): Promise<Page>;
   clickNextNewContributorButton(page: Page): Promise<void>;
   clickPreviousNewContributorButton(page: Page): Promise<void>;
   clickViewAllContributorsButton(page: Page): Promise<Page>;
@@ -24,6 +26,7 @@ export interface BOWallOfFamePageInterface extends BOBasePagePageInterface {
   getVisibleNewContributorsCount(page: Page): Promise<number>;
   isContributorModalAvatarVisible(page: Page): Promise<boolean>;
   isFirstNewContributorAvatarVisible(page: Page): Promise<boolean>;
+  isHowToContributeVisible(page: Page): Promise<boolean>;
   isNextNewContributorButtonDisabled(page: Page): Promise<boolean>;
   isPreviousNewContributorButtonDisabled(page: Page): Promise<boolean>;
 }
