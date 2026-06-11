@@ -147,7 +147,7 @@ class BOWallOfFamePage extends BOBasePage implements BOWallOfFamePageInterface {
 
     return parseFloat((valueText ?? '0').replace('%', '').trim());
   }
-  
+
   /**
    * Open Contribute link from the "How to contribute" section in a new tab and return the new page
    * @param page {Page} Browser tab
@@ -165,14 +165,13 @@ class BOWallOfFamePage extends BOBasePage implements BOWallOfFamePageInterface {
   async clickJoinSlackLink(page: Page): Promise<Page> {
     return this.openLinkWithTargetBlank(page, this.joinSlackLink, '.page-title', 'networkidle', false);
   }
-  
+
   /**
    * Check if the "How to contribute" section is visible
    */
   async isHowToContributeVisible(page: Page): Promise<boolean> {
     return this.elementVisible(page, this.howToContributeTable);
   }
-
 
   /**
    * Get the Top Companies card title text
