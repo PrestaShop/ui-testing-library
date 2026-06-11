@@ -46,6 +46,8 @@ export default class FakerAddress {
 
   public readonly phone: string;
 
+  public readonly mobilePhone: string;
+
   public readonly other: string;
 
   /**
@@ -106,6 +108,9 @@ export default class FakerAddress {
 
     /** @type {string} Phone number */
     this.phone = addressToCreate.phone || faker.phone.number();
+
+    /** @type {string} mobilePhone number */
+    this.mobilePhone = addressToCreate.phone || faker.phone.number();
 
     /** @type {string} Other information to add on address */
     this.other = addressToCreate.other || '';

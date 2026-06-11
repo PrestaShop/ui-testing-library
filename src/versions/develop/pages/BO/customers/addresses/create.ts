@@ -47,6 +47,8 @@ class BOAddressesCreatePage extends BOBasePage implements BOAddressesCreatePageI
 
   private readonly customerAddressPhoneInput: string;
 
+  private readonly customerAddressMobilehoneInput: string;
+
   private readonly customerAddressOtherInput: string;
 
   private readonly saveAddressButton: string;
@@ -79,6 +81,7 @@ class BOAddressesCreatePage extends BOBasePage implements BOAddressesCreatePageI
     this.searchStateInput = '.select2-search__field';
     this.searchResultState = '.select2-results__option.select2-results__option--highlighted';
     this.customerAddressPhoneInput = '#customer_address_phone';
+    this.customerAddressMobilehoneInput = '#customer_address_phone_mobile';
     this.customerAddressOtherInput = '#customer_address_other';
     this.saveAddressButton = '#save-button';
   }
@@ -96,11 +99,11 @@ class BOAddressesCreatePage extends BOBasePage implements BOAddressesCreatePageI
    * @returns {Promise<?string>}
    */
   async createEditAddress(
-    page: Frame|Page,
+    page: Frame | Page,
     addressData: FakerAddress,
     save: boolean = true,
     waitForNavigation: boolean = true,
-  ): Promise<string|null> {
+  ): Promise<string | null> {
     if (await this.elementVisible(page, this.customerEmailInput, 2000)) {
       await this.setValue(page, this.customerEmailInput, addressData.email);
       if ('keyboard' in page) {
@@ -124,6 +127,7 @@ class BOAddressesCreatePage extends BOBasePage implements BOAddressesCreatePageI
     await this.setValue(page, this.customerAddressCityInput, addressData.city);
     await this.selectByVisibleText(page, this.customerAddressCountrySelect, addressData.country);
     await this.setValue(page, this.customerAddressPhoneInput, addressData.phone);
+    await this.setValue(page, this.customerAddressMobilehoneInput, addressData.mobilePhone);
     await this.setValue(page, this.customerAddressOtherInput, addressData.other);
 
     if (await this.elementVisible(page, this.customerAddressStateSelect, 1000)) {
@@ -149,7 +153,7 @@ class BOAddressesCreatePage extends BOBasePage implements BOAddressesCreatePageI
    * @param page {Frame|Page} Browser tab
    * @returns {Promise<string>}
    */
-  async saveAddress(page: Frame|Page): Promise<string> {
+  async saveAddress(page: Frame | Page): Promise<string> {
     await this.clickAndWaitForURL(page, this.saveAddressButton);
     return this.getAlertSuccessBlockParagraphContent(page);
   }
@@ -171,22 +175,35 @@ class BOAddressesCreatePage extends BOBasePage implements BOAddressesCreatePageI
    */
   async getValue(page: Page, field: string): Promise<string> {
     switch (field) {
+      case 'dni':
+        return this.getInputValue(page, this.customerAddressdniInput);
+      case 'alias':
+        return this.getInputValue(page, this.customerAddressAliasInput);
       case 'firstName':
         return this.getInputValue(page, this.customerAddressFirstNameInput);
       case 'lastName':
         return this.getInputValue(page, this.customerLastNameInput);
-      case 'address':
-        return this.getInputValue(page, this.customerAddressInput);
-      case 'city':
-        return this.getInputValue(page, this.customerAddressCityInput);
-      case 'phone':
-        return this.getAttributeContent(page, this.customerAddressPhoneInput, 'value');
-      case 'postCode':
-        return this.getInputValue(page, this.customerAddressPostCodeInput);
       case 'company':
         return this.getInputValue(page, this.customerAddressCompanyInput);
       case 'vatNumber':
         return this.getInputValue(page, this.customerAddressVatNumberInput);
+      case 'address':
+        return this.getInputValue(page, this.customerAddressInput);
+      case 'address2':
+        return this.getInputValue(page, this.customerSecondAddressInput);
+      case 'postCode':
+        return this.getInputValue(page, this.customerAddressPostCodeInput);
+      case 'city':
+        return this.getInputValue(page, this.customerAddressCityInput);
+      case 'country':
+        return this.getSelectedCountry(page);
+      case 'phone':
+        return this.getAttributeContent(page, this.customerAddressPhoneInput, 'value');
+      case 'mobilePhone':
+        return this.getInputValue(page, this.customerAddressMobilehoneInput);
+      case 'other':
+        return this.getInputValue(page, this.customerAddressOtherInput);
+
       default:
         throw new Error(`Field ${field} was not found`);
     }
