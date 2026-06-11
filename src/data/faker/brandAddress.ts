@@ -38,6 +38,8 @@ export default class BrandAddressData {
 
   public readonly other: string;
 
+  public readonly dni: string;
+
   /**
    * Constructor for class brandAddressData
    * @param brandAddressToCreate {BrandAddressCreator} Could be used to force the value of some members
@@ -81,5 +83,8 @@ export default class BrandAddressData {
 
     /** @type {string} Other information to add on address */
     this.other = brandAddressToCreate.other || '';
+
+    /** @type {string} Tax identification number of the customer */
+    this.dni = brandAddressToCreate.dni || '';
   }
 }

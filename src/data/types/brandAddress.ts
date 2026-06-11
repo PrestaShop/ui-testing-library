@@ -12,6 +12,7 @@ type BrandAddressCreator = {
     homePhone?: string;
     mobilePhone?: string;
     other?: string;
+    dni?: string;
   };
 
 export default BrandAddressCreator;

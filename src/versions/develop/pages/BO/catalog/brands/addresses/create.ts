@@ -31,6 +31,8 @@ class BOBrandAdressesCreatePage extends BOBasePage implements BOBrandAdressesCre
 
   private readonly stateSelect: string;
 
+  private readonly dniInput: string;
+
   private readonly homePhoneInput: string;
 
   private readonly mobilePhoneInput: string;
@@ -59,6 +61,7 @@ class BOBrandAdressesCreatePage extends BOBasePage implements BOBrandAdressesCre
     this.cityInput = 'input#manufacturer_address_city';
     this.countrySelect = 'select#manufacturer_address_id_country';
     this.stateSelect = 'select#manufacturer_address_id_state';
+    this.dniInput = '#manufacturer_address_dni';
     this.homePhoneInput = 'input#manufacturer_address_home_phone';
     this.mobilePhoneInput = 'input#manufacturer_address_mobile_phone';
     this.otherInput = 'input#manufacturer_address_other';
@@ -122,12 +125,18 @@ class BOBrandAdressesCreatePage extends BOBasePage implements BOBrandAdressesCre
         return this.getInputValue(page, this.lastnameInput);
       case 'address':
         return this.getInputValue(page, this.addressInput);
+      case 'address2':
+        return this.getInputValue(page, this.secondaryAddressInput);
       case 'city':
         return this.getInputValue(page, this.cityInput);
       case 'postCode':
         return this.getInputValue(page, this.postalCodeInput);
       case 'countryId':
-        return this.getTextContent(page, `${this.countrySelect} option[selected]`);
+        return this.getTextContent(page, `${this.countrySelect} option[selected]`, false);
+      case 'state':
+        return this.getTextContent(page, '#select2-manufacturer_address_id_state-container', false);
+      case 'dni':
+        return this.getTextContent(page, this.dniInput);
       case 'phone':
         return this.getInputValue(page, this.homePhoneInput);
       case 'mobilePhone':
