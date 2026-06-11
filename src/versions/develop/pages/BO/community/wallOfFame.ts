@@ -107,7 +107,7 @@ class BOWallOfFamePage extends BOBasePage implements BOWallOfFamePageInterface {
     this.contributorModalName = `${this.contributorModal} .wof-contributor-modal__name`;
     this.contributorModalGitHubUsername = `${this.contributorModal} .wof-contributor-modal__username`;
     this.contributorModalAvatar = `${this.contributorModal} img.wof-contributor-modal__avatar`;
-    this.contributorModalCloseButton = `${this.contributorModal} .puik-modal__close`;
+    this.contributorModalCloseButton = `${this.contributorModal} .wof-top-modal__close-btn`;
   }
 
   /**
