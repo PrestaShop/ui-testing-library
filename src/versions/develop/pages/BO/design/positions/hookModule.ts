@@ -9,9 +9,9 @@ import type {Page} from 'playwright';
  * @extends BOBasePage
  */
 class HookModulePage extends BOBasePage implements BODesignPositionsHookModulePageInterface {
-  public readonly pageTitle: string;
+  public pageTitle: string;
 
-  private readonly formHookModule: string;
+  protected formHookModule: string;
 
   private readonly moduleSelect: string;
 
@@ -113,4 +113,5 @@ class HookModulePage extends BOBasePage implements BODesignPositionsHookModulePa
   }
 }
 
-module.exports = new HookModulePage();
+const hookModulePage = new HookModulePage();
+export {hookModulePage, HookModulePage};
