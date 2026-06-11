@@ -1,8 +1,15 @@
 import type {BOQuickAccessCreatePageInterface} from '@interfaces/BO/quickAccess/create';
+import testContext from '@utils/test';
+import semver from 'semver';
+
+const psVersion = testContext.getPSVersion();
 
 /* eslint-disable global-require, @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires */
 function requirePage(): BOQuickAccessCreatePageInterface {
-  return require('@versions/develop/pages/BO/quickAccess/create');
+  if (semver.lt(psVersion, '9.2.0')) {
+    return require('@versions/9.1/pages/BO/quickAccess/create').boQuickAccessCreatePage;
+  }
+  return require('@versions/develop/pages/BO/quickAccess/create').boQuickAccessCreatePage;
 }
 /* eslint-enable global-require, @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires */
 
