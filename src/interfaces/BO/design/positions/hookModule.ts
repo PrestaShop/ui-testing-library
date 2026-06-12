@@ -7,6 +7,7 @@ export interface BODesignPositionsHookModulePageInterface extends BOBasePagePage
     readonly pageTitle: string;
 
     saveForm(page: Page): Promise<string>;
+    setExceptions(page: Page, exceptions: string): Promise<void>;
     setHook(page: Page, hookName: string): Promise<void>;
     setModule(page: Page, module: FakerModule): Promise<void>;
 }
