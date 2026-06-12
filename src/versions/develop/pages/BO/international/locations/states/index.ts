@@ -10,7 +10,7 @@ import {type Page} from '@playwright/test';
 class BOStatesPage extends BOBasePage implements BOStatesPageInterface {
   public readonly pageTitle: string;
 
-  private readonly successfulUpdateStatusMessage: string;
+  protected readonly successfulUpdateStatusMessage: string;
 
   private readonly addNewStateLink: string;
 
@@ -64,7 +64,7 @@ class BOStatesPage extends BOBasePage implements BOStatesPageInterface {
 
   private readonly tableColumnStatusLink: (row: number) => string;
 
-  private readonly tableColumnStatusToggle: (row: number) => string;
+  protected readonly tableColumnStatusToggle: (row: number) => string;
 
   private readonly tableColumnStatusToggleInput: (row: number) => string;
 
@@ -340,18 +340,16 @@ class BOStatesPage extends BOBasePage implements BOStatesPageInterface {
    * @param page {Page} Browser tab
    * @param row {number} Row on table
    * @param wantedStatus {boolean} True if we need to enable status, false if not
-   * @return {Promise<boolean>}, true if click has been performed
+   * @return {Promise<boolean>}, true if the status has been successfully updated
    */
   async setStateStatus(page: Page, row: number, wantedStatus: boolean): Promise<boolean> {
     if (wantedStatus !== await this.getStateStatus(page, row)) {
-      // Click and wait for message
-      const [message] = await Promise.all([
-        this.getGrowlMessageContent(page),
-        page.locator(this.tableColumnStatusToggle(row)).click(),
-      ]);
+      // The toggle submits a form and reloads the page with a flash message (no growl is shown)
+      await this.clickAndWaitForURL(page, this.tableColumnStatusToggle(row));
 
-      await this.closeGrowlMessage(page);
-      return message === this.successfulUpdateStatusMessage;
+      const message = await this.getAlertSuccessBlockParagraphContent(page);
+
+      return message.includes(this.successfulUpdateStatusMessage);
     }
 
     return false;
@@ -568,4 +566,5 @@ class BOStatesPage extends BOBasePage implements BOStatesPageInterface {
   }
 }
 
-module.exports = new BOStatesPage();
+const boStatesPage = new BOStatesPage();
+export {boStatesPage, BOStatesPage};
