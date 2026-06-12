@@ -101,7 +101,7 @@ class BOWallOfFamePage extends BOBasePage implements BOWallOfFamePageInterface {
     this.topContributorsCardTitle = `${this.topContributorsCard} .wof-top-card__title`;
     this.topContributorsDescription = `${this.topContributorsCard} .wof-top-card__description`;
     this.topContributorsTableHeaders = `${this.topContributorsCard} .puik-table__head__row__item`;
-    this.viewAllContributorsButton = `${this.topContributorsCard} .wof-top-card__footer a`;
+    this.viewAllContributorsButton = `${this.topContributorsCard} .wof-top-card__external-link a`;
 
     // New Contributors section
     this.newContributorsSection = '.wof-new-contributors-section';
