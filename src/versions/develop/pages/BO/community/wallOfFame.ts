@@ -285,6 +285,13 @@ class BOWallOfFamePage extends BOBasePage implements BOWallOfFamePageInterface {
   }
 
   /**
+   * Get the href attribute of the "View all" button without clicking it
+   */
+  async getViewAllContributorsButtonUrl(page: Page): Promise<string> {
+    return (await page.locator(this.viewAllContributorsButton).getAttribute('href')) ?? '';
+  }
+
+  /**
    * Get the New Contributors section title
    */
   async getNewContributorsSectionTitle(page: Page): Promise<string> {
