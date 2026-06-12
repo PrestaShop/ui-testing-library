@@ -9,7 +9,7 @@ import {type Page} from '@playwright/test';
  * @extends BOBasePage
  */
 class BOCountriesCreatePage extends BOBasePage implements BOCountriesCreatePageInterface {
-  public readonly pageTitleCreate: string;
+  public pageTitleCreate: string;
 
   public readonly pageTitleEdit: string;
 
@@ -50,7 +50,7 @@ class BOCountriesCreatePage extends BOBasePage implements BOCountriesCreatePageI
   constructor() {
     super();
 
-    this.pageTitleCreate = 'Countries > Add new •';
+    this.pageTitleCreate = `New country • ${global.INSTALL.SHOP_NAME}`;
     this.pageTitleEdit = 'Edit: ';
     this.errorMessageIsoCode = 'This ISO code already exists.You cannot create two countries with the same ISO code.';
     this.errorMessagePrefix = 'The call_prefix field is invalid.';
@@ -190,4 +190,5 @@ class BOCountriesCreatePage extends BOBasePage implements BOCountriesCreatePageI
   }
 }
 
-module.exports = new BOCountriesCreatePage();
+const boCountriesCreatePage = new BOCountriesCreatePage();
+export {boCountriesCreatePage, BOCountriesCreatePage};
