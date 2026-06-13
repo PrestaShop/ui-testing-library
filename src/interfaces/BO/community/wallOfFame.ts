@@ -10,6 +10,7 @@ export interface BOWallOfFamePageInterface extends BOBasePagePageInterface {
   clickNextNewContributorButton(page: Page): Promise<void>;
   clickPreviousNewContributorButton(page: Page): Promise<void>;
   clickViewAllContributorsButton(page: Page): Promise<Page>;
+  getViewAllContributorsButtonUrl(page: Page): Promise<string>;
   closeContributorModal(page: Page): Promise<void>;
   getContributionPercentage(page: Page, contributor: 'PrestaShop' | 'Community'): Promise<number>;
   getContributorModalGitHubUsername(page: Page): Promise<string>;

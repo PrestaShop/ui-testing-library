@@ -101,7 +101,7 @@ class BOWallOfFamePage extends BOBasePage implements BOWallOfFamePageInterface {
     this.topContributorsCardTitle = `${this.topContributorsCard} .wof-top-card__title`;
     this.topContributorsDescription = `${this.topContributorsCard} .wof-top-card__description`;
     this.topContributorsTableHeaders = `${this.topContributorsCard} .puik-table__head__row__item`;
-    this.viewAllContributorsButton = `${this.topContributorsCard} .wof-top-card__footer a`;
+    this.viewAllContributorsButton = `${this.topContributorsCard} .wof-top-card__external-link a`;
 
     // New Contributors section
     this.newContributorsSection = '.wof-new-contributors-section';
@@ -282,6 +282,13 @@ class BOWallOfFamePage extends BOBasePage implements BOWallOfFamePageInterface {
       'domcontentloaded',
       false,
     );
+  }
+
+  /**
+   * Get the href attribute of the "View all" button without clicking it
+   */
+  async getViewAllContributorsButtonUrl(page: Page): Promise<string> {
+    return (await page.locator(this.viewAllContributorsButton).getAttribute('href')) ?? '';
   }
 
   /**
