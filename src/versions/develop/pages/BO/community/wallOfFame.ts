@@ -107,11 +107,12 @@ class BOWallOfFamePage extends BOBasePage implements BOWallOfFamePageInterface {
     this.newContributorsSection = '.wof-new-contributors-section';
     this.newContributorsSectionTitle = `${this.newContributorsSection} .wof-new-contributors-section__title`;
     this.newContributorsSectionDescription = `${this.newContributorsSection} .wof-new-contributors-section__description`;
-    this.newContributorCards = `${this.newContributorsSection} .wof-contributor-card`;
-    this.newContributorName = `${this.newContributorCards} .wof-contributor-card__name`;
-    this.newContributorAvatar = `${this.newContributorCards}:first-child img.wof-contributor-card__avatar`;
-    this.nextNewContributorButton = `${this.newContributorsSection} button.wof-new-contributors__next`;
-    this.previousNewContributorButton = `${this.newContributorsSection} button.wof-new-contributors__prev`;
+    this.newContributorCards = `${this.newContributorsSection} .carousel__slide--visible .wof-new-contributors-section__card`;
+    this.newContributorName = `${this.newContributorsSection} .carousel__slide--visible .wof-new-contributors-section__card h3`;
+    this.newContributorAvatar = `${this.newContributorsSection} .carousel__slide--visible:first-child`
+      + ' img.wof-new-contributors-section__img';
+    this.nextNewContributorButton = `${this.newContributorsSection} .carousel__next`;
+    this.previousNewContributorButton = `${this.newContributorsSection} .carousel__prev`;
 
     // Contributor modal (PUIK modal component)
     this.contributorModal = '.puik-modal';
@@ -349,14 +350,26 @@ class BOWallOfFamePage extends BOBasePage implements BOWallOfFamePageInterface {
    * Check if the next (→) button is disabled
    */
   async isNextNewContributorButtonDisabled(page: Page): Promise<boolean> {
-    return this.elementNotVisible(page, `${this.nextNewContributorButton}:not([disabled])`, 2000);
+    try {
+      await page.waitForSelector(`${this.newContributorsSection} .carousel__next--disabled`, {state: 'attached', timeout: 3000});
+
+      return true;
+    } catch {
+      return false;
+    }
   }
 
   /**
    * Check if the previous (←) button is disabled
    */
   async isPreviousNewContributorButtonDisabled(page: Page): Promise<boolean> {
-    return this.elementNotVisible(page, `${this.previousNewContributorButton}:not([disabled])`, 2000);
+    try {
+      await page.waitForSelector(`${this.newContributorsSection} .carousel__prev--disabled`, {state: 'attached', timeout: 3000});
+
+      return true;
+    } catch {
+      return false;
+    }
   }
 }
 
