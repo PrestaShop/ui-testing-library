@@ -2,7 +2,10 @@ import {BOBasePagePageInterface} from '@interfaces/BO';
 import {type Page} from '@playwright/test';
 
 export interface BOWallOfFamePageInterface extends BOBasePagePageInterface {
+  readonly contributePageTitle: string;
+  readonly joinSlackPageTitle: string;
   readonly pageTitle: string;
+
   clickCompanyActionButton(page: Page, companyName: string): Promise<Page>;
   clickContributeLink(page: Page): Promise<Page>;
   clickContributorActionButton(page: Page, contributorName: string): Promise<void>;
