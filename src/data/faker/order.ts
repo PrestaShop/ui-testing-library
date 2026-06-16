@@ -45,6 +45,8 @@ export default class FakerOrder {
 
   public readonly deliveryOption: OrderDeliveryOption;
 
+  public readonly orderMessage: string;
+
   /**
      * Constructor for class Order
      * @param orderToCreate {OrderCreator} Could be used to force the value of some members
@@ -99,6 +101,9 @@ export default class FakerOrder {
       name: '',
       freeShipping: false,
     };
+
+    /** @type {string} */
+    this.orderMessage = orderToCreate.orderMessage || '';
   }
 
   /**
