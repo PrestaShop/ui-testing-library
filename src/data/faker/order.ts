@@ -45,7 +45,7 @@ export default class FakerOrder {
 
   public readonly deliveryOption: OrderDeliveryOption;
 
-  public readonly orderMessage: string;
+  public readonly message: string;
 
   /**
      * Constructor for class Order
