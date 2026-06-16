@@ -20,7 +20,7 @@ type OrderCreator = {
     discountGiftValue?: number
     totalPrice?: number
     deliveryOption?: OrderDeliveryOption
-    orderMessage?: string
+    message?: string
 }
 
 type OrderDeliveryOption = {
