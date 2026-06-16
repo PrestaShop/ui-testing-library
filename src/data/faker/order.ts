@@ -103,7 +103,7 @@ export default class FakerOrder {
     };
 
     /** @type {string} */
-    this.orderMessage = orderToCreate.orderMessage || '';
+    this.message = orderToCreate.message || '';
   }
 
   /**
