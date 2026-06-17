@@ -131,6 +131,9 @@ class BOCategoriesCreatePage extends BOBasePage implements BOCategoriesCreatePag
    * @returns {Promise<string>}
    */
   async createEditCategory(page: Page, categoryData: FakerCategory): Promise<string> {
+    // Wait for the TinyMCE is visible
+    await this.waitForVisibleSelector(page, this.descriptionIframeEn, 30000);
+
     await this.setValue(page, this.nameInputEn, categoryData.name);
     await this.setChecked(page, this.displayedToggleInput(categoryData.displayed ? 1 : 0));
     await this.setValueOnTinymceInput(page, this.descriptionIframeEn, categoryData.description);
@@ -162,6 +165,9 @@ class BOCategoriesCreatePage extends BOBasePage implements BOCategoriesCreatePag
    * @returns {Promise<string>}
    */
   async editHomeCategory(page: Page, categoryData: FakerCategory): Promise<string> {
+    // Wait for the TinyMCE is visible
+    await this.waitForVisibleSelector(page, this.rootCategoryDescriptionIframe, 30000);
+
     await this.setValue(page, this.rootCategoryNameInput, categoryData.name);
     await this.setChecked(page, this.rootCategoryDisplayedToggleInput(categoryData.displayed ? 1 : 0));
     await this.setValueOnTinymceInput(page, this.rootCategoryDescriptionIframe, categoryData.description);
