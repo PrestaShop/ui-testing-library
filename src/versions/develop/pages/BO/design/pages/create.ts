@@ -68,6 +68,8 @@ class BOCMSPagesCreatePage extends BOBasePage implements BOCMSPagesCreatePageInt
     await this.setValue(page, this.titleInput, pageData.title);
     await this.setValue(page, this.metaTitleInput, pageData.metaTitle);
     await this.setValue(page, this.metaDescriptionInput, pageData.metaDescription);
+    // Wait for the TinyMCE is visible
+    await this.waitForVisibleSelector(page, this.pageContentIframe, 30000);
     await this.setValueOnTinymceInput(page, this.pageContentIframe, pageData.content);
     await this.setChecked(page, this.indexationToggleInput(pageData.indexation ? 1 : 0));
     await this.setChecked(page, this.displayedToggleInput(pageData.displayed ? 1 : 0));
