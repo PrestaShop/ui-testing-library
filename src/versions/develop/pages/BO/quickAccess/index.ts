@@ -26,21 +26,21 @@ class BOQuickAccessPage extends BOBasePage implements BOQuickAccessInterface {
 
   protected filterResetButton: string;
 
-  private readonly tableBody: string;
+  protected tableBody: string;
 
-  private readonly tableBodyRows: string;
+  protected tableBodyRows: string;
 
-  private readonly tableBodyRow: (row: number) => string;
+  protected tableBodyRow: (row: number) => string;
 
-  private readonly tableBodyColumn: (row: number) => string;
+  protected tableBodyColumn: (row: number) => string;
 
-  private readonly tableColumnId: (row: number) => string;
+  protected tableColumnId: (row: number) => string;
 
-  private readonly tableColumnName: (row: number) => string;
+  protected tableColumnName: (row: number) => string;
 
-  private readonly tableColumnLink: (row: number) => string;
+  protected tableColumnLink: (row: number) => string;
 
-  private readonly tableColumnIsNewWindow: (row: number) => string;
+  protected tableColumnIsNewWindow: (row: number) => string;
 
   protected bulkActionBlock: string;
 
