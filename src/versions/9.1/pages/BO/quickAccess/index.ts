@@ -23,6 +23,22 @@ class BOQuickAccessPage extends BOQuickAccessPageVersion implements BOQuickAcces
     this.filterSearchButton = '#submitFilterButtonquick_access';
     this.filterResetButton = 'button[name=\'submitResetquick_access\']';
 
+    // Table body selectors
+    // The parent (develop) page object derives these from the Symfony grid table (#quick_access_grid_table),
+    // which does not exist on <= 9.1.x (legacy HelperList #table-quick_access). Re-derive them here so that
+    // getTextColumn() targets the legacy table. Column order matches the legacy fields_list
+    // (checkbox, id_quick_access, name, link, new_window), i.e. the same nth-child as the develop grid.
+    this.tableBody = `${this.gridTable} tbody`;
+    this.tableBodyRows = `${this.tableBody} tr`;
+    this.tableBodyRow = (row: number) => `${this.tableBodyRows}:nth-child(${row})`;
+    this.tableBodyColumn = (row: number) => `${this.tableBodyRow(row)} td`;
+
+    // Columns selectors
+    this.tableColumnId = (row: number) => `${this.tableBodyColumn(row)}:nth-child(2)`;
+    this.tableColumnName = (row: number) => `${this.tableBodyColumn(row)}:nth-child(3)`;
+    this.tableColumnLink = (row: number) => `${this.tableBodyColumn(row)}:nth-child(4)`;
+    this.tableColumnIsNewWindow = (row: number) => `${this.tableBodyColumn(row)}:nth-child(5)`;
+
     // Bulk actions selectors
     this.bulkActionBlock = 'div.bulk-actions';
     this.bulkActionMenuButton = '#bulk_action_menu_quick_access';
