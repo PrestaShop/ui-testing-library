@@ -228,14 +228,18 @@ class BOCustomersCreatePage extends BOBasePage implements BOCustomersCreatePageI
     await this.setValue(page, this.firstNameInput, customerData.firstName);
     await this.setValue(page, this.lastNameInput, customerData.lastName);
     await this.setValue(page, this.emailInput, customerData.email);
-    await this.setValue(page, this.passwordInput, customerData.password);
+    if (!customerData.guestAccount) {
+      await this.setValue(page, this.passwordInput, customerData.password);
+    }
     await this.selectByVisibleText(page, this.yearOfBirthSelect, customerData.yearOfBirth);
     await this.selectByVisibleText(page, this.monthOfBirthSelect, customerData.monthOfBirth);
     await this.selectByVisibleText(page, this.dayOfBirthSelect, customerData.dayOfBirth);
-    await this.setChecked(page, this.statusToggleInput(customerData.enabled ? 1 : 0));
-    await this.setChecked(page, this.partnerOffersToggleInput(customerData.partnerOffers ? 1 : 0));
-    await this.setCustomerGroupAccess(page, customerData.defaultCustomerGroup);
-    await this.selectByVisibleText(page, this.defaultCustomerGroupSelect, customerData.defaultCustomerGroup);
+    if (!customerData.guestAccount) {
+      await this.setChecked(page, this.statusToggleInput(customerData.enabled ? 1 : 0));
+      await this.setChecked(page, this.partnerOffersToggleInput(customerData.partnerOffers ? 1 : 0));
+      await this.setCustomerGroupAccess(page, customerData.defaultCustomerGroup);
+      await this.selectByVisibleText(page, this.defaultCustomerGroupSelect, customerData.defaultCustomerGroup);
+    }
   }
 
   /**
