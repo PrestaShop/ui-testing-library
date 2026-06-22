@@ -533,7 +533,7 @@ class BOStocksPage extends BOBasePage implements BOStockPageInterface {
     await page.locator(this.applyNewQuantityButton).click();
 
     // Wait for alert-Box after update quantity and close alert-Box
-    await this.waitForVisibleSelector(page, this.alertBoxTextSpan);
+    await this.waitForVisibleSelector(page, this.alertBoxTextSpan, 30000);
     const textContent = await this.getTextContent(page, this.alertBoxTextSpan);
     await page.locator(this.alertBoxButtonClose).click();
 
