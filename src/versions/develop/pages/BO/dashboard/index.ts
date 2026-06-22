@@ -2,6 +2,8 @@ import type DashboardTrafficSource from '@data/types/dashboard';
 import {DashboardPageInterface} from '@interfaces/BO/dashboard';
 import BOBasePage from '@pages/BO/BOBasePage';
 import {type Page} from '@playwright/test';
+import semver from 'semver';
+import utilsTest from '@utils/test';
 
 /**
  * Dashboard page, contains selectors and functions for the page
@@ -199,7 +201,11 @@ class Dashboard extends BOBasePage implements DashboardPageInterface {
     this.dashboardPendingSection = '#dash_pending span.data_label';
     this.dashboardOrdersLink = `${this.dashboardPendingSection} a[href*='sell/orders/?']`;
     this.ordersNumber = '#pending_orders';
-    this.returnExchangeLink = `${this.dashboardPendingSection} a[href*='controller=AdminReturn']`;
+    // Merchandise returns is migrated to Symfony from 9.2.0 (merchandise_return flag GA); 9.1 still
+    // links to the legacy AdminReturn controller.
+    this.returnExchangeLink = semver.lt(utilsTest.getPSVersion(), '9.2.0')
+      ? `${this.dashboardPendingSection} a[href*='controller=AdminReturn']`
+      : `${this.dashboardPendingSection} a[href*='customer-service/merchandise-return']`;
     this.returnExchangeNumber = '#return_exchanges';
     this.abandonedCartsLink = `${this.dashboardPendingSection} a[href*='sell/orders/carts/?']`;
     this.abandonedCartsNumber = '#abandoned_cart';
