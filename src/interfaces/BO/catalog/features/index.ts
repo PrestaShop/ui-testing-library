@@ -9,9 +9,9 @@ export interface BOFeaturesPageInterface extends BOBasePagePageInterface {
   clickOnEditFeature(page: Page, row: number): Promise<void>;
   deleteFeature(page: Page, row: number): Promise<string>;
   filterTable(page: Page, filterBy: string, value: string): Promise<void>;
-  getAllRowsColumnContent(page: Page, columnName: string, sortColumnName?: string): Promise<string[]>;
+  getAllRowsColumnContent(page: Page, columnName: string): Promise<string[]>;
   getNumberOfElementInGrid(page: Page): Promise<number>;
-  getTextColumn(page: Page, row: number, columnName: string, sortColumnName?: string): Promise<string>;
+  getTextColumn(page: Page, row: number, columnName: string): Promise<string>;
   goToAddFeaturePage(page: Page): Promise<void>;
   paginationNext(page: Page): Promise<number>;
   paginationPrevious(page: Page): Promise<number>;
