@@ -800,7 +800,8 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
       return null;
     }
 
-    // Submit without a name: the modal must stay open and show an inline error
+    // Clear any pre-filled name, then submit: the modal must stay open and show an inline error
+    await page.locator(this.quickAccessAddModalNameInput).fill('');
     await this.waitForSelectorAndClick(page, this.quickAccessAddModalSaveButton);
 
     return this.getTextContent(page, this.quickAccessAddModalNameError);
