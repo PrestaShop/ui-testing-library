@@ -118,7 +118,7 @@ class BOFeaturesPage extends BOBasePage implements BOFeaturesPageInterface {
 
     // Columns selectors
     this.tableColumnDrag = (row: number) => `${this.tableBodyColumn(row)}.js-drag-handle`;
-    this.tableColumnId = (row: number) => `${this.tableBodyColumn(row)}.column-id_attribute_group`;
+    this.tableColumnId = (row: number) => `${this.tableBodyColumn(row)}.column-id_feature`;
     this.tableColumnName = (row: number) => `${this.tableBodyColumn(row)}.column-name`;
     this.tableColumnValues = (row: number) => `${this.tableBodyColumn(row)}.column-values`;
     this.tableColumnPosition = (row: number) => `${this.tableBodyColumn(row)}.column-position`;
