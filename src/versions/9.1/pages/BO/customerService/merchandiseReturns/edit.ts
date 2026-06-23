@@ -31,6 +31,7 @@ class BOMerchandiseReturnsEditPage extends BOMerchandiseReturnsEditPageVersion i
     super();
 
     this.pageTitle = 'Merchandise Returns > Edit •';
+    this.successfulUpdateMessage = 'Successful update';
 
     // Selectors
     this.status = '#state';
