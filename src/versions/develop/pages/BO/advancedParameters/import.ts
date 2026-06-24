@@ -60,6 +60,24 @@ class BOImportPage extends BOBasePage implements BOImportPageInterface {
 
   private readonly forceAllIDNumber: (toggle: number) => string;
 
+  private readonly truncateToggle: (toggle: number) => string;
+
+  private readonly matchRefToggle: (toggle: number) => string;
+
+  private readonly saveMatchsInput: string;
+
+  private readonly saveMatchsButton: string;
+
+  private readonly loadMatchsSelect: string;
+
+  private readonly loadMatchsButton: string;
+
+  private readonly deleteMatchsButton: string;
+
+  private readonly abortImportButton: string;
+
+  private readonly abortImportMessage: string;
+
   /**
    * @constructs
    * Setting up texts and selectors to use on import page
@@ -97,6 +115,15 @@ class BOImportPage extends BOBasePage implements BOImportPageInterface {
     this.importDetailsFinished = '#import_details_finished';
     this.importProgressModalCloseButton = '#import_close_button';
     this.forceAllIDNumber = (toggle: number) => `#forceIDs_${toggle}`;
+    this.truncateToggle = (toggle: number) => `#truncate_${toggle}`;
+    this.matchRefToggle = (toggle: number) => `#match_ref_${toggle}`;
+    this.saveMatchsInput = '#newImportMatchs';
+    this.saveMatchsButton = '#saveImportMatchs';
+    this.loadMatchsSelect = '#valueImportMatchs';
+    this.loadMatchsButton = '#loadImportMatchs';
+    this.deleteMatchsButton = '#deleteImportMatchs';
+    this.abortImportButton = '#import_stop_button';
+    this.abortImportMessage = '#import_details_stop';
   }
 
   /*
@@ -218,6 +245,90 @@ class BOImportPage extends BOBasePage implements BOImportPageInterface {
    */
   async setForceAllIDNumbers(page: Page, toEnable: boolean = true): Promise<void> {
     await this.setChecked(page, this.forceAllIDNumber(toEnable ? 1 : 0));
+  }
+
+  /**
+   * Enable/Disable 'Delete all ... before import' (truncate) on step 1
+   * @param page {Page} Browser tab
+   * @param toEnable {boolean} True if we need to enable truncate
+   * @returns {Promise<void>}
+   */
+  async setTruncate(page: Page, toEnable: boolean = true): Promise<void> {
+    await this.setChecked(page, this.truncateToggle(toEnable ? 1 : 0));
+  }
+
+  /**
+   * Enable/Disable 'Use existing reference as key' (match references) on step 1
+   * @param page {Page} Browser tab
+   * @param toEnable {boolean} True if we need to enable match references
+   * @returns {Promise<void>}
+   */
+  async setMatchReferences(page: Page, toEnable: boolean = true): Promise<void> {
+    await this.setChecked(page, this.matchRefToggle(toEnable ? 1 : 0));
+  }
+
+  /**
+   * Save the current column mapping under a name (step 2)
+   * @param page {Page} Browser tab
+   * @param name {string} Name of the data matching configuration
+   * @returns {Promise<void>}
+   */
+  async saveDataMatchingConfig(page: Page, name: string): Promise<void> {
+    await this.setValue(page, this.saveMatchsInput, name);
+    await page.locator(this.saveMatchsButton).click();
+    await page.waitForTimeout(2000);
+  }
+
+  /**
+   * Is the saved column-mapping dropdown visible (step 2)
+   * @param page {Page} Browser tab
+   * @returns {Promise<boolean>}
+   */
+  async isLoadDataMatchingConfigVisible(page: Page): Promise<boolean> {
+    return this.elementVisible(page, this.loadMatchsSelect, 2000);
+  }
+
+  /**
+   * Get the text content of the saved column-mapping dropdown (step 2)
+   * @param page {Page} Browser tab
+   * @returns {Promise<string>}
+   */
+  async getDataMatchingConfigs(page: Page): Promise<string> {
+    return this.getTextContent(page, this.loadMatchsSelect);
+  }
+
+  /**
+   * Load a saved column mapping by name (step 2)
+   * @param page {Page} Browser tab
+   * @param name {string} Name of the data matching configuration to load
+   * @returns {Promise<void>}
+   */
+  async loadDataMatchingConfig(page: Page, name: string): Promise<void> {
+    await this.selectByVisibleText(page, this.loadMatchsSelect, name);
+    await page.locator(this.loadMatchsButton).click();
+    await page.waitForTimeout(2000);
+  }
+
+  /**
+   * Delete the selected saved column mapping (step 2)
+   * @param page {Page} Browser tab
+   * @returns {Promise<void>}
+   */
+  async deleteDataMatchingConfig(page: Page): Promise<void> {
+    await this.dialogListener(page, true);
+    await page.locator(this.deleteMatchsButton).click();
+    await page.waitForTimeout(2000);
+  }
+
+  /**
+   * Abort a running import from the progress modal
+   * @param page {Page} Browser tab
+   * @returns {Promise<boolean>} True if the 'aborting' message is shown
+   */
+  async abortImport(page: Page): Promise<boolean> {
+    await this.waitForSelectorAndClick(page, this.abortImportButton);
+
+    return this.elementVisible(page, this.abortImportMessage, 5000);
   }
 
   /**
