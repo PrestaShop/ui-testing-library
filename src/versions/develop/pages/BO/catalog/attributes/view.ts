@@ -304,7 +304,7 @@ class BOAttributesViewPage extends BOBasePage implements BOAttributesViewPageInt
   async changePosition(page: Page, actualPosition: number, newPosition: number): Promise<string|null> {
     await this.dragAndDropSlowly(page, this.tableColumnHandle(actualPosition), this.tableBodyRow(newPosition));
 
-    return this.getAlertSuccessBlockParagraphContent(page);
+    return this.getAlertSuccessBlockParagraphContent(page, 30000);
   }
 
   /* Bulk actions methods */
