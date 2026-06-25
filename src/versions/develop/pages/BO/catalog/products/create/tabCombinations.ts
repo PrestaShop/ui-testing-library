@@ -170,6 +170,12 @@ class CombinationsTab extends BOBasePage implements BOProductsCreateTabCombinati
 
   private readonly editCombinationModalSaveButton: string;
 
+  private readonly editCombinationModalVirtualFileToggle: (toCheck: number) => string;
+
+  private readonly editCombinationModalVirtualFile: string;
+
+  private readonly editCombinationModalVirtualFileName: string;
+
   private readonly editCombinationModalCloseButton: string;
 
   private readonly editCombinationCloseModal: string;
@@ -329,6 +335,14 @@ class CombinationsTab extends BOBasePage implements BOProductsCreateTabCombinati
     this.editCombinationModalFinalPriceTaxIncludedInput = '#combination_form_price_impact_final_price_tax_included';
     this.editCombinationModalLocationInput = '#combination_form_stock_options_stock_location';
     this.editCombinationModalSaveButton = `${this.editCombinationModal} footer button.btn-primary`;
+    // Virtual product file section, shown in the combination modal only for the virtual_combinations product type.
+    // TODO(selector): ids inferred from the core CombinationFormType embedding VirtualProductFileType
+    // (child `virtual_product_file`, `#combination_form_*` prefix); confirm against the rendered modal DOM.
+    this.editCombinationModalVirtualFileToggle = (toCheck: number) => (
+      `#combination_form_virtual_product_file_has_file_${toCheck}`
+    );
+    this.editCombinationModalVirtualFile = '#combination_form_virtual_product_file_file';
+    this.editCombinationModalVirtualFileName = '#combination_form_virtual_product_file_name';
     this.editCombinationModalCloseButton = `${this.editCombinationModal} footer button.btn-close`;
     this.editCombinationCloseModal = `${this.editCombinationEditModal} div.modal-prevent-close div.modal.show`;
     this.editCombinationModalDiscardButton = `${this.editCombinationCloseModal} button.btn-primary`;
@@ -652,6 +666,37 @@ class CombinationsTab extends BOBasePage implements BOProductsCreateTabCombinati
     await this.waitForSelectorAndClick(page, this.editCombinationModalSaveButton);
 
     return this.getAlertSuccessBlockParagraphContent(combinationFrame!);
+  }
+
+  /**
+   * Upload a downloadable file to the currently open combination (virtual_combinations product type)
+   * @param page {Page} Browser tab
+   * @param filePath {string} Path of the file to upload
+   * @returns {Promise<string>}
+   */
+  async setCombinationVirtualProductFile(page: Page, filePath: string): Promise<string> {
+    await this.waitForVisibleSelector(page, this.editCombinationIframe);
+
+    const combinationFrame: Frame|null = page.frame({url: /sell\/catalog\/products\/combinations/gmi});
+
+    await this.setChecked(combinationFrame!, this.editCombinationModalVirtualFileToggle(1));
+    await this.waitForVisibleSelector(combinationFrame!, this.editCombinationModalVirtualFile);
+    await this.uploadFile(combinationFrame!, this.editCombinationModalVirtualFile, filePath);
+    await this.setValue(combinationFrame!, this.editCombinationModalVirtualFileName, filePath);
+    await this.waitForSelectorAndClick(page, this.editCombinationModalSaveButton);
+
+    return this.getAlertSuccessBlockParagraphContent(combinationFrame!);
+  }
+
+  /**
+   * Get the name of the downloadable file attached to the currently open combination
+   * @param page {Page} Browser tab
+   * @returns {Promise<string>}
+   */
+  async getCombinationVirtualProductFileName(page: Page): Promise<string> {
+    const combinationFrame: Frame|null = page.frame({url: /sell\/catalog\/products\/combinations/gmi});
+
+    return combinationFrame!.locator(this.editCombinationModalVirtualFileName).inputValue();
   }
 
   /**
