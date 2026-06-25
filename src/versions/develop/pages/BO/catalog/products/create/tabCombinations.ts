@@ -336,8 +336,8 @@ class CombinationsTab extends BOBasePage implements BOProductsCreateTabCombinati
     this.editCombinationModalLocationInput = '#combination_form_stock_options_stock_location';
     this.editCombinationModalSaveButton = `${this.editCombinationModal} footer button.btn-primary`;
     // Virtual product file section, shown in the combination modal only for the virtual_combinations product type.
-    // TODO(selector): ids inferred from the core CombinationFormType embedding VirtualProductFileType
-    // (child `virtual_product_file`, `#combination_form_*` prefix); confirm against the rendered modal DOM.
+    // Ids derive deterministically from the core form: root form[name="combination_form"] + embedded
+    // VirtualProductFileType child `virtual_product_file` (SwitchType `has_file` -> `_has_file_1`).
     this.editCombinationModalVirtualFileToggle = (toCheck: number) => (
       `#combination_form_virtual_product_file_has_file_${toCheck}`
     );
