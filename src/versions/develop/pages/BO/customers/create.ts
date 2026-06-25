@@ -55,6 +55,8 @@ class BOCustomersCreatePage extends BOBasePage implements BOCustomersCreatePageI
 
   private readonly selectAllGroupAccessCheckbox: string;
 
+  private readonly groupAccessErrorMessage: string;
+
   private readonly defaultCustomerGroupSelect: string;
 
   private readonly saveCustomerButton: string;
@@ -94,6 +96,7 @@ class BOCustomersCreatePage extends BOBasePage implements BOCustomersCreatePageI
     this.customerCheckbox = this.groupAccessCheckbox(2);
 
     this.selectAllGroupAccessCheckbox = 'input.js-choice-table-select-all';
+    this.groupAccessErrorMessage = '.js-at-least-one-group-error';
     this.defaultCustomerGroupSelect = 'select#customer_default_group_id';
     this.saveCustomerButton = '#save-button';
   }
@@ -339,6 +342,35 @@ class BOCustomersCreatePage extends BOBasePage implements BOCustomersCreatePageI
       default:
         throw new Error(`${customerGroup} was not found as a group access`);
     }
+  }
+
+  /**
+   * Uncheck all group access checkboxes (visitor/guest/customer)
+   * @param page {Frame|Page} Browser tab
+   * @return {Promise<void>}
+   */
+  async uncheckAllGroupAccess(page: Frame | Page): Promise<void> {
+    await this.setCheckedWithIcon(page, this.visitorCheckbox, false);
+    await this.setCheckedWithIcon(page, this.guestCheckbox, false);
+    await this.setCheckedWithIcon(page, this.customerCheckbox, false);
+  }
+
+  /**
+   * Click on save button without waiting for navigation (used when validation blocks the save)
+   * @param page {Frame|Page} Browser tab
+   * @return {Promise<void>}
+   */
+  async clickOnSaveButton(page: Frame | Page): Promise<void> {
+    await this.waitForSelectorAndClick(page, this.saveCustomerButton);
+  }
+
+  /**
+   * Get the inline group access error message
+   * @param page {Frame|Page} Browser tab
+   * @return {Promise<string>}
+   */
+  async getGroupAccessErrorMessage(page: Frame | Page): Promise<string> {
+    return this.getTextContent(page, this.groupAccessErrorMessage);
   }
 }
 
