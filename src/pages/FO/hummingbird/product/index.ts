@@ -9,6 +9,9 @@ function requirePage(): FoProductHummingbirdPageInterface {
   if (semver.lt(psVersion, '9.1.0')) {
     return require('@versions/9.0/pages/FO/hummingbird/product').foProductPage;
   }
+  if (semver.lt(psVersion, '9.2.0')) {
+    return require('@versions/9.1/pages/FO/hummingbird/product').foProductPage;
+  }
   return require('@versions/develop/pages/FO/hummingbird/product').foProductPage;
 }
 /* eslint-enable global-require, @typescript-eslint/no-require-imports */

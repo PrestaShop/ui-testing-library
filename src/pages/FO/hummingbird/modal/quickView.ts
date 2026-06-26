@@ -9,6 +9,9 @@ function requirePage(): FoModalQuickViewPageInterface {
   if (semver.lt(psVersion, '9.1.0')) {
     return require('@versions/9.0/pages/FO/hummingbird/modal/quickView').foModalQuickViewPage;
   }
+  if (semver.lt(psVersion, '9.2.0')) {
+    return require('@versions/9.1/pages/FO/hummingbird/modal/quickView').foModalQuickViewPage;
+  }
   return require('@versions/develop/pages/FO/hummingbird/modal/quickView').foModalQuickViewPage;
 }
 /* eslint-enable global-require, @typescript-eslint/no-require-imports */

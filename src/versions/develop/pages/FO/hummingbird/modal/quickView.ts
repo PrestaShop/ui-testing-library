@@ -34,7 +34,7 @@ class FoModalQuickViewPage extends FoModalQuickViewPageClassic implements FoModa
     this.quickViewProductColor = `${this.quickViewProductVariants} div[id^="group_2"]`;
     this.quickViewCloseButton = `${this.quickViewModalDiv} .quickview__header button.btn-close`;
     this.quickViewThumbImagePosition = (position: number) => `${this.quickViewModalDiv} ul.product__thumbnails-list `
-      + `button:nth-child(${position}) img`;
+      + `li.product__thumbnails-item:nth-child(${position}) button img`;
   }
 
   /**
