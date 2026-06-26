@@ -16,7 +16,7 @@ class FoProductPage extends FoProductPageVersion implements FoProductHummingbird
 
     // Before Hummingbird wrapped each thumbnail button in `li.product__thumbnails-item`,
     // the button (`.product__thumbnail`) was a direct child of `ul.product__thumbnails-list`.
-    this.productImageRow = (row: number) => `.product__images .product__thumbnails-list `
+    this.productImageRow = (row: number) => '.product__images .product__thumbnails-list '
       + `.product__thumbnail:nth-child(${row})`;
   }
 }

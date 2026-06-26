@@ -47,7 +47,7 @@ class FoProductPage extends FoProductPageClassic implements FoProductHummingbird
     this.productCoverImgProductModal = `${this.productCarouselImageItem}.active img`;
     this.carouselControlProductModal = (direction: string) => '#product-modal .product-images-modal__body'
       + ` button.carousel-control-${direction}`;
-    this.productImageRow = (row: number) => `.product__images .product__thumbnails-list `
+    this.productImageRow = (row: number) => '.product__images .product__thumbnails-list '
       + `.product__thumbnails-item:nth-child(${row}) .product__thumbnail`;
     this.thumbImg = (row: number) => `${this.productImageRow(row)} picture img.js-thumb`;
     this.zoomIcon = '.product__images .product__carousel .product__zoom';
