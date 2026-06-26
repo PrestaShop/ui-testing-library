@@ -1308,6 +1308,10 @@ class BOOrderCreatePage extends BOBasePage implements BOOrdersCreatePageInterfac
     // Set order status
     await this.setOrderStatus(page, orderToMake.status);
 
+    if (orderToMake.message) {
+      await this.setOrderMessage(page, orderToMake.message);
+    }
+
     // Create the order
     await this.clickAndWaitForURL(page, this.createOrderButton);
   }

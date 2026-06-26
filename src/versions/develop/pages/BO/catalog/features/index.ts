@@ -40,13 +40,13 @@ class BOFeaturesPage extends BOBasePage implements BOFeaturesPageInterface {
 
   private readonly tableColumnDrag: (row: number) => string;
 
-  private readonly tableColumnId: (row: number, hasDragColumn: boolean) => string;
+  private readonly tableColumnId: (row: number) => string;
 
-  private readonly tableColumnName: (row: number, hasDragColumn: boolean) => string;
+  private readonly tableColumnName: (row: number) => string;
 
-  private readonly tableColumnValues: (row: number, hasDragColumn: boolean) => string;
+  private readonly tableColumnValues: (row: number) => string;
 
-  private readonly tableColumnPosition: (row: number, hasDragColumn: boolean) => string;
+  private readonly tableColumnPosition: (row: number) => string;
 
   private readonly tableColumnActions: (row: number) => string;
 
@@ -118,14 +118,10 @@ class BOFeaturesPage extends BOBasePage implements BOFeaturesPageInterface {
 
     // Columns selectors
     this.tableColumnDrag = (row: number) => `${this.tableBodyColumn(row)}.js-drag-handle`;
-    this.tableColumnId = (row: number, hasDragColumn: boolean) => `${
-      this.tableBodyColumn(row)}:nth-child(${hasDragColumn ? 3 : 2})`;
-    this.tableColumnName = (row: number, hasDragColumn: boolean) => `${
-      this.tableBodyColumn(row)}:nth-child(${hasDragColumn ? 4 : 3})`;
-    this.tableColumnValues = (row: number, hasDragColumn: boolean) => `${
-      this.tableBodyColumn(row)}:nth-child(${hasDragColumn ? 5 : 4})`;
-    this.tableColumnPosition = (row: number, hasDragColumn: boolean) => `${
-      this.tableBodyColumn(row)}:nth-child(${hasDragColumn ? 6 : 5})`;
+    this.tableColumnId = (row: number) => `${this.tableBodyColumn(row)}.column-id_feature`;
+    this.tableColumnName = (row: number) => `${this.tableBodyColumn(row)}.column-name`;
+    this.tableColumnValues = (row: number) => `${this.tableBodyColumn(row)}.column-values`;
+    this.tableColumnPosition = (row: number) => `${this.tableBodyColumn(row)}.column-position`;
 
     // Row actions selectors
     this.tableColumnActions = (row: number) => `${this.tableBodyColumn(row)} .btn-group-action`;
@@ -221,24 +217,24 @@ class BOFeaturesPage extends BOBasePage implements BOFeaturesPageInterface {
    * @param sortColumnName {string} Sorted Column name
    * @return {Promise<string>}
    */
-  async getTextColumn(page: Page, row: number, columnName: string, sortColumnName: string = ''): Promise<string> {
+  async getTextColumn(page: Page, row: number, columnName: string): Promise<string> {
     let columnSelector: string;
 
     switch (columnName) {
       case 'id_feature':
-        columnSelector = this.tableColumnId(row, sortColumnName === 'position');
+        columnSelector = this.tableColumnId(row);
         break;
 
       case 'name':
-        columnSelector = this.tableColumnName(row, sortColumnName === 'position');
+        columnSelector = this.tableColumnName(row);
         break;
 
       case 'values':
-        columnSelector = this.tableColumnValues(row, sortColumnName === 'position');
+        columnSelector = this.tableColumnValues(row);
         break;
 
       case 'position':
-        columnSelector = this.tableColumnPosition(row, sortColumnName === 'position');
+        columnSelector = this.tableColumnPosition(row);
         break;
 
       default:
@@ -375,12 +371,12 @@ class BOFeaturesPage extends BOBasePage implements BOFeaturesPageInterface {
    * @param sortColumnName {string} Column name to sort
    * @return {Promise<Array<string>>}
    */
-  async getAllRowsColumnContent(page: Page, columnName: string, sortColumnName: string = ''): Promise<string[]> {
+  async getAllRowsColumnContent(page: Page, columnName: string): Promise<string[]> {
     const rowsNumber = await this.getNumberOfElementInGrid(page);
     const allRowsContentTable: string[] = [];
 
     for (let i: number = 1; i <= rowsNumber; i++) {
-      const rowContent = await this.getTextColumn(page, i, columnName, sortColumnName);
+      const rowContent = await this.getTextColumn(page, i, columnName);
       allRowsContentTable.push(rowContent);
     }
 

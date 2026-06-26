@@ -59,6 +59,14 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
 
   private readonly manageYourQuickAccessLink: string;
 
+  private readonly quickAccessAddModal: string;
+
+  private readonly quickAccessAddModalNameInput: string;
+
+  private readonly quickAccessAddModalSaveButton: string;
+
+  private readonly quickAccessAddModalNameError: string;
+
   private readonly navbarSearchInput: string;
 
   protected readonly helpButton: string;
@@ -340,6 +348,10 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
     this.quickAddCurrentLink = `${this.quickAccessContainer} #quick-add-link`;
     this.quickAccessRemoveLink = `${this.quickAccessContainer} #quick-remove-link`;
     this.manageYourQuickAccessLink = `${this.quickAccessContainer} #quick-manage-link`;
+    this.quickAccessAddModal = '#quick-access-add-modal';
+    this.quickAccessAddModalNameInput = `${this.quickAccessAddModal} #quick-access-name`;
+    this.quickAccessAddModalSaveButton = `${this.quickAccessAddModal} #quick-access-save-btn`;
+    this.quickAccessAddModalNameError = `${this.quickAccessAddModal} #quick-access-name-error .js-error-text`;
     this.navbarSearchInput = '#bo_query';
 
     // Header links
@@ -746,11 +758,53 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
    * @returns {Promise<string|null>}
    */
   async addCurrentPageToQuickAccess(page: Page, pageName: string): Promise<string | null> {
+    // Register dialog handler for legacy window.prompt() behavior (≤ 9.1.x)
     await this.dialogListener(page, true, pageName);
     await this.waitForSelectorAndClick(page, this.quickAccessDropdownToggle);
     await this.waitForSelectorAndClick(page, this.quickAddCurrentLink);
 
+    // If the modal is present (develop+), interact with it; otherwise the dialogListener handled the prompt
+    const isModalVisible = await page.locator(this.quickAccessAddModal)
+      .waitFor({state: 'visible', timeout: 2000})
+      .then(() => true)
+      .catch(() => false);
+
+    if (isModalVisible) {
+      await page.locator(this.quickAccessAddModalNameInput).fill(pageName);
+      await this.waitForSelectorAndClick(page, this.quickAccessAddModalSaveButton);
+    }
+
     return page.locator(this.growlDiv).textContent();
+  }
+
+  /**
+   * Try to add the current page to quick access with an empty name and return the inline validation error.
+   * On PrestaShop ≤ 9.1.x the action still triggers the native window.prompt() (no modal): the prompt is
+   * dismissed and null is returned, since inline validation does not apply to the legacy flow.
+   * @param page {Page} Browser tab
+   * @returns {Promise<string|null>} The inline error text, or null when the modal is not available
+   */
+  async addCurrentPageToQuickAccessWithEmptyName(page: Page): Promise<string | null> {
+    // Dismiss the legacy window.prompt() (≤ 9.1.x) so the call never blocks
+    await this.dialogListener(page, false);
+    await this.waitForSelectorAndClick(page, this.quickAccessDropdownToggle);
+    await this.waitForSelectorAndClick(page, this.quickAddCurrentLink);
+
+    const isModalVisible = await page.locator(this.quickAccessAddModal)
+      .waitFor({state: 'visible', timeout: 2000})
+      .then(() => true)
+      .catch(() => false);
+
+    // No modal => legacy window.prompt() flow (≤ 9.1.x), inline validation does not apply
+    if (!isModalVisible) {
+      return null;
+    }
+
+    // Clear any pre-filled name, then submit: the modal must stay open and show an inline error
+    await page.locator(this.quickAccessAddModalNameInput).fill('');
+    await this.waitForSelectorAndClick(page, this.quickAccessAddModalSaveButton);
+
+    return this.getTextContent(page, this.quickAccessAddModalNameError);
   }
 
   /**

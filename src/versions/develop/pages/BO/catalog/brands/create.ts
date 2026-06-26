@@ -71,6 +71,9 @@ class BOBrandsCreatePage extends BOBasePage implements BOBrandsCreatePageInterfa
    * @returns {Promise<string>}
    */
   async createEditBrand(page: Page, brandData: FakerBrand): Promise<string> {
+    // Wait for the TinyMCE is visible
+    await this.waitForVisibleSelector(page, this.shortDescriptionIFrame(1), 30000);
+    await this.waitForVisibleSelector(page, this.descriptionIFrame(1), 30000);
     // Fill Name
     await this.setValue(page, this.nameInput, brandData.name);
     // Fill information in english

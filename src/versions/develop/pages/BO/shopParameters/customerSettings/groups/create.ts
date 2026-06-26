@@ -1,3 +1,4 @@
+import dataLanguages from '@data/demo/languages';
 import type FakerGroup from '@data/faker/group';
 import {type BOCustomerGroupsCreatePageInterface} from '@interfaces/BO/shopParameters/customerSettings/groups/create';
 import BOBasePage from '@pages/BO/BOBasePage';
@@ -98,6 +99,31 @@ class BOCustomerGroupsCreatePage extends BOBasePage implements BOCustomerGroupsC
     await this.setChecked(page, this.showPricesToggle(groupData.shownPrices ? 'on' : 'off'));
 
     return this.saveForm(page);
+  }
+
+  /**
+   * Fill the group form with an invalid discount (banned symbols) and save to get the error message
+   * @param page {Page} Browser tab
+   * @param groupData {FakerGroup} Data to set on create/edit form (name, price display method...)
+   * @param discount {string} Invalid discount value containing banned symbols
+   * @returns {Promise<string>}
+   */
+  async setInvalidDiscount(page: Page, groupData: FakerGroup, discount: string): Promise<string> {
+    await this.changeLanguage(page, dataLanguages.english.id);
+    await this.setValue(page, this.nameInput(dataLanguages.english.id), groupData.name);
+
+    await this.changeLanguage(page, dataLanguages.french.id);
+    await this.setValue(page, this.nameInput(dataLanguages.french.id), groupData.frName);
+
+    await this.setValue(page, this.discountInput, discount);
+
+    await this.selectByVisibleText(page, this.priceDisplayMethodSelect, groupData.priceDisplayMethod);
+
+    await this.setChecked(page, this.showPricesToggle(groupData.shownPrices ? 'on' : 'off'));
+
+    await this.clickAndWaitForURL(page, this.saveButton);
+
+    return this.getAlertDangerBlockParagraphContent(page);
   }
 
   /**

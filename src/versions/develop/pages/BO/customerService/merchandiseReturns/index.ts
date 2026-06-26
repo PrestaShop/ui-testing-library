@@ -3,36 +3,46 @@ import BOBasePage from '@pages/BO/BOBasePage';
 import {type Page} from '@playwright/test';
 
 /**
- * Merchandise returns page, contains selectors and functions for the page
+ * Merchandise returns page (Symfony migrated controller), contains selectors and functions for the page
  * @class
  * @extends BOBasePage
  */
 class BOMerchandiseReturnsPage extends BOBasePage implements BOMerchandiseReturnsPageInterface {
   public readonly pageTitle: string;
 
-  public readonly errorDeletionMessage: string;
+  public errorDeletionMessage: string;
 
-  private readonly gridTable: string;
+  protected gridPanel: string;
 
-  private readonly filterColumn: (filterBy: string) => string;
+  protected gridTable: string;
 
-  private readonly filterSearchButton: string;
+  protected gridHeaderTitle: string;
 
-  private readonly filterResetButton: string;
+  protected filterColumn: (filterBy: string) => string;
 
-  private readonly tableBody: string;
+  protected filterSearchButton: string;
 
-  private readonly tableRow: (row: number) => string;
+  protected filterResetButton: string;
 
-  private readonly tableColumn: (row: number, column: string) => string;
+  protected tableBody: string;
 
-  private readonly generalForm: string;
+  protected tableRow: (row: number) => string;
 
-  private readonly enableOrderReturnLabel: (toggle: string) => string;
+  protected tableColumn: (row: number, column: string) => string;
 
-  private readonly returnsPrefixInput: string;
+  protected actionsColumn: (row: number) => string;
 
-  private readonly saveButton: string;
+  protected editRowLink: (row: number) => string;
+
+  protected optionsForm: string;
+
+  protected enableReturnsToggleInput: (toggle: string) => string;
+
+  protected returnsPeriodInput: string;
+
+  protected returnsPrefixInput: string;
+
+  protected optionsSaveButton: string;
 
   /**
    * @constructs
@@ -42,24 +52,30 @@ class BOMerchandiseReturnsPage extends BOBasePage implements BOMerchandiseReturn
     super();
 
     this.pageTitle = 'Merchandise Returns •';
-    this.successfulUpdateMessage = 'The settings have been successfully updated.';
-    this.errorDeletionMessage = 'You need at least one product.';
+    this.successfulUpdateMessage = 'Update successful';
+    this.errorDeletionMessage = 'A merchandise return must contain at least one product.';
 
     // Selectors
-    // Merchandise returns table
-    this.gridTable = '#table-order_return';
-    this.filterColumn = (filterBy: string) => `${this.gridTable} input[name='order_returnFilter_${filterBy}']`;
-    this.filterSearchButton = `${this.gridTable} #submitFilterButtonorder_return`;
-    this.filterResetButton = `${this.gridTable} button[name='submitResetorder_return']`;
+    // Merchandise returns grid
+    this.gridPanel = '#merchandise_return_grid_panel';
+    this.gridTable = '#merchandise_return_grid_table';
+    this.gridHeaderTitle = `${this.gridPanel} h3.card-header-title`;
+    this.filterColumn = (filterBy: string) => `${this.gridTable} #merchandise_return_${filterBy}`;
+    this.filterSearchButton = `${this.gridTable} .grid-search-button`;
+    this.filterResetButton = `${this.gridTable} .grid-reset-button`;
     this.tableBody = `${this.gridTable} tbody`;
     this.tableRow = (row: number) => `${this.tableBody} tr:nth-child(${row})`;
     this.tableColumn = (row: number, column: string) => `${this.tableRow(row)} td.column-${column}`;
+    this.actionsColumn = (row: number) => this.tableColumn(row, 'actions');
+    this.editRowLink = (row: number) => `${this.actionsColumn(row)} a.grid-edit-row-link`;
 
-    // Options
-    this.generalForm = '#order_return_fieldset_general';
-    this.enableOrderReturnLabel = (toggle: string) => `${this.generalForm} #PS_ORDER_RETURN_${toggle}`;
-    this.returnsPrefixInput = '#conf_id_PS_RETURN_PREFIX input[name=\'PS_RETURN_PREFIX_1\']';
-    this.saveButton = `${this.generalForm} button[name='submitOptionsorder_return']`;
+    // Options form (Merchandise return (RMA) options block at the bottom of the page).
+    // Rendered with the default form name "form" (scoped here by its submit action).
+    this.optionsForm = 'form[action*=\'merchandise-return/options\']';
+    this.enableReturnsToggleInput = (toggle: string) => `#form_enable_order_return_${toggle === 'on' ? '1' : '0'}`;
+    this.returnsPeriodInput = '#form_order_return_period_in_days';
+    this.returnsPrefixInput = '#form_order_return_prefix_1';
+    this.optionsSaveButton = `${this.optionsForm} .card-footer button.btn-primary`;
   }
 
   /*
@@ -74,11 +90,9 @@ class BOMerchandiseReturnsPage extends BOBasePage implements BOMerchandiseReturn
    * @returns {Promise<void>}
    */
   async filterMerchandiseReturnsTable(page: Page, filterBy: string, value: string): Promise<void> {
-    if (await this.elementVisible(page, this.filterColumn(filterBy), 2000)) {
-      await this.setValue(page, this.filterColumn(filterBy), value);
-      // click on search
-      await this.clickAndWaitForURL(page, this.filterSearchButton);
-    }
+    await this.setValue(page, this.filterColumn(filterBy), value);
+    // click on search
+    await this.clickAndWaitForURL(page, this.filterSearchButton);
   }
 
   /**
@@ -93,13 +107,13 @@ class BOMerchandiseReturnsPage extends BOBasePage implements BOMerchandiseReturn
   }
 
   /**
-   * Go to merchandise return page
+   * Go to merchandise return edit page
    * @param page {Page} Browser tab
    * @param row {number} Row on table
    * @returns {Promise<void>}
    */
   async goToMerchandiseReturnPage(page: Page, row: number = 1): Promise<void> {
-    await this.clickAndWaitForURL(page, this.tableColumn(row, 'id_order_return'));
+    await this.clickAndWaitForURL(page, this.editRowLink(row));
   }
 
   /**
@@ -109,9 +123,10 @@ class BOMerchandiseReturnsPage extends BOBasePage implements BOMerchandiseReturn
    * @returns {Promise<string>}
    */
   async setOrderReturnStatus(page: Page, status: boolean = true): Promise<string> {
-    await this.setChecked(page, this.enableOrderReturnLabel(status ? 'on' : 'off'));
-    await this.clickAndWaitForLoadState(page, this.saveButton);
-    return this.getTextContent(page, this.alertSuccessBlock);
+    // The slide-button overlays the hidden radio, so click the underlying input directly
+    await page.locator(this.enableReturnsToggleInput(status ? 'on' : 'off')).evaluate((el) => (el as HTMLElement).click());
+    await this.clickAndWaitForLoadState(page, this.optionsSaveButton, 'networkidle');
+    return this.getAlertSuccessBlockParagraphContent(page);
   }
 
   /**
@@ -122,9 +137,10 @@ class BOMerchandiseReturnsPage extends BOBasePage implements BOMerchandiseReturn
    */
   async setReturnsPrefix(page: Page, prefix: string): Promise<string> {
     await this.setValue(page, this.returnsPrefixInput, prefix);
-    await this.clickAndWaitForLoadState(page, this.saveButton);
-    return this.getTextContent(page, this.alertSuccessBlock);
+    await this.clickAndWaitForLoadState(page, this.optionsSaveButton, 'networkidle');
+    return this.getAlertSuccessBlockParagraphContent(page);
   }
 }
 
-module.exports = new BOMerchandiseReturnsPage();
+const boMerchandiseReturnsPage = new BOMerchandiseReturnsPage();
+export {boMerchandiseReturnsPage, BOMerchandiseReturnsPage};

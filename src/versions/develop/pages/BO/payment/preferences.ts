@@ -20,6 +20,10 @@ class BOPaymentPreferencesPage extends BOBasePage implements BOPaymentPreference
 
   private readonly groupRestrictionsSaveButton: string;
 
+  private readonly groupRestrictionsTableRow: (row: number) => string;
+
+  private readonly groupRestrictionsTableRows: string;
+
   private readonly carrierRestrictionsCheckbox: (paymentModule: string, carrierID: number) => string;
 
   private readonly carrierRestrictionSaveButton: string;
@@ -42,6 +46,9 @@ class BOPaymentPreferencesPage extends BOBasePage implements BOPaymentPreference
     this.countryRestrictionsCheckbox = (paymentModule: string, countryID: number) => 'input[id^="form_country_restrictions_'
       + `${paymentModule}_"][value="${countryID}"]`;
     this.groupRestrictionsSaveButton = '#form-group-restrictions-save-button';
+    // One row per customer group in the group restrictions table, the group name being the first cell.
+    this.groupRestrictionsTableRows = `div.card:has(${this.groupRestrictionsSaveButton}) table tbody tr`;
+    this.groupRestrictionsTableRow = (row: number) => `${this.groupRestrictionsTableRows}:nth-child(${row})`;
     // Selectors fot carrier restriction
     this.carrierRestrictionsCheckbox = (paymentModule: string, carrierID: number) => '#form_carrier_restrictions_'
       + `${paymentModule}_${carrierID}`;
@@ -122,6 +129,25 @@ class BOPaymentPreferencesPage extends BOBasePage implements BOPaymentPreference
 
     await page.locator(this.carrierRestrictionSaveButton).click();
     return this.getAlertSuccessBlockParagraphContent(page);
+  }
+
+  /**
+   * Get the names of the customer groups listed in the group restrictions table.
+   * In a multishop context, only the groups of the currently selected shop should be listed.
+   * @param page {Page} Browser tab
+   * @returns {Promise<string[]>}
+   */
+  async getGroupRestrictionNames(page: Page): Promise<string[]> {
+    await this.waitForVisibleSelector(page, this.groupRestrictionsSaveButton);
+
+    const rowsNumber = await page.locator(this.groupRestrictionsTableRows).count();
+    const groupNames: string[] = [];
+
+    for (let row = 1; row <= rowsNumber; row++) {
+      groupNames.push(await this.getTextContent(page, `${this.groupRestrictionsTableRow(row)} td:first-child`));
+    }
+
+    return groupNames;
   }
 }
 

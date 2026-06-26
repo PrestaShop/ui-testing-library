@@ -9,5 +9,6 @@ export interface BOCustomerGroupsCreatePageInterface extends BOBasePagePageInter
   createEditGroup(page: Page, groupData: FakerGroup): Promise<string>;
   getValue(page: Page, inputName: string, languageId?: number): Promise<string>;
   setDiscount(page: Page, discount: number): Promise<string>;
+  setInvalidDiscount(page: Page, groupData: FakerGroup, discount: string): Promise<string>;
   setPriceDisplayMethod(page: Page, priceDisplayMethod: string): Promise<string>;
 }

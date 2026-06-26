@@ -81,6 +81,7 @@ export interface BOBasePagePageInterface extends CommonPageInterface {
   readonly webserviceLink: string;
 
   addCurrentPageToQuickAccess(page: Page, pageName: string): Promise<string | null>;
+  addCurrentPageToQuickAccessWithEmptyName(page: Page): Promise<string | null>;
   chooseShop(page: Page, shopNumber: number): Promise<void>;
   clickOnBreadCrumbLink(page: Page, link: string): Promise<void>;
   clickOnMultiStoreHeader(page: Page): Promise<void>;

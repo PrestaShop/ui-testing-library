@@ -1,6 +1,6 @@
 import {type BOStockPageInterface} from '@interfaces/BO/catalog/stock';
 import BOBasePage from '@pages/BO/BOBasePage';
-import {type Page} from '@playwright/test';
+import {type Page, type Response} from '@playwright/test';
 
 /**
  * stocks page, contains functions that can be used on the page
@@ -196,9 +196,9 @@ class BOStocksPage extends BOBasePage implements BOStockPageInterface {
   async goToSubTabMovements(page: Page): Promise<void> {
     await page.locator(this.movementsNavItemLink).click();
     await Promise.all([
-      page.waitForResponse('**/api/stock-movements/employees**'),
-      page.waitForResponse('**/api/stock-movements/types**'),
-      page.waitForResponse('**/api/stock-movements/**'),
+      page.waitForResponse('**/api/stock-movements/employees?**'),
+      page.waitForResponse('**/api/stock-movements/types?**'),
+      page.waitForResponse('**/api/stock-movements/?**'),
     ]);
     await this.waitForVisibleSelector(page, `${this.movementsNavItemLink}.active`, 2000);
   }
@@ -532,8 +532,16 @@ class BOStocksPage extends BOBasePage implements BOStockPageInterface {
     // Wait for check button before click
     await page.locator(this.applyNewQuantityButton).click();
 
+    // Wait for response
+    await page.waitForResponse(
+      (response: Response) => response.url().includes('api/stocks/products'),
+      {
+        timeout: 60000,
+      },
+    );
+
     // Wait for alert-Box after update quantity and close alert-Box
-    await this.waitForVisibleSelector(page, this.alertBoxTextSpan);
+    await this.waitForVisibleSelector(page, this.alertBoxTextSpan, 60000);
     const textContent = await this.getTextContent(page, this.alertBoxTextSpan);
     await page.locator(this.alertBoxButtonClose).click();
 

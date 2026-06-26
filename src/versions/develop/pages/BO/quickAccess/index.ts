@@ -7,50 +7,52 @@ import {type Page} from '@playwright/test';
  * @class
  * @extends BOBasePage
  */
-class BOQuickAccess extends BOBasePage implements BOQuickAccessInterface {
+class BOQuickAccessPage extends BOBasePage implements BOQuickAccessInterface {
   public readonly pageTitle: string;
 
-  private readonly addNewQuickAccessButton: string;
+  protected addNewQuickAccessButton: string;
 
-  private readonly gridPanel: string;
+  protected gridPanel: string;
 
-  private readonly gridTitle: string;
+  protected gridTitle: string;
 
-  private readonly gridTable: string;
+  protected gridTable: string;
 
-  private readonly filterRow: string;
+  protected filterRow: string;
 
-  private readonly filterColumn: (filterBy: string) => string;
+  protected filterColumn: (filterBy: string) => string;
 
-  private readonly filterSearchButton: string;
+  protected filterSearchButton: string;
 
-  private readonly filterResetButton: string;
+  protected filterResetButton: string;
 
-  private readonly tableBody: string;
+  protected tableBody: string;
 
-  private readonly tableBodyRows: string;
+  protected tableBodyRows: string;
 
-  private readonly tableBodyRow: (row: number) => string;
+  protected tableBodyRow: (row: number) => string;
 
-  private readonly tableBodyColumn: (row: number) => string;
+  protected tableBodyColumn: (row: number) => string;
 
-  private readonly tableColumnId: (row: number) => string;
+  protected tableColumnId: (row: number) => string;
 
-  private readonly tableColumnName: (row: number) => string;
+  protected tableColumnName: (row: number) => string;
 
-  private readonly tableColumnLink: (row: number) => string;
+  protected tableColumnLink: (row: number) => string;
 
-  private readonly tableColumnIsNewWindow: (row: number) => string;
+  protected tableColumnIsNewWindow: (row: number) => string;
 
-  private readonly bulkActionBlock: string;
+  protected bulkActionBlock: string;
 
-  private readonly bulkActionMenuButton: string;
+  protected bulkActionMenuButton: string;
 
-  private readonly bulkActionDropdownMenu: string;
+  protected bulkActionDropdownMenu: string;
 
-  private readonly selectAllLink: string;
+  protected selectAllLink: string;
 
-  private readonly bulkDeleteLink: string;
+  protected bulkDeleteLink: string;
+
+  private readonly modalConfirmButton: string;
 
   /**
    * @constructs
@@ -63,20 +65,20 @@ class BOQuickAccess extends BOBasePage implements BOQuickAccessInterface {
 
     // Selectors
     // Header selectors
-    this.addNewQuickAccessButton = 'a[data-role=page-header-desc-quick_access-link]';
+    this.addNewQuickAccessButton = 'a#page-header-desc-configuration-add';
 
     // Panel
-    this.gridPanel = '#form-quick_access .panel';
-    this.gridTitle = `${this.gridPanel} div.panel-heading span.badge`;
+    this.gridPanel = '#quick_access_grid_panel';
+    this.gridTitle = `${this.gridPanel} h3.card-header-title`;
 
     // Table selectors
-    this.gridTable = '#table-quick_access';
+    this.gridTable = '#quick_access_grid_table';
 
     // Filter selectors
-    this.filterRow = `${this.gridTable} tr.filter`;
-    this.filterColumn = (filterBy: string) => `${this.filterRow} [name='quick_accessFilter_${filterBy}']`;
-    this.filterSearchButton = '#submitFilterButtonquick_access';
-    this.filterResetButton = 'button[name=\'submitResetquick_access\']';
+    this.filterRow = `${this.gridTable} tr.column-filters`;
+    this.filterColumn = (filterBy: string) => `${this.filterRow} input[name='quick_access[${filterBy}]']`;
+    this.filterSearchButton = `${this.filterRow} button.grid-search-button`;
+    this.filterResetButton = `${this.filterRow} button.grid-reset-button`;
 
     // Table body selectors
     this.tableBody = `${this.gridTable} tbody`;
@@ -91,11 +93,12 @@ class BOQuickAccess extends BOBasePage implements BOQuickAccessInterface {
     this.tableColumnIsNewWindow = (row: number) => `${this.tableBodyColumn(row)}:nth-child(5)`;
 
     // Bulk actions selectors
-    this.bulkActionBlock = 'div.bulk-actions';
-    this.bulkActionMenuButton = '#bulk_action_menu_quick_access';
-    this.bulkActionDropdownMenu = `${this.bulkActionBlock} ul.dropdown-menu`;
-    this.selectAllLink = `${this.bulkActionDropdownMenu} li:nth-child(1)`;
-    this.bulkDeleteLink = `${this.bulkActionDropdownMenu} li:nth-child(4)`;
+    this.bulkActionBlock = 'div#quick_access_grid';
+    this.bulkActionMenuButton = 'button.js-bulk-actions-btn';
+    this.bulkActionDropdownMenu = `${this.bulkActionBlock} div.dropdown-menu.show`;
+    this.selectAllLink = `${this.filterRow} input#quick_access_grid_bulk_action_select_all`;
+    this.bulkDeleteLink = `${this.bulkActionDropdownMenu} button#quick_access_grid_bulk_action_delete_selection`;
+    this.modalConfirmButton = '#quick_access-grid-confirm-modal div.modal-footer button.btn-confirm-submit';
   }
 
   /*
@@ -180,30 +183,15 @@ class BOQuickAccess extends BOBasePage implements BOQuickAccessInterface {
    * @return {Promise<string>}
    */
   async bulkDeleteQuickAccessLink(page: Page): Promise<string> {
-    // To confirm bulk delete action with dialog
-    await this.dialogListener(page, true);
-
-    // Select all rows
-    await Promise.all([
-      page.locator(this.bulkActionMenuButton).click(),
-      this.waitForVisibleSelector(page, this.selectAllLink),
-    ]);
-
-    await Promise.all([
-      page.locator(this.selectAllLink).click(),
-      this.waitForHiddenSelector(page, this.selectAllLink),
-    ]);
-
-    // Perform delete
-    await Promise.all([
-      page.locator(this.bulkActionMenuButton).click(),
-      this.waitForVisibleSelector(page, this.bulkDeleteLink),
-    ]);
-
-    await this.clickAndWaitForURL(page, this.bulkDeleteLink);
+    await page.locator(this.selectAllLink).click();
+    await page.locator(this.bulkActionMenuButton).click();
+    await this.waitForVisibleSelector(page, this.bulkActionDropdownMenu);
+    await page.locator(this.bulkDeleteLink).click();
+    await this.waitForVisibleSelector(page, this.modalConfirmButton);
+    await page.locator(this.modalConfirmButton).click();
 
     // Return successful message
-    return this.getAlertSuccessBlockContent(page);
+    return this.getAlertSuccessBlockParagraphContent(page);
   }
 
   /**
@@ -212,7 +200,7 @@ class BOQuickAccess extends BOBasePage implements BOQuickAccessInterface {
    * @returns {Promise<void>}
    */
   async resetFilter(page: Page): Promise<void> {
-    if (!(await this.elementNotVisible(page, this.filterResetButton, 2000))) {
+    if (await this.elementVisible(page, this.filterResetButton, 2000)) {
       await this.clickAndWaitForURL(page, this.filterResetButton);
     }
   }
@@ -227,4 +215,5 @@ class BOQuickAccess extends BOBasePage implements BOQuickAccessInterface {
   }
 }
 
-module.exports = new BOQuickAccess();
+const boQuickAccessPage = new BOQuickAccessPage();
+export {boQuickAccessPage, BOQuickAccessPage};

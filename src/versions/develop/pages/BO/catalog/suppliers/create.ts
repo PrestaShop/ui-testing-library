@@ -144,6 +144,8 @@ class BOSuppliersCreatePage extends BOBasePage implements BOSuppliersCreatePageI
 
     // Fill Description, meta title, meta description and meta keywords in english
     await this.changeLanguageForSelectors(page, 'en');
+    // Wait for the TinyMCE is visible
+    await this.waitForVisibleSelector(page, this.descriptionIFrame(1), 30000);
     await this.setValueOnTinymceInput(page, this.descriptionIFrame(1), supplierData.description);
     await this.setValue(page, this.metaTitleInput(1), supplierData.metaTitle);
     await this.setValue(page, this.metaDescriptionTextarea(1), supplierData.metaDescription);
