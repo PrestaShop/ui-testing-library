@@ -176,6 +176,8 @@ class CombinationsTab extends BOBasePage implements BOProductsCreateTabCombinati
 
   private readonly editCombinationModalVirtualFileName: string;
 
+  private readonly editCombinationModalIsVirtualToggle: (toCheck: number) => string;
+
   private readonly editCombinationModalCloseButton: string;
 
   private readonly editCombinationCloseModal: string;
@@ -343,6 +345,8 @@ class CombinationsTab extends BOBasePage implements BOProductsCreateTabCombinati
     );
     this.editCombinationModalVirtualFile = '#combination_form_virtual_product_file_file';
     this.editCombinationModalVirtualFileName = '#combination_form_virtual_product_file_name';
+    // Per-combination "Is virtual" switch (SwitchType renders Yes/No radios _1/_0).
+    this.editCombinationModalIsVirtualToggle = (toCheck: number) => `#combination_form_is_virtual_${toCheck}`;
     this.editCombinationModalCloseButton = `${this.editCombinationModal} footer button.btn-close`;
     this.editCombinationCloseModal = `${this.editCombinationEditModal} div.modal-prevent-close div.modal.show`;
     this.editCombinationModalDiscardButton = `${this.editCombinationCloseModal} button.btn-primary`;
@@ -683,6 +687,23 @@ class CombinationsTab extends BOBasePage implements BOProductsCreateTabCombinati
     await this.waitForVisibleSelector(combinationFrame!, this.editCombinationModalVirtualFile);
     await this.uploadFile(combinationFrame!, this.editCombinationModalVirtualFile, filePath);
     await this.setValue(combinationFrame!, this.editCombinationModalVirtualFileName, filePath);
+    await this.waitForSelectorAndClick(page, this.editCombinationModalSaveButton);
+
+    return this.getAlertSuccessBlockParagraphContent(combinationFrame!);
+  }
+
+  /**
+   * Mark the currently open combination as virtual (or physical) and save
+   * @param page {Page} Browser tab
+   * @param isVirtual {boolean} Whether the combination is virtual (non-shippable)
+   * @returns {Promise<string>}
+   */
+  async setCombinationIsVirtual(page: Page, isVirtual: boolean): Promise<string> {
+    await this.waitForVisibleSelector(page, this.editCombinationIframe);
+
+    const combinationFrame: Frame|null = page.frame({url: /sell\/catalog\/products\/combinations/gmi});
+
+    await this.setChecked(combinationFrame!, this.editCombinationModalIsVirtualToggle(isVirtual ? 1 : 0));
     await this.waitForSelectorAndClick(page, this.editCombinationModalSaveButton);
 
     return this.getAlertSuccessBlockParagraphContent(combinationFrame!);

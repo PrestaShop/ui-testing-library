@@ -16,7 +16,6 @@ export interface BOProductsPageInterface extends BOBasePagePageInterface {
     readonly productWithCombinationsDescription: string;
     readonly standardProductDescription: string;
     readonly virtualProductDescription: string;
-    readonly virtualCombinationsProductDescription: string;
 
     bulkActionsProduct(page: Page, action: string): Promise<string>;
     bulkSelectProducts(page: Page, products?: FakerProduct[]): Promise<boolean>

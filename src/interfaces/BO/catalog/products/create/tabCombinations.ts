@@ -68,6 +68,7 @@ export interface BOProductsCreateTabCombinationsPageInterface extends BOBasePage
   setLabelWhenInStock(page: Page, label: string): Promise<void>;
   setLabelWhenOutOfStock(page: Page, label: string): Promise<void>;
   setOptionWhenOutOfStock(page: Page, option: string): Promise<void>;
+  setCombinationIsVirtual(page: Page, isVirtual: boolean): Promise<string>;
   setCombinationVirtualProductFile(page: Page, filePath: string): Promise<string>;
   setProductAttributes(page: Page, attributes: ProductAttributes[]): Promise<string|null>;
   sortTable(page: Page, sortBy: string, column: number, sortDirection: string): Promise<void>;

@@ -30,8 +30,6 @@ class ProductsPage extends BOBasePage implements BOProductsPageInterface {
 
   public readonly virtualProductDescription: string;
 
-  public readonly virtualCombinationsProductDescription: string;
-
   public readonly packOfProductsDescription: string;
 
   protected newProductIframeURL: RegExp;
@@ -223,8 +221,6 @@ class ProductsPage extends BOBasePage implements BOProductsPageInterface {
       + 'customers can choose.';
     this.virtualProductDescription = 'An intangible product that doesn\'t require shipping. You can also add a '
       + 'downloadable file.';
-    this.virtualCombinationsProductDescription = 'A downloadable product available in several variations, '
-      + 'each with its own file.';
     this.packOfProductsDescription = 'A collection of products from your catalog.';
 
     // Header selectors
