@@ -10,31 +10,31 @@ import {type Page} from '@playwright/test';
  * @extends BOBasePage
  */
 class BOTaxRulesCreatePage extends BOBasePage implements BOTaxRulesCreatePageInterface {
-  public readonly pageTitleCreate: string;
+  public pageTitleCreate: string;
 
-  public readonly pageTitleEdit: string;
+  public pageTitleEdit: string;
 
-  private readonly addNewTaxRuleButton: string;
+  protected addNewTaxRuleButton: string;
 
-  private readonly taxRuleGroupForm: string;
+  protected taxRuleGroupForm: string;
 
-  private readonly nameInput: string;
+  protected nameInput: string;
 
-  private readonly statusInput: (id: string) => string;
+  protected statusInput: (id: string) => string;
 
-  private readonly saveTaxButton: string;
+  protected saveTaxButton: string;
 
-  private readonly taxRuleForm: string;
+  protected taxRuleForm: string;
 
-  private readonly countrySelect: string;
+  protected countrySelect: string;
 
-  private readonly behaviourSelect: string;
+  protected behaviourSelect: string;
 
-  private readonly taxSelect: string;
+  protected taxSelect: string;
 
-  private readonly descriptionInput: string;
+  protected descriptionInput: string;
 
-  private readonly saveAndStayButton: string;
+  protected saveAndStayButton: string;
 
   /**
    * @constructs
@@ -43,26 +43,28 @@ class BOTaxRulesCreatePage extends BOBasePage implements BOTaxRulesCreatePageInt
   constructor() {
     super();
 
-    this.pageTitleCreate = 'Tax Rules > Add new';
-    this.pageTitleEdit = 'Tax Rules > Edit';
+    this.successfulUpdateMessage = 'Update successful';
+
+    this.pageTitleCreate = `New tax rule • ${global.INSTALL.SHOP_NAME}`;
+    this.pageTitleEdit = 'Editing tax rule ';
 
     // Selectors
     // Header buttons
-    this.addNewTaxRuleButton = 'a[data-role=page-header-desc-tax_rule-link]';
+    this.addNewTaxRuleButton = '#tax_rules_group_tax_rules_add_tax_rule_btn';
 
     // New tax rule group form
-    this.taxRuleGroupForm = '#tax_rules_group_form';
-    this.nameInput = `${this.taxRuleGroupForm} #name`;
-    this.statusInput = (id: string) => `${this.taxRuleGroupForm} input#active_${id}`;
-    this.saveTaxButton = `${this.taxRuleGroupForm} #tax_rules_group_form_submit_btn`;
+    this.taxRuleGroupForm = 'form[name="tax_rules_group"]';
+    this.nameInput = `${this.taxRuleGroupForm} #tax_rules_group_name`;
+    this.statusInput = (id: string) => `${this.taxRuleGroupForm} input#tax_rules_group_is_enabled_${id}`;
+    this.saveTaxButton = `${this.taxRuleGroupForm} #save-and-stay-button`;
 
     // New tax rule form
-    this.taxRuleForm = '#tax_rule_form';
-    this.countrySelect = `${this.taxRuleForm} #country`;
-    this.behaviourSelect = `${this.taxRuleForm} #behavior`;
-    this.taxSelect = `${this.taxRuleForm} #id_tax`;
-    this.descriptionInput = `${this.taxRuleForm} #description`;
-    this.saveAndStayButton = `${this.taxRuleForm} #tax_rule_form_submit_btn_1`;
+    this.taxRuleForm = 'iframe[name="tax-rule-form-modal-iframe"]';
+    this.countrySelect = '#tax_rule_country';
+    this.behaviourSelect = '#tax_rule_behavior';
+    this.taxSelect = '#tax_rule_tax';
+    this.descriptionInput = '#tax_rule_description';
+    this.saveAndStayButton = '#tax-rule-form-modal .btn-confirm-submit';
   }
 
   /*
@@ -77,11 +79,13 @@ class BOTaxRulesCreatePage extends BOBasePage implements BOTaxRulesCreatePageInt
    */
   async createEditTaxRulesGroup(page: Page, taxRuleGroupData: FakerTaxRulesGroup): Promise<string> {
     await this.setValue(page, this.nameInput, taxRuleGroupData.name);
-    await this.setChecked(page, this.statusInput(taxRuleGroupData.enabled ? 'on' : 'off'));
+    if ((await this.isChecked(page, this.statusInput(taxRuleGroupData.enabled ? '1' : '0'))) !== true) {
+      await this.setChecked(page, this.statusInput(taxRuleGroupData.enabled ? '1' : '0'), true, true);
+    }
     // Save Tax rules group
     await this.clickAndWaitForURL(page, this.saveTaxButton);
 
-    return this.getAlertSuccessBlockContent(page);
+    return this.getAlertSuccessBlockParagraphContent(page);
   }
 
   /**
@@ -91,14 +95,17 @@ class BOTaxRulesCreatePage extends BOBasePage implements BOTaxRulesCreatePageInt
    * @returns {Promise<string>}
    */
   async createEditTaxRules(page: Page, taxRuleData: FakerTaxRule): Promise<string> {
-    await this.selectByVisibleText(page, this.countrySelect, taxRuleData.country);
-    await this.selectByVisibleText(page, this.behaviourSelect, taxRuleData.behaviour);
-    await this.selectByVisibleText(page, this.taxSelect, taxRuleData.name);
-    await this.setValue(page, this.descriptionInput, taxRuleData.description);
-    // Save Tax rules
+    await page.locator(this.addNewTaxRuleButton).click();
+    await page.locator(this.taxRuleForm).waitFor({state: 'visible'});
+
+    const iframeLocator = await page.frameLocator(this.taxRuleForm);
+    await iframeLocator.locator(this.countrySelect).selectOption({label: taxRuleData.country});
+    await iframeLocator.locator(this.behaviourSelect).selectOption({label: taxRuleData.behaviour});
+    await iframeLocator.locator(this.taxSelect).selectOption({label: taxRuleData.name});
+    await iframeLocator.locator(this.descriptionInput).fill(taxRuleData.description);
     await page.locator(this.saveAndStayButton).click();
 
-    return this.getAlertSuccessBlockContent(page);
+    return this.getAlertSuccessBlockParagraphContent(page);
   }
 
   /**
@@ -111,4 +118,5 @@ class BOTaxRulesCreatePage extends BOBasePage implements BOTaxRulesCreatePageInt
   }
 }
 
-module.exports = new BOTaxRulesCreatePage();
+const boTaxRulesCreatePage = new BOTaxRulesCreatePage();
+export {boTaxRulesCreatePage, BOTaxRulesCreatePage};

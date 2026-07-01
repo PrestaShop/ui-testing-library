@@ -12,77 +12,77 @@ class BOTaxRulesPage extends BOBasePage implements BOTaxRulesPageInterface {
 
   public readonly successfulUpdateStatusMessage: string;
 
-  private readonly addNewTaxRulesGroupLink: string;
+  protected addNewTaxRulesGroupLink: string;
 
-  private readonly gridForm: string;
+  protected readonly gridForm: string;
 
-  private readonly gridTableHeaderTitle: string;
+  protected gridTableHeaderTitle: string;
 
-  private readonly gridTableNumberOfTitlesSpan: string;
+  protected gridTableNumberOfTitlesSpan: string;
 
-  private readonly gridTable: string;
+  protected gridTable: string;
 
-  private readonly filterRow: string;
+  protected filterRow: string;
 
-  private readonly filterColumn: (filterBy: string) => string;
+  protected filterColumn: (filterBy: string) => string;
 
-  private readonly filterSearchButton: string;
+  protected filterSearchButton: string;
 
-  private readonly filterResetButton: string;
+  protected filterResetButton: string;
 
-  private readonly tableBody: string;
+  protected tableBody: string;
 
-  private readonly tableRow: (row: number) => string;
+  protected tableRow: (row: number) => string;
 
-  private readonly editRowLink: (row: number) => string;
+  protected editRowLink: (row: number) => string;
 
-  private readonly tableBodyColumn: (row: number) => string;
+  protected tableBodyColumn: (row: number) => string;
 
-  private readonly tableColumnId: (row: number) => string;
+  protected tableColumnId: (row: number) => string;
 
-  private readonly tableColumnName: (row: number) => string;
+  protected tableColumnName: (row: number) => string;
 
-  private readonly tableColumnActive: (row: number) => string;
+  protected tableColumnActive: (row: number) => string;
 
-  private readonly tableColumnCheckIcon: (row: number) => string;
+  protected tableColumnCheckIcon: (row: number) => string;
 
-  private readonly toggleDropDown: (row: number) => string;
+  protected toggleDropDown: (row: number) => string;
 
-  private readonly deleteRowLink: (row: number) => string;
+  protected deleteRowLink: (row: number) => string;
 
-  private readonly deleteModalButtonYes: string;
+  protected deleteModalButtonYes: string;
 
-  private readonly tableHead: string;
+  protected tableHead: string;
 
-  private readonly sortColumnDiv: (column: number) => string;
+  protected sortColumnDiv: (column: string) => string;
 
-  private readonly sortColumnSpanButton: (column: number) => string;
+  protected sortColumnSpanButton: (column: string) => string;
 
-  private readonly paginationActiveLabel: string;
+  protected paginationActiveLabel: string;
 
-  private readonly paginationDiv: string;
+  protected paginationDiv: string;
 
-  private readonly paginationDropdownButton: string;
+  protected paginationPreviousLink: string;
 
-  private readonly paginationItems: (number: number) => string;
+  protected paginationNextLink: string;
 
-  private readonly paginationPreviousLink: string;
+  protected bulkActionBlock: string;
 
-  private readonly paginationNextLink: string;
+  protected bulkActionMenuButton: string;
 
-  private readonly bulkActionBlock: string;
+  protected bulkActionDropdownMenu: string;
 
-  private readonly bulkActionMenuButton: string;
+  protected selectAllLink: string;
 
-  private readonly bulkActionDropdownMenu: string;
+  protected bulkDeleteLink: string;
 
-  private readonly selectAllLink: string;
+  protected bulkEnableLink: string;
 
-  private readonly bulkDeleteLink: string;
+  protected bulkDisableLink: string;
 
-  private readonly bulkEnableLink: string;
+  private readonly modalConfirm: string;
 
-  private readonly bulkDisableLink: string;
+  private readonly modalConfirmBtn: string;
 
   /**
    * @constructs
@@ -90,66 +90,69 @@ class BOTaxRulesPage extends BOBasePage implements BOTaxRulesPageInterface {
    */
   constructor() {
     super();
+    this.successfulUpdateStatusMessage = 'The status has been successfully updated.';
+    this.successfulMultiDeleteMessage = 'Successful deletion';
 
     this.pageTitle = 'Tax Rules •';
-    this.successfulUpdateStatusMessage = 'The status has been successfully updated.';
 
     // Selectors
     // HEADER buttons
-    this.addNewTaxRulesGroupLink = 'a[data-role=page-header-desc-tax_rules_group-link]';
+    this.addNewTaxRulesGroupLink = 'a#page-header-desc-configuration-add';
 
     // Form selectors
     this.gridForm = '#form-tax_rules_group';
-    this.gridTableHeaderTitle = `${this.gridForm} .panel-heading`;
-    this.gridTableNumberOfTitlesSpan = `${this.gridTableHeaderTitle} span.badge`;
-    this.gridTable = '#table-tax_rules_group';
+    this.gridTableHeaderTitle = '#tax_rules_group_grid_panel .card-header';
+    this.gridTableNumberOfTitlesSpan = `${this.gridTableHeaderTitle} .card-header-title`;
+    this.gridTable = '#tax_rules_group_grid_table';
 
     // Filter selectors
-    this.filterRow = `${this.gridTable} tr.filter`;
-    this.filterColumn = (filterBy: string) => `${this.filterRow} [name='tax_rules_groupFilter_${filterBy}']`;
-    this.filterSearchButton = '#submitFilterButtontax_rules_group';
-    this.filterResetButton = `${this.filterRow} button[name='submitResettax_rules_group']`;
+    this.filterRow = `${this.gridTable} tr.column-filters`;
+    this.filterColumn = (filterBy: string) => `${this.filterRow} [name='tax_rules_group[${filterBy}]']`;
+    this.filterSearchButton = `${this.filterRow} .grid-search-button`;
+    this.filterResetButton = `${this.filterRow} .grid-reset-button`;
 
     // Table rows and columns
     this.tableBody = `${this.gridTable} tbody`;
     this.tableRow = (row: number) => `${this.tableBody} tr:nth-child(${row})`;
-    this.editRowLink = (row: number) => `${this.tableRow(row)} a.edit`;
+    this.editRowLink = (row: number) => `${this.tableRow(row)} a.grid-edit-row-link`;
     this.tableBodyColumn = (row: number) => `${this.tableRow(row)} td`;
 
     // Columns selectors
-    this.tableColumnId = (row: number) => `${this.tableBodyColumn(row)}:nth-child(2)`;
-    this.tableColumnName = (row: number) => `${this.tableBodyColumn(row)}:nth-child(3)`;
-    this.tableColumnActive = (row: number) => `${this.tableBodyColumn(row)}:nth-child(4) a`;
-    this.tableColumnCheckIcon = (row: number) => `${this.tableColumnActive(row)} i.icon-check`;
+    this.tableColumnId = (row: number) => `${this.tableBodyColumn(row)}.column-id_tax_rules_group`;
+    this.tableColumnName = (row: number) => `${this.tableBodyColumn(row)}.column-name`;
+    this.tableColumnActive = (row: number) => `${this.tableBodyColumn(row)}.column-active`;
+    this.tableColumnCheckIcon = (row: number) => `${this.tableColumnActive(row)} .ps-switch`;
 
     // Bulk actions selectors
-    this.toggleDropDown = (row: number) => `${this.tableRow(row)} button[data-toggle='dropdown']`;
-    this.deleteRowLink = (row: number) => `${this.tableRow(row)} a.delete`;
+    this.toggleDropDown = (row: number) => `${this.tableRow(row)} a[data-toggle='dropdown']`;
+    this.deleteRowLink = (row: number) => `${this.tableRow(row)} a.grid-delete-row-link`;
 
     // Confirmation modal
-    this.deleteModalButtonYes = '#popup_ok';
+    this.deleteModalButtonYes = '#tax_rules_group-grid-confirm-modal .btn-confirm-submit';
 
     // Sort Selectors
     this.tableHead = `${this.gridTable} thead`;
-    this.sortColumnDiv = (column: number) => `${this.tableHead} th:nth-child(${column})`;
-    this.sortColumnSpanButton = (column: number) => `${this.sortColumnDiv(column)} span.ps-sort`;
-
-    // Pagination selectors
-    this.paginationActiveLabel = `${this.gridForm} ul.pagination.pull-right li.active a`;
-    this.paginationDiv = `${this.gridForm} .pagination`;
-    this.paginationDropdownButton = `${this.paginationDiv} .dropdown-toggle`;
-    this.paginationItems = (number: number) => `${this.gridForm} .dropdown-menu a[data-items='${number}']`;
-    this.paginationPreviousLink = `${this.gridForm} .icon-angle-left`;
-    this.paginationNextLink = `${this.gridForm} .icon-angle-right`;
+    this.sortColumnDiv = (column: string) => `${this.tableHead} div.ps-sortable-column[data-sort-col-name='${column}']`;
+    this.sortColumnSpanButton = (column: string) => `${this.sortColumnDiv(column)} span.ps-sort`;
 
     // Bulk actions selectors
-    this.bulkActionBlock = 'div.bulk-actions';
-    this.bulkActionMenuButton = '#bulk_action_menu_tax_rules_group';
-    this.bulkActionDropdownMenu = `${this.bulkActionBlock} ul.dropdown-menu`;
-    this.selectAllLink = `${this.bulkActionDropdownMenu} li:nth-child(1)`;
-    this.bulkDeleteLink = `${this.bulkActionDropdownMenu} li:nth-child(7)`;
-    this.bulkEnableLink = `${this.bulkActionDropdownMenu} li:nth-child(4)`;
-    this.bulkDisableLink = `${this.bulkActionDropdownMenu} li:nth-child(5)`;
+    this.bulkActionBlock = '#tax_rules_group_grid';
+    this.bulkActionMenuButton = `${this.bulkActionBlock} .js-bulk-actions-btn`;
+    this.bulkActionDropdownMenu = `${this.bulkActionBlock} .dropdown-menu`;
+    this.selectAllLink = `${this.filterRow} .grid_bulk_action_select_all`;
+    this.bulkDeleteLink = `${this.bulkActionDropdownMenu} #tax_rules_group_grid_bulk_action_delete_selection`;
+    this.bulkEnableLink = `${this.bulkActionDropdownMenu} #tax_rules_group_grid_bulk_action_enable_selection`;
+    this.bulkDisableLink = `${this.bulkActionDropdownMenu} #tax_rules_group_grid_bulk_action_disable_selection`;
+
+    // Pagination selectors
+    this.paginationDiv = '#paginator_select_page_limit';
+    this.paginationActiveLabel = `${this.bulkActionBlock} .col-form-label`;
+    this.paginationNextLink = `${this.bulkActionBlock} [data-role=next-page-link]`;
+    this.paginationPreviousLink = `${this.bulkActionBlock} [data-role=previous-page-link]`;
+
+    // Modal
+    this.modalConfirm = '#tax_rules_group-grid-confirm-modal';
+    this.modalConfirmBtn = `${this.modalConfirm} .btn-confirm-submit`;
   }
 
   /*
@@ -181,8 +184,14 @@ class BOTaxRulesPage extends BOBasePage implements BOTaxRulesPageInterface {
    * @returns {Promise<void>}
    */
   async resetFilter(page: Page): Promise<void> {
-    if (!(await this.elementNotVisible(page, this.filterResetButton, 2000))) {
-      await this.clickAndWaitForURL(page, this.filterResetButton);
+    if (await this.elementVisible(page, this.filterResetButton, 2000)) {
+      await page.locator(this.filterResetButton).click({
+        position: {
+          x: 2,
+          y: 2,
+        },
+      });
+      await this.elementNotVisible(page, this.filterResetButton, 2000);
     }
     await this.waitForVisibleSelector(page, this.filterSearchButton, 2000);
   }
@@ -224,7 +233,11 @@ class BOTaxRulesPage extends BOBasePage implements BOTaxRulesPageInterface {
     }
 
     if (columnName === 'active') {
-      return this.getAttributeContent(page, columnSelector, 'title');
+      return (await this.getAttributeContent(
+        page,
+        `${columnSelector} input[checked]`,
+        'value',
+      ) === '1' ? 'Enabled' : 'Disabled');
     }
 
     return this.getTextContent(page, columnSelector);
@@ -275,12 +288,12 @@ class BOTaxRulesPage extends BOBasePage implements BOTaxRulesPageInterface {
     // Click on dropDown
     await page.locator(this.toggleDropDown(row)).click();
     // Click on delete
-    await this.clickAndWaitForURL(page, this.deleteRowLink(row));
+    await page.locator(this.deleteRowLink(row)).click();
     // Confirm delete action
     await this.clickAndWaitForURL(page, this.deleteModalButtonYes);
 
     // Get successful message
-    return this.getAlertSuccessBlockContent(page);
+    return this.getAlertSuccessBlockParagraphContent(page);
   }
 
   // Sort methods
@@ -303,30 +316,23 @@ class BOTaxRulesPage extends BOBasePage implements BOTaxRulesPageInterface {
   }
 
   /**
-   * Sort table
+   * Sort table by clicking on column name
    * @param page {Page} Browser tab
    * @param sortBy {string} Column to sort with
    * @param sortDirection {string} Sort direction asc or desc
    * @return {Promise<void>}
    */
   async sortTable(page: Page, sortBy: string, sortDirection: string): Promise<void> {
-    let columnSelector;
+    const sortColumnDiv = `${this.sortColumnDiv(sortBy)}[data-sort-direction='${sortDirection}']`;
+    const sortColumnSpanButton = this.sortColumnSpanButton(sortBy);
 
-    switch (sortBy) {
-      case 'id_tax_rules_group':
-        columnSelector = this.sortColumnDiv(2);
-        break;
-
-      case 'name':
-        columnSelector = this.sortColumnDiv(3);
-        break;
-
-      default:
-        throw new Error(`Column ${sortBy} was not found`);
+    let i: number = 0;
+    while (await this.elementNotVisible(page, sortColumnDiv, 2000) && i < 2) {
+      await this.clickAndWaitForURL(page, sortColumnSpanButton);
+      i += 1;
     }
 
-    const sortColumnButton = `${columnSelector} i.icon-caret-${sortDirection}`;
-    await this.clickAndWaitForURL(page, sortColumnButton);
+    await this.waitForVisibleSelector(page, sortColumnDiv, 20000);
   }
 
   /* Pagination methods */
@@ -335,7 +341,7 @@ class BOTaxRulesPage extends BOBasePage implements BOTaxRulesPageInterface {
    * @param page {Page} Browser tab
    * @return {Promise<string>}
    */
-  getPaginationLabel(page: Page): Promise<string> {
+  async getPaginationLabel(page: Page): Promise<string> {
     return this.getTextContent(page, this.paginationActiveLabel);
   }
 
@@ -346,8 +352,12 @@ class BOTaxRulesPage extends BOBasePage implements BOTaxRulesPageInterface {
    * @returns {Promise<string>}
    */
   async selectPaginationLimit(page: Page, number: number): Promise<string> {
-    await this.waitForSelectorAndClick(page, this.paginationDropdownButton);
-    await this.clickAndWaitForURL(page, this.paginationItems(number));
+    const currentUrl: string = page.url();
+
+    await Promise.all([
+      this.selectByVisibleText(page, this.paginationDiv, number),
+      page.waitForURL((url: URL): boolean => url.toString() !== currentUrl),
+    ]);
 
     return this.getPaginationLabel(page);
   }
@@ -381,11 +391,9 @@ class BOTaxRulesPage extends BOBasePage implements BOTaxRulesPageInterface {
    * @return {Promise<void>}
    */
   async bulkSelectRows(page: Page): Promise<void> {
-    await page.locator(this.bulkActionMenuButton).click();
-
     await Promise.all([
-      page.locator(this.selectAllLink).click(),
-      this.waitForHiddenSelector(page, this.selectAllLink),
+      page.locator(this.selectAllLink).evaluate((el: HTMLElement) => el.click()),
+      this.waitForVisibleSelector(page, `${this.bulkActionMenuButton}:not([disabled])`),
     ]);
   }
 
@@ -395,7 +403,6 @@ class BOTaxRulesPage extends BOBasePage implements BOTaxRulesPageInterface {
    * @returns {Promise<string>}
    */
   async bulkDeleteTaxRules(page: Page): Promise<string> {
-    await this.dialogListener(page, true);
     // Select all rows
     await this.bulkSelectRows(page);
 
@@ -403,9 +410,13 @@ class BOTaxRulesPage extends BOBasePage implements BOTaxRulesPageInterface {
     await page.locator(this.bulkActionMenuButton).click();
 
     // Click on delete
-    await this.clickAndWaitForURL(page, this.bulkDeleteLink);
+    await page.locator(this.bulkDeleteLink).click();
 
-    return this.getAlertSuccessBlockContent(page);
+    // Click on modal
+    await page.locator(this.modalConfirm).waitFor({state: 'visible'});
+    await page.locator(this.modalConfirmBtn).click();
+
+    return this.getAlertSuccessBlockParagraphContent(page);
   }
 
   /**
@@ -424,7 +435,7 @@ class BOTaxRulesPage extends BOBasePage implements BOTaxRulesPageInterface {
     // Click to change status
     await this.clickAndWaitForURL(page, enable ? this.bulkEnableLink : this.bulkDisableLink);
 
-    return this.getTextContent(page, this.alertSuccessBlock);
+    return this.getAlertSuccessBlockParagraphContent(page);
   }
 
   /**
@@ -434,9 +445,15 @@ class BOTaxRulesPage extends BOBasePage implements BOTaxRulesPageInterface {
    * @return {Promise<boolean>}
    */
   async getStatus(page: Page, row: number): Promise<boolean> {
-    await this.waitForVisibleSelector(page, this.tableColumnActive(row), 2000);
+    // Get value of the check input
+    const inputValue = await this.getAttributeContent(
+      page,
+      `${this.tableColumnCheckIcon(row)} input:checked`,
+      'value',
+    );
 
-    return this.elementVisible(page, this.tableColumnCheckIcon(row), 100);
+    // Return status=false if value='0' and true otherwise
+    return (inputValue !== '0');
   }
 
   /**
@@ -449,7 +466,7 @@ class BOTaxRulesPage extends BOBasePage implements BOTaxRulesPageInterface {
   async setStatus(page: Page, row: number, valueWanted: boolean = true): Promise<boolean> {
     if (await this.getStatus(page, row) !== valueWanted) {
       await page
-        .locator(`${this.tableColumnActive(row)} i`)
+        .locator(this.tableColumnCheckIcon(row))
         .first()
         .evaluate((el: HTMLElement) => el.click());
 
@@ -459,4 +476,5 @@ class BOTaxRulesPage extends BOBasePage implements BOTaxRulesPageInterface {
   }
 }
 
-module.exports = new BOTaxRulesPage();
+const boTaxRulesPage = new BOTaxRulesPage();
+export {boTaxRulesPage, BOTaxRulesPage};
