@@ -10,9 +10,9 @@ import {type Page} from '@playwright/test';
  * @extends BOBasePage
  */
 class BOTaxRulesCreatePage extends BOBasePage implements BOTaxRulesCreatePageInterface {
-  public readonly pageTitleCreate: string;
+  public pageTitleCreate: string;
 
-  public readonly pageTitleEdit: string;
+  public pageTitleEdit: string;
 
   private readonly addNewTaxRuleButton: string;
 
@@ -43,8 +43,8 @@ class BOTaxRulesCreatePage extends BOBasePage implements BOTaxRulesCreatePageInt
   constructor() {
     super();
 
-    this.pageTitleCreate = 'Tax Rules > Add new';
-    this.pageTitleEdit = 'Tax Rules > Edit';
+    this.pageTitleCreate = `New tax rule • ${global.INSTALL.SHOP_NAME}`;
+    this.pageTitleEdit = 'Editing tax rule ';
 
     // Selectors
     // Header buttons
@@ -111,4 +111,5 @@ class BOTaxRulesCreatePage extends BOBasePage implements BOTaxRulesCreatePageInt
   }
 }
 
-module.exports = new BOTaxRulesCreatePage();
+const boTaxRulesCreatePage = new BOTaxRulesCreatePage();
+export {boTaxRulesCreatePage, BOTaxRulesCreatePage}

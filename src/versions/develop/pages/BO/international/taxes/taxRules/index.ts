@@ -12,7 +12,7 @@ class BOTaxRulesPage extends BOBasePage implements BOTaxRulesPageInterface {
 
   public readonly successfulUpdateStatusMessage: string;
 
-  private readonly addNewTaxRulesGroupLink: string;
+  protected addNewTaxRulesGroupLink: string;
 
   private readonly gridForm: string;
 
@@ -20,7 +20,7 @@ class BOTaxRulesPage extends BOBasePage implements BOTaxRulesPageInterface {
 
   private readonly gridTableNumberOfTitlesSpan: string;
 
-  private readonly gridTable: string;
+  protected gridTable: string;
 
   private readonly filterRow: string;
 
@@ -30,11 +30,11 @@ class BOTaxRulesPage extends BOBasePage implements BOTaxRulesPageInterface {
 
   private readonly filterResetButton: string;
 
-  private readonly tableBody: string;
+  protected tableBody: string;
 
-  private readonly tableRow: (row: number) => string;
+  protected tableRow: (row: number) => string;
 
-  private readonly editRowLink: (row: number) => string;
+  protected editRowLink: (row: number) => string;
 
   private readonly tableBodyColumn: (row: number) => string;
 
@@ -96,13 +96,13 @@ class BOTaxRulesPage extends BOBasePage implements BOTaxRulesPageInterface {
 
     // Selectors
     // HEADER buttons
-    this.addNewTaxRulesGroupLink = 'a[data-role=page-header-desc-tax_rules_group-link]';
+    this.addNewTaxRulesGroupLink = 'a#page-header-desc-configuration-add';
 
     // Form selectors
     this.gridForm = '#form-tax_rules_group';
     this.gridTableHeaderTitle = `${this.gridForm} .panel-heading`;
     this.gridTableNumberOfTitlesSpan = `${this.gridTableHeaderTitle} span.badge`;
-    this.gridTable = '#table-tax_rules_group';
+    this.gridTable = '#tax_rules_group_grid_table';
 
     // Filter selectors
     this.filterRow = `${this.gridTable} tr.filter`;
@@ -113,7 +113,7 @@ class BOTaxRulesPage extends BOBasePage implements BOTaxRulesPageInterface {
     // Table rows and columns
     this.tableBody = `${this.gridTable} tbody`;
     this.tableRow = (row: number) => `${this.tableBody} tr:nth-child(${row})`;
-    this.editRowLink = (row: number) => `${this.tableRow(row)} a.edit`;
+    this.editRowLink = (row: number) => `${this.tableRow(row)} a.grid-edit-row-link`;
     this.tableBodyColumn = (row: number) => `${this.tableRow(row)} td`;
 
     // Columns selectors
@@ -459,4 +459,5 @@ class BOTaxRulesPage extends BOBasePage implements BOTaxRulesPageInterface {
   }
 }
 
-module.exports = new BOTaxRulesPage();
+const boTaxRulesPage = new BOTaxRulesPage();
+export {boTaxRulesPage, BOTaxRulesPage}
