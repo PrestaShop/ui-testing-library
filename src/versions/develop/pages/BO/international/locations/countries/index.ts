@@ -10,87 +10,89 @@ import {type Page} from '@playwright/test';
 class BOCountriesPage extends BOBasePage implements BOCountriesPageInterface {
   public readonly pageTitle: string;
 
-  public readonly settingsUpdateMessage: string;
+  public settingsUpdateMessage: string;
 
-  private readonly addNewCountryButton: string;
+  protected addNewCountryButton: string;
 
-  private readonly gridForm: string;
+  protected gridForm: string;
 
-  private readonly gridTableHeaderTitle: string;
+  protected gridTableHeaderTitle: string;
 
-  private readonly gridTableNumberOfTitlesSpan: string;
+  protected gridTableNumberOfTitlesSpan: string;
 
-  private readonly gridTable: string;
+  protected gridTable: string;
 
-  private readonly filterRow: string;
+  protected filterRow: string;
 
-  private readonly filterColumn: (filterBy: string) => string;
+  protected filterColumn: (filterBy: string) => string;
 
-  private readonly filterSearchButton: string;
+  protected filterSearchButton: string;
 
-  private readonly filterResetButton: string;
+  protected filterResetButton: string;
 
-  private readonly tableBody: string;
+  protected tableBody: string;
 
-  private readonly tableRow: (row: number) => string;
+  protected tableRow: (row: number) => string;
 
-  private readonly tableColumn: (row: number, column: number) => string;
+  protected tableColumn: (row: number, column: number) => string;
 
-  private readonly tableColumnId: (row: number) => string;
+  protected tableColumnId: (row: number) => string;
 
-  private readonly tableColumnName: (row: number) => string;
+  protected tableColumnName: (row: number) => string;
 
-  private readonly tableColumnIsoCode: (row: number) => string;
+  protected tableColumnIsoCode: (row: number) => string;
 
-  private readonly tableColumnCallPrefix: (row: number) => string;
+  protected tableColumnCallPrefix: (row: number) => string;
 
-  private readonly tableColumnZone: (row: number) => string;
+  protected tableColumnZone: (row: number) => string;
 
-  private readonly tableColumnStatusLink: (row: number) => string;
+  protected tableColumnStatusLink: (row: number) => string;
 
-  private readonly tableColumnStatusEnableLink: (row: number) => string;
+  protected tableColumnStatusEnableLink: (row: number) => string;
 
-  private readonly tableColumnStatusDisableLink: (row: number) => string;
+  protected tableColumnStatusDisableLink: (row: number) => string;
 
-  private readonly editRowLink: (row: number) => string;
+  protected editRowLink: (row: number) => string;
 
-  private readonly bulkActionBlock: string;
+  protected bulkActionBlock: string;
 
-  private readonly bulkActionMenuButton: string;
+  protected bulkActionMenuButton: string;
 
-  private readonly bulkActionDropdownMenu: string;
+  protected bulkActionDropdownMenu: string;
 
-  private readonly selectAllLink: string;
+  protected selectAllLink: string;
 
-  private readonly bulkEnableLink: string;
+  protected bulkEnableLink: string;
 
-  private readonly bulkDisableLink: string;
+  protected bulkDisableLink: string;
 
-  private readonly bulkDeleteLink: string;
+  protected bulkDeleteLink: string;
 
-  private readonly tableHead: string;
+  protected readonly tableHead: string;
 
-  private readonly sortColumnDiv: (column: number) => string;
+  protected sortColumnDiv: (column: string) => string;
 
-  private readonly sortColumnSpanButton: (column: number) => string;
+  private readonly sortColumnSpanButton: (column: string) => string;
 
-  private readonly paginationActiveLabel: string;
+  protected paginationDiv: string;
 
-  private readonly paginationDiv: string;
+  private readonly paginationSelect: string;
 
-  private readonly paginationDropdownButton: string;
+  private readonly paginationLabel: string;
 
-  private readonly paginationItems: (number: number) => string;
+  protected paginationPreviousLink: string;
 
-  private readonly paginationPreviousLink: string;
+  protected paginationNextLink: string;
 
-  private readonly paginationNextLink: string;
+  protected countryForm: string;
 
-  private readonly countryForm: string;
+  protected enableRestrictCountriesToggleLabel: (toggle: string) => string;
 
-  private readonly enableRestrictCountriesToggleLabel: (toggle: string) => string;
+  protected saveButton: string;
 
-  private readonly saveButton: string;
+  private readonly gridModal: string;
+
+  private readonly gridModalConfirmBtn: string;
 
   /**
    * @constructs
@@ -100,23 +102,23 @@ class BOCountriesPage extends BOBasePage implements BOCountriesPageInterface {
     super();
 
     this.pageTitle = 'Countries •';
-    this.settingsUpdateMessage = 'The settings have been successfully updated.';
+    this.settingsUpdateMessage = 'Update successful';
 
     // Selectors
     // Header selectors
-    this.addNewCountryButton = 'a[data-role=page-header-desc-country-link]';
+    this.addNewCountryButton = 'a#page-header-desc-configuration-add';
 
     // Form selectors
-    this.gridForm = '#form-country';
-    this.gridTableHeaderTitle = `${this.gridForm} .panel-heading`;
-    this.gridTableNumberOfTitlesSpan = `${this.gridTableHeaderTitle} span.badge`;
-    this.gridTable = '#table-country';
+    this.gridForm = '#country_grid_panel';
+    this.gridTableHeaderTitle = `${this.gridForm} .card-header`;
+    this.gridTableNumberOfTitlesSpan = `${this.gridTableHeaderTitle} .card-header-title`;
+    this.gridTable = '#country_grid_table';
 
     // Filter selectors
-    this.filterRow = `${this.gridTable} tr.filter`;
-    this.filterColumn = (filterBy: string) => `${this.filterRow} [name='countryFilter_${filterBy}']`;
-    this.filterSearchButton = '#submitFilterButtoncountry';
-    this.filterResetButton = 'button[name=\'submitResetcountry\']';
+    this.filterRow = `${this.gridTable} tr.column-filters`;
+    this.filterColumn = (filterBy: string) => `${this.filterRow} [name='country[${filterBy}]']`;
+    this.filterSearchButton = `${this.filterRow} .grid-search-button`;
+    this.filterResetButton = `${this.filterRow} div.js-grid-reset-button button.grid-reset-button`;
 
     // Table rows and columns
     this.tableBody = `${this.gridTable} tbody`;
@@ -124,45 +126,48 @@ class BOCountriesPage extends BOBasePage implements BOCountriesPageInterface {
     this.tableColumn = (row: number, column: number) => `${this.tableRow(row)} td:nth-child(${column})`;
 
     // Columns selectors
-    this.tableColumnId = (row: number) => this.tableColumn(row, 2);
-    this.tableColumnName = (row: number) => this.tableColumn(row, 3);
-    this.tableColumnIsoCode = (row: number) => this.tableColumn(row, 4);
-    this.tableColumnCallPrefix = (row: number) => this.tableColumn(row, 5);
-    this.tableColumnZone = (row: number) => this.tableColumn(row, 6);
-    this.tableColumnStatusLink = (row: number) => `${this.tableColumn(row, 7)} a`;
-    this.tableColumnStatusEnableLink = (row: number) => `${this.tableColumnStatusLink(row)}.action-enabled`;
-    this.tableColumnStatusDisableLink = (row: number) => `${this.tableColumnStatusLink(row)}.action-disabled`;
+    this.tableColumnId = (row: number) => `${this.tableRow(row)} td.column-id_country`;
+    this.tableColumnName = (row: number) => `${this.tableRow(row)} td.column-name`;
+    this.tableColumnIsoCode = (row: number) => `${this.tableRow(row)} td.column-iso_code`;
+    this.tableColumnCallPrefix = (row: number) => `${this.tableRow(row)} td.column-call_prefix`;
+    this.tableColumnZone = (row: number) => `${this.tableRow(row)} td.column-zone_name`;
+    this.tableColumnStatusLink = (row: number) => `${this.tableRow(row)} td.column-active`;
+    this.tableColumnStatusEnableLink = (row: number) => `${this.tableColumnStatusLink(row)} .ps-switch`;
+    this.tableColumnStatusDisableLink = (row: number) => `${this.tableColumnStatusLink(row)} .ps-switch`;
 
     // Actions selectors
-    this.editRowLink = (row: number) => `${this.tableRow(row)} a.edit`;
+    this.editRowLink = (row: number) => `${this.tableRow(row)} a.grid-edit-row-link`;
 
     // Bulk Actions
-    this.bulkActionBlock = 'div.bulk-actions';
-    this.bulkActionMenuButton = `${this.gridForm} button.dropdown-toggle`;
-    this.bulkActionDropdownMenu = `${this.bulkActionBlock} ul.dropdown-menu`;
-    this.selectAllLink = `${this.bulkActionDropdownMenu} li:nth-child(1)`;
-    this.bulkEnableLink = `${this.bulkActionDropdownMenu} li:nth-child(4)`;
-    this.bulkDisableLink = `${this.bulkActionDropdownMenu} li:nth-child(5)`;
-    this.bulkDeleteLink = `${this.bulkActionDropdownMenu} li:nth-child(7)`;
+    this.bulkActionBlock = 'div.btn-group';
+    this.bulkActionMenuButton = `${this.gridForm} button.js-bulk-actions-btn`;
+    this.bulkActionDropdownMenu = `${this.bulkActionBlock} div.dropdown-menu`;
+    this.selectAllLink = `${this.filterRow} .grid_bulk_action_select_all`;
+    this.bulkEnableLink = `${this.bulkActionDropdownMenu} #country_grid_bulk_action_enable_selection`;
+    this.bulkDisableLink = `${this.bulkActionDropdownMenu} #country_grid_bulk_action_disable_selection`;
+    this.bulkDeleteLink = `${this.bulkActionDropdownMenu} #country_grid_bulk_action_delete_selection`;
 
     // Sort Selectors
     this.tableHead = `${this.gridTable} thead`;
-    this.sortColumnDiv = (column: number) => `${this.tableHead} th:nth-child(${column})`;
-    this.sortColumnSpanButton = (column: number) => `${this.sortColumnDiv(column)} span.ps-sort`;
+    this.sortColumnDiv = (column: string) => `${this.tableHead} div.ps-sortable-column[data-sort-col-name='${column}']`;
+    this.sortColumnSpanButton = (column: string) => `${this.sortColumnDiv(column)} span.ps-sort`;
 
     // Pagination selectors
-    this.paginationActiveLabel = `${this.gridForm} ul.pagination.pull-right li.active a`;
-    this.paginationDiv = `${this.gridForm} .pagination`;
-    this.paginationDropdownButton = `${this.paginationDiv} .dropdown-toggle`;
-    this.paginationItems = (number: number) => `${this.gridForm} .dropdown-menu a[data-items='${number}']`;
-    this.paginationPreviousLink = `${this.gridForm} .icon-angle-left`;
-    this.paginationNextLink = `${this.gridForm} .icon-angle-right`;
+    this.paginationDiv = `${this.gridForm} .pagination-block`;
+    this.paginationSelect = `${this.paginationDiv} #paginator_select_page_limit`;
+    this.paginationLabel = `${this.paginationDiv} .col-form-label`;
+    this.paginationPreviousLink = `${this.paginationDiv} a[data-role="previous-page-link"]`;
+    this.paginationNextLink = `${this.paginationDiv} a[data-role="next-page-link"]`;
 
     // Country options selectors
-    this.countryForm = '#country_form';
+    this.countryForm = '#configuration_country_options_form';
     this.enableRestrictCountriesToggleLabel = (toggle: string) => `${this.countryForm} `
-      + `#PS_RESTRICT_DELIVERED_COUNTRIES_${toggle}`;
-    this.saveButton = `${this.countryForm} button[name='submitOptionscountry']`;
+      + `#country-options_restrict_country_to_delivery_${toggle}`;
+    this.saveButton = `${this.countryForm} button#save-country-options-button`;
+
+    // Modal
+    this.gridModal = '#country-grid-confirm-modal';
+    this.gridModalConfirmBtn = `${this.gridModal} div.modal-footer .btn-confirm-submit`;
   }
 
   /*
@@ -183,10 +188,10 @@ class BOCountriesPage extends BOBasePage implements BOCountriesPageInterface {
    * @returns {Promise<void>}
    */
   async resetFilter(page: Page): Promise<void> {
-    if (!(await this.elementNotVisible(page, this.filterResetButton, 2000))) {
-      await this.clickAndWaitForURL(page, this.filterResetButton);
+    if (await this.elementVisible(page, this.filterResetButton, 2000)) {
+      await page.locator(this.filterResetButton).click();
+      await this.elementNotVisible(page, this.filterResetButton, 2000);
     }
-    await this.waitForVisibleSelector(page, this.filterSearchButton, 2000);
   }
 
   /**
@@ -233,7 +238,7 @@ class BOCountriesPage extends BOBasePage implements BOCountriesPageInterface {
         columnSelector = this.tableColumnId(row);
         break;
 
-      case 'b!name':
+      case 'name':
         columnSelector = this.tableColumnName(row);
         break;
 
@@ -245,7 +250,7 @@ class BOCountriesPage extends BOBasePage implements BOCountriesPageInterface {
         columnSelector = this.tableColumnCallPrefix(row);
         break;
 
-      case 'z!id_zone':
+      case 'zone_name':
         columnSelector = this.tableColumnZone(row);
         break;
 
@@ -265,7 +270,6 @@ class BOCountriesPage extends BOBasePage implements BOCountriesPageInterface {
    * @returns {Promise<void>}
    */
   async filterTable(page: Page, filterType: string, filterBy: string, value: string): Promise<void> {
-    const currentUrl: string = page.url();
     let textValue: string = value;
 
     switch (filterType) {
@@ -275,14 +279,11 @@ class BOCountriesPage extends BOBasePage implements BOCountriesPageInterface {
         break;
 
       case 'select':
-        if (filterBy === 'a!active') {
+        if (filterBy === 'active') {
           textValue = value === '1' ? 'Yes' : 'No';
         }
-        await Promise.all([
-          this.selectByVisibleText(page, this.filterColumn(filterBy), textValue),
-          page.waitForURL((url: URL): boolean => url.toString() !== currentUrl),
-        ]);
-
+        await this.selectByVisibleText(page, this.filterColumn(filterBy), textValue);
+        await this.clickAndWaitForURL(page, this.filterSearchButton);
         break;
 
       default:
@@ -297,7 +298,15 @@ class BOCountriesPage extends BOBasePage implements BOCountriesPageInterface {
    * @return {Promise<boolean>}
    */
   async getCountryStatus(page: Page, row: number): Promise<boolean> {
-    return this.elementVisible(page, this.tableColumnStatusEnableLink(row), 1000);
+    // Get value of the check input
+    const inputValue = await this.getAttributeContent(
+      page,
+      `${this.tableColumnStatusEnableLink(row)} input:checked`,
+      'value',
+    );
+
+    // Return status=false if value='0' and true otherwise
+    return (inputValue !== '0');
   }
 
   /**
@@ -308,7 +317,9 @@ class BOCountriesPage extends BOBasePage implements BOCountriesPageInterface {
    * @return {Promise<void>}
    */
   async setCountryStatus(page: Page, row: number, wantedStatus: boolean): Promise<void> {
-    if (wantedStatus !== await this.getCountryStatus(page, row)) {
+    await this.waitForVisibleSelector(page, this.tableColumnStatusLink(row), 2000);
+
+    if (await this.getCountryStatus(page, row) !== wantedStatus) {
       await page.locator(this.tableColumnStatusLink(row)).click();
     }
   }
@@ -344,12 +355,8 @@ class BOCountriesPage extends BOBasePage implements BOCountriesPageInterface {
    * @return {Promise<void>}
    */
   async bulkSelectRows(page: Page): Promise<void> {
-    await page.locator(this.bulkActionMenuButton).click();
-
-    await Promise.all([
-      page.locator(this.selectAllLink).click(),
-      this.waitForHiddenSelector(page, this.selectAllLink),
-    ]);
+    await page.locator(this.selectAllLink).evaluate((el: HTMLElement) => el.click());
+    await page.locator(`${this.bulkActionMenuButton}:not([disabled])`).waitFor({state: 'visible'});
   }
 
   /**
@@ -358,7 +365,6 @@ class BOCountriesPage extends BOBasePage implements BOCountriesPageInterface {
    * @returns {Promise<string>}
    */
   async deleteCountriesByBulkActions(page: Page): Promise<string> {
-    await this.dialogListener(page, true);
     // Select all rows
     await this.bulkSelectRows(page);
 
@@ -366,8 +372,11 @@ class BOCountriesPage extends BOBasePage implements BOCountriesPageInterface {
     await page.locator(this.bulkActionMenuButton).click();
 
     // Click on delete
-    await this.clickAndWaitForURL(page, this.bulkDeleteLink);
-    return this.getAlertSuccessBlockContent(page);
+    await page.locator(this.bulkDeleteLink).click();
+    await page.locator(this.gridModal).waitFor({state: 'visible'});
+    await page.locator(this.gridModalConfirmBtn).click();
+
+    return this.getAlertSuccessBlockParagraphContent(page);
   }
 
   /**
@@ -402,35 +411,16 @@ class BOCountriesPage extends BOBasePage implements BOCountriesPageInterface {
    * @return {Promise<void>}
    */
   async sortTable(page: Page, sortBy: string, sortDirection: string): Promise<void> {
-    let columnSelector;
+    const sortColumnDiv = `${this.sortColumnDiv(sortBy)}[data-sort-direction='${sortDirection}']`;
+    const sortColumnSpanButton = this.sortColumnSpanButton(sortBy);
 
-    switch (sortBy) {
-      case 'id_country':
-        columnSelector = this.sortColumnDiv(2);
-        break;
-
-      case 'b!name':
-        columnSelector = this.sortColumnDiv(3);
-        break;
-
-      case 'iso_code':
-        columnSelector = this.sortColumnDiv(4);
-        break;
-
-      case 'call_prefix':
-        columnSelector = this.sortColumnDiv(5);
-        break;
-
-      case 'z!id_zone':
-        columnSelector = this.sortColumnDiv(6);
-        break;
-
-      default:
-        throw new Error(`Column ${sortBy} was not found`);
+    let i: number = 0;
+    while (await this.elementNotVisible(page, sortColumnDiv, 2000) && i < 2) {
+      await this.clickAndWaitForURL(page, sortColumnSpanButton);
+      i += 1;
     }
 
-    const sortColumnButton = `${columnSelector} i.icon-caret-${sortDirection}`;
-    await this.clickAndWaitForURL(page, sortColumnButton);
+    await this.waitForVisibleSelector(page, sortColumnDiv, 20000);
   }
 
   /* Pagination methods */
@@ -439,19 +429,18 @@ class BOCountriesPage extends BOBasePage implements BOCountriesPageInterface {
    * @param page {Page} Browser tab
    * @return {Promise<string>}
    */
-  getPaginationLabel(page: Page): Promise<string> {
-    return this.getTextContent(page, this.paginationActiveLabel);
+  async getPaginationLabel(page: Page): Promise<string> {
+    return this.getTextContent(page, this.paginationLabel);
   }
 
   /**
    * Select pagination limit
    * @param page {Page} Browser tab
-   * @param number {number} Pagination number limit to select
-   * @returns {Promise<string>}
+   * @param number {number} Pagination limit number to select
+   * @returns {Promise<number>}
    */
   async selectPaginationLimit(page: Page, number: number): Promise<string> {
-    await this.waitForSelectorAndClick(page, this.paginationDropdownButton);
-    await this.clickAndWaitForURL(page, this.paginationItems(number));
+    await this.selectByVisibleText(page, this.paginationSelect, number);
 
     return this.getPaginationLabel(page);
   }
@@ -486,12 +475,13 @@ class BOCountriesPage extends BOBasePage implements BOCountriesPageInterface {
    * @returns {Promise<string>}
    */
   async setCountriesRestrictions(page: Page, toEnable: boolean = true): Promise<string> {
-    await this.setChecked(page, this.enableRestrictCountriesToggleLabel(toEnable ? 'on' : 'off'));
+    await this.setChecked(page, this.enableRestrictCountriesToggleLabel(toEnable ? '1' : '0'));
     await page.locator(this.saveButton).click();
-    await this.elementNotVisible(page, this.enableRestrictCountriesToggleLabel(!toEnable ? 'on' : 'off'));
+    await this.elementNotVisible(page, this.enableRestrictCountriesToggleLabel(!toEnable ? '1' : '0'));
 
-    return this.getAlertSuccessBlockContent(page);
+    return this.getAlertSuccessBlockParagraphContent(page);
   }
 }
 
-module.exports = new BOCountriesPage();
+const boCountriesPage = new BOCountriesPage();
+export {boCountriesPage, BOCountriesPage};
