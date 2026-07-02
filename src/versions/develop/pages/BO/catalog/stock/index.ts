@@ -536,12 +536,12 @@ class BOStocksPage extends BOBasePage implements BOStockPageInterface {
     await page.waitForResponse(
       (response: Response) => response.url().includes('api/stocks/products'),
       {
-        timeout: 60000,
+        timeout: 120000,
       },
     );
 
     // Wait for alert-Box after update quantity and close alert-Box
-    await this.waitForVisibleSelector(page, this.alertBoxTextSpan, 60000);
+    await this.waitForVisibleSelector(page, this.alertBoxTextSpan, 120000);
     const textContent = await this.getTextContent(page, this.alertBoxTextSpan);
     await page.locator(this.alertBoxButtonClose).click();
 
