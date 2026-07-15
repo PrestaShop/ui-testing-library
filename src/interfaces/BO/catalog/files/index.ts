@@ -6,6 +6,7 @@ export interface BOFilesPageInterface extends BOBasePagePageInterface {
 
   deleteFile(page: Page, row?: number): Promise<string>;
   deleteFilesBulkActions(page: Page): Promise<string>;
+  filterByFileSize(page: Page, min: number|string, max: number|string): Promise<void>;
   filterTable(page: Page, filterBy: string, value?: string): Promise<void>;
   getAllRowsColumnContent(page: Page, column: string): Promise<string[]>;
   getNumberOfElementInGrid(page: Page): Promise<number>;

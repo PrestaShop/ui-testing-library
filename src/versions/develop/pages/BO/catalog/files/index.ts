@@ -20,6 +20,10 @@ class BOFilesPage extends BOBasePage implements BOFilesPageInterface {
 
   private readonly filterColumn: (filterBy: string) => string;
 
+  private readonly filterFileSizeMinInput: string;
+
+  private readonly filterFileSizeMaxInput: string;
+
   private readonly filterSearchButton: string;
 
   private readonly filterResetButton: string;
@@ -87,6 +91,8 @@ class BOFilesPage extends BOBasePage implements BOFilesPageInterface {
 
     // Filters
     this.filterColumn = (filterBy: string) => `${this.gridTable} #attachment_${filterBy}`;
+    this.filterFileSizeMinInput = `${this.gridTable} #attachment_file_size_min_field`;
+    this.filterFileSizeMaxInput = `${this.gridTable} #attachment_file_size_max_field`;
     this.filterSearchButton = `${this.gridTable} .grid-search-button`;
     this.filterResetButton = `${this.gridTable} .grid-reset-button`;
 
@@ -237,6 +243,19 @@ class BOFilesPage extends BOBasePage implements BOFilesPageInterface {
   async filterTable(page: Page, filterBy: string, value: string = ''): Promise<void> {
     await this.setValue(page, this.filterColumn(filterBy), value);
     // click on search
+    await this.clickAndWaitForURL(page, this.filterSearchButton);
+  }
+
+  /**
+   * Filter Files by size (bytes) using the min/max range inputs
+   * @param page {Page} Browser tab
+   * @param min {number|string} Minimum size in bytes (empty string to leave unset)
+   * @param max {number|string} Maximum size in bytes (empty string to leave unset)
+   * @return {Promise<void>}
+   */
+  async filterByFileSize(page: Page, min: number|string, max: number|string): Promise<void> {
+    await page.locator(this.filterFileSizeMinInput).fill(min.toString());
+    await page.locator(this.filterFileSizeMaxInput).fill(max.toString());
     await this.clickAndWaitForURL(page, this.filterSearchButton);
   }
 
