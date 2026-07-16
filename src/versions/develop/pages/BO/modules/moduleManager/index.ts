@@ -463,7 +463,7 @@ class ModuleManagerPage extends BOBasePage implements ModuleManagerPageInterface
     await this.closeGrowlMessage(page);
 
     if (await this.elementVisible(page, this.actionModuleButton(module.tag, action), 1000)) {
-      await this.waitForSelectorAndClick(page, this.actionModuleButton(module.tag, action));
+      await this.waitForSelectorAndClick(page, this.actionModuleButton(module.tag, action), 10000);
 
       if (cancel) {
         if (action === 'upgrade') {
