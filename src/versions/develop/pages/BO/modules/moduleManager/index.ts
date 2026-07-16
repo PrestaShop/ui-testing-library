@@ -484,7 +484,7 @@ class ModuleManagerPage extends BOBasePage implements ModuleManagerPageInterface
     } else {
       await page.locator(this.actionsDropdownButton(module.tag)).click();
       await this.waitForVisibleSelector(page, `${this.actionsDropdownButton(module.tag)}[aria-expanded='true']`);
-      await this.waitForSelectorAndClick(page, this.actionModuleButtonInDropdownList(action));
+      await this.waitForSelectorAndClick(page, this.actionModuleButtonInDropdownList(action), 10000);
 
       if (cancel) {
         if (action === 'upgrade') {
