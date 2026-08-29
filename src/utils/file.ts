@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import http from 'http';
 import https from 'https';
 import XLSX from 'xlsx';
 
@@ -180,6 +181,7 @@ export default {
 
     return imageNumber;
   },
+
   /**
    * Generate report filename
    * @return {Promise<string>}
@@ -193,6 +195,7 @@ export default {
       curDate.getMinutes()}-${
       curDate.getSeconds()}`;
   },
+
   /**
    * Create directory if not exist
    * @param path {string} Path of the directory to create
@@ -201,6 +204,7 @@ export default {
   async createDirectory(path: string): Promise<void> {
     if (!fs.existsSync(path)) await fs.mkdirSync(path);
   },
+
   /**
    * Create file with content
    * @param path {string} Path of the directory where to create
@@ -372,16 +376,8 @@ export default {
    */
   async downloadFile(url: string, path: string): Promise<void> {
     await new Promise((resolve, reject): void => {
-      const httpsAgent: https.Agent = new https.Agent({
-        rejectUnauthorized: false,
-      });
-
-      https.get(
-        url,
-        {
-          agent: httpsAgent,
-        },
-        (response): void => {
+      if (url.startsWith('http://')) {
+        http.get(url, (response: http.IncomingMessage): void => {
           const code = response.statusCode ?? 0;
 
           if (code >= 400) {
@@ -407,6 +403,37 @@ export default {
 
           response.pipe(fileWriter);
         });
+      } else {
+        const agent: https.Agent = new https.Agent({
+          rejectUnauthorized: false,
+        });
+        https.get(url, {agent}, (response: http.IncomingMessage): void => {
+          const code = response.statusCode ?? 0;
+
+          if (code >= 400) {
+            reject(new Error(response.statusMessage));
+            return;
+          }
+
+          // Handle redirects
+          if (code > 300 && code < 400 && !!response.headers.location) {
+            resolve(
+              this.downloadFile(response.headers.location, path),
+            );
+            return;
+          }
+
+          // Save the file to disk
+          const fileWriter: fs.WriteStream = fs
+            .createWriteStream(path)
+            .on('finish', (): void => {
+              fileWriter.close();
+              resolve({});
+            });
+
+          response.pipe(fileWriter);
+        });
+      }
     });
   },
 
