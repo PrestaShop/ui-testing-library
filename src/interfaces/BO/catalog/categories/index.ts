@@ -24,6 +24,7 @@ export interface BOCategoriesPageInterface extends BOBasePagePageInterface {
   goToViewSubCategoriesPage(page: Page, row: number): Promise<void>;
   paginationNext(page: Page): Promise<string>;
   paginationPrevious(page: Page): Promise<string>;
+  previewCategory(page: Page, row: number): Promise<Page>;
   resetAndGetNumberOfLines(page: Page): Promise<number>;
   resetFilter(page: Page): Promise<void>;
   selectPaginationLimit(page: Page, number: number): Promise<string>;

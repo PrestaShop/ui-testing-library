@@ -40,6 +40,8 @@ class BOCategoriesPage extends BOBasePage implements BOCategoriesPageInterface {
 
   private readonly categoriesListTableEditLink: (row: number, column: string) => string;
 
+  private readonly categoriesListTablePreviewLink: (row: number) => string;
+
   private readonly categoriesListColumnStatus: (row: number) => string;
 
   private readonly categoriesListColumnStatusToggleInput: (row: number) => string;
@@ -120,6 +122,8 @@ class BOCategoriesPage extends BOBasePage implements BOCategoriesPageInterface {
     } a.grid-view-row-link`;
     this.categoriesListTableEditLink = (row: number, column: string) => `${this.categoriesListTableColumn(row, column)
     } a.grid-edit-row-link`;
+    this.categoriesListTablePreviewLink = (row: number) => `${this.categoriesListTableColumn(row, 'actions')
+    } a.grid-preview-row-link`;
 
     this.categoriesListColumnStatus = (row: number) => `${this.categoriesListTableColumn(row, 'active')} .ps-switch`;
     this.categoriesListColumnStatusToggleInput = (row: number) => `${this.categoriesListColumnStatus(row)} input`;
@@ -329,6 +333,11 @@ class BOCategoriesPage extends BOBasePage implements BOCategoriesPageInterface {
     ]);
     // Click on edit
     await this.clickAndWaitForURL(page, this.categoriesListTableEditLink(row, 'actions'));
+  }
+
+  async previewCategory(page: Page, row: number): Promise<Page> {
+    await page.locator(this.categoriesListTableToggleDropDown(row, 'actions')).click();
+    return this.openLinkWithTargetBlank(page, this.categoriesListTablePreviewLink(row));
   }
 
   /**
