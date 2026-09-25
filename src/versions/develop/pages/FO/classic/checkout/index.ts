@@ -322,7 +322,7 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
     this.addressStepEditButton = `${this.addressStepSection} span.step-edit`;
     this.addAddressButton = '#checkout-addresses-step p.add-address a';
     this.addInvoiceAddressButton = '#checkout-addresses-step  p.add-address a[href*="invoice"]';
-    this.differentInvoiceAddressLink = '#checkout-addresses-step form a[data-link-action="different-invoice-address"]';
+    this.differentInvoiceAddressLink = '#checkout-addresses-step a[data-link-action="different-invoice-address"]';
     // Delivery address selectors
     this.deliveryAddressBlock = '#delivery-addresses';
     this.deliveryAddressSection = `${this.deliveryAddressBlock} article.js-address-item`;
