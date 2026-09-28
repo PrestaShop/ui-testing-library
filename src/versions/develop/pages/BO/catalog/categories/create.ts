@@ -48,6 +48,8 @@ class BOCategoriesCreatePage extends BOBasePage implements BOCategoriesCreatePag
 
   private readonly saveCategoryButton: string;
 
+  private readonly saveAndPreviewCategoryButton: string;
+
   private readonly rootCategoryNameInput: string;
 
   private readonly rootCategoryDisplayedToggleInput: (toggle: number) => string;
@@ -87,6 +89,7 @@ class BOCategoriesCreatePage extends BOBasePage implements BOCategoriesCreatePag
     this.redirectedCategory = '#category_redirect_option_target_search_input';
     this.selectAllGroupAccessCheckbox = '.js-choice-table-select-all';
     this.saveCategoryButton = '#save-button';
+    this.saveAndPreviewCategoryButton = '#save-and-preview-button';
 
     // Selectors fo root category
     this.rootCategoryNameInput = '#root_category_name_1';
@@ -95,6 +98,10 @@ class BOCategoriesCreatePage extends BOBasePage implements BOCategoriesCreatePag
     this.rootCategoryCoverImage = '#root_category_cover_image';
     this.rootCategoryMetaTitleInput = '#root_category_meta_title_1';
     this.rootCategoryMetaDescriptionTextarea = '#root_category_meta_description_1';
+  }
+
+  async previewCategory(page: Page): Promise<Page> {
+    return this.openLinkWithTargetBlank(page, this.saveAndPreviewCategoryButton);
   }
 
   /*
