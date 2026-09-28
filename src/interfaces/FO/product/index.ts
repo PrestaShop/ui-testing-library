@@ -45,6 +45,7 @@ export interface FoProductPageInterface extends FOBasePagePageInterface {
   getProductAttributes(page: Page): Promise<ProductAttribute[]>;
   getProductAvailabilityLabel(page: Page): Promise<string>;
   getProductCondition(page: Page): Promise<string>;
+  getProductDownloadFileName(page: Page): Promise<string>;
   getProductFeaturesList(page: Page): Promise<string>;
   getProductImageUrls(page: Page): Promise<ProductImageUrls>;
   getProductInPackList(page: Page, productInList: number): Promise<ProductDetailsBasic>;
