@@ -40,6 +40,8 @@ class BOCarriersPage extends BOBasePage implements BOCarriersPageInterface {
 
   private readonly tableBodyColumnNth: (column: number) => string;
 
+  private readonly tableColumnHandleCell: (row: number) => string;
+
   private readonly tableColumnHandle: (row: number) => string;
 
   protected tableColumnId: (row: number) => string;
@@ -142,7 +144,8 @@ class BOCarriersPage extends BOBasePage implements BOCarriersPageInterface {
     this.tableBodyColumnNth = (column: number) => `${this.tableBodyRows} td:nth-child(${column})`;
 
     // Columns selectors
-    this.tableColumnHandle = (row: number) => `${this.tableBodyColumn(row)}.column-position_handle .position-drag-handle`;
+    this.tableColumnHandleCell = (row: number) => `${this.tableBodyColumn(row)}.column-position_handle`;
+    this.tableColumnHandle = (row: number) => `${this.tableColumnHandleCell(row)} .position-drag-handle`;
     this.tableColumnId = (row: number) => `${this.tableBodyColumn(row)}.column-id_carrier`;
     this.tableColumnName = (row: number) => `${this.tableBodyColumn(row)}.column-name`;
     this.tableColumnDelay = (row: number) => `${this.tableBodyColumn(row)}.column-delay`;
@@ -615,7 +618,8 @@ class BOCarriersPage extends BOBasePage implements BOCarriersPageInterface {
    * @return {Promise<string>}
    */
   async changePosition(page: Page, actualPosition: number, newPosition: number): Promise<string | null> {
-    await this.dragAndDropSlowly(page, this.tableColumnHandle(actualPosition), this.tableBodyRow(newPosition));
+    // Drop on the handle cell: releasing the mouse over a clickable cell also opens the row link
+    await this.dragAndDropSlowly(page, this.tableColumnHandle(actualPosition), this.tableColumnHandleCell(newPosition));
     await page.waitForTimeout(6000);
 
     return this.getAlertSuccessBlockParagraphContent(page, 3000);

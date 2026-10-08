@@ -44,6 +44,8 @@ class BOAttributesPage extends BOBasePage implements BOAttributesPageInterface {
 
   private readonly tableColumnSelectRowCheckbox: (row: number) => string;
 
+  private readonly tableColumnHandleCell: (row: number) => string;
+
   private readonly tableColumnHandle: (row: number) => string;
 
   private readonly tableColumnId: (row: number) => string;
@@ -129,7 +131,8 @@ class BOAttributesPage extends BOBasePage implements BOAttributesPageInterface {
 
     // Columns selectors
     this.tableColumnSelectRowCheckbox = (row: number) => `${this.tableBodyColumn(row)} input[name='attribute_groupBox[]']`;
-    this.tableColumnHandle = (row: number) => `${this.tableBodyColumn(row)}.column-position_handle .position-drag-handle`;
+    this.tableColumnHandleCell = (row: number) => `${this.tableBodyColumn(row)}.column-position_handle`;
+    this.tableColumnHandle = (row: number) => `${this.tableColumnHandleCell(row)} .position-drag-handle`;
     this.tableColumnId = (row: number) => `${this.tableBodyColumn(row)}.column-id_attribute_group`;
     this.tableColumnName = (row: number) => `${this.tableBodyColumn(row)}.column-name`;
     this.tableColumnValues = (row: number) => `${this.tableBodyColumn(row)}.column-values`;
@@ -333,7 +336,8 @@ class BOAttributesPage extends BOBasePage implements BOAttributesPageInterface {
    * @return {Promise<string>}
    */
   async changePosition(page: Page, actualPosition: number, newPosition: number): Promise<string> {
-    await this.dragAndDropSlowly(page, this.tableColumnHandle(actualPosition), this.tableBodyRow(newPosition));
+    // Drop on the handle cell: releasing the mouse over a clickable cell also opens the row link
+    await this.dragAndDropSlowly(page, this.tableColumnHandle(actualPosition), this.tableColumnHandleCell(newPosition));
 
     return this.getAlertSuccessBlockParagraphContent(page);
   }

@@ -40,6 +40,8 @@ class BOFeaturesViewPage extends BOBasePage implements BOFeaturesViewPageInterfa
 
   private readonly tableBodyColumn: (row: number) => string;
 
+  private readonly tableColumnHandleCell: (row: number) => string;
+
   private readonly tableColumnHandle: (row: number) => string;
 
   private readonly tableColumnId: (row: number) => string;
@@ -117,7 +119,8 @@ class BOFeaturesViewPage extends BOBasePage implements BOFeaturesViewPageInterfa
     this.tableBodyColumn = (row: number) => `${this.tableBodyRow(row)} td`;
 
     // Columns selectors
-    this.tableColumnHandle = (row: number) => `${this.tableBodyColumn(row)}.column-position_handle .position-drag-handle`;
+    this.tableColumnHandleCell = (row: number) => `${this.tableBodyColumn(row)}.column-position_handle`;
+    this.tableColumnHandle = (row: number) => `${this.tableColumnHandleCell(row)} .position-drag-handle`;
     this.tableColumnId = (row: number) => `${this.tableBodyColumn(row)}.column-id_feature_value`;
     this.tableColumnValue = (row: number) => `${this.tableBodyColumn(row)}.column-value`;
     this.tableColumnPosition = (row: number) => `${this.tableBodyColumn(row)}.column-position`;
@@ -416,7 +419,8 @@ class BOFeaturesViewPage extends BOBasePage implements BOFeaturesViewPageInterfa
    * @return {Promise<string|null>}
    */
   async changePosition(page: Page, actualPosition: number, newPosition: number): Promise<string|null> {
-    await this.dragAndDropSlowly(page, this.tableColumnHandle(actualPosition), this.tableBodyRow(newPosition));
+    // Drop on the handle cell: releasing the mouse over a clickable cell also opens the row link
+    await this.dragAndDropSlowly(page, this.tableColumnHandle(actualPosition), this.tableColumnHandleCell(newPosition));
 
     return this.getAlertSuccessBlockParagraphContent(page);
   }
