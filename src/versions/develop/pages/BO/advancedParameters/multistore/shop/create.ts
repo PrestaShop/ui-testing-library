@@ -23,6 +23,8 @@ class BOMultistoreShopCreatePage extends BOBasePage implements BOMultistoreShopC
 
   private readonly categoryRootSelect: string;
 
+  private readonly checkedCategoryBox: (idCategory: string) => string;
+
   private readonly themeRadio: (themeName: string) => string;
 
   private readonly useImportDataToggle: (toggle: string) => string;
@@ -47,6 +49,8 @@ class BOMultistoreShopCreatePage extends BOBasePage implements BOMultistoreShopC
     this.colorInput = '#color_0';
     this.shopGroupSelect = '#id_shop_group';
     this.categoryRootSelect = '#id_category';
+    this.checkedCategoryBox = (idCategory: string) => `#categories-tree input[name="categoryBox[]"][value="${idCategory}"]`
+      + ':checked';
     this.themeRadio = (themeName: string) => `div.form-group div.select_theme input[name="theme_name"][value="${themeName}"]`;
     this.useImportDataToggle = (toggle: string) => `${this.storeForm} #useImportData_${toggle}`;
     this.saveButton = `${this.storeForm} #fieldset_0 #shop_form_submit_btn`;
@@ -69,7 +73,7 @@ class BOMultistoreShopCreatePage extends BOBasePage implements BOMultistoreShopC
     await this.setValue(page, this.nameInput, shopData.name);
     await this.selectByVisibleText(page, this.shopGroupSelect, shopData.shopGroup);
     await this.setValue(page, this.colorInput, shopData.color);
-    await this.selectByVisibleText(page, this.categoryRootSelect, shopData.categoryRoot, true);
+    await this.setCategoryRoot(page, shopData.categoryRoot);
     await page.locator(this.themeRadio(shopData.theme)).click();
 
     if ((await page.locator(this.useImportDataToggle(shopData.importDataFromAnotherShop ? 'on' : 'off')).count()) > 0) {
@@ -82,6 +86,23 @@ class BOMultistoreShopCreatePage extends BOBasePage implements BOMultistoreShopC
     ]);
 
     return this.getTextContent(page, this.alertSuccessBlock);
+  }
+
+  /**
+   * Select the root category and wait for the associated categories tree to be reloaded
+   * @param page {Page} Browser tab
+   * @param categoryRoot {string} Name of the root category to select
+   * @returns {Promise<void>}
+   */
+  private async setCategoryRoot(page: Page, categoryRoot: string): Promise<void> {
+    await this.selectByVisibleText(page, this.categoryRootSelect, categoryRoot, true);
+    // The tree is replaced by ajax on page load and on each change of the root category, then its boxes are checked
+    // by JavaScript: a form saved in between posts no category and is rejected ("You need to select at least the root
+    // category."). jQuery.active is back to 0 once every ajax callback ran, so the tree is the reloaded one.
+    await page.waitForFunction(() => (window as any).jQuery.active === 0);
+
+    const idCategoryRoot: string = await page.locator(this.categoryRootSelect).inputValue();
+    await this.waitForSelector(page, this.checkedCategoryBox(idCategoryRoot), 'attached');
   }
 
   /**
