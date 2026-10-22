@@ -36,6 +36,8 @@ export default class FOBasePage extends CommonPage implements FOBasePagePageInte
 
   private readonly accountLink: string;
 
+  protected loginForm: string;
+
   private readonly h2AccountLink: string;
 
   private readonly logoutLink: string;
@@ -219,6 +221,7 @@ export default class FOBasePage extends CommonPage implements FOBasePagePageInte
     this.userInfoLink = '#_desktop_user_info';
     this.h2UserInfoLink = '.ps-customersignin a.header-block__action-btn';
     this.accountLink = `${this.userInfoLink} .user-info a[href*="my-account"]`;
+    this.loginForm = '#login-form';
     this.h2AccountLink = '.ps-customersignin a[href*="my-account"]';
     this.logoutLink = `${this.userInfoLink} .user-info a[href*="?mylogout="]`;
     this.h2LogoutLink = '.ps-customersignin a[href*="?mylogout="]';
@@ -424,6 +427,13 @@ export default class FOBasePage extends CommonPage implements FOBasePagePageInte
    * @return {Promise<void>}
    */
   async goToLoginPage(page: Page): Promise<void> {
+    // If we are already on the login page, the header sign-in link points to the current
+    // URL. clickAndWaitForURL waits for the URL to *change*, so it would hang until timeout.
+    // There is nothing to navigate to in that case.
+    if (await this.elementVisible(page, this.loginForm, 1000)) {
+      return;
+    }
+
     if (this.theme === 'hummingbird') {
       if (await page.locator(this.h2UserInfoLink).count() > 0) {
         await this.clickAndWaitForURL(page, this.h2UserInfoLink);
