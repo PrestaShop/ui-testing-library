@@ -33,6 +33,7 @@ export interface FoCheckoutPageInterface extends FOBasePagePageInterface {
     clickOnShowDetailsLink(page: Page): Promise<boolean>;
     customerLogin(page: Page, customer: any): Promise<boolean>;
     deleteAddress(page: Page, row?: number): Promise<string>;
+    fillAddresses(page: Page, deliveryAddress: FakerAddress, invoiceAddress?: FakerAddress | null): Promise<void>;
     getActiveLinkFromPersonalInformationBlock(page: Page): Promise<string>;
     getAllCarriersNames(page: Page): Promise<(string | null)[]>;
     getAllCarriersPrices(page: Page): Promise<string[]>;
@@ -82,6 +83,7 @@ export interface FoCheckoutPageInterface extends FOBasePagePageInterface {
     isRecycledPackagingCheckboxVisible(page: Page): Promise<boolean>;
     isShippingMethodVisible(page: Page, shippingMethodID: number): Promise<boolean>;
     isStepCompleted(page: Page, stepSelector: string): Promise<boolean>;
+    isUseSameAddressCheckboxVisible(page: Page): Promise<boolean>;
     logOutCustomer(page: Page): Promise<boolean>;
     orderWithoutPaymentMethod(page: Page): Promise<void>;
     removePromoCode(page: Page, row?: number): Promise<boolean>;
