@@ -34,8 +34,6 @@ class BOStocksPage extends BOBasePage implements BOStockPageInterface {
 
   private readonly bulkEditQuantityUpDownButtons: (direction: string) => string;
 
-  private readonly applyNewQuantityButton: string;
-
   private readonly productList: string;
 
   private readonly productRows: string;
@@ -132,7 +130,6 @@ class BOStocksPage extends BOBasePage implements BOStockPageInterface {
     this.selectAllCheckbox = '#bulk-action + i';
     this.bulkEditQuantityInput = 'div.bulk-qty input';
     this.bulkEditQuantityUpDownButtons = (direction: string) => `#app div.row.product-actions span.ps-number-${direction}`;
-    this.applyNewQuantityButton = 'button.update-qty';
     this.productList = 'table.table';
     this.productRows = `${this.productList} tbody tr`;
     this.productRow = (row: number) => `${this.productRows}:nth-child(${row})`;
@@ -498,22 +495,16 @@ class BOStocksPage extends BOBasePage implements BOStockPageInterface {
    * @returns {Promise<string>}
    */
   async bulkEditQuantityWithArrowUpDownButtons(page: Page, quantity: number, direction: string): Promise<string> {
-    // Select All products
+    // Select All products, once the list is loaded (the table only holds a placeholder row before)
+    await this.waitForVisibleSelector(page, this.productRowIdColumn(1), 30000);
     await page.locator(this.selectAllCheckbox).evaluate((el: HTMLElement) => el.click());
     await page.locator(this.bulkEditQuantityUpDownButtons(direction)).hover();
 
     for (let i = 1; i <= Math.abs(quantity); i++) {
       await page.locator(this.bulkEditQuantityUpDownButtons(direction)).click();
     }
-    // Wait for check button before click
-    await page.locator(this.applyNewQuantityButton).click();
 
-    // Wait for alert-Box after update quantity and close alert-Box
-    await this.waitForVisibleSelector(page, this.alertBoxTextSpan);
-    const textContent = await this.getTextContent(page, this.alertBoxTextSpan);
-    await page.locator(this.alertBoxButtonClose).click();
-
-    return textContent;
+    return this.applyBulkEditQuantity(page);
   }
 
   /**
@@ -523,22 +514,36 @@ class BOStocksPage extends BOBasePage implements BOStockPageInterface {
    * @returns {Promise<string>}
    */
   async bulkEditQuantityWithInput(page: Page, quantity: number): Promise<string> {
-    // Select All products
+    // Select All products, once the list is loaded (the table only holds a placeholder row before)
+    await this.waitForVisibleSelector(page, this.productRowIdColumn(1), 30000);
     await page.locator(this.selectAllCheckbox).evaluate((el: HTMLElement) => el.click());
 
     // Set value in input
     await this.setValue(page, this.bulkEditQuantityInput, quantity);
 
-    // Wait for check button before click
-    await page.locator(this.applyNewQuantityButton).click();
+    return this.applyBulkEditQuantity(page);
+  }
 
-    // Wait for response
-    await page.waitForResponse(
-      (response: Response) => response.url().includes('api/stocks/products'),
-      {
-        timeout: 120000,
-      },
-    );
+  /**
+   * Apply the bulk quantity and return the message of the alert box
+   * @param page {Page} Browser tab
+   * @returns {Promise<string>}
+   */
+  private async applyBulkEditQuantity(page: Page): Promise<string> {
+    // The button is only enabled once the new quantity is taken into account
+    await this.waitForVisibleSelector(page, `${this.applyQuantityButton}:not([disabled])`);
+
+    // Listen before the click: the update answers fast, and the list reload uses the same URL with GET
+    await Promise.all([
+      page.waitForResponse(
+        (response: Response) => response.url().includes('api/stocks/products')
+          && response.request().method() === 'POST',
+        {
+          timeout: 120000,
+        },
+      ),
+      page.locator(this.applyQuantityButton).click(),
+    ]);
 
     // Wait for alert-Box after update quantity and close alert-Box
     await this.waitForVisibleSelector(page, this.alertBoxTextSpan, 120000);
