@@ -100,6 +100,8 @@ class BOStocksPage extends BOBasePage implements BOStockPageInterface {
 
   private readonly applyQuantityButton: string;
 
+  private readonly applyQuantityButtonEnabled: string;
+
   /**
    * @constructs
    * Setting up texts and selectors to use on add currency page
@@ -169,6 +171,7 @@ class BOStocksPage extends BOBasePage implements BOStockPageInterface {
     this.displayProductsBelowLowOfStockCheckbox = '#low-filter +i';
     // Apply quantity button
     this.applyQuantityButton = '#app div.row.product-actions button.update-qty';
+    this.applyQuantityButtonEnabled = `${this.applyQuantityButton}:not([disabled])`;
 
     // Sort Selectors
     this.tableHead = `${this.productList} thead`;
@@ -531,7 +534,7 @@ class BOStocksPage extends BOBasePage implements BOStockPageInterface {
    */
   private async applyBulkEditQuantity(page: Page): Promise<string> {
     // The button is only enabled once the new quantity is taken into account
-    await this.waitForVisibleSelector(page, `${this.applyQuantityButton}:not([disabled])`);
+    await this.waitForVisibleSelector(page, this.applyQuantityButtonEnabled);
 
     // Listen before the click: the update answers fast, and the list reload uses the same URL with GET
     await Promise.all([
