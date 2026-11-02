@@ -15,7 +15,7 @@ class BOStoresPage extends BOBasePage implements BOStoresPageInterface {
 
   private readonly newStoreLink: string;
 
-  private readonly gridForm: string;
+  private readonly gridPanel: string;
 
   private readonly gridTableHeaderTitle: string;
 
@@ -25,9 +25,7 @@ class BOStoresPage extends BOBasePage implements BOStoresPageInterface {
 
   private readonly tableHead: string;
 
-  private readonly sortColumnDiv: (column: number) => string;
-
-  private readonly sortColumnSpanButton: (column: number) => string;
+  private readonly sortColumnDiv: (column: string) => string;
 
   private readonly filterRow: string;
 
@@ -45,23 +43,7 @@ class BOStoresPage extends BOBasePage implements BOStoresPageInterface {
 
   private readonly tableBodyColumn: (row: number) => string;
 
-  private readonly tableColumnId: (row: number) => string;
-
-  private readonly tableColumnName: (row: number) => string;
-
-  private readonly tableColumnAddress: (row: number) => string;
-
-  private readonly tableColumnCity: (row: number) => string;
-
-  private readonly tableColumnPostalCode: (row: number) => string;
-
-  private readonly tableColumnState: (row: number) => string;
-
-  private readonly tableColumnCountry: (row: number) => string;
-
-  private readonly tableColumnPhone: (row: number) => string;
-
-  private readonly tableColumnFax: (row: number) => string;
+  private readonly tableColumn: (row: number, column: string) => string;
 
   private readonly tableColumnStatus: (row: number) => string;
 
@@ -83,27 +65,23 @@ class BOStoresPage extends BOBasePage implements BOStoresPageInterface {
 
   private readonly bulkActionDropdownMenu: string;
 
-  private readonly selectAllLink: string;
+  private readonly selectAllCheckbox: string;
 
-  private readonly enableSelectionLink: string;
+  private readonly bulkEnableLink: string;
 
-  private readonly disableSelectionLink: string;
+  private readonly bulkDisableLink: string;
 
   private readonly bulkDeleteLink: string;
 
-  private readonly paginationActiveLabel: string;
-
   private readonly paginationDiv: string;
 
-  private readonly paginationDropdownButton: string;
+  private readonly paginationActiveLabel: string;
 
-  private readonly paginationItems: (number: number) => string;
+  private readonly paginationLimitSelect: string;
 
   private readonly paginationPreviousLink: string;
 
   private readonly paginationNextLink: string;
-
-  private readonly contactDetailsForm: string;
 
   private readonly nameInput: string;
 
@@ -136,89 +114,73 @@ class BOStoresPage extends BOBasePage implements BOStoresPageInterface {
 
     this.pageTitle = 'Stores •';
     this.contactFormSuccessfulUpdateMessage = 'The settings have been successfully updated.';
-
-    this.alertSuccessBlockParagraph = '.alert-success';
+    this.successfulMultiDeleteMessage = 'The selection has been successfully deleted.';
 
     // Header selectors
-    this.newStoreLink = 'a[data-role=page-header-desc-store-link]';
+    this.newStoreLink = '#page-header-desc-configuration-add_store';
 
-    // Form selectors
-    this.gridForm = '#form-store';
-    this.gridTableHeaderTitle = `${this.gridForm} .panel-heading`;
-    this.gridTableNumberOfTitlesSpan = `${this.gridTableHeaderTitle} span.badge`;
-
-    // Table selectors
-    this.gridTable = '#table-store';
+    // Grid selectors
+    this.gridPanel = '#store_grid_panel';
+    this.gridTableHeaderTitle = `${this.gridPanel} .card-header`;
+    this.gridTableNumberOfTitlesSpan = `${this.gridTableHeaderTitle} .card-header-title`;
+    this.gridTable = '#store_grid_table';
 
     // Sort selectors
     this.tableHead = `${this.gridTable} thead`;
-    this.sortColumnDiv = (column: number) => `${this.tableHead} th:nth-child(${column})`;
-    this.sortColumnSpanButton = (column: number) => `${this.sortColumnDiv(column)} span.ps-sort`;
+    this.sortColumnDiv = (column: string) => `${this.tableHead} div.ps-sortable-column[data-sort-col-name="${column}"]`;
 
     // Filter selectors
-    this.filterRow = `${this.gridTable} tr.filter`;
-    this.filterColumn = (filterBy: string) => `${this.filterRow} [name='storeFilter_${filterBy}']`;
-    this.filterSearchButton = '#submitFilterButtonstore';
-    this.filterResetButton = 'button[name=\'submitResetstore\']';
+    this.filterRow = `${this.gridTable} tr.column-filters`;
+    this.filterColumn = (filterBy: string) => `${this.filterRow} [name="store[${filterBy}]"]`;
+    this.filterSearchButton = `${this.filterRow} button.grid-search-button`;
+    this.filterResetButton = `${this.filterRow} button.grid-reset-button`;
 
     // Table body selectors
     this.tableBody = `${this.gridTable} tbody`;
     this.tableBodyRows = `${this.tableBody} tr`;
     this.tableBodyRow = (row: number) => `${this.tableBodyRows}:nth-child(${row})`;
     this.tableBodyColumn = (row: number) => `${this.tableBodyRow(row)} td`;
-
-    // Columns selectors
-    this.tableColumnId = (row: number) => `${this.tableBodyColumn(row)}:nth-child(2)`;
-    this.tableColumnName = (row: number) => `${this.tableBodyColumn(row)}:nth-child(3)`;
-    this.tableColumnAddress = (row: number) => `${this.tableBodyColumn(row)}:nth-child(4)`;
-    this.tableColumnCity = (row: number) => `${this.tableBodyColumn(row)}:nth-child(5)`;
-    this.tableColumnPostalCode = (row: number) => `${this.tableBodyColumn(row)}:nth-child(6)`;
-    this.tableColumnState = (row: number) => `${this.tableBodyColumn(row)}:nth-child(7)`;
-    this.tableColumnCountry = (row: number) => `${this.tableBodyColumn(row)}:nth-child(8)`;
-    this.tableColumnPhone = (row: number) => `${this.tableBodyColumn(row)}:nth-child(9)`;
-    this.tableColumnFax = (row: number) => `${this.tableBodyColumn(row)}:nth-child(10)`;
-    this.tableColumnStatus = (row: number) => `${this.tableBodyColumn(row)}:nth-child(11) a`;
+    this.tableColumn = (row: number, column: string) => `${this.tableBodyColumn(row)}.column-${column}`;
+    this.tableColumnStatus = (row: number) => `${this.tableColumn(row, 'active')} .ps-switch`;
 
     // Row actions selectors
-    this.tableColumnActions = (row: number) => `${this.tableBodyColumn(row)} .btn-group-action`;
-    this.tableColumnActionsEditLink = (row: number) => `${this.tableColumnActions(row)} a.edit`;
-    this.tableColumnActionsToggleButton = (row: number) => `${this.tableColumnActions(row)} button.dropdown-toggle`;
+    this.tableColumnActions = (row: number) => `${this.tableColumn(row, 'actions')}`;
+    this.tableColumnActionsEditLink = (row: number) => `${this.tableColumnActions(row)} a.grid-edit-row-link`;
+    this.tableColumnActionsToggleButton = (row: number) => `${this.tableColumnActions(row)} a.dropdown-toggle`;
     this.tableColumnActionsDropdownMenu = (row: number) => `${this.tableColumnActions(row)} .dropdown-menu`;
-    this.tableColumnActionsDeleteLink = (row: number) => `${this.tableColumnActionsDropdownMenu(row)} a.delete`;
+    this.tableColumnActionsDeleteLink = (row: number) => `${this.tableColumnActionsDropdownMenu(row)} a.grid-delete-row-link`;
 
     // Confirmation modal
-    this.deleteModalButtonYes = '#popup_ok';
+    this.deleteModalButtonYes = '#store-grid-confirm-modal button.btn-confirm-submit';
 
     // Bulk actions selectors
-    this.bulkActionBlock = 'div.bulk-actions';
-    this.bulkActionMenuButton = '#bulk_action_menu_store';
-    this.bulkActionDropdownMenu = `${this.bulkActionBlock} ul.dropdown-menu`;
-    this.selectAllLink = `${this.bulkActionDropdownMenu} li:nth-child(1)`;
-    this.enableSelectionLink = `${this.bulkActionDropdownMenu} li:nth-child(4)`;
-    this.disableSelectionLink = `${this.bulkActionDropdownMenu} li:nth-child(5)`;
-    this.bulkDeleteLink = `${this.bulkActionDropdownMenu} li:nth-child(7)`;
+    this.bulkActionBlock = '#store_grid .btn-group';
+    this.bulkActionMenuButton = `${this.bulkActionBlock} button.js-bulk-actions-btn`;
+    this.bulkActionDropdownMenu = `${this.bulkActionBlock} div.dropdown-menu.show`;
+    this.selectAllCheckbox = `${this.filterRow} td[data-type="bulk_action"] #store_grid_bulk_action_select_all`;
+    this.bulkEnableLink = `${this.bulkActionDropdownMenu} #store_grid_bulk_action_store_bulk_enable`;
+    this.bulkDisableLink = `${this.bulkActionDropdownMenu} #store_grid_bulk_action_store_bulk_disable`;
+    this.bulkDeleteLink = `${this.bulkActionDropdownMenu} #store_grid_bulk_action_delete_selection`;
 
     // Pagination selectors
-    this.paginationActiveLabel = `${this.gridForm} ul.pagination.pull-right li.active a`;
-    this.paginationDiv = `${this.gridForm} .pagination`;
-    this.paginationDropdownButton = `${this.paginationDiv} .dropdown-toggle`;
-    this.paginationItems = (number: number) => `${this.gridForm} .dropdown-menu a[data-items='${number}']`;
-    this.paginationPreviousLink = `${this.gridForm} .icon-angle-left`;
-    this.paginationNextLink = `${this.gridForm} .icon-angle-right`;
+    this.paginationDiv = `${this.gridPanel} .pagination-block`;
+    this.paginationActiveLabel = `${this.paginationDiv} ul.pagination + div .col-form-label`;
+    this.paginationLimitSelect = `${this.paginationDiv} #paginator_select_page_limit`;
+    this.paginationPreviousLink = `${this.gridPanel} a[data-role="previous-page-link"]`;
+    this.paginationNextLink = `${this.gridPanel} a[data-role="next-page-link"]`;
 
     // Contact details form
-    this.contactDetailsForm = '#store_fieldset_contact';
-    this.nameInput = `${this.contactDetailsForm} input[name='PS_SHOP_NAME']`;
-    this.emailInput = `${this.contactDetailsForm} input[name='PS_SHOP_EMAIL']`;
-    this.registrationNumberTextarea = '#conf_id_PS_SHOP_DETAILS textarea[name=\'PS_SHOP_DETAILS\']';
-    this.address1Input = `${this.contactDetailsForm} input[name='PS_SHOP_ADDR1']`;
-    this.address2Input = `${this.contactDetailsForm} input[name='PS_SHOP_ADDR2']`;
-    this.postcodeInput = `${this.contactDetailsForm} input[name='PS_SHOP_CODE']`;
-    this.cityInput = `${this.contactDetailsForm} input[name='PS_SHOP_CITY']`;
-    this.countrySelect = '#PS_SHOP_COUNTRY_ID';
-    this.phoneInput = `${this.contactDetailsForm} input[name='PS_SHOP_PHONE']`;
-    this.faxInput = `${this.contactDetailsForm} input[name='PS_SHOP_FAX']`;
-    this.saveButton = `${this.contactDetailsForm} button[name='submitOptionsstore']`;
+    this.nameInput = '#stores-contact-details_name';
+    this.emailInput = '#stores-contact-details_email';
+    this.registrationNumberTextarea = '#stores-contact-details_registration_number';
+    this.address1Input = '#stores-contact-details_address1';
+    this.address2Input = '#stores-contact-details_address2';
+    this.postcodeInput = '#stores-contact-details_postcode';
+    this.cityInput = '#stores-contact-details_city';
+    this.countrySelect = '#stores-contact-details_id_country';
+    this.phoneInput = '#stores-contact-details_phone';
+    this.faxInput = '#stores-contact-details_fax';
+    this.saveButton = '#save-contact-details-button';
   }
 
   /* Header methods */
@@ -232,7 +194,6 @@ class BOStoresPage extends BOBasePage implements BOStoresPageInterface {
   }
 
   /* Filter methods */
-
   /**
    * Get Number of stores
    * @param page {Page} Browser tab
@@ -273,96 +234,46 @@ class BOStoresPage extends BOBasePage implements BOStoresPageInterface {
    * @return {Promise<void>}
    */
   async filterTable(page: Page, filterType: string, filterBy: string, value: string): Promise<void> {
-    const currentUrl: string = page.url();
-
     switch (filterType) {
       case 'input':
         await this.setValue(page, this.filterColumn(filterBy), value.toString());
-        await this.clickAndWaitForURL(page, this.filterSearchButton);
         break;
 
       case 'select':
-        await Promise.all([
-          page.waitForURL((url: URL): boolean => url.toString() !== currentUrl),
-          this.selectByVisibleText(page, this.filterColumn(filterBy), value === '1' ? 'Yes' : 'No'),
-        ]);
+        await this.selectByVisibleText(page, this.filterColumn(filterBy), value === '1' ? 'Yes' : 'No');
         break;
 
       default:
         throw new Error(`Filter ${filterBy} was not found`);
     }
+
+    await this.clickAndWaitForURL(page, this.filterSearchButton);
   }
 
   /* Column methods */
-
   /**
    * Get text from column in table
    * @param page {Page} Browser tab
    * @param row {number} Row on table
-   * @param columnName {string} Column name of the value to return
+   * @param columnName {string} Column id of the value to return
    * @return {Promise<string>}
    */
   async getTextColumn(page: Page, row: number, columnName: string): Promise<string> {
-    let columnSelector;
-
-    switch (columnName) {
-      case 'id_store':
-        columnSelector = this.tableColumnId(row);
-        break;
-
-      case 'sl!name':
-        columnSelector = this.tableColumnName(row);
-        break;
-
-      case 'sl!address1':
-        columnSelector = this.tableColumnAddress(row);
-        break;
-
-      case 'city':
-        columnSelector = this.tableColumnCity(row);
-        break;
-
-      case 'postcode':
-        columnSelector = this.tableColumnPostalCode(row);
-        break;
-
-      case 'st!name':
-        columnSelector = this.tableColumnState(row);
-        break;
-
-      case 'cl!name':
-        columnSelector = this.tableColumnCountry(row);
-        break;
-
-      case 'phone':
-        columnSelector = this.tableColumnPhone(row);
-        break;
-
-      case 'fax':
-        columnSelector = this.tableColumnFax(row);
-        break;
-
-      default:
-        throw new Error(`Column ${columnName} was not found`);
-    }
-
-    return this.getTextContent(page, columnSelector);
+    return this.getTextContent(page, this.tableColumn(row, columnName));
   }
 
   /**
    * Get column content from all rows
    * @param page {Page} Browser tab
-   * @param columnName {string} Column name of the value to return
+   * @param columnName {string} Column id of the value to return
    * @return {Promise<Array<string>>}
    */
   async getAllRowsColumnContent(page: Page, columnName: string): Promise<string[]> {
-    const rowsNumber = await this.getNumberOfElementInGrid(page);
+    const rowsNumber = await page.locator(this.tableBodyRows).count();
     const allRowsContentTable: string[] = [];
 
-    // Get text column from each row
     for (let i = 1; i <= rowsNumber; i++) {
-      const rowContent = await this.getTextColumn(page, i, columnName);
-      allRowsContentTable.push(rowContent);
+      allRowsContentTable.push(await this.getTextColumn(page, i, columnName));
     }
 
     return allRowsContentTable;
@@ -375,7 +286,9 @@ class BOStoresPage extends BOBasePage implements BOStoresPageInterface {
    * @return {Promise<boolean>}
    */
   async getStoreStatus(page: Page, row: number): Promise<boolean> {
-    return this.elementVisible(page, `${this.tableColumnStatus(row)}.action-enabled`, 1000);
+    const inputValue = await this.getAttributeContent(page, `${this.tableColumnStatus(row)} input:checked`, 'value');
+
+    return inputValue === '1';
   }
 
   /**
@@ -386,10 +299,8 @@ class BOStoresPage extends BOBasePage implements BOStoresPageInterface {
    * @return {Promise<void>}
    */
   async setStoreStatus(page: Page, row: number, wantedStatus: boolean): Promise<void> {
-    const actualStatus = await this.getStoreStatus(page, row);
-
-    if (actualStatus !== wantedStatus) {
-      await page.locator(this.tableColumnStatus(row)).click();
+    if (await this.getStoreStatus(page, row) !== wantedStatus) {
+      await this.clickAndWaitForURL(page, this.tableColumnStatus(row));
     }
   }
 
@@ -417,31 +328,23 @@ class BOStoresPage extends BOBasePage implements BOStoresPageInterface {
     ]);
 
     await page.locator(this.tableColumnActionsDeleteLink(row)).click();
-
-    // Confirm delete action
+    await this.waitForVisibleSelector(page, this.deleteModalButtonYes);
     await this.clickAndWaitForURL(page, this.deleteModalButtonYes);
 
-    // Get successful message
     return this.getAlertSuccessBlockParagraphContent(page);
   }
 
   /* Bulk actions methods */
-
   /**
-   * Select all rows for bulk action
+   * Select all rows and open the bulk actions menu
    * @param page {Page} Browser tab
    * @return {Promise<void>}
    */
-  async selectAllRow(page: Page): Promise<void> {
-    await Promise.all([
-      page.locator(this.bulkActionMenuButton).click(),
-      this.waitForVisibleSelector(page, this.selectAllLink),
-    ]);
-
-    await Promise.all([
-      page.locator(this.selectAllLink).click(),
-      this.waitForHiddenSelector(page, this.selectAllLink),
-    ]);
+  private async openBulkActionsMenu(page: Page): Promise<void> {
+    await page.locator(this.selectAllCheckbox).click();
+    await page.locator(`${this.bulkActionMenuButton}:not([disabled])`).waitFor({state: 'visible'});
+    await page.locator(this.bulkActionMenuButton).click();
+    await this.waitForVisibleSelector(page, this.bulkActionDropdownMenu);
   }
 
   /**
@@ -451,22 +354,8 @@ class BOStoresPage extends BOBasePage implements BOStoresPageInterface {
    * @return {Promise<void>}
    */
   async bulkUpdateStoreStatus(page: Page, statusWanted: boolean): Promise<void> {
-    // Select all rows
-    await this.selectAllRow(page);
-
-    // Perform bulk update status
-    await Promise.all([
-      page.locator(this.bulkActionMenuButton).click(),
-      this.waitForVisibleSelector(
-        page,
-        this.enableSelectionLink,
-      ),
-    ]);
-
-    await this.clickAndWaitForURL(
-      page,
-      statusWanted ? this.enableSelectionLink : this.disableSelectionLink,
-    );
+    await this.openBulkActionsMenu(page);
+    await this.clickAndWaitForURL(page, statusWanted ? this.bulkEnableLink : this.bulkDisableLink);
   }
 
   /**
@@ -475,21 +364,11 @@ class BOStoresPage extends BOBasePage implements BOStoresPageInterface {
    * @return {Promise<string>}
    */
   async bulkDeleteStores(page: Page): Promise<string> {
-    // To confirm bulk delete action with dialog
-    await this.dialogListener(page, true);
+    await this.openBulkActionsMenu(page);
+    await page.locator(this.bulkDeleteLink).click();
+    await this.waitForVisibleSelector(page, this.deleteModalButtonYes);
+    await this.clickAndWaitForURL(page, this.deleteModalButtonYes);
 
-    // Select all rows
-    await this.selectAllRow(page);
-
-    // Perform delete
-    await Promise.all([
-      page.locator(this.bulkActionMenuButton).click(),
-      this.waitForVisibleSelector(page, this.bulkDeleteLink),
-    ]);
-
-    await this.clickAndWaitForURL(page, this.bulkDeleteLink);
-
-    // Return successful message
     return this.getAlertSuccessBlockParagraphContent(page);
   }
 
@@ -497,80 +376,43 @@ class BOStoresPage extends BOBasePage implements BOStoresPageInterface {
   /**
    * Sort table by clicking on column name
    * @param page {Page} Browser tab
-   * @param sortBy {string} Column name to sort with
+   * @param sortBy {string} Column id to sort with
    * @param sortDirection {string} Sort direction by asc or desc
    * @return {Promise<void>}
    */
   async sortTable(page: Page, sortBy: string, sortDirection: string): Promise<void> {
-    let columnSelector;
+    const sortColumnDiv = `${this.sortColumnDiv(sortBy)}[data-sort-direction="${sortDirection}"]`;
 
-    switch (sortBy) {
-      case 'id_store':
-        columnSelector = this.sortColumnDiv(2);
-        break;
-
-      case 'sl!name':
-        columnSelector = this.sortColumnDiv(3);
-        break;
-
-      case 'sl!address1':
-        columnSelector = this.sortColumnDiv(4);
-        break;
-
-      case 'city':
-        columnSelector = this.sortColumnDiv(5);
-        break;
-
-      case 'postcode':
-        columnSelector = this.sortColumnDiv(6);
-        break;
-
-      case 'st!name':
-        columnSelector = this.sortColumnDiv(7);
-        break;
-
-      case 'cl!name':
-        columnSelector = this.sortColumnDiv(8);
-        break;
-
-      default:
-        throw new Error(`Column ${sortBy} was not found`);
+    let i: number = 0;
+    while (await this.elementNotVisible(page, sortColumnDiv, 2000) && i < 2) {
+      await this.clickAndWaitForURL(page, this.sortColumnDiv(sortBy));
+      i += 1;
     }
 
-    const sortColumnButton = `${columnSelector} i.icon-caret-${sortDirection}`;
-    await this.clickAndWaitForURL(page, sortColumnButton);
+    await this.waitForVisibleSelector(page, sortColumnDiv, 20000);
   }
 
   /* Form functions */
   /**
-   * Se contact details
+   * Set contact details
    * @param page {Page} Browser tab
    * @param storeContactData {FakerStore} Store contact data to set on contact detail form
    * @returns {Promise<string>}
    */
   async setContactDetails(page: Page, storeContactData: FakerStore): Promise<string> {
-    // Set name
     await this.setValue(page, this.nameInput, storeContactData.name);
-
-    // Set email and registration number inputs
     await this.setValue(page, this.emailInput, storeContactData.email);
     await this.setValue(page, this.registrationNumberTextarea, storeContactData.registrationNumber);
-
-    // Set address inputs
     await this.setValue(page, this.address1Input, storeContactData.address1);
     await this.setValue(page, this.address2Input, storeContactData.address2);
     await this.setValue(page, this.postcodeInput, storeContactData.postcode);
     await this.setValue(page, this.cityInput, storeContactData.city);
     await this.selectByVisibleText(page, this.countrySelect, storeContactData.country);
-
-    // Set phone inputs
     await this.setValue(page, this.phoneInput, storeContactData.phone);
     await this.setValue(page, this.faxInput, storeContactData.fax);
 
-    // Save contact details
-    await page.locator(this.saveButton).click();
+    await this.clickAndWaitForURL(page, this.saveButton);
 
-    // Return successful message
     return this.getAlertSuccessBlockParagraphContent(page);
   }
 
@@ -591,8 +433,12 @@ class BOStoresPage extends BOBasePage implements BOStoresPageInterface {
    * @returns {Promise<string>}
    */
   async selectPaginationLimit(page: Page, number: number): Promise<string> {
-    await this.waitForSelectorAndClick(page, this.paginationDropdownButton);
-    await this.clickAndWaitForURL(page, this.paginationItems(number));
+    const currentUrl: string = page.url();
+
+    await Promise.all([
+      page.waitForURL((url: URL): boolean => url.toString() !== currentUrl),
+      page.locator(this.paginationLimitSelect).selectOption({label: number.toString()}),
+    ]);
 
     return this.getPaginationLabel(page);
   }
