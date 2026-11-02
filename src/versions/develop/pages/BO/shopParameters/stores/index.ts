@@ -463,7 +463,7 @@ class BOStoresPage extends BOBasePage implements BOStoresPageInterface {
       ),
     ]);
 
-    await this.clickAndWaitForURL(
+    await this.clickAndWaitForPageLoad(
       page,
       statusWanted ? this.enableSelectionLink : this.disableSelectionLink,
     );
@@ -487,7 +487,7 @@ class BOStoresPage extends BOBasePage implements BOStoresPageInterface {
       this.waitForVisibleSelector(page, this.bulkDeleteLink),
     ]);
 
-    await this.clickAndWaitForURL(page, this.bulkDeleteLink);
+    await this.clickAndWaitForPageLoad(page, this.bulkDeleteLink);
 
     // Return successful message
     return this.getAlertSuccessBlockParagraphContent(page);

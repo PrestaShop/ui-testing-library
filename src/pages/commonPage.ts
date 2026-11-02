@@ -438,6 +438,27 @@ export default class CommonPage implements CommonPageInterface {
   }
 
   /**
+   * Go to Page and wait for the new page to load, whatever its URL
+   * A same-document navigation (link to "#") does not end the wait, unlike clickAndWaitForURL
+   * @param page {Page} Browser tab
+   * @param selector {string} String to locate the element
+   * @param timeout {number} Time to wait for navigation
+   * @param clickOptions {any} Click options
+   * @return {Promise<void>}
+   */
+  async clickAndWaitForPageLoad(
+    page: Page,
+    selector: string,
+    timeout: number = 30000,
+    clickOptions: any = {},
+  ): Promise<void> {
+    await Promise.all([
+      page.waitForEvent('load', {timeout}),
+      page.locator(selector).click(clickOptions),
+    ]);
+  }
+
+  /**
    * Go to Page and wait for change URL
    * @param page {Frame|Page} Browser tab
    * @param selector {string} String to locate the element

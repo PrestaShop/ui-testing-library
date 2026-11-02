@@ -304,9 +304,9 @@ class BOCarriersPage extends BOCarriersPageVersion implements BOCarriersPageInte
     ]);
 
     if (action === 'Enable') {
-      await this.clickAndWaitForURL(page, this.bulkEnableLink);
+      await this.clickAndWaitForPageLoad(page, this.bulkEnableLink);
     } else {
-      await this.clickAndWaitForURL(page, this.bulkDisableLink);
+      await this.clickAndWaitForPageLoad(page, this.bulkDisableLink);
     }
 
     // Return successful message
@@ -331,7 +331,7 @@ class BOCarriersPage extends BOCarriersPageVersion implements BOCarriersPageInte
       this.waitForVisibleSelector(page, this.bulkDeleteLink),
     ]);
 
-    await this.clickAndWaitForURL(page, this.bulkDeleteLink);
+    await this.clickAndWaitForPageLoad(page, this.bulkDeleteLink);
 
     // Return successful message
     return this.getAlertSuccessBlockContent(page);

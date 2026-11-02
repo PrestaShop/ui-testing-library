@@ -8,6 +8,7 @@ export interface CommonPageInterface {
   clearInput(page: Frame | Page, selector: string): Promise<void>;
   clickAndWaitForDownload(page: Page, selector: string, targetBlank?: boolean): Promise<string | null>;
   clickAndWaitForLoadState(page: Frame | Page, selector: string, state?: string, timeout?: number): Promise<void>;
+  clickAndWaitForPageLoad(page: Page, selector: string, timeout?: number): Promise<void>;
   clickAndWaitForURL(page: Frame | Page, selector: string, waitUntil?: WaitForNavigationWaitUntil, timeout?: number)
     : Promise<void>
   closePage(browserContext: BrowserContext, page: Page, tabId?: number): Promise<Page>;
