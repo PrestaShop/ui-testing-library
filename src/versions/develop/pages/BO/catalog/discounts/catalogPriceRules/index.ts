@@ -375,7 +375,7 @@ class BOCatalogPriceRulesPage extends BOBasePage implements BOCatalogPriceRulesP
 
     // Perform delete
     await page.locator(this.bulkActionMenuButton).click();
-    await this.clickAndWaitForURL(page, this.bulkDeleteLink);
+    await this.clickAndWaitForPageLoad(page, this.bulkDeleteLink);
 
     // Return successful message
     if (await this.hasAlertSuccessBlockContent(page)) {
