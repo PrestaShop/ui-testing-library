@@ -92,6 +92,7 @@ export interface FoProductPageInterface extends FOBasePagePageInterface {
   isQuantityDisplayed(page: Page): Promise<boolean>;
   isUnavailableProductColorDisplayed(page: Page, color: string): Promise<boolean>;
   isUnavailableProductSizeDisplayed(page: Page, size: string): Promise<boolean>;
+  getProductDownloadFileName(page: Page): Promise<string>;
   notifyEmailAlert(page: Page, email?: string | null): Promise<string>;
   scrollBoxArrowsImages(page: Page, direction: string): Promise<void>;
   selectAttributes(page: Page, type: string, attributes: ProductAttribute[], itemNumber?: number): Promise<void>;

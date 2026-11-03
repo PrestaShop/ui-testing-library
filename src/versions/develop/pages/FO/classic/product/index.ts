@@ -128,6 +128,8 @@ class ProductPage extends FOBasePage implements FoProductPageInterface {
 
   protected productInformationBlock: string;
 
+  protected productDownloadFileName: string;
+
   protected productMailAlertsBlock: string;
 
   protected productMailAlertsEmailInput: string;
@@ -287,6 +289,9 @@ class ProductPage extends FOBasePage implements FoProductPageInterface {
 
     // Product information block
     this.productInformationBlock = 'div.product-information';
+    // Downloadable file offered on the product page for virtual products (product-level or per-combination).
+    // Falls back gracefully when the theme does not render the block.
+    this.productDownloadFileName = 'div.product-download-file, .product__additional-info .product-download__filename';
     this.productMailAlertsBlock = `${this.productInformationBlock} div.js-mailalert`;
     this.productMailAlertsEmailInput = `${this.productMailAlertsBlock} input[type="email"]`;
     this.productMailAlertsGDPRLabel = `${this.productMailAlertsBlock} div.gdpr_consent label.psgdpr_consent_message `
@@ -1346,6 +1351,22 @@ class ProductPage extends FOBasePage implements FoProductPageInterface {
    */
   async getNotificationMessage(page: Page): Promise<string> {
     return this.getTextContent(page, this.notificationsContainer);
+  }
+
+  /**
+   * Read the downloadable filename displayed for the currently selected
+   * combination (or the product itself when there is no combination).
+   * Returns an empty string when the theme does not render a download block —
+   * used to assert "no download offered" for physical combinations.
+   * @param page {Page} Browser tab
+   * @returns {Promise<string>}
+   */
+  async getProductDownloadFileName(page: Page): Promise<string> {
+    if (!(await this.elementVisible(page, this.productDownloadFileName, 1000))) {
+      return '';
+    }
+
+    return (await this.getTextContent(page, this.productDownloadFileName)).trim();
   }
 }
 

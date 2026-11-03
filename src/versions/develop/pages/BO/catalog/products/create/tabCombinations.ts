@@ -176,6 +176,14 @@ class CombinationsTab extends BOBasePage implements BOProductsCreateTabCombinati
 
   private readonly editCombinationModalDiscardButton: string;
 
+  private readonly editCombinationModalIsVirtualSwitch: (toEnable: number) => string;
+
+  private readonly editCombinationModalVirtualProductFileHasFile: (toCheck: number) => string;
+
+  private readonly editCombinationModalVirtualProductFileInput: string;
+
+  private readonly editCombinationModalVirtualProductFileNameInput: string;
+
   private readonly combinationStockMovementsDate: (row: number) => string;
 
   private readonly combinationStockMovementsEmployeeName: (row: number) => string;
@@ -332,6 +340,11 @@ class CombinationsTab extends BOBasePage implements BOProductsCreateTabCombinati
     this.editCombinationModalCloseButton = `${this.editCombinationModal} footer button.btn-close`;
     this.editCombinationCloseModal = `${this.editCombinationEditModal} div.modal-prevent-close div.modal.show`;
     this.editCombinationModalDiscardButton = `${this.editCombinationCloseModal} button.btn-primary`;
+    this.editCombinationModalIsVirtualSwitch = (toEnable: number) => `#combination_form_is_virtual_${toEnable} +i`;
+    this.editCombinationModalVirtualProductFileHasFile = (toCheck: number) => '#combination_form_virtual_product_file_has_file'
+      + `_${toCheck}`;
+    this.editCombinationModalVirtualProductFileInput = '#combination_form_virtual_product_file_file';
+    this.editCombinationModalVirtualProductFileNameInput = '#combination_form_virtual_product_file_name';
     this.combinationStockMovementsDate = (row: number) => `#combination_form_stock_quantities_stock_movements_${row - 1}_`
       + 'date + span';
     this.combinationStockMovementsEmployeeName = (row: number) => '#combination_form_stock_quantities_stock_movements_'
@@ -703,6 +716,61 @@ class CombinationsTab extends BOBasePage implements BOProductsCreateTabCombinati
     }
 
     return this.elementVisible(combinationFrame!, this.editCombinationModalQuantityInput, 2000);
+  }
+
+  /**
+   * Toggle the "Is virtual" switch inside the edit combination modal and save.
+   * @param page {Page} Browser tab
+   * @param isVirtual {boolean} Target value for the switch
+   * @returns {Promise<string>} Success message from the growl banner
+   */
+  async setCombinationIsVirtual(page: Page, isVirtual: boolean): Promise<string> {
+    const combinationFrame: Frame|null = page.frame({url: /sell\/catalog\/products\/combinations/gmi});
+
+    await this.setChecked(combinationFrame!, this.editCombinationModalIsVirtualSwitch(isVirtual ? 1 : 0));
+    await this.waitForSelectorAndClick(page, this.editCombinationModalSaveButton);
+
+    return this.getAlertSuccessBlockParagraphContent(combinationFrame!);
+  }
+
+  /**
+   * Upload a downloadable file for the current combination and save.
+   * The file is attached to combination's own virtual_product_file, independently
+   * from the product-level virtual product file.
+   * @param page {Page} Browser tab
+   * @param filePath {string} Path of the file to upload
+   * @returns {Promise<string>} Success message from the growl banner
+   */
+  async setCombinationVirtualProductFile(page: Page, filePath: string): Promise<string> {
+    const combinationFrame: Frame|null = page.frame({url: /sell\/catalog\/products\/combinations/gmi});
+
+    await this.setChecked(combinationFrame!, this.editCombinationModalVirtualProductFileHasFile(1));
+    await this.waitForVisibleSelector(combinationFrame!, this.editCombinationModalVirtualProductFileInput);
+    await this.uploadFile(combinationFrame!, this.editCombinationModalVirtualProductFileInput, filePath);
+    await this.waitForSelectorAndClick(page, this.editCombinationModalSaveButton);
+
+    return this.getAlertSuccessBlockParagraphContent(combinationFrame!);
+  }
+
+  /**
+   * Read the current downloadable filename attached to the combination.
+   * @param page {Page} Browser tab
+   * @returns {Promise<string>} File name, or empty string when no file is attached
+   */
+  async getCombinationVirtualProductFileName(page: Page): Promise<string> {
+    const combinationFrame: Frame|null = page.frame({url: /sell\/catalog\/products\/combinations/gmi});
+
+    if (!combinationFrame) {
+      return '';
+    }
+
+    const fileNameSelector = this.editCombinationModalVirtualProductFileNameInput;
+
+    if (!(await this.elementVisible(combinationFrame, fileNameSelector, 2000))) {
+      return '';
+    }
+
+    return this.getAttributeContent(combinationFrame, this.editCombinationModalVirtualProductFileNameInput, 'value');
   }
 
   // Methods for sort
