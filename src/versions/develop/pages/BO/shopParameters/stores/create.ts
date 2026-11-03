@@ -93,9 +93,11 @@ class BOStoresCreatePage extends BOBasePage implements BOStoresCreatePageInterfa
     await this.setValue(page, this.address1Input('1'), storeData.address1);
     await this.setValue(page, this.address2Input('1'), storeData.address2);
     await this.setValue(page, this.cityInput, storeData.city);
-    // Changing the country reloads the postcode and state fields
-    await this.selectByVisibleText(page, this.countrySelect, storeData.country);
-    await page.waitForLoadState('networkidle');
+    // Changing the country reloads the state list through an ajax request
+    await Promise.all([
+      page.waitForResponse((response) => response.url().includes('/country-states?')),
+      this.selectByVisibleText(page, this.countrySelect, storeData.country),
+    ]);
     await this.setValue(page, this.postcodeInput, storeData.postcode);
     await this.setValue(page, this.latitudeInput, storeData.latitude);
     await this.setValue(page, this.longitudeInput, storeData.longitude);

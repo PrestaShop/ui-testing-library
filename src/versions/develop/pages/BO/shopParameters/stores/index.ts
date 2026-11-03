@@ -27,6 +27,8 @@ class BOStoresPage extends BOBasePage implements BOStoresPageInterface {
 
   private readonly sortColumnDiv: (column: string) => string;
 
+  private readonly sortColumnDirectionDiv: (column: string, direction: string) => string;
+
   private readonly filterRow: string;
 
   private readonly filterColumn: (filterBy: string) => string;
@@ -47,6 +49,8 @@ class BOStoresPage extends BOBasePage implements BOStoresPageInterface {
 
   private readonly tableColumnStatus: (row: number) => string;
 
+  private readonly tableColumnStatusChecked: (row: number) => string;
+
   private readonly tableColumnActions: (row: number) => string;
 
   private readonly tableColumnActionsEditLink: (row: number) => string;
@@ -62,6 +66,8 @@ class BOStoresPage extends BOBasePage implements BOStoresPageInterface {
   private readonly bulkActionBlock: string;
 
   private readonly bulkActionMenuButton: string;
+
+  private readonly bulkActionMenuButtonEnabled: string;
 
   private readonly bulkActionDropdownMenu: string;
 
@@ -112,7 +118,7 @@ class BOStoresPage extends BOBasePage implements BOStoresPageInterface {
   constructor() {
     super();
 
-    this.pageTitle = 'Stores •';
+    this.pageTitle = `Stores • ${global.INSTALL.SHOP_NAME}`;
     this.contactFormSuccessfulUpdateMessage = 'The settings have been successfully updated.';
     this.successfulMultiDeleteMessage = 'The selection has been successfully deleted.';
 
@@ -128,6 +134,8 @@ class BOStoresPage extends BOBasePage implements BOStoresPageInterface {
     // Sort selectors
     this.tableHead = `${this.gridTable} thead`;
     this.sortColumnDiv = (column: string) => `${this.tableHead} div.ps-sortable-column[data-sort-col-name="${column}"]`;
+    this.sortColumnDirectionDiv = (column: string, direction: string) => `${this.sortColumnDiv(column)}`
+      + `[data-sort-direction="${direction}"]`;
 
     // Filter selectors
     this.filterRow = `${this.gridTable} tr.column-filters`;
@@ -142,6 +150,7 @@ class BOStoresPage extends BOBasePage implements BOStoresPageInterface {
     this.tableBodyColumn = (row: number) => `${this.tableBodyRow(row)} td`;
     this.tableColumn = (row: number, column: string) => `${this.tableBodyColumn(row)}.column-${column}`;
     this.tableColumnStatus = (row: number) => `${this.tableColumn(row, 'active')} .ps-switch`;
+    this.tableColumnStatusChecked = (row: number) => `${this.tableColumnStatus(row)} input:checked`;
 
     // Row actions selectors
     this.tableColumnActions = (row: number) => `${this.tableColumn(row, 'actions')}`;
@@ -156,6 +165,7 @@ class BOStoresPage extends BOBasePage implements BOStoresPageInterface {
     // Bulk actions selectors
     this.bulkActionBlock = '#store_grid .btn-group';
     this.bulkActionMenuButton = `${this.bulkActionBlock} button.js-bulk-actions-btn`;
+    this.bulkActionMenuButtonEnabled = `${this.bulkActionMenuButton}:not([disabled])`;
     this.bulkActionDropdownMenu = `${this.bulkActionBlock} div.dropdown-menu.show`;
     this.selectAllCheckbox = `${this.filterRow} td[data-type="bulk_action"] #store_grid_bulk_action_select_all`;
     this.bulkEnableLink = `${this.bulkActionDropdownMenu} #store_grid_bulk_action_store_bulk_enable`;
@@ -286,7 +296,7 @@ class BOStoresPage extends BOBasePage implements BOStoresPageInterface {
    * @return {Promise<boolean>}
    */
   async getStoreStatus(page: Page, row: number): Promise<boolean> {
-    const inputValue = await this.getAttributeContent(page, `${this.tableColumnStatus(row)} input:checked`, 'value');
+    const inputValue = await this.getAttributeContent(page, this.tableColumnStatusChecked(row), 'value');
 
     return inputValue === '1';
   }
@@ -342,7 +352,7 @@ class BOStoresPage extends BOBasePage implements BOStoresPageInterface {
    */
   private async openBulkActionsMenu(page: Page): Promise<void> {
     await page.locator(this.selectAllCheckbox).click();
-    await page.locator(`${this.bulkActionMenuButton}:not([disabled])`).waitFor({state: 'visible'});
+    await page.locator(this.bulkActionMenuButtonEnabled).waitFor({state: 'visible'});
     await page.locator(this.bulkActionMenuButton).click();
     await this.waitForVisibleSelector(page, this.bulkActionDropdownMenu);
   }
@@ -381,7 +391,7 @@ class BOStoresPage extends BOBasePage implements BOStoresPageInterface {
    * @return {Promise<void>}
    */
   async sortTable(page: Page, sortBy: string, sortDirection: string): Promise<void> {
-    const sortColumnDiv = `${this.sortColumnDiv(sortBy)}[data-sort-direction="${sortDirection}"]`;
+    const sortColumnDiv = this.sortColumnDirectionDiv(sortBy, sortDirection);
 
     let i: number = 0;
     while (await this.elementNotVisible(page, sortColumnDiv, 2000) && i < 2) {
