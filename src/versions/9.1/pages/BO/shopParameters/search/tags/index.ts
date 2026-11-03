@@ -102,7 +102,7 @@ class BOTagsPage extends BOTagsPageVersion implements BOTagsPageInterface {
       this.waitForVisibleSelector(page, this.bulkDeleteLink),
     ]);
 
-    await this.clickAndWaitForURL(page, this.bulkDeleteLink);
+    await this.clickAndWaitForPageLoad(page, this.bulkDeleteLink);
 
     // Return successful message
     return this.getAlertSuccessBlockContent(page);

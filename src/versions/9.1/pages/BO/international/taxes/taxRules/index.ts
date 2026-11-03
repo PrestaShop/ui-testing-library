@@ -131,7 +131,7 @@ class BOTaxRulesPage extends BOTaxRulesPageVersion implements BOTaxRulesPageInte
     await page.locator(this.bulkActionMenuButton).click();
 
     // Click on delete
-    await this.clickAndWaitForURL(page, this.bulkDeleteLink);
+    await this.clickAndWaitForPageLoad(page, this.bulkDeleteLink);
 
     return this.getAlertSuccessBlockContent(page);
   }
@@ -150,7 +150,7 @@ class BOTaxRulesPage extends BOTaxRulesPageVersion implements BOTaxRulesPageInte
     await page.locator(this.bulkActionMenuButton).click();
 
     // Click to change status
-    await this.clickAndWaitForURL(page, enable ? this.bulkEnableLink : this.bulkDisableLink);
+    await this.clickAndWaitForPageLoad(page, enable ? this.bulkEnableLink : this.bulkDisableLink);
 
     return this.getTextContent(page, this.alertSuccessBlock);
   }
