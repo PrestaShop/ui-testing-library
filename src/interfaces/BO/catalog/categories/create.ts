@@ -10,4 +10,5 @@ export interface BOCategoriesCreatePageInterface extends BOBasePagePageInterface
   editHomeCategory(page: Page, categoryData: FakerCategory): Promise<string>;
   getIDCategory(page: Page): Promise<number>;
   getValue(page: Page, inputName: string, language?:string): Promise<string>;
+  previewCategory(page: Page): Promise<Page>;
 }
