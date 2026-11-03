@@ -4,7 +4,7 @@ export default {
   clickAndCollect: new FakerCarrier({
     id: 1,
     name: 'Click and collect',
-    transitName: 'Pick up in-store',
+    transitName: 'Same day',
     enable: true,
     freeShipping: true,
     position: 1,
