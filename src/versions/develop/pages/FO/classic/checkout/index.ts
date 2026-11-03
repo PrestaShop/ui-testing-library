@@ -770,6 +770,19 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
   }
 
   /**
+   * Is "Use this address for invoice too" checkbox visible
+   * @param page {Page} Browser tab
+   * @returns {Promise<boolean>}
+   */
+  async isUseSameAddressCheckboxVisible(page: Page): Promise<boolean> {
+    // Selecting a country reloads the address form by ajax. The form is swapped in a jQuery callback that runs
+    // shortly after jQuery.active drops back to 0, which the visibility timeout below covers.
+    await page.waitForFunction(() => (window as any).jQuery.active === 0);
+
+    return this.elementVisible(page, this.addressStepUseSameAddressCheckbox, 1000);
+  }
+
+  /**
    * Returns all available countries in Address form
    * @param page {Page} Browser tab
    * @returns {Promise<string[]>}
@@ -822,13 +835,13 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
   }
 
   /**
-   * Set address step
+   * Fill address step without validating it
    * @param page {Page} Browser tab
    * @param deliveryAddress {FakerAddress} Address's information to add (for delivery)
    * @param invoiceAddress {FakerAddress|null} Address's information to add (for invoice)
-   * @returns {Promise<boolean>}
+   * @returns {Promise<void>}
    */
-  async setAddress(page: Page, deliveryAddress: FakerAddress, invoiceAddress: FakerAddress | null = null): Promise<boolean> {
+  async fillAddresses(page: Page, deliveryAddress: FakerAddress, invoiceAddress: FakerAddress | null = null): Promise<void> {
     // Set delivery address
     await this.fillAddressForm(page, deliveryAddress);
 
@@ -840,6 +853,17 @@ class CheckoutPage extends FOBasePage implements FoCheckoutPageInterface {
     } else {
       await this.setChecked(page, this.addressStepUseSameAddressCheckbox, true);
     }
+  }
+
+  /**
+   * Set address step
+   * @param page {Page} Browser tab
+   * @param deliveryAddress {FakerAddress} Address's information to add (for delivery)
+   * @param invoiceAddress {FakerAddress|null} Address's information to add (for invoice)
+   * @returns {Promise<boolean>}
+   */
+  async setAddress(page: Page, deliveryAddress: FakerAddress, invoiceAddress: FakerAddress | null = null): Promise<boolean> {
+    await this.fillAddresses(page, deliveryAddress, invoiceAddress);
 
     if (await this.elementVisible(page, this.addressStepContinueButton, 2000)) {
       await page.locator(this.addressStepContinueButton).click();
