@@ -6,5 +6,7 @@ export interface BOCMSPageCategoriesCreatePageInterface extends BOBasePagePageIn
   readonly pageTitleCreate: string;
   readonly pageTitleEdit: string;
 
+  cancelPageCategory(page: Page): Promise<void>;
   createEditPageCategory(page: Page, pageCategoryData: FakerCMSCategory): Promise<string>;
+  getSelectedParentCategoryId(page: Page): Promise<number>;
 }
