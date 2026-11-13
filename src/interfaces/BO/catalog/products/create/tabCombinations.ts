@@ -34,6 +34,9 @@ export interface BOProductsCreateTabCombinationsPageInterface extends BOBasePage
   clickOnPreviousCombinationButton(page: Page): Promise<void>;
   closeEditCombinationModal(page: Page): Promise<boolean>;
   countCombinations(page: Page): Promise<number>;
+  getCombinationVirtualProductFileName(page: Page): Promise<string>;
+  setCombinationIsVirtual(page: Page, isVirtual: boolean): Promise<string>;
+  setCombinationVirtualProductFile(page: Page, filePath: string): Promise<string>;
   editCombination(page: Page, combinationData: ProductCombinationOptions, row?: number): Promise<string | null>;
   editCombinationFromModal(page: Page, combinationData: ProductCombinationOptions): Promise<string>;
   editCombinationRowQuantity(page: Page, row: number, quantity: number): Promise<void>;
