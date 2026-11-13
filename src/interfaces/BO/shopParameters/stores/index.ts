@@ -5,6 +5,7 @@ import {type Page} from '@playwright/test';
 export interface BOStoresPageInterface extends BOBasePagePageInterface {
   readonly contactFormSuccessfulUpdateMessage: string;
   readonly pageTitle: string;
+  readonly pageTitlePrefix: string;
 
   bulkDeleteStores(page: Page): Promise<string>;
   bulkUpdateStoreStatus(page: Page, statusWanted: boolean): Promise<void>;

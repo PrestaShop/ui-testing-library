@@ -11,6 +11,8 @@ import {type Page} from '@playwright/test';
 class BOStoresPage extends BOBasePage implements BOStoresPageInterface {
   public readonly pageTitle: string;
 
+  public readonly pageTitlePrefix: string;
+
   public readonly contactFormSuccessfulUpdateMessage: string;
 
   private readonly newStoreLink: string;
@@ -118,7 +120,8 @@ class BOStoresPage extends BOBasePage implements BOStoresPageInterface {
   constructor() {
     super();
 
-    this.pageTitle = `Stores • ${global.INSTALL.SHOP_NAME}`;
+    this.pageTitlePrefix = 'Stores •';
+    this.pageTitle = `${this.pageTitlePrefix} ${global.INSTALL.SHOP_NAME}`;
     this.contactFormSuccessfulUpdateMessage = 'The settings have been successfully updated.';
     this.successfulMultiDeleteMessage = 'The selection has been successfully deleted.';
 
