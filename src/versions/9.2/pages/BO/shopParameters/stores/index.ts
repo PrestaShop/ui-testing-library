@@ -11,6 +11,8 @@ import {type Page} from '@playwright/test';
 class BOStoresPage extends BOBasePage implements BOStoresPageInterface {
   public readonly pageTitle: string;
 
+  public readonly pageTitlePrefix: string;
+
   public readonly contactFormSuccessfulUpdateMessage: string;
 
   private readonly newStoreLink: string;
@@ -134,7 +136,8 @@ class BOStoresPage extends BOBasePage implements BOStoresPageInterface {
   constructor() {
     super();
 
-    this.pageTitle = 'Stores •';
+    this.pageTitlePrefix = 'Stores •';
+    this.pageTitle = this.pageTitlePrefix;
     this.contactFormSuccessfulUpdateMessage = 'The settings have been successfully updated.';
 
     this.alertSuccessBlockParagraph = '.alert-success';
