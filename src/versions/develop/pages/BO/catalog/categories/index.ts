@@ -335,6 +335,12 @@ class BOCategoriesPage extends BOBasePage implements BOCategoriesPageInterface {
     await this.clickAndWaitForURL(page, this.categoriesListTableEditLink(row, 'actions'));
   }
 
+  /**
+   * Preview category in new tab
+   * @param page {Page} Browser tab
+   * @param row {number} Row on table
+   * @returns {Promise<Page>}
+   */
   async previewCategory(page: Page, row: number): Promise<Page> {
     await page.locator(this.categoriesListTableToggleDropDown(row, 'actions')).click();
     return this.openLinkWithTargetBlank(page, this.categoriesListTablePreviewLink(row));

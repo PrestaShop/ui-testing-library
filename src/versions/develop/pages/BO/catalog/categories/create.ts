@@ -100,13 +100,19 @@ class BOCategoriesCreatePage extends BOBasePage implements BOCategoriesCreatePag
     this.rootCategoryMetaDescriptionTextarea = '#root_category_meta_description_1';
   }
 
-  async previewCategory(page: Page): Promise<Page> {
-    return this.openLinkWithTargetBlank(page, this.saveAndPreviewCategoryButton);
-  }
-
   /*
   Methods
    */
+
+  /**
+   * Save and preview category in new tab
+   * @param page {Page} Browser tab
+   * @returns {Promise<Page>}
+   */
+  async saveAndPreviewCategory(page: Page): Promise<Page> {
+    return this.openLinkWithTargetBlank(page, this.saveAndPreviewCategoryButton);
+  }
+
   /**
    * Returns the Identifier of the category
    * @param page {Page} Browser tab
