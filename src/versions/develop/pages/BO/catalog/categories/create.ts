@@ -72,7 +72,8 @@ class BOCategoriesCreatePage extends BOBasePage implements BOCategoriesCreatePag
     this.formCategory = '#main-div .content-div form';
     this.nameInputEn = '#category_name_1';
     this.nameInputFr = '#category_name_2';
-    this.nameInputInAnyLanguage = `${this.nameInputEn}, ${this.nameInputFr}`;
+    // Only the input of the active language tab is visible: waiting on the other one would time out
+    this.nameInputInAnyLanguage = `${this.nameInputEn}:visible, ${this.nameInputFr}:visible`;
     this.nameLanguageDropDown = '#category_name_dropdown';
     this.nameLanguageButtonFr = 'div.locale-dropdown-menu.show span[data-locale="fr"]';
     this.displayedToggleInput = (toggle: number) => `#category_active_${toggle}`;
