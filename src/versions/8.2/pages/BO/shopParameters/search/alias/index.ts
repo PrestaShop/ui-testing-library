@@ -235,7 +235,7 @@ class BOSearchAliasPage extends BOSearchAliasPageVersion implements BOSearchAlia
     await page.locator(this.bulkActionMenuButton).click();
 
     // Click on delete
-    await this.clickAndWaitForURL(page, this.bulkDeleteLink);
+    await this.clickAndWaitForPageLoad(page, this.bulkDeleteLink);
 
     return this.getAlertSuccessBlockContent(page);
   }
@@ -254,7 +254,7 @@ class BOSearchAliasPage extends BOSearchAliasPageVersion implements BOSearchAlia
     await page.locator(this.bulkActionMenuButton).click();
 
     // Click on enable/Disable and wait for modal
-    await this.clickAndWaitForURL(page, enable ? this.bulkEnableButton : this.bulkDisableButton);
+    await this.clickAndWaitForPageLoad(page, enable ? this.bulkEnableButton : this.bulkDisableButton);
 
     return this.getTextContent(page, this.alertSuccessBlock);
   }
