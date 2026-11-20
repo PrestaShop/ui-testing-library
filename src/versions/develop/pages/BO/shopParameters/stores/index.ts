@@ -476,9 +476,17 @@ class BOStoresPage extends BOBasePage implements BOStoresPageInterface {
    * @return {Promise<void>}
    */
   async selectContactDetailsCountry(page: Page, country: string): Promise<void> {
-    // Changing the country reloads the state list through an ajax request
+    const countryId = await page.locator(this.countrySelect).evaluate(
+      (select: HTMLSelectElement, label: string) => Array.from(select.options)
+        .find((option: HTMLOptionElement) => option.text.trim() === label)?.value ?? '',
+      country,
+    );
+
+    // Changing the country reloads the state list through an ajax request. The page also requests the states of
+    // its saved country on load: only the response for the selected country counts.
     await Promise.all([
-      page.waitForResponse((response) => response.url().includes('/country-states?')),
+      page.waitForResponse((response) => response.url().includes('/country-states?')
+        && new URL(response.url()).searchParams.get('id_country') === countryId),
       this.selectByVisibleText(page, this.countrySelect, country),
     ]);
   }

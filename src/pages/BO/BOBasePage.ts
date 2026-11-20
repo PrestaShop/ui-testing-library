@@ -1420,7 +1420,11 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
    * @returns {Promise<void>}
    */
   async chooseAllShops(page: Page): Promise<void> {
-    await this.waitForSelectorAndClick(page, this.chooseAllShopsLink);
+    // The link reloads the page: acting before the load would act on the page being left
+    await Promise.all([
+      page.waitForEvent('load'),
+      this.waitForSelectorAndClick(page, this.chooseAllShopsLink),
+    ]);
   }
 
   /**
