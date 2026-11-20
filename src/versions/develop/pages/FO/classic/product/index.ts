@@ -78,6 +78,8 @@ class ProductPage extends FOBasePage implements FoProductPageInterface {
 
   protected productCondition: string;
 
+  protected productDownloadFileName: string;
+
   protected continueShoppingButton: string;
 
   protected productAvailability: string;
@@ -256,6 +258,9 @@ class ProductPage extends FOBasePage implements FoProductPageInterface {
     this.productDetail = 'div.product-information a[href=\'#product-details\']';
     this.productFeaturesList = '#product-details section.product-features';
     this.productCondition = '#product-details div.product-condition';
+    // Downloadable file offered for the currently selected combination (virtual_combinations product type).
+    // TODO(selector): the FO theme markup is not in this checkout; confirm the real per-combination download selector.
+    this.productDownloadFileName = '#product-details .product-download a';
     this.continueShoppingButton = `${this.blockCartModal} div.cart-content-btn button`;
     this.productAvailability = '#product-availability';
     this.productAvailabilityIcon = `${this.productAvailability} i`;
@@ -1098,6 +1103,15 @@ class ProductPage extends FOBasePage implements FoProductPageInterface {
     await this.waitForSelectorAndClick(page, this.productDetail);
 
     return this.getTextContent(page, this.productCondition);
+  }
+
+  /**
+   * Get the downloadable file name offered for the currently selected combination
+   * @param page {Page} Browser tab
+   * @returns {Promise<string>}
+   */
+  async getProductDownloadFileName(page: Page): Promise<string> {
+    return this.getTextContent(page, this.productDownloadFileName);
   }
 
   /**
