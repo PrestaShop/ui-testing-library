@@ -18,6 +18,8 @@ class BOCategoriesCreatePage extends BOBasePage implements BOCategoriesCreatePag
 
   private readonly nameInputFr: string;
 
+  private readonly nameInputInAnyLanguage: string;
+
   private readonly displayedToggleInput: (toggle: number) => string;
 
   private readonly descriptionIframeEn: string;
@@ -70,6 +72,8 @@ class BOCategoriesCreatePage extends BOBasePage implements BOCategoriesCreatePag
     this.formCategory = '#main-div .content-div form';
     this.nameInputEn = '#category_name_1';
     this.nameInputFr = '#category_name_2';
+    // Only the input of the active language tab is visible: waiting on the other one would time out
+    this.nameInputInAnyLanguage = `${this.nameInputEn}:visible, ${this.nameInputFr}:visible`;
     this.nameLanguageDropDown = '#category_name_dropdown';
     this.nameLanguageButtonFr = 'div.locale-dropdown-menu.show span[data-locale="fr"]';
     this.displayedToggleInput = (toggle: number) => `#category_active_${toggle}`;
@@ -202,9 +206,13 @@ class BOCategoriesCreatePage extends BOBasePage implements BOCategoriesCreatePag
    * @param language {string}
    */
   async getValue(page: Page, inputName: string, language: string = 'en'): Promise<string> {
-    if (language === 'fr' && await this.elementVisible(page, this.nameInputEn)) {
-      await page.locator(this.nameLanguageDropDown).click();
-      await page.locator(this.nameLanguageButtonFr).click();
+    if (language === 'fr') {
+      await this.waitForVisibleSelector(page, this.nameInputInAnyLanguage);
+      if (await page.locator(this.nameInputEn).isVisible()) {
+        await page.locator(this.nameLanguageDropDown).click();
+        await page.locator(this.nameLanguageButtonFr).click();
+        await this.waitForVisibleSelector(page, this.nameInputFr);
+      }
     }
 
     switch (inputName) {

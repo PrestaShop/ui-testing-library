@@ -336,7 +336,7 @@ class BOOrdersViewBlockTabListPage extends ViewOrderBasePage implements BOOrders
    * @returns {Promise<boolean>}
    */
   async hasBadgeGift(page: Page): Promise<boolean> {
-    return this.elementVisible(page, this.successBadgeGift);
+    return (await page.locator(this.successBadgeGift).count()) > 0;
   }
 
   /**
@@ -345,7 +345,7 @@ class BOOrdersViewBlockTabListPage extends ViewOrderBasePage implements BOOrders
    * @returns {Promise<boolean>}
    */
   async hasBadgeRecyclable(page: Page): Promise<boolean> {
-    return this.elementVisible(page, this.successBadgeReclyclable);
+    return (await page.locator(this.successBadgeReclyclable).count()) > 0;
   }
 
   // Methods for status tab
