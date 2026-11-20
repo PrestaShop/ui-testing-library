@@ -311,6 +311,8 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
 
   public readonly chooseShopName: (shopNumber: number) => string;
 
+  private readonly chooseAllShopsLink: string;
+
   /**
    * @constructs
    * Setting up texts and selectors to use on all BO pages
@@ -380,6 +382,7 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
     this.multistoreModal = '#multishop-modal';
     this.chooseShopName = (shopNumber: number) => `${this.multistoreModal} li:nth-child(${2 + shopNumber})`
       + ' a.multishop-modal-shop-name';
+    this.chooseAllShopsLink = `${this.multistoreModal} a.multishop-modal-all-name`;
     this.viewMyStoreButton = `${this.multistoreHeader} div.header-multishop-right a.header-multishop-view-action`;
     this.multistoreTopBar = `${this.multistoreHeader} div.header-multishop-top-bar`;
     this.storeName = `${this.multistoreTopBar} div h2`;
@@ -1409,6 +1412,19 @@ export default class BOBasePage extends CommonPage implements BOBasePagePageInte
    */
   async chooseShop(page: Page, shopNumber: number): Promise<void> {
     await this.waitForSelectorAndClick(page, this.chooseShopName(shopNumber));
+  }
+
+  /**
+   * Choose the All stores context in the multistore header modal
+   * @param page {Page} Browser tab
+   * @returns {Promise<void>}
+   */
+  async chooseAllShops(page: Page): Promise<void> {
+    // The link reloads the page: acting before the load would act on the page being left
+    await Promise.all([
+      page.waitForEvent('load'),
+      this.waitForSelectorAndClick(page, this.chooseAllShopsLink),
+    ]);
   }
 
   /**

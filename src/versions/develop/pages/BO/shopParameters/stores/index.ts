@@ -113,6 +113,12 @@ class BOStoresPage extends BOBasePage implements BOStoresPageInterface {
 
   private readonly saveButton: string;
 
+  private readonly contactDetailsField: (field: string) => string;
+
+  private readonly contactDetailsOverrideCheckbox: (field: string) => string;
+
+  private readonly contactDetailsStateRow: string;
+
   /**
    * @constructs
    * Setting up titles and selectors to use on stores page
@@ -194,6 +200,9 @@ class BOStoresPage extends BOBasePage implements BOStoresPageInterface {
     this.phoneInput = '#stores-contact-details_phone';
     this.faxInput = '#stores-contact-details_fax';
     this.saveButton = '#save-contact-details-button';
+    this.contactDetailsField = (field: string) => `#stores-contact-details_${field}`;
+    this.contactDetailsOverrideCheckbox = (field: string) => `#stores-contact-details_multistore_${field}`;
+    this.contactDetailsStateRow = '.js-store-state-row';
   }
 
   /* Header methods */
@@ -424,6 +433,103 @@ class BOStoresPage extends BOBasePage implements BOStoresPageInterface {
     await this.setValue(page, this.phoneInput, storeContactData.phone);
     await this.setValue(page, this.faxInput, storeContactData.fax);
 
+    await this.clickAndWaitForURL(page, this.saveButton);
+
+    return this.getAlertSuccessBlockParagraphContent(page);
+  }
+
+  /**
+   * Override a contact details field for the current shop context, or stop overriding it
+   * @param page {Page} Browser tab
+   * @param field {string} Field name, as in the form (e.g. 'id_country', 'phone')
+   * @param override {boolean} True to override the field for the shop
+   * @return {Promise<void>}
+   */
+  async setContactDetailsOverride(page: Page, field: string, override: boolean): Promise<void> {
+    await this.setChecked(page, this.contactDetailsOverrideCheckbox(field), override, true);
+  }
+
+  /**
+   * Is a contact details field overridden for the current shop context
+   * @param page {Page} Browser tab
+   * @param field {string} Field name, as in the form (e.g. 'id_country', 'phone')
+   * @return {Promise<boolean>}
+   */
+  async isContactDetailsOverridden(page: Page, field: string): Promise<boolean> {
+    return this.isChecked(page, this.contactDetailsOverrideCheckbox(field));
+  }
+
+  /**
+   * Is a contact details field disabled (not overridden in a shop context)
+   * @param page {Page} Browser tab
+   * @param field {string} Field name, as in the form (e.g. 'id_country', 'phone')
+   * @return {Promise<boolean>}
+   */
+  async isContactDetailsFieldDisabled(page: Page, field: string): Promise<boolean> {
+    return this.isDisabled(page, this.contactDetailsField(field));
+  }
+
+  /**
+   * Select the contact details country, waiting for its states to be loaded
+   * @param page {Page} Browser tab
+   * @param country {string} Country name
+   * @return {Promise<void>}
+   */
+  async selectContactDetailsCountry(page: Page, country: string): Promise<void> {
+    const countryId = await page.locator(this.countrySelect).evaluate(
+      (select: HTMLSelectElement, label: string) => Array.from(select.options)
+        .find((option: HTMLOptionElement) => option.text.trim() === label)?.value ?? '',
+      country,
+    );
+
+    // Changing the country reloads the state list through an ajax request. The page also requests the states of
+    // its saved country on load: only the response for the selected country counts.
+    await Promise.all([
+      page.waitForResponse((response) => response.url().includes('/country-states?')
+        && new URL(response.url()).searchParams.get('id_country') === countryId),
+      this.selectByVisibleText(page, this.countrySelect, country),
+    ]);
+  }
+
+  /**
+   * Select the contact details state
+   * @param page {Page} Browser tab
+   * @param state {string} State name
+   * @return {Promise<void>}
+   */
+  async selectContactDetailsState(page: Page, state: string): Promise<void> {
+    await this.selectByVisibleText(page, this.contactDetailsField('id_state'), state);
+  }
+
+  /**
+   * Get the selected option of a contact details select, empty when none is selected
+   * @param page {Page} Browser tab
+   * @param field {string} Select name, 'id_country' or 'id_state'
+   * @return {Promise<string>}
+   */
+  async getContactDetailsSelectedOption(page: Page, field: string): Promise<string> {
+    return page.locator(this.contactDetailsField(field)).evaluate(
+      (select: HTMLSelectElement) => (select.selectedIndex >= 0 && select.value !== ''
+        ? select.options[select.selectedIndex].text.trim()
+        : ''),
+    );
+  }
+
+  /**
+   * Is the contact details state row hidden (selected country without states)
+   * @param page {Page} Browser tab
+   * @return {Promise<boolean>}
+   */
+  async isContactDetailsStateHidden(page: Page): Promise<boolean> {
+    return this.elementNotVisible(page, this.contactDetailsStateRow, 2000);
+  }
+
+  /**
+   * Save the contact details form
+   * @param page {Page} Browser tab
+   * @return {Promise<string>}
+   */
+  async saveContactDetails(page: Page): Promise<string> {
     await this.clickAndWaitForURL(page, this.saveButton);
 
     return this.getAlertSuccessBlockParagraphContent(page);
