@@ -50,6 +50,8 @@ class BOCategoriesCreatePage extends BOBasePage implements BOCategoriesCreatePag
 
   private readonly saveCategoryButton: string;
 
+  private readonly saveAndPreviewCategoryButton: string;
+
   private readonly rootCategoryNameInput: string;
 
   private readonly rootCategoryDisplayedToggleInput: (toggle: number) => string;
@@ -91,6 +93,7 @@ class BOCategoriesCreatePage extends BOBasePage implements BOCategoriesCreatePag
     this.redirectedCategory = '#category_redirect_option_target_search_input';
     this.selectAllGroupAccessCheckbox = '.js-choice-table-select-all';
     this.saveCategoryButton = '#save-button';
+    this.saveAndPreviewCategoryButton = '#save-and-preview-button';
 
     // Selectors fo root category
     this.rootCategoryNameInput = '#root_category_name_1';
@@ -104,6 +107,16 @@ class BOCategoriesCreatePage extends BOBasePage implements BOCategoriesCreatePag
   /*
   Methods
    */
+
+  /**
+   * Save and preview category in new tab
+   * @param page {Page} Browser tab
+   * @returns {Promise<Page>}
+   */
+  async saveAndPreviewCategory(page: Page): Promise<Page> {
+    return this.openLinkWithTargetBlank(page, this.saveAndPreviewCategoryButton);
+  }
+
   /**
    * Returns the Identifier of the category
    * @param page {Page} Browser tab
