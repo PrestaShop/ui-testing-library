@@ -17,18 +17,18 @@ jobs:
 
     steps:
       - name: Setup Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v7
         with:
           node-version: '26'
           registry-url: 'https://registry.npmjs.org'
 
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
 
       - name: Checkout PrestaShop
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           repository: PrestaShop/PrestaShop
           fetch-depth: 1
@@ -56,7 +56,7 @@ jobs:
           fi
   
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v3
+        uses: peter-evans/create-pull-request@v8
         if: ${{steps.updated-packages.outputs.PR_BODY}} != ''
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
