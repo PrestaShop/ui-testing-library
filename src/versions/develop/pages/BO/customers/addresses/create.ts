@@ -13,7 +13,11 @@ class BOAddressesCreatePage extends BOBasePage implements BOAddressesCreatePageI
 
   public readonly pageTitleEdit: string;
 
-  private readonly customerEmailInput: string;
+  private readonly customerSearchInput: string;
+
+  private readonly customerSearchSuggestion: string;
+
+  private readonly selectedCustomer: string;
 
   private readonly customerAddressdniInput: string;
 
@@ -64,7 +68,9 @@ class BOAddressesCreatePage extends BOBasePage implements BOAddressesCreatePageI
     this.pageTitleEdit = 'Editing address';
 
     // Selectors
-    this.customerEmailInput = '#customer_address_customer_email';
+    this.customerSearchInput = '#customer_address_selected_customer_search_input';
+    this.customerSearchSuggestion = '.tt-menu .tt-suggestion';
+    this.selectedCustomer = '#customer_address_selected_customer .entity-item';
     this.customerAddressdniInput = '#customer_address_dni';
     this.customerAddressAliasInput = '#customer_address_alias';
     this.customerAddressFirstNameInput = '#customer_address_first_name';
@@ -104,16 +110,22 @@ class BOAddressesCreatePage extends BOBasePage implements BOAddressesCreatePageI
     save: boolean = true,
     waitForNavigation: boolean = true,
   ): Promise<string | null> {
-    if (await this.elementVisible(page, this.customerEmailInput, 2000)) {
-      await this.setValue(page, this.customerEmailInput, addressData.email);
-      if ('keyboard' in page) {
-        await page.keyboard.press('Tab');
+    // Customer selection is available when creating an address without a predefined customer.
+    if (await this.elementVisible(page, this.customerSearchInput, 2000)) {
+      await this.setValue(page, this.customerSearchInput, addressData.email);
+
+      const suggestions = page.locator(this.customerSearchSuggestion).filter({hasText: addressData.email});
+
+      await suggestions.first().waitFor({state: 'visible'});
+
+      const matchingCustomers = await suggestions.count();
+
+      if (matchingCustomers !== 1) {
+        throw new Error(`Expected exactly one customer matching ${addressData.email}, found ${matchingCustomers}`);
       }
-      if ('waitForResponse' in page) {
-        await page.waitForResponse('**/sell/customers/customer-information**', {
-          timeout: 2000,
-        });
-      }
+
+      await suggestions.click();
+      await page.locator(this.selectedCustomer).waitFor({state: 'visible'});
     }
     await this.setValue(page, this.customerAddressdniInput, addressData.dni);
     await this.setValue(page, this.customerAddressAliasInput, addressData.alias);
