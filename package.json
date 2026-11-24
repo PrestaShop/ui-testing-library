@@ -33,7 +33,7 @@
     "@s3pweb/keycloak-admin-client-cjs": "^26.0.0",
     "@xmldom/xmldom": "^0.9.5",
     "csv-writer": "^1.6.0",
-    "dotenv": "^17.0.0",
+    "dotenv": "^18.0.10",
     "fast-xml-parser": "^5.0.9",
     "fast-xml-validator": "^1.1.0",
     "gunzip-file": "^0.1.1",
