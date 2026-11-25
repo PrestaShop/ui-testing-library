@@ -521,12 +521,12 @@ export {default as utilsDate} from '@utils/date';
 export {default as utilsFile} from '@utils/file';
 export {default as utilsKeycloak} from '@utils/keycloak';
 export {default as utilsMail} from '@utils/mail';
+export {default as MailDev} from '@utils/mailListener';
 export {default as utilsPlaywright} from '@utils/playwright';
 export {default as utilsTest} from '@utils/test';
 export {default as utilsXML} from '@utils/xml';
 
 // Export packages
-export {default as MailDev} from 'maildev';
 export type {
   APIRequestContext,
   APIResponse,
