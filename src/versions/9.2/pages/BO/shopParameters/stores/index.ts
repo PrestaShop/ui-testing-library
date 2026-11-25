@@ -577,6 +577,39 @@ class BOStoresPage extends BOBasePage implements BOStoresPageInterface {
     return this.getAlertSuccessBlockParagraphContent(page);
   }
 
+  /* Multistore overrides of the contact details: only covered on the Symfony Stores page (9.3+) */
+  async setContactDetailsOverride(): Promise<void> {
+    throw new Error('Contact details overrides are only covered on the Symfony Stores page (9.3+)');
+  }
+
+  async isContactDetailsOverridden(): Promise<boolean> {
+    throw new Error('Contact details overrides are only covered on the Symfony Stores page (9.3+)');
+  }
+
+  async isContactDetailsFieldDisabled(): Promise<boolean> {
+    throw new Error('Contact details overrides are only covered on the Symfony Stores page (9.3+)');
+  }
+
+  async selectContactDetailsCountry(): Promise<void> {
+    throw new Error('Contact details overrides are only covered on the Symfony Stores page (9.3+)');
+  }
+
+  async selectContactDetailsState(): Promise<void> {
+    throw new Error('Contact details overrides are only covered on the Symfony Stores page (9.3+)');
+  }
+
+  async getContactDetailsSelectedOption(): Promise<string> {
+    throw new Error('Contact details overrides are only covered on the Symfony Stores page (9.3+)');
+  }
+
+  async isContactDetailsStateHidden(): Promise<boolean> {
+    throw new Error('Contact details overrides are only covered on the Symfony Stores page (9.3+)');
+  }
+
+  async saveContactDetails(): Promise<string> {
+    throw new Error('Contact details overrides are only covered on the Symfony Stores page (9.3+)');
+  }
+
   /* Pagination methods */
   /**
    * Get pagination label
