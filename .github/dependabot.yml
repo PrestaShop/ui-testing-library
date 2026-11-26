@@ -14,3 +14,7 @@ updates:
       - "dependencies"
       - "E2E Tests"
       - "TE"
+    ignore:
+      # eslint-config-airbnb-extended supports ESLint 9 only
+      - dependency-name: "eslint"
+        update-types: ["version-update:semver-major"]

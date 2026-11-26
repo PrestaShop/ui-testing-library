@@ -130,7 +130,6 @@ class BOCreateCurrencyPage extends BOLocalizationBasePage implements BOCurrencie
     let displayed = false;
 
     for (let i = 0; i < 50 && !displayed; i++) {
-      /* eslint-env browser */
       displayed = await page.evaluate(
         (selector) => {
           const element: HTMLElement | null = document.querySelector(selector);
@@ -149,7 +148,6 @@ class BOCreateCurrencyPage extends BOLocalizationBasePage implements BOCurrencie
     let inputHasValue = false;
 
     for (let i = 0; i < 50 && !inputHasValue; i++) {
-      /* eslint-env browser */
       inputHasValue = await page.evaluate(
         (selector) => {
           const element: HTMLInputElement | null = document.querySelector(selector);

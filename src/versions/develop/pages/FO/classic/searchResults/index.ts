@@ -144,7 +144,6 @@ class SearchResultsPage extends FOBasePage implements FoSearchResultsPageInterfa
     // Only way to detect if element is displayed is to get value of computed style 'product description' after hover
     // and compare it with value 'block'
     for (let i = 0; i < 10 && !displayed; i++) {
-      /* eslint-env browser */
       displayed = await page.evaluate(
         (selector) => {
           const element: HTMLElement | null = document.querySelector(selector);

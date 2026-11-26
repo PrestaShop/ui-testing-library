@@ -8,8 +8,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "// ESLint": "To run ESLint commands",
-    "lint:fix": "eslint --fix --ignore-path .gitignore .",
-    "lint": "eslint --ignore-path .gitignore .",
+    "lint:fix": "eslint --fix .",
+    "lint": "eslint .",
     "build": "tsc && tsc-alias && npm run copy:assets",
     "prepare": "npm run build",
     "copy:assets": "cp -R assets dist/",
@@ -50,17 +50,14 @@
   "devDependencies": {
     "@types/node": "^26.0.0",
     "@types/semver": "^7.5.6",
-    "@typescript-eslint/eslint-plugin": "^8.12.2",
-    "@typescript-eslint/parser": "^8.12.2",
-    "babel-eslint": "^10.1.0",
-    "eslint": "^8.56.0",
-    "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-plugin-html": "^8.1.2",
-    "eslint-plugin-import": "^2.29.1",
+    "eslint": "^9.39.5",
+    "eslint-config-airbnb-extended": "^3.3.0",
+    "globals": "^17.14.0",
     "ts-node": "^10.9.2",
     "tsc-alias": "^1.8.8",
     "tsconfig-paths": "^4.2.0",
-    "typescript": "^6.0.3"
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.74.0"
   },
   "publishConfig": {
     "access": "public",

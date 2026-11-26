@@ -206,7 +206,7 @@ class DescriptionTab extends BOBasePage implements BOProductsCreateTabDescriptio
     const filteredImagePaths = imagesPaths.filter((el) => el !== null);
 
     if (filteredImagePaths !== null && filteredImagePaths.length !== 0) {
-      const imagePreviewBlock = await page.locator(this.imagePreviewBlock).isVisible({timeout: 5000});
+      const imagePreviewBlock = await page.locator(this.imagePreviewBlock).isVisible();
       await this.uploadOnFileChooser(
         page,
         imagePreviewBlock ? this.imagePreviewBlock : this.imageDefaultBlock,
@@ -226,7 +226,7 @@ class DescriptionTab extends BOBasePage implements BOProductsCreateTabDescriptio
 
     if (filteredImagePaths !== null && filteredImagePaths.length !== 0) {
       const numberOfImages = await this.getNumberOfImages(page);
-      const imagePreviewBlock = await page.locator(this.imagePreviewBlock).isVisible({timeout: 5000});
+      const imagePreviewBlock = await page.locator(this.imagePreviewBlock).isVisible();
       await this.uploadOnFileChooser(
         page,
         imagePreviewBlock ? this.imagePreviewBlock : this.imageDefaultBlock,
