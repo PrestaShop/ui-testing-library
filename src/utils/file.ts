@@ -166,7 +166,7 @@ export default {
     let imageNumber = 0;
 
     for (let pageNo = 1; pageNo <= nbrPages; pageNo += 1) {
-      const page = await pdf.getPage(nbrPages);
+      const page = await pdf.getPage(pageNo);
       /* eslint-disable no-loop-func */
       await page.getOperatorList().then(async (ops) => {
         for (let i = 0; i < ops.fnArray.length; i++) {
