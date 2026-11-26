@@ -100,9 +100,10 @@ export default {
    * Check text in PDF
    * @param filePath {string|null} Path of the PDF file
    * @param text {string} Text to check on the file
-   * @param deleteComma {boolean} True if we need to delete comma. PDF to txt conversion adds comma where newlines are.
+   * @param deleteComma {boolean} Kept for backward compatibility: commas and whitespaces are always ignored now
    * @returns {Promise<boolean>}
    */
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async isTextInPDF(filePath: string | null, text: string, deleteComma: boolean = false): Promise<boolean> {
     if (filePath === null) {
       return false;
@@ -120,14 +121,12 @@ export default {
 
     const pageTexts = await Promise.all(pageTextPromises);
 
-    // delete commas from the page text. getPageTextFromPdf adds commas to newlines in some cases
-    if (deleteComma) {
-      return ((pageTexts.join(' ').split(/,\//).join('/').split(/,\s*,?/)
-        .join(' '))
-        .indexOf(text) !== -1);
-    }
+    // The split into text items depends on the pdfjs version (pdfjs 4+ merges the words of a line and drops
+    // some empty end-of-line items), so the comma-joined items and the expected text are compared without
+    // commas and whitespaces
+    const normalize = (value: string): string => value.replace(/[\s,]+/g, '');
 
-    return (pageTexts.join(' ').indexOf(text) !== -1);
+    return normalize(pageTexts.join(' ')).includes(normalize(text));
   },
 
   /**
