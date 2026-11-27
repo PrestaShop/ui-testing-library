@@ -483,7 +483,8 @@ class BOStoresPage extends BOBasePage implements BOStoresPageInterface {
     );
 
     // Changing the country reloads the state list through an ajax request. The page also requests the states of
-    // its saved country on load: only the response for the selected country counts.
+    // its saved country on load: that answer must be in first, or it would bring back the saved country's states.
+    await page.waitForLoadState('networkidle');
     await Promise.all([
       page.waitForResponse((response) => response.url().includes('/country-states?')
         && new URL(response.url()).searchParams.get('id_country') === countryId),
@@ -492,12 +493,15 @@ class BOStoresPage extends BOBasePage implements BOStoresPageInterface {
   }
 
   /**
-   * Select the contact details state
+   * Select the contact details state, once the states requested on page load are in
    * @param page {Page} Browser tab
    * @param state {string} State name
    * @return {Promise<void>}
    */
   async selectContactDetailsState(page: Page, state: string): Promise<void> {
+    // On load, the page requests the states of the saved country, then selects again the state it had when the
+    // request started: a state picked before that answer is reverted.
+    await page.waitForLoadState('networkidle');
     await this.selectByVisibleText(page, this.contactDetailsField('id_state'), state);
   }
 
