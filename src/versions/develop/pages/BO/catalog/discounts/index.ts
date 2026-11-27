@@ -421,7 +421,7 @@ class BOCartRulesPage extends BOBasePage implements BOCartRulesPageInterface {
 
     // Perform delete
     await page.locator(this.bulkActionMenuButton).click();
-    await this.clickAndWaitForURL(page, this.bulkDeleteLink);
+    await this.clickAndWaitForPageLoad(page, this.bulkDeleteLink);
 
     // Return successful message
     return this.getAlertSuccessBlockContent(page);
@@ -443,7 +443,7 @@ class BOCartRulesPage extends BOBasePage implements BOCartRulesPageInterface {
       this.waitForVisibleSelector(page, this.bulkEnableLink),
     ]);
 
-    await this.clickAndWaitForURL(
+    await this.clickAndWaitForPageLoad(
       page,
       wantedStatus ? this.bulkEnableLink : this.bulkDisableLink,
     );

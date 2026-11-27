@@ -107,7 +107,7 @@ class BOCountriesPage extends BOCountriesPageVersion implements BOCountriesPageI
     await page.locator(this.bulkActionMenuButton).click();
 
     // Click on delete
-    await this.clickAndWaitForURL(page, this.bulkDeleteLink);
+    await this.clickAndWaitForPageLoad(page, this.bulkDeleteLink);
     return this.getAlertSuccessBlockContent(page);
   }
 

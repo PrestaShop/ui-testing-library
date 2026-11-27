@@ -459,7 +459,7 @@ class BOMultistoreShopUrlPage extends BOBasePage implements BOMultistoreShopUrlP
       this.waitForVisibleSelector(page, this.bulkEnableLink),
     ]);
 
-    await this.clickAndWaitForURL(
+    await this.clickAndWaitForPageLoad(
       page,
       wantedStatus ? this.bulkEnableLink : this.bulkDisableLink,
     );
